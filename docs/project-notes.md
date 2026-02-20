@@ -11,3 +11,9 @@ Options for data entry without writing raw SQL:
 2. **Custom Web Form (`web/`)** — A Next.js app using the Supabase JS SDK with forms tailored to the SOP workflow (guided multi-step: Source → Excerpt → Assertion → Support). Controlled vocab tables power dropdowns automatically. Most powerful long-term option.
 
 3. **Retool or Appsmith** — No-code tools that connect directly to Supabase via REST API. Drag-and-drop form builder, publish in hours. No frontend code required. Good middle ground if the custom web app feels premature.
+
+---
+
+## Links
+
+* [Primary Sources Dev — ChatGPT Agent](https://chatgpt.com/g/g-6998acf847c48191b56f76a57dfe61a3-primary-sources-dev)
