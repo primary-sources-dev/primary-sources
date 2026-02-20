@@ -4,20 +4,18 @@ This document defines the technical architecture of the research vault. The syst
 
 ## 1. Design Philosophy
 
-The vault is built on three architectural pillars:
-
 * **Event-Centricity:** All historical data points are anchored to discrete events in time and space.
 * **Assertion-Based Modeling:** The database stores claims about facts rather than static "truths," allowing for the preservation of conflicting accounts.
 * **Strict Normalization (4NF):** Multi-valued attributes (aliases, identifiers, participants) are isolated into dedicated tables to prevent data redundancy and combinatorial explosions.
 
 ## 2. Entity Modeling
 
-Entities are the primary subjects of research. To ensure classification accuracy, Organizations and Places are linked to controlled type tables.
+Entities are the primary subjects of research. To ensure classification accuracy, Organizations, Places, and Objects are linked to controlled type tables.
 
 * **`person`**: Individual human actors.
 * **`org`**: Groups and agencies, classified by `v_org_type`.
 * **`place`**: Geographic locations, classified by `v_place_type`. Supports hierarchical containment (e.g., a room inside a building) via `parent_place_id`.
-* **`object`**: Physical artifacts and evidence items.
+* **`object`**: Physical artifacts and evidence items, classified by `v_object_type` (e.g., `WEAPON`, `DOCUMENT`, `VEHICLE`).
 
 ## 3. The Event Model (The Golden Thread)
 
@@ -50,8 +48,8 @@ Every entry in a junction table (`event_participant`, `event_place`, `event_obje
 
 Since the database uses polymorphic references (where one ID might point to a Person or an Org), custom PostgreSQL triggers are utilized:
 
-* **`check_event_participant_party_fk`**: Enforces that the `party_id` exists in the correct entity table based on the `party_type`.
-* **`check_assertion_subject_fk`**: Enforces that the `subject_id` exists in the correct table (Person, Org, Place, Object, or Event).
+* **`check_event_participant_party_fk`**: Enforces that the `party_id` in `event_participant` exists in the correct entity table based on the `party_type` (`person` or `org`).
+* **`check_assertion_subject_fk`**: Enforces that the `subject_id` in `assertion` exists in the correct entity table based on `subject_type` (one of `person`, `org`, `place`, `object`, or `event`). Without this trigger, an assertion could reference a non-existent entity UUID, breaking the traceability chain.
 
 ## 6. Schema Indexing
 
@@ -60,3 +58,5 @@ To support timeline generation and research tools, indexes are applied to:
 * All `v_` reference codes (B-Tree).
 * `event.start_ts` (B-Tree) for chronological sorting.
 * `party_id` and `subject_id` (B-Tree/GIN) for rapid link-analysis queries.
+* `assertion.predicate` (B-Tree) for claim-type queries.
+* `source_excerpt.source_id` (B-Tree) for excerpt lookups.

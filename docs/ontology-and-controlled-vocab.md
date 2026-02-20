@@ -62,6 +62,7 @@ Determines the relationship between an entity and an event's location or physica
 * **`USED`**: The object was utilized during the event (e.g., a rifle fired).
 * **`RECOVERED`**: The object was taken into custody during the event.
 * **`EXAMINED`**: The object was the subject of a forensic test or review.
+* **`PHOTOGRAPHED`**: The object was visually documented during the event.
 * **`TRANSFERRED`**: The object was moved to a new party or location.
 
 ## 6. Entity Classifications
@@ -70,7 +71,7 @@ Determines the relationship between an entity and an event's location or physica
 
 * **`AGENCY`**: Government or law enforcement bodies (e.g., FBI, DPD).
 * **`MEDIA`**: News outlets or publishers (e.g., WFAA, Star-Telegram).
-* **`BUSINESS`**: Commercial entities (e.g., TBSC).
+* **`BUSINESS`**: Commercial entities.
 * **`GROUP`**: Political or social organizations.
 
 ### 6.2 Place Types (`v_place_type`)
@@ -80,7 +81,35 @@ Determines the relationship between an entity and an event's location or physica
 * **`CITY`**: A municipal area.
 * **`REGION`**: A larger geographic or administrative zone.
 
-## 7. Evidence Support Types (`v_support_type`)
+### 6.3 Object Types (`v_object_type`)
+
+* **`DOCUMENT`**: A written or printed record (e.g., a report, letter, exhibit).
+* **`WEAPON`**: A firearm, blade, or instrument used to cause harm.
+* **`VEHICLE`**: A car, motorcycle, or other mode of transport.
+* **`MEDIA_CARRIER`**: A film reel, audio tape, or photographic negative.
+* **`CLOTHING`**: Garments or personal effects worn by a subject.
+
+## 7. Relation Types (`v_relation_type`)
+
+Defines the directional edge between two events in the timeline graph.
+
+* **`PRECEDES`**: Event A occurs chronologically before Event B.
+* **`PART_OF`**: Event A is a sub-component of a larger Event B (e.g., a single shot is part of a motorcade segment).
+* **`CORROBORATES`**: Event A provides secondary evidence that Event B occurred as described.
+* **`CONTRADICTS`**: Event A makes the occurrence or timing of Event B logically impossible.
+
+## 8. Assertion Types (`v_assertion_type`)
+
+Categorizes the nature of an atomic claim. Every assertion in the database must be typed by one of these codes.
+
+* **`TIME`**: A claim regarding when an event occurred.
+* **`LOCATION`**: A claim regarding where an entity was located.
+* **`PARTICIPATION`**: A claim regarding who was present at or involved in an event.
+* **`POSSESSION`**: A claim regarding who owned, held, or controlled an object.
+* **`OBSERVATION`**: A claim regarding a specific detail witnessed by a participant (e.g., the color of a jacket).
+* **`IDENTIFICATION`**: A claim that Entity A is the same as, or an alias for, Entity B.
+
+## 9. Evidence Support Types (`v_support_type`)
 
 Defines the relationship between a source excerpt and an assertion.
 

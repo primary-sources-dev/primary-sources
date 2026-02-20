@@ -28,7 +28,7 @@ This plan defines a **PostgreSQL** (Supabase) schema designed for high-integrity
 
 ### Controlled Vocabularies
 
-14. `v_event_type`, `v_role_type`, `v_place_role`, `v_object_role`, `v_relation_type`, `v_source_type`, `v_assertion_type`, `v_support_type`, `v_time_precision`, `v_org_type`, `v_place_type`.
+14. `v_event_type`, `v_role_type`, `v_place_role`, `v_object_role`, `v_relation_type`, `v_source_type`, `v_assertion_type`, `v_support_type`, `v_time_precision`, `v_org_type`, `v_place_type`, `v_object_type`.
 
 ### 4NF Attribute Tables
 
@@ -57,6 +57,7 @@ create table if not exists v_support_type (code text primary key, label text not
 create table if not exists v_time_precision (code text primary key, label text not null);
 create table if not exists v_org_type (code text primary key, label text not null);
 create table if not exists v_place_type (code text primary key, label text not null);
+create table if not exists v_object_type (code text primary key, label text not null);
 
 -- -----------------------
 -- Core entity tables
@@ -100,7 +101,7 @@ create table if not exists place (
 create table if not exists object (
   object_id uuid primary key default gen_random_uuid(),
   name text not null,
-  object_type text,
+  object_type text references v_object_type(code),
   description text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -139,7 +140,7 @@ create table if not exists assertion (
 );
 
 -- -----------------------
--- Link Tables (4NF Junctions with Mandatory Assertion FKs)
+-- Link Tables (4NF Junctions)
 -- -----------------------
 create table if not exists event_participant (
   event_id uuid not null references event(event_id) on delete cascade,
@@ -201,7 +202,7 @@ create table if not exists source (
 create table if not exists source_excerpt (
   excerpt_id uuid primary key default gen_random_uuid(),
   source_id uuid not null references source(source_id) on delete cascade,
-  locator text not null, 
+  locator text not null,
   excerpt_text text,
   created_at timestamptz not null default now()
 );
@@ -240,8 +241,24 @@ create table if not exists entity_identifier (
 );
 
 -- -----------------------
+-- Indexes (MVP performance)
+-- -----------------------
+create index if not exists idx_event_type on event(event_type);
+create index if not exists idx_event_start_ts on event(start_ts);
+create index if not exists idx_ep_party on event_participant(party_type, party_id);
+create index if not exists idx_event_place_place on event_place(place_id);
+create index if not exists idx_event_object_object on event_object(object_id);
+create index if not exists idx_excerpt_source on source_excerpt(source_id);
+create index if not exists idx_assertion_context_event on assertion(context_event_id);
+create index if not exists idx_assertion_subject on assertion(subject_type, subject_id);
+create index if not exists idx_assertion_predicate on assertion(predicate);
+create index if not exists idx_support_excerpt on assertion_support(excerpt_id);
+
+-- -----------------------
 -- Polymorphic Trigger Logic
 -- -----------------------
+
+-- Validates that event_participant.party_id exists in the correct entity table
 create or replace function check_event_participant_party_fk()
 returns trigger language plpgsql as $$
 begin
@@ -262,20 +279,48 @@ create trigger trg_check_event_participant_party_fk
 before insert or update on event_participant
 for each row execute function check_event_participant_party_fk();
 
+-- Validates that assertion.subject_id exists in the correct entity table
+create or replace function check_assertion_subject_fk()
+returns trigger language plpgsql as $$
+begin
+  if new.subject_type = 'person' and not exists (select 1 from person where person_id = new.subject_id) then
+    raise exception 'subject_id % not found in person', new.subject_id;
+  elsif new.subject_type = 'org' and not exists (select 1 from org where org_id = new.subject_id) then
+    raise exception 'subject_id % not found in org', new.subject_id;
+  elsif new.subject_type = 'place' and not exists (select 1 from place where place_id = new.subject_id) then
+    raise exception 'subject_id % not found in place', new.subject_id;
+  elsif new.subject_type = 'object' and not exists (select 1 from object where object_id = new.subject_id) then
+    raise exception 'subject_id % not found in object', new.subject_id;
+  elsif new.subject_type = 'event' and not exists (select 1 from event where event_id = new.subject_id) then
+    raise exception 'subject_id % not found in event', new.subject_id;
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists trg_check_assertion_subject_fk on assertion;
+create trigger trg_check_assertion_subject_fk
+before insert or update on assertion
+for each row execute function check_assertion_subject_fk();
 ```
 
 ---
 
 ## Seeding Strategy
 
-### 1. Controlled Vocabularies
+### 1. Controlled Vocabularies (all v_ tables)
 
-* `v_event_type`: `SIGHTING`, `SHOT`, `TRANSFER`, `INTERVIEW`, `REPORT_WRITTEN`.
+* `v_event_type`: `SHOT`, `SIGHTING`, `TRANSFER`, `INTERVIEW`, `REPORT_WRITTEN`, `AUTOPSY_STEP`, `PHONE_CALL`.
+* `v_role_type`: `WITNESS`, `SUBJECT`, `INVESTIGATOR`, `PHOTOGRAPHER`, `PHYSICIAN`, `OFFICER`.
+* `v_place_role`: `OCCURRED_AT`, `STARTED_AT`, `ENDED_AT`, `FOUND_AT`.
+* `v_object_role`: `USED`, `RECOVERED`, `EXAMINED`, `PHOTOGRAPHED`, `TRANSFERRED`.
+* `v_relation_type`: `PRECEDES`, `PART_OF`, `CORROBORATES`, `CONTRADICTS`.
+* `v_source_type`: `REPORT`, `TESTIMONY`, `BOOK`, `FILM`, `PHOTO`, `MEMO`, `ARTICLE`.
+* `v_assertion_type`: `TIME`, `LOCATION`, `PARTICIPATION`, `POSSESSION`, `OBSERVATION`, `IDENTIFICATION`.
+* `v_support_type`: `SUPPORTS`, `CONTRADICTS`, `MENTIONS`.
 * `v_time_precision`: `EXACT`, `APPROX`, `RANGE`, `UNKNOWN`.
 * `v_org_type`: `AGENCY`, `MEDIA`, `BUSINESS`, `GROUP`.
 * `v_place_type`: `BUILDING`, `STREET`, `CITY`, `REGION`.
-* `v_source_type`: `REPORT`, `TESTIMONY`, `BOOK`, `FILM`, `PHOTO`, `MEMO`.
-* `v_support_type`: `SUPPORTS`, `CONTRADICTS`, `MENTIONS`.
+* `v_object_type`: `DOCUMENT`, `WEAPON`, `VEHICLE`, `MEDIA_CARRIER`, `CLOTHING`.
 
 ### 2. Execution Order
 
@@ -285,4 +330,3 @@ for each row execute function check_event_participant_party_fk();
 4. **Events**: Initialize the temporal anchor.
 5. **Assertions**: Define the claim.
 6. **Junctions/Support**: Connect everything together.
-

@@ -4,14 +4,14 @@ This directory contains the authoritative technical specifications, ontological 
 
 ## 1. Navigational Index
 
-* **[Architecture and Schema](https://www.google.com/search?q=./architecture-and-schema.md)**
-Detailed blueprint of the 4NF PostgreSQL engine, including table structures, UUID strategy, and referential integrity triggers.
-* **[Ontology and Controlled Vocabulary](https://www.google.com/search?q=./ontology-and-controlled-vocab.md)**
-Precise definitions for all reference codes (v_ tables). Defines the functional boundaries for event types, participant roles, and assertion predicates.
-* **[Provenance Standards](https://www.google.com/search?q=./provenance-and-sourcing.md)**
-The evidentiary bar for primary sources. Protocols for archival referencing, RIF (Research Identification File) formatting, and digital artifact preservation.
-* **[Data Entry SOP](https://www.google.com/search?q=./data-entry-sop.md)**
-Standard Operating Procedure for contributors. The step-by-step workflow for decomposing a primary source into normalized relational records.
+* **[Architecture and Schema](./architecture-and-schema.md)**
+  Detailed blueprint of the 4NF PostgreSQL engine, including table structures, UUID strategy, and referential integrity triggers.
+* **[Ontology and Controlled Vocabulary](./ontology-and-controlled-vocab.md)**
+  Precise definitions for all reference codes (v_ tables). Defines the functional boundaries for event types, participant roles, and assertion predicates.
+* **[Provenance Standards](./provenance-and-sourcing.md)**
+  The evidentiary bar for primary sources. Protocols for archival referencing, RIF formatting, and digital artifact preservation.
+* **[Data Entry SOP](./data-entry-sop.md)**
+  Standard Operating Procedure for contributors. The step-by-step workflow for decomposing a primary source into normalized relational records.
 
 ## 2. Core Logic: The Assertion Framework
 
@@ -28,4 +28,3 @@ This architecture specifically supports:
 * **Normalization:** All data must be decomposed to the Fourth Normal Form (4NF).
 * **Immutability:** Primary keys (UUIDs) must remain constant.
 * **Computability:** All types must be selected from the Controlled Vocabulary to ensure the data is ready for algorithmic timeline generation and link analysis.
-
