@@ -60,3 +60,24 @@ To support timeline generation and research tools, indexes are applied to:
 * `party_id` and `subject_id` (B-Tree/GIN) for rapid link-analysis queries.
 * `assertion.predicate` (B-Tree) for claim-type queries.
 * `source_excerpt.source_id` (B-Tree) for excerpt lookups.
+
+## 7. Table Inventory
+
+All 20 tables in the schema, grouped by architectural layer.
+
+**Controlled Vocabularies (12)**
+`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type`
+
+**Core Entities (4)**
+`person` · `org` · `place` · `object`
+
+**Event Model (5)**
+`event` · `event_participant` · `event_place` · `event_object` · `event_relation`
+
+**Evidence Layer (4)**
+`source` · `source_excerpt` · `assertion` · `assertion_support`
+
+**Attribute Tables (2)**
+`person_alias` · `entity_identifier`
+
+> For column-level detail and DDL, see [`supabase/migrations/001_initial_schema.sql`](../supabase/migrations/001_initial_schema.sql).
