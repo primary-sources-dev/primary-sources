@@ -116,3 +116,37 @@ Defines the relationship between a source excerpt and an assertion.
 * **`SUPPORTS`**: The excerpt explicitly corroborates the claim.
 * **`CONTRADICTS`**: The excerpt provides a conflicting account.
 * **`MENTIONS`**: The excerpt refers to the subjects but neither confirms nor denies the specific claim.
+
+## 10. Assertion Predicates (`v_predicate`)
+
+Defines the controlled vocabulary for `assertion.predicate`. All claims must use a code from this table — free-text predicates are not permitted.
+
+See [`supabase/migrations/003_predicate_registry.sql`](../supabase/migrations/003_predicate_registry.sql) for the full seed list. Key categories:
+
+* **Presence:** `WAS_PRESENT_AT`, `WAS_LOCATED_AT`
+* **Identity:** `IS_ALIAS_OF`, `IS_SAME_AS`, `IS_MEMBER_OF`, `IS_EMPLOYED_BY`
+* **Possession:** `OWNED`, `HELD_CUSTODY_OF`, `TRANSFERRED_TO`
+* **Action:** `FIRED`, `ORDERED`, `COMMUNICATED_WITH`, `OBSERVED`
+* **Testimony:** `TESTIFIED_THAT`, `DOCUMENTED`, `CONTRADICTED`
+* **State:** `WAS_ALIVE_AT`, `WAS_DECEASED_AT`, `WAS_INJURED_AT`
+
+## 11. Vocabulary Governance Policy
+
+All codes in `v_` tables are intentional and version-controlled. The following rules govern additions.
+
+### Adding a New Code
+
+1. **Justify the gap** — confirm no existing code covers the concept.
+2. **Name it** — use `UPPER_SNAKE_CASE`. Be specific and unambiguous.
+3. **Add to the correct migration** — create a new numbered migration file (e.g., `004_...sql`). Never modify a previously applied migration.
+4. **Update this document** — add the new code and definition to the relevant section above.
+
+### Deprecating a Code
+
+1. Do not delete codes that have been applied to live data.
+2. Add a `DEPRECATED_` prefix or a `notes` entry in the `v_` table marking it inactive.
+3. Document the deprecated code here with a replacement code noted.
+
+### Versioning Rule
+
+Each set of vocab additions corresponds to one migration file. Migration files are numbered sequentially and never edited after deployment.

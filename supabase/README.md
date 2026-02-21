@@ -7,8 +7,9 @@ Supabase project configuration and database migrations for the Primary Sources r
 ```
 supabase/
 └── migrations/
-    ├── 001_initial_schema.sql   # Full DDL: all tables, indexes, and triggers
-    └── 002_seed_vocab.sql       # Seed data: all 12 controlled vocabulary tables
+    ├── 001_initial_schema.sql        # Full DDL: all tables, indexes, and triggers
+    ├── 002_seed_vocab.sql            # Seed data: all 12 controlled vocabulary tables
+    └── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
 ```
 
 ## Running the Migrations

@@ -81,3 +81,46 @@ All 20 tables in the schema, grouped by architectural layer.
 `person_alias` · `entity_identifier`
 
 > For column-level detail and DDL, see [`supabase/migrations/001_initial_schema.sql`](../supabase/migrations/001_initial_schema.sql).
+
+## 8. Event Boundary Doctrine
+
+Events must be modeled consistently so the graph remains machine-readable across sessions. Apply these rules in order.
+
+### 8.1 When to Create a New Event
+
+Create a **separate event** when **any** of the following are true:
+
+* The timestamp or location changes (even slightly — a new room, a new minute)
+* The set of participants changes (someone enters or exits the scene)
+* A different `v_event_type` code applies
+* The evidence for this moment comes from a separate source excerpt
+
+If none of the above apply, it is likely part of the same event.
+
+### 8.2 When to Use `PART_OF` (Nesting)
+
+Use the `PART_OF` relation in `event_relation` when:
+
+* A sub-event is a discrete procedural step within a larger event (e.g., `AUTOPSY_STEP` inside an `AUTOPSY`)
+* The sub-event is only meaningful in the context of its parent
+* You want to preserve granularity without cluttering the top-level timeline
+
+Do **not** use `PART_OF` when the sub-event is independently significant or has independent sourcing.
+
+### 8.3 When to Split an Existing Event
+
+Split a single event into two when:
+
+* New evidence places two distinct moments at that event slot
+* The participants differ between the two moments
+* Separate `source_excerpt` records exist that cannot be reconciled to one timestamp
+
+### 8.4 Minimum Required Fields
+
+An event is not complete until it has:
+
+* `event_type` (required FK)
+* At least one `event_participant` or `event_object` record
+* At least one `assertion` supported by a `source_excerpt`
+* `start_ts` or `time_precision = 'UNKNOWN'` (must be explicit, not null by omission)
+
