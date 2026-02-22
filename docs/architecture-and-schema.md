@@ -94,7 +94,11 @@ The following CHECK constraints enforce data integrity and business logic:
 * **`chk_person_alias_date_order`**: Ensures `to_date` is NULL or >= `from_date`
 * **`chk_org_date_order`**: Ensures `end_date` is NULL or >= `start_date`
 
-All date constraints allow NULL values on either boundary to accommodate incomplete data.
+#### Name Integrity
+
+* **`chk_[table]_name_len`**: Ensures `display_name`, `name`, `title`, or `alias` is NOT empty and NOT just whitespace. Applied to: `person`, `org`, `place`, `object`, `source`, `person_alias`.
+
+All name and date constraints allow NULL values where the column itself is nullable, but prevent low-quality strings ("") once data is present.
 
 ## 6. Schema Indexing
 

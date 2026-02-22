@@ -505,3 +505,34 @@ drop trigger if exists trg_prevent_source_deletion on source;
 create trigger trg_prevent_source_deletion
   before delete on source
   for each row execute function prevent_source_deletion();
+ 
+ 
+ -- =============================================================
+ -- STEP 11: Name Integrity — Prevent Empty/Whitespace Records
+ -- Ensures core entity names and aliases aren't just empty strings
+ -- or whitespace, maintaining quality for search and links.
+ -- =============================================================
+ 
+ alter table person
+   add constraint chk_person_display_name_len
+   check (length(trim(display_name)) > 0);
+ 
+ alter table org
+   add constraint chk_org_name_len
+   check (length(trim(name)) > 0);
+ 
+ alter table place
+   add constraint chk_place_name_len
+   check (length(trim(name)) > 0);
+ 
+ alter table object
+   add constraint chk_object_name_len
+   check (length(trim(name)) > 0);
+ 
+ alter table source
+   add constraint chk_source_title_len
+   check (length(trim(title)) > 0);
+ 
+ alter table person_alias
+   add constraint chk_person_alias_len
+   check (length(trim(alias)) > 0);
