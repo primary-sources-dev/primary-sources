@@ -46,16 +46,13 @@
             color: #F0EDE0;
         }
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'OPSZ' 24;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        hr { border-color: #D4CFC7; opacity: 0.1; }
-        .timeline-line {
-            width: 2px;
-            background: rgba(176, 139, 73, 0.2);
-            position: absolute;
-            left: 11px;
-            top: 0;
-            bottom: 0;
+        hr { border-color: #D4CFC7; opacity: 0.2; }
+    </style>
+    <style>
+        body {
+            min-height: 100dvh;
         }
     </style>
 </head>
@@ -76,200 +73,217 @@
         </div>
     </header>
 
-    <!-- SEARCH WRAPPER -->
+    <!-- SEARCH WRAPPER (ARCHIVE-DARK) -->
     <section class="bg-[#1a1718] px-6 py-8 border-b border-archive-secondary/20">
         <div class="flex flex-col gap-4">
-            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase">Browse Events</h2>
+            <div class="flex items-center justify-between">
+                <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase">Browse Events</h2>
+            </div>
 
             <div class="relative w-full">
                 <span
                     class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-primary text-lg">search</span>
                 <input type="text" placeholder="FILTER BY EVENT NAME..."
-                    class="w-full bg-[#2e282a] border border-archive-secondary/20 py-3 pl-11 pr-4 text-xs font-bold uppercase tracking-wider text-archive-heading placeholder-archive-secondary/40 focus:border-primary focus:ring-0 outline-none">
+                    class="w-full bg-[#2e282a] border border-archive-secondary/20 py-3 pl-11 pr-4 text-xs font-bold uppercase tracking-wider text-archive-heading placeholder-archive-secondary/40 focus:border-primary focus:ring-0 outline-none transition-colors">
             </div>
 
-            <!-- Sort/Filter row -->
-            <div class="flex gap-3">
-                <div class="flex-1 relative">
-                    <select
-                        class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none">
-                        <option>CHRONOLOGICAL (ASC)</option>
-                        <option>CHRONOLOGICAL (DESC)</option>
-                    </select>
+            <!-- Filter & Sort Bar -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
+                <!-- Sort -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Sort</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>CHRONOLOGICAL (ASC)</option>
+                            <option>CHRONOLOGICAL (DESC)</option>
+                            <option>ALPHABETICAL (A-Z)</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Place Filter -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Place</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>ALL PLACES</option>
+                            <option>Dealey Plaza</option>
+                            <option>TSBD</option>
+                            <option>Parkland Hospital</option>
+                            <option>Oak Cliff</option>
+                            <option>Police HQ</option>
+                            <option>Ruby's Carousel Club</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Type Filter -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Type</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>ALL TYPES</option>
+                            <option>Primary Incident</option>
+                            <option>Assassination Attempt</option>
+                            <option>Homicide</option>
+                            <option>Intelligence Encounter</option>
+                            <option>Official Investigation</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Year/Month Filter -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Date</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>ANY DATE</option>
+                            <option>April 1963</option>
+                            <option>September 1963</option>
+                            <option>November 1963</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TIMELINE LIST -->
-    <main class="p-6 relative">
-        <!-- Year Header -->
-        <div class="relative z-10 mb-8 mt-4">
-            <h3 class="text-4xl font-bold text-primary/40 tracking-tighter italic">1963</h3>
+    <!-- RESULT FEED -->
+    <main class="p-6">
+        <!-- Section Header -->
+        <div class="mb-4 border-l-4 border-primary pl-4 uppercase">
+            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">The 1963 Chain of Events</h3>
         </div>
 
-        <div class="space-y-12 relative pl-8">
-            <div class="timeline-line"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            <!-- Event Block: Walker -->
-            <div class="relative group">
+            <!-- JFK Assassination -->
+            <a href="#"
+                class="md:col-span-2 flex items-start gap-4 border border-primary/40 bg-primary/5 p-5 hover:border-primary transition-all group shadow-[0_0_20px_-12px_rgba(176,139,73,0.3)]">
                 <div
-                    class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-archive-bg z-20">
+                    class="w-24 h-28 flex-shrink-0 border border-primary/20 bg-[#2e282a] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-5xl">priority_high</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-primary uppercase tracking-[0.2em]">APR 10, 1963</span>
-                        <hr class="flex-1 opacity-10">
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-[0.2em] mb-1">Nov 22, 1963 ·
+                        12:30 PM</span>
+                    <h4
+                        class="text-2xl font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        Assassination of John F. Kennedy</h4>
+                    <p class="mt-2 text-xs text-archive-secondary/80 leading-relaxed max-w-2xl">
+                        The President is fatally shot while traveling in a motorcade through Dealey Plaza. The focal
+                        point of the National Archive's primary source materials.
+                    </p>
+                    <div class="mt-auto pt-4 flex gap-4 text-[10px] font-bold uppercase tracking-widest">
+                        <span class="text-archive-secondary/40">Type: <span class="text-archive-secondary/70">Primary
+                                Incident</span></span>
+                        <span class="text-archive-secondary/40">Place: <span class="text-archive-secondary/70">Dealey
+                                Plaza</span></span>
                     </div>
-                    <a href="#"
-                        class="border border-archive-secondary/10 bg-archive-surface/40 p-5 hover:border-primary transition-all">
-                        <div class="flex gap-4 items-start">
-                            <div
-                                class="w-12 h-12 flex-shrink-0 bg-archive-bg flex items-center justify-center border border-archive-secondary/5">
-                                <span class="material-symbols-outlined text-archive-secondary/20">crisis_alert</span>
-                            </div>
-                            <div>
-                                <h4
-                                    class="text-xl font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight">
-                                    General Edwin Walker Shooting</h4>
-                                <p class="text-[10px] text-archive-secondary/60 mt-1 uppercase tracking-widest">Type:
-                                    Assassination Attempt</p>
-                                <p class="text-xs mt-3 leading-relaxed opacity-80">General Edwin Walker is fired upon at
-                                    his home in Dallas. Subsequent evidence identifies Lee Harvey Oswald as the
-                                    assailant.</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
-            </div>
+            </a>
 
-            <!-- Event Block: Odio -->
-            <div class="relative group">
+            <!-- Walker Incident -->
+            <a href="#"
+                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
                 <div
-                    class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-primary/40 border-4 border-archive-bg z-20">
+                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
+                    <span
+                        class="material-symbols-outlined text-archive-secondary/20 text-4xl group-hover:text-primary/40 transition-colors">crisis_alert</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-primary uppercase tracking-[0.2em]">SEP 25, 1963</span>
-                        <hr class="flex-1 opacity-10">
-                    </div>
-                    <a href="#"
-                        class="border border-archive-secondary/10 bg-archive-surface/40 p-5 hover:border-primary transition-all">
-                        <div class="flex gap-4 items-start">
-                            <div
-                                class="w-12 h-12 flex-shrink-0 bg-archive-bg flex items-center justify-center border border-archive-secondary/5">
-                                <span class="material-symbols-outlined text-archive-secondary/20">groups</span>
-                            </div>
-                            <div>
-                                <h4
-                                    class="text-xl font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight">
-                                    The Odio Incident</h4>
-                                <p class="text-[10px] text-archive-secondary/60 mt-1 uppercase tracking-widest">Type:
-                                    Intelligence Encounter</p>
-                                <p class="text-xs mt-3 leading-relaxed opacity-80">Sylvia Odio reports a visit from
-                                    three men, including one identified as "Leon Oswald," at her apartment in Dallas.
-                                </p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Apr 10, 1963</span>
+                    <h4
+                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        General Edwin Walker Shooting</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/60 leading-tight uppercase">Assassination Attempt</p>
+                    <p class="mt-2 text-[10px] text-archive-secondary/40 leading-relaxed italic">
+                        Sniper attack on Walker's home. Later connected to Oswald via the "Walker Note."
+                    </p>
                 </div>
-            </div>
+            </a>
 
-            <!-- Event Block: JFK -->
-            <div class="relative group">
+            <!-- Odio Incident -->
+            <a href="#"
+                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
                 <div
-                    class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-archive-bg z-20">
+                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
+                    <span
+                        class="material-symbols-outlined text-archive-secondary/20 text-4xl group-hover:text-primary/40 transition-colors">groups</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-primary uppercase tracking-[0.2em]">NOV 22, 1963 · 12:30
-                            PM</span>
-                        <hr class="flex-1 opacity-10">
-                    </div>
-                    <a href="#"
-                        class="border border-primary/20 bg-primary/5 p-5 hover:border-primary transition-all shadow-[0_0_20px_-10px_rgba(176,139,73,0.3)]">
-                        <div class="flex gap-4 items-start">
-                            <div
-                                class="w-12 h-12 flex-shrink-0 bg-archive-bg flex items-center justify-center border border-primary/20">
-                                <span class="material-symbols-outlined text-primary">priority_high</span>
-                            </div>
-                            <div>
-                                <h4 class="text-2xl font-bold text-archive-heading transition-colors leading-tight">
-                                    Assassination of John F. Kennedy</h4>
-                                <p class="text-[10px] text-primary font-bold mt-1 uppercase tracking-widest">Type:
-                                    Primary Incident</p>
-                                <p class="text-xs mt-3 leading-relaxed">The President is fatally shot while traveling in
-                                    a motorcade through Dealey Plaza in Dallas.</p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Sep 25, 1963</span>
+                    <h4
+                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        The Odio Incident</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/60 leading-tight uppercase">Intelligence Encounter</p>
+                    <p class="mt-2 text-[10px] text-archive-secondary/40 leading-relaxed italic">
+                        Sylvia Odio reports visit by three men, including one identified as "Leon Oswald."
+                    </p>
                 </div>
-            </div>
+            </a>
 
-            <!-- Event Block: Tippit -->
-            <div class="relative group">
+            <!-- Tippit Shooting -->
+            <a href="#"
+                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
                 <div
-                    class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-primary/40 border-4 border-archive-bg z-20">
+                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
+                    <span
+                        class="material-symbols-outlined text-archive-secondary/20 text-4xl group-hover:text-primary/40 transition-colors">local_police</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-primary uppercase tracking-[0.2em]">NOV 22, 1963 · 1:15
-                            PM</span>
-                        <hr class="flex-1 opacity-10">
-                    </div>
-                    <a href="#"
-                        class="border border-archive-secondary/10 bg-archive-surface/40 p-5 hover:border-primary transition-all">
-                        <div class="flex gap-4 items-start">
-                            <div
-                                class="w-12 h-12 flex-shrink-0 bg-archive-bg flex items-center justify-center border border-archive-secondary/5">
-                                <span class="material-symbols-outlined text-archive-secondary/20">local_police</span>
-                            </div>
-                            <div>
-                                <h4
-                                    class="text-xl font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight">
-                                    Shooting of Officer J.D. Tippit</h4>
-                                <p class="text-[10px] text-archive-secondary/60 mt-1 uppercase tracking-widest">Type:
-                                    Homicide</p>
-                                <p class="text-xs mt-3 leading-relaxed opacity-80">Dallas Police Officer J.D. Tippit is
-                                    shot and killed on 10th Street in the Oak Cliff neighborhood.</p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Nov 22, 1963 · 1:15
+                        PM</span>
+                    <h4
+                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        Officer J.D. Tippit Shooting</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/60 leading-tight uppercase">Homicide</p>
+                    <p class="mt-2 text-[10px] text-archive-secondary/40 leading-relaxed italic">
+                        Officer Tippit is shot while confronting a suspect on 10th St, Oak Cliff.
+                    </p>
                 </div>
-            </div>
+            </a>
 
-            <!-- Event Block: Oswald Shooting -->
-            <div class="relative group">
+            <!-- Oswald Shooting -->
+            <a href="#"
+                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
                 <div
-                    class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-archive-bg z-20">
+                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
+                    <span
+                        class="material-symbols-outlined text-archive-secondary/20 text-4xl group-hover:text-primary/40 transition-colors">bolt</span>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-primary uppercase tracking-[0.2em]">NOV 24, 1963 · 11:21
-                            AM</span>
-                        <hr class="flex-1 opacity-10">
-                    </div>
-                    <a href="#"
-                        class="border border-archive-secondary/10 bg-archive-surface/40 p-5 hover:border-primary transition-all">
-                        <div class="flex gap-4 items-start">
-                            <div
-                                class="w-12 h-12 flex-shrink-0 bg-archive-bg flex items-center justify-center border border-archive-secondary/5">
-                                <span class="material-symbols-outlined text-archive-secondary/20">bolt</span>
-                            </div>
-                            <div>
-                                <h4
-                                    class="text-xl font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight">
-                                    Lee Harvey Oswald Assassinated</h4>
-                                <p class="text-[10px] text-archive-secondary/60 mt-1 uppercase tracking-widest">Type:
-                                    Homicide</p>
-                                <p class="text-xs mt-3 leading-relaxed opacity-80">Jack Ruby shoots Lee Harvey Oswald in
-                                    the basement of the Dallas Police Headquarters during a transfer.</p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Nov 24, 1963 · 11:21
+                        AM</span>
+                    <h4
+                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        Lee Harvey Oswald Assassinated</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/60 leading-tight uppercase">Homicide</p>
+                    <p class="mt-2 text-[10px] text-archive-secondary/40 leading-relaxed italic">
+                        Oswald fatally shot by Jack Ruby in Dallas Police HQ basement during transfer.
+                    </p>
                 </div>
-            </div>
+            </a>
 
+        </div>
+
+        <div class="mt-12 flex justify-center">
+            <button
+                class="bg-primary px-8 py-3 text-sm font-bold text-archive-bg hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest">
+                Load More Events
+            </button>
         </div>
     </main>
 
