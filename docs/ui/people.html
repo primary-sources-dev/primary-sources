@@ -85,6 +85,53 @@
                 <input type="text" placeholder="SEARCH BY NAME OR ALIAS..."
                     class="w-full bg-[#2e282a] border border-archive-secondary/20 py-3 pl-11 pr-4 text-xs font-bold uppercase tracking-wider text-archive-heading placeholder-archive-secondary/40 focus:border-primary focus:ring-0 outline-none transition-colors">
             </div>
+
+            <!-- Filter & Sort Bar -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
+                <!-- Sort -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Sort</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>A-Z</option>
+                            <option>Z-A</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Event Filter -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Event</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>ALL EVENTS</option>
+                            <option>YATES INCIDENT</option>
+                            <option>DEALEY PLAZA</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Org Filter -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Organization</label>
+                    <div class="relative">
+                        <select
+                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
+                            <option>ALL ORGS</option>
+                            <option>FBI</option>
+                            <option>TSBD</option>
+                        </select>
+                        <span
+                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
