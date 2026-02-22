@@ -25,6 +25,8 @@ To maintain 4NF purity, we must prevent "Entity Splitting" (multiple records for
 3. **Check Aliases**: Search `person_alias` to determine if a name mentioned is an alternate identity for an existing `person_id`.
 4. **Register Entities**: Only after exhausting de-duplication steps should you create records in `person`, `org`, `place`, or `object`.
 
+> **Integrity Protection (Migration 004):** The database automatically validates all `entity_identifier` entries. If you attempt to link an identifier to a non-existent `entity_id`, the insert will be rejected with a descriptive error. This prevents orphaned references and ensures all identifiers trace to valid entities.
+
 ## 3. Phase III: Event Construction
 
 Events anchor the entities in time and space.

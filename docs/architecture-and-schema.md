@@ -48,8 +48,53 @@ Every entry in a junction table (`event_participant`, `event_place`, `event_obje
 
 Since the database uses polymorphic references (where one ID might point to a Person or an Org), custom PostgreSQL triggers are utilized:
 
+#### Polymorphic Foreign Key Enforcement
+
 * **`check_event_participant_party_fk`**: Enforces that the `party_id` in `event_participant` exists in the correct entity table based on the `party_type` (`person` or `org`).
-* **`check_assertion_subject_fk`**: Enforces that the `subject_id` in `assertion` exists in the correct entity table based on `subject_type` (one of `person`, `org`, `place`, `object`, or `event`). Without this trigger, an assertion could reference a non-existent entity UUID, breaking the traceability chain.
+* **`check_assertion_subject_fk`**: Enforces that the `subject_id` in `assertion` exists in the correct entity table based on `subject_type` (one of `person`, `org`, `place`, `object`, or `event`).
+* **`check_assertion_object_fk`**: Enforces that the `object_id` in `assertion` exists in the correct entity table based on `object_type` (one of `person`, `org`, `place`, `object`, or `event`). Without this trigger, an assertion could reference a non-existent entity UUID, breaking the traceability chain.
+* **`check_entity_identifier_fk`**: Enforces that the `entity_id` in `entity_identifier` exists in the correct entity table based on `entity_type` (one of `person`, `org`, `place`, `object`, `event`, or `source`).
+
+#### Automatic Timestamp Management
+
+* **`set_updated_at()`**: Shared function that automatically updates the `updated_at` column on row modifications. Applied to: `person`, `org`, `place`, `object`, `event`, `source`.
+
+#### Time Precision Contract Enforcement
+
+* **`check_event_time_precision()`**: Enforces the semantic contract between `time_precision` and timestamp fields:
+  - `UNKNOWN` → both `start_ts` and `end_ts` must be NULL
+  - `APPROX` → `start_ts` must be NOT NULL, `end_ts` must be NULL (use RANGE for bounded spans)
+  - `EXACT` → `start_ts` must be NOT NULL, `end_ts` must be NULL or equal to `start_ts`
+  - `RANGE` → both `start_ts` and `end_ts` must be NOT NULL
+
+#### Entity Deletion Protection
+
+To maintain referential integrity across polymorphic relationships, deletion triggers prevent orphaned references:
+
+* **`prevent_person_deletion()`**: Blocks deletion if referenced in `person_alias`, `event_participant`, `assertion`, or `entity_identifier`
+* **`prevent_org_deletion()`**: Blocks deletion if referenced in `event_participant`, `assertion`, or `entity_identifier`
+* **`prevent_place_deletion()`**: Blocks deletion if referenced in `event_place`, `place.parent_place_id` (hierarchical), `assertion`, or `entity_identifier`
+* **`prevent_object_deletion()`**: Blocks deletion if referenced in `event_object`, `assertion`, or `entity_identifier`
+* **`prevent_event_deletion()`**: Blocks deletion if referenced in `event_relation` (both directions), `assertion.context_event_id`, `assertion` (as subject/object), or `entity_identifier`
+* **`prevent_source_deletion()`**: Blocks deletion if any `source_excerpt` is linked to `assertion_support` (protects evidentiary chain) or if referenced in `entity_identifier`
+
+### 5.3 CHECK Constraints
+
+The following CHECK constraints enforce data integrity and business logic:
+
+#### Assertion Constraints
+
+* **`chk_assertion_object_type`**: Restricts `object_type` to valid entity types: `person`, `org`, `place`, `object`, `event`
+* **`chk_assertion_object_value`**: Enforces mutual exclusivity — if `object_type` is set, exactly one of `object_id` (entity reference) or `object_value` (literal text) must be populated, but not both
+
+#### Date Range Constraints
+
+* **`chk_event_ts_order`**: Ensures `end_ts` is NULL or >= `start_ts`
+* **`chk_person_date_order`**: Ensures `death_date` is NULL or >= `birth_date`
+* **`chk_person_alias_date_order`**: Ensures `to_date` is NULL or >= `from_date`
+* **`chk_org_date_order`**: Ensures `end_date` is NULL or >= `start_date`
+
+All date constraints allow NULL values on either boundary to accommodate incomplete data.
 
 ## 6. Schema Indexing
 
@@ -60,6 +105,12 @@ To support timeline generation and research tools, indexes are applied to:
 * `party_id` and `subject_id` (B-Tree/GIN) for rapid link-analysis queries.
 * `assertion.predicate` (B-Tree) for claim-type queries.
 * `source_excerpt.source_id` (B-Tree) for excerpt lookups.
+* **Name field indexes** (functional `lower()` indexes) on `person.display_name`, `org.name`, `place.name`, `object.name` for case-insensitive de-duplication queries
+* `source.title` and `source.external_ref` (B-Tree) for prefix search support
+* **Partial unique index** on `source.external_ref` (WHERE NOT NULL) to enforce NARA RIF uniqueness while allowing multiple NULL values
+
+> **De-duplication Query Pattern:** Name indexes use functional `lower()` syntax. Queries must use:
+> `WHERE lower(display_name) = lower('search term')` to utilize the index.
 
 ## 7. Table Inventory
 

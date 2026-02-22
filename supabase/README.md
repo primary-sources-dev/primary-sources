@@ -9,7 +9,8 @@ supabase/
 └── migrations/
     ├── 001_initial_schema.sql        # Full DDL: all tables, indexes, and triggers
     ├── 002_seed_vocab.sql            # Seed data: all 12 controlled vocabulary tables
-    └── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
+    ├── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
+    └── 004_integrity_fixes.sql       # Integrity enforcement: polymorphic FKs, CHECK constraints, deletion protection
 ```
 
 ## Running the Migrations
@@ -20,8 +21,10 @@ supabase/
 2. Go to **SQL Editor**
 3. Paste and run `001_initial_schema.sql`
 4. Paste and run `002_seed_vocab.sql`
+5. Paste and run `003_predicate_registry.sql`
+6. Paste and run `004_integrity_fixes.sql`
 
-> **Important:** Run `001` before `002`. The seed file inserts into tables that `001` creates.
+> **Important:** Run migrations in numerical order (001 → 002 → 003 → 004). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
 
 ### Option B — Supabase CLI
 
@@ -41,6 +44,8 @@ supabase db push
 ```bash
 psql -U postgres -d postgres -f supabase/migrations/001_initial_schema.sql
 psql -U postgres -d postgres -f supabase/migrations/002_seed_vocab.sql
+psql -U postgres -d postgres -f supabase/migrations/003_predicate_registry.sql
+psql -U postgres -d postgres -f supabase/migrations/004_integrity_fixes.sql
 ```
 
 ## Schema Overview
