@@ -90,10 +90,9 @@
     <section class="bg-[#1a1718] px-6 pt-6 pb-8 border-b border-archive-secondary/20">
         <div class="flex gap-5 items-start">
             <!-- Portrait -->
-            <div class="flex-shrink-0 w-24 h-28 border border-archive-secondary/20 overflow-hidden">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Oswald_arrest.jpg/800px-Oswald_arrest.jpg"
-                    alt="Lee Harvey Oswald — Dallas Police Department booking photo"
-                    class="w-full h-full object-cover object-top grayscale" />
+            <div
+                class="flex-shrink-0 w-24 h-28 border border-archive-secondary/10 bg-[#1a1718] flex items-center justify-center">
+                <span class="material-symbols-outlined text-archive-secondary/10 text-6xl">person</span>
             </div>
             <!-- Identity block -->
             <div class="flex flex-col gap-2 flex-1">
@@ -423,31 +422,37 @@
         </div>
     </footer>
 
-    <!-- BOTTOM NAV -->
-    <nav
-        class="fixed bottom-0 z-50 flex h-16 w-full items-center justify-around border-t border-archive-secondary/20 bg-archive-bg px-2 pb-1">
-        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="dash.html">
-            <span class="material-symbols-outlined">home</span>
-            <span class="text-[10px] font-bold uppercase tracking-tighter">Home</span>
-        </a>
-        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="#">
-            <span class="material-symbols-outlined">calendar_month</span>
-            <span class="text-[10px] font-bold uppercase tracking-tighter">Events</span>
-        </a>
-        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="#">
-            <span class="material-symbols-outlined">search</span>
-            <span class="text-[10px] font-bold uppercase tracking-tighter">Search</span>
-        </a>
-        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="people.html">
-            <span class="material-symbols-outlined">person</span>
-            <span class="text-[10px] font-bold uppercase tracking-tighter">People</span>
-        </a>
-        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="#">
-            <span class="material-symbols-outlined">folder</span>
-            <span class="text-[10px] font-bold uppercase tracking-tighter">Archive</span>
-        </a>
+    <!-- BOTTOM NAV (Fixed Bottom) -->
+    <nav class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4">
+        <div class="flex items-center justify-between overflow-x-auto gap-8">
+            <a href="events.html" class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary">
+                <span class="material-symbols-outlined text-2xl">event</span>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Events</span>
+            </a>
+            <a href="people.html" class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary">
+                <span class="material-symbols-outlined text-2xl">groups</span>
+                <span class="text-[8px] font-bold uppercase tracking-widest">People</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary">
+                <span class="material-symbols-outlined text-2xl">corporate_fare</span>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Orgs</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary">
+                <span class="material-symbols-outlined text-2xl">location_on</span>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Places</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary">
+                <span class="material-symbols-outlined text-2xl">category</span>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Objects</span>
+            </a>
+            <a href="#" class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary">
+                <span class="material-symbols-outlined text-2xl">description</span>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Sources</span>
+            </a>
+        </div>
     </nav>
-    <div class="h-16"></div>
+
+    <div class="h-24"></div> <!-- Spacer for fixed footer -->
 
 </body>
 
