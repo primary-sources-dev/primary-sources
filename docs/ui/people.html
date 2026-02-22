@@ -77,9 +77,6 @@
         <div class="flex flex-col gap-4">
             <div class="flex items-center justify-between">
                 <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase">Browse People</h2>
-                <span
-                    class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] bg-primary/10 px-2 py-1 border border-primary/20">427
-                    Records</span>
             </div>
 
             <div class="relative w-full">
@@ -88,27 +85,15 @@
                 <input type="text" placeholder="SEARCH BY NAME OR ALIAS..."
                     class="w-full bg-[#2e282a] border border-archive-secondary/20 py-3 pl-11 pr-4 text-xs font-bold uppercase tracking-wider text-archive-heading placeholder-archive-secondary/40 focus:border-primary focus:ring-0 outline-none transition-colors">
             </div>
-
-            <!-- Context Tabs -->
-            <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                <button
-                    class="text-[10px] font-bold uppercase tracking-widest text-primary border-b-2 border-primary pb-1">All
-                    Persons</button>
-                <button
-                    class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-primary pb-1">Witnesses</button>
-                <button
-                    class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-primary pb-1">Officials</button>
-                <button
-                    class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-primary pb-1">Suspects</button>
-            </div>
         </div>
     </section>
 
     <!-- RESULT FEED -->
     <main class="p-6">
-        <!-- Alpha Header -->
+        <!-- Section Header -->
         <div class="mb-4 border-l-4 border-primary pl-4">
-            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">O</h3>
+            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">The Yates Incident (Reference
+                Set)</h3>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -127,12 +112,12 @@
                     <h4
                         class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
                         Lee Harvey Oswald</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70">ALIAS: HIDEL, ALEK JAMES</p>
+                    <p class="mt-1 text-xs text-archive-secondary/70 italic uppercase">"Identical" to hitchhiker</p>
                     <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1939 – 1963</p>
                 </div>
             </a>
 
-            <!-- Placeholder 2 -->
+            <!-- Ralph Yates -->
             <a href="#"
                 class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
                 <div
@@ -140,16 +125,34 @@
                     <span class="material-symbols-outlined text-archive-secondary/20 text-4xl">person</span>
                 </div>
                 <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Official</span>
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Main Witness</span>
                     <h4
                         class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        O'Donnell, Kenneth</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70">ROLE: APPOINTMENTS SECRETARY</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1924 – 1977</p>
+                        Yates, Ralph Leon</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/70">ROLE: REFRIGERATION MECHANIC</p>
+                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1928 – 1975</p>
                 </div>
             </a>
 
-            <!-- Placeholder 3 -->
+            <!-- Unidentified Hitchhiker -->
+            <a href="#"
+                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
+                <div
+                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-archive-secondary/20 text-4xl">help_center</span>
+                </div>
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Person of
+                        Interest</span>
+                    <h4
+                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        Unidentified Hitchhiker</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/70 italic uppercase">Carried "Curtain Rods"</p>
+                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">UNKNOWN</p>
+                </div>
+            </a>
+
+            <!-- Dempsey Jones -->
             <a href="#"
                 class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
                 <div
@@ -157,12 +160,31 @@
                     <span class="material-symbols-outlined text-archive-secondary/20 text-4xl">person</span>
                 </div>
                 <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Witness</span>
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Corroborating
+                        Witness</span>
                     <h4
                         class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        Odum, Bardwell D.</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70">AFFIL: FBI</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1923 – 2010</p>
+                        Jones, Dempsey J.</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/70">AFFIL: TEXAS BUTCHER SUPPLY</p>
+                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1930 – 2005</p>
+                </div>
+            </a>
+
+            <!-- Buell Wesley Frazier -->
+            <a href="#"
+                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
+                <div class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 overflow-hidden">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Buell_Wesley_Frazier_1963.jpg/800px-Buell_Wesley_Frazier_1963.jpg"
+                        alt="Buell Wesley Frazier"
+                        class="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700">
+                </div>
+                <div class="flex flex-col h-full py-1">
+                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Key Witness</span>
+                    <h4
+                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
+                        Frazier, Buell Wesley</h4>
+                    <p class="mt-1 text-xs text-archive-secondary/70 italic uppercase">"Curtain Rod" Account (TSBD)</p>
+                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">BORN 1944</p>
                 </div>
             </a>
 
