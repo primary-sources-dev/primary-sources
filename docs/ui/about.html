@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>About This Project — JFK Primary Sources Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "0"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #2E282A;
+            color: #D4CFC7;
+        }
+        h1, h2, h3, h4, .heading-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            color: #F0EDE0;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        hr { border-color: #D4CFC7; opacity: 0.2; }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
+        <div class="flex h-16 items-center justify-between px-4">
+            <a href="dash.html" class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+                <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase">JFK Archive</h1>
+            </a>
+            <button
+                class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10">
+                <span class="material-symbols-outlined text-archive-heading">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="px-6 pt-4 pb-2 text-[10px] uppercase tracking-widest text-archive-secondary opacity-60">
+        <a href="dash.html" class="hover:text-primary">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-archive-heading">About This Project</span>
+    </div>
+
+    <!-- PAGE HEADING -->
+    <section class="bg-[#1a1718] px-6 pt-8 pb-10 border-b border-archive-secondary/20">
+        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Mission Statement</span>
+        <h2 class="mt-2 text-4xl font-bold leading-tight text-archive-heading">About This Project</h2>
+        <p class="mt-3 text-xs text-archive-secondary opacity-70 uppercase tracking-tighter max-w-sm">
+            JFK Primary Sources Archives · Established 2026
+        </p>
+    </section>
+
+    <!-- MISSION -->
+    <section class="p-6 border-b border-archive-secondary/20">
+        <h3
+            class="mb-4 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
+            Our Mission
+        </h3>
+        <p class="text-xs leading-relaxed text-archive-secondary opacity-80 mb-4">
+            The assassination of President John F. Kennedy on November 22, 1963 is one of the most
+            documented and debated events in modern American history. Decades of declassification,
+            congressional investigations, journalistic inquiry, and public research have produced
+            an enormous body of primary source material — and yet that material remains scattered,
+            difficult to navigate, and inaccessible to most people.
+        </p>
+        <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+            This archive exists to change that. Our mission is to gather, organize, and present
+            primary source materials related to the assassination in a structured, searchable, and
+            easy-to-understand format — so that students, researchers, and the curious public can
+            engage with the evidence directly, on their own terms.
+        </p>
+    </section>
+
+    <!-- EDITORIAL POSITION -->
+    <section class="p-6 border-b border-archive-secondary/20">
+        <h3
+            class="mb-4 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
+            Editorial Position
+        </h3>
+
+        <!-- Callout box -->
+        <div class="border border-primary/40 bg-primary/5 px-5 py-4 mb-5">
+            <p class="text-xs leading-relaxed text-archive-heading font-bold uppercase tracking-wide">
+                This archive takes no position on what happened, who was responsible, or why.
+            </p>
+        </div>
+
+        <p class="text-xs leading-relaxed text-archive-secondary opacity-80 mb-4">
+            The assassination remains a subject of genuine historical controversy. Official conclusions
+            have been challenged, revised, and debated for over sixty years. Reasonable people, including
+            credentialed historians, investigators, and researchers, hold a wide range of views.
+        </p>
+        <p class="text-xs leading-relaxed text-archive-secondary opacity-80 mb-4">
+            We are not here to resolve that debate. We are here to serve it — by making the underlying
+            source material available, organized, and legible. Every document, testimony, record, and
+            piece of evidence presented here is a primary source. We do not editorialize, interpret,
+            or advocate.
+        </p>
+        <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+            Where assertions are recorded in this archive, they represent claims made by sources — not
+            conclusions drawn by this project. All assertions are linked to the specific source excerpt
+            from which they originate. Draw your own conclusions.
+        </p>
+    </section>
+
+    <!-- HOW IT IS ORGANIZED -->
+    <section class="p-6 border-b border-archive-secondary/20">
+        <h3
+            class="mb-5 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
+            How the Archive Is Organized
+        </h3>
+
+        <div class="flex flex-col gap-4">
+
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 px-5 py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary text-base">calendar_month</span>
+                    <span class="text-sm font-bold text-archive-heading uppercase tracking-wider">Events</span>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+                    The archive is built around a chronological event graph. Every documented
+                    moment — from years before the assassination to the investigations that followed —
+                    is recorded as a discrete event with a timestamp, location, and participants.
+                    This lets you trace the full chain of events in order, or zoom into any single moment.
+                </p>
+            </div>
+
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 px-5 py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary text-base">person</span>
+                    <span class="text-sm font-bold text-archive-heading uppercase tracking-wider">People</span>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+                    Every individual named in primary sources is recorded — with their known aliases,
+                    affiliations, roles, and the events they are documented to have participated in.
+                    Start with a person and follow every thread the sources provide.
+                </p>
+            </div>
+
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 px-5 py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary text-base">groups</span>
+                    <span class="text-sm font-bold text-archive-heading uppercase tracking-wider">Organizations</span>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+                    Agencies, committees, companies, and groups that appear in the historical record
+                    are documented — with their memberships, roles in events, and the sources that
+                    reference them.
+                </p>
+            </div>
+
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 px-5 py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary text-base">description</span>
+                    <span class="text-sm font-bold text-archive-heading uppercase tracking-wider">Sources</span>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+                    Every claim in this archive traces back to a specific source — a document,
+                    testimony, audio recording, film, or physical evidence record. Sources are
+                    categorized by type, custodian, and date. Excerpts are linked directly to
+                    the assertions they support, contradict, or merely mention.
+                </p>
+            </div>
+
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 px-5 py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary text-base">timeline</span>
+                    <span class="text-sm font-bold text-archive-heading uppercase tracking-wider">Chronologies</span>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+                    Pre-built timelines group events into curated narrative sequences — the
+                    lead-up to Dallas, the day of the assassination, the investigation period,
+                    and more. Chronologies are reading paths, not arguments. They let you move
+                    through the record in sequence without needing to build the timeline yourself.
+                </p>
+            </div>
+
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 px-5 py-4">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="material-symbols-outlined text-primary text-base">category</span>
+                    <span class="text-sm font-bold text-archive-heading uppercase tracking-wider">Objects</span>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary opacity-80">
+                    Physical objects that appear in the historical record — weapons, vehicles,
+                    documents, photographs, and evidence items — are catalogued with their
+                    documented chain of custody, known locations, and the sources that reference them.
+                    Objects serve as another entry point into the evidence.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="p-6">
+        <h3
+            class="mb-4 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
+            Guiding Principles
+        </h3>
+        <div class="flex flex-col gap-3 text-xs text-archive-secondary">
+
+            <div class="flex gap-3 items-start">
+                <span class="text-primary font-bold mt-0.5">01</span>
+                <p class="leading-relaxed opacity-80"><span class="text-archive-heading font-bold uppercase">Primary
+                        sources only.</span> No secondary analysis, no commentary, no opinion is introduced as fact. If
+                    it is in the archive, it is traceable to an original document or record.</p>
+            </div>
+
+            <div class="flex gap-3 items-start">
+                <span class="text-primary font-bold mt-0.5">02</span>
+                <p class="leading-relaxed opacity-80"><span
+                        class="text-archive-heading font-bold uppercase">Transparency of provenance.</span> Every source
+                    is identified by its origin, custodian, and date. Where provenance is uncertain, that uncertainty is
+                    noted.</p>
+            </div>
+
+            <div class="flex gap-3 items-start">
+                <span class="text-primary font-bold mt-0.5">03</span>
+                <p class="leading-relaxed opacity-80"><span
+                        class="text-archive-heading font-bold uppercase">Contradictions are preserved.</span> Where
+                    sources conflict, both accounts are recorded. The archive does not resolve disputes — it presents
+                    them.</p>
+            </div>
+
+            <div class="flex gap-3 items-start">
+                <span class="text-primary font-bold mt-0.5">04</span>
+                <p class="leading-relaxed opacity-80"><span
+                        class="text-archive-heading font-bold uppercase">Chronological structure.</span> Information is
+                    anchored in time. Every event has a date. Where dates are uncertain, that uncertainty is explicit.
+                </p>
+            </div>
+
+            <div class="flex gap-3 items-start">
+                <span class="text-primary font-bold mt-0.5">05</span>
+                <p class="leading-relaxed opacity-80"><span
+                        class="text-archive-heading font-bold uppercase">Accessibility without simplification.</span>
+                    The archive is built to be navigable by anyone — student, researcher, or first-time reader — without
+                    reducing the complexity of the historical record.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 border-t border-archive-secondary/20 bg-[#1a1718] px-6 py-10">
+        <div class="mb-8">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary">account_balance</span>
+                <span class="text-sm font-bold uppercase tracking-[0.2em] text-archive-heading">JFK Archive</span>
+            </div>
+            <p class="text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
+                This archive presents primary source materials without editorial interpretation. All materials are
+                primary sources provided for the purpose of scholarly research, education, and public historical record.
+            </p>
+        </div>
+        <nav class="mb-8 grid grid-cols-2 gap-y-4 text-xs font-bold uppercase tracking-wider text-archive-secondary">
+            <a class="hover:text-primary" href="#">Disclaimer</a>
+            <a class="hover:text-primary" href="#">Privacy Policy</a>
+            <a class="hover:text-primary" href="#">Terms of Use</a>
+            <a class="hover:text-primary" href="#">Contact Archive</a>
+        </nav>
+        <div class="border-t border-archive-secondary/10 pt-6">
+            <p class="text-[10px] text-archive-secondary opacity-40 uppercase">
+                © 2026 JFK Primary Sources Archives. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- BOTTOM NAV -->
+    <nav
+        class="fixed bottom-0 z-50 flex h-16 w-full items-center justify-around border-t border-archive-secondary/20 bg-archive-bg px-2 pb-1">
+        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="dash.html">
+            <span class="material-symbols-outlined">home</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Home</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="#">
+            <span class="material-symbols-outlined">calendar_month</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Events</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="#">
+            <span class="material-symbols-outlined">search</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Search</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="person.html">
+            <span class="material-symbols-outlined">person</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">People</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-archive-secondary hover:text-primary" href="#">
+            <span class="material-symbols-outlined">folder</span>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Archive</span>
+        </a>
+    </nav>
+    <div class="h-16"></div>
+
+</body>
+
+</html>
