@@ -344,7 +344,9 @@ SELECT * FROM supabase_migrations.schema_migrations ORDER BY version;
 | `event` | `event` | `event_id` |
 | `source` | `source` | `source_id` |
 
-Use these values in `subject_type`, `object_type`, `party_type`, `entity_type` columns.
+**Usage Note:** `source` is a valid discriminator for `entity_type` (identifiers), but is **not** currently a valid `subject_type` or `object_type` for assertions or `party_type` for event participants.
+
+Use these values in the appropriate discriminator columns.
 
 ---
 

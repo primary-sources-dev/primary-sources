@@ -118,7 +118,7 @@ To support timeline generation and research tools, indexes are applied to:
 
 ## 7. Table Inventory
 
-All 20 tables in the schema, grouped by architectural layer.
+All 27 tables in the schema, grouped by architectural layer.
 
 **Controlled Vocabularies (12)**
 `v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type`

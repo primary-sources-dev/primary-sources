@@ -21,7 +21,7 @@ Every data point must begin with its container.
 To maintain 4NF purity, we must prevent "Entity Splitting" (multiple records for one person/object).
 
 1. **Scan for Identifiers**: Identify specific IDs mentioned (e.g., FBI File #, Commission Exhibit #, License Plate).
-2. **Cross-Reference `entity_identifier**`: Search the `entity_identifier` table for these values **before** creating a new entity.
+2. **Cross-Reference `entity_identifier`**: Search the `entity_identifier` table for these values **before** creating a new entity.
 3. **Check Aliases**: Search `person_alias` to determine if a name mentioned is an alternate identity for an existing `person_id`.
 4. **Register Entities**: Only after exhausting de-duplication steps should you create records in `person`, `org`, `place`, or `object`.
 
