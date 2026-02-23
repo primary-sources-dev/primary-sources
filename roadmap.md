@@ -8,7 +8,7 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 
 **Project Principle:** A subject-agnostic chronological engine that transforms raw primary sources into structured metadata for research, simulation, and immersive education.
 
-### **Total Feature Count: 24**
+### **Total Feature Count: 26**
 
 | ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
 | --- | --- | --- | --- | --- |
@@ -29,13 +29,15 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 | **15** | **Membership** | **Onboarding State** | `user_preferences` table | Customizes the initial dashboard view (e.g., Forensics vs. Culture) based on a quiz. |
 | **16** | **Engagement** | **Quizzes & Achievement Badges** | `user_badges` + `assertion` logic | Earn forensic "Badges" (e.g., *Pathologist*, *Ballistics Expert*) by completing source-based quizzes. |
 | **17** | **Engagement** | **Contribution Missions** | `source_excerpt` + `reputation_score` | High-accuracy contributors earn status badges and priority access to new primary sources. |
-| **18** | **Engagement** | **Evidence Board** | `source_excerpt` + `object` | A drag-and-drop workbench to pin evidence and draw causal "threads" visually. |
+| **18** | **Engagement** | **Infinite Evidence Canvas** | `canvas_state` + `z-index` | An interactive drag-and-drop workbench to visually arrange and link evidence with causal "threads." |
 | **19** | **Research** | **Private Forensic Notes** | `user_entity_notes` (Subject-linked) | Attach private, encrypted research notes directly to any person, place, or object. |
 | **20** | **Research** | **Self-Service Vault** | `user_sources` + `member_id` | Upload your own primary scans to your private digital workbench for automatic OCR/Analysis. |
 | **21** | **Research** | **Custom Field Guides** | `resource_sheet_templates` | Export entities and timelines into "Resource Sheets" or custom research pages for publication. |
-| **22** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
-| **23** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
-| **24** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
+| **22** | **Genealogy** | **Lineage Engine** | `person_relation` Recursive CTEs | Track bloodlines and family trees across centuries by mapping births, marriages, and migrations. |
+| **23** | **Genealogy** | **Ancestral Chronology** | `assertion` (Family Claims) | Compare conflicting family legends against verified primary source records (Censuses, Deeds). |
+| **24** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
+| **25** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
+| **26** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
 
 ---
 
@@ -49,5 +51,4 @@ This master table represents the **Primary Sources Engine**. While we are seedin
 2. **Any True Crime Investigation** (Cold case chronology).
 3. **Any Sports Era** (Recreating the 1927 Yankees season from box scores).
 4. **Any Cultural Movement** (Mapping the spread of 1960s Jazz).
-
----
+5. **Genealogy & Lineage** (reconstructing family histories from disparate primary records).
