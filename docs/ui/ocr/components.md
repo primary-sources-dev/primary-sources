@@ -2,29 +2,48 @@
 
 This document catalogs all UI components used in the OCR web interface, their CSS classes, and usage patterns.
 
+> **Note:** This UI now uses **Tailwind CSS CDN** for utility classes. Custom component styles are in `ocr-components.css`.
+
 ---
 
-## Design Tokens
+## Design Tokens (Tailwind Config)
 
-```css
-:root {
-    --color-primary: #B08B49;    /* Gold accent */
-    --color-bg: #2E282A;         /* Page background */
-    --color-secondary: #D4CFC7;  /* Body text */
-    --color-heading: #F0EDE0;    /* Heading text */
-    --color-dark: #1A1718;       /* Deep background */
-    --color-surface: #252021;    /* Card surfaces */
+Design tokens are defined in the `tailwind.config` script in `index.html`:
+
+```javascript
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                "primary": "#B08B49",
+                "archive-bg": "#2E282A",
+                "archive-secondary": "#D4CFC7",
+                "archive-heading": "#F0EDE0",
+                "archive-dark": "#1A1718",
+                "archive-surface": "#252021",
+            },
+            fontFamily: {
+                "display": ["Oswald", "sans-serif"],
+                "mono": ["Roboto Mono", "monospace"]
+            },
+            borderRadius: {
+                "DEFAULT": "0", "lg": "0", "xl": "0"
+            }
+        }
+    }
 }
 ```
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--color-primary` | `#B08B49` | Buttons, borders, accents, active states |
-| `--color-bg` | `#2E282A` | Page background |
-| `--color-secondary` | `#D4CFC7` | Body text, labels |
-| `--color-heading` | `#F0EDE0` | Headings, active tab text |
-| `--color-dark` | `#1A1718` | Menu bar, log output, inputs |
-| `--color-surface` | `#252021` | Settings container |
+| Token | Hex | Tailwind Class | Usage |
+|-------|-----|----------------|-------|
+| `primary` | `#B08B49` | `text-primary`, `bg-primary`, `border-primary` | Buttons, accents, active states |
+| `archive-bg` | `#2E282A` | `bg-archive-bg` | Page background |
+| `archive-secondary` | `#D4CFC7` | `text-archive-secondary` | Body text, labels |
+| `archive-heading` | `#F0EDE0` | `text-archive-heading` | Headings, active tab text |
+| `archive-dark` | `#1A1718` | `bg-archive-dark` | Menu bar, log output, inputs |
+| `archive-surface` | `#252021` | `bg-archive-surface` | Settings container |
+
+**Icons:** Material Symbols Outlined — `<span class="material-symbols-outlined">icon_name</span>`
 
 ---
 
@@ -376,19 +395,22 @@ Overlay dialog with header, body, and footer.
 
 ## Utility Classes
 
-Tailwind-style utilities included in `ocr-gui.css`:
+Utilities are provided by **Tailwind CSS CDN** (loaded in `index.html`). Common classes used:
 
-| Category | Classes |
-|----------|---------|
-| **Layout** | `flex`, `flex-wrap`, `flex-col`, `items-center`, `justify-between`, `justify-center`, `gap-1/2/4` |
-| **Sizing** | `w-4`, `h-4`, `w-8`, `h-8`, `h-16`, `h-48`, `max-w-3xl` |
-| **Spacing** | `p-4/6`, `px-3/4/6`, `py-1/2`, `pl-4`, `mb-4/6/8`, `mt-2`, `mx-auto` |
-| **Typography** | `text-xs/sm/base/lg/xl`, `font-bold`, `uppercase`, `tracking-wider/widest` |
-| **Colors** | `text-primary`, `text-archive-heading`, `text-archive-secondary`, `bg-archive-bg/dark/surface` |
-| **Borders** | `border`, `border-b`, `border-l`, `border-l-4`, `border-primary`, `border-archive-secondary/20` |
+| Category | Example Classes |
+|----------|-----------------|
+| **Layout** | `flex`, `flex-wrap`, `flex-col`, `items-center`, `justify-between`, `justify-center`, `gap-1`, `gap-2`, `gap-4` |
+| **Sizing** | `w-4`, `h-4`, `h-16`, `h-48`, `max-w-3xl`, `flex-1` |
+| **Spacing** | `p-4`, `p-6`, `px-3`, `px-6`, `py-1`, `py-2`, `pl-4`, `mb-4`, `mb-6`, `mb-8`, `mt-2`, `mx-auto` |
+| **Typography** | `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-3xl`, `font-bold`, `font-display`, `font-mono`, `uppercase`, `tracking-wider`, `tracking-widest` |
+| **Colors** | `text-primary`, `text-archive-heading`, `text-archive-secondary`, `text-archive-secondary/60`, `bg-archive-bg`, `bg-archive-dark`, `bg-archive-surface`, `bg-primary` |
+| **Borders** | `border`, `border-b`, `border-l`, `border-l-4`, `border-primary`, `border-archive-secondary/20`, `rounded-none` |
 | **Display** | `hidden`, `block`, `inline-block`, `inline-flex` |
-| **Position** | `sticky`, `top-0`, `z-50` |
-| **Effects** | `backdrop-blur`, `transition` |
+| **Position** | `sticky`, `top-0`, `z-50`, `relative`, `absolute` |
+| **Effects** | `backdrop-blur`, `transition`, `transition-all`, `overflow-y-auto` |
+| **Responsive** | `md:flex`, `md:hidden` |
+
+> Full Tailwind documentation: https://tailwindcss.com/docs
 
 ---
 

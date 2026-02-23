@@ -21,9 +21,11 @@ This directory contains the prototype OCR tool interface that allows researchers
 
 | File | Description |
 |------|-------------|
-| `index.html` | Main UI template (served by Flask) |
-| `ocr-gui.css` | Styling following the Primary Sources design system |
+| `index.html` | Main UI template (served by Flask), includes Tailwind CDN config |
+| `ocr-components.css` | Component-only styles (Tailwind handles utilities) |
 | `ocr-gui.js` | Client-side logic for file handling, progress polling, and viewer integration |
+| `components.md` | Component documentation and reference |
+| `plan.md` | CSS alignment implementation plan |
 
 ## Running the Server
 
@@ -46,9 +48,18 @@ The integrated viewer provides the common visual anchor point for all agents to 
 
 ## Design Tokens
 
-This mockup follows the Primary Sources design system:
-- Background: `#2E282A` (archive-bg)
-- Dark Background: `#1A1718` (archive-dark)
-- Primary accent: `#B08B49` (gold)
-- Font: Oswald (headings), Roboto Mono (body)
-- Border radius: 0 (sharp edges)
+This mockup follows the Primary Sources design system via **Tailwind CSS CDN**:
+
+| Token | Value | Tailwind Class |
+|-------|-------|----------------|
+| Background | `#2E282A` | `bg-archive-bg` |
+| Dark Background | `#1A1718` | `bg-archive-dark` |
+| Surface | `#252021` | `bg-archive-surface` |
+| Primary (gold) | `#B08B49` | `text-primary`, `bg-primary` |
+| Heading text | `#F0EDE0` | `text-archive-heading` |
+| Secondary text | `#D4CFC7` | `text-archive-secondary` |
+| Display font | Oswald | `font-display` |
+| Mono font | Roboto Mono | `font-mono` |
+| Border radius | 0 | `rounded-none` (default) |
+
+Icons: Material Symbols Outlined (`<span class="material-symbols-outlined">icon_name</span>`)
