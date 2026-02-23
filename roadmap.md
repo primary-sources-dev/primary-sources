@@ -1,0 +1,50 @@
+It has been a pleasure helping you architect this. This project has evolved from a database into a universal "Historical Engine."
+
+Below is the compiled master roadmap, encompassing every feature from the 4NF core to the immersive AI simulations and the business toolset. I have organized these into a logical hierarchy that reflects the "Primary Sources" vision.
+
+---
+
+# Primary Sources: Master Feature & Product Roadmap
+
+**Project Principle:** A subject-agnostic chronological engine that transforms raw primary sources into structured metadata for research, simulation, and immersive education.
+
+### **Total Feature Count: 21**
+
+| ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
+| --- | --- | --- | --- | --- |
+| **01** | **Utility (Phase 1)** | **Member-Only OCR** | Tesseract-as-a-Service | **Primary Hook:** Free transcription for members; seeds the global `source_excerpt` table. |
+| **02** | **Forensic** | **Conflict Heatmap** | `assertion_support` (Contradicts/Supports) | Visualizes "Hot Zones" in evidence where sources disagree (Red = High Conflict). |
+| **03** | **Forensic** | **Network Explorer** | `event_participant` junction tables | Reveals "Six Degrees of Separation" between any two entities in the database. |
+| **04** | **Forensic** | **3D Print Replicas** | `object.file_url` (STL/OBJ) | Downloadable historical artifacts (bullets, exhibits) for physical 3D printing. |
+| **05** | **Narrative** | **POV "Shadow" Timelines** | `assertion.subject_id` filtering | View the world's chronology strictly through the claims of a single witness. |
+| **06** | **Narrative** | **11.22 Cultural Portal** | `culture_metadata` table | Immersive "Time Machine" showing 1963 music, TV, and commodity prices. |
+| **07** | **Narrative** | **"Slow Reveal" Mode** | `event.start_ts` sequencing | A pedagogical tool for classrooms to reveal evidence step-by-step to test theories. |
+| **08** | **Narrative** | **Regional Pulse** | `place.lat/lon` + Regional Metadata | Browse a map to see what the jukebox, theater, and prices were at that exact spot. |
+| **09** | **Sports** | **Game Reconstructor** | `event` (Game) + `assertion` (Plays) | Reconstructs historical sports games as "live" events from text box scores or radio. |
+| **10** | **Sports** | **Radio-to-Visual AI** | AI Gen + Audio Archives | Uses AI to "film" games or events that only exist as radio broadcasts or text logs. |
+| **11** | **Simulation** | **Witness POV Video** | `place.lat/lon` + `person` roles | Generates AI video of exactly what a witness saw from their specific location. |
+| **12** | **Simulation** | **AR Spatial Overlays** | GPS + `place` coordinates | Projects historical entities (motorcades, people) onto real-world modern streets. |
+| **13** | **Simulation** | **Synthetic Case Files** | AI + `assertion` attributes | Generates FBI-style reports that automatically highlight and debate conflicting data. |
+| **14** | **Membership** | **Digital Vault Access** | `member_status` permissions | Access to high-resolution raw document scans and proprietary 3D/research files. |
+| **15** | **Membership** | **Onboarding State** | `user_preferences` table | Customizes the initial dashboard view (e.g., Forensics vs. Culture) based on a quiz. |
+| **16** | **Engagement** | **Live Quizzes & Results** | `assertion` + `v_support_type` | Interactive challenges (Wed/Fri) based on weekly Primary Source guides. |
+| **17** | **Engagement** | **Verification Missions** | `source_excerpt` tagging | Gamifies the cleanup of OCR text and attribute tagging for the public good. |
+| **18** | **Engagement** | **Evidence Board** | `source_excerpt` + `object` | A drag-and-drop workbench to pin evidence and draw causal "threads" visually. |
+| **19** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
+| **20** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
+| **21** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
+
+---
+
+### **System Architecture Visualization**
+
+### **The "Subject-Agnostic" Vision**
+
+This master table represents the **Primary Sources Engine**. While we are seeding it with **JFK / Yates** data first, the system is designed to handle:
+
+1. **Any Historical Event** (e.g., The Civil Rights Movement).
+2. **Any True Crime Investigation** (Cold case chronology).
+3. **Any Sports Era** (Recreating the 1927 Yankees season from box scores).
+4. **Any Cultural Movement** (Mapping the spread of 1960s Jazz).
+
+---

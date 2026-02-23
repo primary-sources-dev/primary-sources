@@ -253,16 +253,21 @@ function renderQueue() {
                     <div class="text-[9px] text-primary font-bold mt-1 uppercase tracking-tighter">${progress}% Processed</div>
                 ` : ''}
             </div>
-            <div class="flex items-center gap-2">
-                ${isCompleted ? `
-                    <a href="../pdf-viewer.html?file=processed/${file.name}" target="_blank"
-                       class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1">
-                        <span class="material-symbols-outlined text-sm">visibility</span> View
-                    </a>
-                ` : ''}
-                <button class="btn-remove" onclick="removeFileFromQueue(${idx})" ${isProcessing ? 'disabled' : ''}>×</button>
-            </div>
-        </div>
+                        <div class="flex items-center gap-2">
+                            ${isCompleted ? `
+                                <a href="../pdf-viewer.html?file=processed/${file.name}" target="_blank" 
+                                   class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
+                                   title="View in Browser">
+                                    <span class="material-symbols-outlined text-sm">visibility</span> View
+                                </a>
+                                <button onclick="downloadMarkdown('${file.name}')" 
+                                   class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
+                                   title="Download as Markdown">
+                                    <span class="material-symbols-outlined text-sm">description</span> .MD
+                                </button>
+                            ` : ''}
+                            <button class="btn-remove" onclick="removeFileFromQueue(${idx})" ${isProcessing ? 'disabled' : ''}>×</button>
+                        </div>        </div>
     `}).join('');
 }
 
@@ -483,6 +488,12 @@ function copyOutputPath() {
     navigator.clipboard.writeText(path).then(() => {
         logSuccess('Output path copied to clipboard');
     });
+}
+
+function downloadMarkdown(originalName) {
+    const baseName = originalName.replace('.pdf', '');
+    const mdName = `${baseName}.md`;
+    window.location.href = `/api/download/${mdName}`;
 }
 
 // ============================================================================

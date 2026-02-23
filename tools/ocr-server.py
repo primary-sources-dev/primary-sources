@@ -100,6 +100,7 @@ def create_job():
     backend = request.form.get("backend", "wsl")
     output_pdf = request.form.get("output_pdf", "true") == "true"
     output_txt = request.form.get("output_txt", "true") == "true"
+    output_md = request.form.get("output_md", "true") == "true"
     deskew = request.form.get("deskew", "true") == "true"
     clean = request.form.get("clean", "true") == "true"
     force_ocr = request.form.get("force_ocr", "false") == "true"
@@ -145,6 +146,7 @@ def create_job():
         "options": {
             "output_pdf": output_pdf,
             "output_txt": output_txt,
+            "output_md": output_md,
             "deskew": deskew,
             "clean": clean,
             "force_ocr": force_ocr,
@@ -201,6 +203,7 @@ def process_job_worker(job_id):
                     output_dir=UPLOAD_FOLDER,
                     output_pdf=job["options"]["output_pdf"],
                     output_txt=job["options"]["output_txt"],
+                    output_md=job["options"]["output_md"],
                     deskew=job["options"]["deskew"],
                     clean=job["options"]["clean"],
                     force_ocr=job["options"]["force_ocr"],
@@ -250,6 +253,12 @@ def cancel_job(job_id):
         job["log"].append("Job cancelled by user")
     
     return jsonify(job)
+
+
+@app.route("/api/download/<filename>")
+def download_file(filename):
+    """Download a processed file."""
+    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 
 
 @app.route("/api/output-dir", methods=["GET", "POST"])
