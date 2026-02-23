@@ -43,6 +43,7 @@ create table if not exists org (
   org_id     uuid primary key default gen_random_uuid(),
   name       text not null,
   org_type   text references v_org_type(code),
+  url        text,                          -- primary access or homepage URL
   start_date date,
   end_date   date,
   notes      text,

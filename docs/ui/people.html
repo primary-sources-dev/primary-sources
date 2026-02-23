@@ -11,7 +11,8 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <script id="tailwind-config">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -27,119 +28,26 @@
                         "mono": ["Roboto Mono", "monospace"]
                     },
                     borderRadius: {
-                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "0"
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
                     },
                 },
             },
         }
     </script>
-    <style type="text/tailwindcss">
-        body {
-            font-family: 'Roboto Mono', monospace;
-            background-color: #2E282A;
-            color: #D4CFC7;
-        }
-        h1, h2, h3, h4, .heading-font {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            color: #F0EDE0;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        hr { border-color: #D4CFC7; opacity: 0.2; }
-    </style>
-    <style>
-        body {
-            min-height: 100dvh;
-        }
-    </style>
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/db-logic.js" defer></script>
+    <script src="assets/js/filter.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
-        <div class="flex h-16 items-center justify-between px-4">
-            <a href="dash.html" class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-                <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase">JFK Archive</h1>
-            </a>
-            <button
-                class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10">
-                <span class="material-symbols-outlined text-archive-heading">menu</span>
-            </button>
-        </div>
-    </header>
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
-    <!-- SEARCH WRAPPER (ARCHIVE-DARK) -->
-    <section class="bg-[#1a1718] px-6 py-8 border-b border-archive-secondary/20">
-        <div class="flex flex-col gap-4">
-            <div class="flex items-center justify-between">
-                <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase">Browse People</h2>
-            </div>
-
-            <div class="relative w-full">
-                <span
-                    class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-primary text-lg">search</span>
-                <input type="text" placeholder="SEARCH BY NAME OR ALIAS..."
-                    class="w-full bg-[#2e282a] border border-archive-secondary/20 py-3 pl-11 pr-4 text-xs font-bold uppercase tracking-wider text-archive-heading placeholder-archive-secondary/40 focus:border-primary focus:ring-0 outline-none transition-colors">
-            </div>
-
-            <!-- Filter & Sort Bar -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
-                <!-- Sort -->
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Sort</label>
-                    <div class="relative">
-                        <select
-                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
-                            <option>A-Z</option>
-                            <option>Z-A</option>
-                        </select>
-                        <span
-                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
-                    </div>
-                </div>
-
-                <!-- Event Filter -->
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Event</label>
-                    <div class="relative">
-                        <select
-                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
-                            <option>ALL EVENTS</option>
-                            <option>Walker Incident</option>
-                            <option>Odio Incident</option>
-                            <option>JFK Assassination</option>
-                            <option>Tippit Shooting</option>
-                            <option>Oswald Shooting</option>
-                            <option>Yates Incident</option>
-                        </select>
-                        <span
-                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
-                    </div>
-                </div>
-
-                <!-- Org Filter -->
-                <div class="flex flex-col gap-1">
-                    <label class="text-[10px] uppercase tracking-widest text-primary font-bold">Organization</label>
-                    <div class="relative">
-                        <select
-                            class="w-full bg-[#2e282a] border border-archive-secondary/20 py-2 px-3 pr-8 text-[10px] font-bold uppercase tracking-wider text-archive-heading appearance-none focus:border-primary outline-none cursor-pointer">
-                            <option>ALL ORGS</option>
-                            <option>FBI</option>
-                            <option>Dallas Police Dept</option>
-                            <option>Secret Service</option>
-                            <option>Warren Commission</option>
-                            <option>TSBD</option>
-                        </select>
-                        <span
-                            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-xs text-archive-secondary/40">expand_more</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- MODULAR SEARCH BAR -->
+    <section data-component="search-filter-bar" class="bg-[#1a1718] px-6 py-8 border-b border-archive-secondary/20">
     </section>
 
     <!-- RESULT FEED -->
@@ -150,98 +58,8 @@
                 Set)</h3>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            <!-- Oswald Card -->
-            <a href="oswald.html"
-                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
-                <div
-                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
-                    <span
-                        class="material-symbols-outlined text-archive-secondary/20 text-4xl group-hover:text-primary/40 transition-colors">person</span>
-                </div>
-                <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Suspect /
-                        Person</span>
-                    <h4
-                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        Lee Harvey Oswald</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70 italic uppercase">"Identical" to hitchhiker</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1939 – 1963</p>
-                </div>
-            </a>
-
-            <!-- Ralph Yates -->
-            <a href="#"
-                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
-                <div
-                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
-                    <span class="material-symbols-outlined text-archive-secondary/20 text-4xl">person</span>
-                </div>
-                <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Main Witness</span>
-                    <h4
-                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        Yates, Ralph Leon</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70">ROLE: REFRIGERATION MECHANIC</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1928 – 1975</p>
-                </div>
-            </a>
-
-            <!-- Unidentified Hitchhiker -->
-            <a href="#"
-                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
-                <div
-                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
-                    <span class="material-symbols-outlined text-archive-secondary/20 text-4xl">help_center</span>
-                </div>
-                <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Person of
-                        Interest</span>
-                    <h4
-                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        Unidentified Hitchhiker</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70 italic uppercase">Carried "Curtain Rods"</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">UNKNOWN</p>
-                </div>
-            </a>
-
-            <!-- Dempsey Jones -->
-            <a href="#"
-                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
-                <div
-                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
-                    <span class="material-symbols-outlined text-archive-secondary/20 text-4xl">person</span>
-                </div>
-                <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Corroborating
-                        Witness</span>
-                    <h4
-                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        Jones, Dempsey J.</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70">AFFIL: TEXAS BUTCHER SUPPLY</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">1930 – 2005</p>
-                </div>
-            </a>
-
-            <!-- Buell Wesley Frazier -->
-            <a href="#"
-                class="flex items-start gap-4 border border-archive-secondary/20 bg-[#252021]/60 p-4 hover:border-primary transition-all group">
-                <div
-                    class="w-20 h-24 flex-shrink-0 border border-archive-secondary/10 bg-[#2e282a] flex items-center justify-center">
-                    <span
-                        class="material-symbols-outlined text-archive-secondary/20 text-4xl group-hover:text-primary/40 transition-colors">person</span>
-                </div>
-                <div class="flex flex-col h-full py-1">
-                    <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-1">Key Witness</span>
-                    <h4
-                        class="text-lg font-bold text-archive-heading group-hover:text-primary transition-colors leading-tight uppercase">
-                        Frazier, Buell Wesley</h4>
-                    <p class="mt-1 text-xs text-archive-secondary/70 italic uppercase">"Curtain Rod" Account (TSBD)</p>
-                    <p class="mt-auto text-[10px] text-archive-secondary/40 uppercase tracking-tighter">BORN 1944</p>
-                </div>
-            </a>
-
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="people" data-template="person">
+            <!-- Dynamic People Cards will be injected here by components.js -->
         </div>
 
         <div class="mt-12 flex justify-center">
@@ -270,38 +88,11 @@
         </div>
     </footer>
 
-    <!-- BOTTOM NAV (Fixed Bottom) -->
-    <nav class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4">
-        <div class="flex items-center justify-around gap-2 max-w-md mx-auto">
-            <a href="dash.html"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">home</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">Home</span>
-            </a>
-            <a href="events.html"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">event</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">Events</span>
-            </a>
-            <a href="people.html" class="flex flex-col items-center gap-1 text-primary">
-                <span class="material-symbols-outlined text-2xl lowercase">groups</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">People</span>
-            </a>
-            <a href="about.html"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">info</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">About</span>
-            </a>
-            <a href="#"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">link</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">Links</span>
-            </a>
-        </div>
-    </nav>
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="People"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
 
     <div class="h-24"></div> <!-- Spacer for fixed footer -->
-
 </body>
 
 </html>

@@ -92,7 +92,8 @@ insert into v_org_type (code, label) values
   ('AGENCY',   'Government or law enforcement bodies (e.g., FBI, DPD)'),
   ('MEDIA',    'News outlets or publishers'),
   ('BUSINESS', 'Commercial entities'),
-  ('GROUP',    'Political or social organizations')
+  ('GROUP',    'Political or social organizations'),
+  ('ARCHIVE',  'Document repository or research collection')
 on conflict (code) do nothing;
 
 -- 11. Place types

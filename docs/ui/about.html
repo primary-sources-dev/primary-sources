@@ -11,70 +11,22 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#B08B49",
-                        "archive-bg": "#2E282A",
-                        "archive-secondary": "#D4CFC7",
-                        "archive-heading": "#F0EDE0",
-                    },
-                    fontFamily: {
-                        "display": ["Oswald", "sans-serif"],
-                        "mono": ["Roboto Mono", "monospace"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "0"
-                    },
-                },
-            },
-        }
-    </script>
-    <style type="text/tailwindcss">
-        body {
-            font-family: 'Roboto Mono', monospace;
-            background-color: #2E282A;
-            color: #D4CFC7;
-        }
-        h1, h2, h3, h4, .heading-font {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            color: #F0EDE0;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        hr { border-color: #D4CFC7; opacity: 0.2; }
-    </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/db-logic.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
 
     <!-- HEADER -->
-    <header class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
-        <div class="flex h-16 items-center justify-between px-4">
-            <a href="dash.html" class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-                <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase">JFK Archive</h1>
-            </a>
-            <button
-                class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10">
-                <span class="material-symbols-outlined text-archive-heading">menu</span>
-            </button>
-        </div>
-    </header>
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
     <!-- BREADCRUMB -->
     <div class="px-6 pt-4 pb-2 text-[10px] uppercase tracking-widest text-archive-secondary opacity-60">
-        <a href="dash.html" class="hover:text-primary">Home</a>
+        <a href="index.html" class="hover:text-primary">Home</a>
         <span class="mx-2">/</span>
         <span class="text-archive-heading">About This Project</span>
     </div>
@@ -304,35 +256,9 @@
         </div>
     </footer>
 
-    <!-- BOTTOM NAV (Fixed Bottom) -->
-    <nav class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4">
-        <div class="flex items-center justify-around gap-2 max-w-md mx-auto">
-            <a href="dash.html"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">home</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">Home</span>
-            </a>
-            <a href="events.html"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">event</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">Events</span>
-            </a>
-            <a href="people.html"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">groups</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">People</span>
-            </a>
-            <a href="about.html" class="flex flex-col items-center gap-1 text-primary">
-                <span class="material-symbols-outlined text-2xl lowercase">info</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">About</span>
-            </a>
-            <a href="#"
-                class="flex flex-col items-center gap-1 text-archive-secondary/40 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-2xl lowercase">link</span>
-                <span class="text-[8px] font-bold uppercase tracking-widest">Links</span>
-            </a>
-        </div>
-    </nav>
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="About"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
     <div class="h-16"></div>
 
 </body>

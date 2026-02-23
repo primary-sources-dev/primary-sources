@@ -1,0 +1,78 @@
+/**
+ * main.css — JFK Archive Global Design System
+ *
+ * NOTE: This site uses the Tailwind CDN alongside these custom styles.
+ * To avoid conflicts with Tailwind's own class names (e.g. text-primary),
+ * we define all design tokens as CSS custom properties on :root, and apply
+ * base styles directly to HTML elements rather than through competing utility classes.
+ *
+ * Tailwind utility classes ARE still used in HTML (bg-[#hex], border, flex, etc.)
+ * but all theme-critical colors and fonts are controlled here via CSS variables.
+ */
+
+/* ==============================
+   DESIGN TOKENS
+   ============================== */
+:root {
+    --primary: #B08B49;
+    --archive-bg: #2E282A;
+    --archive-surface: #252021;
+    --archive-secondary: #D4CFC7;
+    --archive-heading: #F0EDE0;
+}
+
+/* ==============================
+   BASE ELEMENT STYLES
+   ============================== */
+html {
+    background-color: var(--archive-bg);
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: var(--archive-bg);
+    color: var(--archive-secondary);
+    min-height: 100dvh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1,
+h2,
+h3,
+h4,
+.heading-font {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    color: var(--archive-heading);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+hr {
+    border-color: rgba(212, 207, 199, 0.2);
+}
+
+/* ==============================
+   TAILWIND OVERRIDE: text-primary
+   Tailwind CDN also defines text-primary. We force ours to win with higher specificity.
+   ============================== */
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.border-primary {
+    border-color: var(--primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+/* ==============================
+   TAILWIND CDN CONFIG
+   These are forwarded to Tailwind via a config block in each HTML page.
+   This file ensures base element rendering is always correct even if
+   the Tailwind CDN is slow to load.
+   ============================== */

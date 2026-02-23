@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard — JFK Primary Sources Archive</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/db-logic.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- HERO / QUICK ACCES -->
+    <section class="relative border-b border-archive-secondary/10 bg-[#252021] px-6 py-12 overflow-hidden">
+        <div class="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
+        <div class="relative z-10 max-w-2xl">
+            <h2
+                class="text-4xl font-bold leading-tight text-archive-heading tracking-tighter sm:text-5xl uppercase font-display">
+                The Primary Sources <br />
+                <span class="text-primary italic">Relating to the Assassination</span>
+            </h2>
+            <p class="mt-4 text-xs leading-relaxed text-archive-secondary/70 uppercase tracking-widest">
+                Searchable digital index of the National Archives records.
+            </p>
+        </div>
+    </section>
+
+    <!-- BROWSE CATEGORIES -->
+    <section class="grid grid-cols-2 border-b border-archive-secondary/10 sm:grid-cols-4">
+        <a href="people.html"
+            class="flex flex-col items-center gap-3 border-r border-archive-secondary/10 p-8 hover:bg-primary/5 transition-colors group">
+            <span
+                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">groups</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">People</span>
+        </a>
+        <a href="events.html"
+            class="flex flex-col items-center gap-3 border-r border-archive-secondary/10 p-8 hover:bg-primary/5 transition-colors group">
+            <span
+                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">event</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Events</span>
+        </a>
+        <a href="#"
+            class="flex flex-col items-center gap-3 border-r border-archive-secondary/10 p-8 hover:bg-primary/5 transition-colors group">
+            <span
+                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">article</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Documents</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-3 p-8 hover:bg-primary/5 transition-colors group">
+            <span
+                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">database</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Full DB</span>
+        </a>
+    </section>
+
+    <!-- RECENTLY ADDED (DYNAMIC) -->
+    <section class="p-6">
+        <div class="mb-6 flex items-center justify-between border-b border-archive-secondary/10 pb-4">
+            <h3 class="text-lg font-bold text-archive-heading uppercase tracking-widest">Recently Added</h3>
+            <a href="events.html" class="text-[10px] font-bold uppercase text-primary hover:underline">View All</a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2" data-data-source="events" data-template="event">
+            <!-- Dynamic Event Cards will be injected here -->
+        </div>
+    </section>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Home"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>
