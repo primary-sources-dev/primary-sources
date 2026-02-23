@@ -1,6 +1,7 @@
 .claude/
 web/.env.local
 raw-material/
+raw/
 yates/
 church-committee/
 hsca/

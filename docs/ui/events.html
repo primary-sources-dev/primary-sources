@@ -47,27 +47,29 @@
     <header data-component="header"
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
-    <!-- MODULAR SEARCH BAR -->
     <section data-component="facet-bar" data-title="Events"
-        data-filters='{"Date": ["All", "April 1963", "September 1963", "October 1963", "November 1963"], "Location": ["All", "Dallas", "Washington", "New Orleans"]}'
+        data-filters='{"Type": ["All", "SIGHTING", "TRANSFER", "REPORT_WRITTEN", "INTERVIEW", "PHONE_CALL"]}'
         class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
     </section>
 
     <!-- RESULT FEED -->
     <main class="p-6">
-        <!-- Section Header -->
-        <div class="mb-4 border-l-4 border-primary pl-4 uppercase">
-            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">The 1963 Chain of Events</h3>
+        <div class="mb-8 border-l-4 border-primary pl-4 uppercase">
+            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Historical
+                Timeline</h2>
+            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Foundational sequence of
+                documented events</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="events" data-template="event">
-            <!-- Dynamic Event Cards will be injected here by components.js -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="events"
+            data-default-title="Historical Timeline">
+            <!-- Dynamic Event Cards will be injected here by components.js or db-logic.js -->
         </div>
 
         <div class="mt-12 flex justify-center">
             <button
                 class="bg-primary px-8 py-3 text-sm font-bold text-archive-bg hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest">
-                Load More Events
+                Load More Records
             </button>
         </div>
     </main>

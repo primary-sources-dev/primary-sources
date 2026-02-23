@@ -54,14 +54,15 @@
 
     <main class="p-6">
         <div class="mb-8 border-l-4 border-primary pl-4 uppercase">
-            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Archives &
-                External Resources</h2>
+            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Archive
+                Repository Directory</h2>
             <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Direct access to primary
-                record repositories</p>
+                record collections</p>
         </div>
 
         <!-- Render all orgs but enable client-side filtering by "Category" (mapping to org_type) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="orgs" data-filter="ARCHIVE">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="orgs" data-filter="ARCHIVE"
+            data-default-title="Archive Repository Directory">
             <!-- Dynamic cards injected here by db-logic.js -->
         </div>
     </main>

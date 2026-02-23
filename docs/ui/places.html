@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Places — Primary Sources</title>
+    <title>Browse Places — Primary Sources</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
@@ -48,25 +48,28 @@
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
     <section data-component="facet-bar" data-title="Places"
-        data-filters='{"Type": ["All", "City", "Site", "Building", "Street"]}'
+        data-filters='{"Type": ["All", "CITY", "SITE", "BUILDING", "OFFICE", "RESIDENCE"]}'
         class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
     </section>
 
     <!-- RESULT FEED -->
     <main class="p-6">
-        <!-- Section Header -->
-        <div class="mb-4 border-l-4 border-primary pl-4">
-            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">Localities & Sites</h3>
+        <div class="mb-8 border-l-4 border-primary pl-4 uppercase">
+            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Geographic
+                Entities</h2>
+            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Locations, Sites, and
+                Facilities</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="places" data-template="place">
-            <!-- Dynamic Place Cards will be injected here by db-logic.js -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="places" data-template="place"
+            data-default-title="Geographic Entities">
+            <!-- Dynamic Place Cards will be injected here by components.js or db-logic.js -->
         </div>
 
         <div class="mt-12 flex justify-center">
             <button
                 class="bg-primary px-8 py-3 text-sm font-bold text-archive-bg hover:brightness-110 active:scale-95 transition-all uppercase tracking-widest">
-                Load More Places
+                Load More Records
             </button>
         </div>
     </main>

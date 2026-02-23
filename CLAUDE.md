@@ -19,6 +19,14 @@ This document provides context, constraints, and workflows for AI assistants wor
 
 ## Critical Architectural Constraints
 
+### 0. Hands-off Global Components
+
+**Never** modify the global navigation or header/footer components unless explicitly instructed by the user. These components are established early and stabilize the UI. Specifically:
+- **`docs/ui/components/bottom-nav.html`**: Master global navigation.
+- **`docs/ui/components/header.html`**: Master site header.
+
+**Why:** These files serve as the backbone of the UI and are frequently modified by the AI in ways that drift from the user's intent.
+
 ### 1. Never Bypass the Controlled Vocabulary
 
 All type/role fields must reference `v_*` tables. **Never** accept free-text values for:

@@ -55,6 +55,23 @@
 
             // 3. Re-append in sorted order
             cards.forEach(card => container.appendChild(card));
+
+            // 4. Update Main Heading if filtered
+            const pageHeader = document.querySelector("main h2, main h3");
+            if (pageHeader) {
+                const activeFilterValue = Object.entries(activeFilters).find(([k, v]) => v !== 'All');
+                const baseTitle = document.querySelector("[data-component='facet-bar']")?.getAttribute("data-title") || "Browse";
+
+                if (activeFilterValue) {
+                    pageHeader.textContent = `${baseTitle}: ${activeFilterValue[1]}`;
+                } else if (searchQuery) {
+                    pageHeader.textContent = `${baseTitle}: "${searchQuery}"`;
+                } else {
+                    // Fallback to original intent if no filter
+                    const defaultTitle = container.getAttribute("data-default-title") || baseTitle;
+                    pageHeader.textContent = defaultTitle;
+                }
+            }
         });
     }
 
@@ -118,7 +135,14 @@
                     try {
                         const response = await fetch(options);
                         const data = await response.json();
-                        const dynamicOptions = ['All', ...data.map(item => item.title || item.name)];
+
+                        let filteredData = data;
+                        // For events, only show top-level (parent) events in the filter dropdown
+                        if (options.includes('events.json')) {
+                            filteredData = data.filter(item => !item.parent_event_id);
+                        }
+
+                        const dynamicOptions = ['All', ...filteredData.map(item => item.title || item.name)];
                         createDropdown(container, label, dynamicOptions);
                     } catch (e) {
                         console.error(`Failed to fetch dynamic options for ${label}:`, e);

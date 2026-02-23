@@ -54,13 +54,15 @@
 
     <!-- RESULT FEED -->
     <main class="p-6">
-        <!-- Section Header -->
-        <div class="mb-4 border-l-4 border-primary pl-4">
-            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">The Yates Incident (Reference
-                Set)</h3>
+        <div class="mb-8 border-l-4 border-primary pl-4 uppercase">
+            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Directory of
+                Personnel</h2>
+            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Witnesses, Suspects, and
+                Investigators</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="people" data-template="person">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="people" data-template="person"
+            data-default-title="Directory of Personnel">
             <!-- Dynamic People Cards will be injected here by components.js -->
         </div>
 

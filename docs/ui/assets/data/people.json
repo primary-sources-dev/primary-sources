@@ -7,12 +7,7 @@
         "display_name": "Lee Harvey Oswald",
         "given_name": "Lee",
         "family_name": "Oswald",
-        "tags": [
-            "The Ralph Leon Yates incident",
-            "The Sylvia Odio Incident",
-            "The Walker Incident",
-            "Oswald Hired at TSBD"
-        ],
+        "person_type": "PERSON",
         "notes": "Described as physically identical to the hitchhiker picked up by Yates on Nov 20, 1963. Former U.S. Marine, defector to the Soviet Union, and primary suspect in the assassination."
     },
     {
@@ -21,11 +16,7 @@
         "icon": "person",
         "label": "Main Witness · 1928 – 1975",
         "display_name": "Yates, Ralph Leon",
-        "tags": [
-            "The Ralph Leon Yates incident",
-            "Texas Butchers Supply Company",
-            "FBI"
-        ],
+        "person_type": "PERSON",
         "notes": "Refrigeration mechanic who reported picking up a hitchhiker on Nov 20, 1963 matching Oswald's description. Reported the incident to the FBI before the assassination. Later committed to a psychiatric facility."
     },
     {
@@ -34,9 +25,7 @@
         "icon": "person",
         "label": "Key Witness · 1937 – Present",
         "display_name": "Odio, Sylvia",
-        "tags": [
-            "The Sylvia Odio Incident"
-        ],
+        "person_type": "PERSON",
         "notes": "Cuban exile who testified that Lee Harvey Oswald, accompanied by two Latin men, visited her Dallas apartment in late September 1963 to discuss anti-Castro activities. Her testimony raised significant questions about Oswald's timeline."
     },
     {
@@ -45,9 +34,7 @@
         "icon": "person",
         "label": "Target · 1909 – 1993",
         "display_name": "Walker, Edwin",
-        "tags": [
-            "The Walker Incident"
-        ],
+        "person_type": "PERSON",
         "notes": "Resigned U.S. Army Major General and right-wing political figure. Target of an assassination attempt at his home in Dallas on April 10, 1963, which was later attributed to Lee Harvey Oswald by the Warren Commission."
     },
     {
@@ -56,9 +43,7 @@
         "icon": "person",
         "label": "Key Witness · 1932 – Present",
         "display_name": "Paine, Ruth",
-        "tags": [
-            "Oswald Hired at TSBD"
-        ],
+        "person_type": "PERSON",
         "notes": "Irving, TX resident who hosted Marina Oswald and her children. She helped Lee Harvey Oswald secure employment at the Texas School Book Depository in October 1963 and stored his rifle in her garage."
     }
 ]

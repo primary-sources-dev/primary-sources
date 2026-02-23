@@ -28,7 +28,8 @@ function buildCard(item) {
     ].filter(Boolean).join(' ').toLowerCase();
 
     const itemType = (item.org_type || item.person_type || item.place_type || item.object_type || item.source_type || item.event_type || '').toLowerCase();
-    let dynamicTags = [...(item.tags || []), itemType];
+    let dynamicTags = [...(item.tags || [])];
+    if (itemType) dynamicTags.push(itemType);
 
     // Auto-generate tags for events (Date & Location)
     if (item.start_ts) {
@@ -41,6 +42,7 @@ function buildCard(item) {
         if (item.label.includes('Dallas')) dynamicTags.push('Dallas');
         if (item.label.includes('Washington')) dynamicTags.push('Washington');
         if (item.label.includes('New Orleans')) dynamicTags.push('New Orleans');
+        if (item.label.includes('Residence')) dynamicTags.push('residence');
     }
 
     const filterTags = dynamicTags.filter(Boolean).join('|').toLowerCase();

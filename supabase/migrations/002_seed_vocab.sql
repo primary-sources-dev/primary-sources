@@ -92,6 +92,7 @@ insert into v_org_type (code, label) values
   ('MEDIA',    'News outlets or publishers'),
   ('BUSINESS', 'Commercial entities'),
   ('GROUP',    'Political or social organizations'),
+  ('ORGANIZATION', 'Generic social or public organization'),
   ('ARCHIVE',  'Document repository or research collection')
 on conflict (code) do nothing;
 
@@ -100,7 +101,9 @@ insert into v_place_type (code, label) values
   ('BUILDING', 'A specific structure'),
   ('STREET',   'A road or intersection'),
   ('CITY',     'A municipal area'),
-  ('SITE',     'A specific area or geographic zone')
+  ('SITE',     'A specific area or geographic zone'),
+  ('RESIDENCE', 'A domestic building (Building subtype)'),
+  ('OFFICE',    'A workspace building (Building subtype)')
 on conflict (code) do nothing;
 
 -- 12. Object types
