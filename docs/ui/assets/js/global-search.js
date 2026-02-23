@@ -67,6 +67,19 @@
     // Initialize
     loadAllData();
 
+    // Handle breadcrumb for Search page
+    document.addEventListener("componentLoaded", (e) => {
+        if (e.detail.name === 'header') {
+            const breadcrumbNav = document.getElementById("breadcrumb-nav");
+            const currentEl = document.getElementById("breadcrumb-current");
+            if (breadcrumbNav && currentEl) {
+                currentEl.textContent = "Search";
+                breadcrumbNav.classList.remove("hidden");
+                breadcrumbNav.classList.add("md:flex");
+            }
+        }
+    });
+
     if (searchInput) {
         searchInput.addEventListener("input", (e) => {
             search(e.target.value.trim());

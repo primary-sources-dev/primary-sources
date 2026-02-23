@@ -4,170 +4,323 @@
         "org_type": "ARCHIVE",
         "icon": "account_balance",
         "label": "Federal Repository · Washington, D.C.",
-        "title": "National Archives (NARA)",
-        "body": "Primary custodian of the JFK Assassination Records Collection under the JFK Records Act of 1992. Holds millions of pages from over 60 government agencies.",
-        "link": "https://www.archives.gov/research/jfk"
+        "name": "National Archives (NARA)",
+        "notes": "Primary custodian of the JFK Assassination Records Collection under the JFK Records Act of 1992. Holds millions of pages from over 60 government agencies.",
+        "url": "https://www.archives.gov/research/jfk",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "nsa",
         "org_type": "ARCHIVE",
         "icon": "account_balance",
         "label": "Federal Repository · NSA",
-        "title": "NSA Historical Releases — JFK",
-        "body": "National Security Agency signals intelligence records declassified under the JFK Records Act transparency initiative.",
-        "link": "https://www.nsa.gov/Helpful-Links/NSA-FOIA/Declassification-Transparency-Initiatives/Historical-Releases/JFK/"
+        "name": "NSA Historical Releases — JFK",
+        "notes": "National Security Agency signals intelligence records declassified under the JFK Records Act transparency initiative.",
+        "url": "https://www.nsa.gov/Helpful-Links/NSA-FOIA/Declassification-Transparency-Initiatives/Historical-Releases/JFK/",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "jfk-library",
         "org_type": "ARCHIVE",
         "icon": "local_library",
         "label": "Presidential Library · Boston, MA",
-        "title": "John F. Kennedy Presidential Library",
-        "body": "Official presidential library housing Kennedy's personal papers, White House records, oral histories, and photographs from his administration.",
-        "link": "https://www.jfklibrary.org/archives"
+        "name": "John F. Kennedy Presidential Library",
+        "notes": "Official presidential library housing Kennedy's personal papers, White House records, oral histories, and photographs from his administration.",
+        "url": "https://www.jfklibrary.org/archives",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "lbj-library",
         "org_type": "ARCHIVE",
         "icon": "local_library",
         "label": "Presidential Library · Austin, TX",
-        "title": "Lyndon B. Johnson Presidential Library",
-        "body": "Holds records from the Johnson administration including Warren Commission materials, post-assassination transition files, and related correspondence.",
-        "link": "https://www.lbjlibrary.org/research/online-collections-resources"
+        "name": "Lyndon B. Johnson Presidential Library",
+        "notes": "Holds records from the Johnson administration including Warren Commission materials, post-assassination transition files, and related correspondence.",
+        "url": "https://www.lbjlibrary.org/research/online-collections-resources",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "ford-library",
         "org_type": "ARCHIVE",
         "icon": "local_library",
         "label": "Presidential Library · Ann Arbor, MI",
-        "title": "Gerald R. Ford Presidential Library",
-        "body": "Contains Ford's files as a Warren Commission member, including working papers, interview notes, and correspondence during the 1964 investigation.",
-        "link": "https://www.fordlibrarymuseum.gov/digital-research-room/finding-aids/ford-library-project-file-president-kennedys-assassination"
+        "name": "Gerald R. Ford Presidential Library",
+        "notes": "Contains Ford's files as a Warren Commission member, including working papers, interview notes, and correspondence during the 1964 investigation.",
+        "url": "https://www.fordlibrarymuseum.gov/digital-research-room/finding-aids/ford-library-project-file-president-kennedys-assassination",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "mary-ferrell",
         "org_type": "ARCHIVE",
         "icon": "menu_book",
         "label": "Independent Archive · Digital",
-        "title": "Mary Ferrell Foundation",
-        "body": "Largest independent online repository of JFK assassination records. Hosts over 1.5 million digitized pages cross-referenced with the NARA collection.",
-        "link": "https://www.maryferrell.org"
+        "name": "Mary Ferrell Foundation",
+        "notes": "Largest independent online repository of JFK assassination records. Hosts over 1.5 million digitized pages cross-referenced with the NARA collection.",
+        "url": "https://www.maryferrell.org",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "weisberg-archive",
         "org_type": "ARCHIVE",
         "icon": "menu_book",
         "label": "University Archive · Hood College, MD",
-        "title": "Harold Weisberg Archive",
-        "body": "Personal research archive of assassination critic Harold Weisberg. Contains correspondence, FOIA responses, and original investigative documents spanning four decades.",
-        "link": "https://archive.org/details/weisberg-complete-archive"
+        "name": "Harold Weisberg Archive",
+        "notes": "Personal research archive of assassination critic Harold Weisberg. Contains correspondence, FOIA responses, and original investigative documents spanning four decades.",
+        "url": "https://archive.org/details/weisberg-complete-archive",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "baylor-poage",
         "org_type": "ARCHIVE",
         "icon": "school",
         "label": "University Archive · Waco, TX",
-        "title": "Baylor University Poage Library — JFK Collection",
-        "body": "Academic collection of materials related to the Kennedy assassination, including congressional records and regional Texas documents.",
-        "link": "https://library.web.baylor.edu/visit/baylor-collections-political-materials-w-r-poage-library/bcpm-collections/jfk-collections"
+        "name": "Baylor University Poage Library — JFK Collection",
+        "notes": "Academic collection of materials related to the Kennedy assassination, including congressional records and regional Texas documents.",
+        "url": "https://library.web.baylor.edu/visit/baylor-collections-political-materials-w-r-poage-library/bcpm-collections/jfk-collections",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "aarc",
         "org_type": "ARCHIVE",
         "icon": "menu_book",
         "label": "Independent Archive · Washington, D.C.",
-        "title": "Assassination Archives and Research Center (AARC)",
-        "body": "Non-profit repository specializing in political assassination records. Holds unique materials obtained through FOIA and private donation since 1984.",
-        "link": "https://aarclibrary.org"
+        "name": "Assassination Archives and Research Center (AARC)",
+        "notes": "Non-profit repository specializing in political assassination records. Holds unique materials obtained through FOIA and private donation since 1984.",
+        "url": "https://aarclibrary.org",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "sixth-floor",
         "org_type": "ARCHIVE",
         "icon": "museum",
         "label": "Museum Archive · Dallas, TX",
-        "title": "Sixth Floor Museum at Dealey Plaza",
-        "body": "Located in the former Texas School Book Depository. Maintains oral histories, photographs, and artifacts related to the assassination and its aftermath.",
-        "link": "https://www.jfk.org"
+        "name": "Sixth Floor Museum at Dealey Plaza",
+        "notes": "Located in the former Texas School Book Depository. Maintains oral histories, photographs, and artifacts related to the assassination and its aftermath.",
+        "url": "https://www.jfk.org",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "black-vault",
         "org_type": "ARCHIVE",
         "icon": "menu_book",
         "label": "Independent Archive · Digital",
-        "title": "The Black Vault — JFK Records",
-        "body": "FOIA-driven digital archive. Hosts thousands of declassified government documents obtained through independent records requests.",
-        "link": "https://www.theblackvault.com/documentarchive/j-f-k-assassination-records/"
+        "name": "The Black Vault — JFK Records",
+        "notes": "FOIA-driven digital archive. Hosts thousands of declassified government documents obtained through independent records requests.",
+        "url": "https://www.theblackvault.com/documentarchive/j-f-k-assassination-records/",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "history-matters",
         "org_type": "ARCHIVE",
         "icon": "menu_book",
         "label": "Independent Archive · Digital",
-        "title": "History Matters",
-        "body": "Online archive of Warren Commission testimony, exhibits, and investigative records. Cross-referenced with HSCA and ARRB materials.",
-        "link": "https://history-matters.com"
+        "name": "History Matters",
+        "notes": "Online archive of Warren Commission testimony, exhibits, and investigative records. Cross-referenced with HSCA and ARRB materials.",
+        "url": "https://history-matters.com",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "unt-portal",
         "org_type": "ARCHIVE",
         "icon": "school",
         "label": "University Archive · Denton, TX",
-        "title": "University of North Texas — JFK Portal",
-        "body": "Digitized Texas-based JFK materials from the UNT Texas History Portal, including Dallas-area news coverage and municipal records.",
-        "link": "https://texashistory.unt.edu/explore/collections/JFKAM/"
+        "name": "University of North Texas — JFK Portal",
+        "notes": "Digitized Texas-based JFK materials from the UNT Texas History Portal, including Dallas-area news coverage and municipal records.",
+        "url": "https://texashistory.unt.edu/explore/collections/JFKAM/",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "uta-libraries",
         "org_type": "ARCHIVE",
         "icon": "school",
         "label": "University Archive · Arlington, TX",
-        "title": "University of Texas Arlington Libraries",
-        "body": "Special collections including regional Texas history materials pertaining to the Kennedy assassination and the Dallas political climate of 1963.",
-        "link": "https://libraries.uta.edu/special-collections"
+        "name": "University of Texas Arlington Libraries",
+        "notes": "Special collections including regional Texas history materials pertaining to the Kennedy assassination and the Dallas political climate of 1963.",
+        "url": "https://libraries.uta.edu/special-collections",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "dallas-municipal",
         "org_type": "ARCHIVE",
         "icon": "account_balance",
         "label": "Municipal Archive · Dallas, TX",
-        "title": "Dallas Municipal Archives",
-        "body": "City of Dallas government records including Dallas Police Department files, city council records, and official communications from November 1963.",
-        "link": "https://www.dallascityhall.com/government/citysecretary/Pages/Municipal-Archives.aspx"
+        "name": "Dallas Municipal Archives",
+        "notes": "City of Dallas government records including Dallas Police Department files, city council records, and official communications from November 1963.",
+        "url": "https://www.dallascityhall.com/government/citysecretary/Pages/Municipal-Archives.aspx",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "dallas-public-library",
         "org_type": "ARCHIVE",
         "icon": "local_library",
         "label": "Public Library · Dallas, TX",
-        "title": "Dallas Public Library — History Division",
-        "body": "Holds local history materials, newspaper archives, and photographic collections documenting Dallas in November 1963.",
-        "link": "https://dallaslibrary.org/dallas-history-archives-division/"
+        "name": "Dallas Public Library — History Division",
+        "notes": "Holds local history materials, newspaper archives, and photographic collections documenting Dallas in November 1963.",
+        "url": "https://dallaslibrary.org/dallas-history-archives-division/",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "tufts-tisch",
         "org_type": "ARCHIVE",
         "icon": "school",
         "label": "University Archive · Medford, MA",
-        "title": "Tufts University Tisch Library — JFK Collection",
-        "body": "Academic database access to the JFK Assassination Collection. Digitized primary sources available for scholarly research.",
-        "link": "https://tischlibrary.tufts.edu/what-we-have/databases/john-f-kennedy-assassination-collection"
+        "name": "Tufts University Tisch Library — JFK Collection",
+        "notes": "Academic database access to the JFK Assassination Collection. Digitized primary sources available for scholarly research.",
+        "url": "https://tischlibrary.tufts.edu/what-we-have/databases/john-f-kennedy-assassination-collection",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "nsarchive-gwu",
         "org_type": "ARCHIVE",
         "icon": "school",
         "label": "University Archive · Washington, D.C.",
-        "title": "National Security Archive (GWU)",
-        "body": "George Washington University non-governmental research institute. Holds declassified CIA covert operations files and briefing books on the Kennedy assassination records.",
-        "link": "https://nsarchive.gwu.edu"
+        "name": "National Security Archive (GWU)",
+        "notes": "George Washington University non-governmental research institute. Holds declassified CIA covert operations files and briefing books on the Kennedy assassination records.",
+        "url": "https://nsarchive.gwu.edu",
+        "tags": [
+            "Archive"
+        ]
     },
     {
         "id": "texas-butchers",
         "org_type": "BUSINESS",
         "icon": "store",
         "label": "Industrial · Dallas, TX",
-        "title": "Texas Butchers Supply Company",
-        "body": "Privately owned company in Dallas where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
-        "link": "#"
+        "name": "Texas Butchers Supply Company",
+        "notes": "Privately owned company in Dallas where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
+        "url": "#",
+        "tags": [
+            "Private"
+        ]
+    },
+    {
+        "id": "fbi",
+        "org_type": "AGENCY",
+        "icon": "policy",
+        "label": "Federal Agency · Washington, D.C.",
+        "name": "Federal Bureau of Investigation (FBI)",
+        "notes": "Domestic intelligence and security service of the United States. Conducted the primary initial investigation into the assassination under Director J. Edgar Hoover.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "dallas-pd",
+        "org_type": "AGENCY",
+        "icon": "local_police",
+        "label": "Municipal Police · Dallas, TX",
+        "name": "Dallas Police Department (DPD)",
+        "notes": "Local law enforcement agency responsible for the immediate crime scene investigation and the arrest of Lee Harvey Oswald.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "warren-commission",
+        "org_type": "AGENCY",
+        "icon": "gavel",
+        "label": "Presidential Commission · 1963-1964",
+        "name": "The Warren Commission",
+        "notes": "President's Commission on the Assassination of President Kennedy. Established by LBJ to investigate the assassination. Concluded Oswald acted alone.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "hsca",
+        "org_type": "AGENCY",
+        "icon": "gavel",
+        "label": "Congressional Committee · 1976-1979",
+        "name": "House Select Committee on Assassinations (HSCA)",
+        "notes": "U.S. House of Representatives committee established to investigate the assassinations of JFK and MLK. Concluded that JFK was 'probably assassinated as a result of a conspiracy'.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "church-committee",
+        "org_type": "AGENCY",
+        "icon": "gavel",
+        "label": "Senate Committee · 1975-1976",
+        "name": "The Church Committee",
+        "notes": "U.S. Senate Select Committee to Study Governmental Operations with Respect to Intelligence Activities. Investigated intelligence abuses by the CIA, FBI, IRS, and NSA.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "cia",
+        "org_type": "AGENCY",
+        "icon": "policy",
+        "label": "Federal Agency · Langley, VA",
+        "name": "Central Intelligence Agency (CIA)",
+        "notes": "Foreign intelligence service of the U.S. government. Scrutinized for its surveillance of Oswald in Mexico City and potential knowledge of threats to the President.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "arrb",
+        "org_type": "AGENCY",
+        "icon": "gavel",
+        "label": "Independent Agency · 1994-1998",
+        "name": "Assassination Records Review Board (ARRB)",
+        "notes": "Independent U.S. government agency created to oversee the release of government records related to the assassination of President John F. Kennedy.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
+    },
+    {
+        "id": "noda",
+        "org_type": "AGENCY",
+        "icon": "local_police",
+        "label": "District DA · New Orleans, LA",
+        "name": "New Orleans District Attorney's Office (NODA)",
+        "notes": "The office of District Attorney Jim Garrison, which conducted the only criminal trial (State of Louisiana v. Clay Shaw) related to the assassination of President Kennedy.",
+        "url": "#",
+        "tags": [
+            "Gov"
+        ]
     }
 ]

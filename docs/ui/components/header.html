@@ -1,8 +1,20 @@
 <div class="flex h-16 items-center justify-between px-4">
-    <a href="index.html" class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-        <h1 class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">JFK Archive</h1>
-    </a>
+    <div class="flex items-center gap-4">
+        <a href="index.html" class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+            <h1 class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary Sources
+            </h1>
+        </a>
+
+        <!-- BREADCRUMBS -->
+        <nav id="breadcrumb-nav"
+            class="hidden md:flex items-center gap-2 border-l border-archive-secondary/20 pl-4 py-1">
+            <span class="text-[10px] uppercase tracking-widest text-archive-secondary/40">Archive</span>
+            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
+            <span id="breadcrumb-current"
+                class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Browse</span>
+        </nav>
+    </div>
 
     <div class="flex items-center gap-3">
         <a href="search.html"

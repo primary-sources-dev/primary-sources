@@ -1,4 +1,4 @@
-# JFK Primary Sources Archives — Style Guide
+# Primary Sources — Style Guide
 
 > This document is the single source of truth for UI consistency.
 > All new screens must reference these tokens and patterns before writing any markup.

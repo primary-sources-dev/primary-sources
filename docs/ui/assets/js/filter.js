@@ -22,11 +22,15 @@
 
             // 1. Filter
             cards.forEach(card => {
-                const tags = (card.getAttribute("data-tags") || "").toLowerCase();
-                const matchesSearch = tags.includes(searchQuery);
+                const searchIndex = (card.getAttribute("data-search-index") || "").toLowerCase();
+                const filterTags = (card.getAttribute("data-filter-tags") || "").toLowerCase().split('|');
+
+                const matchesSearch = searchIndex.includes(searchQuery);
 
                 const matchesAllFilters = Object.values(activeFilters).every(val => {
-                    return val === 'All' || tags.includes(val.toLowerCase());
+                    if (val === 'All') return true;
+                    // Check if any tag exactly matches the filter value
+                    return filterTags.includes(val.toLowerCase());
                 });
 
                 if (matchesSearch && matchesAllFilters) {
@@ -135,11 +139,19 @@
         if (e.detail.name === 'facet-bar') {
             const container = document.getElementById("filter-container");
             const filterDataAttr = e.detail.element.getAttribute("data-filters");
+            const breadcrumbNav = document.getElementById("breadcrumb-nav");
+            const currentEl = document.getElementById("breadcrumb-current");
+
             const customTitle = e.detail.element.getAttribute("data-title");
 
-            if (customTitle) {
-                const titleEl = document.getElementById("page-title");
-                if (titleEl) titleEl.textContent = customTitle;
+            if (customTitle && currentEl) {
+                currentEl.textContent = customTitle;
+                if (breadcrumbNav) breadcrumbNav.classList.remove("hidden");
+                if (breadcrumbNav) breadcrumbNav.classList.add("md:flex");
+            } else if (breadcrumbNav) {
+                // If it's the home page or no title, typically we hide breadcrumbs
+                breadcrumbNav.classList.add("hidden");
+                breadcrumbNav.classList.remove("md:flex");
             }
 
             if (container && filterDataAttr) {

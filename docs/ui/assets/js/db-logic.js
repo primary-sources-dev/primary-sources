@@ -15,7 +15,7 @@
 function buildCard(item) {
     const featured = !!item.featured;
 
-    const searchableText = [
+    const searchIndex = [
         item.label,
         item.title,
         item.name,
@@ -23,10 +23,13 @@ function buildCard(item) {
         ...(item.tags || [])
     ].filter(Boolean).join(' ').toLowerCase();
 
+    const filterTags = (item.tags || []).join('|').toLowerCase();
+
     return `
     <a href="${item.link || '#'}"
-        data-tags="${searchableText}"
-        data-title="${(item.title || item.name || '').toLowerCase()}"
+        data-search-index="${searchIndex}"
+        data-filter-tags="${filterTags}"
+        data-title="${(item.display_name || item.title || item.name || '').toLowerCase()}"
         data-label="${(item.label || '').toLowerCase()}"
         style="display:flex;align-items:flex-start;gap:1rem;border:1px solid ${featured ? 'rgba(176,139,73,0.4)' : 'rgba(212,207,199,0.1)'};background:${featured ? 'rgba(176,139,73,0.07)' : 'rgba(37,32,33,0.6)'};padding:${featured ? '1.25rem' : '1rem'};transition:border-color 0.2s;text-decoration:none;"
         onmouseover="this.style.borderColor='rgba(176,139,73,0.6)'"
@@ -38,8 +41,8 @@ function buildCard(item) {
 
         <div style="display:flex;flex-direction:column;height:100%;padding:0.25rem 0;min-width:0;">
             <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--primary);letter-spacing:0.1em;margin-bottom:4px">${item.label || ''}</span>
-            <h4 style="font-family:'Oswald',sans-serif;font-size:${featured ? '1.15rem' : '1rem'};font-weight:700;text-transform:uppercase;color:var(--archive-heading);line-height:1.25;margin:0">${item.title || item.name || ''}</h4>
-            <p style="font-size:0.72rem;color:rgba(212,207,199,0.75);margin-top:8px;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">${item.body || ''}</p>
+            <h4 style="font-family:'Oswald',sans-serif;font-size:${featured ? '1.15rem' : '1rem'};font-weight:700;text-transform:uppercase;color:var(--archive-heading);line-height:1.25;margin:0">${item.display_name || item.title || item.name || ''}</h4>
+            <p style="font-size:0.72rem;color:rgba(212,207,199,0.75);margin-top:8px;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">${item.notes || item.body || ''}</p>
         </div>
     </a>`;
 }

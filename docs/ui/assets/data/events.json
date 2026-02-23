@@ -20,5 +20,29 @@
         "tags": [
             "Sep 63"
         ]
+    },
+    {
+        "id": "walker-incident",
+        "icon": "gps_fixed",
+        "label": "April 10, 1963 · Dallas, TX",
+        "title": "The Walker Incident",
+        "body": "An assassination attempt is made on General Edwin Walker at his home. A bullet is fired through his window, narrowly missing him. The Warren Commission later concluded Lee Harvey Oswald was the shooter based on Marina Oswald's testimony and a note allegedly left by Oswald.",
+        "featured": true,
+        "tags": [
+            "Apr 63",
+            "Assassination Attempt"
+        ]
+    },
+    {
+        "id": "oswald-hired-tsbd",
+        "icon": "business",
+        "label": "Oct 16, 1963 · Dallas, TX",
+        "title": "Oswald Hired at TSBD",
+        "body": "Lee Harvey Oswald begins work at the Texas School Book Depository (TSBD) as an order filler earning $1.25 per hour. The job referral came from Ruth Paine's neighbor, Linnie Mae Randle, whose brother Buell Wesley Frazier also worked there.",
+        "featured": true,
+        "tags": [
+            "Oct 63",
+            "Employment"
+        ]
     }
 ]
