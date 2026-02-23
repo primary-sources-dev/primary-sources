@@ -190,6 +190,7 @@ def process_job_worker(job_id):
         total_files = len(job["files"])
         for i, file_info in enumerate(job["files"]):
             file_info["status"] = "processing"
+            file_info["progress"] = 0
             job["log"].append(f"Processing: {file_info['name']}")
             job["progress"] = int((i / total_files) * 100)
             
@@ -207,14 +208,17 @@ def process_job_worker(job_id):
                 
                 def on_progress(pct, msg):
                     job["log"].append(msg)
+                    file_info["progress"] = pct
                     job["progress"] = int((i / total_files) * 100 + (pct / total_files))
                 
                 def on_complete(success, msg):
                     if success:
                         file_info["status"] = "completed"
+                        file_info["progress"] = 100
                         job["log"].append(f"✓ {file_info['name']} completed")
                     else:
                         file_info["status"] = "failed"
+                        file_info["progress"] = 0
                         job["log"].append(f"✗ {file_info['name']} failed: {msg}")
                 
                 worker.process_file(file_info["path"], on_progress, on_complete)

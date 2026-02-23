@@ -1,20 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primary Sources — OCR Tool</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="ocr-gui.css">
 </head>
+
 <body class="bg-archive-bg text-archive-secondary font-mono">
     <!-- Header -->
     <header class="sticky top-0 z-50 border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
-        <div class="h-16 flex items-center px-6">
-            <a href="../index.html" class="text-archive-secondary hover:text-primary mr-4">← Back</a>
-            <h1 class="text-xl font-bold text-archive-heading uppercase tracking-widest">
-                Primary Sources — OCR Tool
-            </h1>
+        <div class="h-16 flex items-center justify-between px-6">
+            <div class="flex items-center gap-4">
+                <a href="../index.html" class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+                    <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase font-display">Primary
+                        Sources</h1>
+                </a>
+
+                <!-- BREADCRUMBS -->
+                <nav id="breadcrumb-nav"
+                    class="hidden md:flex items-center gap-2 border-l border-archive-secondary/20 pl-4 py-1">
+                    <span class="text-xs uppercase tracking-widest text-archive-secondary/40"
+                        style="opacity: 0.4;">Archive</span>
+                    <span class="material-symbols-outlined text-xs text-archive-secondary/20"
+                        style="opacity: 0.2; font-size: 14px;">chevron_right</span>
+                    <span id="breadcrumb-current"
+                        class="text-xs font-bold uppercase tracking-wider text-primary">OCR</span>
+                </nav>
+            </div>
+
+            <a href="../index.html"
+                class="text-xs font-bold uppercase text-archive-secondary/60 hover:text-primary transition-all tracking-tighter"
+                style="opacity: 0.6;">
+                [ Return to Archive ]
+            </a>
         </div>
+        <!-- Desktop Menu Bar -->
+        <nav class="menu-bar">
+            <div class="menu-item">
+                File
+                <div class="menu-dropdown">
+                    <div class="dropdown-item" id="menu-file-open">
+                        Open Files...
+                        <span class="shortcut">Ctrl+O</span>
+                    </div>
+                    <div class="dropdown-item" id="menu-file-dir">
+                        Set Output Directory...
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item" id="menu-file-folder">
+                        Open Output Folder
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item" id="menu-file-clear">
+                        Clear Queue
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="../index.html" class="dropdown-item">
+                        Exit
+                        <span class="shortcut">Alt+F4</span>
+                    </a>
+                </div>
+            </div>
+            <div class="menu-item">
+                Help
+                <div class="menu-dropdown">
+                    <div class="dropdown-item" id="menu-help-use">
+                        How to Use
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-item" id="menu-help-about">
+                        About
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
@@ -40,7 +105,8 @@
             <div id="drop-zone" class="drop-zone border border-archive-secondary/20 bg-archive-dark/50 mb-8">
                 <div class="drop-zone-content">
                     <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 16v-4m0 0V8m0 4H8m0 0h4m0 0h4m0 0v4m0 0h-4m0 0h4m0 0H8m0 0H4m0 0h4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M12 16v-4m0 0V8m0 4H8m0 0h4m0 0h4m0 0v4m0 0h-4m0 0h4m0 0H8m0 0H4m0 0h4" />
                     </svg>
                     <p class="text-archive-secondary text-base">Drop PDF files here or click to browse</p>
                 </div>
@@ -49,7 +115,8 @@
 
             <!-- Settings Section -->
             <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-8">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
                     Settings
                 </h3>
 
@@ -113,13 +180,9 @@
                 <div class="setting-group">
                     <label class="text-xs font-bold uppercase tracking-wider text-primary block mb-2">Save to</label>
                     <div class="flex gap-2">
-                        <input 
-                            type="text" 
-                            id="output-dir" 
-                            readonly 
+                        <input type="text" id="output-dir" readonly
                             class="flex-1 bg-archive-bg border border-primary px-3 py-2 text-archive-secondary text-sm cursor-text"
-                            title="Double-click to copy"
-                        >
+                            title="Double-click to copy">
                         <button class="btn-secondary btn-sm" onclick="changeOutputDir()">Change...</button>
                         <button class="btn-primary btn-sm" onclick="openOutputFolder()">Open</button>
                     </div>
@@ -137,7 +200,8 @@
         <section id="tab-content-queue" class="tab-content hidden">
             <!-- Queue List -->
             <div class="setting-group mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Queue
                 </h3>
                 <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none">
@@ -149,16 +213,35 @@
 
             <!-- Log Output -->
             <div class="setting-group">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Log
                 </h3>
-                <div id="log-output" class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-48 overflow-y-auto">
+                <div id="log-output"
+                    class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-48 overflow-y-auto">
                     <p class="text-archive-secondary/60">Waiting to start processing...</p>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal Title</h2>
+                <button class="btn-close-modal" id="modal-close">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary btn-sm" id="modal-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
     <script src="ocr-gui.js"></script>
 </body>
+
 </html>

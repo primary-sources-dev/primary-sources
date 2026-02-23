@@ -21,6 +21,54 @@ const queueBadge = document.getElementById('queue-badge');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
+// Modal Elements
+const modalOverlay = document.getElementById('modal-overlay');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.getElementById('modal-body');
+const modalClose = document.getElementById('modal-close');
+const modalOk = document.getElementById('modal-ok');
+
+const HELP_TEXT = `
+PRIMARY SOURCES — OCR TOOL
+==========================
+
+This tool converts scanned PDF documents into searchable text.
+
+QUICK START
+-----------
+1. Click File → Open Files (or the Browse button) to add PDFs
+2. Choose your output settings
+3. Click "Start OCR"
+
+BACKENDS
+--------
+• WSL (ocrmypdf): Higher quality, creates searchable PDFs.
+  Requires WSL with ocrmypdf installed.
+  
+• Python (pytesseract): Windows-native, outputs plain text.
+  Faster setup, no WSL required.
+
+OPTIONS
+-------
+• Deskew: Straightens crooked scanned pages
+• Clean: Removes noise/specks from old photocopies
+• Force OCR: Re-processes files that already have text layers
+
+OUTPUT
+------
+• Searchable PDF: Original document with invisible text layer
+• Plain Text: Raw extracted text with page markers
+
+Files are saved to the output directory shown in Settings.
+The folder opens automatically when processing completes.
+
+TIPS
+----
+• Process large batches overnight — OCR is CPU-intensive
+• Use WSL backend for best quality on archival documents
+• Check output quality on a few pages before processing entire collection
+`;
+
 // ============================================================================
 // INITIALIZATION
 // ============================================================================
@@ -55,6 +103,60 @@ function setupEventListeners() {
 
     // Output directory copy
     outputDirInput.addEventListener('dblclick', copyOutputPath);
+
+    // Menu Item Listeners
+    document.getElementById('menu-file-open').addEventListener('click', () => fileInput.click());
+    document.getElementById('menu-file-dir').addEventListener('click', changeOutputDir);
+    document.getElementById('menu-file-folder').addEventListener('click', openOutputFolder);
+    document.getElementById('menu-file-clear').addEventListener('click', clearQueue);
+
+    document.getElementById('menu-help-use').addEventListener('click', showHelp);
+    document.getElementById('menu-help-about').addEventListener('click', showAbout);
+
+    // Modal Listeners
+    modalClose.addEventListener('click', closeModal);
+    modalOk.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'o') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+}
+
+function showModal(title, content, isPre = false) {
+    modalTitle.textContent = title;
+    if (isPre) {
+        modalBody.innerHTML = `<pre>${content}</pre>`;
+    } else {
+        modalBody.innerHTML = content;
+    }
+    modalOverlay.classList.add('active');
+}
+
+function closeModal() {
+    modalOverlay.classList.remove('active');
+}
+
+function showHelp() {
+    showModal('How to Use — OCR Tool', HELP_TEXT.trim(), true);
+}
+
+function showAbout() {
+    const aboutContent = `
+        <div style="text-align: center; padding: 20px 0;">
+            <h3 style="color: var(--color-heading); font-size: 24px; margin-bottom: 5px;">PRIMARY SOURCES</h3>
+            <p style="color: var(--color-primary); font-bold; font-size: 16px; margin-bottom: 20px;">OCR WEB TOOL</p>
+            <p style="color: var(--color-secondary); opacity: 0.6; font-size: 12px; margin-bottom: 5px;">Version 1.0 (Web Architecture)</p>
+            <p style="color: var(--color-secondary);">Batch OCR processing for archival PDF documents.</p>
+        </div>
+    `;
+    showModal('About', aboutContent);
 }
 
 function setupTabNavigation() {
@@ -128,15 +230,40 @@ function renderQueue() {
         return;
     }
 
-    queueList.innerHTML = queuedFiles.map((file, idx) => `
-        <div class="queue-item">
-            <div>
-                <div class="font-bold">${file.name}</div>
-                <div class="text-xs" style="opacity: 0.6">${formatFileSize(file.size)}</div>
+    queueList.innerHTML = queuedFiles.map((file, idx) => {
+        // Find if this file is in the current job
+        const jobFile = currentJob ? currentJob.files.find(f => f.name === file.name) : null;
+        const status = jobFile ? jobFile.status : 'queued';
+        const progress = jobFile ? jobFile.progress || 0 : 0;
+        const isCompleted = status === 'completed';
+        const isProcessing = status === 'processing';
+
+        return `
+        <div class="queue-item ${status}">
+            <div class="flex-1">
+                <div class="flex items-center gap-3">
+                    <span class="font-bold">${file.name}</span>
+                    <span class="text-[9px] px-1.5 py-0.5 border border-primary/30 text-primary uppercase font-bold tracking-tighter">${status}</span>
+                </div>
+                <div class="text-xs mb-1" style="opacity: 0.6">${formatFileSize(file.size)}</div>
+                ${isProcessing ? `
+                    <div class="queue-progress">
+                        <div class="queue-progress-bar" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="text-[9px] text-primary font-bold mt-1 uppercase tracking-tighter">${progress}% Processed</div>
+                ` : ''}
             </div>
-            <button class="btn-remove" onclick="removeFileFromQueue(${idx})">×</button>
+            <div class="flex items-center gap-2">
+                ${isCompleted ? `
+                    <a href="../pdf-viewer.html?file=processed/${file.name}" target="_blank"
+                       class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">visibility</span> View
+                    </a>
+                ` : ''}
+                <button class="btn-remove" onclick="removeFileFromQueue(${idx})" ${isProcessing ? 'disabled' : ''}>×</button>
+            </div>
         </div>
-    `).join('');
+    `}).join('');
 }
 
 function updateQueueBadge() {
@@ -212,18 +339,47 @@ function pollJobProgress() {
     fetch(`/api/jobs/${currentJob.id}`)
         .then(r => r.json())
         .then(job => {
+            const statusChanged = currentJob.status !== job.status;
+            const filesUpdated = JSON.stringify(currentJob.files) !== JSON.stringify(job.files);
+
+            // Calculate per-file progress based on overall job progress
+            const totalFiles = job.files.length;
+            const completedFiles = job.files.filter(f => f.status === 'completed').length;
+            const processingFiles = job.files.filter(f => f.status === 'processing');
+
+            // Update each file's progress field
+            job.files.forEach((file, idx) => {
+                if (file.status === 'completed') {
+                    file.progress = 100;
+                } else if (file.status === 'processing') {
+                    // Calculate this file's progress based on overall job progress
+                    const completedWeight = completedFiles * (100 / totalFiles);
+                    const remainingProgress = job.progress - completedWeight;
+                    const processingWeight = processingFiles.length > 0 ? remainingProgress / processingFiles.length : 0;
+                    file.progress = Math.min(Math.round(processingWeight), 99);
+                } else if (file.status === 'failed') {
+                    file.progress = 0;
+                } else {
+                    file.progress = 0;
+                }
+            });
+
             currentJob = job;
 
-            // Update log
-            job.log.forEach((msg, idx) => {
-                if (!document.querySelector(`[data-log-idx="${idx}"]`)) {
-                    if (msg.includes('✓') || msg.includes('completed')) {
-                        logSuccess(msg);
-                    } else if (msg.includes('✗') || msg.includes('Error')) {
-                        logError(msg);
-                    } else {
-                        logMessage(msg);
-                    }
+            // Re-render queue if files updated, status changed, or if actively processing (to show progress updates)
+            if (filesUpdated || statusChanged || job.status === 'processing') {
+                renderQueue();
+            }
+
+            // Update log (only append new messages)
+            const logCount = logOutput.querySelectorAll('p').length;
+            job.log.slice(logCount).forEach((msg) => {
+                if (msg.includes('✓') || msg.includes('completed')) {
+                    logSuccess(msg);
+                } else if (msg.includes('✗') || msg.includes('Error')) {
+                    logError(msg);
+                } else {
+                    logMessage(msg);
                 }
             });
 

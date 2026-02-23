@@ -57,7 +57,10 @@ function buildCard(item) {
         const queryParams = new URLSearchParams(pdfParams || '');
         const page = queryParams.get('page') || 1;
         const search = queryParams.get('search') || '';
-        itemLink = `pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
+        
+        // Handle path depth (if we are in ocr/ or other subfolder)
+        const pathPrefix = window.location.pathname.includes('/ocr/') ? '../' : '';
+        itemLink = `${pathPrefix}pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
     }
 
     return `
