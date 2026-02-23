@@ -104,14 +104,13 @@ function setupEventListeners() {
     // Output directory copy
     outputDirInput.addEventListener('dblclick', copyOutputPath);
 
-    // Menu Item Listeners
-    document.getElementById('menu-file-open').addEventListener('click', () => fileInput.click());
-    document.getElementById('menu-file-dir').addEventListener('click', changeOutputDir);
-    document.getElementById('menu-file-folder').addEventListener('click', openOutputFolder);
-    document.getElementById('menu-file-clear').addEventListener('click', clearQueue);
-
-    document.getElementById('menu-help-use').addEventListener('click', showHelp);
-    document.getElementById('menu-help-about').addEventListener('click', showAbout);
+    // Menu Item Listeners (commented out - menu bar disabled)
+    // document.getElementById('menu-file-open').addEventListener('click', () => fileInput.click());
+    // document.getElementById('menu-file-dir').addEventListener('click', changeOutputDir);
+    // document.getElementById('menu-file-folder').addEventListener('click', openOutputFolder);
+    // document.getElementById('menu-file-clear').addEventListener('click', clearQueue);
+    // document.getElementById('menu-help-use').addEventListener('click', showHelp);
+    // document.getElementById('menu-help-about').addEventListener('click', showAbout);
 
     // Modal Listeners
     modalClose.addEventListener('click', closeModal);
