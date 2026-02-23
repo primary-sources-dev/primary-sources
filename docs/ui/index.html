@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Dashboard — JFK Primary Sources Archive</title>
+    <title>JFK Primary Sources Archive</title>
+    <meta name="description"
+        content="Searchable digital index of the National Archives JFK assassination records — unedited primary materials for scholarly research and public record." />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
@@ -46,59 +48,142 @@
     <header data-component="header"
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
-    <!-- HERO / QUICK ACCES -->
-    <section class="relative border-b border-archive-secondary/10 bg-[#252021] px-6 py-12 overflow-hidden">
-        <div class="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-primary/5 blur-3xl"></div>
-        <div class="relative z-10 max-w-2xl">
-            <h2
-                class="text-4xl font-bold leading-tight text-archive-heading tracking-tighter sm:text-5xl uppercase font-display">
-                The Primary Sources <br />
-                <span class="text-primary italic">Relating to the Assassination</span>
+    <!-- HERO / CTA -->
+    <section class="relative w-full overflow-hidden bg-archive-dark py-14">
+        <!-- Subtle gold glow -->
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none">
+        </div>
+        <!-- Fade into page bg at bottom -->
+        <div
+            class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-archive-bg to-transparent pointer-events-none">
+        </div>
+
+        <div class="relative z-10 px-6 flex flex-col items-center text-center">
+            <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-4">
+                National Archives · JFK Records Act Collection
+            </span>
+            <h2 class="mb-4 text-4xl font-bold leading-tight text-archive-heading sm:text-5xl uppercase font-display">
+                Welcome to the JFK<br />
+                <span class="text-primary">Primary Sources Archive</span>
             </h2>
-            <p class="mt-4 text-xs leading-relaxed text-archive-secondary/70 uppercase tracking-widest">
-                Searchable digital index of the National Archives records.
+            <p class="mb-8 max-w-md text-xs text-archive-secondary/70 uppercase tracking-widest">
+                Preserving history through unedited primary materials for scholarly research and public record.
             </p>
+            <a href="about.html"
+                class="inline-flex h-12 items-center justify-center bg-primary px-8 text-sm font-bold text-archive-bg shadow-lg hover:brightness-110 active:scale-95 transition-all">
+                About This Project
+                <span class="material-symbols-outlined ml-2 text-base">arrow_forward</span>
+            </a>
         </div>
     </section>
 
-    <!-- BROWSE CATEGORIES -->
-    <section class="grid grid-cols-2 border-b border-archive-secondary/10 sm:grid-cols-4">
-        <a href="people.html"
-            class="flex flex-col items-center gap-3 border-r border-archive-secondary/10 p-8 hover:bg-primary/5 transition-colors group">
-            <span
-                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">groups</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">People</span>
-        </a>
-        <a href="events.html"
-            class="flex flex-col items-center gap-3 border-r border-archive-secondary/10 p-8 hover:bg-primary/5 transition-colors group">
-            <span
-                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">event</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Events</span>
-        </a>
-        <a href="#"
-            class="flex flex-col items-center gap-3 border-r border-archive-secondary/10 p-8 hover:bg-primary/5 transition-colors group">
-            <span
-                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">article</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Documents</span>
-        </a>
-        <a href="#" class="flex flex-col items-center gap-3 p-8 hover:bg-primary/5 transition-colors group">
-            <span
-                class="material-symbols-outlined text-4xl text-primary group-hover:scale-110 transition-transform">database</span>
-            <span class="text-[10px] font-bold uppercase tracking-[0.2em]">Full DB</span>
-        </a>
+    <hr class="border-archive-secondary/20" />
+
+    <!-- BROWSE BY CATEGORY -->
+    <section class="p-6 bg-archive-bg/50">
+        <h3
+            class="mb-6 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
+            Browse by Category
+        </h3>
+        <div class="grid grid-cols-2 gap-4">
+
+            <a href="events.html"
+                class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                </div>
+                <span class="font-bold text-archive-heading uppercase tracking-wider">Events</span>
+            </a>
+
+            <a href="people.html"
+                class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+                    <span class="material-symbols-outlined">groups</span>
+                </div>
+                <span class="font-bold text-archive-heading uppercase tracking-wider">People</span>
+            </a>
+
+            <a href="orgs.html"
+                class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+                    <span class="material-symbols-outlined">account_balance</span>
+                </div>
+                <span class="font-bold text-archive-heading uppercase tracking-wider">Organizations</span>
+            </a>
+
+            <a href="#"
+                class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+                    <span class="material-symbols-outlined">description</span>
+                </div>
+                <span class="font-bold text-archive-heading uppercase tracking-wider">Sources</span>
+            </a>
+
+            <a href="#"
+                class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+                    <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <span class="font-bold text-archive-heading uppercase tracking-wider">Places</span>
+            </a>
+
+            <a href="#"
+                class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                </div>
+                <span class="font-bold text-archive-heading uppercase tracking-wider">Objects</span>
+            </a>
+
+        </div>
     </section>
+
+    <hr class="border-archive-secondary/20" />
 
     <!-- RECENTLY ADDED (DYNAMIC) -->
     <section class="p-6">
-        <div class="mb-6 flex items-center justify-between border-b border-archive-secondary/10 pb-4">
-            <h3 class="text-lg font-bold text-archive-heading uppercase tracking-widest">Recently Added</h3>
-            <a href="events.html" class="text-[10px] font-bold uppercase text-primary hover:underline">View All</a>
+        <div class="mb-6 flex items-center justify-between border-l-4 border-primary pl-4">
+            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">Recently Added</h3>
+            <a href="events.html" class="text-xs font-bold uppercase text-primary hover:underline tracking-tighter">[
+                View All ]</a>
         </div>
-
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2" data-data-source="events" data-template="event">
-            <!-- Dynamic Event Cards will be injected here -->
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2" data-data-source="events">
+            <!-- Dynamic event cards injected by db-logic.js -->
         </div>
     </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 border-t border-archive-secondary/20 bg-archive-dark px-6 py-10">
+        <div class="mb-8">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary">account_balance</span>
+                <span class="text-sm font-bold uppercase tracking-[0.2em] text-archive-heading">JFK Archive</span>
+            </div>
+            <p class="text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
+                This archive presents primary source materials without editorial interpretation. All materials are
+                primary sources provided for the purpose of scholarly research, education, and public historical record.
+            </p>
+        </div>
+        <nav class="mb-8 grid grid-cols-2 gap-y-4 text-xs font-bold uppercase tracking-wider text-archive-secondary">
+            <a class="hover:text-primary" href="#">Disclaimer</a>
+            <a class="hover:text-primary" href="#">Privacy Policy</a>
+            <a class="hover:text-primary" href="#">Terms of Use</a>
+            <a class="hover:text-primary" href="#">Contact Archive</a>
+        </nav>
+        <div class="border-t border-archive-secondary/10 pt-6">
+            <p class="text-[10px] text-archive-secondary opacity-40 uppercase">
+                © 2026 JFK Primary Sources Archives. All rights reserved. Managed by the Independent Historical
+                Preservation Group.
+            </p>
+        </div>
+    </footer>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="Home"

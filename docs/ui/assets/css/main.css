@@ -75,6 +75,14 @@ hr {
     background-color: var(--archive-dark) !important;
 }
 
+.bg-archive-bg {
+    background-color: var(--archive-bg) !important;
+}
+
+.bg-archive-surface {
+    background-color: var(--archive-surface) !important;
+}
+
 /* ==============================
    TAILWIND CDN CONFIG
    These are forwarded to Tailwind via a config block in each HTML page.
