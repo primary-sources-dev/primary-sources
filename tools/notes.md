@@ -1,241 +1,491 @@
 # Entity Extraction Pipeline
 
-Detailed workflow for extracting structured entities from OCR'd source documents.
+Workflow for extracting structured entities from OCR'd source documents, mapped to the database schema and UI JSON formats.
 
 ---
 
-## Overview
+## Architecture Overview
 
-This document describes the exact process for converting raw OCR text from PDF documents into structured JSON entities that match the database schema.
+```
+                                    ┌─────────────────────┐
+                                    │  Supabase Database  │
+                                    │  (Source of Truth)  │
+                                    └─────────────────────┘
+                                              ▲
+                                              │ SQL INSERT
+                                              │
+┌──────────────┐    ┌──────────────┐    ┌─────────────────┐
+│  OCR'd PDF   │ →  │  Extraction  │ →  │ [source]_       │
+│  (raw text)  │    │  Process     │    │ entities.json   │
+└──────────────┘    └──────────────┘    └─────────────────┘
+                                              │
+                                              │ Merge
+                                              ▼
+                                    ┌─────────────────────┐
+                                    │  docs/ui/assets/    │
+                                    │  data/*.json        │
+                                    │  (UI Presentation)  │
+                                    └─────────────────────┘
+```
 
-**Input:** OCR'd PDF (e.g., `yates_searchable.pdf`)  
-**Output:** Structured JSON file (e.g., `yates_entities.json`)
+**Two Output Targets:**
+1. **Database** — PostgreSQL tables with strict FK constraints to controlled vocabularies
+2. **UI JSON** — Presentation layer with additional display fields (icons, labels, tags)
 
 ---
 
-## Phase 1: Document Ingestion
+## Part 1: Database Schema Reference
 
-### 1.1 Read OCR Text
+The database is the source of truth. All entities must conform to these table structures.
 
-Read the PDF in chunks to extract searchable text:
+### 1.1 Person Table
 
+```sql
+CREATE TABLE person (
+  person_id    UUID PRIMARY KEY,
+  display_name TEXT NOT NULL,        -- "Yates, Ralph Leon"
+  given_name   TEXT,                 -- "Ralph"
+  middle_name  TEXT,                 -- "Leon"
+  family_name  TEXT,                 -- "Yates"
+  birth_date   DATE,                 -- 1936-01-23
+  death_date   DATE,                 -- NULL if alive/unknown
+  notes        TEXT
+);
 ```
-# Read first 500 lines
-Read: raw-material/[source]/[document]_searchable.pdf (lines 1-500)
 
-# Continue reading in 500-line chunks
-Read: lines 500-1000
-Read: lines 1000-1500
-# ... until document is fully reviewed
+**Related tables:**
+- `person_alias` — Alternative names (e.g., "Jack Ruby" → "Jack Rubenstein")
+- `entity_identifier` — External IDs (FBI file numbers, military service numbers)
+
+### 1.2 Org Table
+
+```sql
+CREATE TABLE org (
+  org_id     UUID PRIMARY KEY,
+  name       TEXT NOT NULL,          -- "Texas Butchers Supply Company"
+  org_type   TEXT REFERENCES v_org_type(code),  -- FK constraint
+  url        TEXT,                   -- Homepage or reference URL
+  start_date DATE,                   -- Founding date
+  end_date   DATE,                   -- Dissolution date (if applicable)
+  notes      TEXT
+);
 ```
 
-**Key extraction points:**
-- FBI FD-302 reports have structured headers with dates, file numbers, agents
-- Testimony transcripts have speaker identification
-- Look for ALL CAPS names (FBI style)
-- Note page numbers from OCR (e.g., "-- 3 of 43 --")
+**Controlled vocabulary (`v_org_type`):**
+| Code | Label |
+|------|-------|
+| `AGENCY` | Government or law enforcement bodies |
+| `MEDIA` | News outlets or publishers |
+| `BUSINESS` | Commercial entities |
+| `GROUP` | Political or social organizations |
+| `ORGANIZATION` | Generic social or public organization |
+| `ARCHIVE` | Document repository or research collection |
 
-### 1.2 Create Working Notes
+### 1.3 Place Table
 
-As you read, extract raw mentions in categories:
-- Names (with context: role, relationship, address)
-- Dates (with associated actions)
-- Locations (addresses, buildings, streets)
-- Objects (physical items mentioned)
-- Events (interviews, sightings, transfers)
+```sql
+CREATE TABLE place (
+  place_id        UUID PRIMARY KEY,
+  name            TEXT NOT NULL,      -- "Texas School Book Depository"
+  place_type      TEXT REFERENCES v_place_type(code),  -- FK constraint
+  parent_place_id UUID REFERENCES place(place_id),     -- Hierarchical
+  lat             DOUBLE PRECISION,   -- 32.7798
+  lon             DOUBLE PRECISION,   -- -96.8086
+  notes           TEXT
+);
+```
+
+**Controlled vocabulary (`v_place_type`):**
+| Code | Label |
+|------|-------|
+| `BUILDING` | A specific structure |
+| `STREET` | A road or intersection |
+| `CITY` | A municipal area |
+| `SITE` | A specific area or geographic zone |
+| `RESIDENCE` | A domestic building (Building subtype) |
+| `OFFICE` | A workspace building (Building subtype) |
+
+### 1.4 Object Table
+
+```sql
+CREATE TABLE object (
+  object_id   UUID PRIMARY KEY,
+  name        TEXT NOT NULL,          -- "Mannlicher-Carcano Rifle"
+  object_type TEXT REFERENCES v_object_type(code),  -- FK constraint
+  description TEXT                    -- Detailed description
+);
+```
+
+**Controlled vocabulary (`v_object_type`):**
+| Code | Label |
+|------|-------|
+| `DOCUMENT` | Written or printed record (report, letter, exhibit) |
+| `WEAPON` | Firearm, blade, or instrument used to cause harm |
+| `VEHICLE` | Car, motorcycle, or other transport |
+| `MEDIA_CARRIER` | Film reel, audio tape, photographic negative |
+| `CLOTHING` | Garments or personal effects |
+
+### 1.5 Event Table
+
+```sql
+CREATE TABLE event (
+  event_id       UUID PRIMARY KEY,
+  event_type     TEXT NOT NULL REFERENCES v_event_type(code),  -- FK constraint
+  title          TEXT,                -- "The Ralph Leon Yates Incident"
+  start_ts       TIMESTAMPTZ,         -- 1963-11-20T10:30:00Z
+  end_ts         TIMESTAMPTZ,         -- NULL for point events
+  time_precision TEXT REFERENCES v_time_precision(code),
+  description    TEXT
+);
+```
+
+**Controlled vocabulary (`v_event_type`):**
+| Code | Label |
+|------|-------|
+| `SHOT` | Specific instance of a firearm discharge |
+| `SIGHTING` | Visual observation of a person or object |
+| `TRANSFER` | Movement of person/object between custody/location |
+| `INTERVIEW` | Formal or informal questioning session |
+| `REPORT_WRITTEN` | Official documenting an event |
+| `PHONE_CALL` | Telephonic communication |
+
+**Controlled vocabulary (`v_time_precision`):**
+| Code | Rule |
+|------|------|
+| `EXACT` | start_ts NOT NULL, end_ts NULL or = start_ts |
+| `APPROX` | start_ts NOT NULL, end_ts must be NULL |
+| `RANGE` | Both start_ts AND end_ts NOT NULL |
+| `UNKNOWN` | Both start_ts AND end_ts must be NULL |
+
+### 1.6 Junction Tables
+
+Events connect to entities through junction tables:
+
+```sql
+-- Who participated?
+CREATE TABLE event_participant (
+  event_id   UUID REFERENCES event(event_id),
+  party_type TEXT CHECK (party_type IN ('person','org')),
+  party_id   UUID,  -- References person or org based on party_type
+  role_type  TEXT REFERENCES v_role_type(code),
+  assertion_id UUID REFERENCES assertion(assertion_id),
+  notes      TEXT
+);
+
+-- Where did it happen?
+CREATE TABLE event_place (
+  event_id   UUID REFERENCES event(event_id),
+  place_id   UUID REFERENCES place(place_id),
+  place_role TEXT REFERENCES v_place_role(code),  -- OCCURRED_AT, STARTED_AT, ENDED_AT
+  assertion_id UUID,
+  notes      TEXT
+);
+
+-- What objects were involved?
+CREATE TABLE event_object (
+  event_id    UUID REFERENCES event(event_id),
+  object_id   UUID REFERENCES object(object_id),
+  object_role TEXT REFERENCES v_object_role(code),  -- USED, RECOVERED, EXAMINED
+  assertion_id UUID,
+  notes       TEXT
+);
+```
+
+**Participant roles (`v_role_type`):**
+| Code | Label |
+|------|-------|
+| `WITNESS` | Personally observed the event |
+| `SUBJECT` | Primary focus of the event |
+| `INVESTIGATOR` | Official conducting inquiry |
+| `PHOTOGRAPHER` | Capturing visual evidence |
+| `PHYSICIAN` | Medical professional |
+| `OFFICER` | Law enforcement personnel |
 
 ---
 
-## Phase 2: Schema Reference
+## Part 2: UI JSON Format
 
-Before structuring entities, review existing JSON files to understand required fields.
+The UI layer adds presentation fields not stored in the database.
 
-### 2.1 People Schema
-
-```json
-{
-  "id": "slug-format-name",
-  "person_id": "uuid-v4",
-  "icon": "person",
-  "label": "Role · Dates or Context",
-  "display_name": "Last, First",
-  "given_name": "First",
-  "family_name": "Last",
-  "aliases": ["Optional array"],
-  "tags": ["Event tags", "Organization tags"],
-  "notes": "Detailed description with source context"
-}
-```
-
-**Label format examples:**
-- `"FBI Special Agent · Dallas Office"`
-- `"Witness · TBSC Employee"`
-- `"Family · Yates Daughter"`
-- `"Politician · 1900 – 1965"`
-
-### 2.2 Organizations Schema
+### 2.1 People (UI)
 
 ```json
 {
-  "id": "slug-format-name",
-  "org_id": "uuid-v4",
-  "org_type": "BUSINESS | AGENCY | ARCHIVE | ORGANIZATION",
-  "icon": "store | policy | local_police | gavel | local_hospital | nightlife | military_tech",
-  "label": "Type · Location",
-  "name": "Full Official Name",
-  "aliases": ["Optional array"],
-  "notes": "Description with address and relevance",
-  "url": "null or URL string"
+  "id": "ralph-yates",                    // Slug for URL routing
+  "person_id": "uuid-v4",                 // Matches database PK
+  "icon": "person",                       // Material icon name
+  "label": "Main Witness · 1928 – 1975",  // Display subtitle
+  "display_name": "Yates, Ralph Leon",    // From database
+  "given_name": "Ralph",
+  "family_name": "Yates",
+  "tags": ["The Ralph Leon Yates incident", "Texas Butchers Supply Company"],
+  "notes": "Description text..."
 }
 ```
 
-**org_type values:**
-- `BUSINESS` — Commercial entities (stores, clubs, companies)
-- `AGENCY` — Government bodies (FBI, police, military)
-- `ARCHIVE` — Document repositories
-- `ORGANIZATION` — Other (hospitals, churches)
-
-### 2.3 Places Schema
+### 2.2 Organizations (UI)
 
 ```json
 {
-  "id": "slug-format-name",
-  "place_id": "uuid-v4",
-  "icon": "location_city | signpost | place | landscape | home | storefront | corporate_fare | route | local_mall",
-  "label": "Type · Parent Location",
-  "name": "Full Place Name",
-  "place_type": "CITY | SITE | BUILDING | STREET",
-  "parent_place_id": "uuid of parent or null",
-  "lat": null or decimal,
-  "lon": null or decimal,
-  "notes": "Description with address and significance"
+  "id": "texas-butchers",                 // Slug
+  "org_id": "uuid-v4",                    // Matches database PK
+  "org_type": "BUSINESS",                 // From v_org_type
+  "icon": "store",                        // Material icon
+  "label": "Industrial · Dallas, TX",     // Display subtitle
+  "name": "Texas Butchers Supply Company",
+  "notes": "Description...",
+  "url": "#"
 }
 ```
 
-**place_type hierarchy:**
-- `CITY` — Top level (Dallas, Irving, New Orleans)
-- `SITE` — Areas within cities (Oak Cliff, Dealey Plaza)
-- `BUILDING` — Specific structures (TSBD, residences)
-- `STREET` — Roads and intersections
+**Icon mapping for org_type:**
+| org_type | Suggested Icon |
+|----------|----------------|
+| `AGENCY` | `policy`, `local_police`, `gavel` |
+| `MEDIA` | `newspaper` |
+| `BUSINESS` | `store`, `storefront` |
+| `GROUP` | `groups` |
+| `ARCHIVE` | `account_balance`, `local_library`, `menu_book` |
+| `ORGANIZATION` | `local_hospital`, `church` |
 
-**Parent linking:**
-- Dallas places → parent_place_id: `"2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7"` (Dallas)
-- Irving places → parent_place_id: `"4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9"` (Irving)
-- Dealey Plaza sites → parent_place_id: `"7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"` (Dealey Plaza)
-
-### 2.4 Objects Schema
+### 2.3 Places (UI)
 
 ```json
 {
-  "id": "slug-format-name",
-  "object_id": "uuid-v4",
-  "icon": "inventory_2 | photo | badge | receipt_long | local_shipping | precision_manufacturing",
-  "label": "Type · Exhibit or Source",
-  "name": "Descriptive Name",
-  "object_type": "WEAPON | DOCUMENT | MEDIA_CARRIER | VEHICLE",
-  "description": "Full description with measurements, serial numbers, significance",
-  "related_to": "Optional: id of related object"
+  "id": "tsbd",                           // Slug
+  "place_id": "uuid-v4",                  // Matches database PK
+  "icon": "corporate_fare",               // Material icon
+  "label": "Building · Dallas",           // Display subtitle
+  "name": "Texas School Book Depository",
+  "place_type": "BUILDING",               // From v_place_type
+  "parent_place_id": "uuid-of-dallas",    // Hierarchical link
+  "lat": 32.7798,
+  "lon": -96.8086,
+  "notes": "Description..."
 }
 ```
 
-### 2.5 Events Schema
+**Icon mapping for place_type:**
+| place_type | Suggested Icon |
+|------------|----------------|
+| `CITY` | `location_city` |
+| `SITE` | `landscape`, `place` |
+| `BUILDING` | `corporate_fare`, `home`, `storefront` |
+| `STREET` | `signpost`, `route` |
+| `RESIDENCE` | `home`, `cottage` |
+| `OFFICE` | `corporate_fare` |
+
+### 2.4 Objects (UI)
 
 ```json
 {
-  "id": "slug-format-name",
-  "event_id": "uuid-v4",
-  "parent_event_id": "uuid of parent event or omit",
-  "event_type": "SIGHTING | SHOT | TRANSFER | INTERVIEW | REPORT_WRITTEN | PHONE_CALL",
-  "icon": "person_pin | pin_drop | assignment_ind | record_voice_over | build | phone_in_talk",
-  "label": "Date · Location",
-  "title": "Event Title",
-  "description": "Full narrative description",
-  "featured": true/false (optional),
-  "is_conflict": true/false (optional, for disputed events),
-  "start_ts": "ISO 8601 timestamp",
-  "end_ts": "ISO 8601 timestamp (for RANGE precision)",
-  "time_precision": "EXACT | APPROX | RANGE | UNKNOWN"
+  "id": "rifle-ce139",                    // Slug
+  "object_id": "uuid-v4",                 // Matches database PK
+  "icon": "precision_manufacturing",      // Material icon
+  "label": "Weapon · Exhibit 139",        // Display subtitle
+  "name": "Mannlicher-Carcano Rifle",
+  "object_type": "WEAPON",                // From v_object_type
+  "description": "6.5mm Italian carbine..."
 }
 ```
 
-**time_precision rules:**
-- `EXACT` — Known date/time, start_ts only
-- `APPROX` — Estimated date/time, start_ts only
-- `RANGE` — Date span, both start_ts and end_ts required
-- `UNKNOWN` — Both timestamps null
+**Icon mapping for object_type:**
+| object_type | Suggested Icon |
+|-------------|----------------|
+| `DOCUMENT` | `description`, `receipt_long`, `article` |
+| `WEAPON` | `precision_manufacturing` |
+| `VEHICLE` | `local_shipping`, `directions_car` |
+| `MEDIA_CARRIER` | `photo`, `videocam`, `album` |
+| `CLOTHING` | `checkroom` |
 
-**event_type to icon mapping:**
-| Event Type | Icon | Use Case |
-|------------|------|----------|
-| SIGHTING | person_pin | Witness observations |
-| SHOT | gps_fixed | Shooting incidents |
-| TRANSFER | pin_drop, build | Drop-offs, service calls |
-| INTERVIEW | assignment_ind | FBI/official interviews |
-| REPORT_WRITTEN | record_voice_over, campaign | Verbal reports, first contact |
-| PHONE_CALL | phone_in_talk | Telephone communications |
+### 2.5 Events (UI)
+
+```json
+{
+  "id": "yates-hitchhiker",               // Slug
+  "event_id": "uuid-v4",                  // Matches database PK
+  "event_type": "SIGHTING",               // From v_event_type
+  "icon": "person_pin",                   // Material icon
+  "label": "Nov 20 – 21, 1963 · Dallas",  // Display subtitle
+  "title": "The Ralph Leon Yates incident",
+  "description": "Full narrative...",
+  "featured": true,                       // UI flag for homepage
+  "is_conflict": true,                    // UI flag for disputed events
+  "parent_event_id": null,                // For sub-events
+  "start_ts": "1963-11-20T10:30:00Z",
+  "end_ts": null,
+  "time_precision": "APPROX"
+}
+```
+
+**Icon mapping for event_type:**
+| event_type | Suggested Icon |
+|------------|----------------|
+| `SIGHTING` | `person_pin`, `visibility` |
+| `SHOT` | `gps_fixed` |
+| `TRANSFER` | `pin_drop`, `swap_horiz` |
+| `INTERVIEW` | `assignment_ind`, `record_voice_over` |
+| `REPORT_WRITTEN` | `campaign`, `history_edu` |
+| `PHONE_CALL` | `phone_in_talk` |
 
 ---
 
-## Phase 3: Entity Population
+## Part 3: Extraction Workflow
 
-### 3.1 Generate UUIDs
+### Step 1: Read OCR Text
 
-Use UUID v4 format for all `*_id` fields. Format: `xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`
+```
+Read PDF in 500-line chunks:
+  raw-material/[source]/[document]_searchable.pdf
+  
+Note extraction points:
+  - FBI FD-302 headers (dates, file numbers, agents)
+  - ALL CAPS names (FBI formatting convention)
+  - Page markers ("-- 3 of 43 --")
+  - Addresses (structured text patterns)
+  - Timestamps ("10:30 AM", "November 20, 1963")
+```
 
-**Convention for this project:**
-- Increment from existing UUIDs in seed data
-- Keep pattern recognizable (e.g., `a1b2c3d4-...` incrementing)
+### Step 2: Categorize Raw Mentions
 
-### 3.2 Create Slugs
+As you read, collect mentions into categories:
 
-ID slugs follow kebab-case convention:
-- `ralph-leon-yates` (not `ralph_leon_yates`)
-- `dallas-fbi-office` (not `DallasFBIOffice`)
-- `elm-houston-corner` (descriptive, not just `intersection-1`)
+| Category | What to Look For |
+|----------|------------------|
+| **People** | Full names (RALPH LEON YATES), titles (SA, Dr., Gen.) |
+| **Organizations** | Company names, agency abbreviations (FBI, DPD, TBSC) |
+| **Places** | Addresses, building names, street intersections |
+| **Objects** | Physical items with descriptions, exhibit numbers |
+| **Events** | Actions with dates/times (interviewed, observed, called) |
 
-### 3.3 Cross-Reference Tags
+### Step 3: Map to Controlled Vocabulary
 
-Tags connect people to events. Use exact event titles:
-- `"The Ralph Leon Yates incident"`
-- `"The Sylvia Odio Incident"`
-- `"Oswald Hired at TSBD"`
+**CRITICAL**: Every `*_type` field must use a code from the vocabulary tables.
 
-Organization tags link people to employers:
-- `"Texas Butchers Supply Company"`
-- `"FBI"`
+Cross-reference your extracted data:
 
-### 3.4 Status Tracking
+| Extracted Text | Maps To | Vocabulary Code |
+|----------------|---------|-----------------|
+| "refrigeration company" | org_type | `BUSINESS` |
+| "FBI office" | org_type | `AGENCY` |
+| "Oak Cliff section" | place_type | `SITE` |
+| "13564 Brookgreen" | place_type | `RESIDENCE` |
+| "brown paper package" | object_type | `DOCUMENT` |
+| "pickup truck" | object_type | `VEHICLE` |
+| "picked up hitchhiker" | event_type | `SIGHTING` |
+| "interviewed by FBI" | event_type | `INTERVIEW` |
+| "called FBI office" | event_type | `PHONE_CALL` |
 
-Mark each entity with a status field for processing:
-- `"status": "NEW"` — Extracted from this document, not yet in main data
-- `"status": "exists in [file].json"` — Already in database
-- `"status": "NEW - [note]"` — New with special annotation
+### Step 4: Generate Structured Output
 
----
-
-## Phase 4: Output Structure
-
-### 4.1 File Organization
-
-Output file location: `raw-material/[source]/[source]_entities.json`
-
-Example: `raw-material/yates/yates_entities.json`
-
-### 4.2 JSON Structure
+Output file: `raw-material/[source]/[source]_entities.json`
 
 ```json
 {
   "metadata": {
     "source_document": "yates_searchable.pdf",
-    "extraction_date": "YYYY-MM-DD",
+    "extraction_date": "2026-02-23",
     "extraction_method": "manual review of OCR text"
   },
   
-  "people": [ ... ],
-  "organizations": [ ... ],
-  "places": [ ... ],
-  "objects": [ ... ],
-  "events": [ ... ],
+  "people": [
+    {
+      "id": "dempsey-jones",
+      "person_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
+      "display_name": "Jones, Dempsey",
+      "given_name": "Dempsey",
+      "family_name": "Jones",
+      "birth_date": null,
+      "death_date": null,
+      "notes": "Co-worker of Ralph Yates at TBSC...",
+      
+      "ui_fields": {
+        "icon": "person",
+        "label": "Witness · TBSC Employee",
+        "tags": ["The Ralph Leon Yates incident", "Texas Butchers Supply Company"]
+      },
+      
+      "status": "NEW"
+    }
+  ],
+  
+  "organizations": [
+    {
+      "id": "carousel-club",
+      "org_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+      "name": "Carousel Club",
+      "org_type": "BUSINESS",
+      "url": null,
+      "start_date": null,
+      "end_date": null,
+      "notes": "Nightclub operated by Jack Ruby...",
+      
+      "ui_fields": {
+        "icon": "nightlife",
+        "label": "Nightclub · Dallas, TX"
+      },
+      
+      "status": "NEW"
+    }
+  ],
+  
+  "places": [
+    {
+      "id": "elm-houston-corner",
+      "place_id": "f1a2b3c4-d5e6-4789-f0a1-b2c3d4e5f6a7",
+      "name": "Corner of Elm and Houston Streets",
+      "place_type": "SITE",
+      "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+      "lat": 32.7795,
+      "lon": -96.8083,
+      "notes": "Where Yates dropped off hitchhiker...",
+      
+      "ui_fields": {
+        "icon": "place",
+        "label": "Intersection · Dealey Plaza"
+      },
+      
+      "status": "NEW"
+    }
+  ],
+  
+  "objects": [
+    {
+      "id": "brown-paper-package-yates",
+      "object_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
+      "name": "Brown Paper Package ('Curtain Rods')",
+      "object_type": "DOCUMENT",
+      "description": "Package 4-4.5 feet long, wrapped in brown paper...",
+      
+      "ui_fields": {
+        "icon": "inventory_2",
+        "label": "Package · Yates Testimony"
+      },
+      
+      "status": "NEW"
+    }
+  ],
+  
+  "events": [
+    {
+      "id": "hitchhiker-dropoff",
+      "event_id": "c6d7e8f9-a0b1-4234-c5d6-e7f8a9b0c1d2",
+      "event_type": "TRANSFER",
+      "title": "Hitchhiker Drop-off at TSBD Corner",
+      "start_ts": "1963-11-20T10:45:00Z",
+      "end_ts": null,
+      "time_precision": "APPROX",
+      "description": "Ralph Yates dropped off hitchhiker at Elm & Houston...",
+      
+      "ui_fields": {
+        "icon": "pin_drop",
+        "label": "Nov 20–21, 1963 · Elm & Houston",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      
+      "status": "NEW"
+    }
+  ],
   
   "summary": {
     "total_people_new": 20,
@@ -249,136 +499,103 @@ Example: `raw-material/yates/yates_entities.json`
 
 ---
 
-## Phase 5: Quality Checklist
+## Part 4: Reference UUIDs
 
-Before finalizing, verify:
-
-### People
-- [ ] All names have `display_name` in "Last, First" format
-- [ ] `given_name` and `family_name` populated where known
-- [ ] Role/relationship clear in `label`
-- [ ] Tags link to relevant events/organizations
-- [ ] Notes include source document context
-
-### Organizations
-- [ ] `org_type` matches controlled vocabulary
-- [ ] Address included in notes if known
-- [ ] Aliases captured (e.g., "TBSC" for full company name)
+For `parent_place_id` linking, use these established UUIDs from existing data:
 
 ### Places
-- [ ] `place_type` correctly categorized
-- [ ] `parent_place_id` links to existing city/site
-- [ ] Coordinates added where possible (can geocode later)
-- [ ] Full address in `name` or `notes`
-
-### Objects
-- [ ] `object_type` matches controlled vocabulary
-- [ ] Physical description included (size, serial numbers)
-- [ ] Related objects cross-referenced
-- [ ] Exhibit numbers noted where applicable
-
-### Events
-- [ ] `event_type` matches controlled vocabulary
-- [ ] `time_precision` correctly set
-- [ ] `parent_event_id` links sub-events to main incident
-- [ ] Participants mentioned in description
-- [ ] Date format consistent (ISO 8601)
-
----
-
-## Automation Opportunities
-
-### Automatable Now
-
-1. **UUID generation** — Script to batch-generate valid UUIDs
-2. **Slug creation** — Convert names to kebab-case automatically
-3. **Date parsing** — Extract and convert dates to ISO 8601
-4. **Geocoding** — Convert addresses to lat/lon coordinates
-
-### Semi-Automatable (LLM-Assisted)
-
-1. **Entity extraction** — Use Claude/GPT to identify entities from OCR text
-2. **Schema population** — LLM fills template based on extracted data
-3. **Parent linking** — Suggest parent_place_id based on location context
-4. **Tag assignment** — Suggest event tags based on content
-
-### Requires Human Review
-
-1. **De-duplication** — Confirming entity matches across documents
-2. **Event boundaries** — Deciding where one event ends and another begins
-3. **Time precision** — Judging EXACT vs APPROX vs RANGE
-4. **Conflict flagging** — Identifying disputed facts
-
----
-
-## Example Extraction Session
-
-**Input text (from OCR):**
-```
-RALPH LEON YATES, 13564 Brookgreen, Dallas, Texas,
-voluntarily appeared at the Dallas FBI Office, accompanied by his
-uncle, Mr. J. O. SMITH, 13770 Sprucewood, Dallas, Texas...
-```
-
-**Extracted entities:**
-
-```json
-// Person 1
-{
-  "id": "ralph-leon-yates",
-  "display_name": "Yates, Ralph Leon",
-  "notes": "Resided at 13564 Brookgreen, Dallas TX..."
-}
-
-// Person 2  
-{
-  "id": "jo-smith",
-  "display_name": "Smith, J.O.",
-  "label": "Family · Yates Uncle",
-  "notes": "Resided at 13770 Sprucewood, Dallas TX..."
-}
-
-// Place 1
-{
-  "id": "yates-residence",
-  "name": "13564 Brookgreen, Dallas TX",
-  "place_type": "BUILDING",
-  "parent_place_id": "[Dallas UUID]"
-}
-
-// Place 2
-{
-  "id": "dallas-fbi-office", 
-  "name": "Dallas FBI Office",
-  "place_type": "BUILDING"
-}
-```
-
----
-
-## Reference: Existing Entity UUIDs
-
-For `parent_place_id` linking, use these established UUIDs:
-
-| Place | UUID |
-|-------|------|
+| Place | place_id |
+|-------|----------|
 | Dallas | `2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7` |
 | Irving | `4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9` |
+| New Orleans | `9f0a1b2c-3d4e-45f6-a7b8-c9d0e1f2a3b4` |
 | Dealey Plaza | `7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2` |
 | TSBD | `a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6` |
-| New Orleans | `9f0a1b2c-3d4e-45f6-a7b8-c9d0e1f2a3b4` |
 
-For `parent_event_id` linking (Yates incident sub-events):
-
-| Event | UUID |
-|-------|------|
+### Events (for parent_event_id)
+| Event | event_id |
+|-------|----------|
 | Yates Hitchhiker (main) | `1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d` |
+| Odio Incident | `6f7a8b9c-0d1e-42f3-a4b5-c6d7e8f9a0b1` |
+| Walker Incident | `2c3d4e5f-6a7b-48c9-d0e1-f2a3b4c5d6e7` |
 
 ---
 
-## Next Steps
+## Part 5: Quality Checklist
 
-1. **Process remaining raw materials** using this workflow
-2. **Build merge tool** to incorporate `_entities.json` into main data files
-3. **Develop LLM prompt template** for semi-automated extraction
-4. **Create validation script** to check JSON against schema
+### Database Compliance
+- [ ] All `*_type` fields use codes from `v_` tables
+- [ ] All UUIDs are valid v4 format
+- [ ] `parent_place_id` references existing place records
+- [ ] `time_precision` rules are followed (see Part 1.5)
+- [ ] Names pass length checks (not empty/whitespace)
+
+### UI Completeness
+- [ ] Every entity has an `id` slug (kebab-case)
+- [ ] Icons are valid Material icon names
+- [ ] Labels follow pattern: "Role/Type · Context"
+- [ ] Tags reference exact event titles
+
+### Data Quality
+- [ ] Notes include source document context
+- [ ] Coordinates added where possible
+- [ ] Aliases captured in notes or person_alias entries
+- [ ] Related objects cross-referenced
+
+---
+
+## Part 6: Merge Process
+
+After extraction, entities need to be merged into the target files.
+
+### To Database (SQL INSERT)
+```sql
+-- Example: Insert new person
+INSERT INTO person (person_id, display_name, given_name, family_name, notes)
+VALUES (
+  'b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9',
+  'Jones, Dempsey',
+  'Dempsey',
+  'Jones',
+  'Co-worker of Ralph Yates at TBSC...'
+);
+```
+
+### To UI JSON (merge into docs/ui/assets/data/*.json)
+```javascript
+// Combine database fields + ui_fields into final format
+const uiPerson = {
+  ...extractedPerson,           // Database fields
+  ...extractedPerson.ui_fields  // UI presentation fields
+};
+delete uiPerson.ui_fields;
+delete uiPerson.status;
+```
+
+---
+
+## Appendix: Automation Opportunities
+
+### Automatable Now
+| Task | Tool | Notes |
+|------|------|-------|
+| UUID generation | Script | Batch generate valid v4 UUIDs |
+| Slug creation | Script | Convert names to kebab-case |
+| Date parsing | `dateparser` | Extract and convert to ISO 8601 |
+| Geocoding | Nominatim API | Convert addresses to lat/lon |
+| De-duplication check | `rapidfuzz` | Fuzzy match against existing entities |
+
+### LLM-Assisted (Semi-Automated)
+| Task | Approach |
+|------|----------|
+| Entity extraction | Prompt: "Extract people, places, orgs from this text" |
+| Type classification | Prompt: "Classify this org: [name]. Options: AGENCY, BUSINESS, GROUP" |
+| Event boundary detection | Prompt: "Is this a new event or part of the previous?" |
+
+### Requires Human Review
+| Task | Reason |
+|------|--------|
+| De-duplication confirmation | "Jack Ruby" vs "Jacob Rubenstein" |
+| Event boundaries | Subjective interpretation |
+| Time precision judgment | EXACT vs APPROX |
+| Conflict flagging | Historical interpretation |

@@ -132,5 +132,90 @@
         "description": "Yates appears with his wife, carrying pills he claims his doctors are using to kill him. Following this visit, he is admitted to Woodlawn Hospital for psychiatric observation.",
         "start_ts": "1964-01-15T00:00:00Z",
         "time_precision": "EXACT"
+    },
+    {
+        "id": "hitchhiker-dropoff",
+        "event_id": "c6d7e8f9-a0b1-4234-c5d6-e7f8a9b0c1d2",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "TRANSFER",
+        "icon": "pin_drop",
+        "label": "Nov 20–21, 1963 · Elm & Houston",
+        "title": "Hitchhiker Drop-off at TSBD Corner",
+        "description": "Ralph Yates dropped off the hitchhiker at the corner of Elm and Houston Streets. The man took his brown paper package and crossed Elm Street going north on Houston.",
+        "start_ts": "1963-11-20T10:45:00Z",
+        "time_precision": "APPROX"
+    },
+    {
+        "id": "yates-tells-jones",
+        "event_id": "d7e8f9a0-b1c2-4345-d6e7-f8a9b0c1d2e3",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "REPORT_WRITTEN",
+        "icon": "record_voice_over",
+        "label": "Nov 20–21, 1963 · TBSC Shop",
+        "title": "Yates Tells Dempsey Jones About Hitchhiker",
+        "description": "Before the assassination, Yates told co-worker Dempsey Jones about the hitchhiker's discussion regarding shooting the President from a building.",
+        "start_ts": "1963-11-20T13:00:00Z",
+        "time_precision": "APPROX"
+    },
+    {
+        "id": "jones-fbi-interview",
+        "event_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963 · Dallas, TX",
+        "title": "Dempsey Jones FBI Interview",
+        "description": "FBI interviewed Dempsey Jones. He confirmed Yates told him about the hitchhiker and the discussed shooting from a building before the assassination.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT"
+    },
+    {
+        "id": "gilpin-fbi-interview",
+        "event_id": "f9a0b1c2-d3e4-4567-f8a9-b0c1d2e3f4a5",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963 · Dallas, TX",
+        "title": "J.R. Gilpin FBI Interview",
+        "description": "FBI interviewed TBSC partner J.R. Gilpin. He confirmed service records for the Irving call and verified Yates' movements on Nov 21.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT"
+    },
+    {
+        "id": "ayres-fbi-interview",
+        "event_id": "a0b1c2d3-e4f5-4678-a9b0-c1d2e3f4a5b6",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Jan 3, 1964 · Dallas, TX",
+        "title": "Thomas Ayres FBI Interview",
+        "description": "FBI interviewed Thomas Ayres at Charlie's Meat Market. Ayres could not recall giving a check to a TBSC employee on the dates in question.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT"
+    },
+    {
+        "id": "mask-fbi-interview",
+        "event_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Jan 3, 1964 · Dallas, TX",
+        "title": "Donald Mask FBI Interview",
+        "description": "FBI interviewed Donald Mask at Charlie's Meat Market. Like Ayres, he could not recall giving a check to a TBSC employee.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT"
+    },
+    {
+        "id": "park-it-market-service-call",
+        "event_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "TRANSFER",
+        "icon": "build",
+        "label": "Nov 21, 1963 · Irving, TX",
+        "title": "Park-It Market Service Call",
+        "description": "Verified service call at Park-It Market documented by Invoice No. 36919. Provides anchor points for Yates' timeline.",
+        "start_ts": "1963-11-21T10:30:00Z",
+        "end_ts": "1963-11-21T13:00:00Z",
+        "time_precision": "RANGE"
     }
 ]

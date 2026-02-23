@@ -18,7 +18,11 @@
         }
 
         containers.forEach(container => {
+            // Remove existing group headers
+            container.querySelectorAll(".group-header").forEach(h => h.remove());
+
             const cards = Array.from(container.querySelectorAll("a"));
+            const isEventFiltered = activeFilters['Event'] && activeFilters['Event'] !== 'All';
 
             // 1. Filter
             cards.forEach(card => {
@@ -29,7 +33,6 @@
 
                 const matchesAllFilters = Object.values(activeFilters).every(val => {
                     if (val === 'All') return true;
-                    // Check if any tag exactly matches the filter value
                     return filterTags.includes(val.toLowerCase());
                 });
 
@@ -40,21 +43,41 @@
                 }
             });
 
-            // 2. Sort
-            if (activeSort === 'a-z' || activeSort === 'z-a') {
+            // 2. Sort / Group
+            if (isEventFiltered) {
+                // When event is filtered, sort by Org then Title
+                cards.sort((a, b) => {
+                    const orgA = (a.getAttribute("data-org") || "Independent").toLowerCase();
+                    const orgB = (b.getAttribute("data-org") || "Independent").toLowerCase();
+                    if (orgA !== orgB) return orgA.localeCompare(orgB);
+
+                    const titleA = (a.getAttribute("data-title") || "").toLowerCase();
+                    const titleB = (b.getAttribute("data-title") || "").toLowerCase();
+                    return titleA.localeCompare(titleB);
+                });
+            } else if (activeSort === 'a-z' || activeSort === 'z-a') {
                 cards.sort((a, b) => {
                     const valA = (a.getAttribute("data-title") || "").toLowerCase();
                     const valB = (b.getAttribute("data-title") || "").toLowerCase();
-
-                    if (activeSort === 'z-a') {
-                        return valB.localeCompare(valA);
-                    }
-                    return valA.localeCompare(valB);
+                    return activeSort === 'z-a' ? valB.localeCompare(valA) : valA.localeCompare(valB);
                 });
             }
 
-            // 3. Re-append in sorted order
-            cards.forEach(card => container.appendChild(card));
+            // 3. Re-append in sorted order and add Headers if event filtered
+            let lastOrg = null;
+            cards.forEach(card => {
+                if (isEventFiltered && card.style.display !== 'none') {
+                    const currentOrg = card.getAttribute("data-org") || "Independent";
+                    if (currentOrg !== lastOrg) {
+                        const header = document.createElement("div");
+                        header.className = "group-header col-span-full border-b border-primary/30 mt-8 mb-4 pb-1";
+                        header.innerHTML = `<span class="text-[11px] font-bold text-primary uppercase tracking-[0.3em] font-display">${currentOrg}</span>`;
+                        container.appendChild(header);
+                        lastOrg = currentOrg;
+                    }
+                }
+                container.appendChild(card);
+            });
 
             // 4. Update Main Heading if filtered
             const pageHeader = document.querySelector("main h2, main h3");
@@ -67,7 +90,6 @@
                 } else if (searchQuery) {
                     pageHeader.textContent = `${baseTitle}: "${searchQuery}"`;
                 } else {
-                    // Fallback to original intent if no filter
                     const defaultTitle = container.getAttribute("data-default-title") || baseTitle;
                     pageHeader.textContent = defaultTitle;
                 }
@@ -125,7 +147,12 @@
 
     async function initializeFilters(container, filterDataAttr) {
         try {
-            const filterGroups = JSON.parse(filterDataAttr.replace(/'/g, '"'));
+            let filterGroups;
+            try {
+                filterGroups = JSON.parse(filterDataAttr);
+            } catch (e) {
+                filterGroups = JSON.parse(filterDataAttr.replace(/'/g, '"'));
+            }
             container.innerHTML = '';
             activeFilters = {};
 

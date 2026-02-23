@@ -81,7 +81,10 @@
         "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
         "lat": null,
         "lon": null,
-        "notes": "A business in Dallas where Ralph Leon Yates was employed and from where he purportedly picked up a hitchhiker matching Oswald's description."
+        "notes": "A business in Dallas where Ralph Leon Yates was employed and from where he purportedly picked up a hitchhiker matching Oswald's description.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     },
     {
         "id": "paine-residence",
@@ -94,5 +97,125 @@
         "lat": 32.8364,
         "lon": -96.9388,
         "notes": "The home of Ruth and Michael Paine where Marina Oswald lived in late 1963 and where Lee Harvey Oswald kept his rifle."
+    },
+    {
+        "id": "triple-underpass",
+        "place_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
+        "icon": "landscape",
+        "label": "Infrastructure · Dealey Plaza",
+        "name": "Triple Underpass",
+        "place_type": "SITE",
+        "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+        "lat": 32.7787,
+        "lon": -96.8102,
+        "notes": "Railway overpass at the west end of Dealey Plaza where Elm, Main, and Commerce Streets converge. Mentioned by the Yates hitchhiker as he exited the vehicle.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "oak-cliff",
+        "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+        "icon": "location_city",
+        "label": "Neighborhood · Dallas, TX",
+        "name": "Oak Cliff",
+        "place_type": "SITE",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": 32.7430,
+        "lon": -96.8530,
+        "notes": "Section of Dallas located south of downtown. Significant location for the activities of Lee Harvey Oswald in 1963.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "wynnewood-village",
+        "place_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
+        "icon": "local_mall",
+        "label": "Shopping Center · Dallas, TX",
+        "name": "Wynnewood Village",
+        "place_type": "SITE",
+        "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+        "lat": 32.7310,
+        "lon": -96.8540,
+        "notes": "Shopping center in Oak Cliff section of Dallas. Location of Charlie's Ranch Meat Market.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "shady-grove-road-irving",
+        "place_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
+        "icon": "signpost",
+        "label": "Street · Irving, TX",
+        "name": "Shady Grove Road at Story Road",
+        "place_type": "STREET",
+        "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
+        "lat": 32.8200,
+        "lon": -96.9700,
+        "notes": "Location of Park-It Market Drive-In Grocery and destination of Yates' verified service call on November 21, 1963.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "yates-residence",
+        "place_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
+        "icon": "home",
+        "label": "Private Residence · Dallas, TX",
+        "name": "13564 Brookgreen, Dallas TX",
+        "place_type": "RESIDENCE",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": null,
+        "lon": null,
+        "notes": "The 1963 home of Ralph Leon Yates and his family.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "jo-smith-residence",
+        "place_id": "a8b9c0d1-e2f3-4456-a7b8-c9d0e1f2a3b4",
+        "icon": "home",
+        "label": "Private Residence · Dallas, TX",
+        "name": "13770 Sprucewood, Dallas TX",
+        "place_type": "RESIDENCE",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": null,
+        "lon": null,
+        "notes": "The residence of J.O. Smith, uncle of Ralph Leon Yates.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "oswald-rooming-house",
+        "place_id": "7b8a9c0d-1e2f-4a5b-6c7d-8e9f0a1b2c3d",
+        "icon": "home",
+        "label": "Private Residence · Oak Cliff",
+        "name": "1026 N. Beckley Avenue (Rooming House)",
+        "place_type": "RESIDENCE",
+        "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+        "lat": 32.7563,
+        "lon": -96.8288,
+        "notes": "Lee Harvey Oswald's rooming house in Oak Cliff. He returned here briefly after the assassination before walking to the scene of the Tippit shooting.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "dallas-fbi-office",
+        "place_id": "b9c0d1e2-f3a4-4567-b8c9-d0e1f2a3b4c5",
+        "icon": "corporate_fare",
+        "label": "Federal Office · Dallas, TX",
+        "name": "Dallas FBI Office",
+        "place_type": "BUILDING",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": null,
+        "lon": null,
+        "notes": "FBI field office in Dallas, Texas. Location where Ralph Yates reported his sighting and was interviewed multiple times between November 1963 and January 1964.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     }
 ]

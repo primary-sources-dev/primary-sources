@@ -6,15 +6,57 @@
         "label": "Weapon · Exhibit 139",
         "name": "Mannlicher-Carcano Rifle",
         "object_type": "WEAPON",
-        "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD."
+        "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     },
     {
         "id": "paper-sack-ce142",
         "object_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
         "icon": "inventory",
         "label": "Object · Exhibit 142",
-        "name": "Brown Paper Sack",
+        "name": "Brown Paper Sack (TSBD)",
         "object_type": "DOCUMENT",
-        "description": "Large handmade paper bag found on the 6th floor of the TSBD. Alleged by the Warren Commission to have carried the rifle; alleged by Oswald to have contained 'curtain rods'."
+        "description": "Large handmade paper bag found on the 6th floor of the TSBD. Alleged by the Warren Commission to have carried the rifle; alleged by Oswald to have contained 'curtain rods'.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "backyard-photos",
+        "object_id": "9a0b1c2d-3e4f-5061-a2b3-c4d5e6f7a8b9",
+        "icon": "add_a_photo",
+        "label": "Photographs · CE 133-A/B",
+        "name": "Oswald Backyard Photographs",
+        "object_type": "MEDIA_CARRIER",
+        "description": "Photographs showing Lee Harvey Oswald in his backyard holding a rifle and socialist newspapers. Oswald claimed they were fakes.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "brown-paper-package-yates",
+        "object_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
+        "icon": "inventory_2",
+        "label": "Object · Yates Testimony",
+        "name": "Brown Paper Package ('Curtain Rods')",
+        "object_type": "DOCUMENT",
+        "description": "Package approximately 4 to 4.5 feet long carried by the Yates hitchhiker. Comparison to the TSBD paper sack (CE 142) is a key point of investigation.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "tbsc-invoice-36919",
+        "object_id": "a4b5c6d7-e8f9-4012-a3b4-c5d6e7f8a9b0",
+        "icon": "receipt_long",
+        "label": "Business Record · TBSC",
+        "name": "Invoice No. 36919 (Park-It Market)",
+        "object_type": "DOCUMENT",
+        "description": "Service record documenting Yates' trip to Irving, TX on November 21, 1963. Key evidence for timing of his hitchhiker encounter.",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     }
 ]

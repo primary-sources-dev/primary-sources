@@ -187,7 +187,10 @@
         "label": "Industrial · Dallas, TX",
         "name": "Texas Butchers Supply Company",
         "notes": "Privately owned company in Dallas where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
-        "url": "#"
+        "url": "#",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     },
     {
         "id": "fbi",
@@ -197,7 +200,10 @@
         "label": "Federal Agency · Washington, D.C.",
         "name": "Federal Bureau of Investigation (FBI)",
         "notes": "Domestic intelligence and security service of the United States. Conducted the primary initial investigation into the assassination under Director J. Edgar Hoover.",
-        "url": "#"
+        "url": "#",
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     },
     {
         "id": "dallas-pd",
@@ -268,5 +274,96 @@
         "name": "New Orleans District Attorney's Office (NODA)",
         "notes": "The office of District Attorney Jim Garrison, which conducted the only criminal trial (State of Louisiana v. Clay Shaw) related to the assassination of President Kennedy.",
         "url": "#"
+    },
+    {
+        "id": "us-air-force",
+        "org_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
+        "org_type": "AGENCY",
+        "icon": "military_tech",
+        "label": "Military Branch · United States",
+        "name": "United States Air Force",
+        "notes": "Branch of the U.S. Armed Forces. Ralph Leon Yates served from February 2, 1954 to November/December 1957 (AFSN 18 453 689). Yates was treated for a 'nervous condition' during his service.",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "carousel-club",
+        "org_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+        "org_type": "BUSINESS",
+        "icon": "nightlife",
+        "label": "Nightclub · Dallas, TX",
+        "name": "Carousel Club",
+        "notes": "Nightclub operated by Jack Ruby (Jack Rubenstein) in Dallas. The hitchhiker in Yates' account asked if Yates knew where the Carousel Club was and whether he had ever been there. The hitchhiker identified Ruby as the operator.",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "jacks-branch-office-lounge",
+        "org_id": "d3e4f5a6-b7c8-4901-d2e3-f4a5b6c7d8e9",
+        "org_type": "BUSINESS",
+        "icon": "local_bar",
+        "label": "Bar · Dallas, TX",
+        "name": "Jack's Branch Office Lounge",
+        "notes": "Bar located on Industrial Street in Dallas. During the hitchhiker conversation, Yates asked if Jack Ruby ran this establishment; the hitchhiker said he did not.",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "charlies-ranch-meat-market",
+        "org_id": "e4f5a6b7-c8d9-4012-e3f4-a5b6c7d8e9f0",
+        "org_type": "BUSINESS",
+        "icon": "storefront",
+        "label": "Butcher Shop · Dallas, TX (Oak Cliff)",
+        "name": "Charlie's Ranch Meat Market",
+        "notes": "Located at 249 Wynnewood Village, Dallas TX (Wynnewood Shopping Center, Oak Cliff). Yates claimed he stopped here to pick up a check before encountering the hitchhiker. FBI investigation could not verify any check was issued to TBSC on November 20-21, 1963.",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "park-it-market",
+        "org_id": "f5a6b7c8-d9e0-4123-f4a5-b6c7d8e9f0a1",
+        "org_type": "BUSINESS",
+        "icon": "storefront",
+        "label": "Grocery Store · Irving, TX",
+        "name": "Park-It Market Drive-In Grocery",
+        "notes": "Located at 2320 Shady Grove Road at Story Road, Irving TX. Verified service call location for Ralph Yates on November 21, 1963. Shop Bill No. 8760, Invoice No. 36919, $12.00 (2-hour service call). Compressor was out of oil.",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "arlington-food-stores",
+        "org_id": "a6b7c8d9-e0f1-4234-a5b6-c7d8e9f0a1b2",
+        "org_type": "BUSINESS",
+        "icon": "store",
+        "label": "Grocery Chain · Arlington, TX",
+        "name": "Arlington Food Stores",
+        "notes": "PO Box 91, Arlington TX, phone AN 2-0597. Billed for the Park-It Market service call on November 21, 1963 (Invoice No. 36919).",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
+    },
+    {
+        "id": "woodlawn-hospital",
+        "org_id": "b7c8d9e0-f1a2-4345-b6c7-d8e9f0a1b2c3",
+        "org_type": "ORGANIZATION",
+        "icon": "local_hospital",
+        "label": "Psychiatric Facility · Dallas, TX",
+        "name": "Woodlawn Hospital",
+        "notes": "Psychiatric facility in Dallas where Ralph Leon Yates was admitted on January 15, 1964, following his final appearance at the FBI office. He claimed doctors were using pills to kill him.",
+        "url": null,
+        "tags": [
+            "The Ralph Leon Yates incident"
+        ]
     }
 ]

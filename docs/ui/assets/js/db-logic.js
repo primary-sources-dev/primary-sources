@@ -30,6 +30,7 @@ function buildCard(item) {
     const itemType = (item.org_type || item.person_type || item.place_type || item.object_type || item.source_type || item.event_type || '').toLowerCase();
     let dynamicTags = [...(item.tags || [])];
     if (itemType) dynamicTags.push(itemType);
+    if (item.organization) dynamicTags.push(item.organization);
 
     // Auto-generate tags for events (Date & Location)
     if (item.start_ts) {
@@ -52,6 +53,7 @@ function buildCard(item) {
         ${(item.url || item.link) ? 'target="_blank"' : ''}
         data-search-index="${searchIndex}"
         data-filter-tags="${filterTags}"
+        data-org="${item.organization || 'Independent'}"
         data-title="${(item.display_name || item.title || item.name || '').toLowerCase()}"
         data-label="${(item.label || '').toLowerCase()}"
         style="display:flex;align-items:flex-start;gap:1rem;border:1px solid ${featured ? 'rgba(176,139,73,0.4)' : 'rgba(212,207,199,0.1)'};background:${featured ? 'rgba(176,139,73,0.07)' : 'rgba(37,32,33,0.6)'};padding:${featured ? '1.25rem' : '1rem'};transition:border-color 0.2s;text-decoration:none;"
