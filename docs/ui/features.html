@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Features & Vision — Primary Sources</title>
+    <meta name="description"
+        content="The master feature roadmap and technical vision for the Primary Sources historical engine." />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script>
+        document.addEventListener("componentLoaded", (e) => {
+            if (e.detail.name === 'header') {
+                const breadcrumb = document.getElementById('breadcrumb-current');
+                if (breadcrumb) breadcrumb.textContent = 'Features';
+            }
+        });
+    </script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Hero Section -->
+        <div class="mb-16">
+            <h2 class="text-4xl md:text-6xl font-bold font-display text-archive-heading uppercase tracking-widest mb-4">
+                Platform <span class="text-primary italic">Vision</span>
+            </h2>
+            <p class="max-w-2xl text-lg text-archive-secondary/70 leading-relaxed border-l-2 border-primary pl-6">
+                Primary Sources is more than a digital archive. It is an atomic engine built to reconstruct the past
+                with forensic precision. Below are the capabilities currently live and the visionary features we are
+                architecting.
+            </p>
+        </div>
+
+        <!-- FEATURE CATEGORIES -->
+        <div class="space-y-20">
+
+            <!-- SECTION 1: LIVE & DEPLOYED -->
+            <section>
+                <div class="flex items-center gap-3 border-b border-archive-secondary/10 pb-4 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">check_circle</span>
+                    <h3 class="text-2xl font-bold font-display uppercase tracking-widest text-archive-heading">Current
+                        Capabilities <span
+                            class="text-xs font-mono text-archive-secondary/40 ml-4 font-normal tracking-normal lowercase italic">(Phase
+                            1 Native)</span></h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">schema</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Atomic 4NF
+                            Engine</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Knowledge graph
+                            deconstruction. Maps relationships between people, places, and objects across decades.</p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">fact_check</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Assertion
+                            Layer</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Multi-witness claim
+                            tracking. Handles conflicting primary source accounts without data collisions.</p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span
+                                class="material-symbols-outlined text-primary text-4xl font-light">document_scanner</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Member-Only
+                            OCR</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">High-speed
+                            transcription utility (WSL/Python backends) for digitizing private primary source vaults.
+                        </p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span
+                                class="material-symbols-outlined text-primary text-4xl font-light">travel_explore</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Hierarchical
+                            Browse</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Entity-driven
+                            discovery system for People, Places, Organizations, and Chronological Events.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: NEXT UP (Immediate Roadmap) -->
+            <section>
+                <div class="flex items-center gap-3 border-b border-archive-secondary/10 pb-4 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">bolt</span>
+                    <h3 class="text-2xl font-bold font-display uppercase tracking-widest text-archive-heading">Next In
+                        Development <span
+                            class="text-xs font-mono text-primary/60 ml-4 font-normal tracking-normal lowercase italic">(Priority
+                            Build Pool)</span></h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
+                            <span class="material-symbols-outlined text-[120px] text-primary">cake</span>
+                        </div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="material-symbols-outlined text-primary text-4xl">cake</span>
+                            <span
+                                class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
+                                Queue</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Age-at-Event
+                            Badge (#25)</h4>
+                        <p class="text-xs text-archive-secondary/70 leading-relaxed">Automated chronological metadata.
+                            Every witness and actor is labeled with their exact age at the moment of the historical
+                            record.</p>
+                    </div>
+
+                    <div
+                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
+                            <span class="material-symbols-outlined text-[120px] text-primary">trending_up</span>
+                        </div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="material-symbols-outlined text-primary text-4xl">trending_up</span>
+                            <span
+                                class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
+                                Queue</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Inflation
+                            Converter (#26)</h4>
+                        <p class="text-xs text-archive-secondary/70 leading-relaxed">Dynamic relative valuation. Hover
+                            over 1963 prices in documents to see real-time 2026 purchasing power equivalents.</p>
+                    </div>
+
+                    <div
+                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
+                            <span class="material-symbols-outlined text-[120px] text-primary">event_upcoming</span>
+                        </div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="material-symbols-outlined text-primary text-4xl">event_upcoming</span>
+                            <span
+                                class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
+                                Queue</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">OTD Dashboard
+                            (#24)</h4>
+                        <p class="text-xs text-archive-secondary/70 leading-relaxed">"On This Day" surfacing engine.
+                            Automatically highlights historical events from the archive occurring on the current
+                            calendar date.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: THE VISION (Long-term Roadmap) -->
+            <section>
+                <div class="flex items-center gap-3 border-b border-archive-secondary/10 pb-4 mb-8">
+                    <span class="material-symbols-outlined text-primary text-3xl">visibility</span>
+                    <h3 class="text-2xl font-bold font-display uppercase tracking-widest text-archive-heading">Long-term
+                        Vision <span
+                            class="text-xs font-mono text-archive-secondary/30 ml-4 font-normal tracking-normal lowercase italic">(Advanced
+                            Feature Set)</span></h3>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <!-- Column 1: Forensic & Community -->
+                    <div class="space-y-4">
+                        <h5
+                            class="text-[10px] font-bold text-primary uppercase tracking-[.3em] mb-4 flex items-center gap-2">
+                            <span class="h-px w-8 bg-primary/30"></span> Forensic & Community
+                        </h5>
+                        <ul class="space-y-2">
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Conflict
+                                    Heatmap (#02)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Visualize "hot zones" of evidence
+                                    where sources disagree most.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Network
+                                    Explorer (#03)</span>
+                                <span class="text-[10px] text-archive-secondary/50">"Six degrees of separation"
+                                    visualizer for entity relationships.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span
+                                    class="text-xs font-bold text-archive-heading uppercase tracking-wider">Achievement
+                                    Badges (#16)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Earn "Expert" status by contributing
+                                    data and completing quizzes.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Infinite
+                                    Canvas (#18)</span>
+                                <span class="text-[10px] text-archive-secondary/50">A massive spatial workbench for
+                                    pinning and connecting evidence.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2: Narrative & Simulation -->
+                    <div class="space-y-4">
+                        <h5
+                            class="text-[10px] font-bold text-primary uppercase tracking-[.3em] mb-4 flex items-center gap-2">
+                            <span class="h-px w-8 bg-primary/30"></span> Narrative & Simulation
+                        </h5>
+                        <ul class="space-y-2">
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">POV Shadow
+                                    Timelines (#05)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Filter the world chronology through
+                                    the eyes of one witness.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Witness
+                                    POV Video (#11)</span>
+                                <span class="text-[10px] text-archive-secondary/50">AI recreations of what witnesses saw
+                                    from specific coordinates.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">AR Spatial
+                                    Overlays (#12)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Project historical entities onto
+                                    modern real-world streets.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Game
+                                    Reconstructor (#09)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Simulate historical sports games
+                                    from box scores and logs.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Genealogy & Research -->
+                    <div class="space-y-4">
+                        <h5
+                            class="text-[10px] font-bold text-primary uppercase tracking-[.3em] mb-4 flex items-center gap-2">
+                            <span class="h-px w-8 bg-primary/30"></span> Genealogy & Research
+                        </h5>
+                        <ul class="space-y-2">
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Lineage
+                                    Engine (#22)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Track bloodlines and family trees
+                                    across centuries of records.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Ancestral
+                                    Chronology (#23)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Compare family legends against
+                                    verified primary source data.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span
+                                    class="text-xs font-bold text-archive-heading uppercase tracking-wider">Self-Service
+                                    Vault (#20)</span>
+                                <span class="text-[10px] text-archive-secondary/50">OCR and analyze your own private
+                                    documents in the vault.</span>
+                            </li>
+                            <li
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Private
+                                    Forensic Notes (#19)</span>
+                                <span class="text-[10px] text-archive-secondary/50">Encrypted personal notes attached to
+                                    persistent entities.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Vision Statement -->
+        <div class="mt-20 p-12 bg-archive-dark/80 border border-primary/20 text-center">
+            <h3 class="text-2xl font-bold font-display uppercase tracking-widest text-primary mb-6">Built to Reconstruct
+                Anything</h3>
+            <p class="max-w-3xl mx-auto text-archive-secondary/80 leading-relaxed mb-8">
+                The Primary Sources engine is subject-agnostic. While we are starting with the JFK investigation, the
+                underlying logic can reconstruct cold cases, track family lineages, map cultural movements, or even
+                simulate historical sports seasons from raw data.
+            </p>
+            <div
+                class="flex flex-wrap justify-center gap-8 text-[10px] font-bold uppercase tracking-[0.3em] text-archive-secondary/40">
+                <span>Forensics</span>
+                <span>/</span>
+                <span>Genealogy</span>
+                <span>/</span>
+                <span>Sports</span>
+                <span>/</span>
+                <span>Journalism</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <footer data-component="footer" class="mt-auto"></footer>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <div data-component="bottom-nav"></div>
+
+</body>
+
+</html>
