@@ -3,7 +3,7 @@
  */
 (function () {
     let activeFilters = {};
-    let activeSort = 'A-Z';
+    let activeSort = 'all';
     let searchQuery = '';
 
     function applyFilters() {
@@ -37,22 +37,17 @@
             });
 
             // 2. Sort
-            cards.sort((a, b) => {
-                let valA, valB;
+            if (activeSort !== 'all') {
+                cards.sort((a, b) => {
+                    const valA = a.getAttribute("data-title") || "";
+                    const valB = b.getAttribute("data-title") || "";
 
-                if (activeSort === 'A-Z' || activeSort === 'Z-A') {
-                    valA = a.getAttribute("data-title") || "";
-                    valB = b.getAttribute("data-title") || "";
-                } else if (activeSort === 'By Label') {
-                    valA = a.getAttribute("data-label") || "";
-                    valB = b.getAttribute("data-label") || "";
-                }
-
-                if (activeSort === 'Z-A' || activeSort === 'Oldest') {
-                    return valB.localeCompare(valA);
-                }
-                return valA.localeCompare(valB);
-            });
+                    if (activeSort === 'z-a') {
+                        return valB.localeCompare(valA);
+                    }
+                    return valA.localeCompare(valB);
+                });
+            }
 
             // 3. Re-append in sorted order
             cards.forEach(card => container.appendChild(card));
@@ -81,7 +76,7 @@
             const o = document.createElement("option");
             o.value = opt;
             o.textContent = opt;
-            if (isSort && opt === 'A-Z') o.selected = true;
+            if (isSort && opt === 'all') o.selected = true;
             select.appendChild(o);
         });
 
@@ -129,7 +124,7 @@
             }
 
             // Always add Sort dropdown
-            createDropdown(container, "Sort Order", ["A-Z", "Z-A", "By Label"], true);
+            createDropdown(container, "Sort Order", ["all", "a-z", "z-a"], true);
 
         } catch (err) {
             console.error("Failed to parse data-filters JSON:", err);
