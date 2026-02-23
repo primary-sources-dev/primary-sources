@@ -1,9 +1,30 @@
 [
     {
-        "id": "stub-object",
-        "icon": "article",
-        "label": "Physical Evidence",
-        "title": "Mannlicher-Carcano Rifle",
-        "body": "Stub record. Add real object data here."
+        "id": "rifle-ce139",
+        "object_id": "rifle-ce139",
+        "icon": "precision_manufacturing",
+        "label": "Weapon · Exhibit 139",
+        "name": "Mannlicher-Carcano Rifle",
+        "object_type": "WEAPON",
+        "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD.",
+        "tags": [
+            "Evidence",
+            "Weapon",
+            "TSBD"
+        ]
+    },
+    {
+        "id": "paper-sack-ce142",
+        "object_id": "paper-sack-ce142",
+        "icon": "inventory",
+        "label": "Object · Exhibit 142",
+        "name": "Brown Paper Sack",
+        "object_type": "DOCUMENT",
+        "description": "Large handmade paper bag found on the 6th floor of the TSBD. Alleged by the Warren Commission to have carried the rifle; alleged by Oswald to have contained 'curtain rods'.",
+        "tags": [
+            "Evidence",
+            "Disputed",
+            "TSBD"
+        ]
     }
 ]

@@ -12,7 +12,6 @@ insert into v_event_type (code, label) values
   ('TRANSFER',       'Movement of a person or object between custody or location'),
   ('INTERVIEW',      'Formal or informal questioning session'),
   ('REPORT_WRITTEN', 'Act of an official documenting an event or investigation'),
-  ('AUTOPSY_STEP',   'A specific procedure performed during post-mortem examination'),
   ('PHONE_CALL',     'Telephonic communication between two or more parties')
 on conflict (code) do nothing;
 
@@ -101,7 +100,7 @@ insert into v_place_type (code, label) values
   ('BUILDING', 'A specific structure'),
   ('STREET',   'A road or intersection'),
   ('CITY',     'A municipal area'),
-  ('REGION',   'A larger geographic or administrative zone')
+  ('SITE',     'A specific area or geographic zone')
 on conflict (code) do nothing;
 
 -- 12. Object types

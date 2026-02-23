@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Objects — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #b08b49;
+            --archive-bg: #1a1617;
+            --archive-dark: #120e0f;
+            --archive-heading: #eadeda;
+            --archive-secondary: #d4cfc7;
+        }
+    </style>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-sans selection:bg-primary/30 min-h-screen pb-20">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- FACET BAR -->
+    <section data-component="facet-bar" data-title="Objects"
+        data-filters='{"Type": ["All", "Weapon", "Document", "Media_Carrier"]}'
+        class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
+    </section>
+
+    <!-- RESULT FEED -->
+    <main class="p-6">
+        <!-- Section Header -->
+        <div class="mb-4 border-l-4 border-primary pl-4">
+            <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">Physical Evidence & Tools</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="objects" data-template="object">
+            <!-- Dynamic Object Cards will be injected here by db-logic.js -->
+        </div>
+    </main>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <footer data-component="bottom-nav"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></footer>
+
+    <!-- SHARED LOGIC -->
+    <script src="assets/js/components.js"></script>
+    <script src="assets/js/db-logic.js"></script>
+    <script src="assets/js/filter.js"></script>
+
+</body>
+
+</html>

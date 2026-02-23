@@ -1,9 +1,98 @@
 [
     {
-        "id": "stub-place",
-        "icon": "location_on",
-        "label": "Dallas, TX",
-        "title": "Dealey Plaza",
-        "body": "Stub record. Add real place data here."
+        "id": "dallas",
+        "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "icon": "location_city",
+        "label": "City · Texas",
+        "name": "Dallas",
+        "place_type": "CITY",
+        "parent_place_id": null,
+        "lat": 32.7767,
+        "lon": -96.7970,
+        "notes": "Major metropolitan area in Texas and the site of the JFK assassination on November 22, 1963."
+    },
+    {
+        "id": "new-orleans",
+        "place_id": "9f0a1b2c-3d4e-45f6-a7b8-c9d0e1f2a3b4",
+        "icon": "location_city",
+        "label": "City · Louisiana",
+        "name": "New Orleans",
+        "place_type": "CITY",
+        "parent_place_id": null,
+        "lat": 29.9511,
+        "lon": -90.0715,
+        "notes": "Birthplace of Lee Harvey Oswald and a significant location for his activities in the summer of 1963."
+    },
+    {
+        "id": "irving",
+        "place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
+        "icon": "location_city",
+        "label": "City · Texas",
+        "name": "Irving",
+        "place_type": "CITY",
+        "parent_place_id": null,
+        "lat": 32.8140,
+        "lon": -96.9489,
+        "notes": "A suburb of Dallas where the Paine residence was located and where Lee Harvey Oswald spent the night before the assassination."
+    },
+    {
+        "id": "dealey-plaza",
+        "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+        "icon": "landscape",
+        "label": "Public Square · Dallas",
+        "name": "Dealey Plaza",
+        "place_type": "SITE",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": 32.7791,
+        "lon": -96.8081,
+        "notes": "A city park in the West End district of downtown Dallas where President John F. Kennedy was assassinated."
+    },
+    {
+        "id": "tsbd",
+        "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
+        "icon": "corporate_fare",
+        "label": "Building · Dallas",
+        "name": "Texas School Book Depository",
+        "place_type": "BUILDING",
+        "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+        "lat": 32.7798,
+        "lon": -96.8086,
+        "notes": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy."
+    },
+    {
+        "id": "walker-residence",
+        "place_id": "d5e6f7a8-b9c0-41d2-e3f4-a5b6c7d8e9f0",
+        "icon": "home",
+        "label": "Private Residence · Dallas",
+        "name": "Walker Residence (Turtle Creek)",
+        "place_type": "BUILDING",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": null,
+        "lon": null,
+        "notes": "The home of General Edwin Walker at 4011 Turtle Creek Blvd, where an assassination attempt occurred on April 10, 1963."
+    },
+    {
+        "id": "texas-butchers-supply",
+        "place_id": "e7f8a9b0-c1d2-43e4-f5a6-b7c8d9e0f1a2",
+        "icon": "storefront",
+        "label": "Business · Dallas",
+        "name": "Texas Butcher's Supply",
+        "place_type": "BUILDING",
+        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "lat": null,
+        "lon": null,
+        "notes": "A business in Dallas where Ralph Leon Yates was employed and from where he purportedly picked up a hitchhiker matching Oswald's description."
+    },
+    {
+        "id": "paine-residence",
+        "place_id": "b3c4d5e6-f7a8-49b0-c1d2-e3f4a5b6c7d8",
+        "icon": "cottage",
+        "label": "Private Residence · Irving",
+        "name": "Ruth Paine Residence (Irving)",
+        "place_type": "BUILDING",
+        "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
+        "lat": 32.8364,
+        "lon": -96.9388,
+        "notes": "The home of Ruth and Michael Paine where Marina Oswald lived in late 1963 and where Lee Harvey Oswald kept his rifle."
     }
 ]
