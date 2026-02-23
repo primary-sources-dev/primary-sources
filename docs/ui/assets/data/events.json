@@ -59,7 +59,8 @@
         "title": "First Yates Report",
         "description": "Ralph Leon Yates voluntarily contacts the Dallas FBI office to report picking up a hitchhiker he believes was Lee Harvey Oswald carrying a package of 'curtain rods'.",
         "start_ts": "1963-11-26T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=1&search=\"Yates\""
     },
     {
         "id": "yates-contact-2",
@@ -71,7 +72,8 @@
         "title": "Formal FBI Interview",
         "description": "Yates appears at the FBI office with his uncle, J.O. Smith. He details the hitchhiker's questions about shooting the President from a window. Agents Arthur Carter and C. Ray Hall conduct the interview.",
         "start_ts": "1963-11-27T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=8&search=\"Hall\""
     },
     {
         "id": "yates-contact-3",
@@ -83,7 +85,8 @@
         "title": "Signed Statement & Photo ID",
         "description": "Yates provides a sworn affidavit to SA C. Ray Hall. He positively identifies a photo of Oswald. He adds details about the hitchhiker showing him a picture of a man with a rifle.",
         "start_ts": "1963-12-10T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=14&search=\"Affidavit\""
     },
     {
         "id": "yates-contact-4",
@@ -95,7 +98,8 @@
         "title": "Alibi Verification Check",
         "description": "FBI Agents re-interview Yates regarding discrepancies in his service call timeline. They confront him with the lack of a check stub from Charlie's Meat Market.",
         "start_ts": "1964-01-03T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=22&search=\"Charlie\""
     },
     {
         "id": "yates-contact-5",
@@ -107,7 +111,8 @@
         "title": "Polygraph Examination",
         "description": "Yates submits to a polygraph test administered by the FBI. The results are recorded as 'inconclusive' with no significant deception indicated.",
         "start_ts": "1964-01-04T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=13&search=\"polygraph\""
     },
     {
         "id": "yates-contact-6",
@@ -119,7 +124,8 @@
         "title": "Distressed Phone Call",
         "description": "Yates calls SA C. Ray Hall late at night, crying and emotionally upset. He returns the next morning (Jan 9) to discuss his family's history of mental illness.",
         "start_ts": "1964-01-08T23:00:00Z",
-        "time_precision": "APPROX"
+        "time_precision": "APPROX",
+        "url": "assets/documents/yates-searchable.pdf#page=33&search=\"upset\""
     },
     {
         "id": "yates-contact-7",
@@ -131,7 +137,8 @@
         "title": "Final Appearance & Hospitalization",
         "description": "Yates appears with his wife, carrying pills he claims his doctors are using to kill him. Following this visit, he is admitted to Woodlawn Hospital for psychiatric observation.",
         "start_ts": "1964-01-15T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=42&search=\"Woodlawn\""
     },
     {
         "id": "hitchhiker-dropoff",
@@ -143,7 +150,8 @@
         "title": "Hitchhiker Drop-off at TSBD Corner",
         "description": "Ralph Yates dropped off the hitchhiker at the corner of Elm and Houston Streets. The man took his brown paper package and crossed Elm Street going north on Houston.",
         "start_ts": "1963-11-20T10:45:00Z",
-        "time_precision": "APPROX"
+        "time_precision": "APPROX",
+        "url": "assets/documents/yates-searchable.pdf#page=2&search=\"Elm\""
     },
     {
         "id": "yates-tells-jones",
@@ -155,7 +163,8 @@
         "title": "Yates Tells Dempsey Jones About Hitchhiker",
         "description": "Before the assassination, Yates told co-worker Dempsey Jones about the hitchhiker's discussion regarding shooting the President from a building.",
         "start_ts": "1963-11-20T13:00:00Z",
-        "time_precision": "APPROX"
+        "time_precision": "APPROX",
+        "url": "assets/documents/yates-searchable.pdf#page=2&search=\"Dempsey\""
     },
     {
         "id": "jones-fbi-interview",
@@ -167,7 +176,8 @@
         "title": "Dempsey Jones FBI Interview",
         "description": "FBI interviewed Dempsey Jones. He confirmed Yates told him about the hitchhiker and the discussed shooting from a building before the assassination.",
         "start_ts": "1963-11-27T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=13&search=\"Jones\""
     },
     {
         "id": "gilpin-fbi-interview",
@@ -179,7 +189,8 @@
         "title": "J.R. Gilpin FBI Interview",
         "description": "FBI interviewed TBSC partner J.R. Gilpin. He confirmed service records for the Irving call and verified Yates' movements on Nov 21.",
         "start_ts": "1963-11-27T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=6&search=\"Gilpin\""
     },
     {
         "id": "ayres-fbi-interview",
@@ -191,7 +202,8 @@
         "title": "Thomas Ayres FBI Interview",
         "description": "FBI interviewed Thomas Ayres at Charlie's Meat Market. Ayres could not recall giving a check to a TBSC employee on the dates in question.",
         "start_ts": "1964-01-03T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=17&search=\"Ayres\""
     },
     {
         "id": "mask-fbi-interview",
@@ -203,7 +215,8 @@
         "title": "Donald Mask FBI Interview",
         "description": "FBI interviewed Donald Mask at Charlie's Meat Market. Like Ayres, he could not recall giving a check to a TBSC employee.",
         "start_ts": "1964-01-03T00:00:00Z",
-        "time_precision": "EXACT"
+        "time_precision": "EXACT",
+        "url": "assets/documents/yates-searchable.pdf#page=18&search=\"Mask\""
     },
     {
         "id": "park-it-market-service-call",
@@ -216,6 +229,7 @@
         "description": "Verified service call at Park-It Market documented by Invoice No. 36919. Provides anchor points for Yates' timeline.",
         "start_ts": "1963-11-21T10:30:00Z",
         "end_ts": "1963-11-21T13:00:00Z",
-        "time_precision": "RANGE"
+        "time_precision": "RANGE",
+        "url": "assets/documents/yates-searchable.pdf#page=6&search=\"Park-It\""
     }
 ]

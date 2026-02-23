@@ -1,0 +1,458 @@
+/* OCR Web Tool — Styles using Primary Sources Design System */
+
+:root {
+    --color-primary: #B08B49;
+    --color-bg: #2E282A;
+    --color-secondary: #D4CFC7;
+    --color-heading: #F0EDE0;
+    --color-dark: #1A1718;
+    --color-surface: #252021;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-secondary);
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+h3 {
+    font-size: 18px;
+    color: var(--color-heading);
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+}
+
+input[type="text"],
+input[type="email"],
+select {
+    background-color: var(--color-dark);
+    border: 1px solid rgba(212, 207, 199, 0.2);
+    color: var(--color-secondary);
+    padding: 8px 12px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 13px;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+input[type="text"]::placeholder {
+    color: rgba(212, 207, 199, 0.5);
+}
+
+/* Header */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(46, 40, 42, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(212, 207, 199, 0.2);
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+header a {
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+header a:hover {
+    color: var(--color-primary);
+}
+
+header h1 {
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    color: var(--color-heading);
+}
+
+/* Main */
+main {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* Tabs */
+.tab-btn {
+    position: relative;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--color-secondary);
+    font-family: "Roboto Mono", monospace;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-btn:hover {
+    color: var(--color-primary);
+}
+
+.tab-btn.active {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-heading);
+}
+
+.queue-badge {
+    display: inline-flex;
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 0;
+    min-width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.queue-badge.hidden {
+    display: none;
+}
+
+/* Tabs Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Drop Zone */
+.drop-zone {
+    border: 2px dashed rgba(212, 207, 199, 0.5);
+    border-radius: 0;
+    background-color: rgba(26, 23, 24, 0.3);
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    margin-bottom: 32px;
+}
+
+.drop-zone:hover {
+    border-color: var(--color-primary);
+    background-color: rgba(176, 139, 73, 0.05);
+}
+
+.drop-zone.dragover {
+    border-color: var(--color-primary);
+    background-color: rgba(176, 139, 73, 0.1);
+}
+
+.drop-zone-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.drop-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-primary);
+    opacity: 0.7;
+}
+
+.drop-zone:hover .drop-icon {
+    opacity: 1;
+}
+
+.drop-zone p {
+    color: var(--color-secondary);
+    font-size: 14px;
+}
+
+/* Settings Container */
+.settings-container {
+    border-radius: 0;
+    border: 1px solid rgba(212, 207, 199, 0.2);
+    background-color: rgba(37, 32, 33, 0.6);
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.setting-group {
+    margin-bottom: 16px;
+}
+
+.setting-group:last-child {
+    margin-bottom: 0;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Radio & Checkbox */
+input[type="radio"],
+input[type="checkbox"] {
+    width: auto;
+}
+
+input[type="radio"] + div,
+input[type="checkbox"] + div {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-primary);
+    background-color: transparent;
+    transition: all 0.2s;
+}
+
+input[type="radio"]:checked + div {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+input[type="checkbox"]:checked + div {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+input[type="radio"] + div {
+    border-radius: 50%;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+    border: none;
+    border-radius: 0;
+    padding: 12px 24px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #c9a15e;
+    filter: brightness(1.1);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-secondary);
+    border: 1px solid rgba(212, 207, 199, 0.4);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+    min-width: 80px;
+}
+
+.btn-lg {
+    padding: 16px 48px;
+    font-size: 16px;
+    min-width: 150px;
+    height: 48px;
+}
+
+/* Queue List */
+.queue-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(212, 207, 199, 0.2);
+    font-size: 13px;
+}
+
+.queue-item:last-child {
+    border-bottom: none;
+}
+
+.queue-item.completed {
+    color: var(--color-primary);
+}
+
+.queue-item.failed {
+    color: #d97706;
+}
+
+.queue-item.processing {
+    background-color: rgba(176, 139, 73, 0.05);
+}
+
+.queue-progress {
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-dark);
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.queue-progress-bar {
+    height: 100%;
+    background-color: var(--color-primary);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: rgba(212, 207, 199, 0.5);
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 12px;
+    transition: color 0.2s;
+}
+
+.btn-remove:hover {
+    color: #d97706;
+}
+
+/* Log Output */
+#log-output {
+    background-color: rgba(26, 23, 24, 0.5);
+    border: 1px solid rgba(212, 207, 199, 0.2);
+    padding: 16px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 12px;
+    color: var(--color-secondary);
+    overflow-y: auto;
+    height: 240px;
+    line-height: 1.4;
+}
+
+#log-output p {
+    margin-bottom: 4px;
+}
+
+.log-success {
+    color: var(--color-primary);
+}
+
+.log-error {
+    color: #d97706;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 48px 24px;
+    text-align: center;
+    color: rgba(212, 207, 199, 0.6);
+}
+
+/* Utility Classes */
+.border {
+    border: 1px solid;
+}
+
+.hidden {
+    display: none;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-xs {
+    font-size: 12px;
+}
+
+.text-sm {
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        padding: 16px;
+    }
+
+    .btn-lg {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    .tab-btn {
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+
+    header h1 {
+        font-size: 16px;
+    }
+
+    .settings-container {
+        padding: 16px;
+    }
+}

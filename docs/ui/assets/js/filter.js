@@ -61,6 +61,16 @@
                     const valB = (b.getAttribute("data-title") || "").toLowerCase();
                     return activeSort === 'z-a' ? valB.localeCompare(valA) : valA.localeCompare(valB);
                 });
+            } else if (activeSort === 'chrono-asc' || activeSort === 'chrono-desc') {
+                cards.sort((a, b) => {
+                    const valA = a.getAttribute("data-date") || "";
+                    const valB = b.getAttribute("data-date") || "";
+                    // Push entries without dates to the end
+                    if (!valA && !valB) return 0;
+                    if (!valA) return 1;
+                    if (!valB) return -1;
+                    return activeSort === 'chrono-desc' ? valB.localeCompare(valA) : valA.localeCompare(valB);
+                });
             }
 
             // 3. Re-append in sorted order and add Headers if event filtered
@@ -118,8 +128,13 @@
         options.forEach(opt => {
             const o = document.createElement("option");
             o.value = opt;
-            o.textContent = opt === 'a-z' ? 'A-Z (Name)' : opt === 'z-a' ? 'Z-A (Name)' : opt;
-            if (isSort && opt === 'a-z') o.selected = true;
+            if (opt === 'a-z') o.textContent = 'A-Z (Name)';
+            else if (opt === 'z-a') o.textContent = 'Z-A (Name)';
+            else if (opt === 'chrono-asc') o.textContent = 'Date (Oldest First)';
+            else if (opt === 'chrono-desc') o.textContent = 'Date (Newest First)';
+            else o.textContent = opt;
+
+            if (isSort && opt === activeSort) o.selected = true;
             select.appendChild(o);
         });
 
@@ -145,7 +160,7 @@
         container.appendChild(wrapper);
     }
 
-    async function initializeFilters(container, filterDataAttr) {
+    async function initializeFilters(container, filterDataAttr, customTitle) {
         try {
             let filterGroups;
             try {
@@ -181,7 +196,18 @@
             }
 
             // Always add Sort dropdown
-            createDropdown(container, "Sort Order", ["a-z", "z-a"], true);
+            const sortOptions = ["a-z", "z-a"];
+            const isEvents = customTitle === "Events" || filterDataAttr.includes("events.json");
+            
+            if (isEvents) {
+                sortOptions.unshift("chrono-asc", "chrono-desc");
+                activeSort = 'chrono-asc';
+            }
+
+            createDropdown(container, "Sort Order", sortOptions, true);
+            
+            // Apply immediately after setup
+            applyFilters();
 
         } catch (err) {
             console.error("Failed to parse data-filters JSON:", err);
@@ -208,7 +234,7 @@
             }
 
             if (container && filterDataAttr) {
-                initializeFilters(container, filterDataAttr);
+                initializeFilters(container, filterDataAttr, customTitle);
             }
 
             // Handle Clear action
@@ -234,6 +260,10 @@
     });
 
     // Re-apply filters/sort when cards are rendered
+    document.addEventListener("entitiesRendered", () => {
+        applyFilters();
+    });
+
     document.addEventListener("componentLoaded", (e) => {
         if (e.detail.element.hasAttribute("data-data-source")) {
             setTimeout(applyFilters, 100);

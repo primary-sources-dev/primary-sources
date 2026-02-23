@@ -84,30 +84,53 @@ DEFAULT_OUTPUT_DIR = os.path.abspath(
 class FileQueue(ctk.CTkScrollableFrame):
     """Scrollable list of queued files with status indicators."""
 
-    def __init__(self, master, **kwargs):
+    def __init__(self, master, height: int = 160, **kwargs):
+        # enforce a fixed height to avoid the queue dominating the layout
         super().__init__(master, **kwargs)
         self.files: dict[str, dict] = {}  # filepath -> {label, status_label, status}
-        self.configure(fg_color=COLORS["bg_dark"])
+        self.configure(fg_color=COLORS["bg_dark"], height=height)
+        # prevent geometry propagation so the container stays the configured height
+        try:
+            self.pack_propagate(False)
+        except Exception:
+            pass
+
+        # placeholder when empty
+        self._placeholder = ctk.CTkLabel(
+            self,
+            text="No files — click + to add",
+            font=("Roboto Mono", 11),
+            text_color=COLORS["muted"],
+        )
+        self._placeholder.place(relx=0.5, rely=0.5, anchor="center")
 
     def add_file(self, filepath: str):
         if filepath in self.files:
             return
 
+        # remove placeholder when first file added
+        try:
+            if self._placeholder.winfo_exists():
+                self._placeholder.place_forget()
+        except Exception:
+            pass
+
         filename = os.path.basename(filepath)
-        frame = ctk.CTkFrame(self, fg_color="transparent")
-        frame.pack(fill="x", pady=2)
+        # Compact single-line row
+        row = ctk.CTkFrame(self, fg_color=COLORS["bg"])
+        row.pack(fill="x", pady=(4, 0), padx=6)
 
         status_label = ctk.CTkLabel(
-            frame,
+            row,
             text="○",
-            width=30,
-            font=("Segoe UI", 14),
+            width=26,
+            font=("Segoe UI", 12),
             text_color=COLORS["muted"],
         )
-        status_label.pack(side="left", padx=(0, 8))
+        status_label.pack(side="left", padx=(6, 8))
 
         name_label = ctk.CTkLabel(
-            frame,
+            row,
             text=filename,
             anchor="w",
             font=("Roboto Mono", 11),
@@ -116,17 +139,33 @@ class FileQueue(ctk.CTkScrollableFrame):
         name_label.pack(side="left", fill="x", expand=True)
 
         progress_label = ctk.CTkLabel(
-            frame,
+            row,
             text="Pending",
-            width=80,
+            width=90,
             anchor="e",
             font=("Roboto Mono", 10),
             text_color=COLORS["muted"],
         )
-        progress_label.pack(side="right")
+        progress_label.pack(side="right", padx=(6, 6))
+
+        remove_btn = ctk.CTkButton(
+            row,
+            text="✕",
+            width=28,
+            height=24,
+            fg_color="transparent",
+            hover_color=COLORS["bg_dark"],
+            text_color=COLORS["muted"],
+            command=lambda p=filepath: self.remove_file(p),
+        )
+        remove_btn.pack(side="right", padx=(6, 6))
+
+        sep = ctk.CTkFrame(self, height=1, fg_color=COLORS["bg_dark"])  # thin line
+        sep.pack(fill="x", padx=6, pady=(0, 2))
 
         self.files[filepath] = {
-            "frame": frame,
+            "frame": row,
+            "sep": sep,
             "status_label": status_label,
             "progress_label": progress_label,
             "status": "pending",
@@ -163,8 +202,51 @@ class FileQueue(ctk.CTkScrollableFrame):
 
     def clear(self):
         for item in self.files.values():
-            item["frame"].destroy()
+            try:
+                item["frame"].destroy()
+            except Exception:
+                pass
+            try:
+                if "sep" in item and item["sep"]:
+                    item["sep"].destroy()
+            except Exception:
+                pass
         self.files.clear()
+        # restore placeholder
+        try:
+            if not self._placeholder.winfo_ismapped():
+                self._placeholder.place(relx=0.5, rely=0.5, anchor="center")
+        except Exception:
+            pass
+
+    def remove_file(self, filepath: str):
+        """Remove a file from the queue UI and internal state."""
+        if filepath not in self.files:
+            # try matching by basename
+            for fp in list(self.files.keys()):
+                if os.path.basename(fp) == filepath:
+                    filepath = fp
+                    break
+            else:
+                return
+
+        item = self.files.pop(filepath)
+        try:
+            item["frame"].destroy()
+        except Exception:
+            pass
+        try:
+            if "sep" in item and item["sep"]:
+                item["sep"].destroy()
+        except Exception:
+            pass
+
+        # if now empty, show placeholder
+        if not self.files:
+            try:
+                self._placeholder.place(relx=0.5, rely=0.5, anchor="center")
+            except Exception:
+                pass
 
     def get_filepaths(self) -> list[str]:
         return list(self.files.keys())
@@ -204,15 +286,29 @@ class OCRApp(ctk.CTk):
         )
         title.pack(side="left", padx=20, pady=15)
 
-        # Drop zone
+        # Main tab view to separate Home / Queue
+        self.tabview = ctk.CTkTabview(self, width=660)
+        self.tabview.add("Home")
+        self.tabview.add("Queue")
+        self.tabview.pack(fill="both", expand=True, padx=20, pady=(10, 0))
+
+        # Tab frames
+        home_tab = self.tabview.tab("Home")
+        queue_tab = self.tabview.tab("Queue")
+
+        # Regular frame for Home tab (no scrollbar)
+        home_scrollable = ctk.CTkFrame(home_tab, fg_color=COLORS["bg"])
+        home_scrollable.pack(fill="both", expand=True)
+
+        # Drop zone (Home tab)
         self.drop_frame = ctk.CTkFrame(
-            self,
+            home_scrollable,
             fg_color=COLORS["bg_dark"],
             border_width=2,
             border_color=COLORS["muted"],
             height=120,
         )
-        self.drop_frame.pack(fill="x", padx=20, pady=(20, 10))
+        self.drop_frame.pack(fill="x", padx=0, pady=(6, 10))
         self.drop_frame.pack_propagate(False)
 
         drop_label = ctk.CTkLabel(
@@ -223,68 +319,76 @@ class OCRApp(ctk.CTk):
         )
         drop_label.pack(expand=True)
 
-        browse_btn = ctk.CTkButton(
-            self,
-            text="Browse...",
-            font=("Roboto Mono", 11, "bold"),
+        # Add a compact '+' button inside the drop zone that opens the file dialog
+        plus_btn = ctk.CTkButton(
+            self.drop_frame,
+            text="+",
+            width=36,
+            height=36,
             fg_color=COLORS["primary"],
             hover_color="#9A7A3F",
             text_color=COLORS["bg_dark"],
-            width=120,
+            font=("Oswald", 14, "bold"),
+            corner_radius=18,
             command=self._browse_files,
         )
-        browse_btn.pack(anchor="e", padx=20)
+        # place in the right center of the drop area
+        plus_btn.place(relx=0.97, rely=0.5, anchor="e")
 
-        # Queue section
-        queue_label = ctk.CTkLabel(
-            self,
-            text="QUEUE",
-            font=("Oswald", 14, "bold"),
-            text_color=COLORS["primary"],
-            anchor="w",
-        )
-        queue_label.pack(fill="x", padx=20, pady=(15, 5))
+        # Make the entire drop frame clickable to open the file browser
+        def _dropframe_click(event=None):
+            self._browse_files()
 
-        self.queue = FileQueue(self, height=150)
-        self.queue.pack(fill="x", padx=20)
+        self.drop_frame.bind("<Button-1>", _dropframe_click)
 
-        clear_btn = ctk.CTkButton(
-            self,
-            text="Clear Queue",
-            font=("Roboto Mono", 10),
-            fg_color="transparent",
-            hover_color=COLORS["bg_dark"],
-            text_color=COLORS["muted"],
-            border_width=1,
-            border_color=COLORS["muted"],
-            width=100,
-            height=28,
-            command=self._clear_queue,
-        )
-        clear_btn.pack(anchor="e", padx=20, pady=(5, 0))
+        # Hover feedback: highlight border when mouse over drop area
+        def _on_enter(e=None):
+            try:
+                self.drop_frame.configure(border_color=COLORS["primary"])
+            except Exception:
+                pass
 
-        # Settings section
+        def _on_leave(e=None):
+            try:
+                self.drop_frame.configure(border_color=COLORS["muted"])
+            except Exception:
+                pass
+
+        self.drop_frame.bind("<Enter>", _on_enter)
+        self.drop_frame.bind("<Leave>", _on_leave)
+
+        # (Removed old external Browse button; '+' inside drop zone handles file selection)
+
+        # Settings section (moved to Home tab)
         settings_label = ctk.CTkLabel(
-            self,
+            home_scrollable,
             text="SETTINGS",
             font=("Oswald", 14, "bold"),
             text_color=COLORS["primary"],
             anchor="w",
         )
-        settings_label.pack(fill="x", padx=20, pady=(15, 5))
+        settings_label.pack(fill="x", padx=10, pady=(6, 6))
 
-        settings_frame = ctk.CTkFrame(self, fg_color=COLORS["bg_dark"])
-        settings_frame.pack(fill="x", padx=20)
+        # Settings container with visible border for clarity
+        settings_frame = ctk.CTkFrame(
+            home_scrollable, 
+            fg_color=COLORS["bg_dark"],
+            border_width=1,
+            border_color=COLORS["muted"]
+        )
+        settings_frame.pack(fill="x", padx=10, pady=(0, 10))
 
         # Backend selection
         backend_frame = ctk.CTkFrame(settings_frame, fg_color="transparent")
-        backend_frame.pack(fill="x", padx=15, pady=(15, 5))
+        backend_frame.pack(fill="x", padx=15, pady=(12, 10))
 
         ctk.CTkLabel(
             backend_frame,
             text="Backend:",
             font=("Roboto Mono", 11),
-            text_color=COLORS["secondary"],
+            text_color=COLORS["primary"],
+            width=60,
+            anchor="w",
         ).pack(side="left")
 
         self.backend_var = ctk.StringVar(value="wsl")
@@ -296,7 +400,7 @@ class OCRApp(ctk.CTk):
             font=("Roboto Mono", 10),
             text_color=COLORS["secondary"],
             fg_color=COLORS["primary"],
-        ).pack(side="left", padx=(15, 10))
+        ).pack(side="left", padx=(10, 15))
 
         ctk.CTkRadioButton(
             backend_frame,
@@ -310,13 +414,15 @@ class OCRApp(ctk.CTk):
 
         # Output options
         output_frame = ctk.CTkFrame(settings_frame, fg_color="transparent")
-        output_frame.pack(fill="x", padx=15, pady=5)
+        output_frame.pack(fill="x", padx=15, pady=(0, 10))
 
         ctk.CTkLabel(
             output_frame,
             text="Output:",
             font=("Roboto Mono", 11),
-            text_color=COLORS["secondary"],
+            text_color=COLORS["primary"],
+            width=60,
+            anchor="w",
         ).pack(side="left")
 
         self.output_pdf_var = ctk.BooleanVar(value=True)
@@ -328,7 +434,7 @@ class OCRApp(ctk.CTk):
             text_color=COLORS["secondary"],
             fg_color=COLORS["primary"],
             hover_color="#9A7A3F",
-        ).pack(side="left", padx=(15, 10))
+        ).pack(side="left", padx=(10, 15))
 
         self.output_txt_var = ctk.BooleanVar(value=True)
         ctk.CTkCheckBox(
@@ -343,13 +449,15 @@ class OCRApp(ctk.CTk):
 
         # OCR options
         options_frame = ctk.CTkFrame(settings_frame, fg_color="transparent")
-        options_frame.pack(fill="x", padx=15, pady=5)
+        options_frame.pack(fill="x", padx=15, pady=(0, 10))
 
         ctk.CTkLabel(
             options_frame,
             text="Options:",
             font=("Roboto Mono", 11),
-            text_color=COLORS["secondary"],
+            text_color=COLORS["primary"],
+            width=60,
+            anchor="w",
         ).pack(side="left")
 
         self.deskew_var = ctk.BooleanVar(value=True)
@@ -361,7 +469,7 @@ class OCRApp(ctk.CTk):
             text_color=COLORS["secondary"],
             fg_color=COLORS["primary"],
             hover_color="#9A7A3F",
-        ).pack(side="left", padx=(15, 10))
+        ).pack(side="left", padx=(10, 15))
 
         self.clean_var = ctk.BooleanVar(value=True)
         ctk.CTkCheckBox(
@@ -372,7 +480,7 @@ class OCRApp(ctk.CTk):
             text_color=COLORS["secondary"],
             fg_color=COLORS["primary"],
             hover_color="#9A7A3F",
-        ).pack(side="left", padx=(0, 10))
+        ).pack(side="left", padx=(0, 15))
 
         self.force_var = ctk.BooleanVar(value=False)
         ctk.CTkCheckBox(
@@ -385,69 +493,81 @@ class OCRApp(ctk.CTk):
             hover_color="#9A7A3F",
         ).pack(side="left")
 
-        # Output directory
-        dir_frame = ctk.CTkFrame(settings_frame, fg_color="transparent")
-        dir_frame.pack(fill="x", padx=15, pady=(5, 15))
+        # Output directory (label on top, entry + buttons below)
+        dir_label_frame = ctk.CTkFrame(settings_frame, fg_color="transparent")
+        dir_label_frame.pack(fill="x", padx=15, pady=(0, 5))
 
         ctk.CTkLabel(
-            dir_frame,
+            dir_label_frame,
             text="Save to:",
             font=("Roboto Mono", 11),
-            text_color=COLORS["secondary"],
-        ).pack(side="left")
+            text_color=COLORS["primary"],
+            anchor="w",
+        ).pack(fill="x")
+
+        # Entry field and buttons on second row
+        dir_entry_frame = ctk.CTkFrame(settings_frame, fg_color="transparent")
+        dir_entry_frame.pack(fill="x", padx=15, pady=(0, 12))
 
         self.output_dir_var = ctk.StringVar(value=DEFAULT_OUTPUT_DIR)
+        # Reduce width to allow buttons to fit alongside
         self.output_dir_entry = ctk.CTkEntry(
-            dir_frame,
+            dir_entry_frame,
             textvariable=self.output_dir_var,
             font=("Roboto Mono", 10),
-            fg_color=COLORS["bg"],
-            border_color=COLORS["muted"],
+            fg_color=COLORS["bg_dark"],
+            border_color=COLORS["primary"],
             text_color=COLORS["secondary"],
-            width=350,
+            width=280,
         )
-        self.output_dir_entry.pack(side="left", padx=(15, 10))
+        self.output_dir_entry.pack(side="left", fill="x", expand=True, padx=(0, 8))
 
+        # Change directory button
         ctk.CTkButton(
-            dir_frame,
+            dir_entry_frame,
             text="Change...",
-            font=("Roboto Mono", 10),
+            font=("Roboto Mono", 9),
             fg_color="transparent",
             hover_color=COLORS["bg"],
             text_color=COLORS["primary"],
             border_width=1,
             border_color=COLORS["primary"],
-            width=80,
+            width=70,
             height=28,
             command=self._browse_output_dir,
+        ).pack(side="left", padx=(0, 6))
+
+        # Open output folder quickly
+        ctk.CTkButton(
+            dir_entry_frame,
+            text="Open",
+            font=("Roboto Mono", 9),
+            fg_color=COLORS["primary"],
+            hover_color="#9A7A3F",
+            text_color=COLORS["bg_dark"],
+            width=60,
+            height=28,
+            command=self._open_output_folder,
         ).pack(side="left")
 
-        # Log section
-        log_label = ctk.CTkLabel(
-            self,
-            text="LOG",
-            font=("Oswald", 14, "bold"),
-            text_color=COLORS["primary"],
-            anchor="w",
-        )
-        log_label.pack(fill="x", padx=20, pady=(15, 5))
+        # UX: double-click the path to copy it to clipboard
+        def _bind_copy(event=None):
+            path = self.output_dir_var.get()
+            try:
+                self.clipboard_clear()
+                self.clipboard_append(path)
+                self._log(f"Output path copied to clipboard: {path}")
+            except Exception:
+                pass
 
-        self.log_text = ctk.CTkTextbox(
-            self,
-            height=120,
-            font=("Roboto Mono", 10),
-            fg_color=COLORS["bg_dark"],
-            text_color=COLORS["muted"],
-            border_width=0,
-        )
-        self.log_text.pack(fill="x", padx=20)
+        self.output_dir_entry.bind("<Double-Button-1>", _bind_copy)
 
-        # Action buttons
-        button_frame = ctk.CTkFrame(self, fg_color="transparent")
-        button_frame.pack(fill="x", padx=20, pady=20)
+        # Start button (Home tab, at the bottom)
+        home_button_frame = ctk.CTkFrame(home_scrollable, fg_color="transparent")
+        home_button_frame.pack(fill="x", padx=10, pady=20)
 
         self.start_btn = ctk.CTkButton(
-            button_frame,
+            home_button_frame,
             text="Start OCR",
             font=("Oswald", 14, "bold"),
             fg_color=COLORS["primary"],
@@ -460,7 +580,7 @@ class OCRApp(ctk.CTk):
         self.start_btn.pack(side="left", expand=True)
 
         self.cancel_btn = ctk.CTkButton(
-            button_frame,
+            home_button_frame,
             text="Cancel",
             font=("Oswald", 14, "bold"),
             fg_color="transparent",
@@ -474,6 +594,55 @@ class OCRApp(ctk.CTk):
             state="disabled",
         )
         self.cancel_btn.pack(side="left", expand=True, padx=(20, 0))
+
+        # Log section (place in Queue tab)
+        log_label = ctk.CTkLabel(
+            queue_tab,
+            text="QUEUE",
+            font=("Oswald", 14, "bold"),
+            text_color=COLORS["primary"],
+            anchor="w",
+        )
+        log_label.pack(fill="x", padx=10, pady=(12, 6))
+
+        # smaller fixed-height queue to preserve vertical space
+        self.queue = FileQueue(queue_tab, height=160)
+        self.queue.pack(fill="x", padx=10)
+
+        clear_btn = ctk.CTkButton(
+            queue_tab,
+            text="Clear Queue",
+            font=("Roboto Mono", 10),
+            fg_color="transparent",
+            hover_color=COLORS["bg_dark"],
+            text_color=COLORS["muted"],
+            border_width=1,
+            border_color=COLORS["muted"],
+            width=100,
+            height=28,
+            command=self._clear_queue,
+        )
+        clear_btn.pack(anchor="e", padx=10, pady=(5, 0))
+
+        # Log section (place in Queue tab)
+        log_label = ctk.CTkLabel(
+            queue_tab,
+            text="LOG",
+            font=("Oswald", 14, "bold"),
+            text_color=COLORS["primary"],
+            anchor="w",
+        )
+        log_label.pack(fill="x", padx=10, pady=(12, 5))
+
+        self.log_text = ctk.CTkTextbox(
+            queue_tab,
+            height=120,
+            font=("Roboto Mono", 10),
+            fg_color=COLORS["bg_dark"],
+            text_color=COLORS["muted"],
+            border_width=0,
+        )
+        self.log_text.pack(fill="x", padx=10)
 
         # Enable drag and drop
         self._setup_dnd()

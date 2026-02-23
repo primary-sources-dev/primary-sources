@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Event Detail — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/db-logic.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header" class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <main class="max-w-6xl mx-auto p-6">
+        
+        <!-- EVENT HEADER -->
+        <section class="mb-12 border-b border-archive-secondary/10 pb-8">
+            <div class="flex items-start gap-6">
+                <div class="flex-shrink-0 w-20 h-20 bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                    <span id="event-icon" class="material-symbols-outlined text-4xl">calendar_month</span>
+                </div>
+                <div class="flex-grow">
+                    <span id="event-label" class="text-[10px] font-bold uppercase text-primary tracking-widest block mb-2">LOADING DATE...</span>
+                    <h2 id="event-title" class="text-4xl font-bold text-archive-heading uppercase font-display leading-none mb-4">LOADING TITLE...</h2>
+                    <p id="event-description" class="text-sm text-archive-secondary/80 leading-relaxed max-w-3xl italic">
+                        Loading record details...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- LEFT COLUMN: CHRONOLOGICAL SEQUENCE -->
+            <div class="lg:col-span-2 space-y-12">
+                <section>
+                    <div class="mb-6 border-l-4 border-primary pl-4 uppercase">
+                        <h3 class="text-xl font-bold text-archive-heading tracking-widest font-display">Procedural Timeline</h3>
+                        <p class="text-[9px] text-archive-secondary/50 uppercase tracking-widest mt-1">Verified sub-events and investigative steps</p>
+                    </div>
+                    <div id="event-timeline" class="space-y-4">
+                        <!-- Dynamic cards injected by db-logic.js -->
+                    </div>
+                </section>
+
+                <section>
+                    <div class="mb-6 border-l-4 border-primary pl-4 uppercase">
+                        <h3 class="text-xl font-bold text-archive-heading tracking-widest font-display">Primary Documents</h3>
+                        <p class="text-[9px] text-archive-secondary/50 uppercase tracking-widest mt-1">Foundational evidence and archival sources</p>
+                    </div>
+                    <div id="event-sources" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Dynamic source cards injected by db-logic.js -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT COLUMN: KEY PARTICIPANTS & OBJECTS -->
+            <div class="space-y-12">
+                <section>
+                    <div class="mb-6 border-l-4 border-primary pl-4 uppercase">
+                        <h3 class="text-xl font-bold text-archive-heading tracking-widest font-display">Key Participants</h3>
+                        <p class="text-[9px] text-archive-secondary/50 uppercase tracking-widest mt-1">Witnesses, agents, and individuals</p>
+                    </div>
+                    <div id="event-people" class="space-y-4">
+                        <!-- Dynamic cards injected by db-logic.js -->
+                    </div>
+                </section>
+
+                <section>
+                    <div class="mb-6 border-l-4 border-primary pl-4 uppercase">
+                        <h3 class="text-xl font-bold text-archive-heading tracking-widest font-display">Material Evidence</h3>
+                        <p class="text-[9px] text-archive-secondary/50 uppercase tracking-widest mt-1">Physical objects and exhibits</p>
+                    </div>
+                    <div id="event-objects" class="space-y-4">
+                        <!-- Dynamic cards injected by db-logic.js -->
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Events" class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div> 
+</body>
+
+</html>

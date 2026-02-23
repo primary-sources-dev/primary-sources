@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Viewer — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!-- Required for Text Layer matching/selection -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
+    <style>
+        :root {
+            --primary: #B08B49;
+            --archive-bg: #2E282A;
+            --archive-heading: #F0EDE0;
+            --archive-dark: #1A1718;
+        }
+        body { background-color: var(--archive-dark); font-family: 'Roboto Mono', monospace; }
+        
+        /* Custom scrollbar for that archive feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--archive-dark); }
+        ::-webkit-scrollbar-thumb { background: rgba(176, 139, 73, 0.2); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        #pdf-canvas { 
+            border: 1px solid rgba(255,255,255,0.1); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); 
+        }
+        
+        /* Text Layer Overlay */
+        .textLayer {
+            opacity: 0.2; /* Subtle visibility for debugging, usually 0.2-0.4 for "feel", 1.0 for copying */
+            mix-blend-mode: multiply;
+        }
+        /* Make text selection familiar (Standard Blue) */
+        .textLayer ::selection {
+            background: rgba(0, 120, 215, 0.4);
+            color: white;
+        }
+
+        #viewer-wrapper { 
+            height: calc(100vh - 64px); 
+            overflow-y: auto; 
+            scroll-behavior: smooth;
+            background-image: radial-gradient(circle at center, #252021 0%, #1A1718 100%);
+        }
+
+        #canvas-container {
+            position: relative;
+            margin: 2rem auto;
+            width: fit-content;
+        }
+
+        .toolbar-btn {
+            @apply flex items-center justify-center h-10 w-10 text-primary hover:text-archive-heading hover:bg-primary/10 transition-all rounded-sm disabled:opacity-20 disabled:pointer-events-none;
+        }
+
+        #loading-overlay {
+            background: var(--archive-dark);
+            position: fixed;
+            inset: 64px 0 0 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(176, 139, 73, 0.1);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="overflow-hidden text-archive-secondary">
+
+    <!-- HEADER / TOOLBAR -->
+    <header class="h-16 border-b border-white/10 flex items-center justify-between px-6 bg-[#2E282A] z-[110] relative shadow-xl">
+        <div class="flex items-center gap-6">
+            <button onclick="window.close()" class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">arrow_back</span> Exit
+            </button>
+            <div class="h-6 w-px bg-white/10"></div>
+            <h1 id="doc-title" class="text-archive-heading font-display font-bold uppercase tracking-wider text-sm truncate max-w-[200px] md:max-w-md">Primary Source</h1>
+        </div>
+
+        <!-- NAVIGATION CONTROLS -->
+        <div class="flex items-center gap-2 bg-black/20 p-1 rounded-sm border border-white/5">
+            <button id="prev-page" class="toolbar-btn" title="Previous Page">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+            
+            <div class="flex items-center gap-2 px-3">
+                <input type="number" id="page-num-input" class="w-12 bg-archive-dark border border-white/10 text-center text-xs font-bold text-primary focus:border-primary outline-none py-1" value="1">
+                <span class="text-[10px] font-bold text-white/40 uppercase tracking-tighter">of <span id="page-count">0</span></span>
+            </div>
+
+            <button id="next-page" class="toolbar-btn" title="Next Page">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        </div>
+
+        <!-- ZOOM CONTROLS -->
+        <div class="flex items-center gap-1">
+            <button id="zoom-out" class="toolbar-btn" title="Zoom Out">
+                <span class="material-symbols-outlined">remove</span>
+            </button>
+            <span id="zoom-level" class="text-[9px] font-bold text-white/40 w-10 text-center uppercase tracking-tighter">100%</span>
+            <button id="zoom-in" class="toolbar-btn" title="Zoom In">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+            <div class="h-6 w-px bg-white/10 mx-2"></div>
+            <button id="fit-width" class="toolbar-btn" title="Fit to Width">
+                <span class="material-symbols-outlined">fit_screen</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- LOADING STATE -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary animate-pulse">Accessing Evidentiary File...</span>
+    </div>
+
+    <!-- VIEWER AREA -->
+    <div id="viewer-wrapper">
+        <div id="canvas-container">
+            <canvas id="pdf-canvas"></canvas>
+            <div id="text-layer" class="textLayer"></div>
+        </div>
+    </div>
+
+    <script>
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        let scale = 1.5;
+        let canvas = document.getElementById('pdf-canvas');
+        let ctx = canvas.getContext('2d');
+
+        const params = new URLSearchParams(window.location.search);
+        const url = params.get('file');
+        const initialPage = parseInt(params.get('page')) || 1;
+
+        async function renderPage(num) {
+            pageRendering = true;
+            const page = await pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: scale });
+            
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // 1. Render Canvas (Image)
+            const renderContext = { canvasContext: ctx, viewport: viewport };
+            await page.render(renderContext).promise;
+
+            // 2. Render Text Layer (Copyable)
+            const textLayerDiv = document.getElementById('text-layer');
+            textLayerDiv.style.width = `${viewport.width}px`;
+            textLayerDiv.style.height = `${viewport.height}px`;
+            textLayerDiv.innerHTML = ""; // Clear old layer
+
+            const textContent = await page.getTextContent();
+            pdfjsLib.renderTextLayer({
+                textContent: textContent,
+                container: textLayerDiv,
+                viewport: viewport,
+                textDivs: []
+            });
+
+            pageRendering = false;
+            if (pageNumPending !== null) {
+                renderPage(pageNumPending);
+                pageNumPending = null;
+            }
+
+            document.getElementById('page-num-input').value = num;
+            document.getElementById('zoom-level').textContent = Math.round(scale * 66) + '%';
+            document.getElementById('prev-page').disabled = (num <= 1);
+            document.getElementById('next-page').disabled = (num >= pdfDoc.numPages);
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        /**
+         * If another page rendering in progress, waits until the rendering is finised.
+         */
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        /**
+         * Navigation Logic
+         */
+        function onPrevPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+
+        /**
+         * Zoom Logic
+         */
+        function onZoomIn() {
+            scale += 0.25;
+            queueRenderPage(pageNum);
+        }
+
+        function onZoomOut() {
+            if (scale <= 0.5) return;
+            scale -= 0.25;
+            queueRenderPage(pageNum);
+        }
+
+        function onFitWidth() {
+            const containerWidth = document.getElementById('viewer-wrapper').clientWidth - 80;
+            pdfDoc.getPage(pageNum).then(page => {
+                const viewport = page.getViewport({ scale: 1 });
+                scale = containerWidth / viewport.width;
+                queueRenderPage(pageNum);
+            });
+        }
+
+        /**
+         * Initialization
+         */
+        if (url) {
+            pdfjsLib.getDocument(url).promise.then(doc => {
+                pdfDoc = doc;
+                document.getElementById('page-count').textContent = doc.numPages;
+                document.getElementById('doc-title').textContent = url.split('/').pop().replace('.pdf', '').replace(/-/g, ' ');
+                
+                // Jump to initial page from URL
+                pageNum = initialPage > doc.numPages ? 1 : initialPage;
+                renderPage(pageNum);
+            }).catch(err => {
+                console.error("Error loading PDF:", err);
+                document.getElementById('status-info').textContent = "Load Error";
+            });
+        }
+
+        // Event Listeners
+        document.getElementById('prev-page').addEventListener('click', onPrevPage);
+        document.getElementById('next-page').addEventListener('click', onNextPage);
+        document.getElementById('zoom-in').addEventListener('click', onZoomIn);
+        document.getElementById('zoom-out').addEventListener('click', onZoomOut);
+        document.getElementById('fit-width').addEventListener('click', onFitWidth);
+
+        document.getElementById('page-num-input').addEventListener('change', (e) => {
+            const val = parseInt(e.target.value);
+            if (val > 0 && val <= pdfDoc.numPages) {
+                pageNum = val;
+                queueRenderPage(pageNum);
+            }
+        });
+
+        // Keyboard Support
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') onNextPage();
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') onPrevPage();
+            if (e.key === '+' || (e.key === '=' && e.ctrlKey)) onZoomIn();
+            if (e.key === '-' && e.ctrlKey) onZoomOut();
+        });
+    </script>
+</body>
+</html>

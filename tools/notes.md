@@ -599,3 +599,6 @@ delete uiPerson.status;
 | Event boundaries | Subjective interpretation |
 | Time precision judgment | EXACT vs APPROX |
 | Conflict flagging | Historical interpretation |
+
+### To Run
+C:/Users/willh/AppData/Local/Programs/Python/Python313/python.exe tools/ocr-gui/ocr_gui.py

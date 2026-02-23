@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary Sources — OCR Tool</title>
+    <link rel="stylesheet" href="ocr-gui.css">
+</head>
+<body class="bg-archive-bg text-archive-secondary font-mono">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
+        <div class="h-16 flex items-center px-6">
+            <a href="../index.html" class="text-archive-secondary hover:text-primary mr-4">← Back</a>
+            <h1 class="text-xl font-bold text-archive-heading uppercase tracking-widest">
+                Primary Sources — OCR Tool
+            </h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto p-6">
+        <!-- Tabs -->
+        <div class="flex gap-1 mb-8 border-b border-archive-secondary/20">
+            <button id="tab-home" class="tab-btn active" data-tab="home">
+                <span class="text-base font-bold uppercase tracking-wider text-archive-heading">
+                    Home
+                </span>
+            </button>
+            <button id="tab-queue" class="tab-btn" data-tab="queue">
+                <span class="text-base font-bold uppercase tracking-wider text-archive-heading">
+                    Queue
+                </span>
+                <span id="queue-badge" class="queue-badge hidden">0</span>
+            </button>
+        </div>
+
+        <!-- HOME TAB -->
+        <section id="tab-content-home" class="tab-content active">
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="drop-zone border border-archive-secondary/20 bg-archive-dark/50 mb-8">
+                <div class="drop-zone-content">
+                    <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 16v-4m0 0V8m0 4H8m0 0h4m0 0h4m0 0v4m0 0h-4m0 0h4m0 0H8m0 0H4m0 0h4"/>
+                    </svg>
+                    <p class="text-archive-secondary text-base">Drop PDF files here or click to browse</p>
+                </div>
+                <input id="file-input" type="file" accept=".pdf" multiple hidden>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-8">
+                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                    Settings
+                </h3>
+
+                <!-- Backend Selection -->
+                <div class="setting-group mb-4">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary">Backend</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="backend" value="wsl" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">WSL (ocrmypdf)</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="backend" value="python" class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Python (pytesseract)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Output Format -->
+                <div class="setting-group mb-4">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary">Output Format</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="output-pdf" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Searchable PDF</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="output-txt" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Plain Text</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- OCR Options -->
+                <div class="setting-group mb-6">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary">Options</label>
+                    <div class="flex gap-4 mt-2 flex-wrap">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="option-deskew" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Deskew</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="option-clean" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Clean</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="option-force" class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Force OCR</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Save To Directory -->
+                <div class="setting-group">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary block mb-2">Save to</label>
+                    <div class="flex gap-2">
+                        <input 
+                            type="text" 
+                            id="output-dir" 
+                            readonly 
+                            class="flex-1 bg-archive-bg border border-primary px-3 py-2 text-archive-secondary text-sm cursor-text"
+                            title="Double-click to copy"
+                        >
+                        <button class="btn-secondary btn-sm" onclick="changeOutputDir()">Change...</button>
+                        <button class="btn-primary btn-sm" onclick="openOutputFolder()">Open</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-4 justify-center">
+                <button id="btn-start" class="btn-primary btn-lg">Start OCR</button>
+                <button id="btn-cancel" class="btn-secondary btn-lg" disabled>Cancel</button>
+            </div>
+        </section>
+
+        <!-- QUEUE TAB -->
+        <section id="tab-content-queue" class="tab-content hidden">
+            <!-- Queue List -->
+            <div class="setting-group mb-6">
+                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Queue
+                </h3>
+                <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none">
+                    <div class="empty-state">
+                        <p class="text-archive-secondary text-sm">No files in queue. Add files from the Home tab.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Log Output -->
+            <div class="setting-group">
+                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Log
+                </h3>
+                <div id="log-output" class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-48 overflow-y-auto">
+                    <p class="text-archive-secondary/60">Waiting to start processing...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="ocr-gui.js"></script>
+</body>
+</html>
