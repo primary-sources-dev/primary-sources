@@ -22,5 +22,11 @@ Based on the [Master Roadmap](./roadmap.md), these three features represent the 
 *   **Value**: Encourages daily engagement and surfaces deep archive content without requiring manual curation.
 *   **Category**: Assistant / Engagement
 
+### 4. PDF Splitter Utility
+*   **Description**: Integrate a local drag-and-drop tool to split multi-page PDFs into individual images or smaller page ranges before OCR processing.
+*   **Logic**: Uses the existing `ocr_worker.py` logic but exposed as a standalone pre-processing utility.
+*   **Value**: Significantly improves the OCR workflow for large archival books/reports, allowing researchers to target specific high-value pages without waiting for 500-page batch processing.
+*   **Category**: Utility / Tooling
+
 ---
 *These features will be the primary focus for the next sprint to demonstrate the power of the Atomic Historical Engine.*
