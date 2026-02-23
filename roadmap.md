@@ -8,7 +8,7 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 
 **Project Principle:** A subject-agnostic chronological engine that transforms raw primary sources into structured metadata for research, simulation, and immersive education.
 
-### **Total Feature Count: 21**
+### **Total Feature Count: 24**
 
 | ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
 | --- | --- | --- | --- | --- |
@@ -27,12 +27,15 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 | **13** | **Simulation** | **Synthetic Case Files** | AI + `assertion` attributes | Generates FBI-style reports that automatically highlight and debate conflicting data. |
 | **14** | **Membership** | **Digital Vault Access** | `member_status` permissions | Access to high-resolution raw document scans and proprietary 3D/research files. |
 | **15** | **Membership** | **Onboarding State** | `user_preferences` table | Customizes the initial dashboard view (e.g., Forensics vs. Culture) based on a quiz. |
-| **16** | **Engagement** | **Live Quizzes & Results** | `assertion` + `v_support_type` | Interactive challenges (Wed/Fri) based on weekly Primary Source guides. |
-| **17** | **Engagement** | **Verification Missions** | `source_excerpt` tagging | Gamifies the cleanup of OCR text and attribute tagging for the public good. |
+| **16** | **Engagement** | **Quizzes & Achievement Badges** | `user_badges` + `assertion` logic | Earn forensic "Badges" (e.g., *Pathologist*, *Ballistics Expert*) by completing source-based quizzes. |
+| **17** | **Engagement** | **Contribution Missions** | `source_excerpt` + `reputation_score` | High-accuracy contributors earn status badges and priority access to new primary sources. |
 | **18** | **Engagement** | **Evidence Board** | `source_excerpt` + `object` | A drag-and-drop workbench to pin evidence and draw causal "threads" visually. |
-| **19** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
-| **20** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
-| **21** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
+| **19** | **Research** | **Private Forensic Notes** | `user_entity_notes` (Subject-linked) | Attach private, encrypted research notes directly to any person, place, or object. |
+| **20** | **Research** | **Self-Service Vault** | `user_sources` + `member_id` | Upload your own primary scans to your private digital workbench for automatic OCR/Analysis. |
+| **21** | **Research** | **Custom Field Guides** | `resource_sheet_templates` | Export entities and timelines into "Resource Sheets" or custom research pages for publication. |
+| **22** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
+| **23** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
+| **24** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
 
 ---
 
