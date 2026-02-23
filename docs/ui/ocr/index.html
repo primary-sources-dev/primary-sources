@@ -118,11 +118,6 @@
                 <span class="text-base font-bold uppercase tracking-wider text-archive-heading">
                     Home
                 </span>
-            </button>
-            <button id="tab-queue" class="tab-btn" data-tab="queue">
-                <span class="text-base font-bold uppercase tracking-wider text-archive-heading">
-                    Queue
-                </span>
                 <span id="queue-badge" class="queue-badge hidden">0</span>
             </button>
             <button id="tab-guide" class="tab-btn" data-tab="guide">
@@ -135,7 +130,7 @@
         <!-- HOME TAB -->
         <section id="tab-content-home" class="tab-content active">
             <!-- Drop Zone -->
-            <div id="drop-zone" class="drop-zone border border-archive-secondary/20 bg-archive-dark/50 mb-8">
+            <div id="drop-zone" class="drop-zone border border-archive-secondary/20 bg-archive-dark/50 mb-6">
                 <div class="drop-zone-content">
                     <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -144,6 +139,29 @@
                     <p class="text-archive-secondary text-base">Drop PDF files here or click to browse</p>
                 </div>
                 <input id="file-input" type="file" accept=".pdf" multiple hidden>
+            </div>
+
+            <!-- Queue List -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Queue
+                </h3>
+                <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none">
+                    <div class="empty-state">
+                        <p class="text-archive-secondary text-sm">No files queued</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Log Output -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Log
+                </h3>
+                <div id="log-output"
+                    class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-32 overflow-y-auto">
+                    <p class="text-archive-secondary/60">Waiting to start processing...</p>
+                </div>
             </div>
 
             <!-- Settings Section -->
@@ -233,34 +251,6 @@
             </div>
         </section>
 
-        <!-- QUEUE TAB -->
-        <section id="tab-content-queue" class="tab-content hidden">
-            <!-- Queue List -->
-            <div class="setting-group mb-6">
-                <h3
-                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
-                    Queue
-                </h3>
-                <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none">
-                    <div class="empty-state">
-                        <p class="text-archive-secondary text-sm">No files in queue. Add files from the Home tab.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Log Output -->
-            <div class="setting-group">
-                <h3
-                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
-                    Log
-                </h3>
-                <div id="log-output"
-                    class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-48 overflow-y-auto">
-                    <p class="text-archive-secondary/60">Waiting to start processing...</p>
-                </div>
-            </div>
-        </section>
-
         <!-- GUIDE TAB -->
         <section id="tab-content-guide" class="tab-content hidden">
             <!-- Quick Start -->
@@ -279,7 +269,7 @@
                     </li>
                     <li class="flex gap-3">
                         <span class="text-primary font-bold">3.</span>
-                        <span><strong class="text-archive-heading">Process</strong> — Click "Start OCR" and monitor progress in the Queue tab</span>
+                        <span><strong class="text-archive-heading">Process</strong> — Click "Start OCR" and monitor progress in the queue below</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="text-primary font-bold">4.</span>

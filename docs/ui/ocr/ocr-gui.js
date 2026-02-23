@@ -209,7 +209,6 @@ function addFilesToQueue(files) {
     queuedFiles.push(...validFiles);
     renderQueue();
     updateQueueBadge();
-    switchTab('queue'); // Auto-switch to Queue tab when files added
 }
 
 function removeFileFromQueue(index) {
@@ -226,7 +225,7 @@ function clearQueue() {
 
 function renderQueue() {
     if (queuedFiles.length === 0) {
-        queueList.innerHTML = '<div class="empty-state"><p>No files in queue. Add files from the Home tab.</p></div>';
+        queueList.innerHTML = '<div class="empty-state"><p>No files queued</p></div>';
         return;
     }
 
