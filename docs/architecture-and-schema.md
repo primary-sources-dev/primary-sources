@@ -13,9 +13,27 @@ This document defines the technical architecture of the research vault. The syst
 Entities are the primary subjects of research. To ensure classification accuracy, Organizations, Places, and Objects are linked to controlled type tables.
 
 * **`person`**: Individual human actors.
-* **`org`**: Groups and agencies, classified by `v_org_type`.
+* **`org`**: Groups and agencies, classified by `v_org_type` (e.g., `AGENCY`, `MEDIA`, `ARCHIVE` for primary source repositories).
 * **`place`**: Geographic locations, classified by `v_place_type`. Supports hierarchical containment (e.g., a room inside a building) via `parent_place_id`.
 * **`object`**: Physical artifacts and evidence items, classified by `v_object_type` (e.g., `WEAPON`, `DOCUMENT`, `VEHICLE`).
+
+### 2.1 Archive Modeling and Source Custodianship
+
+Primary sources are cataloged from multiple archival repositories (NARA, Mary Ferrell Foundation, Presidential Libraries, etc.). Archives are modeled as `org` entities with `org_type = 'ARCHIVE'`. Sources are linked to their archival custodian via `entity_identifier` table:
+
+* **Archive Organization**: `org` with `org_type = 'ARCHIVE'`
+  - `name`: Archive name (e.g., "National Archives and Records Administration (NARA)")
+  - `notes`: Holdings description, URL, and access information
+  - `start_date`: Archive establishment date
+
+* **Source-to-Archive Link**: `entity_identifier` with `id_type = 'ARCHIVE_CUSTODIAN'`
+  - Enables traceability: which archive holds which source
+  - Avoids modifying `source` table structure
+  - Leverages existing integrity triggers
+
+* **Place Types for Sites**: `v_place_type` includes `'SITE'` for assassination-related locations
+  - `SITE`: Specific areas or geographic zones (e.g., Dealey Plaza assassination site)
+  - Distinguishes from `BUILDING` (structures) and `REGION` (administrative zones)
 
 ## 3. The Event Model (The Golden Thread)
 
@@ -96,7 +114,13 @@ The following CHECK constraints enforce data integrity and business logic:
 
 #### Name Integrity
 
-* **`chk_[table]_name_len`**: Ensures `display_name`, `name`, `title`, or `alias` is NOT empty and NOT just whitespace. Applied to: `person`, `org`, `place`, `object`, `source`, `person_alias`.
+* **`chk_[table]_name_len`**: Ensures name fields are not empty or just whitespace.
+  - `chk_person_display_name_len`
+  - `chk_org_name_len`
+  - `chk_place_name_len`
+  - `chk_object_name_len`
+  - `chk_source_title_len`
+  - `chk_person_alias_len`
 
 All name and date constraints allow NULL values where the column itself is nullable, but prevent low-quality strings ("") once data is present.
 
@@ -112,16 +136,20 @@ To support timeline generation and research tools, indexes are applied to:
 * **Name field indexes** (functional `lower()` indexes) on `person.display_name`, `org.name`, `place.name`, `object.name` for case-insensitive de-duplication queries
 * `source.title` and `source.external_ref` (B-Tree) for prefix search support
 * **Partial unique index** on `source.external_ref` (WHERE NOT NULL) to enforce NARA RIF uniqueness while allowing multiple NULL values
+* **Archive search index (Planned):** Composite index on `entity_identifier(entity_type, id_type, id_value)` WHERE `entity_type='source'` AND `id_type='ARCHIVE_CUSTODIAN'` for fast archive custodian lookups
 
 > **De-duplication Query Pattern:** Name indexes use functional `lower()` syntax. Queries must use:
 > `WHERE lower(display_name) = lower('search term')` to utilize the index.
 
+> **Archive Search Query Pattern:** To find all sources held by a specific archive:
+> `SELECT s.* FROM source s JOIN entity_identifier ei ON s.source_id = ei.entity_id WHERE ei.entity_type='source' AND ei.id_type='ARCHIVE_CUSTODIAN' AND ei.id_value='NARA'`
+
 ## 7. Table Inventory
 
-All 27 tables in the schema, grouped by architectural layer.
+All 28 tables in the schema, grouped by architectural layer.
 
-**Controlled Vocabularies (12)**
-`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type`
+**Controlled Vocabularies (13)**
+`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type` · `v_predicate`
 
 **Core Entities (4)**
 `person` · `org` · `place` · `object`

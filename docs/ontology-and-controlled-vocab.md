@@ -11,7 +11,6 @@ Categorizes the nature of a spatiotemporal occurrence.
 * **`TRANSFER`**: The movement of a person or object from one custody/location to another.
 * **`INTERVIEW`**: A formal or informal questioning session.
 * **`REPORT_WRITTEN`**: The act of an official documenting an event or investigation.
-* **`AUTOPSY_STEP`**: A specific procedure performed during a post-mortem examination.
 * **`PHONE_CALL`**: A telephonic communication between two or more parties.
 
 ## 2. Participant Roles (`v_role_type`)
@@ -79,7 +78,7 @@ Determines the relationship between an entity and an event's location or physica
 * **`BUILDING`**: A specific structure (e.g., Texas School Book Depository).
 * **`STREET`**: A road or intersection.
 * **`CITY`**: A municipal area.
-* **`REGION`**: A larger geographic or administrative zone.
+* **`SITE`**: A specific area or geographic zone (e.g., Dealey Plaza assassination site, parking lot).
 
 ### 6.3 Object Types (`v_object_type`)
 

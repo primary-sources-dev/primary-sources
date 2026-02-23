@@ -84,6 +84,32 @@ hr {
 }
 
 /* ==============================
+   COMPONENT LOADING (FOUC PREVENTION)
+   Hide components until they're loaded to prevent flash
+   ============================== */
+[data-component]:not(.component-loaded) {
+    opacity: 0;
+    visibility: hidden;
+}
+
+[data-component].component-loaded {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.15s ease-in;
+}
+
+/* Hide data containers while loading */
+[data-data-source]:empty {
+    min-height: 200px;
+    opacity: 0;
+}
+
+[data-data-source]:not(:empty) {
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+}
+
+/* ==============================
    TAILWIND CDN CONFIG
    These are forwarded to Tailwind via a config block in each HTML page.
    This file ensures base element rendering is always correct even if

@@ -1,2 +1,11 @@
 .claude/
 web/.env.local
+raw-material/
+yates/
+church-committee/
+hsca/
+warren-commission/
+*.pdf
+*.log
+tmpclaude*
+__pycache__/

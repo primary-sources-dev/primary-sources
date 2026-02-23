@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const html = await response.text();
             el.innerHTML = html;
 
+            // Add loaded class to prevent FOUC
+            el.classList.add("component-loaded");
+
             // Dispatch event for other scripts to handle post-load logic
             const event = new CustomEvent("componentLoaded", {
                 detail: { name: componentName, element: el }

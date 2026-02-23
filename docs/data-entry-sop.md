@@ -2,6 +2,16 @@
 
 This document outlines the authoritative workflow for decomposing primary source material into 4NF-compliant database records. Strict adherence to this process ensures that every data point in the vault is traceable, unique, and computable.
 
+---
+
+## Prerequisites: OCR Processing
+
+Before beginning data entry, ensure the source document has been processed through the OCR pipeline. Scanned PDFs must be converted to searchable text to enable efficient excerpt extraction.
+
+> **Reference:** See [OCR Pipeline Guide](./ocr-pipeline-guide.md) for tool installation, batch processing scripts, and quality control procedures.
+
+---
+
 ## 1. Phase I: Source Registration
 
 Every data point must begin with its container.

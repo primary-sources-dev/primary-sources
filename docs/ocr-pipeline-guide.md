@@ -8,11 +8,26 @@ This guide documents the complete workflow for turning scanned PDF images into s
 
 1. [Pipeline Overview](#1-pipeline-overview)
 2. [Tool Installation](#2-tool-installation)
-3. [Single-File Processing](#3-single-file-processing)
-4. [Batch Processing Scripts](#4-batch-processing-scripts)
-5. [Output Organization](#5-output-organization)
-6. [Quality Control](#6-quality-control)
-7. [Database Integration](#7-database-integration)
+3. [GUI Tool (Recommended)](#3-gui-tool-recommended)
+4. [Single-File Processing (CLI)](#4-single-file-processing-cli)
+5. [Batch Processing Scripts](#5-batch-processing-scripts)
+6. [Output Organization](#6-output-organization)
+7. [Quality Control](#7-quality-control)
+8. [Database Integration](#8-database-integration)
+
+---
+
+## Quick Start
+
+For most users, the **GUI tool** is the easiest way to process PDFs:
+
+```powershell
+cd tools/ocr-gui
+pip install -r requirements.txt
+python ocr_gui.py
+```
+
+See [Section 3](#3-gui-tool-recommended) for details.
 
 ---
 
@@ -91,7 +106,63 @@ $env:Path += ";C:\Program Files\Tesseract-OCR"
 
 ---
 
-## 3. Single-File Processing
+## 3. GUI Tool (Recommended)
+
+The OCR GUI provides a visual interface for batch processing without command-line usage.
+
+### Installation
+
+```powershell
+cd tools/ocr-gui
+pip install -r requirements.txt
+```
+
+### Running the GUI
+
+```powershell
+python tools/ocr-gui/ocr_gui.py
+```
+
+Or double-click `tools/ocr-gui/run.bat`.
+
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| **File Queue** | Add multiple PDFs via Browse button or drag-and-drop |
+| **Backend Selection** | Choose WSL (ocrmypdf) or Python (pytesseract) |
+| **Output Options** | Searchable PDF, plain text, or both |
+| **OCR Settings** | Deskew, clean, force OCR toggles |
+| **Progress Tracking** | Per-file percentage and status indicators |
+| **Log Panel** | Real-time processing output |
+| **Auto-open** | Opens output folder when batch completes |
+
+### Interface
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  PRIMARY SOURCES — OCR TOOL                                     │
+├─────────────────────────────────────────────────────────────────┤
+│   ┌─────────────────────────────────────────────────────────┐   │
+│   │         Drop PDF files here or click Browse             │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│   ┌─ Queue ────────────────────────────────────────────────┐   │
+│   │  ✓  document-1.pdf                          Complete   │   │
+│   │  ◐  document-2.pdf                          47%        │   │
+│   │  ○  document-3.pdf                          Pending    │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│   ┌─ Settings ─────────────────────────────────────────────┐   │
+│   │  Backend: (●) WSL  ( ) Python                          │   │
+│   │  Output:  [✓] Searchable PDF  [✓] Plain Text           │   │
+│   │  Options: [✓] Deskew  [✓] Clean  [ ] Force OCR         │   │
+│   └─────────────────────────────────────────────────────────┘   │
+│            [ Start OCR ]           [ Cancel ]                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 4. Single-File Processing (CLI)
 
 ### Using OCRmyPDF (WSL)
 
@@ -156,7 +227,7 @@ python raw-material/scripts/ocr_tool.py "raw-material/warren-commission/GPO-WARR
 
 ---
 
-## 4. Batch Processing Scripts
+## 5. Batch Processing Scripts (CLI)
 
 ### Warren Commission (26 Volumes)
 
@@ -265,7 +336,7 @@ chmod +x raw-material/scripts/ocr_*_batch.sh
 
 ---
 
-## 5. Output Organization
+## 6. Output Organization
 
 ### Directory Structure
 
@@ -300,7 +371,7 @@ primary-sources/
 
 ---
 
-## 6. Quality Control
+## 7. Quality Control
 
 ### Spot-Check Procedure
 
@@ -338,7 +409,7 @@ Track documents that require special handling:
 
 ---
 
-## 7. Database Integration
+## 8. Database Integration
 
 ### Mapping OCR Output to Schema
 

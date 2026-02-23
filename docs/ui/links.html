@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Browse Objects — Primary Sources</title>
+    <title>Links — Primary Sources</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
@@ -48,20 +48,20 @@
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
     <!-- FACET BAR -->
-    <section data-component="facet-bar" data-title="Objects"
-        data-filters='{"Type": ["All", "Weapon", "Document", "Media_Carrier"]}'
+    <section data-component="facet-bar" data-title="Archive Links" data-filters='{"Category": ["All", "Archive"]}'
         class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
     </section>
 
     <main class="p-6">
         <div class="mb-8 border-l-4 border-primary pl-4 uppercase">
-            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Physical Evidence
-                & Tools</h2>
-            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Artifacts and material
-                proof</p>
+            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Archives &
+                External Resources</h2>
+            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Direct access to primary
+                record repositories</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="objects">
+        <!-- Render all orgs but enable client-side filtering by "Category" (mapping to org_type) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="orgs" data-filter="ARCHIVE">
             <!-- Dynamic cards injected here by db-logic.js -->
         </div>
     </main>
@@ -70,7 +70,7 @@
     <div data-component="footer"></div>
 
     <!-- MODULAR BOTTOM NAV -->
-    <nav data-component="bottom-nav" data-active="Home"
+    <nav data-component="bottom-nav" data-active="Links"
         class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
 
     <div class="h-24"></div>

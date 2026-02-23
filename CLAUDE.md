@@ -131,6 +131,24 @@ All `v_*` tables defining allowed codes for types, roles, and precision levels.
 
 ---
 
+## Archive Support and Source Custodianship (Migration 002)
+
+Archives (NARA, Mary Ferrell Foundation, Presidential Libraries, etc.) are modeled as **`org` entities with `org_type = 'ARCHIVE'`**. Sources are linked to their archival custodian via `entity_identifier` table.
+
+**Key Patterns:**
+- **Archive Organization:** `org` with `org_type = 'ARCHIVE'`, `name` = archive name, `notes` = holdings description + URL
+- **Source-to-Archive Link:** `entity_identifier` with `id_type = 'ARCHIVE_CUSTODIAN'`, `id_value` = archive short code (e.g., 'NARA')
+- **Place Types:** `'SITE'` for assassination-related locations (Dealey Plaza, Book Depository complex, etc.)
+
+**Query Pattern:** Find all sources from a specific archive:
+```sql
+SELECT s.* FROM source s
+  JOIN entity_identifier ei ON s.source_id = ei.entity_id
+  WHERE ei.entity_type='source' AND ei.id_type='ARCHIVE_CUSTODIAN' AND ei.id_value='NARA'
+```
+
+---
+
 ## Integrity Features (Migration 004)
 
 ### Polymorphic FK Enforcement

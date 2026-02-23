@@ -1,30 +1,20 @@
 [
     {
         "id": "rifle-ce139",
-        "object_id": "rifle-ce139",
+        "object_id": "1f2a3b4c-5d6e-47f8-a9b0-c1d2e3f4a5b6",
         "icon": "precision_manufacturing",
         "label": "Weapon · Exhibit 139",
         "name": "Mannlicher-Carcano Rifle",
         "object_type": "WEAPON",
-        "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD.",
-        "tags": [
-            "Evidence",
-            "Weapon",
-            "TSBD"
-        ]
+        "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD."
     },
     {
         "id": "paper-sack-ce142",
-        "object_id": "paper-sack-ce142",
+        "object_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
         "icon": "inventory",
         "label": "Object · Exhibit 142",
         "name": "Brown Paper Sack",
         "object_type": "DOCUMENT",
-        "description": "Large handmade paper bag found on the 6th floor of the TSBD. Alleged by the Warren Commission to have carried the rifle; alleged by Oswald to have contained 'curtain rods'.",
-        "tags": [
-            "Evidence",
-            "Disputed",
-            "TSBD"
-        ]
+        "description": "Large handmade paper bag found on the 6th floor of the TSBD. Alleged by the Warren Commission to have carried the rifle; alleged by Oswald to have contained 'curtain rods'."
     }
 ]

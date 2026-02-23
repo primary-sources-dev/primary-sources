@@ -3,7 +3,7 @@
  */
 (function () {
     let activeFilters = {};
-    let activeSort = 'all';
+    let activeSort = 'a-z';
     let searchQuery = '';
 
     function applyFilters() {
@@ -41,10 +41,10 @@
             });
 
             // 2. Sort
-            if (activeSort !== 'all') {
+            if (activeSort === 'a-z' || activeSort === 'z-a') {
                 cards.sort((a, b) => {
-                    const valA = a.getAttribute("data-title") || "";
-                    const valB = b.getAttribute("data-title") || "";
+                    const valA = (a.getAttribute("data-title") || "").toLowerCase();
+                    const valB = (b.getAttribute("data-title") || "").toLowerCase();
 
                     if (activeSort === 'z-a') {
                         return valB.localeCompare(valA);
@@ -79,8 +79,8 @@
         options.forEach(opt => {
             const o = document.createElement("option");
             o.value = opt;
-            o.textContent = opt;
-            if (isSort && opt === 'all') o.selected = true;
+            o.textContent = opt === 'a-z' ? 'A-Z (Name)' : opt === 'z-a' ? 'Z-A (Name)' : opt;
+            if (isSort && opt === 'a-z') o.selected = true;
             select.appendChild(o);
         });
 
@@ -92,7 +92,9 @@
         } else {
             activeFilters[labelText] = 'All';
             select.onchange = (e) => {
-                activeFilters[labelText] = e.target.value;
+                const val = e.target.value;
+                activeFilters[labelText] = val;
+                // Update button visibility based on selection
                 applyFilters();
             };
         }
@@ -128,7 +130,7 @@
             }
 
             // Always add Sort dropdown
-            createDropdown(container, "Sort Order", ["all", "a-z", "z-a"], true);
+            createDropdown(container, "Sort Order", ["a-z", "z-a"], true);
 
         } catch (err) {
             console.error("Failed to parse data-filters JSON:", err);

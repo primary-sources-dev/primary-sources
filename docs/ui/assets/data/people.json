@@ -6,10 +6,13 @@
         "label": "Suspect · 1939 – 1963",
         "display_name": "Lee Harvey Oswald",
         "given_name": "Lee",
-        "middle_name": "Harvey",
         "family_name": "Oswald",
-        "birth_date": "1939-10-18",
-        "death_date": "1963-11-24",
+        "tags": [
+            "The Ralph Leon Yates incident",
+            "The Sylvia Odio Incident",
+            "The Walker Incident",
+            "Oswald Hired at TSBD"
+        ],
         "notes": "Described as physically identical to the hitchhiker picked up by Yates on Nov 20, 1963. Former U.S. Marine, defector to the Soviet Union, and primary suspect in the assassination."
     },
     {
@@ -18,11 +21,11 @@
         "icon": "person",
         "label": "Main Witness · 1928 – 1975",
         "display_name": "Yates, Ralph Leon",
-        "given_name": "Ralph",
-        "middle_name": "Leon",
-        "family_name": "Yates",
-        "birth_date": "1928-01-01",
-        "death_date": "1975-01-01",
+        "tags": [
+            "The Ralph Leon Yates incident",
+            "Texas Butchers Supply Company",
+            "FBI"
+        ],
         "notes": "Refrigeration mechanic who reported picking up a hitchhiker on Nov 20, 1963 matching Oswald's description. Reported the incident to the FBI before the assassination. Later committed to a psychiatric facility."
     },
     {
@@ -31,9 +34,9 @@
         "icon": "person",
         "label": "Key Witness · 1937 – Present",
         "display_name": "Odio, Sylvia",
-        "given_name": "Sylvia",
-        "family_name": "Odio",
-        "birth_date": "1937-05-04",
+        "tags": [
+            "The Sylvia Odio Incident"
+        ],
         "notes": "Cuban exile who testified that Lee Harvey Oswald, accompanied by two Latin men, visited her Dallas apartment in late September 1963 to discuss anti-Castro activities. Her testimony raised significant questions about Oswald's timeline."
     },
     {
@@ -42,10 +45,9 @@
         "icon": "person",
         "label": "Target · 1909 – 1993",
         "display_name": "Walker, Edwin",
-        "given_name": "Edwin",
-        "family_name": "Walker",
-        "birth_date": "1909-11-10",
-        "death_date": "1993-10-31",
+        "tags": [
+            "The Walker Incident"
+        ],
         "notes": "Resigned U.S. Army Major General and right-wing political figure. Target of an assassination attempt at his home in Dallas on April 10, 1963, which was later attributed to Lee Harvey Oswald by the Warren Commission."
     },
     {
@@ -54,9 +56,9 @@
         "icon": "person",
         "label": "Key Witness · 1932 – Present",
         "display_name": "Paine, Ruth",
-        "given_name": "Ruth",
-        "family_name": "Paine",
-        "birth_date": "1932-09-03",
+        "tags": [
+            "Oswald Hired at TSBD"
+        ],
         "notes": "Irving, TX resident who hosted Marina Oswald and her children. She helped Lee Harvey Oswald secure employment at the Texas School Book Depository in October 1963 and stored his rifle in her garage."
     }
 ]

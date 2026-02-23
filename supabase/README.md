@@ -68,6 +68,14 @@ See [`docs/architecture-and-schema.md`](../docs/architecture-and-schema.md) for 
 
 All seed inserts use `ON CONFLICT DO NOTHING` — safe to re-run on an existing database.
 
+## Data Modeling Rules
+
+### Event Relationships
+To maintain 4NF standards, the `event` table does not contain a `parent_id` or `sequence_id`. All relationships between events must be modeled in the **`event_relation`** table.
+
+* **Frontend Abstraction:** The UI mockups (e.g., `events.json`) use a simplified `parent_event_id` field for rendering nested views.
+* **Database Mapping:** During data import from JSON to SQL, the `parent_event_id` MUST be converted into a row in the `event_relation` table with `relation_type = 'PART_OF'`.
+
 ## Adding New Migrations
 
 Name each new file sequentially: `003_...sql`, `004_...sql`, etc. Never modify a migration that has already been applied to a live database — add a new one instead.
