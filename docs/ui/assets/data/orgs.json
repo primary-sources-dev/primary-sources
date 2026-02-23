@@ -9,24 +9,6 @@
         "link": "https://www.archives.gov/research/jfk"
     },
     {
-        "id": "fbi-vault",
-        "org_type": "ARCHIVE",
-        "icon": "account_balance",
-        "label": "Federal Repository · FBI",
-        "title": "FBI Records Vault (via NARA)",
-        "body": "Declassified FBI files related to the Kennedy assassination, including Oswald investigation files and field reports, released through the NARA JFK collection.",
-        "link": "https://vault.fbi.gov/john-f-kennedy"
-    },
-    {
-        "id": "cia-nara",
-        "org_type": "ARCHIVE",
-        "icon": "account_balance",
-        "label": "Federal Repository · CIA",
-        "title": "CIA Records (via NARA)",
-        "body": "CIA operational and analytical records related to the assassination, released in waves under the JFK Records Act. Includes Mexico City station files.",
-        "link": "https://www.archives.gov/research/jfk"
-    },
-    {
         "id": "nsa",
         "org_type": "ARCHIVE",
         "icon": "account_balance",
@@ -51,7 +33,7 @@
         "label": "Presidential Library · Austin, TX",
         "title": "Lyndon B. Johnson Presidential Library",
         "body": "Holds records from the Johnson administration including Warren Commission materials, post-assassination transition files, and related correspondence.",
-        "link": "https://www.lbjlibrary.org/collections"
+        "link": "https://www.lbjlibrary.org/research/online-collections-resources"
     },
     {
         "id": "ford-library",
@@ -150,7 +132,7 @@
         "label": "Municipal Archive · Dallas, TX",
         "title": "Dallas Municipal Archives",
         "body": "City of Dallas government records including Dallas Police Department files, city council records, and official communications from November 1963.",
-        "link": "https://dallascityhall.com/departments/office-historian/Pages/default.aspx"
+        "link": "https://www.dallascityhall.com/government/citysecretary/Pages/Municipal-Archives.aspx"
     },
     {
         "id": "dallas-public-library",
@@ -159,7 +141,7 @@
         "label": "Public Library · Dallas, TX",
         "title": "Dallas Public Library — History Division",
         "body": "Holds local history materials, newspaper archives, and photographic collections documenting Dallas in November 1963.",
-        "link": "https://dallaslibrary2.org/h-d/"
+        "link": "https://dallaslibrary.org/dallas-history-archives-division/"
     },
     {
         "id": "tufts-tisch",

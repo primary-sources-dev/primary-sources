@@ -19,6 +19,7 @@
     --archive-surface: #252021;
     --archive-secondary: #D4CFC7;
     --archive-heading: #F0EDE0;
+    --archive-dark: #1A1718;
 }
 
 /* ==============================
@@ -68,6 +69,10 @@ hr {
 
 .bg-primary {
     background-color: var(--primary) !important;
+}
+
+.bg-archive-dark {
+    background-color: var(--archive-dark) !important;
 }
 
 /* ==============================
