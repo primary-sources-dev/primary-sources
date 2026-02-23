@@ -22,11 +22,11 @@ Based on the [Master Roadmap](./roadmap.md), these three features represent the 
 *   **Value**: Encourages daily engagement and surfaces deep archive content without requiring manual curation.
 *   **Category**: Assistant / Engagement
 
-### 4. PDF Splitter Utility
-*   **Description**: Integrate a local drag-and-drop tool to split multi-page PDFs into individual images or smaller page ranges before OCR processing.
-*   **Logic**: Uses the existing `ocr_worker.py` logic but exposed as a standalone pre-processing utility.
-*   **Value**: Significantly improves the OCR workflow for large archival books/reports, allowing researchers to target specific high-value pages without waiting for 500-page batch processing.
-*   **Category**: Utility / Tooling
+### 4. Consolidated "Extraction Workbench" (#7, #26)
+*   **Description**: Transform the existing `pdf-viewer.html` into a unified "Extraction Workbench" featuring a Visual PDF Splitter (for targeting specific pages) and a Dual-Pane Review Workspace (Original Scan | OCR Editor).
+*   **Logic**: Uses **PDF.js** for thumbnail selection (Splitter) and a responsive CSS Grid layout for the side-by-side reconstruction workspace.
+*   **Value**: Eliminates "context fatigue" by keeping the entire archival intake process—splitting, processing, and entity verification—within a single, high-performance UI.
+*   **Category**: UX / Productivity / Tooling
 
 ### 5. Archival Image Support
 *   **Description**: Enable the OCR tool to process standalone high-resolution image files (.jpg, .png, .tiff) directly.
@@ -40,13 +40,7 @@ Based on the [Master Roadmap](./roadmap.md), these three features represent the 
 *   **Value**: Instantly links documents to the "Master Knowledge Graph." If Ralph Leon Yates is mentioned, the name lights up as a verified link to his forensic profile.
 *   **Category**: Assistant / Intelligent
 
-### 7. Dual-Pane Extraction Workspace
-*   **Description**: Re-architect the OCR UI into a professional side-by-side view (Archival Scan | Extraction Editor).
-*   **Logic**: Uses a responsive split-pane layout to display the original source document alongside the editable markdown text.
-*   **Value**: Transitions the user from a "file processor" to an "investigative editor," making manual verification of OCR text significantly faster and more accurate.
-*   **Category**: UX / Productivity
-
-### 8. Forensic Header Parser
+### 7. Forensic Header Parser
 *   **Description**: Implement pattern-recognition for standardized archival headers (e.g., FBI 302 memos and Agency RIF sheets).
 *   **Logic**: Regex-based detection for "Agency," "RIF Number," and "Date" metadata strings at the top of documents.
 *   **Value**: Automates the most tedious part of data entry—populating source metadata—before the researcher even reads the first paragraph.

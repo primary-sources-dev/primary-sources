@@ -8,7 +8,7 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 
 **Project Principle:** A subject-agnostic chronological engine that transforms raw primary sources into structured metadata for research, simulation, and immersive education.
 
-### **Total Feature Count: 26**
+### **Total Feature Count: 28**
 
 | ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
 | --- | --- | --- | --- | --- |
@@ -33,11 +33,13 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 | **19** | **Research** | **Private Forensic Notes** | `user_entity_notes` (Subject-linked) | Attach private, encrypted research notes directly to any person, place, or object. |
 | **20** | **Research** | **Self-Service Vault** | `user_sources` + `member_id` | Upload your own primary scans to your private digital workbench for automatic OCR/Analysis. |
 | **21** | **Research** | **Custom Field Guides** | `resource_sheet_templates` | Export entities and timelines into "Resource Sheets" or custom research pages for publication. |
-| **22** | **Genealogy** | **Lineage Engine** | `person_relation` Recursive CTEs | Track bloodlines and family trees across centuries by mapping births, marriages, and migrations. |
-| **23** | **Genealogy** | **Ancestral Chronology** | `assertion` (Family Claims) | Compare conflicting family legends against verified primary source records (Censuses, Deeds). |
-| **24** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
-| **25** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
-| **26** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
+| **22** | **Research** | **Auto-Generated Citations** | `source` + `source_excerpt` metadata | One-click citation generation in Chicago, MLA, APA, and custom formats with NARA RIF numbers. |
+| **23** | **Research** | **Smart Copy with Provenance** | Clipboard API + `excerpt` metadata | Highlighted text copies include embedded source citation (author, page, archive ID) as rich text or footnote. |
+| **24** | **Genealogy** | **Lineage Engine** | `person_relation` Recursive CTEs | Track bloodlines and family trees across centuries by mapping births, marriages, and migrations. |
+| **25** | **Genealogy** | **Ancestral Chronology** | `assertion` (Family Claims) | Compare conflicting family legends against verified primary source records (Censuses, Deeds). |
+| **26** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
+| **27** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
+| **28** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
 
 ---
 
