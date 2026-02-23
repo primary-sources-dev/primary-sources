@@ -47,8 +47,9 @@
     <header data-component="header"
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
-    <!-- MODULAR SEARCH BAR -->
-    <section data-component="search-filter-bar" class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
+    <section data-component="facet-bar" data-title="Investigate People"
+        data-filters='{"Event": "assets/data/events.json", "Organization": ["All", "FBI", "Dallas PD", "Warren Commission", "Texas Butchers Supply Company"]}'
+        class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
     </section>
 
     <!-- RESULT FEED -->
@@ -71,23 +72,8 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="mt-12 border-t border-archive-secondary/20 bg-archive-dark px-6 py-10">
-        <div class="mb-8">
-            <div class="flex items-center gap-2 mb-4">
-                <span class="material-symbols-outlined text-primary">account_balance</span>
-                <span class="text-sm font-bold uppercase tracking-[0.2em] text-archive-heading">JFK Archive</span>
-            </div>
-            <p class="text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
-                This archive presents primary source materials without editorial interpretation.
-            </p>
-        </div>
-        <div class="border-t border-archive-secondary/10 pt-6">
-            <p class="text-[10px] text-archive-secondary opacity-40 uppercase">
-                © 2026 JFK Primary Sources Archives.
-            </p>
-        </div>
-    </footer>
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="People"

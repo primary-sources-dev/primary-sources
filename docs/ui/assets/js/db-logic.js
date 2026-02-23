@@ -15,8 +15,19 @@
 function buildCard(item) {
     const featured = !!item.featured;
 
+    const searchableText = [
+        item.label,
+        item.title,
+        item.name,
+        item.body,
+        ...(item.tags || [])
+    ].filter(Boolean).join(' ').toLowerCase();
+
     return `
     <a href="${item.link || '#'}"
+        data-tags="${searchableText}"
+        data-title="${(item.title || item.name || '').toLowerCase()}"
+        data-label="${(item.label || '').toLowerCase()}"
         style="display:flex;align-items:flex-start;gap:1rem;border:1px solid ${featured ? 'rgba(176,139,73,0.4)' : 'rgba(212,207,199,0.1)'};background:${featured ? 'rgba(176,139,73,0.07)' : 'rgba(37,32,33,0.6)'};padding:${featured ? '1.25rem' : '1rem'};transition:border-color 0.2s;text-decoration:none;"
         onmouseover="this.style.borderColor='rgba(176,139,73,0.6)'"
         onmouseout="this.style.borderColor='${featured ? 'rgba(176,139,73,0.4)' : 'rgba(212,207,199,0.1)'}'">

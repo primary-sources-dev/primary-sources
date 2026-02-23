@@ -160,5 +160,14 @@
         "title": "National Security Archive (GWU)",
         "body": "George Washington University non-governmental research institute. Holds declassified CIA covert operations files and briefing books on the Kennedy assassination records.",
         "link": "https://nsarchive.gwu.edu"
+    },
+    {
+        "id": "texas-butchers",
+        "org_type": "BUSINESS",
+        "icon": "store",
+        "label": "Industrial · Dallas, TX",
+        "title": "Texas Butchers Supply Company",
+        "body": "Privately owned company in Dallas where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
+        "link": "#"
     }
 ]

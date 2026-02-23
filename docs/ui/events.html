@@ -48,7 +48,9 @@
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
     <!-- MODULAR SEARCH BAR -->
-    <section data-component="search-filter-bar" class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
+    <section data-component="facet-bar" data-title="Browse Events"
+        data-filters='{"Date": ["All", "Sep 63", "Nov 63"], "Location": ["All", "Dallas", "Washington", "New Orleans"]}'
+        class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
     </section>
 
     <!-- RESULT FEED -->
@@ -69,6 +71,9 @@
             </button>
         </div>
     </main>
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="Events"

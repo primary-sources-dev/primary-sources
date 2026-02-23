@@ -5,13 +5,35 @@
         "label": "Suspect · 1939 – 1963",
         "title": "Lee Harvey Oswald",
         "body": "Described as physically identical to the hitchhiker picked up by Yates on Nov 20, 1963. Former U.S. Marine, defector to the Soviet Union, and primary suspect in the assassination.",
-        "link": "oswald.html"
+        "link": "oswald.html",
+        "tags": [
+            "The Ralph Leon Yates incident",
+            "The Sylvia Odio Incident",
+            "Suspect"
+        ]
     },
     {
         "id": "ralph-yates",
         "icon": "person",
         "label": "Main Witness · 1928 – 1975",
         "title": "Yates, Ralph Leon",
-        "body": "Refrigeration mechanic who reported picking up a hitchhiker on Nov 20, 1963 matching Oswald's description. Reported the incident to the FBI before the assassination. Later committed to a psychiatric facility."
+        "body": "Refrigeration mechanic who reported picking up a hitchhiker on Nov 20, 1963 matching Oswald's description. Reported the incident to the FBI before the assassination. Later committed to a psychiatric facility.",
+        "tags": [
+            "The Ralph Leon Yates incident",
+            "Texas Butchers Supply Company",
+            "FBI",
+            "Witness"
+        ]
+    },
+    {
+        "id": "sylvia-odio",
+        "icon": "person",
+        "label": "Key Witness · 1937 – Present",
+        "title": "Odio, Sylvia",
+        "body": "Cuban exile who testified that Lee Harvey Oswald, accompanied by two Latin men, visited her Dallas apartment in late September 1963 to discuss anti-Castro activities. Her testimony raised significant questions about Oswald's timeline.",
+        "tags": [
+            "The Sylvia Odio Incident",
+            "Witness"
+        ]
     }
 ]

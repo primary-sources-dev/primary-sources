@@ -5,6 +5,20 @@
         "label": "Nov 20, 1963 · Dallas, TX",
         "title": "The Ralph Leon Yates incident",
         "body": "Ralph Leon Yates, a refrigeration mechanic, picks up a hitchhiker carrying a long paper-wrapped package. The man asks about the President's motorcade route and says he could shoot anyone from a building with a scope rifle.",
-        "featured": true
+        "featured": true,
+        "tags": [
+            "Nov 63"
+        ]
+    },
+    {
+        "id": "odio-incident",
+        "icon": "home",
+        "label": "Late Sept 1963 · Dallas, TX",
+        "title": "The Sylvia Odio Incident",
+        "body": "Sylvia Odio reported that three men, including one identified as 'Leon Oswald', visited her home in Dallas to seek support for the anti-Castro cause. The visit allegedly occurred while Oswald was purportedly elsewhere.",
+        "featured": true,
+        "tags": [
+            "Sep 63"
+        ]
     }
 ]
