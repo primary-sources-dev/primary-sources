@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citation Generator — Primary Sources</title>
     <meta name="description"
         content="Academic citation generator for archival sources. Supports Chicago, MLA, APA, and NARA citation formats." />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/main.css">
     <script>
         tailwind.config = {
@@ -37,14 +37,14 @@
             },
         }
     </script>
-    <script src="../assets/js/components.js" defer></script>
+    <script src="/assets/js/components.js"></script>
+    <script src="/assets/js/nav.js"></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
 
-    <!-- MODULAR HEADER -->
-    <header data-component="header"
-        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+    <!-- Header -->
+    <div data-component="header"></div>
 
     <!-- HERO -->
     <section class="relative w-full overflow-hidden bg-archive-dark py-12">

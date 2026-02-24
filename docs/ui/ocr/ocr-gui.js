@@ -106,7 +106,8 @@ function setupEventListeners() {
     // document.getElementById('menu-file-open').addEventListener('click', () => fileInput.click());
     // document.getElementById('menu-file-dir').addEventListener('click', changeOutputDir);
     // document.getElementById('menu-file-folder').addEventListener('click', openOutputFolder);
-    // document.getElementById('menu-file-clear').addEventListener('click', clearQueue);
+    document.getElementById('btn-clear-completed').addEventListener('click', clearCompleted);
+    document.getElementById('btn-clear-all').addEventListener('click', clearQueue);
     // document.getElementById('menu-help-use').addEventListener('click', showHelp);
     // document.getElementById('menu-help-about').addEventListener('click', showAbout);
 
@@ -223,8 +224,24 @@ function removeFileFromQueue(index) {
 
 function clearQueue() {
     queuedFiles = [];
+    currentJob = null;
     renderQueue();
     updateQueueBadge();
+    updateStats();
+}
+
+function clearCompleted() {
+    if (!currentJob) {
+        queuedFiles = [];
+    } else {
+        const completedNames = currentJob.files
+            .filter(f => f.status === 'completed')
+            .map(f => f.name);
+        queuedFiles = queuedFiles.filter(f => !completedNames.includes(f.name));
+    }
+    renderQueue();
+    updateQueueBadge();
+    updateStats();
 }
 
 function renderQueue() {
@@ -240,7 +257,7 @@ function renderQueue() {
         const progress = jobFile ? jobFile.progress || 0 : 0;
         const isCompleted = status === 'completed';
         const isProcessing = status === 'processing';
-        const parsedHeader = jobFile ? jobFile.parsed_header : null;
+        const parsedMetadata = jobFile ? jobFile.parsed_metadata : null;
 
         return `
         <div class="queue-item ${status}">
@@ -256,7 +273,7 @@ function renderQueue() {
                     </div>
                     <div class="text-[9px] text-primary font-bold mt-1 uppercase tracking-tighter">${progress}% Processed</div>
                 ` : ''}
-                ${isCompleted && parsedHeader ? renderMetadataPreview(parsedHeader, idx) : ''}
+                ${isCompleted && parsedMetadata ? renderMetadataPreview(parsedMetadata, idx) : ''}
             </div>
                         <div class="flex items-center gap-2">
                             ${isCompleted ? `
@@ -407,12 +424,12 @@ function copyFieldValue(value) {
 
 function copyAllMetadata(fileIdx) {
     const jobFile = currentJob?.files?.[fileIdx];
-    if (!jobFile?.parsed_header) {
+    if (!jobFile?.parsed_metadata) {
         logError('No metadata to copy');
         return;
     }
 
-    const parsed = jobFile.parsed_header;
+    const parsed = jobFile.parsed_metadata;
     const lines = [];
 
     if (parsed.rif_number?.value) lines.push(`RIF/ID: ${parsed.rif_number.value}`);
@@ -477,12 +494,13 @@ async function reparseHeader(fileIdx) {
 
         const result = await response.json();
 
-        // Update the job file with new parsed header
+        // Update the job file with new parsed metadata
         if (currentJob?.files) {
             const jobFile = currentJob.files.find(f => f.name === file.name);
             if (jobFile) {
-                jobFile.parsed_header = result;
+                jobFile.parsed_metadata = result;
                 renderQueue();
+                updateStats();
                 logSuccess('Header re-parsed successfully');
             }
         }
@@ -590,9 +608,10 @@ function pollJobProgress() {
 
             currentJob = job;
 
-            // Re-render queue if files updated, status changed, or if actively processing (to show progress updates)
+            // Render queue and stats
             if (filesUpdated || statusChanged || job.status === 'processing') {
                 renderQueue();
+                updateStats();
             }
 
             // Update log (only append new messages)
@@ -734,4 +753,34 @@ function formatFileSize(bytes) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+function updateStats() {
+    if (!currentJob) {
+        document.getElementById('stat-total').textContent = queuedFiles.length;
+        document.getElementById('stat-confidence').textContent = '0%';
+        document.getElementById('stat-success').textContent = '0';
+        return;
+    }
+
+    const files = currentJob.files;
+    const total = files.length;
+    const succeeded = files.filter(f => f.status === 'completed').length;
+
+    // Average confidence across all parsed metadata
+    let totalConf = 0;
+    let confCount = 0;
+
+    files.forEach(f => {
+        if (f.parsed_metadata && f.parsed_metadata.classification_confidence) {
+            totalConf += f.parsed_metadata.classification_confidence;
+            confCount++;
+        }
+    });
+
+    const avgConf = confCount > 0 ? Math.round((totalConf / confCount) * 100) : 0;
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-confidence').textContent = `${avgConf}%`;
+    document.getElementById('stat-success').textContent = succeeded;
 }

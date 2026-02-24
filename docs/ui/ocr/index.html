@@ -78,23 +78,51 @@
 
             <!-- Queue List -->
             <div class="mb-6">
-                <h3
-                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
-                    Queue
-                </h3>
-                <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none">
+                <div class="flex justify-between items-center mb-4">
+                    <h3
+                        class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4">
+                        Queue
+                    </h3>
+                    <div class="flex gap-2">
+                        <button id="btn-clear-completed"
+                            class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-primary transition-all flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">cleaning_services</span> Clear Completed
+                        </button>
+                        <button id="btn-clear-all"
+                            class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-archive-secondary transition-all flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">delete_sweep</span> Clear All
+                        </button>
+                    </div>
+                </div>
+                <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none mb-6">
                     <div class="empty-state">
                         <p class="text-archive-secondary text-sm">No files queued</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Log Output -->
+            <!-- Log & Summary Output -->
             <div class="mb-6">
-                <h3
-                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
-                    Log
-                </h3>
+                <div class="flex justify-between items-end mb-4">
+                    <h3
+                        class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4">
+                        Process Log
+                    </h3>
+                    <div id="session-summary" class="flex gap-4 text-[9px] uppercase tracking-tighter opacity-80">
+                        <div class="flex flex-col items-end">
+                            <span class="text-primary/60">Total Docs</span>
+                            <span id="stat-total" class="font-bold text-archive-heading">0</span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="text-primary/60">Avg Conf</span>
+                            <span id="stat-confidence" class="font-bold text-archive-heading">0%</span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="text-primary/60">Succeeded</span>
+                            <span id="stat-success" class="font-bold text-archive-heading">0</span>
+                        </div>
+                    </div>
+                </div>
                 <div id="log-output"
                     class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-32 overflow-y-auto">
                     <p class="text-archive-secondary/60">Waiting to start processing...</p>
