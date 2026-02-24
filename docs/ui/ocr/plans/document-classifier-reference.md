@@ -15,6 +15,8 @@ The Document Classifier (`tools/ocr-gui/document_classifier.py`) identifies docu
 | NARA Record | `NARA_RIF` | National Archives RIF records |
 | CIA Cable | `CIA_CABLE` | Classified communications |
 | Memorandum | `MEMO` | Internal memos |
+| Letter | `LETTER` | Correspondence |
+| Travel Document | `TRAVEL_DOCUMENT` | Passports, visas, vaccination records |
 | WC Exhibit | `WC_EXHIBIT` | Warren Commission exhibits |
 | WC Testimony | `WC_TESTIMONY` | Formal hearing transcripts |
 | WC Deposition | `WC_DEPOSITION` | Q&A depositions |
@@ -140,10 +142,12 @@ Tested across 395 sample pages from 4 collections:
 | Collection | Classification Rate | UNKNOWN Rate |
 |------------|---------------------|--------------|
 | HSCA Report | 96.7% | 3.3% |
-| Church Committee | 81.3% | 18.7% |
+| Church Committee | 84.0% | 16.0% |
 | Yates Documents | 76.7% | 23.3% |
-| Warren Commission | 67.7% | 32.3% |
-| **Overall** | **73.2%** | **26.8%** |
+| Warren Commission | 70.4% | 29.6% |
+| **Overall** | **75.4%** | **24.6%** |
+
+*Note: UNKNOWN pages in exhibit volumes (WC 16-26) are primarily image-only scans with no extractable text.*
 
 ## Adding New Document Types
 
@@ -221,6 +225,8 @@ Pages with no extractable text will always return `UNKNOWN`. Consider:
 
 | Date | Changes |
 |------|---------|
+| 2026-02-24 | Added LETTER and TRAVEL_DOCUMENT types (now 17 total) |
+| 2026-02-24 | Improved WC_EXHIBIT patterns, overall rate 75.4% |
 | 2026-02-24 | Added 6 document types (FBI_REPORT, WC_DEPOSITION, WC_AFFIDAVIT, POLICE_REPORT, SENATE_REPORT, CHURCH_COMMITTEE) |
 | 2026-02-24 | Improved FBI 302 OCR tolerance |
 | 2026-02-24 | Lowered classification threshold to 10% |

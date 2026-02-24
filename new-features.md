@@ -29,10 +29,10 @@ Automated extraction of metadata from government archival forms (headers and foo
 
 ## 5. Document Layout Analyzer
 Intelligent document classification and zone-specific extraction engine.
-- **15 Document Types**: FBI_302, FBI_REPORT, CIA_CABLE, MEMO, NARA_RIF, WC_TESTIMONY, WC_DEPOSITION, WC_AFFIDAVIT, WC_EXHIBIT, POLICE_REPORT, SENATE_REPORT, CHURCH_COMMITTEE, HSCA_DOC, HSCA_REPORT, UNKNOWN.
+- **17 Document Types**: FBI_302, FBI_REPORT, CIA_CABLE, MEMO, LETTER, TRAVEL_DOCUMENT, NARA_RIF, WC_TESTIMONY, WC_DEPOSITION, WC_AFFIDAVIT, WC_EXHIBIT, POLICE_REPORT, SENATE_REPORT, CHURCH_COMMITTEE, HSCA_DOC, HSCA_REPORT, UNKNOWN.
 - **Fingerprint Classification**: Weighted regex pattern matching with OCR-tolerant variants.
 - **Zone Extraction**: Type-specific patterns applied to header, body, and footer zones.
-- **73% Classification Rate**: Tested across 395 pages from Warren Commission, HSCA, Church Committee, and Yates collections.
+- **75.4% Classification Rate**: Tested across 395 pages from Warren Commission, HSCA, Church Committee, and Yates collections.
 - **OCR Tolerance**: Handles common OCR artifacts (hyphenated line breaks, garbled text, field office codes).
 - **API Endpoints**: `/api/classify` for type detection, `/api/extract` for full pipeline.
 - **UI Integration**: Classification banner with confidence indicator, color-coded by accuracy level.
