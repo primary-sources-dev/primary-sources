@@ -41,6 +41,14 @@ except ImportError:
     print("Warning: metadata_parser not available")
 
 try:
+    from document_classifier import classify_document, classify, get_all_scores
+    from zone_extractor import extract_document, extract
+    CLASSIFIER_AVAILABLE = True
+except ImportError:
+    CLASSIFIER_AVAILABLE = False
+    print("Warning: document_classifier/zone_extractor not available")
+
+try:
     from citation_generator import generate_citation, generate_all_citations, CitationFormat
     CITATION_AVAILABLE = True
 except ImportError:
@@ -441,6 +449,80 @@ def parse_metadata_endpoint():
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": f"Parse error: {str(e)}"}), 500
+
+
+@app.route("/api/classify", methods=["POST"])
+def classify_endpoint():
+    """
+    Classify document type by analyzing OCR text fingerprints.
+    
+    Request body (JSON):
+        { "text": "OCR text content..." }
+    
+    Response:
+        {
+            "doc_type": "FBI_302",
+            "confidence": 0.85,
+            "confidence_label": "HIGH",
+            "matched_patterns": ["FEDERAL BUREAU OF INVESTIGATION", ...]
+        }
+    """
+    if not CLASSIFIER_AVAILABLE:
+        return jsonify({"error": "Document classifier not available"}), 503
+    
+    data = request.get_json()
+    if not data or "text" not in data:
+        return jsonify({"error": "Missing 'text' field in request body"}), 400
+    
+    text = data["text"]
+    if not text or not text.strip():
+        return jsonify({"error": "Empty text provided"}), 400
+    
+    try:
+        result = classify(text)
+        # Also include alternative scores
+        result["all_scores"] = get_all_scores(text)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": f"Classification error: {str(e)}"}), 500
+
+
+@app.route("/api/extract", methods=["POST"])
+def extract_endpoint():
+    """
+    Full document extraction: classify then extract type-specific fields.
+    
+    Request body (JSON):
+        { "text": "OCR text content..." }
+    
+    Response:
+        {
+            "doc_type": "FBI_302",
+            "doc_type_confidence": 0.85,
+            "fields": {
+                "subject_name": { "value": "RALPH LEON YATES", "zone": "body", "confidence": 0.85 },
+                "file_number": { "value": "DL 89-43", "zone": "header", "confidence": 0.90 },
+                ...
+            },
+            "extraction_notes": [...]
+        }
+    """
+    if not CLASSIFIER_AVAILABLE:
+        return jsonify({"error": "Zone extractor not available"}), 503
+    
+    data = request.get_json()
+    if not data or "text" not in data:
+        return jsonify({"error": "Missing 'text' field in request body"}), 400
+    
+    text = data["text"]
+    if not text or not text.strip():
+        return jsonify({"error": "Empty text provided"}), 400
+    
+    try:
+        result = extract(text)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": f"Extraction error: {str(e)}"}), 500
 
 
 @app.route("/api/cite", methods=["POST"])
