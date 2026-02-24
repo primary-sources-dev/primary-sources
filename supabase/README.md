@@ -11,7 +11,8 @@ supabase/
     ├── 002_seed_vocab.sql            # Seed data: all 12 controlled vocabulary tables
     ├── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
     ├── 004_integrity_fixes.sql       # Integrity enforcement: polymorphic FKs, CHECK constraints, deletion protection
-    └── 005_age_at_event.sql          # Age-at-Event Badge: age_at_event() function + view
+    ├── 005_age_at_event.sql          # Age-at-Event Badge: age_at_event() function + view
+    └── 006_fix_view_column.sql       # Fix: view column name (role → role_type)
 ```
 
 ## Running the Migrations
@@ -25,8 +26,9 @@ supabase/
 5. Paste and run `003_predicate_registry.sql`
 6. Paste and run `004_integrity_fixes.sql`
 7. Paste and run `005_age_at_event.sql`
+8. Paste and run `006_fix_view_column.sql`
 
-> **Important:** Run migrations in numerical order (001 → 005). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
+> **Important:** Run migrations in numerical order (001 → 006). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
 
 ### Option B — Supabase CLI
 
@@ -49,6 +51,7 @@ psql -U postgres -d postgres -f supabase/migrations/002_seed_vocab.sql
 psql -U postgres -d postgres -f supabase/migrations/003_predicate_registry.sql
 psql -U postgres -d postgres -f supabase/migrations/004_integrity_fixes.sql
 psql -U postgres -d postgres -f supabase/migrations/005_age_at_event.sql
+psql -U postgres -d postgres -f supabase/migrations/006_fix_view_column.sql
 ```
 
 ## Schema Overview
