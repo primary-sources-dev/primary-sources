@@ -1,0 +1,166 @@
+# UI Component Audit & Fix List
+*Generated: 2026-02-24 — Pre-Next.js Migration*
+
+---
+
+## Page Component Matrix
+
+| Page | Header | Hero | Footer | BottomNav | CSS | Scripts |
+|------|--------|------|--------|-----------|-----|---------|
+| **index.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic |
+| **about.html** | modular | simple | modular | modular | main.css | components, nav, db-logic |
+| **blog.html** | modular | simple | modular | modular | main.css | components, nav |
+| **blog-post.html** | modular | none | modular | modular | main.css | components, nav, blog-post |
+| **event.html** | modular | none | modular | modular | main.css | components, nav, db-logic |
+| **event-v1.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, event-v1-* |
+| **events.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **features.html** | modular | none | modular | modular | main.css | components, nav |
+| **links.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **objects.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **organizations.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **oswald.html** | modular | simple | modular | modular | main.css | components, nav, db-logic |
+| **otd.html** | modular | none | ⚠️ hardcoded | ⚠️ none | main.css | components, nav |
+| **pdf-viewer.html** | ⚠️ hardcoded | none | ⚠️ none | ⚠️ none | ⚠️ inline only | ⚠️ none |
+| **pdf-viewer/index.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+| **people.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **person.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic, person-* |
+| **person-v2.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-v2-* |
+| **places.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **random.html** | modular | none | ⚠️ hardcoded | ⚠️ none | main.css | components, nav |
+| **search.html** | modular | none | modular | modular | main.css | components, nav, db-logic, global-search |
+| **sources.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
+| **witness-atlas.html** | modular | none | ⚠️ hardcoded | ⚠️ none | main.css | components, nav |
+| **ocr/index.html** | modular | none | ⚠️ none | ⚠️ none | ⚠️ ocr-components.css | components, nav, ocr-gui |
+| **tools/document-analyzer.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+| **tools/citation-generator.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+| **tools/ocr-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+
+---
+
+## Hero Types Identified
+
+| Type | Style | Pages |
+|------|-------|-------|
+| **Gradient Dark** | `bg-archive-dark py-12` + gradient overlays + badge + H1 + description + stat tags | index, pdf-viewer/index, person, tools/* |
+| **Simple** | Lighter hero, often with profile card | about, blog, event-v1, oswald, person-v2 |
+| **None** | No hero section | events, features, links, objects, organizations, etc. |
+
+---
+
+## Components Inventory
+
+| Component | Location | Used By |
+|-----------|----------|---------|
+| `header.html` | components/ | 26 pages (modular) |
+| `footer.html` | components/ | 22 pages (modular) |
+| `bottom-nav.html` | components/ | 22 pages (modular) |
+| `facet-bar.html` | components/ | Filter pages |
+
+---
+
+## Inconsistencies to Fix Before Next.js
+
+| Issue | Pages Affected | Fix | Priority |
+|-------|----------------|-----|----------|
+| ⚠️ Hardcoded footer | otd, random, witness-atlas | Convert to modular | High |
+| ⚠️ Missing bottom-nav | otd, random, witness-atlas, ocr/index | Add modular component | High |
+| ⚠️ Missing footer | ocr/index | Add modular component | High |
+| ⚠️ Legacy standalone | pdf-viewer.html | Deprecate (replaced by pdf-viewer/index.html) | Medium |
+| ⚠️ Custom CSS | ocr/index.html | Merge ocr-components.css into main.css | Medium |
+| ⚠️ Duplicate person pages | person.html, person-v2.html | Consolidate to single template | Low |
+| ⚠️ Duplicate event pages | event.html, event-v1.html | Consolidate to single template | Low |
+
+---
+
+## Script Dependencies
+
+| Script | Purpose | Pages |
+|--------|---------|-------|
+| `components.js` | Loads modular components via `data-component` attribute | All modular pages |
+| `nav.js` | Dynamic breadcrumbs + bottom-nav active state | All modular pages |
+| `db-logic.js` | Database fetch/render for dynamic content | Data-driven pages |
+| `filter.js` | Sidebar filtering logic | List pages (people, events, objects, etc.) |
+| `ocr-gui.js` | OCR tool functionality | ocr/index.html |
+| `global-search.js` | Search functionality | search.html |
+| `person-profile.js` | Person detail rendering | person.html |
+| `person-cards.js` | Person card components | person.html |
+| `blog-post.js` | Blog post rendering | blog-post.html |
+
+---
+
+## CSS Architecture
+
+| File | Purpose | Notes |
+|------|---------|-------|
+| `main.css` | Global styles, custom properties | Used by 26/27 pages |
+| `ocr-components.css` | OCR-specific styles | Should merge into main.css |
+| Inline Tailwind config | Theme colors, fonts, border-radius | Duplicated in every page head |
+
+---
+
+## Next.js Migration Recommendations
+
+### 1. Create Shared Layout Components
+```
+components/
+├── Layout.tsx          # Wraps all pages
+├── Header.tsx          # From header.html
+├── Footer.tsx          # From footer.html
+├── BottomNav.tsx       # From bottom-nav.html
+├── HeroGradient.tsx    # Gradient dark hero variant
+├── HeroSimple.tsx      # Simple hero variant
+└── FacetBar.tsx        # From facet-bar.html
+```
+
+### 2. Consolidate Tailwind Config
+Move inline `tailwind.config` to `tailwind.config.js`:
+```js
+module.exports = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#B08B49",
+        "archive-bg": "#2E282A",
+        "archive-secondary": "#D4CFC7",
+        "archive-heading": "#F0EDE0",
+        "archive-dark": "#1A1718",
+      },
+      fontFamily: {
+        display: ["Oswald", "sans-serif"],
+        mono: ["Roboto Mono", "monospace"],
+      },
+      borderRadius: {
+        DEFAULT: "0",
+        lg: "0",
+        xl: "0",
+        full: "9999px",
+      },
+    },
+  },
+}
+```
+
+### 3. Page Templates
+| Template | Use For |
+|----------|---------|
+| `ListPage` | people, events, objects, organizations, places, sources, links |
+| `DetailPage` | person, event, object, source |
+| `ToolInfoPage` | tools/*, pdf-viewer/index |
+| `ToolAppPage` | ocr/index (functional tool) |
+| `DiscoveryPage` | otd, random, witness-atlas |
+| `ContentPage` | about, blog, features |
+
+---
+
+## Fix Checklist
+
+- [ ] Fix otd.html: Add modular footer + bottom-nav
+- [ ] Fix random.html: Add modular footer + bottom-nav
+- [ ] Fix witness-atlas.html: Add modular footer + bottom-nav
+- [ ] Fix ocr/index.html: Add modular footer + bottom-nav
+- [ ] Delete pdf-viewer.html (legacy)
+- [ ] Merge ocr-components.css into main.css
+- [ ] Consolidate person.html + person-v2.html
+- [ ] Consolidate event.html + event-v1.html
+- [ ] Extract inline Tailwind config to shared file
