@@ -12,18 +12,16 @@ This directory contains the prototype OCR tool interface that allows researchers
 
 ## Key Features
 
-- **Integrated Document Viewer**: Completed OCR jobs feature a "View" button that opens the result in the vault's custom PDF viewer for immediate quality check.
-- **Per-File Progress Tracking**: Real-time percentage updates and progress bars for each item in the queue.
-- **Responsive Design**: Gold pulsing drop-zone animations and feedback aligned with the Primary Sources style guide.
-- **Dual-Backend Support**: Toggle between high-precision WSL-based OCR and lightweight Python-based processing.
-- **Forensic Header Parser**: Automatic extraction of archival metadata (RIF numbers, Agency, Date, Author) with confidence scoring.
 - **Image Support**: Direct OCR of standalone image files (.jpg, .png, .tiff, .webp) without PDF conversion.
+- **Extraction Workbench**: High-fidelity verification interface with dual-pane review (Scan vs. Text).
+- **Deep Sync**: Integrated coordinate mapping allow researchers to click any line of OCR text to instantly zoom the PDF viewer to the source evidence.
+- **Visual Splitter**: Sidebar thumbnail viewing with checkbox selection for targeted archival processing.
 
-## Forensic Header Parser
+## Forensic Metadata Parser
 
-After OCR processing completes, the system automatically parses document headers to extract archival metadata. This feature recognizes standardized patterns from:
+After OCR processing completes, the system automatically parses document headers and footers to extract archival metadata. This feature recognizes standardized patterns from:
 
-- **FBI 302 Forms**: Agent name, Field Office, Date, File Number
+- **FBI 302 Forms**: Agent name, Field Office, Date, File Number (header + footer)
 - **NARA RIF Sheets**: Agency, Record Number (###-#####-#####), Date
 - **Warren Commission**: Exhibit numbers (CE-###, CD-###)
 
@@ -70,7 +68,7 @@ Returns structured JSON with extracted fields and confidence scores.
 | `ocr-gui.js` | Client-side logic for file handling, progress polling, metadata preview |
 | `components.md` | Component documentation and reference |
 | `plan.md` | CSS alignment implementation plan |
-| `plans/` | Feature implementation plans (archival-image-support, forensic-header-parser) |
+| `plans/` | Feature implementation plans (archival-image-support, forensic-metadata-parser) |
 
 ## Running the Server
 
@@ -85,11 +83,11 @@ Then open http://localhost:5000
 ## Multi-Agent Coordination
 
 This tool is designed to work within a multi-agent environment where:
-1. **OCR Agent**: Handles the heavy lifting of image-to-text conversion.
-2. **Extraction Agent**: Reviews OCR'd PDFs (via `pdf-viewer.html`) to identify entities.
-3. **Database Agent**: Merges extracted entities into the research vault schema.
+1. **OCR Agent**: Handles the heavy lifting of image-to-text conversion and coordinate mapping.
+2. **Extraction Agent**: Reviews OCR'd PDFs via the **Extraction Workbench** to verify transcription and identify entities.
+3. **Database Agent**: Merges verified text and entities into the research vault schema.
 
-The integrated viewer provides the common visual anchor point for all agents to validate evidentiary claims.
+The **Extraction Workbench** provides the deep sync bridge between visual evidence and digital record, reducing verification time by up to 80% through click-to-zoom localization.
 
 ## Design Tokens
 

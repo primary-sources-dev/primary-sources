@@ -20,7 +20,7 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(TOOLS_DIR)
 UI_DIR = os.path.join(PROJECT_ROOT, "docs", "ui", "ocr")
 
-# Import OCR worker and header parser from ocr-gui
+# Import OCR worker and metadata parser from ocr-gui
 import sys
 sys.path.insert(0, os.path.join(TOOLS_DIR, "ocr-gui"))
 try:
@@ -31,11 +31,11 @@ except ImportError:
     print("Warning: ocr_worker not available, using placeholder processing")
 
 try:
-    from header_parser import HeaderParser, parse_header
+    from metadata_parser import MetadataParser, parse_metadata
     PARSER_AVAILABLE = True
 except ImportError:
     PARSER_AVAILABLE = False
-    print("Warning: header_parser not available")
+    print("Warning: metadata_parser not available")
 
 try:
     from citation_generator import generate_citation, generate_all_citations, CitationFormat
@@ -265,9 +265,9 @@ def process_job_worker(job_id):
                 
                 worker.process_file(file_info["path"], on_progress, on_complete)
                 
-                # Auto-run header parser on completed files
+                # Auto-run metadata parser on completed files
                 if file_info["status"] == "completed" and PARSER_AVAILABLE:
-                    _run_header_parser(file_info, job)
+                    _run_metadata_parser(file_info, job)
             else:
                 # Placeholder processing
                 import time
@@ -284,10 +284,10 @@ def process_job_worker(job_id):
         job["log"].append(f"✗ Error: {str(e)}")
 
 
-def _run_header_parser(file_info: dict, job: dict):
+def _run_metadata_parser(file_info: dict, job: dict):
     """
-    Auto-run header parser on OCR output to extract metadata.
-    Results are stored in file_info["parsed_header"].
+    Auto-run metadata parser on OCR output to extract metadata.
+    Results are stored in file_info["parsed_metadata"].
     """
     base_name = os.path.splitext(file_info["name"])[0]
     
@@ -306,12 +306,12 @@ def _run_header_parser(file_info: dict, job: dict):
                 continue
     
     if not ocr_text:
-        job["log"].append(f"  → Header parser: No text output found")
+        job["log"].append(f"  → Metadata parser: No text output found")
         return
     
     try:
-        result = parse_header(ocr_text)
-        file_info["parsed_header"] = result
+        result = parse_metadata(ocr_text)
+        file_info["parsed_metadata"] = result
         
         # Log extraction summary
         extractions = []
@@ -325,12 +325,12 @@ def _run_header_parser(file_info: dict, job: dict):
             extractions.append(f"Author: {result['author']['value']}")
         
         if extractions:
-            job["log"].append(f"  → Header parsed: {', '.join(extractions)}")
+            job["log"].append(f"  → Metadata parsed: {', '.join(extractions)}")
         else:
-            job["log"].append(f"  → Header parser: No metadata patterns found")
-            
+            job["log"].append(f"  → Metadata parser: No patterns found")
+
     except Exception as e:
-        job["log"].append(f"  → Header parser error: {str(e)}")
+        job["log"].append(f"  → Metadata parser error: {str(e)}")
 
 
 @app.route("/api/jobs/<job_id>/cancel", methods=["POST"])
@@ -365,10 +365,10 @@ def handle_output_dir():
     return jsonify({"output_dir": UPLOAD_FOLDER})
 
 
-@app.route("/api/parse-header", methods=["POST"])
-def parse_header_endpoint():
+@app.route("/api/parse-metadata", methods=["POST"])
+def parse_metadata_endpoint():
     """
-    Parse OCR text to extract archival header metadata.
+    Parse OCR text to extract archival metadata (header + footer).
     
     Request body (JSON):
         { "text": "OCR text content..." }
@@ -377,7 +377,7 @@ def parse_header_endpoint():
         { "rif_number": {...}, "agency": {...}, "date": {...}, ... }
     """
     if not PARSER_AVAILABLE:
-        return jsonify({"error": "Header parser not available"}), 503
+        return jsonify({"error": "Metadata parser not available"}), 503
     
     data = request.get_json()
     if not data or "text" not in data:
@@ -388,7 +388,7 @@ def parse_header_endpoint():
         return jsonify({"error": "Empty text provided"}), 400
     
     try:
-        result = parse_header(text)
+        result = parse_metadata(text)
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": f"Parse error: {str(e)}"}), 500

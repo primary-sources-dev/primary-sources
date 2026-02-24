@@ -1,5 +1,5 @@
 """
-header_parser.py — Forensic Document Parser for Archival Documents
+metadata_parser.py — Forensic Metadata Parser for Archival Documents
 
 Extracts structured metadata (Agency, RIF Number, Date, Author) from OCR'd 
 archival documents using regex-based pattern recognition.
@@ -14,7 +14,10 @@ Supports footer parsing (FBI 302 specific):
 - File numbers in footer position
 - Date of transcription
 
-See: docs/ui/ocr/plans/forensic-header-parser.md (WO-OCR-007)
+Future: Will expand to parse body, tables, marginalia, and stamps
+as part of the Document Layout Analyzer (Feature 01b).
+
+See: docs/ui/ocr/plans/forensic-metadata-parser.md (WO-OCR-007)
 """
 
 import re
@@ -33,7 +36,7 @@ class ExtractedField:
 
 
 @dataclass
-class ParsedHeader:
+class ParsedMetadata:
     """Complete extraction result from a document (header + footer)."""
     # Header-sourced fields
     rif_number: Optional[ExtractedField] = None
@@ -79,20 +82,20 @@ class ParsedHeader:
         ])
 
 
-class HeaderParser:
+class MetadataParser:
     """
     Regex-based metadata extractor for archival document headers and footers.
     
     Usage:
-        parser = HeaderParser()
-        result = parser.parse(ocr_text)  # Header only
-        result = parser.parse(ocr_text, include_footer=True)  # Header + Footer
+        parser = MetadataParser()
+        result = parser.parse(ocr_text)  # Header + Footer (default)
+        result = parser.parse(ocr_text, include_footer=False)  # Header only
         if result.has_extractions():
             print(result.to_dict())
     
     FBI 302 Note:
         FBI FD-302 forms (1960s) place agent name and file number in the FOOTER.
-        Use include_footer=True to extract these fields.
+        Footer parsing is enabled by default.
     """
     
     # Number of characters from start of document to search for headers
@@ -247,7 +250,7 @@ class HeaderParser:
             for name, cfg in self.FOOTER_PATTERNS.items()
         }
     
-    def parse(self, text: str, include_footer: bool = True) -> ParsedHeader:
+    def parse(self, text: str, include_footer: bool = True) -> ParsedMetadata:
         """
         Parse OCR text and extract header (and optionally footer) metadata.
         
@@ -256,9 +259,9 @@ class HeaderParser:
             include_footer: If True, also scan document footer for FBI 302 metadata
             
         Returns:
-            ParsedHeader with extracted fields and confidence scores
+            ParsedMetadata with extracted fields and confidence scores
         """
-        result = ParsedHeader()
+        result = ParsedMetadata()
         
         # Only search the header window (first N characters)
         header_text = text[:self.HEADER_WINDOW]
@@ -342,13 +345,13 @@ class HeaderParser:
         
         return result
     
-    def _parse_footer(self, text: str, result: ParsedHeader) -> int:
+    def _parse_footer(self, text: str, result: ParsedMetadata) -> int:
         """
         Parse document footer for FBI 302-specific metadata.
         
         Args:
             text: Full OCR text
-            result: ParsedHeader to update with footer fields
+            result: ParsedMetadata to update with footer fields
             
         Returns:
             Number of fields extracted from footer
@@ -462,7 +465,7 @@ class HeaderParser:
 # CONVENIENCE FUNCTIONS
 # =============================================================================
 
-def parse_header(text: str, include_footer: bool = True) -> dict:
+def parse_metadata(text: str, include_footer: bool = True) -> dict:
     """
     Convenience function to parse text and return JSON-serializable dict.
     
@@ -473,7 +476,7 @@ def parse_header(text: str, include_footer: bool = True) -> dict:
     Returns:
         Dictionary with extracted metadata from header and footer
     """
-    parser = HeaderParser()
+    parser = MetadataParser()
     result = parser.parse(text, include_footer=include_footer)
     return result.to_dict()
 
@@ -481,9 +484,9 @@ def parse_header(text: str, include_footer: bool = True) -> dict:
 def parse_document(text: str) -> dict:
     """
     Full document parser — scans both header and footer.
-    Alias for parse_header(text, include_footer=True).
+    Alias for parse_metadata(text, include_footer=True).
     """
-    return parse_header(text, include_footer=True)
+    return parse_metadata(text, include_footer=True)
 
 
 # =============================================================================
@@ -552,10 +555,10 @@ if __name__ == "__main__":
         """,
     ]
     
-    parser = HeaderParser()
+    parser = MetadataParser()
     
     print("=" * 60)
-    print("Forensic Header Parser — Test Suite")
+    print("Forensic Metadata Parser - Test Suite")
     print("=" * 60)
     
     for i, sample in enumerate(TEST_SAMPLES, 1):

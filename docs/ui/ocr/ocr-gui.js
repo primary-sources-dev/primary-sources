@@ -302,7 +302,7 @@ function updateQueueBadge() {
 }
 
 // ============================================================================
-// METADATA PREVIEW (Forensic Header Parser)
+// METADATA PREVIEW (Forensic Metadata Parser)
 // ============================================================================
 
 function renderMetadataPreview(parsed, fileIdx) {

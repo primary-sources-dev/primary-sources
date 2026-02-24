@@ -13,7 +13,7 @@
 |-------|---------|--------|-----------|--------------|
 | **1** | Mobile Photos (.heic) | Trivial | 15 min | None |
 | **2** | Age-at-Event Badge | Trivial | 30 min | None |
-| **3** | Footer Parser (FBI 302) | Low | 1 hr | Extends HeaderParser |
+| **3** | Footer Parser (FBI 302) | Low | 1 hr | Extends MetadataParser |
 | **4** | Auto-Generated Citations | Low | 1 hr | Source table schema |
 | **5** | Inflation Converter | Low | 1 hr | CPI reference data |
 | **6** | Database Lookup Entity Matching | Low | 2 hrs | Supabase connection |
@@ -93,7 +93,7 @@ Extract agent name and file number from FBI 302 footers.
 ### Implementation
 
 **Files to modify:**
-- `tools/ocr-gui/header_parser.py` — add FooterParser class
+- `tools/ocr-gui/metadata_parser.py` — extended to include footer parsing (formerly `header_parser.py`)
 
 **Steps:**
 1. Add `FOOTER_WINDOW = 1500` constant (last N characters)
@@ -102,8 +102,8 @@ Extract agent name and file number from FBI 302 footers.
    - File number: `File # [XX-XXXXX]` or `[City] [XX-XX]`
    - Date of transcription (often in footer)
 3. Add `parse_footer()` method to main parser
-4. Update `ParsedHeader` dataclass to include footer fields
-5. Auto-run footer parser after header parser in `ocr-server.py`
+4. Update `ParsedMetadata` dataclass to include footer fields
+5. Auto-run footer parser after header parser in `ocr-server.py` (now `metadata_parser.py`)
 
 **New Patterns:**
 ```python

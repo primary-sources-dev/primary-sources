@@ -8,8 +8,8 @@ This document outlines the planned evolution of the OCR Tool from a basic transc
 
 | Feature | Technical Addition Needed | Impact on Research |
 | :--- | --- | --- |
-| **Archival Images** | Support for `.jpg`, `.png`, `.tiff`, `.webp` | Direct processing of raw high-res scans without needing PDF conversion. |
-| **Mobile Photos** | Support for `.heic` (iPhone format) | Allows field researchers to upload "quick-snaps" from physical archives. |
+| **Archival Images** | ✅ **Shipped** (2026-02-23) | Support for `.jpg`, `.png`, `.tiff`, `.webp`, `.bmp` |
+| **Mobile Photos** | ✅ **Shipped** (2026-02-23) | Support for `.heic` (iPhone format) via `pillow-heif` |
 | **Transcription** | Integration of **OpenAI Whisper** (Local) | Converts MP3 witness interviews or radio broadcasts into timestamped "text evidence." |
 | **Batch Unrolling** | `.zip` / `.tar` handling | Drop a single archive of 500 images and have the tool synthesize one cohesive timeline. |
 
@@ -23,8 +23,8 @@ This document outlines the planned evolution of the OCR Tool from a basic transc
 *   **Value**: Allows the engine to read handwritten field notes, marginalia, and personal letters.
 
 ### B. Automatic Metadata Clipping (Phase 1 — Complete)
-*   **Status**: ✅ Shipped as "Forensic Header Parser" (2026-02-23)
-*   **Implementation**: Regex-based `HeaderParser` class in `tools/ocr-gui/header_parser.py`
+*   **Status**: ✅ Shipped as "Forensic Metadata Parser" (2026-02-23)
+*   **Implementation**: Regex-based `MetadataParser` class in `tools/ocr-gui/metadata_parser.py`
 *   **Capabilities**: Extracts RIF numbers, Agency, Date, and Author from document headers with confidence scoring.
 *   **Known Limitation**: FBI 302 forms place agent/file info in the footer, not header.
 
@@ -54,9 +54,9 @@ The system will automatically identify document types using a **fingerprinting**
    - Visual features: Layout geometry, stamps, seals, form fields
    - Textual features: Keyword patterns, header strings, format markers
 3. ROUTE → Apply type-specific parser:
-   - FBI 302 → HeaderParser + FooterParser
-   - NARA → HeaderParser (existing)
-   - Memo → HeaderParser + BodyParser
+   - FBI 302 → MetadataParser (header + footer)
+   - NARA → MetadataParser (header only)
+   - Memo → MetadataParser + BodyParser (planned)
    - Table-heavy → TableTransformer (TATR)
 4. OUTPUT → Unified metadata JSON with zone annotations
 ```
@@ -67,7 +67,7 @@ Once document type is identified, the system applies targeted extraction:
 
 | Zone | Extraction Method | Typical Content |
 |------|-------------------|-----------------|
-| **Header** | Regex patterns (existing HeaderParser) | RIF, Agency, Date, Subject line |
+| **Header** | Regex patterns (existing MetadataParser) | RIF, Agency, Date, Subject line |
 | **Footer** | Footer-specific regex + position detection | Agent name, File number, Page count |
 | **Body** | Paragraph segmentation + NER | Witness statements, narrative content |
 | **Tables** | Table Transformer (TATR) or Camelot | Financial records, witness lists, schedules |
@@ -96,24 +96,36 @@ Once document type is identified, the system applies targeted extraction:
 
 ---
 
-## 3. Workflow Evolution: "The Extraction Assistant"
+## 3. Workflow Evolution: "The Extraction Workbench" (v1 — Complete)
 
-The goal is to move from "File Out" to a "Side-by-Side Workspace."
+The engine has shifted from "File Out" to a **Side-by-Side Workspace** for forensic verification.
 
-### UI/UX Requirements:
-*   **Split-Pane View**:
-    *   **Left**: Original high-res archival scan.
-    *   **Right**: Editable OCR text (Rich Text or Markdown).
-*   **The "Auto-Suggest" Tray**: 
-    *   A dynamic panel that displays AI-detected entities (**People**, **Places**, **Dates**).
-    *   **Interaction**: "One-click" buttons to commit a detected entity directly to the research vault database.
-*   **Real-Time Highlight Sync**: Clicking a word in the text pane scrolls the original image to that exact coordinate (and vice-versa).
+### UI/UX Implementation (v1):
+- **Split-Pane View (✅ Complete)**:
+    - **Left**: Interactive PDF.js viewer with coordinate mapping.
+    - **Right**: Forensic review pane with line-by-line transcription.
+- **The "Visual Splitter" (✅ Complete)**:
+    - Sidebar thumbnail browser with per-page selection for surgical processing.
+- **Deep Sync (✅ Complete)**:
+    - Clicking any line of OCR text instantly centers and highlights the source evidence on the original scan.
+
+### Next for Workflow:
+- **The "Auto-Suggest" Tray (Planned)**: 
+    - A dynamic panel that displays AI-detected entities (**People**, **Places**, **Dates**).
+- **Commit-to-DB (Current Build)**:
+    - "One-click" buttons to commit verified text and entities directly to the research vault database.
 
 ---
 
 ## 4. Automated Entity Identification
 
-The transition from "raw OCR text" to "linked database records" is the critical step that transforms documents into **Smart Evidence**. This system scans OCR output for entities already cataloged in the research vault and flags new discoveries for review.
+The transition from "raw OCR text" to "linked database records" is the critical step that transforms documents into **Smart Evidence**.
+
+- **Phase 1 (Foundation) — ✅ Shipped (2026-02-23)**:
+    - **Entity Matching**: The engine now scans OCR output against existing 4NF data and produces an `entities.json` sidecar.
+    - **Research Badges**: Auto-calculation of **Age-at-Event** and **Inflation Conversion** is now functional.
+- **Phase 2 (Integration) — Planned**:
+    - Full OCR-to-Database linking via the "Commit" UI.
 
 ---
 

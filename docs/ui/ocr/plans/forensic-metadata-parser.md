@@ -1,6 +1,6 @@
-# Implementation Plan - Forensic Header Parser (Priority #7)
+# Implementation Plan - Forensic Metadata Parser (Priority #7)
 
-Automatically extract standardized metadata (Agency, RIF Number, Date, Author) from OCR'd archival documents using regex-based pattern recognition. Pre-populates `source` table fields, reducing the most tedious part of data entry to a one-click review.
+Automatically extract standardized metadata (Agency, RIF Number, Date, Author) from OCR'd archival documents—both headers and footers—using regex-based pattern recognition. Pre-populates `source` table fields, reducing the most tedious part of data entry to a one-click review.
 
 - **Status**: Complete (Phase 1-3)
 - **Priority**: High
@@ -33,7 +33,7 @@ Field researchers spend significant time manually transcribing header metadata f
 > **DECIDED**: Backend Post-Processor (Python)
 
 **Selected: Option B — Backend Post-Processor (Python)**
-- New module `header_parser.py` alongside `ocr_worker.py`
+- Module `metadata_parser.py` alongside `ocr_worker.py` (renamed from `header_parser.py`)
 - Returns structured JSON with extracted fields
 - Python's `re` module with named groups is more maintainable
 - Pattern library can be updated without frontend deployment
@@ -52,13 +52,13 @@ Field researchers spend significant time manually transcribing header metadata f
 
 | Task ID | Description | Status |
 |---------|-------------|--------|
-| **PARSER-001** | Create `header_parser.py` with `HeaderParser` class | ✓ |
+| **PARSER-001** | Create `metadata_parser.py` with `MetadataParser` class | ✓ |
 | **PARSER-002** | Implement FBI 302 pattern: agent name, field office, date | ✓ |
 | **PARSER-003** | Implement NARA RIF pattern: `\d{3}-\d{5}-\d{5}` | ✓ |
 | **PARSER-004** | Implement date normalization (handles `11/22/63`, `November 22, 1963`, `22 Nov 1963`) | ✓ |
 | **PARSER-005** | Return structured JSON: `{agency, rif, date, author, confidence, raw_header}` | ✓ |
 
-**Implementation**: `tools/ocr-gui/header_parser.py`
+**Implementation**: `tools/ocr-gui/metadata_parser.py`
 
 ### Phase 2: Backend Integration ✓ COMPLETE
 
@@ -157,15 +157,15 @@ PATTERNS = {
 
 | Decision | Resolution |
 |----------|------------|
-| **Architecture** | Backend Python module (`header_parser.py`) |
+| **Architecture** | Backend Python module (`metadata_parser.py`) |
 | **Trigger Mode** | Auto-run after every OCR job completes |
 | **Output UX** | Read-only display with copy-to-clipboard button |
 | **Priority Patterns** | FBI 302 + NARA RIF sheets first (Phase 1) |
 
 ## 11. Deliverables
 
-1. ✓ `tools/ocr-gui/header_parser.py` — Pattern library and extraction logic
-2. ✓ `/api/parse-header` — REST endpoint for header extraction
+1. ✓ `tools/ocr-gui/metadata_parser.py` — Pattern library and extraction logic
+2. ✓ `/api/parse-metadata` — REST endpoint for metadata extraction
 3. ✓ Auto-run integration in `tools/ocr-server.py` post-OCR pipeline
 4. ✓ UI metadata preview component with copy-to-clipboard (`docs/ui/ocr/ocr-gui.js`)
 5. ✓ CSS styles for metadata cards (`docs/ui/ocr/ocr-components.css`)

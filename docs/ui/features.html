@@ -40,12 +40,7 @@
     <script src="assets/js/components.js" defer></script>
     <script src="assets/js/nav.js" defer></script>
     <script>
-        document.addEventListener("componentLoaded", (e) => {
-            if (e.detail.name === 'header') {
-                const breadcrumb = document.getElementById('breadcrumb-current');
-                if (breadcrumb) breadcrumb.textContent = 'Features';
-            }
-        });
+        // Local page logic if needed
     </script>
 </head>
 
@@ -137,6 +132,32 @@
                         <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Entity-driven
                             discovery system for People, Places, Organizations, and Chronological Events.</p>
                     </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">analytics</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Extraction
+                            Workbench</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Dual-pane review
+                            environment featuring Deep Sync coordinate mapping and visual PDF splitting.</p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">tag</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Forensic
+                            Metadata Parser</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Automated extraction
+                            of archival metadata (RIF, Agency, Date, Author) from document headers.</p>
+                    </div>
                 </div>
             </section>
 
@@ -208,54 +229,19 @@
                     <div
                         class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
                         <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
-                            <span class="material-symbols-outlined text-[120px] text-primary">analytics</span>
+                            <span class="material-symbols-outlined text-[120px] text-primary">database</span>
                         </div>
                         <div class="flex justify-between items-start mb-6">
-                            <span class="material-symbols-outlined text-primary text-4xl font-light">analytics</span>
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">database</span>
                             <span
                                 class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
                                 Queue</span>
                         </div>
-                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Extraction
-                            Workbench</h4>
-                        <p class="text-xs text-archive-secondary/70 leading-relaxed">Unified forensic workspace merging
-                            the PDF Splitter and Dual-Pane Editor for high-speed archival review and transcription.</p>
-                    </div>
-
-
-                    <div
-                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
-                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
-                            <span class="material-symbols-outlined text-[120px] text-primary">auto_fix_high</span>
-                        </div>
-                        <div class="flex justify-between items-start mb-6">
-                            <span
-                                class="material-symbols-outlined text-primary text-4xl font-light">auto_fix_high</span>
-                            <span
-                                class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
-                                Queue</span>
-                        </div>
-                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Entity Matcher
-                        </h4>
-                        <p class="text-xs text-archive-secondary/70 leading-relaxed">"Smart Highlight" system that
-                            automatically links OCR text to existing forensic profiles for people and places.</p>
-                    </div>
-
-                    <div
-                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
-                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
-                            <span class="material-symbols-outlined text-[120px] text-primary">tag</span>
-                        </div>
-                        <div class="flex justify-between items-start mb-6">
-                            <span class="material-symbols-outlined text-primary text-4xl font-light">tag</span>
-                            <span
-                                class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
-                                Queue</span>
-                        </div>
-                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Forensic
-                            Header Parser</h4>
-                        <p class="text-xs text-archive-secondary/70 leading-relaxed">Automated ingestion of government
-                            memo headers (FBI 302, RIF sheets) for instant metadata population.</p>
+                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Commit to
+                            Database</h4>
+                        <p class="text-xs text-archive-secondary/70 leading-relaxed">Phase 4 of the Extraction
+                            Workbench. Persist verified OCR text and extracted entities directly into the 4NF research
+                            vault.</p>
                     </div>
                 </div>
             </section>
@@ -286,14 +272,14 @@
                                     where sources disagree most.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Network
                                     Explorer (#03)</span>
                                 <span class="text-[10px] text-archive-secondary/50">"Six degrees of separation"
                                     visualizer for entity relationships.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span
                                     class="text-xs font-bold text-archive-heading uppercase tracking-wider">Achievement
                                     Badges (#16)</span>
@@ -301,7 +287,7 @@
                                     data and completing quizzes.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Infinite
                                     Canvas (#18)</span>
                                 <span class="text-[10px] text-archive-secondary/50">A massive spatial workbench for
@@ -318,28 +304,28 @@
                         </h5>
                         <ul class="space-y-2">
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">POV Shadow
                                     Timelines (#05)</span>
                                 <span class="text-[10px] text-archive-secondary/50">Filter the world chronology through
                                     the eyes of one witness.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Witness
                                     POV Video (#11)</span>
                                 <span class="text-[10px] text-archive-secondary/50">AI recreations of what witnesses saw
                                     from specific coordinates.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">AR Spatial
                                     Overlays (#12)</span>
                                 <span class="text-[10px] text-archive-secondary/50">Project historical entities onto
                                     modern real-world streets.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Game
                                     Reconstructor (#09)</span>
                                 <span class="text-[10px] text-archive-secondary/50">Simulate historical sports games
@@ -356,21 +342,21 @@
                         </h5>
                         <ul class="space-y-2">
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Lineage
                                     Engine (#22)</span>
                                 <span class="text-[10px] text-archive-secondary/50">Track bloodlines and family trees
                                     across centuries of records.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Ancestral
                                     Chronology (#23)</span>
                                 <span class="text-[10px] text-archive-secondary/50">Compare family legends against
                                     verified primary source data.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span
                                     class="text-xs font-bold text-archive-heading uppercase tracking-wider">Self-Service
                                     Vault (#20)</span>
@@ -378,7 +364,7 @@
                                     documents in the vault.</span>
                             </li>
                             <li
-                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all">
+                                class="p-4 bg-archive-dark/40 border-l-2 border-archive-secondary/10 flex flex-col gap-1 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                                 <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">Private
                                     Forensic Notes (#19)</span>
                                 <span class="text-[10px] text-archive-secondary/50">Encrypted personal notes attached to

@@ -12,8 +12,7 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 
 | ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
 | --- | --- | --- | --- | --- |
-| **01** | **Utility (Phase 1)** | **Member-Only OCR** | Tesseract-as-a-Service | **Status: Live.** High-speed transcription for PDF and archival images with .md, .txt, and themed .html outputs.
-Includes **Forensic Header Parser** for auto-extraction of RIF numbers, Agency, Date, and Author metadata. |
+| **01** | **Utility (Phase 1)** | **Member-Only OCR** | Tesseract-as-a-Service | **Status: Live.** High-speed transcription for PDF and archival images. Includes **Forensic Metadata Parser** and **Extraction Workbench** (v1). |
 | **01b** | **Utility (Phase 2)** | **Document Layout Analyzer** | ML Classification + Zone Parsing | Classifies document type (FBI 302, NARA cover sheet, memo, etc.) by visual/textual fingerprint, then applies zone-specific extraction rules (header, footer, body, tables). |
 | **02** | **Forensic** | **Conflict Heatmap** | `assertion_support` (Contradicts/Supports) | Visualizes "Hot Zones" in evidence where sources disagree (Red = High Conflict). |
 | **03** | **Forensic** | **Network Explorer** | `event_participant` junction tables | Reveals "Six Degrees of Separation" between any two entities in the database. |
@@ -41,7 +40,8 @@ Includes **Forensic Header Parser** for auto-extraction of RIF numbers, Agency, 
 | **25** | **Genealogy** | **Ancestral Chronology** | `assertion` (Family Claims) | Compare conflicting family legends against verified primary source records (Censuses, Deeds). |
 | **26** | **Assistant** | **"On This Day" (OTD)** | Date extraction from `event` | Daily/Weekly/Monthly reports and downloadable resource sheets for researchers. |
 | **27** | **Assistant** | **Age-at-Event Badge** | `birth_date` + `event.start_ts` | Automatically labels every entity with their exact age at the time of the record. |
-| **28** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | Real-time conversion of historical USD to modern (2026) purchasing power. |
+| **28** | **Assistant** | **Inflation Converter** | CPI Reference + `assertion.value` | **Status: Live.** Real-time conversion of historical USD to modern (2026) purchasing power. |
+| **29** | **UI/UX** | **Universal Person Profile** | `person` (all scenarios) | **Status: Development.** Flexible template that adapts to both major figures and fleeting archival witnesses. |
 
 ---
 
