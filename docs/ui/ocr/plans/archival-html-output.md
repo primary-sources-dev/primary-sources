@@ -2,7 +2,7 @@
 
 Add a new output format to the OCR tool that generates a standalone, themed HTML transcript. This allows researchers to view OCR results in a high-fidelity "Primary Sources" aesthetic without needing external Markdown viewers.
 
-- **Status**: Proposed
+- **Status**: Completed (2026-02-23)
 - **Priority**: Medium-High
 - **Owner**: Antigravity
 - **Workorder ID**: WO-OCR-006
