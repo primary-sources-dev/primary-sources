@@ -38,10 +38,11 @@ except ImportError:
     print("Warning: header_parser not available")
 
 # Flask app serving from docs/ui/ocr/
+# Note: static_url_path="/static" avoids conflict with API routes
 app = Flask(__name__, 
             template_folder=UI_DIR, 
             static_folder=UI_DIR, 
-            static_url_path="")
+            static_url_path="/static")
 
 # Configuration
 UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "processed")
@@ -107,7 +108,8 @@ def create_job():
     backend = request.form.get("backend", "wsl")
     output_pdf = request.form.get("output_pdf", "true") == "true"
     output_txt = request.form.get("output_txt", "true") == "true"
-    output_md = request.form.get("output_md", "true") == "true"
+    output_md = request.form.get("output_md", "false") == "true"
+    output_html = request.form.get("output_html", "false") == "true"
     deskew = request.form.get("deskew", "true") == "true"
     clean = request.form.get("clean", "true") == "true"
     force_ocr = request.form.get("force_ocr", "false") == "true"
@@ -154,6 +156,7 @@ def create_job():
             "output_pdf": output_pdf,
             "output_txt": output_txt,
             "output_md": output_md,
+            "output_html": output_html,
             "deskew": deskew,
             "clean": clean,
             "force_ocr": force_ocr,
@@ -211,6 +214,7 @@ def process_job_worker(job_id):
                     output_pdf=job["options"]["output_pdf"],
                     output_txt=job["options"]["output_txt"],
                     output_md=job["options"]["output_md"],
+                    output_html=job["options"]["output_html"],
                     deskew=job["options"]["deskew"],
                     clean=job["options"]["clean"],
                     force_ocr=job["options"]["force_ocr"],

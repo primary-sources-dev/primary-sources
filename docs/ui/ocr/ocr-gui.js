@@ -265,10 +265,20 @@ function renderQueue() {
                                    title="View in Browser">
                                     <span class="material-symbols-outlined text-sm">visibility</span> View
                                 </a>
+                                <button onclick="downloadTxt('${file.name}')" 
+                                   class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
+                                   title="Download as Plain Text">
+                                    <span class="material-symbols-outlined text-sm">article</span> .TXT
+                                </button>
                                 <button onclick="downloadMarkdown('${file.name}')" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="Download as Markdown">
                                     <span class="material-symbols-outlined text-sm">description</span> .MD
+                                </button>
+                                <button onclick="downloadHtml('${file.name}')" 
+                                   class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
+                                   title="Download Archival HTML">
+                                    <span class="material-symbols-outlined text-sm">html</span> .HTML
                                 </button>
                             ` : ''}
                             <button class="btn-remove" onclick="removeFileFromQueue(${idx})" ${isProcessing ? 'disabled' : ''}>×</button>
@@ -293,7 +303,7 @@ function updateQueueBadge() {
 function renderMetadataPreview(parsed, fileIdx) {
     // Check if any fields were extracted
     const hasData = parsed.rif_number || parsed.agency || parsed.date_iso || parsed.author;
-    
+
     if (!hasData) {
         return `
             <div class="metadata-preview">
@@ -306,7 +316,7 @@ function renderMetadataPreview(parsed, fileIdx) {
             </div>
         `;
     }
-    
+
     return `
         <div class="metadata-preview">
             <div class="metadata-preview-header">
@@ -340,11 +350,11 @@ function renderMetadataField(label, field, fileIdx) {
             </div>
         `;
     }
-    
+
     const value = typeof field === 'object' ? field.value : field;
     const confidence = typeof field === 'object' ? field.confidence : null;
     const confidenceClass = confidence ? confidence.toLowerCase() : '';
-    
+
     return `
         <div class="metadata-field">
             <span class="metadata-label">${label}</span>
@@ -373,18 +383,18 @@ function copyAllMetadata(fileIdx) {
         logError('No metadata to copy');
         return;
     }
-    
+
     const parsed = jobFile.parsed_header;
     const lines = [];
-    
+
     if (parsed.rif_number?.value) lines.push(`RIF/ID: ${parsed.rif_number.value}`);
     if (parsed.agency?.value) lines.push(`Agency: ${parsed.agency.value}`);
     if (parsed.date_iso) lines.push(`Date: ${parsed.date_iso}`);
     if (parsed.author?.value) lines.push(`Author: ${parsed.author.value}`);
     if (parsed.document_type) lines.push(`Document Type: ${parsed.document_type}`);
-    
+
     const text = lines.join('\n');
-    
+
     navigator.clipboard.writeText(text).then(() => {
         logSuccess('Copied all metadata to clipboard');
     }).catch(err => {
@@ -398,12 +408,12 @@ async function reparseHeader(fileIdx) {
         logError('File not found');
         return;
     }
-    
+
     logMessage(`Re-parsing header for ${file.name}...`);
-    
+
     // Fetch the text file and re-parse
     const baseName = file.name.replace(/\.[^/.]+$/, '');
-    
+
     try {
         // Try to fetch the .txt or .md file
         let text = null;
@@ -418,27 +428,27 @@ async function reparseHeader(fileIdx) {
                 continue;
             }
         }
-        
+
         if (!text) {
             logError('Could not find OCR output file');
             return;
         }
-        
+
         // Call the parse-header API
         const response = await fetch('/api/parse-header', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: text })
         });
-        
+
         if (!response.ok) {
             const err = await response.json();
             logError(`Parse error: ${err.error || 'Unknown error'}`);
             return;
         }
-        
+
         const result = await response.json();
-        
+
         // Update the job file with new parsed header
         if (currentJob?.files) {
             const jobFile = currentJob.files.find(f => f.name === file.name);
@@ -448,7 +458,7 @@ async function reparseHeader(fileIdx) {
                 logSuccess('Header re-parsed successfully');
             }
         }
-        
+
     } catch (err) {
         logError(`Re-parse failed: ${err.message}`);
     }
@@ -479,6 +489,8 @@ async function startProcessing() {
     formData.append('backend', document.querySelector('input[name="backend"]:checked').value);
     formData.append('output_pdf', document.getElementById('output-pdf').checked);
     formData.append('output_txt', document.getElementById('output-txt').checked);
+    formData.append('output_md', document.getElementById('output-md').checked);
+    formData.append('output_html', document.getElementById('output-html').checked);
     formData.append('deskew', document.getElementById('option-deskew').checked);
     formData.append('clean', document.getElementById('option-clean').checked);
     formData.append('force_ocr', document.getElementById('option-force').checked);
@@ -671,8 +683,17 @@ function copyOutputPath() {
 
 function downloadMarkdown(originalName) {
     const baseName = originalName.substring(0, originalName.lastIndexOf('.'));
-    const mdName = `${baseName}.md`;
-    window.location.href = `/api/download/${mdName}`;
+    window.open(`/api/download/${baseName}.md`, '_blank');
+}
+
+function downloadHtml(originalName) {
+    const baseName = originalName.substring(0, originalName.lastIndexOf('.'));
+    window.open(`/api/download/${baseName}.html`, '_blank');
+}
+
+function downloadTxt(originalName) {
+    const baseName = originalName.substring(0, originalName.lastIndexOf('.'));
+    window.open(`/api/download/${baseName}.txt`, '_blank');
 }
 
 // ============================================================================
