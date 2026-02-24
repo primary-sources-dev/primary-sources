@@ -1,194 +1,44 @@
-// person-cards.js
-// Card Population Functions for Person Profile
+// person-v2-cards.js
+// Card Population Functions for Person Profile V2 (Synthesized Design)
+// Combines oswald.html's visual aesthetic with person.html's architecture
 // Primary Sources Project - 2026-02-23
-
-// Helper: Format dates
-function formatDate(dateStr) {
-  if (!dateStr) return 'UNKNOWN';
-
-  const date = new Date(dateStr);
-  if (isNaN(date)) return dateStr; // Return as-is if not valid date
-
-  const options = { year: 'numeric', month: 'short', day: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
-}
-
-function formatDateShort(dateStr) {
-  if (!dateStr) return 'UNKNOWN';
-
-  const date = new Date(dateStr);
-  if (isNaN(date)) {
-    // Try to extract year if format is just "YYYY"
-    if (dateStr.match(/^\d{4}$/)) return dateStr;
-    return dateStr;
-  }
-
-  return date.getFullYear().toString();
-}
-
-// Helper: Calculate age
-function calculateAge(birthDate, deathDate) {
-  if (!birthDate) return null;
-
-  const birth = new Date(birthDate);
-  const end = deathDate ? new Date(deathDate) : new Date();
-
-  if (isNaN(birth) || isNaN(end)) return null;
-
-  const ageYears = Math.floor((end - birth) / (365.25 * 24 * 60 * 60 * 1000));
-  return ageYears;
-}
-
-// Populate Header
-function populateHeader(data) {
-  // Name
-  const nameEl = document.getElementById('person-name');
-  if (nameEl) nameEl.textContent = data.display_name || 'UNKNOWN';
-
-  // Breadcrumb
-  const breadcrumbEl = document.getElementById('breadcrumb-current');
-  if (breadcrumbEl) breadcrumbEl.textContent = data.display_name || 'Person';
-
-  // Portrait (if available)
-  if (data.portrait_url) {
-    const portraitDiv = document.getElementById('person-portrait');
-    const portraitImg = document.getElementById('person-portrait-img');
-    if (portraitDiv && portraitImg) {
-      portraitImg.src = data.portrait_url;
-      portraitImg.alt = `Portrait of ${data.display_name}`;
-      portraitDiv.style.display = '';
-    }
-  }
-
-  // Label (if available)
-  if (data.label) {
-    const labelEl = document.getElementById('person-label');
-    if (labelEl) {
-      labelEl.textContent = data.label;
-      labelEl.style.display = '';
-    }
-  }
-
-  // Dates
-  const datesEl = document.getElementById('person-dates');
-  if (datesEl) {
-    const birthYear = data.birth_date ? formatDateShort(data.birth_date) : 'UNKNOWN';
-    const deathYear = data.death_date ? formatDateShort(data.death_date) : null;
-
-    if (deathYear) {
-      datesEl.textContent = `${birthYear} – ${deathYear}`;
-    } else {
-      datesEl.textContent = `Born ${birthYear}`;
-    }
-  }
-
-  // Aliases (show up to 2 in header)
-  if (data.aliases && data.aliases.length > 0) {
-    const aliasesDiv = document.getElementById('person-aliases');
-    const aliasesList = document.getElementById('person-aliases-list');
-
-    if (aliasesDiv && aliasesList) {
-      const displayAliases = data.aliases.slice(0, 2);
-      aliasesList.innerHTML = displayAliases.map(alias => {
-        const aliasName = alias.alias_name || alias;
-        return `<span class="text-[9px] px-2 py-1 bg-archive-secondary/10 text-archive-secondary/70 border border-archive-secondary/20 uppercase tracking-wider">${aliasName}</span>`;
-      }).join('');
-      aliasesDiv.style.display = '';
-    }
-  }
-}
-
-// Populate Stats Dashboard
-function populateStats(data) {
-  // Born
-  const bornEl = document.getElementById('stat-born');
-  if (bornEl) {
-    if (data.birth_date) {
-      const date = new Date(data.birth_date);
-      if (!isNaN(date)) {
-        const month = date.toLocaleDateString('en-US', { month: 'short' });
-        const year = date.getFullYear();
-        bornEl.innerHTML = `${month}<br>${year}`;
-      } else {
-        bornEl.textContent = data.birth_date;
-      }
-    } else {
-      bornEl.textContent = 'UNKNOWN';
-    }
-  }
-
-  // Died
-  if (data.death_date) {
-    const diedCard = document.getElementById('stat-died-card');
-    const diedEl = document.getElementById('stat-died');
-    if (diedCard && diedEl) {
-      const date = new Date(data.death_date);
-      if (!isNaN(date)) {
-        const month = date.toLocaleDateString('en-US', { month: 'short' });
-        const year = date.getFullYear();
-        diedEl.innerHTML = `${month}<br>${year}`;
-      } else {
-        diedEl.textContent = data.death_date;
-      }
-      diedCard.style.display = '';
-    }
-  }
-
-  // Age
-  const age = calculateAge(data.birth_date, data.death_date);
-  if (age !== null) {
-    const ageCard = document.getElementById('stat-age-card');
-    const ageEl = document.getElementById('stat-age');
-    if (ageCard && ageEl) {
-      ageEl.innerHTML = `${age}<br><span class="text-xs">years</span>`;
-      ageCard.style.display = '';
-    }
-  }
-
-  // Sources
-  const sourcesEl = document.getElementById('stat-sources');
-  if (sourcesEl) {
-    const count = data.sources ? data.sources.length : 0;
-    sourcesEl.innerHTML = `${count}<br><span class="text-xs">docs</span>`;
-  }
-}
 
 // Card 1: Biography
 function populateBiography(notes) {
   const textEl = document.getElementById('biography-text');
-  if (textEl) {
-    textEl.textContent = notes;
-  }
+  if (!textEl || !notes) return;
+
+  textEl.textContent = notes;
 }
 
-// Card 2: Chronology (Timeline)
+// Card 2: Chronology (Visual Timeline with oswald.html design)
 function populateChronology(events) {
   const timeline = document.getElementById('chronology-timeline');
   if (!timeline || !events || events.length === 0) return;
 
-  // Sort events by date
   const sortedEvents = [...events].sort((a, b) => {
     const dateA = new Date(a.date || a.start_ts);
     const dateB = new Date(b.date || b.start_ts);
     return dateA - dateB;
   });
 
-  // Build timeline HTML
-  let html = '<div class="relative border-l-2 border-primary/30 pl-6 space-y-6">';
+  let html = '<div class="flex flex-col gap-0">';
 
   sortedEvents.forEach((event, index) => {
     const isLast = index === sortedEvents.length - 1;
-    const date = formatDate(event.date || event.start_ts);
+    const date = formatTimelineDate(event.date || event.start_ts);
     const title = event.title || 'Untitled Event';
     const description = event.description || '';
 
     html += `
-      <div class="relative">
-        <div class="absolute -left-[29px] top-0 w-4 h-4 rounded-full bg-primary border-2 border-archive-bg"></div>
-        <div class="pb-6 ${!isLast ? 'border-b border-archive-secondary/10' : ''}">
-          <p class="text-[10px] text-primary uppercase tracking-widest mb-1">${date}</p>
-          <h3 class="text-lg font-bold text-archive-heading mb-2 uppercase font-display">${title}</h3>
-          ${description ? `<p class="text-xs text-archive-secondary/70 leading-relaxed">${description}</p>` : ''}
+      <div class="flex gap-4 items-start group">
+        <div class="flex flex-col items-center">
+          <div class="w-2 h-2 ${isLast ? 'border border-primary' : 'bg-primary'} mt-1 flex-shrink-0"></div>
+          ${!isLast ? '<div class="w-px bg-archive-secondary/20 flex-1 min-h-[2rem]"></div>' : ''}
+        </div>
+        <div class="pb-4">
+          <span class="text-[10px] font-bold text-primary uppercase tracking-widest">${date}</span>
+          <p class="text-xs text-archive-secondary mt-0.5">${title}${description ? '. ' + description : ''}</p>
         </div>
       </div>
     `;
@@ -206,14 +56,13 @@ function populateAliases(aliases) {
   list.innerHTML = aliases.map(alias => {
     const aliasName = alias.alias_name || alias;
     const aliasType = alias.alias_type || 'UNKNOWN';
-
     return `
-      <div class="p-4 bg-archive-dark border border-archive-secondary/20">
-        <div class="flex items-center gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">badge</span>
-          <h4 class="text-base font-bold text-archive-heading uppercase">${aliasName}</h4>
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-base">badge</span>
+          <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">${aliasName}</span>
         </div>
-        <p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest">Type: ${aliasType}</p>
+        <span class="text-[10px] text-archive-secondary opacity-60 uppercase">${aliasType}</span>
       </div>
     `;
   }).join('');
@@ -224,146 +73,158 @@ function populateResidences(residences) {
   const list = document.getElementById('residences-list');
   if (!list || !residences || residences.length === 0) return;
 
-  list.innerHTML = residences.map(residence => {
-    const place = residence.place || 'Unknown Location';
-    const address = residence.address || '';
-    const dates = residence.dates || '';
-
+  list.innerHTML = residences.map(res => {
+    const place = res.place || 'UNKNOWN';
+    const address = res.address || '';
+    const dates = res.dates || '';
     return `
-      <div class="p-4 bg-archive-dark border border-archive-secondary/20">
-        <div class="flex items-center gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">home</span>
-          <h4 class="text-base font-bold text-archive-heading uppercase">${place}</h4>
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-base">home</span>
+          <div>
+            <p class="text-xs font-bold text-archive-heading uppercase tracking-wider">${place}</p>
+            ${address ? `<p class="text-[10px] text-archive-secondary/60 mt-0.5">${address}</p>` : ''}
+          </div>
         </div>
-        ${address ? `<p class="text-sm text-archive-secondary/80 mb-1">${address}</p>` : ''}
-        ${dates ? `<p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest">${dates}</p>` : ''}
+        <span class="text-[10px] text-archive-secondary opacity-60 uppercase">${dates}</span>
       </div>
     `;
   }).join('');
 }
 
-// Card 5: Organizations
+// Card 5: Organizations (oswald.html style)
 function populateOrganizations(organizations) {
   const list = document.getElementById('organizations-list');
   if (!list || !organizations || organizations.length === 0) return;
 
   list.innerHTML = organizations.map(org => {
-    const name = org.name || 'Unknown Organization';
-    const dates = org.dates || '';
+    const name = org.name || 'UNKNOWN';
     const role = org.role || '';
+    const dates = org.dates || '';
+    const displayText = role ? `${name} — ${role}` : name;
+
+    // Icon based on org type
+    let icon = 'groups';
+    if (name.toLowerCase().includes('marine') || name.toLowerCase().includes('military')) {
+      icon = 'military_tech';
+    } else if (name.toLowerCase().includes('school') || name.toLowerCase().includes('depository') || name.toLowerCase().includes('company')) {
+      icon = 'apartment';
+    }
 
     return `
-      <div class="p-4 bg-archive-dark border border-archive-secondary/20">
-        <div class="flex items-center gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">account_balance</span>
-          <h4 class="text-base font-bold text-archive-heading uppercase">${name}</h4>
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors group">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-base">${icon}</span>
+          <span class="text-xs font-bold text-archive-heading uppercase tracking-wider">${displayText}</span>
         </div>
-        ${role ? `<p class="text-sm text-archive-secondary/80 mb-1">${role}</p>` : ''}
-        ${dates ? `<p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest">${dates}</p>` : ''}
+        <span class="text-[10px] text-archive-secondary opacity-60 uppercase">${dates}</span>
       </div>
     `;
   }).join('');
 }
 
-// Card 6: Family Relations
+// Card 6: Family
 function populateFamily(family) {
   const list = document.getElementById('family-list');
   if (!list || !family || family.length === 0) return;
 
   list.innerHTML = family.map(member => {
-    const name = member.name || 'Unknown';
+    const name = member.name || 'UNKNOWN';
     const relation = member.relation || '';
     const date = member.date || '';
-
     return `
-      <div class="p-4 bg-archive-dark border border-archive-secondary/20">
-        <div class="flex items-center gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">family_restroom</span>
-          <h4 class="text-base font-bold text-archive-heading uppercase">${name}</h4>
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-base">person</span>
+          <div>
+            <p class="text-xs font-bold text-archive-heading uppercase tracking-wider">${name}</p>
+            ${relation ? `<p class="text-[10px] text-archive-secondary/60 mt-0.5">${relation}</p>` : ''}
+          </div>
         </div>
-        ${relation ? `<p class="text-sm text-archive-secondary/80 mb-1">${relation}</p>` : ''}
-        ${date ? `<p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest">${date}</p>` : ''}
+        <span class="text-[10px] text-archive-secondary opacity-60 uppercase">${date}</span>
       </div>
     `;
   }).join('');
 }
 
-// Card 7: Related Events
+// Card 7: Related Events (oswald.html style)
 function populateEvents(events) {
   const list = document.getElementById('events-list');
   if (!list || !events || events.length === 0) return;
 
   list.innerHTML = events.map(event => {
     const title = event.title || 'Untitled Event';
-    const date = formatDate(event.date || event.start_ts);
+    const date = event.date ? formatTimelineDate(event.date) : '';
     const description = event.description || '';
-    const type = event.event_type || event.type || '';
+    const type = event.type || '';
 
     return `
-      <div class="p-4 bg-archive-dark border-l-4 border-primary hover:bg-archive-dark/80 transition-colors">
-        <div class="flex items-start justify-between gap-4 mb-2">
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">event</span>
-            <h4 class="text-base font-bold text-archive-heading uppercase">${title}</h4>
-          </div>
-          <span class="text-[10px] text-primary uppercase tracking-widest whitespace-nowrap">${date}</span>
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div>
+          ${date ? `<p class="text-[10px] text-primary uppercase tracking-widest font-bold mb-0.5">${date}</p>` : ''}
+          <p class="text-xs font-bold text-archive-heading uppercase tracking-wider">${title}</p>
+          ${description ? `<p class="text-[10px] text-archive-secondary/60 mt-1">${description}</p>` : ''}
         </div>
-        ${type ? `<p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest mb-2">Type: ${type}</p>` : ''}
-        ${description ? `<p class="text-xs text-archive-secondary/70 leading-relaxed">${description}</p>` : ''}
+        <span class="material-symbols-outlined text-archive-secondary/40 text-base">chevron_right</span>
       </div>
     `;
   }).join('');
 }
 
-// Card 8: Related Objects
+// Card 8: Objects
 function populateObjects(objects) {
   const list = document.getElementById('objects-list');
   if (!list || !objects || objects.length === 0) return;
 
   list.innerHTML = objects.map(obj => {
-    const name = obj.name || 'Unknown Object';
+    const name = obj.name || 'UNKNOWN';
     const type = obj.type || '';
     const description = obj.description || '';
 
+    // Icon based on type
+    let icon = 'inventory_2';
+    if (type === 'WEAPON') icon = 'gavel';
+    else if (type === 'DOCUMENT') icon = 'description';
+    else if (type === 'PHOTO') icon = 'image';
+
     return `
-      <div class="p-4 bg-archive-dark border border-archive-secondary/20">
-        <div class="flex items-center gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">inventory_2</span>
-          <h4 class="text-base font-bold text-archive-heading uppercase">${name}</h4>
+      <div class="border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary text-base mt-0.5">${icon}</span>
+          <div>
+            <p class="text-xs font-bold text-archive-heading uppercase tracking-wider">${name}</p>
+            ${type ? `<p class="text-[10px] text-primary uppercase tracking-widest mb-1">${type}</p>` : ''}
+            ${description ? `<p class="text-[10px] text-archive-secondary/60">${description}</p>` : ''}
+          </div>
         </div>
-        ${type ? `<p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest mb-2">Type: ${type}</p>` : ''}
-        ${description ? `<p class="text-xs text-archive-secondary/70">${description}</p>` : ''}
       </div>
     `;
   }).join('');
 }
 
-// Card 9: Primary Sources
+// Card 9: Primary Sources (oswald.html style)
 function populateSources(sources) {
   const list = document.getElementById('sources-list');
   if (!list || !sources || sources.length === 0) return;
 
   list.innerHTML = sources.map(source => {
     const title = source.title || 'Untitled Source';
-    const type = source.type || '';
+    const type = source.type || 'DOCUMENT';
     const year = source.year || '';
     const author = source.author || '';
     const archive = source.archive || '';
 
+    const metaLine = [type, year].filter(Boolean).join(' · ');
+    const detailLine = [author, archive].filter(Boolean).join(' — ');
+
     return `
-      <div class="p-4 bg-archive-dark border-l-4 border-primary hover:bg-archive-dark/80 transition-colors">
-        <div class="flex items-start justify-between gap-4 mb-2">
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">description</span>
-            <h4 class="text-base font-bold text-archive-heading uppercase">${title}</h4>
-          </div>
-          ${year ? `<span class="text-[10px] text-primary uppercase tracking-widest whitespace-nowrap">${year}</span>` : ''}
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div>
+          ${metaLine ? `<p class="text-[10px] text-primary uppercase tracking-widest font-bold mb-0.5">${metaLine}</p>` : ''}
+          <p class="text-xs font-bold text-archive-heading uppercase tracking-wider">${title}</p>
+          ${detailLine ? `<p class="text-[10px] text-archive-secondary/60 mt-1">${detailLine}</p>` : ''}
         </div>
-        <div class="flex flex-wrap gap-3 text-[10px] text-archive-secondary/60 uppercase tracking-widest">
-          ${type ? `<span>Type: ${type}</span>` : ''}
-          ${author ? `<span>• Author: ${author}</span>` : ''}
-          ${archive ? `<span>• Archive: ${archive}</span>` : ''}
-        </div>
+        <span class="material-symbols-outlined text-archive-secondary/40 text-base">description</span>
       </div>
     `;
   }).join('');
@@ -374,17 +235,19 @@ function populateIdentifiers(identifiers) {
   const list = document.getElementById('identifiers-list');
   if (!list || !identifiers || identifiers.length === 0) return;
 
-  list.innerHTML = identifiers.map(identifier => {
-    const type = identifier.type || 'UNKNOWN';
-    const value = identifier.value || '';
+  list.innerHTML = identifiers.map(id => {
+    const type = id.type || 'UNKNOWN';
+    const value = id.value || '';
 
     return `
-      <div class="p-4 bg-archive-dark border border-archive-secondary/20">
-        <div class="flex items-center gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">tag</span>
-          <h4 class="text-base font-bold text-archive-heading uppercase">${type}</h4>
+      <div class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-base">tag</span>
+          <div>
+            <p class="text-[10px] text-primary uppercase tracking-widest mb-0.5">${type}</p>
+            <p class="text-xs font-bold text-archive-heading tracking-wider">${value}</p>
+          </div>
         </div>
-        <p class="text-sm text-archive-secondary/80 font-mono">${value}</p>
       </div>
     `;
   }).join('');
@@ -396,19 +259,32 @@ function populateAssertions(assertions) {
   if (!list || !assertions || assertions.length === 0) return;
 
   list.innerHTML = assertions.map(assertion => {
-    const claim = assertion.claim || assertion.text || 'No claim text';
+    const claim = assertion.claim || '';
     const source = assertion.source || '';
-    const confidence = assertion.confidence || '';
+    const confidence = assertion.confidence || 'UNKNOWN';
+
+    // Confidence badge color
+    let confidenceBg = 'bg-archive-secondary/10';
+    let confidenceText = 'text-archive-secondary/60';
+    if (confidence === 'SUPPORTED') {
+      confidenceBg = 'bg-primary/20';
+      confidenceText = 'text-primary';
+    } else if (confidence === 'DISPUTED') {
+      confidenceBg = 'bg-red-500/20';
+      confidenceText = 'text-red-400';
+    }
 
     return `
-      <div class="p-4 bg-archive-dark border-l-4 border-primary hover:bg-archive-dark/80 transition-colors">
-        <div class="flex items-start gap-3 mb-2">
-          <span class="material-symbols-outlined text-primary">fact_check</span>
-          <p class="text-sm text-archive-secondary/80 leading-relaxed flex-1">${claim}</p>
-        </div>
-        <div class="flex flex-wrap gap-3 text-[10px] text-archive-secondary/60 uppercase tracking-widest ml-8">
-          ${source ? `<span>Source: ${source}</span>` : ''}
-          ${confidence ? `<span>• Confidence: ${confidence}</span>` : ''}
+      <div class="border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-primary text-base mt-0.5">fact_check</span>
+          <div class="flex-1">
+            <p class="text-xs text-archive-heading mb-2">${claim}</p>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] px-2 py-1 ${confidenceBg} ${confidenceText} uppercase tracking-widest">${confidence}</span>
+              ${source ? `<span class="text-[10px] text-archive-secondary/60">Source: ${source}</span>` : ''}
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -421,26 +297,36 @@ function populateMedia(media) {
   if (!gallery || !media || media.length === 0) return;
 
   gallery.innerHTML = media.map(item => {
-    const url = item.url || item.file_url || '';
-    const caption = item.caption || item.title || 'No caption';
-    const type = item.type || 'IMAGE';
+    const url = item.url || '';
+    const caption = item.caption || '';
+    const type = item.type || 'PHOTO';
 
-    if (type === 'IMAGE' || type === 'PHOTO') {
-      return `
-        <div class="relative group">
-          <div class="aspect-square bg-archive-secondary/10 border border-archive-secondary/20 overflow-hidden">
-            <img src="${url}" alt="${caption}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
-          </div>
-          <p class="mt-2 text-[10px] text-archive-secondary/60 uppercase tracking-wider text-center">${caption}</p>
+    return `
+      <div class="border border-archive-secondary/20 bg-[#252021]/60 hover:border-primary transition-colors overflow-hidden group">
+        <div class="aspect-square bg-archive-dark/50 flex items-center justify-center">
+          ${url ? `<img src="${url}" alt="${caption}" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />` : `<span class="material-symbols-outlined text-archive-secondary/20 text-4xl">image</span>`}
         </div>
-      `;
-    } else {
-      return `
-        <div class="p-4 bg-archive-dark border border-archive-secondary/20 flex flex-col items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-primary text-3xl">insert_drive_file</span>
-          <p class="text-[10px] text-archive-secondary/80 uppercase tracking-wider text-center">${caption}</p>
-        </div>
-      `;
-    }
+        ${caption ? `<div class="p-2"><p class="text-[9px] text-archive-secondary/60 leading-tight">${caption}</p></div>` : ''}
+      </div>
+    `;
   }).join('');
+}
+
+// Helper: Format timeline dates (oswald.html style)
+function formatTimelineDate(dateStr) {
+  if (!dateStr) return '';
+
+  const date = new Date(dateStr);
+  if (isNaN(date)) return dateStr;
+
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  const year = date.getFullYear();
+  const day = date.getDate();
+
+  // If day is 1, assume it's just month/year
+  if (day === 1) {
+    return `${month} ${year}`;
+  }
+
+  return `${month} ${day}, ${year}`;
 }

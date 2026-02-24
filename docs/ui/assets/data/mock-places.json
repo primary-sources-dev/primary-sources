@@ -3,7 +3,7 @@
         "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
         "name": "Dallas, Texas",
         "display_name": "Dallas",
-        "type": "City",
+        "place_type": "CITY",
         "label": "City · Texas",
         "description": "Major metropolitan area in Texas and the site of the JFK assassination on November 22, 1963.",
         "events": [
@@ -62,7 +62,7 @@
         "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
         "name": "Texas School Book Depository",
         "display_name": "TSBD",
-        "type": "Building",
+        "place_type": "BUILDING",
         "label": "Building · Dealey Plaza",
         "description": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy.",
         "events": [

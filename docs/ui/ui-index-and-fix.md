@@ -11,8 +11,7 @@
 | **about.html** | modular | simple | modular | modular | main.css | components, nav, db-logic |
 | **blog.html** | modular | simple | modular | modular | main.css | components, nav |
 | **blog-post.html** | modular | none | modular | modular | main.css | components, nav, blog-post |
-| **event.html** | modular | none | modular | modular | main.css | components, nav, db-logic |
-| **event.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, event-v1-* |
+| **event.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, event-* |
 | **events.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **features.html** | modular | none | modular | modular | main.css | components, nav |
 | **links.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
@@ -23,8 +22,7 @@
 | **pdf-viewer.html** | modular (pdf-viewer-header) | none | — | — | main.css + pdf-viewer.css | components |
 | **tools/pdf-viewer-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **people.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
-| **person.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic, person-* |
-| **person.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-v2-* |
+| **person.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-* |
 | **places.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **random.html** | modular | none | modular | modular | main.css | components, nav |
 | **search.html** | modular | none | modular | modular | main.css | components, nav, db-logic, global-search |
@@ -43,8 +41,8 @@
 
 | Type | Style | Pages |
 |------|-------|-------|
-| **Gradient Dark** | `bg-archive-dark py-12` + gradient overlays + badge + H1 + description + stat tags | index, person, tools/* |
-| **Simple** | Lighter hero, often with profile card | about, blog, event-v1, oswald, person-v2 |
+| **Gradient Dark** | `bg-archive-dark py-12` + gradient overlays + badge + H1 + description + stat tags | index, tools/* |
+| **Simple** | Lighter hero, often with profile card | about, blog, event, oswald, person |
 | **None** | No hero section | events, features, links, objects, organizations, etc. |
 
 ---
@@ -85,8 +83,18 @@
 | `filter.js` | Sidebar filtering logic | List pages (people, events, objects, etc.) |
 | `ocr-gui.js` | OCR tool functionality | ocr/index.html |
 | `global-search.js` | Search functionality | search.html |
-| `person-profile.js` | Person detail rendering | person.html |
-| `person-cards.js` | Person card components | person.html |
+| `person-profile.js` | Person detail rendering (card registry) | person.html |
+| `person-cards.js` | Person card components (populate functions) | person.html |
+| `event-profile.js` | Event detail rendering (card registry) | event.html |
+| `event-cards.js` | Event card components (populate functions) | event.html |
+| `organization-profile.js` | Organization detail rendering | organization.html |
+| `organization-cards.js` | Organization card components | organization.html |
+| `place-profile.js` | Place detail rendering | place.html |
+| `place-cards.js` | Place card components | place.html |
+| `object-profile.js` | Object detail rendering | object.html |
+| `object-cards.js` | Object card components | object.html |
+| `source-profile.js` | Source detail rendering | source.html |
+| `source-cards.js` | Source card components | source.html |
 | `blog-post.js` | Blog post rendering | blog-post.html |
 
 ---
@@ -169,4 +177,9 @@ module.exports = {
 - [x] Modularize pdf-viewer.html: extract header to component, CSS to pdf-viewer.css
 - [x] Consolidate person.html + person-v2.html (person-v2 renamed to person.html, original archived)
 - [x] Consolidate event.html + event-v1.html (event-v1 renamed to event.html, original archived)
+- [x] Rename person-v2-profile.js → person-profile.js (original archived)
+- [x] Rename person-v2-cards.js → person-cards.js (original archived)
+- [x] Rename event-v1-profile.js → event-profile.js
+- [x] Rename event-v1-cards.js → event-cards.js
+- [x] Align mock data with Supabase schema field names (org_id, place_type, object_type, source_type)
 - [ ] Extract inline Tailwind config to shared file

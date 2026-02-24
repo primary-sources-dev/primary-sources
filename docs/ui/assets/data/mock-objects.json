@@ -3,7 +3,7 @@
         "object_id": "1f2a3b4c-5d6e-47f8-a9b0-c1d2e3f4a5b6",
         "name": "Mannlicher-Carcano Rifle (C2766)",
         "display_name": "Carcano Rifle",
-        "type": "Weapon",
+        "object_type": "WEAPON",
         "label": "Weapon · CE 139",
         "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD.",
         "properties": {

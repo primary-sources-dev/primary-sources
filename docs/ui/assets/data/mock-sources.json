@@ -3,7 +3,7 @@
         "source_id": "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8",
         "title": "Report of the President's Commission on the Assassination of President John F. Kennedy",
         "display_name": "Warren Commission Report",
-        "type": "Government Document",
+        "source_type": "REPORT",
         "label": "Book · 1964",
         "description": "The official report containing the findings and conclusions of the commission formed to investigate the JFK assassination.",
         "content_summary": "Extensive investigation covering Oswald's background, the shooting incident, and the conclusion that he acted alone.",
