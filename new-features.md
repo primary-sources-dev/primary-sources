@@ -76,5 +76,18 @@ Advanced evidentiary analysis features integrated into the primary document view
 - **Universal Component Architecture**: Refactored `components.js` and `header.html` to use site-root relative paths (`/`). This critical update ensures consistent global navigation and component loading regardless of directory depth, specifically fixing header breakage in specialized tools like the `/ocr/` portal.
 - **Workbench Persistence**: Enhanced `ocr-gui.js` to automatically pass tracking parameters (`feature=true`) through the extraction pipeline to the workbench viewer, ensuring session continuity.
 
+## 12. Tool Information Page System (2026-02-23)
+Standardized informational pages for all analytical tools with consistent template architecture.
+- **Template Standard**: Created `docs/ui/templates/tool-information-page.md` defining canonical structure for all tool pages.
+- **Page Structure**: Hero (badge, title, stats), What It Does, How It Works (workflow diagram), Supported Items (grid), Key Features (2x2), API Usage (code), Status Card.
+- **Four Tool Pages Deployed**:
+  - **OCR Tool** (`tools/ocr-features.html`): Tesseract engine, batch processing, Extraction Workbench with Deep Sync.
+  - **PDF Viewer** (`pdf-viewer/index.html`): Document viewing, annotations, side-by-side OCR verification.
+  - **Document Analyzer** (`tools/document-analyzer.html`): 17 document types, fingerprint classification, zone extraction.
+  - **Citation Generator** (`tools/citation-generator.html`): Chicago/MLA/APA/NARA formats, agent name handling, RIF support.
+- **Live Status**: All tools marked as Live with emerald badge styling.
+- **Navigation Split**: Dashboard cards link to informational pages; header nav links to functional tools.
+- **Modular Header Integration**: All pages use `data-component="header"` with dynamic breadcrumbs via `nav.js`.
+
 ---
-*Status: All features committed and integrated into `docs/ui/` — v0.8.2-alpha*
+*Status: All features committed and integrated into `docs/ui/` — v0.8.3-alpha*

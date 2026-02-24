@@ -1,5 +1,5 @@
 # Working Notes: Primary Sources Master Strategy
-*Last Updated: 2026-02-23*
+*Last Updated: 2026-02-24*
 
 This document serves as the synchronized master plan for the **Primary Sources** project. It integrates the platform vision, specific JFK project goals, OCR tooling enhancements, and immediate execution priorities.
 
@@ -54,9 +54,11 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 - **Entity Matching**: Instant lookup against the 4NF database producing an `entities.json` sidecar.
 
 ### Roadmap: Intelligent Extraction Assistant (Planned)
-- **Document Layout Analyzer (Phase 2)**: 
-    - **Fingerprinting**: Auto-classify FBI 302s, NARA forms, and CIA cables.
-    - **Zone-Specific Parsing**: Intelligent extraction from footers, routing grids, and margin stamps.
+- **Document Layout Analyzer**: ✅ COMPLETE
+    - **17 Document Types**: FBI_302, CIA_CABLE, NARA_RIF, WC_TESTIMONY, HSCA_DOC, CHURCH_COMMITTEE, and more.
+    - **Fingerprinting**: Weighted regex pattern matching with OCR-tolerant variants.
+    - **Zone-Specific Parsing**: Type-specific extraction from headers, footers, and body zones.
+    - **75.4% Classification Rate**: Validated across Warren Commission, HSCA, Church Committee, and Yates collections.
 - **Handwriting Recognition (HTR)**: Integration of models (TrOCR/Donut) to read cursive field notes.
 - **Table Transformer (TATR)**: Converting box scores and financial ledgers into structured markdown.
 - **Commit-to-DB**: One-click persistence of verified text and entities into the research vault.
@@ -68,7 +70,16 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 ### Active Build Pool (High Impact / Low Effort)
 1.  **Extraction Workbench Phase 4 (Commit)**: Backend logic to save workbench results directly to SQL.
 
-### Recently Completed (2026-02-23 Marathon)
+### Recently Completed (2026-02-24)
+- [x] **Tool Information Page Template**: Canonical structure for analytical tool pages (`docs/ui/templates/tool-information-page.md`).
+- [x] **OCR Tool Info Page**: Full informational page with Extraction Workbench, Deep Sync, batch processing features.
+- [x] **PDF Viewer Refactor**: Migrated to standard template with modular header, workflow diagram, and Live status.
+- [x] **Document Analyzer Page**: Updated to Live status with emerald styling.
+- [x] **Citation Generator Page**: Updated to Live status with emerald styling.
+- [x] **Dashboard Card Standardization**: All 4 Analytical Tools cards now use consistent compact layout with Live badges.
+- [x] **Navigation Split Architecture**: Dashboard cards → info pages; header nav → functional tools.
+
+### Previously Completed (2026-02-23 Marathon)
 - [x] **Forensic PDF Workbench**: High-fidelity metadata ribbon (RIF, Agency, Date) and sidecar review pane.
 - [x] **Intelligence Layer (Psychology)**: AI-powered entity highlighting (CIA, FBI, Oswald) directly on document scans.
 - [x] **Universal Navigation Robustness**: Site-root relative component loading (`/`) fixing header breakage in subdirectories.
