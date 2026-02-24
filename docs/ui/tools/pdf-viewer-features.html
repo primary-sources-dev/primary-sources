@@ -13,7 +13,7 @@
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
     <script>
         tailwind.config = {
             darkMode: "class",
@@ -37,8 +37,8 @@
             },
         }
     </script>
-    <script src="/assets/js/components.js"></script>
-    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/components.js" defer></script>
+    <script src="/assets/js/nav.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
@@ -268,6 +268,15 @@ for result in results:
             </div>
         </section>
 
+        <!-- LAUNCH CTA -->
+        <section class="mb-12 text-center">
+            <a href="/pdf-viewer.html"
+                class="inline-flex items-center gap-2 bg-primary text-archive-bg px-8 py-3 font-bold uppercase tracking-wider hover:brightness-110 transition-all shadow-lg">
+                <span class="material-symbols-outlined">open_in_new</span>
+                Launch PDF Viewer
+            </a>
+        </section>
+
         <!-- STATUS -->
         <section class="border border-emerald-500/30 bg-emerald-500/5 p-6">
             <div class="flex items-center gap-3 mb-3">
@@ -288,7 +297,7 @@ for result in results:
     <div data-component="footer"></div>
 
     <!-- MODULAR BOTTOM NAV -->
-    <nav data-component="bottom-nav" data-active="Home"
+    <nav data-component="bottom-nav" data-active="Tools"
         class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
 
     <div class="h-24"></div>

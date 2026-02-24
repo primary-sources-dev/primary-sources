@@ -21,7 +21,7 @@
 | **oswald.html** | modular | simple | modular | modular | main.css | components, nav, db-logic |
 | **otd.html** | modular | none | modular | modular | main.css | components, nav |
 | **pdf-viewer.html** | ⚠️ hardcoded | none | ⚠️ none | ⚠️ none | ⚠️ inline only | ⚠️ none |
-| **pdf-viewer/index.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+| **tools/pdf-viewer-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **people.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **person.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic, person-* |
 | **person-v2.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-v2-* |
@@ -41,7 +41,7 @@
 
 | Type | Style | Pages |
 |------|-------|-------|
-| **Gradient Dark** | `bg-archive-dark py-12` + gradient overlays + badge + H1 + description + stat tags | index, pdf-viewer/index, person, tools/* |
+| **Gradient Dark** | `bg-archive-dark py-12` + gradient overlays + badge + H1 + description + stat tags | index, person, tools/* |
 | **Simple** | Lighter hero, often with profile card | about, blog, event-v1, oswald, person-v2 |
 | **None** | No hero section | events, features, links, objects, organizations, etc. |
 
@@ -65,7 +65,7 @@
 | ~~Hardcoded footer~~ | ~~random, witness-atlas~~ | ~~Convert to modular~~ | ~~High~~ | ✅ Fixed |
 | ~~Missing bottom-nav~~ | ~~random, witness-atlas, ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
 | ~~Missing footer~~ | ~~ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
-| ⚠️ Legacy standalone | pdf-viewer.html | Deprecate (replaced by pdf-viewer/index.html) | Medium | Pending |
+| ~~Legacy standalone~~ | ~~pdf-viewer.html~~ | ~~Deprecate~~ | ~~Medium~~ | ✅ Clarified: pdf-viewer.html is the functional viewer (keep); info page moved to tools/pdf-viewer-features.html |
 | ⚠️ Custom CSS | ocr/index.html | Merge ocr-components.css into main.css | Medium | Pending |
 | ⚠️ Duplicate person pages | person.html, person-v2.html | Consolidate to single template | Low | Pending |
 | ⚠️ Duplicate event pages | event.html, event-v1.html | Consolidate to single template | Low | Pending |
@@ -146,7 +146,7 @@ module.exports = {
 |----------|---------|
 | `ListPage` | people, events, objects, organizations, places, sources, links |
 | `DetailPage` | person, event, object, source |
-| `ToolInfoPage` | tools/*, pdf-viewer/index |
+| `ToolInfoPage` | tools/* |
 | `ToolAppPage` | ocr/index (functional tool) |
 | `DiscoveryPage` | otd, random, witness-atlas |
 | `ContentPage` | about, blog, features |
@@ -159,7 +159,7 @@ module.exports = {
 - [x] Fix random.html: Add modular footer + bottom-nav
 - [x] Fix witness-atlas.html: Add modular footer + bottom-nav
 - [x] Fix ocr/index.html: Add modular footer + bottom-nav
-- [ ] Delete pdf-viewer.html (legacy)
+- [x] Consolidate pdf-viewer info page to tools/pdf-viewer-features.html (pdf-viewer.html is the functional viewer, not legacy)
 - [ ] Merge ocr-components.css into main.css
 - [ ] Consolidate person.html + person-v2.html
 - [ ] Consolidate event.html + event-v1.html
