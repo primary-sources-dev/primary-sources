@@ -9,6 +9,7 @@
 document.addEventListener("componentLoaded", (e) => {
     if (e.detail.name !== 'bottom-nav') return;
 
+    const el = e.detail.element;
     const activeItem = (el.getAttribute("data-active") || "").toLowerCase();
 
     el.querySelectorAll('a').forEach(link => {

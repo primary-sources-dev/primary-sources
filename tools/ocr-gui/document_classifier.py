@@ -25,6 +25,7 @@ class DocType(Enum):
     WC_EXHIBIT = "WC_EXHIBIT"
     WC_TESTIMONY = "WC_TESTIMONY"
     HSCA_DOC = "HSCA_DOC"
+    HSCA_REPORT = "HSCA_REPORT"  # HSCA Final Report narrative
     UNKNOWN = "UNKNOWN"
 
 
@@ -159,11 +160,42 @@ FINGERPRINTS = {
     DocType.HSCA_DOC: [
         (r"HSCA", 35),
         (r"HOUSE SELECT COMMITTEE", 30),
+        (r"House Select Committee on Assassinations", 35),
         (r"RG\s*233", 25),  # Record Group 233
         (r"JFK TASK FORCE", 20),
         (r"SEGREGATED CIA", 15),
         (r"BOX\s+\d+", 10),
         (r"FOLDER", 10),
+        # HSCA document references
+        (r"HSCA.?(?:JFK|MLK)\s*(?:hearings|Document)", 30),
+        (r"MLK\s*Document\s*\d+", 25),
+        (r"JFK\s*Document\s*\d+", 25),
+        (r"staff\s+summary\s+of\s+interview", 20),
+        (r"executive\s+session\s+testimony", 20),
+    ],
+    
+    DocType.HSCA_REPORT: [
+        # HSCA Final Report narrative patterns
+        (r"the committee(?:'s)?", 20),  # Any "the committee" reference
+        (r"committee\s+(?:staff|counsel|investigator|public\s+hearing|noted)", 20),
+        (r"Federal\s+Bureau\s+of\s+Investigation", 15),
+        (r"Central\s+Intelligence\s+Agency", 15),
+        (r"Secret\s+Service", 15),
+        (r"Warren\s+Commission", 15),
+        (r"the assassination(?:\s+of)?", 20),
+        (r"President\s+(?:John\s+F\.?\s+)?Kennedy", 20),
+        (r"Dr\.?\s+(?:Martin\s+Luther\s+)?King", 20),
+        (r"Lee\s+Harvey\s+Oswald", 20),
+        (r"James\s+Earl\s+Ray", 20),
+        (r"conspiracy", 15),
+        (r"investigation", 15),
+        # JFK-specific locations/evidence
+        (r"Dealey\s+Plaza", 20),
+        (r"Texas\s+School\s+Book\s+Depository", 20),
+        (r"grassy\s+knoll", 20),
+        (r"Mannlicher.?Carcano", 15),
+        (r"motorcade", 15),
+        (r"November\s+22,?\s+1963", 20),
     ],
 }
 
@@ -350,6 +382,13 @@ ZONE_CONFIG = {
         "header_fields": ["record_group", "box", "folder"],
         "footer_fields": [],
         "body_fields": ["content"],
+    },
+    DocType.HSCA_REPORT: {
+        "header_lines": 5,
+        "footer_lines": 3,
+        "header_fields": ["page_number"],
+        "footer_fields": ["page_number"],
+        "body_fields": ["content", "subjects_mentioned"],
     },
 }
 

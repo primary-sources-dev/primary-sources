@@ -36,34 +36,14 @@
             },
         }
     </script>
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
-        <div class="h-16 flex items-center justify-between px-6">
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-                    <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase font-display">Primary
-                        Sources</h1>
-                </a>
-
-                <!-- BREADCRUMBS -->
-                <nav class="hidden md:flex items-center gap-2 border-l border-archive-secondary/20 pl-4 py-1">
-                    <span class="text-xs uppercase tracking-widest text-archive-secondary/40">Features</span>
-                    <span class="material-symbols-outlined text-xs text-archive-secondary/20"
-                        style="font-size: 14px;">chevron_right</span>
-                    <span class="text-xs font-bold uppercase tracking-wider text-primary">On This Day</span>
-                </nav>
-            </div>
-
-            <a href="index.html"
-                class="text-xs font-bold uppercase text-archive-secondary/60 hover:text-primary transition-all tracking-tighter">
-                [ Return to Archive ]
-            </a>
-        </div>
-    </header>
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col items-center justify-center p-6 py-20">

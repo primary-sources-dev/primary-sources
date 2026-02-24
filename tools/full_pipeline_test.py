@@ -16,9 +16,9 @@ from document_classifier import classify_document, get_all_scores, DocType
 from zone_extractor import extract_document
 
 # Configuration
-PDF_PATH = "raw-material/warren-commission/GPO-WARRENCOMMISSIONHEARINGS-1.pdf"
-OUTPUT_DIR = "tools/output/wc_vol1_test"
-SAMPLE_PAGES = [1, 9, 17, 18, 25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500]  # Key pages
+PDF_PATH = "raw-material/hsca/HSCA-Final-Report.pdf"
+OUTPUT_DIR = "tools/output/hsca_report_test"
+SAMPLE_PAGES = list(range(1, 101, 5)) + [150, 200, 250, 300, 400, 500, 600, 700]  # Every 5th page for first 100, then sparse
 
 def ensure_output_dir():
     """Create output directory if needed."""

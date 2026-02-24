@@ -1,0 +1,394 @@
+{
+  "test_info": {
+    "pdf": "raw-material/hsca/HSCA-Final-Report.pdf",
+    "total_pages": 716,
+    "pages_tested": [
+      1,
+      5,
+      10,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      200,
+      250,
+      300,
+      400,
+      500,
+      600,
+      700
+    ],
+    "timestamp": "2026-02-24T01:09:31.573373"
+  },
+  "type_counts": {
+    "UNKNOWN": 12,
+    "HSCA_REPORT": 3,
+    "HSCA_DOC": 1
+  },
+  "type_confidences": {
+    "UNKNOWN": 0.0,
+    "HSCA_REPORT": 0.22066666666666668,
+    "HSCA_DOC": 0.533
+  },
+  "results": [
+    {
+      "page": 1,
+      "char_count": 395,
+      "text_preview": "Union Calendar No 962 95th Congress 2d Session\tHouse Report No 95\u2014182S FINAL REPORT OF TEZ SELECT COMMITTEE ON ASSASSINATIONS U.S HOUSE OF REPRESENTATIVES NINETY-FIFTH CONGRESS SECONDSESSION SUMMARY OF FINDINGS AND RECOMMENDATIONS JANUARY2 1979.-Committed to the Committeeof the Whole House on the State of the Union and ordered to be printed U.B GOVERNMENT PRINTINGOFFICE 39-006 WASHINGTON1979 ",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 5,
+      "char_count": 288,
+      "text_preview": "CONTENTS L Findings of the Select Committeeon Assassinations in the assassina Ynge tion of President John F Kennedy 8 Findings of the Select Committeeon Assassinations in the assassina tion of Dr Marthin Luther King Jr 5 Recommendationsof the Select Committeeon Assassinations 6 H.B 1828 ",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 10,
+      "char_count": 2706,
+      "text_preview": "4 D Agencies and departments of the U.S Government performed with varying degrees of competency in the fulfillment of their duties President John F hennedy did not receive adequate protection A thorough and reliable investigation into the responsibility of Lee Harvey Oswald for the assassination of President John F hennedy was conducted The investigation into the possibility of conspiracy in the assassination was inadequate The conclusions of the investiga tions were arrived at in good faith but",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 20,
+      "char_count": 0,
+      "text_preview": "",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 30,
+      "char_count": 0,
+      "text_preview": "",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 50,
+      "char_count": 1280,
+      "text_preview": "20 In its policy meetings in December the committee heard the testi mony of the directors or deputy directors of the FBI CIA and Secret Service and the Deputy Attorney General representing the Depart ment of Justice These policy hearings explored the appropriateness of the amendment of existing legislation or the enactment of new legislation in light of the evidence that had been received by the committee The final phase of the committee's work included the preparation of this report which prese",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.265,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Secret\\s+Service",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "investigation"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "page_number",
+          "ref_fbi",
+          "ref_cia"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "20",
+            "zone": "any",
+            "confidence": 0.45
+          },
+          "ref_fbi": {
+            "value": "FBI",
+            "zone": "body",
+            "confidence": 0.48
+          },
+          "ref_cia": {
+            "value": "CIA",
+            "zone": "body",
+            "confidence": 0.48
+          }
+        }
+      }
+    },
+    {
+      "page": 75,
+      "char_count": 3345,
+      "text_preview": "45 sion said however that a determination of which shot hit the Gov ernor was \"not necessary to any essential findings. (32) V'uti\u00b0on activation analysis.\u2014Tn addition to the conclusions reached by the committee's forensic pathology panel the single bullet theory was substantiated by the findings of a neutron activation anal ysis performed for the committee (33) The bullet alleged to have caused the injuries to the Governor and the President was found on a stretcher at Parkland Hospital (34) Nume",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 100,
+      "char_count": 3275,
+      "text_preview": "70 Evidence that a curb in Dealey Plaza may have been struck by a bullet during the assassination Two shooter locations were selected for the reconstruction:(22) The sixth floor southeast corner window of the Texas School Book Depository since substantial physical evidence and wit ness testimony indicated shots were fired from this location and The area behind a picket fence atop the grassy knoll since there was considerable witness testimony suggesting shots were fired from there. A Mannlicher-",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.176,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the assassination(?:\\s+of)?",
+          "Dealey\\s+Plaza",
+          "Texas\\s+School\\s+Book\\s+Depository"
+        ]
+      },
+      "extraction": {
+        "fields_found": 1,
+        "field_names": [
+          "page_number"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "70",
+            "zone": "any",
+            "confidence": 0.38
+          }
+        }
+      }
+    },
+    {
+      "page": 150,
+      "char_count": 3198,
+      "text_preview": "120 Rodriguez said Lopez left Key West in late 1963 for Tampa with the hope of being able to return to Cuba explaining he was afraid he would be drafted into the U.S military Rodriguez said Lopez had not been involved in pro-Castro activity in Key West but that he was definitely pro-Castro and he had once gotten into a fistfight over his Castro sympathies (140) The FBI had previously documented that Lopez had actually been in contact with the Fair Play for Cuba Committee and had attended a meeti",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 200,
+      "char_count": 3279,
+      "text_preview": "170 with the underworld of New Orleans that apparently had escaped the Commission (268) One such relationship actually extended into Oswald's own family through his uncle Charles ''Dutz Murret a minor underworld gambling figure (269) The committee discovered that Murret who served as a surrogate father of sorts throughout much of Oswald's life in New Orleans was in the 1940's and 1950's and pos sibly until his death in 1964 an associate of significant organized crime figures affiliated with the ",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 250,
+      "char_count": 3545,
+      "text_preview": "220 It has been stated that Oswald claimed to have served in Tai wan (183) The committee's review of his military records including unit diaries that were not previously studied by the Warren Com mission indicated however that he had not spent substantial 'line if any in Taiwan These records show that except for a 31/2month period of service in the Philippines Oswald served in Japan from Sep tember 12 1957 until November 2 1958 (184) Although Department of Defense records do indicate that MAG (M",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 300,
+      "char_count": 3153,
+      "text_preview": "270 colleague Reverend Abernathy City officials stubbornly refused to confer with Black leaders and steadfastly rejected proposals for desegregation By September 1962 public parks pools and libraries had been closed or sold to white business groups The Albany cam paign received national attention but it failed to crack the southern resistance symbolized by the city From the Albany defeat Dr King learned that the scattergun approach of simultaneously attacking all as ects of segregation was ineff",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 400,
+      "char_count": 3712,
+      "text_preview": "370 John Ray's interest in AIP politics also seemed out of character since he apparently had never evidenced it before 1967 or 1968 and since as a convicted felon he was not able to vote For this reason and because of demonstrated ties between both Sutherland and Kauff mann and the AIP the committee's investigation was focused on this connection It was determined that a significant amount of AIP campaign ac tivity occurred in the neighborhood of the Grapevine Tavern For ex ample Viola Anderson w",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.221,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "the assassination(?:\\s+of)?",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "investigation"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "page_number",
+          "subject_mlk",
+          "finding_type"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "370",
+            "zone": "any",
+            "confidence": 0.42
+          },
+          "subject_mlk": {
+            "value": "Dr King",
+            "zone": "body",
+            "confidence": 0.47
+          },
+          "finding_type": {
+            "value": "concluded",
+            "zone": "body",
+            "confidence": 0.42
+          }
+        }
+      }
+    },
+    {
+      "page": 500,
+      "char_count": 3211,
+      "text_preview": "470 (iii) the proper response of intelligence or investigative agencies where information is developed that an informant has committed a crime guidelines to consider the circumstances if any when an investigative agency or a component of that agency should be disqualified from taking an active role in an investigation because of an appearance of impropriety growing out of a particular intelligence or investigative action definitions of the legislative scope and extent of \"sources and methods and",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 600,
+      "char_count": 1450,
+      "text_preview": "1 2 3 4 5 6 7 8 9 10 11 12 13 14 570 3 exceed $2,500,000 including expenditures for the employ ment of investigators attorneys and elerical and other as sistants and for the procurement of services of individual consultants or organizations thereof pursuant to section 202(i) of the Legislative Reorganization Act of 1946 as amended (. C.S.C 7.?a(i)) shall be paid out of the con tingent fund of the House on vouchers authorized by such committee signed by the chairman of such committee and approved",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 700,
+      "char_count": 3561,
+      "text_preview": "670 Interview of FBI informant Nov 15 1978 House Select Committee on Assassinations (MLK Document 290041) It should be noted that at the in formant's request the committee has agreed not to disclose his identity in this report Ibid Testimonyof Marrell McColloughNov 20 1978VI HSCA-MLKhearings 417 (hereinafter McColloughtestimony) Testimonyof William Lawrence Nov 21 1978 VI HSCA-MLKhearings 547 (hereinafter Lawrencetestimony) MLK Exhibit F-455 (FBI interview of Marrell McCollough Apr 11 1968) VI H",
+      "classification": {
+        "type": "HSCA_DOC",
+        "confidence": 0.533,
+        "confidence_label": "LOW",
+        "matched_patterns": [
+          "HSCA",
+          "HOUSE SELECT COMMITTEE",
+          "HSCA.?(?:JFK|MLK)\\s*(?:hearings|Document)",
+          "MLK\\s*Document\\s*\\d+",
+          "staff\\s+summary\\s+of\\s+interview"
+        ]
+      },
+      "extraction": {
+        "fields_found": 5,
+        "field_names": [
+          "document_number",
+          "hearing_type",
+          "committee_name",
+          "witness_name",
+          "page"
+        ],
+        "fields": {
+          "document_number": {
+            "value": "290041",
+            "zone": "any",
+            "confidence": 0.75
+          },
+          "hearing_type": {
+            "value": "HSCA-MLKhearings",
+            "zone": "any",
+            "confidence": 0.71
+          },
+          "committee_name": {
+            "value": "House Select Committee on\nAssassinations",
+            "zone": "any",
+            "confidence": 0.75
+          },
+          "witness_name": {
+            "value": "Howell Lowe ref",
+            "zone": "any",
+            "confidence": 0.71
+          },
+          "page": {
+            "value": "31",
+            "zone": "footer",
+            "confidence": 0.58
+          }
+        }
+      }
+    }
+  ]
+}

@@ -91,6 +91,10 @@ ZONE_CONFIG = {
         "header_lines": 20,
         "footer_lines": 8,
     },
+    DocType.HSCA_REPORT: {
+        "header_lines": 5,
+        "footer_lines": 3,
+    },
     DocType.UNKNOWN: {
         "header_lines": 20,
         "footer_lines": 10,
@@ -208,6 +212,29 @@ HSCA_PATTERNS = [
     (r"BOX\s*(\d+)", "box_number", "header", 0.85),
     (r"FOLDER[:\s]*(.+?)(?:\n|$)", "folder", "header", 0.85),
     (r"HSCA\s+(?:RECORD\s+)?(?:NO\.?\s*)?(\d+)", "hsca_number", "any", 0.9),
+    # HSCA Report patterns
+    (r"(?:MLK|JFK)\s*Document\s*(\d+)", "document_number", "any", 0.9),
+    (r"HSCA.?(?:MLK|JFK)\s*(?:hearings|Hearings)", "hearing_type", "any", 0.85),
+    (r"House\s+Select\s+Committee\s+on\s+Assassinations", "committee_name", "any", 0.9),
+    (r"(?:staff\s+summary|executive\s+session)\s+(?:of\s+)?(?:interview|testimony)\s+of\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)", "witness_name", "any", 0.85),
+    (r"(?:^|\s)(\d{1,3})(?:\s|$)", "page", "footer", 0.7),
+]
+
+HSCA_REPORT_PATTERNS = [
+    # Page number (usually at top or bottom)
+    (r"^(\d{1,3})$", "page_number", "any", 0.8),
+    # Key subjects mentioned in narrative
+    (r"(Lee Harvey Oswald)", "subject_oswald", "body", 0.9),
+    (r"(James Earl Ray)", "subject_ray", "body", 0.9),
+    (r"(President Kennedy|President John F Kennedy)", "subject_jfk", "body", 0.9),
+    (r"(Dr\.? King|Martin Luther King)", "subject_mlk", "body", 0.9),
+    # Investigation subjects
+    (r"(Warren Commission)", "ref_warren", "body", 0.85),
+    (r"(Federal Bureau of Investigation|FBI)", "ref_fbi", "body", 0.85),
+    (r"(Central Intelligence Agency|CIA)", "ref_cia", "body", 0.85),
+    (r"(Secret Service)", "ref_ss", "body", 0.85),
+    # Findings language
+    (r"the committee\s+(concluded|determined|found)", "finding_type", "body", 0.8),
 ]
 
 # Map doc types to their patterns
@@ -219,6 +246,7 @@ TYPE_PATTERNS = {
     DocType.WC_EXHIBIT: WC_EXHIBIT_PATTERNS,
     DocType.WC_TESTIMONY: WC_TESTIMONY_PATTERNS,
     DocType.HSCA_DOC: HSCA_PATTERNS,
+    DocType.HSCA_REPORT: HSCA_REPORT_PATTERNS,
 }
 
 
