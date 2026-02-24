@@ -29,11 +29,14 @@ Automated extraction of metadata from government archival forms (headers and foo
 
 ## 5. Document Layout Analyzer
 Intelligent document classification and zone-specific extraction engine.
-- **Fingerprint Classification**: Identifies document type (FBI 302, NARA RIF, CIA Cable, Memo, WC Exhibit) using textual fingerprints.
-- **Zone Extraction**: Applies type-specific patterns to header, body, and footer zones.
-- **Multi-Field Extraction**: NARA RIF extracts 10 fields, CIA Cables extract 9 fields, FBI 302 extracts 6+ fields.
+- **15 Document Types**: FBI_302, FBI_REPORT, CIA_CABLE, MEMO, NARA_RIF, WC_TESTIMONY, WC_DEPOSITION, WC_AFFIDAVIT, WC_EXHIBIT, POLICE_REPORT, SENATE_REPORT, CHURCH_COMMITTEE, HSCA_DOC, HSCA_REPORT, UNKNOWN.
+- **Fingerprint Classification**: Weighted regex pattern matching with OCR-tolerant variants.
+- **Zone Extraction**: Type-specific patterns applied to header, body, and footer zones.
+- **73% Classification Rate**: Tested across 395 pages from Warren Commission, HSCA, Church Committee, and Yates collections.
+- **OCR Tolerance**: Handles common OCR artifacts (hyphenated line breaks, garbled text, field office codes).
 - **API Endpoints**: `/api/classify` for type detection, `/api/extract` for full pipeline.
 - **UI Integration**: Classification banner with confidence indicator, color-coded by accuracy level.
+- **Reference**: See `docs/ui/ocr/plans/document-classifier-reference.md` for technical documentation.
 
 ## 6. Expanded Media Ingestion
 Direct support for raw archival material without pre-processing.
@@ -66,12 +69,12 @@ System-wide refinement for visual consistency and structural integrity.
 - **Modular Header Migration**: Full integration of Discovery Portals into the modular `header` component. Automatically generates dynamic breadcrumbs (e.g., `Archive > Witness Atlas`) and provides unified master menu access.
 - **Tracking Convention**: Standardized usage of `feature=true` URL parameters across all platform entry points for consistent state management.
 
-## 11. Forensic PDF Workbench & Intelligence Layer
-Advanced evidentiary analysis features integrated into the primary document viewer.
+## 11. Forensic PDF Workbench & Intelligence Layer (2026-02-24)
+Advanced evidentiary analysis features integrated into the primary document viewer to bridge the gap between raw scans and structured research.
 - **Forensic Metadata Ribbon**: Implementation of a high-fidelity metadata strip in the PDF Viewer that surfaces document classification, RIF IDs, and agency data directly above the workspace.
-- **Intelligence Layer (Psychology)**: Added an AI-powered overlay system (the "Psychology" toggle) that highlights extracted entities (Names, CIA/FBI references) directly on the document canvas using OCR coordinates.
-- **Universal Component Architecture**: Refactored `components.js` and `header.html` to use site-root relative paths (`/`), ensuring consistent global navigation regardless of directory depth (e.g., specialized tools in `/ocr/`).
-- **Workbench Persistence**: Enhanced `ocr-gui.js` to automatically pass tracking parameters through the extraction pipeline to the workbench viewer.
+- **Intelligence Layer (Psychology)**: Added an AI-powered overlay system (the "Psychology" toggle) that highlights high-priority archival entities (e.g., CIA, FBI, Oswald, Kennedy, Secret Service) directly on the document canvas using OCR coordinates. Featuring a hover-active tooltip system for rapid identification.
+- **Universal Component Architecture**: Refactored `components.js` and `header.html` to use site-root relative paths (`/`). This critical update ensures consistent global navigation and component loading regardless of directory depth, specifically fixing header breakage in specialized tools like the `/ocr/` portal.
+- **Workbench Persistence**: Enhanced `ocr-gui.js` to automatically pass tracking parameters (`feature=true`) through the extraction pipeline to the workbench viewer, ensuring session continuity.
 
 ---
 *Status: All features committed and integrated into `docs/ui/` — v0.8.2-alpha*
