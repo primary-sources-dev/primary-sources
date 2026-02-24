@@ -67,9 +67,6 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 
 ### Active Build Pool (High Impact / Low Effort)
 1.  **Extraction Workbench Phase 4 (Commit)**: Backend logic to save workbench results directly to SQL.
-2.  **Universal Person Profile**: A flexible `person.html` template for rich bios and fleeting archival witnesses.
-3.  **"On This Day" (OTD) Dashboard**: Home page widget highlighting historical events from today's date.
-4.  **ZIP Processor**: Batch unrolling of document archives for bulk processing.
 
 ### Recently Completed (2026-02-23 Marathon)
 - [x] **UX/UI Polish Bundle**: Snappy transitions (300ms), dynamic breadcrumbs, and status labels.
@@ -77,6 +74,9 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 - [x] **Mobile Native Support**: Direct upload of iPhone .heic images.
 - [x] **Footer Parsing**: Extraction of Agency File numbers and Agent names from FBI 302 footers.
 - [x] **Grayscale Interactions**: Premium hover feedback across all capability and vision items.
+- [x] **Universal Person Profile**: Production-ready `person.html` with modular card library architecture.
+- [x] **ZIP Processor**: Batch unrolling of .zip and .tar archives for bulk archival ingestion.
+- [x] **"On This Day" (OTD) Dashboard**: Refactored from home page widget to dedicated discovery portal with Day/Week/Year temporal filters.
 
 ---
 

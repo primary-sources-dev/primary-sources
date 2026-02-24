@@ -11,6 +11,9 @@ Then open: http://localhost:5000
 import os
 import json
 import threading
+import zipfile
+import tarfile
+import shutil
 from pathlib import Path
 from flask import Flask, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
@@ -72,7 +75,9 @@ app = Flask(__name__,
 # Configuration
 UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "processed")
 MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
-ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif"}
+ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif", "zip", "tar", "gz", "tgz", "bz2"}
+ARCHIVE_EXTENSIONS = {"zip", "tar", "gz", "tgz", "bz2"}
+IMAGE_PDF_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = MAX_FILE_SIZE
@@ -85,6 +90,14 @@ job_counter = 0
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def is_archive(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in ARCHIVE_EXTENSIONS
+
+def is_processrable(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in IMAGE_PDF_EXTENSIONS
 
 
 # ============================================================================
@@ -148,24 +161,60 @@ def create_job():
         if not allowed_file(file.filename):
             return jsonify({"error": f"Invalid file type: {file.filename}"}), 400
     
-    # Save uploaded files to temp location
+    # Save uploaded files and handle archives
     saved_files = []
+    upload_dir = os.path.join(app.config["UPLOAD_FOLDER"], "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+
     for file in files:
         filename = secure_filename(file.filename)
-        file.seek(0, 2)  # Seek to end
-        file_size = file.tell()
-        file.seek(0)  # Seek back to start
-        
-        filepath = os.path.join(app.config["UPLOAD_FOLDER"], "uploads", filename)
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
-        file.save(filepath)
-        
-        saved_files.append({
-            "name": filename,
-            "size": file_size,
-            "path": filepath,
-            "status": "pending"
-        })
+        temp_path = os.path.join(upload_dir, filename)
+        file.save(temp_path)
+        file_size = os.path.getsize(temp_path)
+
+        if is_archive(filename):
+            # Extract archive
+            extract_dir = os.path.join(upload_dir, f"ext_{filename}_{job_counter + 1}")
+            os.makedirs(extract_dir, exist_ok=True)
+            
+            try:
+                if filename.endswith(".zip"):
+                    with zipfile.ZipFile(temp_path, 'r') as zip_ref:
+                        zip_ref.extractall(extract_dir)
+                elif filename.endswith((".tar", ".tar.gz", ".tgz", ".tar.bz2", ".bz2", ".gz")):
+                    mode = "r:*" if not filename.endswith(".bz2") and not filename.endswith(".gz") else "r:gz" if filename.endswith((".gz", ".tgz")) else "r:bz2"
+                    with tarfile.open(temp_path, mode) as tar_ref:
+                        tar_ref.extractall(extract_dir)
+                
+                # Walk extracted files
+                for root, _, walk_files in os.walk(extract_dir):
+                    for f in walk_files:
+                        if is_processrable(f):
+                            extracted_filepath = os.path.join(root, f)
+                            rel_filename = os.path.relpath(extracted_filepath, extract_dir).replace(os.sep, "_")
+                            final_filename = f"{filename}_{rel_filename}"
+                            final_path = os.path.join(upload_dir, final_filename)
+                            shutil.move(extracted_filepath, final_path)
+                            
+                            saved_files.append({
+                                "name": final_filename,
+                                "size": os.path.getsize(final_path),
+                                "path": final_path,
+                                "status": "pending"
+                            })
+                # Clean up extraction dir and archive
+                shutil.rmtree(extract_dir)
+                os.remove(temp_path)
+            except Exception as e:
+                print(f"Error processing archive {filename}: {e}")
+                # Fallback: keep archive or skip? For now skip and log.
+        else:
+            saved_files.append({
+                "name": filename,
+                "size": file_size,
+                "path": temp_path,
+                "status": "pending"
+            })
     
     # Create job
     job_counter += 1

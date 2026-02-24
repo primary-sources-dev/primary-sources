@@ -41,6 +41,18 @@ Forensic metadata surfacing for immediate context.
 ## 7. Entity Matcher (Foundation)
 The bridge from text to database records.
 - **Entities.json**: Automated sidecar output mapping OCR text to known person, place, and organization IDs in the research vault.
+- **Fuzzy Matching**: Handles OCR errors and name variations (e.g., "R.L. Yates" → "Ralph Leon Yates").
+- **Confidence Scoring**: High/Medium/Low match confidence for human review.
+
+## 8. Platform Features
+Unified suite of exploratory tools featuring a premium, immersive "Discovery Port" design language.
+- **On This Day (OTD)**: Chronological discovery engine (Coming Soon).
+- **Random Entity**: Cross-category serendipity engine (Coming Soon).
+- **11.22 Immersion**: Geospatial and cultural reconstruction project (Coming Soon).
+- **Discovery Architecture**: Standardized feature overview layout with status indicators, logic diagrams, and forensic scope descriptions.
+- **Target Date Explorer**: Integrated a native calendar picker allowing researchers to jump to any historical date to see "What happened on [Date]" across the knowledge graph.
+- **Contextual Subtitles**: Real-time update of historical windows (e.g., "Historical window for the week of February 23").
+- **Deep-Linking**: Full URL parameter support (`?scope=Week&date=1963-11-22`) for bookmarking specific forensic views.
 
 ---
 *Status: All features committed and integrated into `docs/ui/`*

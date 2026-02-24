@@ -230,6 +230,6 @@
         "start_ts": "1963-11-21T10:30:00Z",
         "end_ts": "1963-11-21T13:00:00Z",
         "time_precision": "RANGE",
-        "url": "assets/documents/yates-searchable.pdf#page=6&search=\"Park-It\""
+        "url": "assets/data/yates-searchable.pdf#page=6&search=\"Park-It\""
     }
 ]

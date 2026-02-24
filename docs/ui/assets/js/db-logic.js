@@ -57,7 +57,7 @@ function buildCard(item) {
         const queryParams = new URLSearchParams(pdfParams || '');
         const page = queryParams.get('page') || 1;
         const search = queryParams.get('search') || '';
-        
+
         // Handle path depth (if we are in ocr/ or other subfolder)
         const pathPrefix = window.location.pathname.includes('/ocr/') ? '../' : '';
         itemLink = `${pathPrefix}pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
@@ -116,7 +116,7 @@ async function renderEventDetail() {
         document.title = `${event.title} — Primary Sources`;
         const titleEl = document.getElementById('event-title');
         if (titleEl) titleEl.textContent = event.title;
-        
+
         const labelEl = document.getElementById('event-label');
         if (labelEl) labelEl.textContent = event.label;
 
@@ -199,7 +199,7 @@ function renderEntities(container) {
             }
 
             container.innerHTML = filteredData.map(item => buildCard(item)).join('');
-            
+
             // Dispatch event so filter.js knows to apply initial sort/filters
             document.dispatchEvent(new CustomEvent("entitiesRendered", {
                 detail: { container, dataSource }
@@ -209,6 +209,102 @@ function renderEntities(container) {
             console.error(err);
             container.innerHTML = `<p style="color:rgba(212,207,199,0.4);font-size:0.75rem;padding:1rem">No records found.</p>`;
         });
+}
+
+function renderOTDPage(container, scope = "Day", targetDate = new Date()) {
+    // Normalize targetDate to the user's local "day" and "month" for the query
+    // We treat the year as irrelevant for OTD matching
+    const month = targetDate.getMonth(); // 0-indexed local
+    const day = targetDate.getDate();     // local day
+
+    // Show loading state
+    container.innerHTML = `<div class="col-span-full text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">history</span><p class="uppercase tracking-[0.3em] text-[10px]">Scanning chronological archives...</p></div>`;
+
+    fetch(`assets/data/events.json`)
+        .then(r => r.json())
+        .then(data => {
+            const results = data.filter(item => {
+                if (!item.start_ts) return false;
+                const d = new Date(item.start_ts);
+                // We use UTC components from the data to match our target "local" day
+                // because archival dates in JSON should be treated as absolute markers
+                const iMonth = d.getUTCMonth();
+                const iDay = d.getUTCDate();
+
+                if (scope === "Day") {
+                    return iMonth === month && iDay === day;
+                } else if (scope === "Week") {
+                    // Approximate week by +/- 3 days using normalized timestamps
+                    const targetTS = Date.UTC(2000, month, day);
+                    const itemTS = Date.UTC(2000, iMonth, iDay);
+                    const diffDays = Math.abs(targetTS - itemTS) / (1000 * 60 * 60 * 24);
+                    // Handle year wrap-around for late Dec/early Jan
+                    const wrapDiff = 366 - diffDays;
+                    return diffDays <= 3 || wrapDiff <= 3;
+                } else if (scope === "Month" || scope === "Year") {
+                    return iMonth === month;
+                }
+                return false;
+            });
+
+            if (results.length === 0) {
+                container.innerHTML = `<p class="text-archive-secondary/40 p-8 text-center uppercase tracking-widest text-xs">No records found for this ${scope.toLowerCase()} window.</p>`;
+            } else {
+                container.innerHTML = results.map(item => buildOTDCard(item)).join('');
+            }
+
+            // Update subtitle
+            const subtitle = document.getElementById('otd-subtitle');
+            if (subtitle) {
+                const dateStr = targetDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+                if (scope === "Day") subtitle.textContent = `Documented events for ${dateStr}`;
+                else if (scope === "Week") subtitle.textContent = `Historical window for the week of ${dateStr}`;
+                else if (scope === "Month" || scope === "Year") subtitle.textContent = `Archival summary for the month of ${targetDate.toLocaleDateString('en-US', { month: 'long' })}`;
+            }
+        })
+        .catch(err => {
+            console.error("OTD Page Error:", err);
+        });
+}
+
+async function renderRandomEntity(container) {
+    if (!container) return;
+
+    // Show loading state
+    container.innerHTML = `<div class="text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">cyclone</span><p class="uppercase tracking-[0.3em] text-[10px]">Tuning to a random archival frequency...</p></div>`;
+
+    const dataFiles = [
+        'assets/data/events.json',
+        'assets/data/people.json',
+        'assets/data/orgs.json',
+        'assets/data/places.json',
+        'assets/data/objects.json',
+        'assets/data/sources.json'
+    ];
+
+    try {
+        // Fetch all files
+        const responses = await Promise.all(dataFiles.map(file => fetch(file).then(r => r.json())));
+
+        // Flatten into one big pool
+        const allEntities = responses.flat();
+
+        if (allEntities.length === 0) {
+            container.innerHTML = `<p class="text-archive-secondary/40 text-center uppercase tracking-widest text-xs">The archive is currently silent.</p>`;
+            return;
+        }
+
+        // Pick one
+        const randomIndex = Math.floor(Math.random() * allEntities.length);
+        const randomItem = allEntities[randomIndex];
+
+        // Render using the premium OTD style card
+        container.innerHTML = buildOTDCard(randomItem);
+
+    } catch (err) {
+        console.error("Serendipity Engine Error:", err);
+        container.innerHTML = `<p class="text-red-500/50 text-center uppercase tracking-widest text-xs">Interference detected in the archival stream.</p>`;
+    }
 }
 
 // Handle raw [data-data-source] divs already in the page HTML
@@ -223,6 +319,14 @@ document.addEventListener("DOMContentLoaded", () => {
             renderEntities(el);
         }
     });
+
+    document.querySelectorAll("[data-otd-page]").forEach(el => {
+        renderOTDPage(el);
+    });
+
+    document.querySelectorAll("[data-random-page]").forEach(el => {
+        renderRandomEntity(el);
+    });
 });
 
 // Handle [data-data-source] inside dynamically loaded components
@@ -231,3 +335,49 @@ document.addEventListener("componentLoaded", (e) => {
     el.querySelectorAll("[data-data-source]").forEach(container => renderEntities(container));
     if (el.hasAttribute("data-data-source")) renderEntities(el);
 });
+
+function buildOTDCard(item) {
+    const d = new Date(item.start_ts);
+    const dayStr = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+    const yearStr = d.getUTCFullYear();
+
+    return `
+    <article class="bg-archive-dark border border-primary/30 p-8 flex flex-col items-center text-center group hover:border-primary transition-all relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+        
+        <div class="mb-6">
+            <span class="text-[10px] font-bold uppercase text-primary tracking-[0.4em]">On This Day</span>
+            <div class="mt-2 text-4xl font-display font-bold text-archive-heading uppercase tracking-tighter">${dayStr}</div>
+            <div class="text-xs font-mono text-archive-secondary/40 mt-1">${yearStr} — Archival Record #${item.id.toUpperCase().slice(0, 8)}</div>
+        </div>
+
+        <div class="w-16 h-16 bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+            <span class="material-symbols-outlined text-3xl">${item.icon || 'history_edu'}</span>
+        </div>
+
+        <div class="max-w-xl">
+            <h4 class="text-2xl font-bold text-primary uppercase font-display leading-tight mb-4">${item.title}</h4>
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <span class="text-[9px] uppercase tracking-widest bg-emerald-500/10 text-emerald-400 px-3 py-1 border border-emerald-500/20">Verified Record</span>
+                <span class="text-[9px] uppercase tracking-widest text-archive-secondary/60">${item.label}</span>
+            </div>
+            <p class="text-sm leading-relaxed text-archive-secondary/80 italic font-serif">
+                "${item.description || item.notes || item.body || ''}"
+            </p>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-archive-secondary/10 w-full flex justify-center gap-6">
+            <a href="event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">auto_stories</span>
+                View Deep Record
+            </a>
+            ${item.url ? `
+            <a href="${item.url}" target="_blank" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">description</span>
+                Source Document
+            </a>
+            ` : ''}
+        </div>
+    </article>
+    `;
+}

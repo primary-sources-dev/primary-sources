@@ -32,13 +32,13 @@ const HELP_TEXT = `
 PRIMARY SOURCES — OCR TOOL
 ==========================
 
-This tool converts scanned PDF documents and archival images (.jpg, .png, .tiff) into searchable text.
+This tool converts scanned PDF documents, archival images (.jpg, .png, .tiff, .webp), and batch archives (.zip, .tar) into searchable text.
 
 QUICK START
 -----------
-1. Click File → Open Files (or the Browse button) to add PDFs or Images
-2. Choose your output settings
-3. Click "Start OCR"
+1. Click "Browse" or drag files onto the drop zone.
+2. Archives (.zip, .tar, .tgz, .bz2) will be automatically unrolled and all images/PDFs inside added to the queue.
+3. Choose your output settings and click "Start OCR".
 
 BACKENDS
 --------
@@ -47,6 +47,10 @@ BACKENDS
   
 • Python (pytesseract): Windows-native, outputs plain text.
   Faster setup, no WSL required.
+
+BATCH PROCESSING
+----------------
+You can upload a single .zip or .tar containing hundreds of documents. The tool will parse the archive and process each file individually, maintaining the logical order found within.
 
 OPTIONS
 -------
@@ -58,15 +62,9 @@ OUTPUT
 ------
 • Searchable PDF: Original document with invisible text layer
 • Plain Text: Raw extracted text with page markers
+• Markdown (.md): Structured text preserving archival metadata
 
 Files are saved to the output directory shown in Settings.
-The folder opens automatically when processing completes.
-
-TIPS
-----
-• Process large batches overnight — OCR is CPU-intensive
-• Use WSL backend for best quality on archival documents
-• Check output quality on a few pages before processing entire collection
 `;
 
 // ============================================================================
@@ -186,21 +184,23 @@ function switchTab(tabName) {
 function handleFilesDrop(e) {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/tiff', 'image/webp'];
-    const files = Array.from(e.dataTransfer.files).filter(f => allowedTypes.includes(f.type) || f.name.toLowerCase().endsWith('.tiff')); // TIFF MIME type can be tricky
+    const allowedExts = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2'];
+    const files = Array.from(e.dataTransfer.files).filter(f =>
+        allowedExts.some(ext => f.name.toLowerCase().endsWith(ext))
+    );
     addFilesToQueue(files);
 }
 
 function addFilesToQueue(files) {
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/tiff', 'image/webp'];
+    const allowedExts = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2'];
     const validFiles = files.filter(f => {
-        const isAllowed = allowedTypes.includes(f.type) ||
-            ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp'].some(ext => f.name.toLowerCase().endsWith(ext));
+        const isAllowed = allowedExts.some(ext => f.name.toLowerCase().endsWith(ext));
 
         if (!isAllowed) {
             logError(`Invalid file type: ${f.name}`);
             return false;
         }
+
         if (queuedFiles.some(qf => qf.name === f.name)) {
             logError(`File already queued: ${f.name}`);
             return false;

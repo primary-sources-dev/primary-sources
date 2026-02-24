@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Entity — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                        "archive-surface": "#252021",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"],
+                        "serif": ["Lora", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
+        <div class="h-16 flex items-center justify-between px-6">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
+                    <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase font-display">Primary
+                        Sources</h1>
+                </a>
+
+                <!-- BREADCRUMBS -->
+                <nav class="hidden md:flex items-center gap-2 border-l border-archive-secondary/20 pl-4 py-1">
+                    <span class="text-xs uppercase tracking-widest text-archive-secondary/40">Features</span>
+                    <span class="material-symbols-outlined text-xs text-archive-secondary/20"
+                        style="font-size: 14px;">chevron_right</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-primary">Random Entity</span>
+                </nav>
+            </div>
+
+            <a href="index.html"
+                class="text-xs font-bold uppercase text-archive-secondary/60 hover:text-primary transition-all tracking-tighter">
+                [ Return to Archive ]
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 py-20">
+        <!-- Coming Soon Badge -->
+        <div class="mb-8">
+            <span
+                class="text-xs font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-4 py-2 border border-emerald-500/30">
+                Serendipity Engine — Coming Soon
+            </span>
+        </div>
+
+        <!-- Icon -->
+        <div class="mb-8">
+            <div
+                class="flex h-24 w-24 items-center justify-center bg-primary/10 text-primary border-2 border-primary/40">
+                <span class="material-symbols-outlined text-5xl">shuffle</span>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h2
+            class="text-4xl md:text-5xl font-bold text-archive-heading uppercase tracking-widest font-display mb-4 text-center">
+            Random Entity
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="text-lg text-archive-secondary/80 text-center max-w-2xl mb-12 font-serif italic">
+            A serendipity discovery engine. Surfaces unexpected historical connections by pulling random high-fidelity
+            records from across the entire archival knowledge base.
+        </p>
+
+        <!-- Feature Grid -->
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl w-full mb-16">
+            <!-- Feature 1 -->
+            <div class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">dataset</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Cross-Category</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Pulls records from all six dimensions of the archive: People, Organizations, Places, Objects,
+                    Events, and Sources.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Status: Pool Mapping
+                        Complete</span>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">diversity_3</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Relational Jumps</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Each random record includes its associated entities, allowing you to jump from a random source into
+                    its deep relational network.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Status: Graph Integration
+                        Active</span>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">cyclone</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Infinite Shuffle</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    A dedicated "Surface Another Record" action allows for rapid-fire exploration of the archive without
+                    linear constraints.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Status: Randomizer
+                        Verified</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Section -->
+        <div
+            class="border border-primary/30 bg-archive-dark/80 p-10 max-w-4xl w-full mb-16 relative overflow-hidden text-center">
+            <h3 class="text-xl font-bold text-archive-heading uppercase tracking-widest mb-6">
+                ARCHIVE DISCOVERY SUITE
+            </h3>
+            <p class="text-xs text-archive-secondary/60 font-serif italic mb-8 max-w-lg mx-auto leading-relaxed">
+                The Random Entity engine is designed to break bias in archival research, forcing researchers to confront
+                records outside their primary focus areas.
+            </p>
+            <div class="flex justify-center gap-4">
+                <div
+                    class="flex h-12 w-12 items-center justify-center bg-primary/20 text-primary border border-primary/40">
+                    <span class="material-symbols-outlined animate-spin">cyclone</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="index.html"
+                class="inline-flex items-center gap-2 bg-primary text-archive-bg px-8 py-3 font-bold uppercase tracking-wider hover:brightness-110 transition-all shadow-lg">
+                Return to Dashboard
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-archive-secondary/20 p-8 text-center bg-archive-dark/30">
+        <p class="text-[10px] text-archive-secondary/40 uppercase tracking-[0.2em]">
+            © 2026 Primary Sources — Archival Serendipity Lab
+        </p>
+    </footer>
+</body>
+
+</html>

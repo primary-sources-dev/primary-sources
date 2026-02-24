@@ -148,6 +148,12 @@
             select.onchange = (e) => {
                 const val = e.target.value;
                 activeFilters[labelText] = val;
+
+                // Special check for OTD Window filter
+                if (labelText === 'Window') {
+                    document.dispatchEvent(new CustomEvent("otdFilterChanged", { detail: { scope: val } }));
+                }
+
                 // Update button visibility based on selection
                 applyFilters();
             };
@@ -156,7 +162,42 @@
         selectWrapper.appendChild(select);
         selectWrapper.appendChild(arrow);
         wrapper.appendChild(label);
-        wrapper.appendChild(selectWrapper);
+        container.appendChild(wrapper);
+    }
+
+    function createDatePicker(container, labelText) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "flex flex-col gap-1.5 min-w-[140px]";
+
+        const label = document.createElement("label");
+        label.className = "text-[9px] font-bold uppercase tracking-[0.2em] text-primary/80 ml-1";
+        label.textContent = labelText;
+
+        const inputWrapper = document.createElement("div");
+        inputWrapper.className = "relative";
+
+        const input = document.createElement("input");
+        input.type = "date";
+        input.className = "w-full appearance-none bg-archive-bg border border-archive-secondary/20 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-archive-heading focus:border-primary focus:ring-0 outline-none transition-colors cursor-pointer dark:[color-scheme:dark]";
+
+        // Default to current date (formatted as YYYY-MM-DD for input)
+        const now = new Date();
+        input.value = now.toISOString().split('T')[0];
+
+        input.onchange = (e) => {
+            const val = e.target.value;
+            if (!val) return;
+            // Parse local date strictly to avoid UTC shift issues
+            const [y, m, d] = val.split('-').map(Number);
+            const selectedDate = new Date(Date.UTC(y, m - 1, d));
+            document.dispatchEvent(new CustomEvent("otdFilterChanged", {
+                detail: { date: selectedDate }
+            }));
+        };
+
+        inputWrapper.appendChild(input);
+        wrapper.appendChild(label);
+        wrapper.appendChild(inputWrapper);
         container.appendChild(wrapper);
     }
 
@@ -195,17 +236,30 @@
                 }
             }
 
+            // check for date picker flag
+            const withDate = container.closest('[data-component="facet-bar"]')?.hasAttribute("data-with-date");
+            if (withDate) {
+                createDatePicker(container, "Target Date");
+            }
+
             // Always add Sort dropdown
             const sortOptions = ["a-z", "z-a"];
             const isEvents = customTitle === "Events" || filterDataAttr.includes("events.json");
-            
+
             if (isEvents) {
                 sortOptions.unshift("chrono-asc", "chrono-desc");
                 activeSort = 'chrono-asc';
             }
 
             createDropdown(container, "Sort Order", sortOptions, true);
-            
+
+            // Default 'Window' to 'Day' if it exists
+            if (activeFilters['Window']) {
+                activeFilters['Window'] = 'Day';
+                const winSelect = container.querySelector('select'); // It's likely the first one
+                if (winSelect) winSelect.value = 'Day';
+            }
+
             // Apply immediately after setup
             applyFilters();
 
@@ -251,6 +305,12 @@
                         // Only reset if it's a filter (has 'All' option)
                         const hasAll = Array.from(s.options).some(o => o.value === 'All');
                         if (hasAll) s.value = 'All';
+                        // Keep Window on Day if clearing
+                        if (s.previousElementSibling && s.previousElementSibling.textContent === 'Window') {
+                            s.value = 'Day';
+                            activeFilters['Window'] = 'Day';
+                            document.dispatchEvent(new CustomEvent("otdFilterChanged", { detail: { scope: 'Day' } }));
+                        }
                     });
 
                     applyFilters();
