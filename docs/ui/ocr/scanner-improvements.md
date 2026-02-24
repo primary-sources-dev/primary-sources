@@ -22,10 +22,72 @@ This document outlines the planned evolution of the OCR Tool from a basic transc
 *   **Change Needed**: Backend upgrade to move beyond Tesseract (which struggles with cursive).
 *   **Value**: Allows the engine to read handwritten field notes, marginalia, and personal letters.
 
-### B. Automatic Metadata Clipping
-*   **Improvement**: Pattern-matching for government headers (RIF sheets, FBI memo headers).
-*   **Addition Needed**: Regex-based "Header Parser" and CV-based "RIF Detector."
-*   **Value**: Automatically populates `source_id`, `agency`, and `date` fields in the database before human review begins.
+### B. Automatic Metadata Clipping (Phase 1 — Complete)
+*   **Status**: ✅ Shipped as "Forensic Header Parser" (2026-02-23)
+*   **Implementation**: Regex-based `HeaderParser` class in `tools/ocr-gui/header_parser.py`
+*   **Capabilities**: Extracts RIF numbers, Agency, Date, and Author from document headers with confidence scoring.
+*   **Known Limitation**: FBI 302 forms place agent/file info in the footer, not header.
+
+### B2. Document Layout Analyzer (Phase 2 — Planned)
+
+*   **Goal**: Full-page zone parsing that goes beyond headers to extract metadata from **all** document regions.
+*   **Addition Needed**: ML-based document classifier + zone-specific extraction rules.
+
+#### Document Type Classification
+
+The system will automatically identify document types using a **fingerprinting** approach:
+
+| Document Type | Visual Fingerprint | Textual Fingerprint | Metadata Zones |
+|---------------|-------------------|---------------------|----------------|
+| **FBI 302** | Form field boxes, serial number block at bottom | "FEDERAL BUREAU OF INVESTIGATION", "Date of transcription", "FD-302" | Header: Date, Subject. Footer: Agent name, File number |
+| **NARA Cover Sheet** | Agency seal, RIF barcode | "RECORD IDENTIFICATION FORM", "AGENCY", "RECORD NUMBER" | Header: RIF, Agency, Record Series |
+| **CIA Cable** | Classification stamps, routing grid | "SECRET", "FROM:", "TO:", "SUBJ:", cable slug lines | Header: Classification, Routing. Body: Cable text |
+| **Warren Commission Exhibit** | "COMMISSION EXHIBIT" banner, exhibit number | "CE-", "Hearings Vol", numbered exhibits | Header: Exhibit ID. Body: Exhibit description |
+| **Memorandum** | "MEMORANDUM" header, TO/FROM/SUBJECT lines | Standard memo format | Header: Routing info. Body: Memo content |
+| **Handwritten Notes** | No structured layout, cursive/block writing | N/A (requires HTR) | Full page treated as body |
+
+#### Classification Pipeline
+
+```
+1. INGEST → OCR text + page image
+2. CLASSIFY → Score document against known type fingerprints
+   - Visual features: Layout geometry, stamps, seals, form fields
+   - Textual features: Keyword patterns, header strings, format markers
+3. ROUTE → Apply type-specific parser:
+   - FBI 302 → HeaderParser + FooterParser
+   - NARA → HeaderParser (existing)
+   - Memo → HeaderParser + BodyParser
+   - Table-heavy → TableTransformer (TATR)
+4. OUTPUT → Unified metadata JSON with zone annotations
+```
+
+#### Zone-Specific Extraction
+
+Once document type is identified, the system applies targeted extraction:
+
+| Zone | Extraction Method | Typical Content |
+|------|-------------------|-----------------|
+| **Header** | Regex patterns (existing HeaderParser) | RIF, Agency, Date, Subject line |
+| **Footer** | Footer-specific regex + position detection | Agent name, File number, Page count |
+| **Body** | Paragraph segmentation + NER | Witness statements, narrative content |
+| **Tables** | Table Transformer (TATR) or Camelot | Financial records, witness lists, schedules |
+| **Marginalia** | Handwriting recognition (TrOCR) | Annotations, signatures, routing stamps |
+| **Stamps/Seals** | Image classification + OCR | Classification markings, agency seals |
+
+#### Confidence Scoring for Classification
+
+| Confidence | Action |
+|------------|--------|
+| **90-100%** | Auto-classify, apply type-specific parser |
+| **70-89%** | Classify with "Suggested Type" flag for review |
+| **< 70%** | Mark as "Unknown Type," apply generic parser |
+
+#### Implementation Notes
+
+*   **Knowledge Base**: Document type definitions stored in `v_document_type` controlled vocabulary table.
+*   **Training Data**: Build corpus from known-good examples in the vault (NARA archives, Mary Ferrell collection).
+*   **Fallback**: Unknown document types default to header-only parsing (current behavior).
+*   **Human Override**: UI allows user to correct misclassified documents, feeding back into training set.
 
 ### C. Layout-Aware Table Extraction
 *   **Improvement**: Integration of **Table Transformer (TATR)**.

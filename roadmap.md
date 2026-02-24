@@ -8,12 +8,13 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 
 **Project Principle:** A subject-agnostic chronological engine that transforms raw primary sources into structured metadata for research, simulation, and immersive education.
 
-### **Total Feature Count: 28**
+### **Total Feature Count: 29**
 
 | ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
 | --- | --- | --- | --- | --- |
 | **01** | **Utility (Phase 1)** | **Member-Only OCR** | Tesseract-as-a-Service | **Status: Live.** High-speed transcription for PDF and archival images with .md, .txt, and themed .html outputs.
 Includes **Forensic Header Parser** for auto-extraction of RIF numbers, Agency, Date, and Author metadata. |
+| **01b** | **Utility (Phase 2)** | **Document Layout Analyzer** | ML Classification + Zone Parsing | Classifies document type (FBI 302, NARA cover sheet, memo, etc.) by visual/textual fingerprint, then applies zone-specific extraction rules (header, footer, body, tables). |
 | **02** | **Forensic** | **Conflict Heatmap** | `assertion_support` (Contradicts/Supports) | Visualizes "Hot Zones" in evidence where sources disagree (Red = High Conflict). |
 | **03** | **Forensic** | **Network Explorer** | `event_participant` junction tables | Reveals "Six Degrees of Separation" between any two entities in the database. |
 | **04** | **Forensic** | **3D Print Replicas** | `object.file_url` (STL/OBJ) | Downloadable historical artifacts (bullets, exhibits) for physical 3D printing. |
