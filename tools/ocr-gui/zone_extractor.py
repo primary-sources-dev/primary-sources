@@ -95,6 +95,22 @@ ZONE_CONFIG = {
         "header_lines": 5,
         "footer_lines": 3,
     },
+    DocType.FBI_REPORT: {
+        "header_lines": 20,
+        "footer_lines": 10,
+    },
+    DocType.WC_DEPOSITION: {
+        "header_lines": 15,
+        "footer_lines": 5,
+    },
+    DocType.WC_AFFIDAVIT: {
+        "header_lines": 20,
+        "footer_lines": 15,
+    },
+    DocType.POLICE_REPORT: {
+        "header_lines": 20,
+        "footer_lines": 10,
+    },
     DocType.UNKNOWN: {
         "header_lines": 20,
         "footer_lines": 10,
@@ -237,14 +253,66 @@ HSCA_REPORT_PATTERNS = [
     (r"the committee\s+(concluded|determined|found)", "finding_type", "body", 0.8),
 ]
 
+FBI_REPORT_PATTERNS = [
+    # Header fields
+    (r"TO\s*:\s*(.+?)(?:\n|FROM)", "to", "header", 0.9),
+    (r"FROM\s*:\s*(.+?)(?:\n|DATE|SUBJECT|RE)", "from", "header", 0.9),
+    (r"(?:DATE|DATED)\s*:\s*(.+?)(?:\n|$)", "date", "header", 0.85),
+    (r"(?:RE|SUBJECT)\s*:\s*(.+?)(?:\n|$)", "subject", "header", 0.85),
+    (r"BUFILE\s*(?:NO\.?)?\s*(\d+-\d+)", "bufile", "any", 0.9),
+    (r"(?:AIRTEL|TELETYPE)", "communication_type", "header", 0.8),
+]
+
+WC_DEPOSITION_PATTERNS = [
+    # Header
+    (r"DEPOSITION\s+OF\s+(.+?)(?:\n|,|taken)", "deponent", "header", 0.95),
+    (r"(?:taken|held)\s+(?:at|on)\s+(.+?)(?:\n|$)", "location_date", "header", 0.85),
+    # Q&A patterns
+    (r"Q\.\s+(.+?)(?:\n|A\.)", "question", "body", 0.8),
+    (r"A\.\s+(.+?)(?:\n|Q\.)", "answer", "body", 0.8),
+    (r"BY\s+(?:MR\.|MS\.)\s+(\w+):", "questioner", "body", 0.85),
+    # Footer
+    (r"(?:COURT REPORTER|Notary)\s*:?\s*(.+?)(?:\n|$)", "reporter", "footer", 0.8),
+]
+
+WC_AFFIDAVIT_PATTERNS = [
+    # Header - state/county
+    (r"STATE\s+OF\s+([A-Z]+)", "state", "header", 0.95),
+    (r"COUNTY\s+OF\s+([A-Z]+)", "county", "header", 0.95),
+    # Affiant
+    (r"(?:I,|affiant,?)\s+([A-Z][A-Za-z\s\.]+),?\s+(?:being|do)", "affiant", "header", 0.9),
+    # Footer - notary
+    (r"NOTARY\s+PUBLIC[,:]?\s*(.+?)(?:\n|$)", "notary", "footer", 0.9),
+    (r"(?:My\s+)?[Cc]ommission\s+[Ee]xpires\s*:?\s*(.+?)(?:\n|$)", "commission_expires", "footer", 0.85),
+    (r"(?:Sworn|Subscribed).*?(\d{1,2}(?:st|nd|rd|th)?\s+day\s+of\s+\w+)", "date_sworn", "footer", 0.85),
+]
+
+POLICE_REPORT_PATTERNS = [
+    # Header - department/report type
+    (r"DALLAS\s+(?:POLICE|COUNTY)\s*(?:DEPARTMENT)?", "department", "header", 0.95),
+    (r"SHERIFF'?S?\s+(?:DEPARTMENT|OFFICE)", "department", "header", 0.95),
+    (r"(?:OFFENSE|INCIDENT|SUPPLEMENTARY)\s+(?:REPORT|INVESTIGATION)", "report_type", "header", 0.9),
+    (r"(?:CASE|REPORT|SERIAL)\s+(?:NO\.?|NUMBER|#)\s*:?\s*(\S+)", "case_number", "header", 0.9),
+    # Content
+    (r"(?:COMPLAINANT|VICTIM)\s*:?\s*(.+?)(?:\n|$)", "complainant", "body", 0.85),
+    (r"(?:OFFENSE|CRIME)\s*:?\s*(.+?)(?:\n|$)", "offense", "body", 0.85),
+    # Footer - officer
+    (r"(?:INVESTIGATING|REPORTING)\s+OFFICER\s*:?\s*(.+?)(?:\n|$)", "officer", "footer", 0.9),
+    (r"BADGE\s+(?:NO\.?|#)\s*:?\s*(\S+)", "badge", "footer", 0.85),
+]
+
 # Map doc types to their patterns
 TYPE_PATTERNS = {
     DocType.FBI_302: FBI_302_PATTERNS,
+    DocType.FBI_REPORT: FBI_REPORT_PATTERNS,
     DocType.NARA_RIF: NARA_RIF_PATTERNS,
     DocType.CIA_CABLE: CIA_CABLE_PATTERNS,
     DocType.MEMO: MEMO_PATTERNS,
     DocType.WC_EXHIBIT: WC_EXHIBIT_PATTERNS,
     DocType.WC_TESTIMONY: WC_TESTIMONY_PATTERNS,
+    DocType.WC_DEPOSITION: WC_DEPOSITION_PATTERNS,
+    DocType.WC_AFFIDAVIT: WC_AFFIDAVIT_PATTERNS,
+    DocType.POLICE_REPORT: POLICE_REPORT_PATTERNS,
     DocType.HSCA_DOC: HSCA_PATTERNS,
     DocType.HSCA_REPORT: HSCA_REPORT_PATTERNS,
 }

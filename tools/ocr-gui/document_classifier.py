@@ -19,11 +19,15 @@ from enum import Enum
 class DocType(Enum):
     """Supported document type identifiers."""
     FBI_302 = "FBI_302"
+    FBI_REPORT = "FBI_REPORT"  # FBI reports, airtels, teletypes
     NARA_RIF = "NARA_RIF"
     CIA_CABLE = "CIA_CABLE"
     MEMO = "MEMO"
     WC_EXHIBIT = "WC_EXHIBIT"
     WC_TESTIMONY = "WC_TESTIMONY"
+    WC_DEPOSITION = "WC_DEPOSITION"  # Q&A depositions
+    WC_AFFIDAVIT = "WC_AFFIDAVIT"  # Sworn statements
+    POLICE_REPORT = "POLICE_REPORT"  # Dallas PD, Sheriff reports
     HSCA_DOC = "HSCA_DOC"
     HSCA_REPORT = "HSCA_REPORT"  # HSCA Final Report narrative
     UNKNOWN = "UNKNOWN"
@@ -83,6 +87,23 @@ FINGERPRINTS = {
         (r"on \d{1,2}/\d{1,2}/\d{2,4} at", 10),
         (r"voluntarily\s+(?:appeared|furnished)", 15),  # Common FBI 302 phrase
         (r"Special Agent[s]?\s+of\s+the", 15),
+    ],
+    
+    DocType.FBI_REPORT: [
+        # FBI reports, airtels, teletypes (not 302 interview forms)
+        (r"AIRTEL", 35),
+        (r"TELETYPE", 30),
+        (r"Bureau\s+(?:file|letter)", 25),
+        (r"SAC\s+(?:[A-Z]+|Dallas|New Orleans|Miami)", 25),
+        (r"DIRECTOR,?\s+FBI", 25),
+        (r"RE:\s+", 15),
+        (r"BUFILE", 20),
+        (r"URGENT|ROUTINE|PRIORITY", 15),
+        (r"ENCODED MESSAGE", 20),
+        (r"(?:FBI|Bureau)\s+Laboratory", 20),
+        (r"Laboratory\s+(?:Report|Work\s+Sheet)", 25),
+        (r"Latent\s+Fingerprint", 20),
+        (r"submitted\s+(?:for|to)\s+examination", 15),
     ],
     
     DocType.NARA_RIF: [
@@ -157,6 +178,50 @@ FINGERPRINTS = {
         (r"(?:sir|ma'am)[;\.]", 10),
     ],
     
+    DocType.WC_DEPOSITION: [
+        # Deposition transcripts (Q&A format outside formal hearings)
+        (r"DEPOSITION", 35),
+        (r"(?:Q|Question)\s*[:\.]", 25),
+        (r"(?:A|Answer)\s*[:\.]", 25),
+        (r"deponent", 20),
+        (r"(?:direct|cross).?examination", 25),
+        (r"BY\s+(?:MR\.|MS\.)\s+\w+:", 20),
+        (r"sworn|duly\s+sworn", 20),
+        (r"COURT REPORTER|stenographer", 15),
+        (r"testimony.*taken", 15),
+        (r"(?:EXAMINATION|QUESTIONED)\s+BY", 20),
+    ],
+    
+    DocType.WC_AFFIDAVIT: [
+        # Sworn affidavits and statements
+        (r"AFFIDAVIT", 40),
+        (r"STATE\s+OF\s+(?:TEXAS|[A-Z]+)", 25),
+        (r"COUNTY\s+OF\s+(?:DALLAS|[A-Z]+)", 25),
+        (r"(?:BEFORE ME|subscribed)\s+.*\s+(?:notary|this day)", 30),
+        (r"sworn\s+(?:to|and\s+subscribed)", 30),
+        (r"NOTARY\s+PUBLIC", 25),
+        (r"duly\s+sworn", 20),
+        (r"(?:my\s+)?commission\s+expires", 15),
+        (r"(?:deposes|states)\s+(?:and says|that)", 20),
+        (r"WITNESS\s+(?:MY|WHEREOF)", 15),
+    ],
+    
+    DocType.POLICE_REPORT: [
+        # Dallas Police, Sheriff's Department reports
+        (r"DALLAS\s+(?:POLICE|COUNTY)", 30),
+        (r"SHERIFF'?S?\s+(?:DEPARTMENT|OFFICE)", 30),
+        (r"SUPPLEMENTARY\s+(?:OFFENSE|INVESTIGATION)\s+REPORT", 35),
+        (r"OFFENSE\s+REPORT", 25),
+        (r"INCIDENT\s+REPORT", 25),
+        (r"(?:INVESTIGATING|REPORTING)\s+OFFICER", 25),
+        (r"PATROL\s+(?:DIVISION|DISTRICT)", 20),
+        (r"(?:OFFENSE|CRIME)\s+(?:CODE|TYPE)", 15),
+        (r"COMPLAINANT|VICTIM", 15),
+        (r"(?:TIME|DATE)\s+OF\s+(?:OFFENSE|OCCURRENCE)", 15),
+        (r"BADGE\s+(?:NO|NUMBER|#)", 15),
+        (r"(?:squad|unit|car)\s+\d+", 15),
+    ],
+
     DocType.HSCA_DOC: [
         (r"HSCA", 35),
         (r"HOUSE SELECT COMMITTEE", 30),
@@ -395,6 +460,34 @@ ZONE_CONFIG = {
         "header_fields": ["testimony_date", "witness_name", "session_info"],
         "footer_fields": ["page_number"],
         "body_fields": ["testimony_content", "questioner", "response"],
+    },
+    DocType.WC_DEPOSITION: {
+        "header_lines": 15,
+        "footer_lines": 5,
+        "header_fields": ["deponent_name", "date", "location"],
+        "footer_fields": ["page_number", "reporter"],
+        "body_fields": ["questions", "answers"],
+    },
+    DocType.WC_AFFIDAVIT: {
+        "header_lines": 20,
+        "footer_lines": 15,
+        "header_fields": ["state", "county", "affiant_name"],
+        "footer_fields": ["notary", "date_signed"],
+        "body_fields": ["statement_content"],
+    },
+    DocType.POLICE_REPORT: {
+        "header_lines": 20,
+        "footer_lines": 10,
+        "header_fields": ["department", "report_type", "case_number", "date"],
+        "footer_fields": ["officer_name", "badge_number"],
+        "body_fields": ["narrative"],
+    },
+    DocType.FBI_REPORT: {
+        "header_lines": 20,
+        "footer_lines": 10,
+        "header_fields": ["to", "from", "subject", "date", "file_number"],
+        "footer_fields": [],
+        "body_fields": ["content"],
     },
     DocType.HSCA_DOC: {
         "header_lines": 15,

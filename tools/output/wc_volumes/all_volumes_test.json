@@ -1,13 +1,16 @@
 {
-  "timestamp": "2026-02-24T01:13:51.997338",
+  "timestamp": "2026-02-24T01:18:09.736137",
   "overall_counts": {
-    "UNKNOWN": 163,
-    "WC_TESTIMONY": 129,
-    "WC_EXHIBIT": 69,
-    "CIA_CABLE": 12,
-    "HSCA_REPORT": 10,
+    "UNKNOWN": 116,
+    "WC_TESTIMONY": 117,
+    "WC_DEPOSITION": 64,
+    "WC_EXHIBIT": 63,
+    "POLICE_REPORT": 5,
+    "WC_AFFIDAVIT": 4,
+    "CIA_CABLE": 8,
+    "HSCA_REPORT": 7,
     "FBI_302": 2,
-    "MEMO": 5
+    "MEMO": 4
   },
   "volumes": [
     {
@@ -16,7 +19,8 @@
       "sample_size": 15,
       "type_counts": {
         "UNKNOWN": 1,
-        "WC_TESTIMONY": 14
+        "WC_TESTIMONY": 13,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -63,9 +67,9 @@
         },
         {
           "page": 205,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.207,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 1,
           "preview": "show that she was involved in any conspiracy to assassinate President Kennedy? Mrs. Oswald. I feel l"
         },
         {
@@ -133,7 +137,8 @@
       "type_counts": {
         "UNKNOWN": 1,
         "WC_EXHIBIT": 2,
-        "WC_TESTIMONY": 12
+        "WC_TESTIMONY": 11,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -208,9 +213,9 @@
         },
         {
           "page": 351,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.118,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 1,
           "preview": "present day life in the Soviet Union. I was asking liim questions, asked how people lived there, and"
         },
         {
@@ -248,9 +253,10 @@
       "total_pages": 532,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 3,
+        "UNKNOWN": 2,
         "WC_EXHIBIT": 3,
-        "WC_TESTIMONY": 9
+        "WC_TESTIMONY": 9,
+        "POLICE_REPORT": 1
       },
       "results": [
         {
@@ -353,9 +359,9 @@
         },
         {
           "page": 491,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "POLICE_REPORT",
+          "confidence": 0.113,
+          "fields": 1,
           "preview": "quote in part from a letter from Mr. Hoover to Mr. Rankin dated March 31, 1964. \"On March 30, 1964, "
         }
       ]
@@ -366,8 +372,10 @@
       "sample_size": 15,
       "type_counts": {
         "UNKNOWN": 1,
-        "WC_TESTIMONY": 11,
-        "WC_EXHIBIT": 3
+        "WC_DEPOSITION": 2,
+        "WC_EXHIBIT": 3,
+        "WC_TESTIMONY": 8,
+        "WC_AFFIDAVIT": 1
       },
       "results": [
         {
@@ -379,16 +387,16 @@
         },
         {
           "page": 33,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.104,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Latona. To protect the prints while the rifle was intransit to the FBI. Mr. EisENBEEG. Now, when"
         },
         {
           "page": 65,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.104,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Mandella. You did not, other than giving me the photographs. Mr. EiSENBERo. Did I tell you that "
         },
         {
@@ -428,9 +436,9 @@
         },
         {
           "page": 257,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.207,
-          "fields": 4,
+          "type": "WC_AFFIDAVIT",
+          "confidence": 0.245,
+          "fields": 0,
           "preview": "get it. But I understand that Dean had made some kind of special report to the chief but that wasn't"
         },
         {
@@ -484,9 +492,10 @@
       "type_counts": {
         "UNKNOWN": 1,
         "WC_TESTIMONY": 10,
-        "CIA_CABLE": 2,
-        "HSCA_REPORT": 1,
-        "WC_EXHIBIT": 1
+        "WC_DEPOSITION": 1,
+        "POLICE_REPORT": 1,
+        "WC_EXHIBIT": 1,
+        "CIA_CABLE": 1
       },
       "results": [
         {
@@ -512,9 +521,9 @@
         },
         {
           "page": 127,
-          "type": "CIA_CABLE",
-          "confidence": 0.108,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "But, anyway, that was in the book that was later found, and which contained many other things that O"
         },
         {
@@ -533,9 +542,9 @@
         },
         {
           "page": 253,
-          "type": "HSCA_REPORT",
-          "confidence": 0.103,
-          "fields": 3,
+          "type": "POLICE_REPORT",
+          "confidence": 0.113,
+          "fields": 1,
           "preview": "worse since all television networks were on the assassination all\u201424 hours, I mean all day. And ther"
         },
         {
@@ -602,8 +611,8 @@
       "sample_size": 15,
       "type_counts": {
         "UNKNOWN": 1,
-        "WC_TESTIMONY": 12,
-        "WC_EXHIBIT": 1,
+        "WC_TESTIMONY": 11,
+        "WC_DEPOSITION": 2,
         "HSCA_REPORT": 1
       },
       "results": [
@@ -623,9 +632,9 @@
         },
         {
           "page": 65,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.311,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.341,
+          "fields": 0,
           "preview": "Dr. Jenkins. I felt quite sure at the time that there must have been two bullets\u2014two missiles. Mr. S"
         },
         {
@@ -644,8 +653,8 @@
         },
         {
           "page": 161,
-          "type": "WC_EXHIBIT",
-          "confidence": 0.125,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
           "fields": 0,
           "preview": "Ml'. Specter. And did you ob.serve him when he was taken out of trauma room No. 2? Mrs. Nelson. Yes,"
         },
@@ -720,7 +729,10 @@
       "sample_size": 15,
       "type_counts": {
         "UNKNOWN": 1,
-        "WC_TESTIMONY": 11,
+        "WC_TESTIMONY": 7,
+        "POLICE_REPORT": 1,
+        "WC_AFFIDAVIT": 1,
+        "WC_DEPOSITION": 2,
         "WC_EXHIBIT": 1,
         "CIA_CABLE": 2
       },
@@ -748,9 +760,9 @@
         },
         {
           "page": 121,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.148,
-          "fields": 3,
+          "type": "POLICE_REPORT",
+          "confidence": 0.226,
+          "fields": 1,
           "preview": "Mr. Weitzman. Yes, sir ; I scaled the wall and, apparently, my hands grabbed steampipes. I burned th"
         },
         {
@@ -762,16 +774,16 @@
         },
         {
           "page": 201,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.148,
-          "fields": 3,
+          "type": "WC_AFFIDAVIT",
+          "confidence": 0.163,
+          "fields": 0,
           "preview": "Mr. Stovall. Richard S. Stovall. Mr. Ball. And what is your address, please? Mr. Stovall. 3211 Grays"
         },
         {
           "page": 241,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.251,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.341,
+          "fields": 1,
           "preview": "Mr. Turner. No, sir; only that he said the photos of Oswald looked like the man he saw at the window"
         },
         {
@@ -783,9 +795,9 @@
         },
         {
           "page": 321,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.148,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
+          "fields": 0,
           "preview": "Mr. Holmes. I believe not. Mr. Belin. Mr. Holmes, when we first met, we sat down and I practically s"
         },
         {
@@ -837,8 +849,9 @@
       "total_pages": 488,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 2,
-        "WC_TESTIMONY": 13
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 13,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -913,9 +926,9 @@
         },
         {
           "page": 321,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
+          "fields": 1,
           "preview": "Mr. Ely. In other words, then, Oswald wanted to stay overseas longer than he was scheduleti to have "
         },
         {
@@ -953,10 +966,11 @@
       "total_pages": 490,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 2,
+        "UNKNOWN": 1,
         "WC_EXHIBIT": 2,
         "HSCA_REPORT": 1,
-        "WC_TESTIMONY": 10
+        "WC_TESTIMONY": 10,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -1017,9 +1031,9 @@
         },
         {
           "page": 257,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "dent of the United States, he must have been unbelievably egotistical, an un- believably egotistical"
         },
         {
@@ -1072,9 +1086,10 @@
       "sample_size": 15,
       "type_counts": {
         "UNKNOWN": 1,
-        "WC_TESTIMONY": 11,
+        "WC_TESTIMONY": 10,
         "HSCA_REPORT": 2,
-        "WC_EXHIBIT": 1
+        "WC_EXHIBIT": 1,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -1177,9 +1192,9 @@
         },
         {
           "page": 407,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.148,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
+          "fields": 0,
           "preview": "Mr. LiEBELEB. Which one is that? Mr. Wood. That man right here. Mr. LiEBELER. This one right here? M"
         }
       ]
@@ -1189,9 +1204,10 @@
       "total_pages": 500,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 6,
+        "UNKNOWN": 4,
         "WC_TESTIMONY": 5,
-        "WC_EXHIBIT": 3,
+        "WC_DEPOSITION": 3,
+        "WC_EXHIBIT": 2,
         "FBI_302": 1
       },
       "results": [
@@ -1225,9 +1241,9 @@
         },
         {
           "page": 133,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "2. I am and have for several years been a foreign representative of Loma Industries, a plastics prod"
         },
         {
@@ -1253,8 +1269,8 @@
         },
         {
           "page": 265,
-          "type": "WC_EXHIBIT",
-          "confidence": 0.125,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
           "fields": 0,
           "preview": "Mr. LiEBELER. I show you another picture that has been marked Pizzo Ex- hibit No. 453-C, and ask you"
         },
@@ -1295,8 +1311,8 @@
         },
         {
           "page": 463,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "Here Oswald was of an age that made him different right away. He was only 20, and I had never heard "
         }
@@ -1307,7 +1323,8 @@
       "total_pages": 468,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 11,
+        "UNKNOWN": 9,
+        "WC_DEPOSITION": 2,
         "WC_TESTIMONY": 3,
         "CIA_CABLE": 1
       },
@@ -1342,8 +1359,8 @@
         },
         {
           "page": 125,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "Mr. Hubert. Did you do that? Captain Talbert. Yes, sir. Mr. Hubert. All right. After that, what did "
         },
@@ -1356,9 +1373,9 @@
         },
         {
           "page": 187,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
+          "fields": 1,
           "preview": "Mr, HUBEiRT. In other words, you all parked your car near Pearl Street and didn't even walk up or ri"
         },
         {
@@ -1424,8 +1441,9 @@
       "total_pages": 524,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 11,
-        "WC_TESTIMONY": 4
+        "UNKNOWN": 4,
+        "WC_TESTIMONY": 3,
+        "WC_DEPOSITION": 8
       },
       "results": [
         {
@@ -1458,16 +1476,16 @@
         },
         {
           "page": 137,
-          "type": "WC_TESTIMONY",
-          "confidence": 0.355,
-          "fields": 2,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.432,
+          "fields": 0,
           "preview": "tangle in which I am placing a capital A and would you agree that that figure shows, generally speak"
         },
         {
           "page": 171,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
+          "fields": 1,
           "preview": "Mr. Pierce. All right. Mr. Hubert. Now, Mr. Pierce, I think you have appeared here today as a result"
         },
         {
@@ -1479,22 +1497,22 @@
         },
         {
           "page": 239,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Hubert. Was that document given to him when the change was given to him? Mr. Lane. When the chan"
         },
         {
           "page": 273,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
           "fields": 0,
           "preview": "Mr. RiCHEY. I still believe that it is the same man. Mr. HuBEiRT. You were not asked by the State to"
         },
         {
           "page": 307,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
           "fields": 0,
           "preview": "Mr. Wai-keb. Well, about four of us pointed at him at the same time in the truck. I mean, we all rec"
         },
@@ -1507,8 +1525,8 @@
         },
         {
           "page": 375,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
           "fields": 0,
           "preview": "Mr. Hubert. You don't recall the occasion when these pictures were taken? Mr. Armstrong. No. Mr. Hub"
         },
@@ -1521,16 +1539,16 @@
         },
         {
           "page": 443,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. HtTBEBT. You did have a girl tyon went out with you used to meet at the Eatwell? Mr. Crafakd. On"
         },
         {
           "page": 477,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Hubert. But you heard adults in the background? Mr. Ckafard. It sounded to me like it was at lea"
         }
       ]
@@ -1540,8 +1558,9 @@
       "total_pages": 672,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 10,
+        "UNKNOWN": 7,
         "FBI_302": 1,
+        "WC_DEPOSITION": 3,
         "WC_TESTIMONY": 4
       },
       "results": [
@@ -1575,9 +1594,9 @@
         },
         {
           "page": 177,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Hubert. Now will you state your full name? Mr. Senator. George Senator. Mr. Hubert. How old are "
         },
         {
@@ -1596,9 +1615,9 @@
         },
         {
           "page": 309,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Senator. I was living next door to Jack. I wasn't living with him. When you mentioned\u2014was it Nov"
         },
         {
@@ -1610,8 +1629,8 @@
         },
         {
           "page": 397,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
           "fields": 0,
           "preview": "Mr. Ruby. Yes. Mr. Hubert. And that in the course of that conversation he asked you about the Havana"
         },
@@ -1657,9 +1676,10 @@
       "total_pages": 844,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 10,
+        "UNKNOWN": 6,
+        "WC_DEPOSITION": 4,
+        "WC_AFFIDAVIT": 1,
         "WC_EXHIBIT": 3,
-        "HSCA_REPORT": 1,
         "CIA_CABLE": 1
       },
       "results": [
@@ -1672,16 +1692,16 @@
         },
         {
           "page": 57,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "wife, not for you,\" tease you. I go over and I get a can of imported English candy. \"Take this home "
         },
         {
           "page": 113,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "Mr. Hubert. When you say the eluh belonged to an agent of yours you don't mean that he owned the clu"
         },
         {
@@ -1693,8 +1713,8 @@
         },
         {
           "page": 225,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_AFFIDAVIT",
+          "confidence": 0.163,
           "fields": 0,
           "preview": "couple of other things they don't like here\u2014and was more suggestive than it should be. Jack rushed t"
         },
@@ -1707,9 +1727,9 @@
         },
         {
           "page": 337,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "and it seems to me he said, \"The President is at Parkland Hospital.\" And Pauline and I talked again,"
         },
         {
@@ -1735,9 +1755,9 @@
         },
         {
           "page": 561,
-          "type": "HSCA_REPORT",
-          "confidence": 0.176,
-          "fields": 4,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
+          "fields": 1,
           "preview": "I state to you that the general nature of the Commission's inquiry is to ascertain, evaluate, and re"
         },
         {
@@ -1775,9 +1795,10 @@
       "total_pages": 1024,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 4,
-        "WC_EXHIBIT": 10,
-        "MEMO": 1
+        "UNKNOWN": 3,
+        "WC_EXHIBIT": 9,
+        "MEMO": 1,
+        "WC_DEPOSITION": 2
       },
       "results": [
         {
@@ -1859,16 +1880,16 @@
         },
         {
           "page": 749,
-          "type": "WC_EXHIBIT",
-          "confidence": 0.188,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 2,
           "preview": "t CO-2-34,030 T.E A3SASSI.\\'ATI0:i OF rrinSIDHNT KEXT^HDV DALLVS, T^X^S . / / J Leo Ilarvcy Tape rcc"
         },
         {
           "page": 817,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "of Uia GrAotor or ios oti'^r caut.\u00bb, tit Truct\u00abo darlna th\u00ab iU\u00abtln-x<> of l.x\u00ab Grantor n>4y, i9*:\u00ab\u00abd"
         },
         {
@@ -1894,8 +1915,9 @@
       "type_counts": {
         "UNKNOWN": 6,
         "WC_EXHIBIT": 5,
-        "CIA_CABLE": 3,
-        "MEMO": 1
+        "CIA_CABLE": 2,
+        "MEMO": 1,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -1984,8 +2006,8 @@
         },
         {
           "page": 745,
-          "type": "CIA_CABLE",
-          "confidence": 0.108,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 1,
           "preview": "DL 100-10461 felt soi'ry for the subject inasmuch as it appeared to her that he had few if any frien"
         },
@@ -2010,11 +2032,11 @@
       "total_pages": 960,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 5,
+        "UNKNOWN": 3,
+        "WC_DEPOSITION": 4,
         "WC_EXHIBIT": 6,
         "MEMO": 1,
-        "CIA_CABLE": 1,
-        "HSCA_REPORT": 2
+        "HSCA_REPORT": 1
       },
       "results": [
         {
@@ -2040,9 +2062,9 @@
         },
         {
           "page": 193,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 1,
           "preview": ". I r \u2022\u2022 1^ CERTIFICATE Cr /.CTION TAK'.ll-i I BERKBT c:.;r.r.'v tl;:-.! tho .'il)OVO passport. Kn- "
         },
         {
@@ -2054,9 +2076,9 @@
         },
         {
           "page": 321,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": ". 6 * Th\u00bb atatutoTjr proovdur* for handling pctitiooa fc^ noo-quota or praferanoa atatua bf raaaon o"
         },
         {
@@ -2096,8 +2118,8 @@
         },
         {
           "page": 705,
-          "type": "CIA_CABLE",
-          "confidence": 0.108,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 1,
           "preview": "statement of Special Agent Paul E. Landis, Jr., United States Secret Service, concerning his early m"
         },
@@ -2110,9 +2132,9 @@
         },
         {
           "page": 833,
-          "type": "HSCA_REPORT",
-          "confidence": 0.103,
-          "fields": 3,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 0,
           "preview": "Mr. Belin, General Counsel - 6 - Special Agents Roberts, Ready, Lawton, and Mclntyre returned on the"
         },
         {
@@ -2129,9 +2151,11 @@
       "total_pages": 800,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 9,
-        "WC_EXHIBIT": 5,
-        "MEMO": 1
+        "UNKNOWN": 6,
+        "WC_DEPOSITION": 2,
+        "WC_EXHIBIT": 4,
+        "POLICE_REPORT": 2,
+        "WC_AFFIDAVIT": 1
       },
       "results": [
         {
@@ -2143,15 +2167,15 @@
         },
         {
           "page": 54,
-          "type": "WC_EXHIBIT",
-          "confidence": 0.125,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.273,
           "fields": 0,
           "preview": "_Ex.No.5301-C SENATOR, Geo. Deposition. j;x.No.5301-C ARMSTRONG A. Deposition Washington, D.C. 4-22-"
         },
         {
           "page": 107,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "A : > I J K d 6\" S i', J ^ \\: 1 \"d-\"^o'U[ J'/... ._...: -i-J/] A-fCi'/ N....Xt //-I /^.LE-. G ; N.i."
         },
@@ -2199,23 +2223,23 @@
         },
         {
           "page": 478,
-          "type": "MEMO",
-          "confidence": 0.139,
-          "fields": 3,
+          "type": "POLICE_REPORT",
+          "confidence": 0.151,
+          "fields": 1,
           "preview": "MISCELLANEOUS CRIME REPORT CO^JNTY Off\" \u00a9ALLAS SHERIFF'S DEPAKT^flEIVT AS&MJLT WITH lOTLl/T TO COirs"
         },
         {
           "page": 531,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "POLICE_REPORT",
+          "confidence": 0.302,
+          "fields": 2,
           "preview": "'ORM 11.4 SUP. INV. Kame of Complainant G QD COUNTY OF DALLAS SHERIFF'S DEPARTMENT SUPPLEMENTARY INV"
         },
         {
           "page": 584,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_AFFIDAVIT",
+          "confidence": 0.755,
+          "fields": 3,
           "preview": "THE STATE CF TEXAS COUNTY OF DALLAS BEFORE ME^ AFFIDAVIT IN ANY FACT P3t.C3r HnTHy^.:; a Notary Publ"
         },
         {
@@ -2246,10 +2270,10 @@
       "total_pages": 828,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 5,
-        "WC_EXHIBIT": 8,
-        "MEMO": 1,
-        "CIA_CABLE": 1
+        "UNKNOWN": 4,
+        "WC_EXHIBIT": 7,
+        "WC_DEPOSITION": 3,
+        "MEMO": 1
       },
       "results": [
         {
@@ -2268,8 +2292,8 @@
         },
         {
           "page": 111,
-          "type": "WC_EXHIBIT",
-          "confidence": 0.125,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
           "fields": 0,
           "preview": "DL k-r-1639 \"November 24, 1963 \"Mr. J. E. Curry Chief or Police \"Subject: Shooting of Lee Harvey Osw"
         },
@@ -2324,8 +2348,8 @@
         },
         {
           "page": 551,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "PamphletCase \\ Sentence Given] Lee Oswald, 23, 4907 Magazine,) Monday was sentenced to pay a| fine o"
         },
@@ -2352,9 +2376,9 @@
         },
         {
           "page": 771,
-          "type": "CIA_CABLE",
-          "confidence": 0.108,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "SCO O F SO V lET ACTIVITY IN THE |ttc Dcpartmcat rtigulations. While there, Isitcd his frioad Praski"
         }
       ]
@@ -2364,10 +2388,11 @@
       "total_pages": 816,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 6,
+        "UNKNOWN": 5,
         "HSCA_REPORT": 2,
-        "WC_EXHIBIT": 6,
-        "CIA_CABLE": 1
+        "WC_EXHIBIT": 5,
+        "CIA_CABLE": 1,
+        "WC_DEPOSITION": 2
       },
       "results": [
         {
@@ -2421,8 +2446,8 @@
         },
         {
           "page": 379,
-          "type": "WC_EXHIBIT",
-          "confidence": 0.125,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.159,
           "fields": 0,
           "preview": "C4^ \u00bb^-^ 'V^^-JI-^ , '>.\u2014p ^>'W>f C^-Z. Ex.No.2 RUBY, Earl Deposition <^/ -1^ X ' W.shington, D. C. "
         },
@@ -2470,8 +2495,8 @@
         },
         {
           "page": 757,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "vv A(A iAA V DL 44-1639 \"NoveiBber 27, 1963 \"Mr. J. B. Curry Chief of Police \"Subject: Murder of Lee"
         }
@@ -2482,8 +2507,9 @@
       "total_pages": 972,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 11,
-        "WC_EXHIBIT": 4
+        "UNKNOWN": 10,
+        "WC_EXHIBIT": 4,
+        "WC_DEPOSITION": 1
       },
       "results": [
         {
@@ -2509,8 +2535,8 @@
         },
         {
           "page": 193,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "&-^ 4^ 11 3 g \"- .'! S . tI \u2022 Si G. 0} tH 0) (11 CM jj; 1 -cJ a j \u2022O CM C o^-d p. ^ ^\u00ab .\u00a7s I \u00a7o I 5 "
         },
@@ -2598,7 +2624,8 @@
       "total_pages": 984,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 13,
+        "UNKNOWN": 9,
+        "WC_DEPOSITION": 4,
         "WC_EXHIBIT": 2
       },
       "results": [
@@ -2618,16 +2645,16 @@
         },
         {
           "page": 131,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
           "fields": 0,
           "preview": "so V *> o \u2022s o c o o j: -o \u00a3 a \u00a3 <t> obt: ^ a e o o c -H \u00ab o\u00ab-< 03 '^\u00a3 to B14> r-l U*^ CO** +> OO^O^"
         },
         {
           "page": 196,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 1,
           "preview": "> <-) -p -. O <-f 0) o c \u00ab \u2022\u00ab O t4 (U O ra S rH s: !-< s P O .H O 43 O 3 a o H \u00a3 x; w m p s c H 0) x"
         },
         {
@@ -2646,9 +2673,9 @@
         },
         {
           "page": 391,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "3S ae-p p a u 43 o c-au O S rH Oi Q} CS 6S . o> o \u00a3-P-H \u2022u CO O M a o <3 \u00bb yco O (U o II O ra < U - "
         },
         {
@@ -2681,8 +2708,8 @@
         },
         {
           "page": 716,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "o 9 3& S -3 \u2022 IH a m o a a J3 N 5**'5 J3 a a a a o n ^ n . \u00ab o w o i . O 4J O O com an 1^ -H S o< > "
         },
@@ -2714,7 +2741,8 @@
       "total_pages": 940,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 15
+        "UNKNOWN": 13,
+        "WC_DEPOSITION": 2
       },
       "results": [
         {
@@ -2747,8 +2775,8 @@
         },
         {
           "page": 249,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "o5 \u2022S ** \"^ * c *> o5to<.<*><HS>..rtM S *\u2022 h op \u00b0 \" 3 oWto^noy iiOQ)ffl03>,i,>-.n o^x*^o \u2022.oom P M o"
         },
@@ -2768,9 +2796,9 @@
         },
         {
           "page": 435,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 1,
           "preview": "tJ> . \u2022a u u X> K m Vl \u2022 \u2022 H t> u \"u \u00bbi a \u00ab > M \u2022 \u00ab \"H >i H H \u2022 O O .H \u00ab 4J C O . r-l O 0> O \"O O T>"
         },
         {
@@ -2829,7 +2857,8 @@
       "total_pages": 968,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 13,
+        "UNKNOWN": 7,
+        "WC_DEPOSITION": 6,
         "WC_EXHIBIT": 2
       },
       "results": [
@@ -2842,9 +2871,9 @@
         },
         {
           "page": 65,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "o u >> . C<dIiC3C0Om \u2014a *> c 3 CD -H .-, .D T3 <i~. Co a- co a> c t-. o p \" ra X c a \u00a3 -. . m co i-i"
         },
         {
@@ -2856,8 +2885,8 @@
         },
         {
           "page": 193,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "\u2022I 51 Sa If o x o u si \u00a3 ^ H :J -C *J \u00ab i H Q. 3 So \u2022 HI a < m \u2022 J > Com \u00bb a \u2022o i. J Vl \u00ab It, \u2022 M 3 "
         },
@@ -2870,16 +2899,16 @@
         },
         {
           "page": 321,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 1,
           "preview": "U CO C CO \u00a3 to Cm o CO to o Ml <n .**> co 5H H XI x to \u00bb, i a bor, hCO c. c xi a - -; h e - I C 0) 0"
         },
         {
           "page": 385,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.227,
+          "fields": 2,
           "preview": "- O t- rt \u00bb iH 01 N H co co u w i< n -* M o t* fa o whido an \u00a9 v< co i < n xi a iH m -HO co i p a a "
         },
         {
@@ -2905,8 +2934,8 @@
         },
         {
           "page": 641,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "\u00a79 CD - 3 i> a m \u2022 X3 o c cdxi cd cDtVi x xi i: o - c o *> c o^o,; cd h CDcl\u00a3-iHOSHx:cd \u00a3 o t, c o p"
         },
@@ -2926,9 +2955,9 @@
         },
         {
           "page": 833,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "? 3 *\u00bb 3 <a c - H >> s 3\"? o u <H oaou O +* XI U ri +J 01 <h t, -a - U) i o ci o -a o a o-l o [1 r. "
         },
         {
@@ -2945,7 +2974,8 @@
       "total_pages": 980,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 14,
+        "UNKNOWN": 9,
+        "WC_DEPOSITION": 5,
         "WC_EXHIBIT": 1
       },
       "results": [
@@ -2958,8 +2988,8 @@
         },
         {
           "page": 66,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "D.,4 o a art ti J3 u a *i \"a a *' o T> o o c r +> o o fl u +\u00bb .Q fl ' o \" M -H :J >, a O . cj .a n ^"
         },
@@ -2986,15 +3016,15 @@
         },
         {
           "page": 326,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": ": t: (4 0^^ <Tj B la OiT'O E Ew o *>*\u00bb -^ O \u00ab C13 O tt jOC3 O 3 u . t-xt- sis <H t; ou o o o o ei < "
         },
         {
           "page": 391,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "u B \u00ab o a fH \u00ab Ha tj M _ o ? f. t, \u00ab o \u2022 i d oi I. e^ > vi a K-t>\u00bbHta o o 0.0 00 \u00bb jt a ^ i<ipea (Da"
         },
@@ -3021,9 +3051,9 @@
         },
         {
           "page": 651,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
+          "fields": 1,
           "preview": "^1 I! W 13 5SS ^ \u00ab s S ?' b a \u2022\u00ab S3' an'S 00.. 3 o (U >3 \u00b0 s i^a pfj^ S\"]/ ]o. > IN O SJ 1 ^ O Tl S^"
         },
         {
@@ -3042,8 +3072,8 @@
         },
         {
           "page": 846,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
+          "type": "WC_DEPOSITION",
+          "confidence": 0.114,
           "fields": 0,
           "preview": "05 > c a c c c c v< a ^ u \u00ab o g 4> -S w ^ >o >. o 5 Q r^ 5 \u00a7 * 2 > n o >. 3 o ^ u v< z n o u o JJ u "
         },
