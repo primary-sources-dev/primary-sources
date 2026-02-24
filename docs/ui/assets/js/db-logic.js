@@ -351,7 +351,7 @@ function buildOTDCard(item) {
             <div class="text-xs font-mono text-archive-secondary/40 mt-1">${yearStr} — Archival Record #${item.id.toUpperCase().slice(0, 8)}</div>
         </div>
 
-        <div class="w-16 h-16 bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
+        <div class="w-16 h-16 bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:border-primary transition-colors">
             <span class="material-symbols-outlined text-3xl">${item.icon || 'history_edu'}</span>
         </div>
 
