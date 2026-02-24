@@ -4,13 +4,26 @@ ocr_worker.py — Background OCR processing for the GUI tool.
 Supports two backends:
 1. Python (pytesseract + pdf2image) — Windows native
 2. WSL (ocrmypdf) — Higher quality, requires WSL Ubuntu
+
+Supported image formats:
+- PDF, JPG, PNG, TIFF, WEBP (native PIL)
+- HEIC/HEIF (iPhone photos via pillow-heif)
 """
 
 import os
+import json
 import subprocess
 import threading
 from pathlib import Path
 from typing import Callable, Optional
+
+# Register HEIC/HEIF support for iPhone photos
+try:
+    from pillow_heif import register_heif_opener
+    register_heif_opener()
+    HEIC_SUPPORTED = True
+except ImportError:
+    HEIC_SUPPORTED = False
 
 # Poppler path for Windows (adjust if needed)
 POPPLER_PATH = r"C:\Users\willh\AppData\Local\Microsoft\WinGet\Packages\oschwartz10612.Poppler_Microsoft.Winget.Source_8wekyb3d8bbwe\poppler-25.07.0\Library\bin"
@@ -155,6 +168,7 @@ class OCRWorker:
         output_txt: bool = True,
         output_md: bool = False,
         output_html: bool = False,
+        output_json: bool = True,
         deskew: bool = True,
         clean: bool = True,
         force_ocr: bool = False,
@@ -169,6 +183,7 @@ class OCRWorker:
         self.output_txt = output_txt
         self.output_md = output_md
         self.output_html = output_html
+        self.output_json = output_json
         self.deskew = deskew
         self.clean = clean
         self.force_ocr = force_ocr
@@ -204,6 +219,7 @@ class OCRWorker:
         output_txt: bool = True,
         output_md: bool = False,
         output_html: bool = False,
+        output_json: bool = True,
         deskew: bool = True,
         clean: bool = True,
         force_ocr: bool = False,
@@ -217,6 +233,7 @@ class OCRWorker:
         self.output_txt = output_txt
         self.output_md = output_md
         self.output_html = output_html
+        self.output_json = output_json
         self.deskew = deskew
         self.clean = clean
         self.force_ocr = force_ocr
@@ -299,15 +316,28 @@ class OCRWorker:
                 images = convert_from_path(filepath, poppler_path=POPPLER_PATH)
             except Exception as e:
                 return False, f"PDF conversion failed: {e}"
+        elif ext in (".heic", ".heif"):
+            # iPhone photo format
+            if not HEIC_SUPPORTED:
+                return False, "HEIC support requires pillow-heif: pip install pillow-heif"
+            self.log(f"Opening iPhone photo: {filename}")
+            try:
+                images = [Image.open(filepath)]
+            except Exception as e:
+                return False, f"HEIC loading failed: {e}"
         else:
+            # Standard image formats: JPG, PNG, TIFF, WEBP, etc.
             self.log(f"Opening image directly: {filename}")
             try:
                 images = [Image.open(filepath)]
             except Exception as e:
                 return False, f"Image loading failed: {e}"
 
-        total_pages = len(images)
-        full_text = ""
+        ocr_json_data = {
+            "version": "1.0",
+            "filename": filename,
+            "pages": []
+        }
 
         for i, image in enumerate(images):
             if self._cancel_flag.is_set():
@@ -324,8 +354,45 @@ class OCRWorker:
                     pct = int((page_num / total_pages) * 100)
                     self.on_progress(pct, f"Processing page {page_num}/{total_pages}...")
 
+            # 1. Standard text output
             text = pytesseract.image_to_string(image)
             full_text += f"\n\n--- PAGE {page_num} ---\n\n{text}"
+
+            # 2. Coordinate data for Workbench
+            if self.output_json:
+                data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
+                page_data = {
+                    "page": page_num,
+                    "width": image.width,
+                    "height": image.height,
+                    "lines": []
+                }
+                
+                # Group words into lines for smoother sync
+                current_line = None
+                last_line_id = -1
+                
+                for j in range(len(data['text'])):
+                    # Level 5 is Word
+                    if data['level'][j] == 5:
+                        text_val = data['text'][j].strip()
+                        if not text_val: continue
+                        
+                        line_id = f"{data['block_num'][j]}_{data['line_num'][j]}"
+                        if line_id != last_line_id:
+                            current_line = {
+                                "bbox": [data['left'][j], data['top'][j], data['left'][j]+data['width'][j], data['top'][j]+data['height'][j]],
+                                "text": text_val
+                            }
+                            page_data["lines"].append(current_line)
+                            last_line_id = line_id
+                        else:
+                            current_line["text"] += " " + text_val
+                            # Expand line bbox (right, bottom)
+                            current_line["bbox"][2] = data['left'][j] + data['width'][j]
+                            current_line["bbox"][3] = max(current_line["bbox"][3], data['top'][j] + data['height'][j])
+
+                ocr_json_data["pages"].append(page_data)
 
         if self.output_txt:
             txt_path = os.path.join(self.output_dir, f"{base_name}.txt")
@@ -377,6 +444,12 @@ class OCRWorker:
             with open(html_path, "w", encoding="utf-8") as f:
                 f.write(final_html)
             self.log(f"  Saved: {base_name}.html")
+
+        if self.output_json:
+            json_path = os.path.join(self.output_dir, f"{base_name}.ocr.json")
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(ocr_json_data, f, indent=2)
+            self.log(f"  Saved: {base_name}.ocr.json")
 
         if self.output_pdf:
             self.log("  Note: Searchable PDF output requires WSL mode.")

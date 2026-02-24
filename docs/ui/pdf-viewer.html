@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document Viewer — Primary Sources</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <!-- Required for Text Layer matching/selection -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
@@ -17,35 +20,190 @@
             --archive-heading: #F0EDE0;
             --archive-dark: #1A1718;
         }
-        body { background-color: var(--archive-dark); font-family: 'Roboto Mono', monospace; }
-        
-        /* Custom scrollbar for that archive feel */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--archive-dark); }
-        ::-webkit-scrollbar-thumb { background: rgba(176, 139, 73, 0.2); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        #pdf-canvas { 
-            border: 1px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); 
+        body {
+            background-color: var(--archive-dark);
+            font-family: 'Roboto Mono', monospace;
         }
-        
+
+        /* Custom scrollbar for that archive feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--archive-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(176, 139, 73, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        #pdf-canvas {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
         /* Text Layer Overlay */
         .textLayer {
-            opacity: 0.2; /* Subtle visibility for debugging, usually 0.2-0.4 for "feel", 1.0 for copying */
+            opacity: 0.2;
+            /* Subtle visibility for debugging, usually 0.2-0.4 for "feel", 1.0 for copying */
             mix-blend-mode: multiply;
         }
+
         /* Make text selection familiar (Standard Blue) */
         .textLayer ::selection {
             background: rgba(0, 120, 215, 0.4);
             color: white;
         }
 
-        #viewer-wrapper { 
-            height: calc(100vh - 64px); 
-            overflow-y: auto; 
+        #main-container {
+            display: grid;
+            grid-template-areas: "sidebar viewer editor";
+            grid-template-columns: 0fr 1fr 0fr;
+            height: calc(100vh - 64px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.workbench-active #main-container {
+            grid-template-columns: 240px 1fr 1fr;
+        }
+
+        #sidebar-wrapper {
+            grid-area: sidebar;
+            height: 100%;
+            background: #1A1718;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.workbench-active #sidebar-wrapper {
+            transform: translateX(0);
+        }
+
+        .thumbnail-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .thumbnail-item {
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .thumbnail-item:hover {
+            border-color: var(--primary);
+        }
+
+        .thumbnail-item.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(176, 139, 73, 0.3);
+        }
+
+        .thumbnail-check {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 18px;
+            height: 18px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--primary);
+            z-index: 10;
+        }
+
+        .thumbnail-label {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 9px;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+
+        #viewer-wrapper {
+            grid-area: viewer;
+            height: 100%;
+            overflow-y: auto;
             scroll-behavior: smooth;
             background-image: radial-gradient(circle at center, #252021 0%, #1A1718 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #editor-wrapper {
+            grid-area: editor;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--archive-bg);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.workbench-active #editor-wrapper {
+            transform: translateX(0);
+        }
+
+        #editor-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: transparent;
+        }
+
+        .ocr-line {
+            padding: 2px 6px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s;
+            border-left: 2px solid transparent;
+        }
+
+        .ocr-line:hover {
+            background: rgba(176, 139, 73, 0.1);
+            border-left: 2px solid var(--primary);
+        }
+
+        .ocr-line.active {
+            background: rgba(176, 139, 73, 0.2);
+            border-left: 2px solid var(--primary);
+            color: white;
+        }
+
+        #sync-highlight {
+            position: absolute;
+            pointer-events: none;
+            border: 2px solid #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+            z-index: 50;
+            display: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .editor-toolbar {
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            gap: 1rem;
         }
 
         #canvas-container {
@@ -56,6 +214,10 @@
 
         .toolbar-btn {
             @apply flex items-center justify-center h-10 w-10 text-primary hover:text-archive-heading hover:bg-primary/10 transition-all rounded-sm disabled:opacity-20 disabled:pointer-events-none;
+        }
+
+        .toolbar-btn.active {
+            @apply bg-primary text-archive-dark;
         }
 
         #loading-overlay {
@@ -79,19 +241,34 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
+
 <body class="overflow-hidden text-archive-secondary">
 
     <!-- HEADER / TOOLBAR -->
-    <header class="h-16 border-b border-white/10 flex items-center justify-between px-6 bg-[#2E282A] z-[110] relative shadow-xl">
+    <header
+        class="h-16 border-b border-white/10 flex items-center justify-between px-6 bg-[#2E282A] z-[110] relative shadow-xl">
         <div class="flex items-center gap-6">
-            <button onclick="window.close()" class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">arrow_back</span> Exit
+            <button onclick="window.close()"
+                class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-primary transition-colors">
+                <span
+                    class="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                Exit
             </button>
             <div class="h-6 w-px bg-white/10"></div>
-            <h1 id="doc-title" class="text-archive-heading font-display font-bold uppercase tracking-wider text-sm truncate max-w-[200px] md:max-w-md">Primary Source</h1>
+            <h1 id="doc-title"
+                class="text-archive-heading font-display font-bold uppercase tracking-wider text-sm truncate max-w-[200px] md:max-w-md">
+                Primary Source</h1>
         </div>
 
         <!-- NAVIGATION CONTROLS -->
@@ -99,10 +276,13 @@
             <button id="prev-page" class="toolbar-btn" title="Previous Page">
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
-            
+
             <div class="flex items-center gap-2 px-3">
-                <input type="number" id="page-num-input" class="w-12 bg-archive-dark border border-white/10 text-center text-xs font-bold text-primary focus:border-primary outline-none py-1" value="1">
-                <span class="text-[10px] font-bold text-white/40 uppercase tracking-tighter">of <span id="page-count">0</span></span>
+                <input type="number" id="page-num-input"
+                    class="w-12 bg-archive-dark border border-white/10 text-center text-xs font-bold text-primary focus:border-primary outline-none py-1"
+                    value="1">
+                <span class="text-[10px] font-bold text-white/40 uppercase tracking-tighter">of <span
+                        id="page-count">0</span></span>
             </div>
 
             <button id="next-page" class="toolbar-btn" title="Next Page">
@@ -110,35 +290,84 @@
             </button>
         </div>
 
-        <!-- ZOOM CONTROLS -->
-        <div class="flex items-center gap-1">
-            <button id="zoom-out" class="toolbar-btn" title="Zoom Out">
-                <span class="material-symbols-outlined">remove</span>
+        <!-- WORKBENCH TOGGLE -->
+        <div class="flex items-center gap-4">
+            <button id="toggle-workbench"
+                class="flex items-center gap-2 px-4 py-2 border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary/10 transition-all rounded-sm">
+                <span class="material-symbols-outlined text-sm">construction</span> Workbench
             </button>
-            <span id="zoom-level" class="text-[9px] font-bold text-white/40 w-10 text-center uppercase tracking-tighter">100%</span>
-            <button id="zoom-in" class="toolbar-btn" title="Zoom In">
-                <span class="material-symbols-outlined">add</span>
-            </button>
-            <div class="h-6 w-px bg-white/10 mx-2"></div>
-            <button id="fit-width" class="toolbar-btn" title="Fit to Width">
-                <span class="material-symbols-outlined">fit_screen</span>
-            </button>
+
+            <!-- ZOOM CONTROLS -->
+            <div class="flex items-center gap-1">
+                <button id="zoom-out" class="toolbar-btn" title="Zoom Out">
+                    <span class="material-symbols-outlined">remove</span>
+                </button>
+                <span id="zoom-level"
+                    class="text-[9px] font-bold text-white/40 w-10 text-center uppercase tracking-tighter">100%</span>
+                <button id="zoom-in" class="toolbar-btn" title="Zoom In">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+                <div class="h-6 w-px bg-white/10 mx-2"></div>
+                <button id="fit-width" class="toolbar-btn" title="Fit to Width">
+                    <span class="material-symbols-outlined">fit_screen</span>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- LOADING STATE -->
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary animate-pulse">Accessing Evidentiary File...</span>
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary animate-pulse">Accessing Evidentiary
+            File...</span>
     </div>
 
-    <!-- VIEWER AREA -->
-    <div id="viewer-wrapper">
-        <div id="canvas-container">
-            <canvas id="pdf-canvas"></canvas>
-            <div id="text-layer" class="textLayer"></div>
+    <!-- MAIN WORKSPACE -->
+    <main id="main-container">
+        <!-- SIDEBAR (Splitter) -->
+        <div id="sidebar-wrapper">
+            <div class="h-10 bg-black/40 border-b border-white/5 flex items-center px-4 justify-between">
+                <span class="text-[9px] font-bold uppercase tracking-widest text-primary/60">Pages / Splitter</span>
+                <button class="text-[9px] font-bold uppercase tracking-widest text-primary hover:text-white"
+                    onclick="selectAllPages()">All</button>
+            </div>
+            <div id="thumbnail-list" class="thumbnail-container">
+                <!-- Thumbnails injected here -->
+            </div>
+            <div class="p-4 border-t border-white/5 bg-black/20">
+                <button id="btn-split"
+                    class="w-full py-2 bg-primary text-archive-dark text-[10px] font-bold uppercase tracking-widest hover:bg-archive-heading transition-all"
+                    onclick="submitSplitJob()">
+                    Process Selected
+                </button>
+            </div>
         </div>
-    </div>
+
+        <!-- VIEWER AREA -->
+        <div id="viewer-wrapper">
+            <div id="canvas-container">
+                <canvas id="pdf-canvas"></canvas>
+                <div id="text-layer" class="textLayer"></div>
+                <!-- Visual Sync Overlay -->
+                <div id="sync-highlight"></div>
+            </div>
+        </div>
+
+        <!-- EXTRACTION WORKBENCH (EDITOR Pane) -->
+        <div id="editor-wrapper">
+            <div class="editor-toolbar">
+                <span id="workbench-status"
+                    class="text-[10px] font-bold uppercase tracking-widest text-primary/60 flex-1">Extraction
+                    Review</span>
+                <button class="text-[10px] font-bold uppercase tracking-widest text-primary hover:text-white"
+                    onclick="saveExtraction()">Save Commit</button>
+            </div>
+            <div id="editor-content" class="text-archive-heading font-mono text-sm leading-relaxed"
+                contenteditable="true">
+                <p class="text-white/20">Loading forensic data...</p>
+            </div>
+        </div>
+    </main>
 
     <script>
         const pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -160,7 +389,7 @@
             pageRendering = true;
             const page = await pdfDoc.getPage(num);
             const viewport = page.getViewport({ scale: scale });
-            
+
             canvas.height = viewport.height;
             canvas.width = viewport.width;
 
@@ -244,6 +473,81 @@
             });
         }
 
+        async function renderThumbnails() {
+            const list = document.getElementById('thumbnail-list');
+            list.innerHTML = "";
+
+            // Limit thumbnails for large documents for performance
+            const limit = Math.min(pdfDoc.numPages, 100);
+
+            for (let i = 1; i <= limit; i++) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 0.2 });
+
+                const item = document.createElement('div');
+                item.className = "thumbnail-item";
+                if (i === pageNum) item.classList.add('active');
+                item.dataset.page = i;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = "relative bg-black/40 overflow-hidden";
+                wrapper.style.aspectRatio = `${viewport.width} / ${viewport.height}`;
+
+                const tCanvas = document.createElement('canvas');
+                tCanvas.width = viewport.width * 2; // sharper
+                tCanvas.height = viewport.height * 2;
+                tCanvas.className = "w-full h-auto opacity-60 transition-opacity hover:opacity-100";
+
+                const tCtx = tCanvas.getContext('2d');
+                await page.render({ canvasContext: tCtx, viewport: page.getViewport({ scale: 0.4 }) }).promise;
+
+                const check = document.createElement('input');
+                check.type = "checkbox";
+                check.className = "thumbnail-check cursor-pointer";
+                check.addEventListener('click', (e) => e.stopPropagation());
+
+                const label = document.createElement('div');
+                label.className = "thumbnail-label";
+                label.textContent = i;
+
+                wrapper.appendChild(tCanvas);
+                wrapper.appendChild(check);
+                wrapper.appendChild(label);
+                item.appendChild(wrapper);
+
+                item.addEventListener('click', () => {
+                    pageNum = i;
+                    queueRenderPage(pageNum);
+                    updateThumbnailActive();
+                });
+
+                list.appendChild(item);
+            }
+        }
+
+        function updateThumbnailActive() {
+            document.querySelectorAll('.thumbnail-item').forEach(item => {
+                item.classList.toggle('active', parseInt(item.dataset.page) === pageNum);
+            });
+        }
+
+        function selectAllPages() {
+            document.querySelectorAll('.thumbnail-check').forEach(cb => cb.checked = true);
+        }
+
+        function submitSplitJob() {
+            const selected = Array.from(document.querySelectorAll('.thumbnail-item'))
+                .filter(item => item.querySelector('.thumbnail-check').checked)
+                .map(item => parseInt(item.dataset.page));
+
+            if (selected.length === 0) {
+                alert("Please select at least one page to process.");
+                return;
+            }
+
+            alert(`Surgical Split NOT YET IMPLEMENTED.\nWould send pages [${selected.join(', ')}] to OCR API.`);
+        }
+
         /**
          * Initialization
          */
@@ -252,10 +556,15 @@
                 pdfDoc = doc;
                 document.getElementById('page-count').textContent = doc.numPages;
                 document.getElementById('doc-title').textContent = url.split('/').pop().replace('.pdf', '').replace(/-/g, ' ');
-                
+
                 // Jump to initial page from URL
                 pageNum = initialPage > doc.numPages ? 1 : initialPage;
                 renderPage(pageNum);
+
+                // Load thumbnails if workbench active
+                if (document.body.classList.contains('workbench-active')) {
+                    renderThumbnails();
+                }
             }).catch(err => {
                 console.error("Error loading PDF:", err);
                 document.getElementById('status-info').textContent = "Load Error";
@@ -277,13 +586,134 @@
             }
         });
 
+        // Workbench Logic
+        const btnToggleWorkbench = document.getElementById('toggle-workbench');
+        const editorContent = document.getElementById('editor-content');
+        const syncHighlight = document.getElementById('sync-highlight');
+        let ocrData = null;
+
+        function toggleWorkbench() {
+            document.body.classList.toggle('workbench-active');
+            const isActive = document.body.classList.contains('workbench-active');
+            btnToggleWorkbench.classList.toggle('active', isActive);
+
+            if (isActive) {
+                if (!ocrData) loadWorkbenchData(url);
+                if (pdfDoc && document.getElementById('thumbnail-list').children.length === 0) {
+                    renderThumbnails();
+                }
+            }
+
+            // Re-render PDF if we changed dimensions significantly
+            setTimeout(() => onFitWidth(), 450);
+        }
+
+        btnToggleWorkbench.addEventListener('click', toggleWorkbench);
+
+        async function loadWorkbenchData(fileUrl) {
+            if (!fileUrl) return;
+            const baseName = fileUrl.split('/').pop().replace('.pdf', '');
+            document.getElementById('workbench-status').textContent = "Loading Forensic Data...";
+
+            try {
+                const response = await fetch(`/api/download/${baseName}.ocr.json`);
+                if (!response.ok) throw new Error("No coordinate data");
+                ocrData = await response.json();
+                renderWorkbenchLines();
+            } catch (err) {
+                console.warn("Workbench: Falling back to text-only (No coordinates found)");
+                fetch(`/api/download/${baseName}.txt`)
+                    .then(r => r.ok ? r.text() : "No text available")
+                    .then(text => {
+                        editorContent.innerHTML = `<div class='p-4 opacity-50 text-xs uppercase mb-4 italic'>Mode: Text-Only (Coordinates Unavailable)</div><pre class='whitespace-pre-wrap'>${text}</pre>`;
+                        document.getElementById('workbench-status').textContent = "Manual Review Mode";
+                    });
+            }
+        }
+
+        function renderWorkbenchLines() {
+            editorContent.innerHTML = "";
+            ocrData.pages.forEach(pg => {
+                const pageHeader = document.createElement('div');
+                pageHeader.className = "text-[10px] text-primary/40 font-bold uppercase mt-8 mb-4 border-b border-primary/10 pb-1";
+                pageHeader.textContent = `Page ${pg.page}`;
+                editorContent.appendChild(pageHeader);
+
+                pg.lines.forEach(line => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = "ocr-line";
+                    lineDiv.textContent = line.text;
+
+                    lineDiv.addEventListener('click', () => {
+                        scrollToCoordinate(pg.page, line.bbox);
+                        // Highlight active line
+                        document.querySelectorAll('.ocr-line').forEach(l => l.classList.remove('active'));
+                        lineDiv.classList.add('active');
+                    });
+
+                    editorContent.appendChild(lineDiv);
+                });
+            });
+            document.getElementById('workbench-status').textContent = "Ready for Verification";
+        }
+
+        function scrollToCoordinate(page, bbox) {
+            if (pageNum !== page) {
+                pageNum = page;
+                queueRenderPage(pageNum);
+            }
+
+            // Small delay to ensure render is finishing
+            setTimeout(() => {
+                const [x1, y1, x2, y2] = bbox;
+                const container = document.getElementById('viewer-wrapper');
+
+                // OCR coordinates are usually in "pixel" space of the original image
+                // We need to scale them to current canvas scale
+                const pgInfo = ocrData.pages.find(p => p.page === page);
+                const scaleFactor = canvas.width / pgInfo.width;
+
+                const top = y1 * scaleFactor;
+                const left = x1 * scaleFactor;
+                const width = (x2 - x1) * scaleFactor;
+                const height = (y2 - y1) * scaleFactor;
+
+                // Move highlight
+                syncHighlight.style.display = 'block';
+                syncHighlight.style.top = `${top}px`;
+                syncHighlight.style.left = `${left}px`;
+                syncHighlight.style.width = `${width}px`;
+                syncHighlight.style.height = `${height}px`;
+
+                // Scroll into view
+                container.scrollTo({
+                    top: top - 150,
+                    behavior: 'smooth'
+                });
+            }, 150);
+        }
+
+        // Check for initial workbench mode
+        if (params.get('mode') === 'workbench') {
+            toggleWorkbench();
+        }
+
+        function saveExtraction() {
+            alert("Commit to database not yet implemented. This will be Phase 4.");
+        }
+
         // Keyboard Support
         window.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'PageDown') onNextPage();
             if (e.key === 'ArrowLeft' || e.key === 'PageUp') onPrevPage();
             if (e.key === '+' || (e.key === '=' && e.ctrlKey)) onZoomIn();
             if (e.key === '-' && e.ctrlKey) onZoomOut();
+            if (e.key === 'w' && e.ctrlKey) {
+                e.preventDefault();
+                toggleWorkbench();
+            }
         });
     </script>
 </body>
+
 </html>

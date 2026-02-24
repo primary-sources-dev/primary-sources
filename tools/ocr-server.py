@@ -37,6 +37,13 @@ except ImportError:
     PARSER_AVAILABLE = False
     print("Warning: header_parser not available")
 
+try:
+    from citation_generator import generate_citation, generate_all_citations, CitationFormat
+    CITATION_AVAILABLE = True
+except ImportError:
+    CITATION_AVAILABLE = False
+    print("Warning: citation_generator not available")
+
 # Flask app serving from docs/ui/ocr/
 # Note: static_url_path="/static" avoids conflict with API routes
 app = Flask(__name__, 
@@ -47,7 +54,7 @@ app = Flask(__name__,
 # Configuration
 UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "processed")
 MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
-ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp"}
+ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = MAX_FILE_SIZE
@@ -110,6 +117,7 @@ def create_job():
     output_txt = request.form.get("output_txt", "true") == "true"
     output_md = request.form.get("output_md", "false") == "true"
     output_html = request.form.get("output_html", "false") == "true"
+    output_json = request.form.get("output_json", "true") == "true"
     deskew = request.form.get("deskew", "true") == "true"
     clean = request.form.get("clean", "true") == "true"
     force_ocr = request.form.get("force_ocr", "false") == "true"
@@ -157,6 +165,7 @@ def create_job():
             "output_txt": output_txt,
             "output_md": output_md,
             "output_html": output_html,
+            "output_json": output_json,
             "deskew": deskew,
             "clean": clean,
             "force_ocr": force_ocr,
@@ -215,6 +224,7 @@ def process_job_worker(job_id):
                     output_txt=job["options"]["output_txt"],
                     output_md=job["options"]["output_md"],
                     output_html=job["options"]["output_html"],
+                    output_json=job["options"].get("output_json", True),
                     deskew=job["options"]["deskew"],
                     clean=job["options"]["clean"],
                     force_ocr=job["options"]["force_ocr"],
@@ -364,6 +374,65 @@ def parse_header_endpoint():
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": f"Parse error: {str(e)}"}), 500
+
+
+@app.route("/api/cite", methods=["POST"])
+def cite_endpoint():
+    """
+    Generate academic citations from source metadata.
+
+    Request body (JSON):
+        {
+            "source": {
+                "title": "Document Title",
+                "author": "Author Name",
+                "published_date": "1963-11-22",
+                "source_type": "FBI_302",
+                "external_ref": "DL 89-43",
+                "archive": "NARA"
+            },
+            "format": "chicago"  // Optional: chicago, mla, apa, nara (default: all)
+        }
+
+    Response:
+        If format specified: { "citation": "..." }
+        If no format:        { "chicago": "...", "mla": "...", "apa": "...", "nara": "..." }
+    """
+    if not CITATION_AVAILABLE:
+        return jsonify({"error": "Citation generator not available"}), 503
+
+    data = request.get_json()
+    if not data or "source" not in data:
+        return jsonify({"error": "Missing 'source' field in request body"}), 400
+
+    source = data["source"]
+    if not source.get("title"):
+        return jsonify({"error": "Source must have a 'title' field"}), 400
+
+    try:
+        format_str = data.get("format")
+        
+        if format_str:
+            # Single format requested
+            format_map = {
+                "chicago": CitationFormat.CHICAGO,
+                "mla": CitationFormat.MLA,
+                "apa": CitationFormat.APA,
+                "nara": CitationFormat.NARA,
+            }
+            fmt = format_map.get(format_str.lower())
+            if not fmt:
+                return jsonify({"error": f"Unknown format: {format_str}. Use: chicago, mla, apa, nara"}), 400
+            
+            citation = generate_citation(source, fmt)
+            return jsonify({"citation": citation, "format": format_str.lower()})
+        else:
+            # Return all formats
+            citations = generate_all_citations(source)
+            return jsonify(citations)
+            
+    except Exception as e:
+        return jsonify({"error": f"Citation error: {str(e)}"}), 500
 
 
 # ============================================================================

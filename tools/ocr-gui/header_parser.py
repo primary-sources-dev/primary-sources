@@ -1,12 +1,18 @@
 """
-header_parser.py — Forensic Header Parser for Archival Documents
+header_parser.py — Forensic Document Parser for Archival Documents
 
 Extracts structured metadata (Agency, RIF Number, Date, Author) from OCR'd 
-archival document headers using regex-based pattern recognition.
+archival documents using regex-based pattern recognition.
 
-Supports:
-- FBI 302 Forms (Agent name, Field Office, Date)
+Supports header parsing:
 - NARA RIF Sheets (Agency, Record Number, Date)
+- Warren Commission Exhibits (CE numbers)
+- Generic memo headers (Date, Subject)
+
+Supports footer parsing (FBI 302 specific):
+- Agent signature lines ("transcribed by SA...")
+- File numbers in footer position
+- Date of transcription
 
 See: docs/ui/ocr/plans/forensic-header-parser.md (WO-OCR-007)
 """
@@ -28,7 +34,8 @@ class ExtractedField:
 
 @dataclass
 class ParsedHeader:
-    """Complete extraction result from a document header."""
+    """Complete extraction result from a document (header + footer)."""
+    # Header-sourced fields
     rif_number: Optional[ExtractedField] = None
     agency: Optional[ExtractedField] = None
     date: Optional[ExtractedField] = None
@@ -36,6 +43,13 @@ class ParsedHeader:
     author: Optional[ExtractedField] = None
     document_type: Optional[str] = None  # FBI_302, NARA_RIF, etc.
     raw_header: str = ""
+    
+    # Footer-sourced fields (FBI 302 specific)
+    footer_author: Optional[ExtractedField] = None  # "transcribed by SA..."
+    footer_file_number: Optional[ExtractedField] = None  # File number in footer
+    footer_date: Optional[ExtractedField] = None  # Date of transcription
+    raw_footer: str = ""
+    
     extraction_notes: list[str] = field(default_factory=list)
     
     def to_dict(self) -> dict:
@@ -48,34 +62,44 @@ class ParsedHeader:
             "author": asdict(self.author) if self.author else None,
             "document_type": self.document_type,
             "raw_header": self.raw_header,
+            # Footer fields
+            "footer_author": asdict(self.footer_author) if self.footer_author else None,
+            "footer_file_number": asdict(self.footer_file_number) if self.footer_file_number else None,
+            "footer_date": asdict(self.footer_date) if self.footer_date else None,
+            "raw_footer": self.raw_footer,
             "extraction_notes": self.extraction_notes,
         }
         return result
     
     def has_extractions(self) -> bool:
-        """Returns True if any fields were extracted."""
-        return any([self.rif_number, self.agency, self.date, self.author])
+        """Returns True if any fields were extracted (header or footer)."""
+        return any([
+            self.rif_number, self.agency, self.date, self.author,
+            self.footer_author, self.footer_file_number, self.footer_date
+        ])
 
 
 class HeaderParser:
     """
-    Regex-based metadata extractor for archival document headers.
+    Regex-based metadata extractor for archival document headers and footers.
     
     Usage:
         parser = HeaderParser()
-        result = parser.parse(ocr_text)
+        result = parser.parse(ocr_text)  # Header only
+        result = parser.parse(ocr_text, include_footer=True)  # Header + Footer
         if result.has_extractions():
             print(result.to_dict())
     
-    Known Limitations:
-        - FBI FD-302 forms (1960s): Agent name and file number are in the FOOTER,
-          not the header. This parser only scans the first HEADER_WINDOW characters.
-          Future enhancement: add footer scanning for FBI 302 metadata.
+    FBI 302 Note:
+        FBI FD-302 forms (1960s) place agent name and file number in the FOOTER.
+        Use include_footer=True to extract these fields.
     """
     
     # Number of characters from start of document to search for headers
-    # NOTE: FBI 302 agent/file info is in footer - may need footer scan mode
     HEADER_WINDOW = 2000
+    
+    # Number of characters from end of document to search for footers
+    FOOTER_WINDOW = 1500
     
     # ==========================================================================
     # PATTERN DEFINITIONS
@@ -99,8 +123,9 @@ class HeaderParser:
         },
         
         # FBI Special Agent attribution
+        # Handles: "SA James P. Hosty", "SA C. Ray Hall", "Special Agent John Smith"
         "fbi_agent": {
-            "pattern": r"(?:SA|Special\s+Agent)\s+(?P<agent>[A-Z][a-z]+(?:\s+[A-Z]\.?)?\s+[A-Z][a-z]+)",
+            "pattern": r"(?:SA|Special\s+Agent)\s+(?P<agent>[A-Z](?:[a-z]+|\.)\s+(?:[A-Z](?:[a-z]+|\.)\s+)?[A-Z][a-z]+)",
             "maps_to": "author",
             "confidence": "MEDIUM",
             "doc_type": "FBI_302",
@@ -152,6 +177,48 @@ class HeaderParser:
         },
     }
     
+    # ==========================================================================
+    # FOOTER PATTERN DEFINITIONS (FBI 302 specific)
+    # ==========================================================================
+    
+    FOOTER_PATTERNS = {
+        # "transcribed by SA [Name]" or "dictated by SA [Name]"
+        # Handles: "SA James P. Hosty", "SA C. Ray Hall", "SA John Smith"
+        "fbi_transcribed_by": {
+            "pattern": r"(?:transcribed|dictated|typed)\s+(?:by\s+)?(?:SA\s+)?(?P<agent>[A-Z](?:[a-z]+|\.)\s+(?:[A-Z](?:[a-z]+|\.)\s+)?[A-Z][a-z]+)",
+            "maps_to": "footer_author",
+            "confidence": "HIGH",
+        },
+        
+        # Agent name with slash notation: "Smith/Jones" or "SMITH/JONES"
+        "fbi_agent_slash": {
+            "pattern": r"(?P<agent>[A-Z][a-z]+(?:/[A-Z][a-z]+)?)\s*:\s*[a-z]{2,3}$",
+            "maps_to": "footer_author",
+            "confidence": "MEDIUM",
+        },
+        
+        # File number at end of document (e.g., "DL 89-43" or "89-43")
+        "fbi_footer_file": {
+            "pattern": r"(?P<file>[A-Z]{2}\s*\d{2,3}-\d+|\d{2,3}-\d{3,7})\s*$",
+            "maps_to": "footer_file_number",
+            "confidence": "MEDIUM",
+        },
+        
+        # Date of transcription pattern
+        "fbi_transcription_date": {
+            "pattern": r"(?:Date\s+(?:of\s+)?(?:transcription|dictation)[:\s]*)?(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<year>\d{2,4})",
+            "maps_to": "footer_date",
+            "confidence": "MEDIUM",
+        },
+        
+        # "on [date]" pattern common in FBI footers
+        "fbi_footer_on_date": {
+            "pattern": r"on\s+(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<year>\d{2,4})",
+            "maps_to": "footer_date",
+            "confidence": "LOW",
+        },
+    }
+    
     # Month name to number mapping
     MONTH_MAP = {
         "january": 1, "jan": 1,
@@ -169,18 +236,24 @@ class HeaderParser:
     }
     
     def __init__(self):
-        # Compile patterns for performance
+        # Compile header patterns for performance
         self._compiled = {
             name: re.compile(cfg["pattern"], re.IGNORECASE | re.MULTILINE)
             for name, cfg in self.PATTERNS.items()
         }
+        # Compile footer patterns
+        self._footer_compiled = {
+            name: re.compile(cfg["pattern"], re.IGNORECASE | re.MULTILINE)
+            for name, cfg in self.FOOTER_PATTERNS.items()
+        }
     
-    def parse(self, text: str) -> ParsedHeader:
+    def parse(self, text: str, include_footer: bool = True) -> ParsedHeader:
         """
-        Parse OCR text and extract header metadata.
+        Parse OCR text and extract header (and optionally footer) metadata.
         
         Args:
             text: Full OCR text from document
+            include_footer: If True, also scan document footer for FBI 302 metadata
             
         Returns:
             ParsedHeader with extracted fields and confidence scores
@@ -193,8 +266,9 @@ class HeaderParser:
         
         # Track detected document type
         detected_doc_type = None
+        header_field_count = 0
         
-        # Apply each pattern
+        # Apply each header pattern
         for pattern_name, config in self.PATTERNS.items():
             regex = self._compiled[pattern_name]
             match = regex.search(header_text)
@@ -222,18 +296,22 @@ class HeaderParser:
             if maps_to == "rif_number":
                 if not result.rif_number or self._confidence_rank(confidence) > self._confidence_rank(result.rif_number.confidence):
                     result.rif_number = extracted
+                    header_field_count += 1
                     
             elif maps_to == "agency":
                 if not result.agency or self._confidence_rank(confidence) > self._confidence_rank(result.agency.confidence):
                     result.agency = extracted
+                    header_field_count += 1
                     
             elif maps_to == "author":
                 if not result.author or self._confidence_rank(confidence) > self._confidence_rank(result.author.confidence):
                     result.author = extracted
+                    header_field_count += 1
                     
             elif maps_to == "date":
                 if not result.date or self._confidence_rank(confidence) > self._confidence_rank(result.date.confidence):
                     result.date = extracted
+                    header_field_count += 1
                     # Normalize the date
                     result.date_iso = self._normalize_date(groups, pattern_name)
             
@@ -243,15 +321,96 @@ class HeaderParser:
         
         result.document_type = detected_doc_type
         
+        # Parse footer if requested
+        footer_field_count = 0
+        if include_footer:
+            footer_field_count = self._parse_footer(text, result)
+        
         # Add extraction notes
-        if result.has_extractions():
-            result.extraction_notes.append(f"Extracted {sum(1 for f in [result.rif_number, result.agency, result.date, result.author] if f)} field(s)")
+        total_fields = header_field_count + footer_field_count
+        if total_fields > 0:
+            notes = []
+            if header_field_count > 0:
+                notes.append(f"{header_field_count} header field(s)")
+            if footer_field_count > 0:
+                notes.append(f"{footer_field_count} footer field(s)")
+            result.extraction_notes.append(f"Extracted {' + '.join(notes)}")
             if result.document_type:
                 result.extraction_notes.append(f"Document type detected: {result.document_type}")
         else:
-            result.extraction_notes.append("No recognizable header patterns found")
+            result.extraction_notes.append("No recognizable patterns found in header or footer")
         
         return result
+    
+    def _parse_footer(self, text: str, result: ParsedHeader) -> int:
+        """
+        Parse document footer for FBI 302-specific metadata.
+        
+        Args:
+            text: Full OCR text
+            result: ParsedHeader to update with footer fields
+            
+        Returns:
+            Number of fields extracted from footer
+        """
+        # Get footer window (last N characters)
+        footer_text = text[-self.FOOTER_WINDOW:] if len(text) > self.FOOTER_WINDOW else text
+        result.raw_footer = footer_text
+        
+        field_count = 0
+        
+        for pattern_name, config in self.FOOTER_PATTERNS.items():
+            regex = self._footer_compiled[pattern_name]
+            match = regex.search(footer_text)
+            
+            if not match:
+                continue
+            
+            maps_to = config["maps_to"]
+            confidence = config["confidence"]
+            
+            # Extract the primary named group value
+            groups = match.groupdict()
+            non_none_keys = [k for k in groups.keys() if groups[k]]
+            if not non_none_keys:
+                continue
+            primary_key = non_none_keys[0]
+            value = groups[primary_key].strip()
+            
+            extracted = ExtractedField(
+                value=value,
+                confidence=confidence,
+                pattern_name=pattern_name,
+                raw_match=match.group(0),
+            )
+            
+            # Map to footer result fields
+            if maps_to == "footer_author":
+                if not result.footer_author or self._confidence_rank(confidence) > self._confidence_rank(result.footer_author.confidence):
+                    result.footer_author = extracted
+                    field_count += 1
+                    # If no header author, this becomes the primary author
+                    if not result.author:
+                        result.author = extracted
+                        
+            elif maps_to == "footer_file_number":
+                if not result.footer_file_number or self._confidence_rank(confidence) > self._confidence_rank(result.footer_file_number.confidence):
+                    result.footer_file_number = extracted
+                    field_count += 1
+                    # If no header RIF, use footer file number
+                    if not result.rif_number:
+                        result.rif_number = extracted
+                        
+            elif maps_to == "footer_date":
+                if not result.footer_date or self._confidence_rank(confidence) > self._confidence_rank(result.footer_date.confidence):
+                    result.footer_date = extracted
+                    field_count += 1
+        
+        # If we found footer fields and no doc type yet, likely FBI 302
+        if field_count > 0 and not result.document_type:
+            result.document_type = "FBI_302"
+        
+        return field_count
     
     def _confidence_rank(self, confidence: str) -> int:
         """Convert confidence level to numeric rank for comparison."""
@@ -300,22 +459,31 @@ class HeaderParser:
 
 
 # =============================================================================
-# CONVENIENCE FUNCTION
+# CONVENIENCE FUNCTIONS
 # =============================================================================
 
-def parse_header(text: str) -> dict:
+def parse_header(text: str, include_footer: bool = True) -> dict:
     """
     Convenience function to parse text and return JSON-serializable dict.
     
     Args:
         text: OCR text to parse
+        include_footer: If True, also scan document footer (default: True)
         
     Returns:
-        Dictionary with extracted metadata
+        Dictionary with extracted metadata from header and footer
     """
     parser = HeaderParser()
-    result = parser.parse(text)
+    result = parser.parse(text, include_footer=include_footer)
     return result.to_dict()
+
+
+def parse_document(text: str) -> dict:
+    """
+    Full document parser — scans both header and footer.
+    Alias for parse_header(text, include_footer=True).
+    """
+    return parse_header(text, include_footer=True)
 
 
 # =============================================================================
@@ -328,7 +496,7 @@ if __name__ == "__main__":
     
     # Test samples
     TEST_SAMPLES = [
-        # FBI 302 style
+        # FBI 302 style (header)
         """
         FEDERAL BUREAU OF INVESTIGATION
         
@@ -359,6 +527,28 @@ if __name__ == "__main__":
         Date: 22 Nov 1963
         
         Description: Bullet recovered from stretcher at Parkland Hospital
+        """,
+        
+        # FBI 302 with footer (agent info at bottom)
+        """
+        FEDERAL BUREAU OF INVESTIGATION
+        
+        Date of transcription: 11/26/63
+        
+        RALPH LEON YATES, 2527 Glenfield, Dallas, Texas, was interviewed at his 
+        place of employment, Morgan Express Company, 2531 Glenfield, Dallas, Texas.
+        
+        YATES stated that on Wednesday, November 20, 1963, he was driving a pickup
+        truck south on the Stemmons Expressway...
+        
+        [Multiple paragraphs of interview content...]
+        
+        ...YATES stated he did not observe the man closely enough to furnish a 
+        detailed description.
+        
+        transcribed by SA C. Ray Hall
+        DL 89-43
+        on 11/26/63
         """,
     ]
     

@@ -10,7 +10,8 @@ supabase/
     ├── 001_initial_schema.sql        # Full DDL: all tables, indexes, and triggers
     ├── 002_seed_vocab.sql            # Seed data: all 12 controlled vocabulary tables
     ├── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
-    └── 004_integrity_fixes.sql       # Integrity enforcement: polymorphic FKs, CHECK constraints, deletion protection
+    ├── 004_integrity_fixes.sql       # Integrity enforcement: polymorphic FKs, CHECK constraints, deletion protection
+    └── 005_age_at_event.sql          # Age-at-Event Badge: age_at_event() function + view
 ```
 
 ## Running the Migrations
@@ -23,8 +24,9 @@ supabase/
 4. Paste and run `002_seed_vocab.sql`
 5. Paste and run `003_predicate_registry.sql`
 6. Paste and run `004_integrity_fixes.sql`
+7. Paste and run `005_age_at_event.sql`
 
-> **Important:** Run migrations in numerical order (001 → 002 → 003 → 004). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
+> **Important:** Run migrations in numerical order (001 → 005). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
 
 ### Option B — Supabase CLI
 
@@ -46,6 +48,7 @@ psql -U postgres -d postgres -f supabase/migrations/001_initial_schema.sql
 psql -U postgres -d postgres -f supabase/migrations/002_seed_vocab.sql
 psql -U postgres -d postgres -f supabase/migrations/003_predicate_registry.sql
 psql -U postgres -d postgres -f supabase/migrations/004_integrity_fixes.sql
+psql -U postgres -d postgres -f supabase/migrations/005_age_at_event.sql
 ```
 
 ## Schema Overview
@@ -78,4 +81,17 @@ To maintain 4NF standards, the `event` table does not contain a `parent_id` or `
 
 ## Adding New Migrations
 
-Name each new file sequentially: `003_...sql`, `004_...sql`, etc. Never modify a migration that has already been applied to a live database — add a new one instead.
+Name each new file sequentially: `006_...sql`, `007_...sql`, etc. Never modify a migration that has already been applied to a live database — add a new one instead.
+
+## Utility Functions
+
+| Function | Description |
+|----------|-------------|
+| `age_at_event(person_id, event_id)` | Returns person's age (years) at event time |
+| `age_at_date(person_id, date)` | Returns person's age (years) at any date |
+
+## Views
+
+| View | Description |
+|------|-------------|
+| `v_event_participant_with_age` | Event participants with pre-calculated age badges |

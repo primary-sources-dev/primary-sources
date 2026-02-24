@@ -260,6 +260,11 @@ function renderQueue() {
             </div>
                         <div class="flex items-center gap-2">
                             ${isCompleted ? `
+                                <a href="../pdf-viewer.html?file=processed/${file.name}&mode=workbench" target="_blank" 
+                                   class="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 border border-primary/40 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
+                                   title="Open in Extraction Workbench">
+                                    <span class="material-symbols-outlined text-sm">construction</span> Workbench
+                                </a>
                                 <a href="../pdf-viewer.html?file=processed/${file.name}" target="_blank" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="View in Browser">
