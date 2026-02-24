@@ -4,13 +4,25 @@
     "total_pages": 716,
     "pages_tested": [
       1,
-      5,
-      10,
-      20,
-      30,
-      50,
-      75,
-      100,
+      6,
+      11,
+      16,
+      21,
+      26,
+      31,
+      36,
+      41,
+      46,
+      51,
+      56,
+      61,
+      66,
+      71,
+      76,
+      81,
+      86,
+      91,
+      96,
       150,
       200,
       250,
@@ -20,17 +32,17 @@
       600,
       700
     ],
-    "timestamp": "2026-02-24T01:09:31.573373"
+    "timestamp": "2026-02-24T01:10:21.484076"
   },
   "type_counts": {
-    "UNKNOWN": 12,
-    "HSCA_REPORT": 3,
+    "UNKNOWN": 11,
+    "HSCA_REPORT": 16,
     "HSCA_DOC": 1
   },
   "type_confidences": {
     "UNKNOWN": 0.0,
-    "HSCA_REPORT": 0.22066666666666668,
-    "HSCA_DOC": 0.533
+    "HSCA_REPORT": 0.2978125,
+    "HSCA_DOC": 0.65
   },
   "results": [
     {
@@ -50,39 +62,7 @@
       }
     },
     {
-      "page": 5,
-      "char_count": 288,
-      "text_preview": "CONTENTS L Findings of the Select Committeeon Assassinations in the assassina Ynge tion of President John F Kennedy 8 Findings of the Select Committeeon Assassinations in the assassina tion of Dr Marthin Luther King Jr 5 Recommendationsof the Select Committeeon Assassinations 6 H.B 1828 ",
-      "classification": {
-        "type": "UNKNOWN",
-        "confidence": 0.0,
-        "confidence_label": "UNCERTAIN",
-        "matched_patterns": []
-      },
-      "extraction": {
-        "fields_found": 0,
-        "field_names": [],
-        "fields": {}
-      }
-    },
-    {
-      "page": 10,
-      "char_count": 2706,
-      "text_preview": "4 D Agencies and departments of the U.S Government performed with varying degrees of competency in the fulfillment of their duties President John F hennedy did not receive adequate protection A thorough and reliable investigation into the responsibility of Lee Harvey Oswald for the assassination of President John F hennedy was conducted The investigation into the possibility of conspiracy in the assassination was inadequate The conclusions of the investiga tions were arrived at in good faith but",
-      "classification": {
-        "type": "UNKNOWN",
-        "confidence": 0.0,
-        "confidence_label": "UNCERTAIN",
-        "matched_patterns": []
-      },
-      "extraction": {
-        "fields_found": 0,
-        "field_names": [],
-        "fields": {}
-      }
-    },
-    {
-      "page": 20,
+      "page": 6,
       "char_count": 0,
       "text_preview": "",
       "classification": {
@@ -98,7 +78,43 @@
       }
     },
     {
-      "page": 30,
+      "page": 11,
+      "char_count": 2642,
+      "text_preview": "The Warrent Commission arrived at its conclusions based on the evidence available to it in good faith The Warren Commission presented the conclusions in its report in a fashion that was too definitive IL FINDINGSOF THE SELECTCOMMITTEEON ASSASSINATIONSIN THE ASSASSINATIONOF DR MARTIN LUTHER KING JR. IN MEMPHIS TENN. APRIL4 1968 A James Earl Ray fired one shot at Dr Martin Luther King Jr The shot killed Dr King Dr King was killed by one rifle shot fired from in front of him The shot that killed Dr",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.412,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Federal\\s+Bureau\\s+of\\s+Investigation",
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King"
+        ]
+      },
+      "extraction": {
+        "fields_found": 2,
+        "field_names": [
+          "subject_ray",
+          "subject_mlk"
+        ],
+        "fields": {
+          "subject_ray": {
+            "value": "James Earl Ray",
+            "zone": "body",
+            "confidence": 0.64
+          },
+          "subject_mlk": {
+            "value": "MARTIN LUTHER KING",
+            "zone": "body",
+            "confidence": 0.64
+          }
+        }
+      }
+    },
+    {
+      "page": 16,
       "char_count": 0,
       "text_preview": "",
       "classification": {
@@ -114,19 +130,453 @@
       }
     },
     {
-      "page": 50,
-      "char_count": 1280,
-      "text_preview": "20 In its policy meetings in December the committee heard the testi mony of the directors or deputy directors of the FBI CIA and Secret Service and the Deputy Attorney General representing the Depart ment of Justice These policy hearings explored the appropriateness of the amendment of existing legislation or the enactment of new legislation in light of the evidence that had been received by the committee The final phase of the committee's work included the preparation of this report which prese",
+      "page": 21,
+      "char_count": 1863,
+      "text_preview": "(v) CONTENTS Page Summary of findings and recommendations 1 Introduction 9 History of the committee 9 Nature and scope of the investigation 10 Structure of the investigation 18 I Findings of the Select Committee on Assassinationsin the assassina tion of President John F Kennedy 21 Introduction The Kennedy Presidency in perspective\t21 Presidential assassinationsin the United States\t21 A new President 24 Foreign affairs A fragile peace 25 The Cuban threat 25 Combatting Communismin Latin America\t27",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.279,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Lee\\s+Harvey\\s+Oswald",
+          "investigation",
+          "Texas\\s+School\\s+Book\\s+Depository"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "page_number",
+          "subject_oswald",
+          "subject_jfk"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "1",
+            "zone": "any",
+            "confidence": 0.46
+          },
+          "subject_oswald": {
+            "value": "Lee Harvey Oswald",
+            "zone": "body",
+            "confidence": 0.52
+          },
+          "subject_jfk": {
+            "value": "President John F Kennedy",
+            "zone": "body",
+            "confidence": 0.52
+          }
+        }
+      }
+    },
+    {
+      "page": 26,
+      "char_count": 2419,
+      "text_preview": "X I Findings of the Select Committee on Assassinations\u2014Continued D Agenciesand departments\u2014Continued 5 The Warren Commission\u2014Continued (b) The Warren Commissionfailed to investigate adequately the possibility of a conspiracy to assassinatethe President This deficiency was attributable in part to the failure ofthe Commission to receive all the relevant information that was in the possessionof other agencies and departments of the Page Government 256 (c) The Warren Commissionarrived at its con clu",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.368,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "James\\s+Earl\\s+Ray"
+        ]
+      },
+      "extraction": {
+        "fields_found": 4,
+        "field_names": [
+          "page_number",
+          "subject_ray",
+          "subject_mlk",
+          "ref_warren"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "256",
+            "zone": "any",
+            "confidence": 0.53
+          },
+          "subject_ray": {
+            "value": "James Earl Ray",
+            "zone": "body",
+            "confidence": 0.6
+          },
+          "subject_mlk": {
+            "value": "Martin Luther King",
+            "zone": "body",
+            "confidence": 0.6
+          },
+          "ref_warren": {
+            "value": "Warren Commission",
+            "zone": "body",
+            "confidence": 0.57
+          }
+        }
+      }
+    },
+    {
+      "page": 31,
+      "char_count": 2395,
+      "text_preview": "(1) SUMMARY OF FINDINGS AND RECOMMENDATIONS I FINDINGSOF THE SELE(7r COMM1TrEEON ASSASSINATIONSIN THE ASSASSINATIONOF PRESIDENTJOHN F KENNEDYIN DALLASTEx. NOVEMBER22 1963 A Lee Harvey Oswald fired three shots at President John F Ken nedy The second and third shots he fired struck the President The third shot he fired killed the President President Kennedy was struck by two rifle shots fired from behind him The shots that struck President Kennedy from behind him were fired from the sixth floor wi",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.338,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "the assassination(?:\\s+of)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Lee\\s+Harvey\\s+Oswald",
+          "conspiracy"
+        ]
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 36,
+      "char_count": 3011,
+      "text_preview": "6 trial as it applies to both the investigation and prosecution of federally cognizable homicides 2 The Judiciary Committee should examine recently passed special prosecutor legislation to determine if its provisions should be modified to extend them to Presidential assassinations and the circumstances if any under which they should be applicable to other federally cognizable homicides II Administrative recommrendations to the Executive The Department of Justice should reexamine its contingency ",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 41,
+      "char_count": 3499,
+      "text_preview": "11 were the assassin(s) of President John F Kennedy and Dr Martin Luther King Jr. Second did the assassin(s) have any aid or assist ance either before or after the assassination Third did the agencies and departments of the U.S Government adequately perform their duties and functions in (a) collecting and sharing information prior to the assassination (b) protecting John F Kennedy and Martin Luther King Jr. and (c) conducting investigations into each assassi nation and coordinating the results o",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.279,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "the assassination(?:\\s+of)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "investigation"
+        ]
+      },
+      "extraction": {
+        "fields_found": 2,
+        "field_names": [
+          "page_number",
+          "ref_cia"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "11",
+            "zone": "any",
+            "confidence": 0.46
+          },
+          "ref_cia": {
+            "value": "cia",
+            "zone": "body",
+            "confidence": 0.49
+          }
+        }
+      }
+    },
+    {
+      "page": 46,
+      "char_count": 3371,
+      "text_preview": "16 and second issues it identified\u2014who the assassin (s) of President Ken nedy and Dr King was (were) and if there was a conspiracy in either case\u2014so that the committee could effectively perform its oversight responsibilities in evaluating the performance of the executive As discussed a resolution of these issues was also necessary to determine whether the amendment of existing legislation or the enactment of new legislation was appropriate Despite the acknowledged risks and dangers to the reputa",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.382,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "the assassination(?:\\s+of)?",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "Lee\\s+Harvey\\s+Oswald",
+          "James\\s+Earl\\s+Ray"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "page_number",
+          "subject_ray",
+          "ref_cia"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "16",
+            "zone": "any",
+            "confidence": 0.55
+          },
+          "subject_ray": {
+            "value": "James Earl Ray",
+            "zone": "body",
+            "confidence": 0.61
+          },
+          "ref_cia": {
+            "value": "cia",
+            "zone": "body",
+            "confidence": 0.58
+          }
+        }
+      }
+    },
+    {
+      "page": 51,
+      "char_count": 2348,
+      "text_preview": "I FINDINGS OF THE SELECT COMMITTEE ON ASSASSI NATIONS IN THE ASSASSINATION OF PRESIDENT JOHN F KENNEDY IN DALLAS TEX. NOVEMBER 22 1963 INTRODUCTIONTIIE KENNEDYPRESIDENCYIN PERSPECTIVE John Fitzgerald Kennedy the 35th President of the United States was shot to death on November 22 1963 while riding in a motorcade in Dallas Tex Kennedy had represented for many the dawn of a new era of hope In his account of the Kennedy administration \"A Thou sand Days, historian and Kennedy staff member Arthur M S",
       "classification": {
         "type": "HSCA_REPORT",
         "confidence": 0.265,
         "confidence_label": "UNCERTAIN",
         "matched_patterns": [
-          "the committee(?:'s)?",
-          "Secret\\s+Service",
+          "the assassination(?:\\s+of)?",
           "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
-          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "conspiracy",
+          "motorcade",
+          "November\\s+22,?\\s+1963"
+        ]
+      },
+      "extraction": {
+        "fields_found": 1,
+        "field_names": [
+          "page_number"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "22",
+            "zone": "any",
+            "confidence": 0.45
+          }
+        }
+      }
+    },
+    {
+      "page": 56,
+      "char_count": 3193,
+      "text_preview": "26 The Cuban Revolutionary Council a group of anti-Castro exiles that was to have become the provisional government after Castro's over throw was particularly bitter about the Bay of Pigs Its principal leaders\u2014Antonio Macco Justo Carillo Carlos Heria Antonio de Varona Manuel Ray and Jose Mire Cardona\u2014had formed the Council with the CIA's sanction and had been promised recognition by the U.S Government They were outraged by the failure of the United States to support the invasion force At a meeti",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 61,
+      "char_count": 3161,
+      "text_preview": "31 rights laws to extend voting rights end segregation and fight racial discrimination Attorney General Kennedy expanded the Civil Rights Division of the Department of Justice and President Kennedy issued a strongly worded Executive order against discrimination in employ ment that established a Committee on Equal Employment Opportunity headed by Vice President Johnson Kennedy's civil rights program however increasingly alienated southerners and conservatives Violence erupted soon after Kennedy t",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 66,
+      "char_count": 2705,
+      "text_preview": "36 cycle police officers He told the special agent in charge of the White House detail that he did not want agents to ride on the rear of his car Kennedy was philosophical about danger According to Arthur M Schlesinger \"A Thousand Days, Kennedy believed assassination was a risk inherent in a democratic society In 1953 Schlesinger recounted then-Senator Kennedy read his favorite poem to his new bride Jac queline Bouvier Kennedy It was \"I have a Rendezvous with Death, by Alan Seeger.(15) It may be",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 71,
+      "char_count": 2899,
+      "text_preview": "A LEE HARVEYOSWALDFIRED THREE SHOTSAT PRESIDENTJOHN F KENNEDY THE SECONDANDTHIRD SHOTSHE FIREDSTRUCKTHE PRESIDENT THE THIRD SHOT HE FIREDKILLEDTHE PRESIDENT 1 PRESIDENTKENNEDYWASSTRUCKBY TWORIFLESHOTSFIREDFROM BEHINDHIM The President's Commission on the Assassination of President Ken nedy (Warren Commission) concluded that President Kennedy was struck by two bullets that were fired from above and behind him (1) According to the Commission one bullet hit the President near the base of the back of",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.206,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "motorcade"
+        ]
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 76,
+      "char_count": 3607,
+      "text_preview": "46 the alinement of the President and the Governor was consistent with the single bullet theory The panel also examined still photographs Several conclusions with respect to the validity of the single-bullet theory were reached.(42) The panel concluded there is clear photo graphic evidence that two shots spaced approximately 6 seconds apart struck the occupants of the limousine By Zapruder frame 207 when President Kennedy is seen going behind a sign that obstructed Zapruder's view he appears to ",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 81,
+      "char_count": 3056,
+      "text_preview": "51 ments retrieved from the limousine came from the same bullet as the fragments taken from President Kennedy's brain (76) Over the years skepticism has arisen as to whether the rifle found in the depository by Boone is the same rifle that was delivered to the Warren Commission and is presently stored in the National Archives The suspicion has been based to some extent on allegations that police officers who first discovered the rifle identified it as a 7.5 millimeter German Mauser (77) The cont",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.338,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Dealey\\s+Plaza"
+        ]
+      },
+      "extraction": {
+        "fields_found": 2,
+        "field_names": [
+          "page_number",
+          "ref_fbi"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "51",
+            "zone": "any",
+            "confidence": 0.51
+          },
+          "ref_fbi": {
+            "value": "FBI",
+            "zone": "body",
+            "confidence": 0.54
+          }
+        }
+      }
+    },
+    {
+      "page": 86,
+      "char_count": 3160,
+      "text_preview": "56 In addition the relative lengths of component parts of the alleged assassination rifle at the National Archives were compared to com ponent parts of the rifle that appeared in various 1963 photographs including the backyard photographs.(104) They were found to be entirely consistent component part for component part with each other.12 Upon completion of its analysis the photographic evidence panel concluded that the rifle depicted in the backyard photographs is the one that was found in the b",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.441,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Lee\\s+Harvey\\s+Oswald"
+        ]
+      },
+      "extraction": {
+        "fields_found": 2,
+        "field_names": [
+          "page_number",
+          "finding_type"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "56",
+            "zone": "any",
+            "confidence": 0.59
+          },
+          "finding_type": {
+            "value": "concluded",
+            "zone": "body",
+            "confidence": 0.59
+          }
+        }
+      }
+    },
+    {
+      "page": 91,
+      "char_count": 3549,
+      "text_preview": "61 Walker shooting was written by Oswald.(138) This undated note although it did not mention General Walker clearly indicated that Oswald was about to attempt an act during the course of which he might be killed or taken into custody (139) 15 The committee concluded that the evidence strongly suggested that Oswald attempted to murder General Walker and that he possessed a capacity for violence Such evidence is supportive of the committee's conclusion that Oswald assassinated President Kennedy (c",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.206,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Warren\\s+Commission",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
           "investigation"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "page_number",
+          "ref_cia",
+          "finding_type"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "61",
+            "zone": "any",
+            "confidence": 0.4
+          },
+          "ref_cia": {
+            "value": "cia",
+            "zone": "body",
+            "confidence": 0.43
+          },
+          "finding_type": {
+            "value": "concluded",
+            "zone": "body",
+            "confidence": 0.4
+          }
+        }
+      }
+    },
+    {
+      "page": 96,
+      "char_count": 3367,
+      "text_preview": "66 Dr Kersta did not indicate in his letter that he had found shots and the results of his tests were not mentioned in the Warren Report The committee was unable to locate the Kersta spectographs in the National Archives until late 1978 (they had been misfiled) but it did obtain the tape recording made on November 22 1963 by KBOX reporter Sam Pate On May 11 1978 the committee submitted the tape to an acoustical consultant for analysis with these results:(4) While a portion of the tape was record",
+      "classification": {
+        "type": "HSCA_REPORT",
+        "confidence": 0.279,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "Dealey\\s+Plaza",
+          "November\\s+22,?\\s+1963"
         ]
       },
       "extraction": {
@@ -138,63 +588,19 @@
         ],
         "fields": {
           "page_number": {
-            "value": "20",
+            "value": "66",
             "zone": "any",
-            "confidence": 0.45
+            "confidence": 0.46
           },
           "ref_fbi": {
             "value": "FBI",
             "zone": "body",
-            "confidence": 0.48
+            "confidence": 0.49
           },
           "ref_cia": {
-            "value": "CIA",
+            "value": "cia",
             "zone": "body",
-            "confidence": 0.48
-          }
-        }
-      }
-    },
-    {
-      "page": 75,
-      "char_count": 3345,
-      "text_preview": "45 sion said however that a determination of which shot hit the Gov ernor was \"not necessary to any essential findings. (32) V'uti\u00b0on activation analysis.\u2014Tn addition to the conclusions reached by the committee's forensic pathology panel the single bullet theory was substantiated by the findings of a neutron activation anal ysis performed for the committee (33) The bullet alleged to have caused the injuries to the Governor and the President was found on a stretcher at Parkland Hospital (34) Nume",
-      "classification": {
-        "type": "UNKNOWN",
-        "confidence": 0.0,
-        "confidence_label": "UNCERTAIN",
-        "matched_patterns": []
-      },
-      "extraction": {
-        "fields_found": 0,
-        "field_names": [],
-        "fields": {}
-      }
-    },
-    {
-      "page": 100,
-      "char_count": 3275,
-      "text_preview": "70 Evidence that a curb in Dealey Plaza may have been struck by a bullet during the assassination Two shooter locations were selected for the reconstruction:(22) The sixth floor southeast corner window of the Texas School Book Depository since substantial physical evidence and wit ness testimony indicated shots were fired from this location and The area behind a picket fence atop the grassy knoll since there was considerable witness testimony suggesting shots were fired from there. A Mannlicher-",
-      "classification": {
-        "type": "HSCA_REPORT",
-        "confidence": 0.176,
-        "confidence_label": "UNCERTAIN",
-        "matched_patterns": [
-          "the assassination(?:\\s+of)?",
-          "Dealey\\s+Plaza",
-          "Texas\\s+School\\s+Book\\s+Depository"
-        ]
-      },
-      "extraction": {
-        "fields_found": 1,
-        "field_names": [
-          "page_number"
-        ],
-        "fields": {
-          "page_number": {
-            "value": "70",
-            "zone": "any",
-            "confidence": 0.38
+            "confidence": 0.49
           }
         }
       }
@@ -204,15 +610,46 @@
       "char_count": 3198,
       "text_preview": "120 Rodriguez said Lopez left Key West in late 1963 for Tampa with the hope of being able to return to Cuba explaining he was afraid he would be drafted into the U.S military Rodriguez said Lopez had not been involved in pro-Castro activity in Key West but that he was definitely pro-Castro and he had once gotten into a fistfight over his Castro sympathies (140) The FBI had previously documented that Lopez had actually been in contact with the Fair Play for Cuba Committee and had attended a meeti",
       "classification": {
-        "type": "UNKNOWN",
-        "confidence": 0.0,
+        "type": "HSCA_REPORT",
+        "confidence": 0.206,
         "confidence_label": "UNCERTAIN",
-        "matched_patterns": []
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "Warren\\s+Commission",
+          "the assassination(?:\\s+of)?",
+          "investigation"
+        ]
       },
       "extraction": {
-        "fields_found": 0,
-        "field_names": [],
-        "fields": {}
+        "fields_found": 4,
+        "field_names": [
+          "page_number",
+          "ref_fbi",
+          "ref_cia",
+          "finding_type"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "120",
+            "zone": "any",
+            "confidence": 0.4
+          },
+          "ref_fbi": {
+            "value": "FBI",
+            "zone": "body",
+            "confidence": 0.43
+          },
+          "ref_cia": {
+            "value": "CIA",
+            "zone": "body",
+            "confidence": 0.43
+          },
+          "finding_type": {
+            "value": "determined",
+            "zone": "body",
+            "confidence": 0.4
+          }
+        }
       }
     },
     {
@@ -220,15 +657,46 @@
       "char_count": 3279,
       "text_preview": "170 with the underworld of New Orleans that apparently had escaped the Commission (268) One such relationship actually extended into Oswald's own family through his uncle Charles ''Dutz Murret a minor underworld gambling figure (269) The committee discovered that Murret who served as a surrogate father of sorts throughout much of Oswald's life in New Orleans was in the 1940's and 1950's and pos sibly until his death in 1964 an associate of significant organized crime figures affiliated with the ",
       "classification": {
-        "type": "UNKNOWN",
-        "confidence": 0.0,
+        "type": "HSCA_REPORT",
+        "confidence": 0.221,
         "confidence_label": "UNCERTAIN",
-        "matched_patterns": []
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "the assassination(?:\\s+of)?",
+          "Lee\\s+Harvey\\s+Oswald",
+          "investigation"
+        ]
       },
       "extraction": {
-        "fields_found": 0,
-        "field_names": [],
-        "fields": {}
+        "fields_found": 4,
+        "field_names": [
+          "page_number",
+          "ref_fbi",
+          "ref_cia",
+          "finding_type"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "170",
+            "zone": "any",
+            "confidence": 0.42
+          },
+          "ref_fbi": {
+            "value": "FBI",
+            "zone": "body",
+            "confidence": 0.44
+          },
+          "ref_cia": {
+            "value": "cia",
+            "zone": "body",
+            "confidence": 0.44
+          },
+          "finding_type": {
+            "value": "found",
+            "zone": "body",
+            "confidence": 0.42
+          }
+        }
       }
     },
     {
@@ -269,13 +737,14 @@
       "text_preview": "370 John Ray's interest in AIP politics also seemed out of character since he apparently had never evidenced it before 1967 or 1968 and since as a convicted felon he was not able to vote For this reason and because of demonstrated ties between both Sutherland and Kauff mann and the AIP the committee's investigation was focused on this connection It was determined that a significant amount of AIP campaign ac tivity occurred in the neighborhood of the Grapevine Tavern For ex ample Viola Anderson w",
       "classification": {
         "type": "HSCA_REPORT",
-        "confidence": 0.221,
+        "confidence": 0.324,
         "confidence_label": "UNCERTAIN",
         "matched_patterns": [
           "the committee(?:'s)?",
           "the assassination(?:\\s+of)?",
           "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
-          "investigation"
+          "James\\s+Earl\\s+Ray",
+          "conspiracy"
         ]
       },
       "extraction": {
@@ -289,17 +758,17 @@
           "page_number": {
             "value": "370",
             "zone": "any",
-            "confidence": 0.42
+            "confidence": 0.5
           },
           "subject_mlk": {
             "value": "Dr King",
             "zone": "body",
-            "confidence": 0.47
+            "confidence": 0.56
           },
           "finding_type": {
             "value": "concluded",
             "zone": "body",
-            "confidence": 0.42
+            "confidence": 0.5
           }
         }
       }
@@ -309,15 +778,40 @@
       "char_count": 3211,
       "text_preview": "470 (iii) the proper response of intelligence or investigative agencies where information is developed that an informant has committed a crime guidelines to consider the circumstances if any when an investigative agency or a component of that agency should be disqualified from taking an active role in an investigation because of an appearance of impropriety growing out of a particular intelligence or investigative action definitions of the legislative scope and extent of \"sources and methods and",
       "classification": {
-        "type": "UNKNOWN",
-        "confidence": 0.0,
+        "type": "HSCA_REPORT",
+        "confidence": 0.221,
         "confidence_label": "UNCERTAIN",
-        "matched_patterns": []
+        "matched_patterns": [
+          "the committee(?:'s)?",
+          "President\\s+(?:John\\s+F\\.?\\s+)?Kennedy",
+          "Dr\\.?\\s+(?:Martin\\s+Luther\\s+)?King",
+          "investigation"
+        ]
       },
       "extraction": {
-        "fields_found": 0,
-        "field_names": [],
-        "fields": {}
+        "fields_found": 3,
+        "field_names": [
+          "page_number",
+          "ref_fbi",
+          "ref_cia"
+        ],
+        "fields": {
+          "page_number": {
+            "value": "470",
+            "zone": "any",
+            "confidence": 0.42
+          },
+          "ref_fbi": {
+            "value": "FBI",
+            "zone": "body",
+            "confidence": 0.44
+          },
+          "ref_cia": {
+            "value": "cia",
+            "zone": "body",
+            "confidence": 0.44
+          }
+        }
       }
     },
     {
@@ -342,14 +836,14 @@
       "text_preview": "670 Interview of FBI informant Nov 15 1978 House Select Committee on Assassinations (MLK Document 290041) It should be noted that at the in formant's request the committee has agreed not to disclose his identity in this report Ibid Testimonyof Marrell McColloughNov 20 1978VI HSCA-MLKhearings 417 (hereinafter McColloughtestimony) Testimonyof William Lawrence Nov 21 1978 VI HSCA-MLKhearings 547 (hereinafter Lawrencetestimony) MLK Exhibit F-455 (FBI interview of Marrell McCollough Apr 11 1968) VI H",
       "classification": {
         "type": "HSCA_DOC",
-        "confidence": 0.533,
+        "confidence": 0.65,
         "confidence_label": "LOW",
         "matched_patterns": [
           "HSCA",
           "HOUSE SELECT COMMITTEE",
+          "House Select Committee on Assassinations",
           "HSCA.?(?:JFK|MLK)\\s*(?:hearings|Document)",
-          "MLK\\s*Document\\s*\\d+",
-          "staff\\s+summary\\s+of\\s+interview"
+          "MLK\\s*Document\\s*\\d+"
         ]
       },
       "extraction": {
@@ -365,27 +859,27 @@
           "document_number": {
             "value": "290041",
             "zone": "any",
-            "confidence": 0.75
+            "confidence": 0.85
           },
           "hearing_type": {
             "value": "HSCA-MLKhearings",
             "zone": "any",
-            "confidence": 0.71
+            "confidence": 0.81
           },
           "committee_name": {
             "value": "House Select Committee on\nAssassinations",
             "zone": "any",
-            "confidence": 0.75
+            "confidence": 0.85
           },
           "witness_name": {
             "value": "Howell Lowe ref",
             "zone": "any",
-            "confidence": 0.71
+            "confidence": 0.81
           },
           "page": {
             "value": "31",
             "zone": "footer",
-            "confidence": 0.58
+            "confidence": 0.66
           }
         }
       }

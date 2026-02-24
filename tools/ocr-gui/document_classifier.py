@@ -240,23 +240,42 @@ def extract_footer_sample(text: str, num_lines: int = 15) -> str:
     return '\n'.join(lines[-num_lines:])
 
 
+def preprocess_text(text: str) -> str:
+    """
+    Preprocess OCR text to handle common artifacts.
+    - Rejoin words split across lines (e.g., "com-\nmittee" -> "committee")
+    """
+    import re
+    # Rejoin hyphenated line breaks
+    text = re.sub(r'-\n', '', text)
+    # Normalize multiple spaces
+    text = re.sub(r' +', ' ', text)
+    return text
+
+
 def classify_document(text: str, header_lines: int = 25) -> ClassificationResult:
     """
     Classify document type by matching fingerprints against header.
-    
+
     Args:
         text: Full OCR text to classify
         header_lines: Number of lines to analyze (default: 25)
-        
+
     Returns:
         ClassificationResult with doc_type, confidence, and matched patterns
     """
-    header_sample = extract_header_sample(text, header_lines)
+    # Preprocess to handle OCR artifacts
+    text = preprocess_text(text)
     
+    header_sample = extract_header_sample(text, header_lines)
+
     # Also check footer for FBI 302 (agent signature)
     footer_sample = extract_footer_sample(text, 15)
-    combined_sample = header_sample + "\n" + footer_sample
     
+    # For narrative reports (HSCA), also check body content
+    body_sample = text[:3000] if len(text) > 3000 else text
+    combined_sample = header_sample + "\n" + footer_sample + "\n" + body_sample
+
     scores: dict[DocType, tuple[float, list[str]]] = {}
     
     for doc_type, patterns in FINGERPRINTS.items():
