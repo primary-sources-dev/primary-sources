@@ -31,6 +31,7 @@ Based on the [Master Roadmap](./roadmap.md), these three features represent the 
 ---
 ### Completed Quick Wins
 *   [x] **Archival Image Support**: Native ingestion of .jpg, .png, and .tiff photos. (Completed 2026-02-23)
+*   [x] **Forensic Header Parser**: Auto-extraction of archival metadata (RIF, Agency, Date, Author) with confidence scoring. (Completed 2026-02-23)
 
 ---
 *These features will be the primary focus for the next sprint to demonstrate the power of the Atomic Historical Engine.*

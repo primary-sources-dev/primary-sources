@@ -16,6 +16,50 @@ This directory contains the prototype OCR tool interface that allows researchers
 - **Per-File Progress Tracking**: Real-time percentage updates and progress bars for each item in the queue.
 - **Responsive Design**: Gold pulsing drop-zone animations and feedback aligned with the Primary Sources style guide.
 - **Dual-Backend Support**: Toggle between high-precision WSL-based OCR and lightweight Python-based processing.
+- **Forensic Header Parser**: Automatic extraction of archival metadata (RIF numbers, Agency, Date, Author) with confidence scoring.
+- **Image Support**: Direct OCR of standalone image files (.jpg, .png, .tiff, .webp) without PDF conversion.
+
+## Forensic Header Parser
+
+After OCR processing completes, the system automatically parses document headers to extract archival metadata. This feature recognizes standardized patterns from:
+
+- **FBI 302 Forms**: Agent name, Field Office, Date, File Number
+- **NARA RIF Sheets**: Agency, Record Number (###-#####-#####), Date
+- **Warren Commission**: Exhibit numbers (CE-###, CD-###)
+
+### Extracted Fields
+
+| Field | Maps To | Example |
+|-------|---------|---------|
+| RIF Number | `source.external_ref` | `104-10001-10001` |
+| Agency | `source.notes` | `CIA`, `FBI`, `SECRET SERVICE` |
+| Date | `source.published_date` | `1963-11-22` (ISO normalized) |
+| Author | `source.author` | `SA James P. Hosty` |
+
+### Confidence Scoring
+
+Each extracted field includes a confidence badge:
+- **HIGH** (green): Strong pattern match with contextual anchors
+- **MEDIUM** (gold): Pattern match without strong context
+- **LOW** (orange): Partial or ambiguous match
+
+### UI Features
+
+- **Metadata Preview Card**: Displays below each completed file in the queue
+- **Copy All**: Exports all fields to clipboard in key-value format
+- **Per-field Copy**: Individual copy buttons for each extracted value
+- **Re-parse**: Manual retry for edge cases or after re-OCR
+
+### API Endpoint
+
+```
+POST /api/parse-header
+Content-Type: application/json
+
+{ "text": "OCR text content..." }
+```
+
+Returns structured JSON with extracted fields and confidence scores.
 
 ## Files
 
@@ -23,9 +67,10 @@ This directory contains the prototype OCR tool interface that allows researchers
 |------|-------------|
 | `index.html` | Main UI template (served by Flask), includes Tailwind CDN config |
 | `ocr-components.css` | Component-only styles (Tailwind handles utilities) |
-| `ocr-gui.js` | Client-side logic for file handling, progress polling, and viewer integration |
+| `ocr-gui.js` | Client-side logic for file handling, progress polling, metadata preview |
 | `components.md` | Component documentation and reference |
 | `plan.md` | CSS alignment implementation plan |
+| `plans/` | Feature implementation plans (archival-image-support, forensic-header-parser) |
 
 ## Running the Server
 
