@@ -826,6 +826,60 @@ Before marking this task complete, verify:
 
 ## Appendix: Field Reference
 
+### Person Fields
+```json
+{
+  "person_id": "uuid (required)",
+  "display_name": "string (required)",
+  "given_name": "string (optional)",
+  "middle_name": "string (optional)",
+  "family_name": "string (optional)",
+  "birth_date": "date (optional)",
+  "death_date": "date (optional)",
+  "label": "string (optional)",
+  "portrait_url": "string (optional)",
+  "notes": "string (optional) - Biography card",
+  "aliases": "array (optional)",
+  "residences": "array (optional)",
+  "organizations": "array (optional)",
+  "family": "array (optional)",
+  "events": "array (optional) - Person's chronology",
+  "related_events": "array (optional) - Related Events card",
+  "objects": "array (optional)",
+  "sources": "array (optional)",
+  "identifiers": "array (optional)",
+  "assertions": "array (optional)",
+  "media": "array (optional)"
+}
+```
+
+### Event Fields
+```json
+{
+  "event_id": "uuid (required)",
+  "id": "string (required) - URL-friendly slug",
+  "event_type": "string (required)",
+  "icon": "string (optional) - Material icon name",
+  "label": "string (optional) - Brief context label",
+  "title": "string (required)",
+  "location": "string (optional)",
+  "description": "string (required)",
+  "context": "string (optional) - Context & Significance card",
+  "featured": "boolean (optional)",
+  "is_conflict": "boolean (optional)",
+  "start_ts": "ISO 8601 timestamp (optional)",
+  "time_precision": "string (optional) - EXACT, APPROX, RANGE, etc.",
+  "sub_events": "array (optional) - Procedural Timeline card",
+  "participants": "array (optional)",
+  "evidence": "array (optional)",
+  "sources": "array (optional)",
+  "locations": "array (optional)",
+  "related_events": "array (optional)",
+  "assertions": "array (optional)",
+  "media": "array (optional)"
+}
+```
+
 ### Organization Fields
 ```json
 {

@@ -73,15 +73,32 @@ primary-sources/
 │   ├── ontology-and-controlled-vocab.md  # All v_ table definitions
 │   ├── data-entry-sop.md          # Data entry workflow (5 phases)
 │   ├── provenance-and-sourcing.md # Source citation standards
-│   └── plan.md                    # Migration 004 implementation plan
+│   ├── MOCK-DATA-REQUIREMENTS.md  # Mock data specification and coverage report
+│   └── ui/                        # UI templates and assets
+│       ├── components/            # Reusable HTML components (header, footer, nav)
+│       ├── assets/
+│       │   ├── data/              # Mock JSON data for testing
+│       │   └── js/                # JavaScript modules for entity profiles
+│       ├── person.html            # Person entity template
+│       ├── event.html             # Event entity template
+│       ├── organization.html      # Organization entity template
+│       ├── place.html             # Place entity template
+│       ├── object.html            # Object entity template
+│       └── source.html            # Source entity template
 ├── supabase/
 │   ├── README.md                  # Migration runner instructions
 │   └── migrations/
 │       ├── 001_initial_schema.sql        # Core tables + triggers
 │       ├── 002_seed_vocab.sql            # Controlled vocabulary seed data
 │       ├── 003_predicate_registry.sql    # Predicate FK constraint
-│       └── 004_integrity_fixes.sql       # Polymorphic FKs, CHECK constraints, deletion protection
-└── web/                           # Next.js data entry app (excluded from current scope)
+│       ├── 004_integrity_fixes.sql       # Polymorphic FKs, CHECK constraints, deletion protection
+│       ├── 005_age_at_event.sql          # Age calculation function and view
+│       └── 006_fix_view_column.sql       # View column naming fix
+├── tools/
+│   └── ocr-gui/                   # OCR processing and document classification
+│       ├── ocr_server.py          # Flask server for OCR tools (port 5000)
+│       └── document_classifier.py # Document type classifier (v1.5 LIVE)
+└── web/                           # Next.js data entry app (future scope)
 ```
 
 ---
@@ -395,9 +412,13 @@ This project uses:
 - **Next.js** for data entry UI (`web/` directory, currently out of scope)
 - **Git** for version control
 
-**Migration Status:** Migrations 001-004 complete and documented. Schema is production-ready.
+**Migration Status:** Migrations 001-006 complete and documented. Schema is production-ready.
 
-**Current Focus:** Data population and web UI development (see `docs/project-notes.md` for options).
+**Current Focus:**
+- ✅ **UI Templates:** 6 entity profile templates complete with component card systems
+- ✅ **Mock Data:** Complete test data for Person, Event, Organization, Place, Object, Source entities
+- ✅ **OCR Tooling:** Document Layout Analyzer v1.5 LIVE (78.2% classification rate, 20 document types)
+- 🚧 **Next Phase:** Database integration and API development (see `working-notes.md` for roadmap)
 
 ---
 
