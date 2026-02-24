@@ -118,6 +118,8 @@ primary-sources/
 
 - **`supabase/migrations/*.sql`** — Actual schema DDL (source of truth for table structure)
 - **`docs/provenance-and-sourcing.md`** — NARA RIF citation standards
+- **`working-notes.md`** — Project roadmap, status tracking, and feature inventory
+- **`docs/MOCK-DATA-REQUIREMENTS.md`** — UI template testing requirements and coverage analysis
 
 ---
 
@@ -153,6 +155,70 @@ All `v_*` tables defining allowed codes for types, roles, and precision levels.
 ### Attribute Tables (2 tables)
 - `person_alias` — Alternate names (4NF split)
 - `entity_identifier` — External IDs (FBI file numbers, exhibit numbers, etc.)
+
+---
+
+## UI Template System (docs/ui/)
+
+The project includes 6 entity profile templates with a dynamic component card system for displaying research data:
+
+### Template Architecture
+
+**Core Templates:**
+- `person.html` — 12 cards (Biography, Chronology, Aliases, Residences, Organizations, Family, Events, Objects, Sources, Identifiers, Assertions, Media)
+- `event.html` — 9 cards (Context, Timeline, Participants, Evidence, Sources, Locations, Related Events, Assertions, Media)
+- `organization.html` — 7 cards (Overview, Members, Events, Locations, Related Organizations, Identifiers, Sources)
+- `place.html` — 7 cards (Overview, Hierarchy, Events, Features, Related Places, Identifiers, Sources)
+- `object.html` — 8 cards (Overview, Properties, Events, People, Custody Chain, Related Objects, Identifiers, Sources)
+- `source.html` — 8 cards (Overview, Content, Events, People, Organizations, Places, Citations, Related Sources)
+
+**Component Card System:**
+Each template uses JavaScript modules that:
+- **Show/hide cards** based on available data (no empty cards displayed)
+- **Populate cards dynamically** from mock JSON data
+- **Provide consistent UI patterns** across all entity types
+
+**Mock Data:**
+Located in `docs/ui/assets/data/`:
+- `mock-person.json` — Lee Harvey Oswald (comprehensive), Ralph Yates (moderate coverage)
+- `mock-event.json` — Yates Hitchhiker Incident, Walker Incident
+- `mock-organizations.json` — Warren Commission, FBI, Texas Butchers Supply
+- `mock-places.json` — Dallas, Dealey Plaza, Texas School Book Depository
+- `mock-objects.json` — Carcano Rifle (C2766), CE 399 (Magic Bullet)
+- `mock-sources.json` — Warren Commission Report, HSCA Final Report
+
+**Testing Coverage:** 96% of all template cards testable with current mock data (see `docs/MOCK-DATA-REQUIREMENTS.md`)
+
+---
+
+## OCR Tooling (tools/ocr-gui/)
+
+**Status:** Document Layout Analyzer v1.5 LIVE
+
+### Features
+
+**Document Classification:**
+- **20 Document Types** supported (FBI 302, CIA Cable, Warren Commission exhibits, HSCA docs, etc.)
+- **78.2% Classification Rate** validated across Warren Commission, HSCA, Church Committee, and CIA 201 collections
+- **Fuzzy Fingerprinting** using Levenshtein distance for garbled OCR (~2.3x improvement on degraded scans)
+- **Zone-Specific Parsing** extracts metadata from headers, footers, and body zones
+
+**Multi-Format Ingestion:**
+- PDF, archival images (.jpg, .png, .tiff, .webp), mobile photos (.heic)
+- Batch processing support (ZIP/TAR archives)
+
+**Forensic Metadata Extraction:**
+- Auto-extracts NARA RIF numbers, agency codes, dates, authors from document headers/footers
+- Entity matching against database for automated tagging
+
+**Extraction Workbench:**
+- Split-pane PDF viewer with forensic review pane
+- Deep sync (click text to scroll source to exact coordinate)
+- Per-page surgical processing
+
+**Server:** Flask app on port 5000 (`python tools/ocr_server.py`)
+
+See `docs/ui/ocr/plans/document-classifier-reference.md` for technical documentation.
 
 ---
 
@@ -299,13 +365,14 @@ SELECT updated_at > created_at FROM person WHERE display_name = 'Test Person';
 
 ### ❌ Don't
 
-- **Don't** modify existing migration files (`001`, `002`, `003`, `004`)
+- **Don't** modify existing migration files (`001`, `002`, `003`, `004`, `005`, `006`)
 - **Don't** accept free-text values for controlled vocabulary fields
 - **Don't** create assertions without linking them to source excerpts via `assertion_support`
 - **Don't** delete entities that have downstream references (triggers will block, but don't force it)
 - **Don't** bypass the 5-phase data entry workflow (see `docs/data-entry-sop.md`)
 - **Don't** add event participants without an `assertion_id` (breaks traceability)
 - **Don't** use `ILIKE` on name fields—use `WHERE lower(name) = lower(...)` for index hits
+- **Don't** modify global UI components (`docs/ui/components/header.html`, `docs/ui/components/bottom-nav.html`) without explicit user instruction
 
 ### ❌ Never
 
@@ -451,12 +518,42 @@ ORDER BY table;
 
 ---
 
+## Current Development Workflow
+
+### For Database Changes
+1. Create new migration file (007+)
+2. Test locally before applying
+3. Document in `docs/architecture-and-schema.md`
+4. Update `supabase/README.md` migration list
+
+### For UI Changes
+1. Check `docs/MOCK-DATA-REQUIREMENTS.md` for template coverage requirements
+2. Test against mock data first
+3. Respect global component constraints (header/footer/nav)
+4. Ensure card system show/hide logic works correctly
+
+### For OCR Tool Changes
+1. Test against sample documents from Warren Commission/HSCA collections
+2. Validate classification accuracy metrics
+3. Document new document types in `docs/ui/ocr/plans/document-classifier-reference.md`
+4. Update fingerprint patterns in `tools/ocr-gui/document_classifier.py`
+
+---
+
 ## Final Notes for AI Assistants
 
 - **Always read the docs first** before suggesting changes
-- **Check existing migrations** to understand the schema evolution
+- **Check existing migrations** to understand the schema evolution (currently 001-006)
 - **Validate against the SOP** when discussing data entry workflows
 - **Respect the assertion model** — this is not a traditional normalized database
+- **Review working-notes.md** for current project status and completed features
+- **Check MOCK-DATA-REQUIREMENTS.md** before modifying UI templates or mock data
 - **When in doubt, ask** — don't assume standard relational patterns apply
 
 This is a **research-grade system** with academic integrity standards. Every design decision prioritizes traceability and evidentiary rigor over convenience.
+
+**Key Files for Context:**
+- `working-notes.md` — Current project status and roadmap
+- `docs/MOCK-DATA-REQUIREMENTS.md` — UI template testing requirements
+- `docs/architecture-and-schema.md` — Complete technical specification
+- `supabase/migrations/` — Database schema evolution (001-006)

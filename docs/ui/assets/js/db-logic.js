@@ -48,8 +48,17 @@ function buildCard(item) {
 
     const filterTags = dynamicTags.filter(Boolean).join('|').toLowerCase();
 
-    // Determine the link: default to event.html for events, otherwise use the URL/link
-    let itemLink = item.url || item.link || (item.event_id ? `event.html?id=${item.id}` : '#');
+    // Determine the link: handle all entity types based on their ID fields
+    let itemLink = item.url || item.link;
+    if (!itemLink) {
+        if (item.person_id) itemLink = `person.html?id=${item.person_id}`;
+        else if (item.event_id || item.id) itemLink = `event.html?id=${item.id || item.event_id}`;
+        else if (item.org_id) itemLink = `organization.html?id=${item.org_id}`;
+        else if (item.place_id) itemLink = `place.html?id=${item.place_id}`;
+        else if (item.object_id) itemLink = `object.html?id=${item.object_id}`;
+        else if (item.source_id) itemLink = `source.html?id=${item.source_id}`;
+        else itemLink = '#';
+    }
 
     // NEW: Global PDF Interceptor - Route all PDFs through our custom viewer
     if (itemLink.includes('.pdf')) {
