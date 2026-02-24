@@ -28,23 +28,9 @@ Based on the [Master Roadmap](./roadmap.md), these three features represent the 
 *   **Value**: Eliminates "context fatigue" by keeping the entire archival intake process—splitting, processing, and entity verification—within a single, high-performance UI.
 *   **Category**: UX / Productivity / Tooling
 
-### 5. Archival Image Support
-*   [x] **#5: Archival Image Support**: Enable the OCR tool to process standalone high-resolution image files (.jpg, .png, .tiff) directly.
-*   **Logic**: Extends the `OCRWorker` to handle direct image input streams alongside PDF page-renders.
-*   **Value**: Field researchers often capture single-frame "quick-snaps" rather than multi-page PDFs; this eliminates the need for manual conversion.
-*   **Category**: Utility / Input
-
-### 6. "Smart Highlight" Entity Matcher
-*   **Description**: Automatically cross-reference OCR output against the existing `person` and `place` tables.
-*   **Logic**: A "Lookup-First" Python script that highlights exact matches of cataloged entities in the extraction text.
-*   **Value**: Instantly links documents to the "Master Knowledge Graph." If Ralph Leon Yates is mentioned, the name lights up as a verified link to his forensic profile.
-*   **Category**: Assistant / Intelligent
-
-### 7. Forensic Header Parser
-*   **Description**: Implement pattern-recognition for standardized archival headers (e.g., FBI 302 memos and Agency RIF sheets).
-*   **Logic**: Regex-based detection for "Agency," "RIF Number," and "Date" metadata strings at the top of documents.
-*   **Value**: Automates the most tedious part of data entry—populating source metadata—before the researcher even reads the first paragraph.
-*   **Category**: Assistant / Metadata
+---
+### Completed Quick Wins
+*   [x] **Archival Image Support**: Native ingestion of .jpg, .png, and .tiff photos. (Completed 2026-02-23)
 
 ---
 *These features will be the primary focus for the next sprint to demonstrate the power of the Atomic Historical Engine.*

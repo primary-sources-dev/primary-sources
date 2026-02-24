@@ -12,7 +12,7 @@ Below is the compiled master roadmap, encompassing every feature from the 4NF co
 
 | ID | Category | Feature Name | Underlying Data Logic | User Experience / Value |
 | --- | --- | --- | --- | --- |
-| **01** | **Utility (Phase 1)** | **Member-Only OCR** | Tesseract-as-a-Service | **Primary Hook:** Free transcription for members; seeds the global `source_excerpt` table. |
+| **01** | **Utility (Phase 1)** | **Member-Only OCR** | Tesseract-as-a-Service | **Status: Live.** High-speed transcription for PDF and archival images (.jpg, .png, .tiff). |
 | **02** | **Forensic** | **Conflict Heatmap** | `assertion_support` (Contradicts/Supports) | Visualizes "Hot Zones" in evidence where sources disagree (Red = High Conflict). |
 | **03** | **Forensic** | **Network Explorer** | `event_participant` junction tables | Reveals "Six Degrees of Separation" between any two entities in the database. |
 | **04** | **Forensic** | **3D Print Replicas** | `object.file_url` (STL/OBJ) | Downloadable historical artifacts (bullets, exhibits) for physical 3D printing. |
