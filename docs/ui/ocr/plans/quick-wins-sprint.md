@@ -1,7 +1,8 @@
 # Quick Wins Sprint Plan
 
 **Created**: 2026-02-23  
-**Status**: Ready for Execution  
+**Status**: ✅ COMPLETE  
+**Completed**: 2026-02-23  
 **Scope**: 6 features, ordered by dependencies and effort
 
 ---
@@ -252,12 +253,12 @@ Auto-link OCR text to known entities in the vault.
 
 | Feature | Code | Tests | Docs | UI |
 |---------|------|-------|------|----|
-| 1. .heic Support | [ ] | [ ] | [ ] | N/A |
-| 2. Age-at-Event | [ ] | [ ] | [ ] | Future |
-| 3. Footer Parser | [ ] | [ ] | [ ] | [ ] |
-| 4. Citations | [ ] | [ ] | [ ] | [ ] |
-| 5. Inflation | [ ] | [ ] | [ ] | Future |
-| 6. Entity Matching | [ ] | [ ] | [ ] | [ ] |
+| 1. .heic Support | [x] | [x] | [x] | N/A |
+| 2. Age-at-Event | [x] | [x] | [x] | Future |
+| 3. Footer Parser | [x] | [x] | [x] | Auto |
+| 4. Citations | [x] | [x] | [x] | API |
+| 5. Inflation | [x] | [x] | [x] | API |
+| 6. Entity Matching | [x] | [x] | [x] | API |
 
 ---
 

@@ -215,7 +215,7 @@ if __name__ == "__main__":
     print(f"1963->2026 Multiplier: {get_multiplier(1963):.2f}x")
     
     print("\n" + "-" * 60)
-    print("JFK Era (1963) → Modern (2026) Conversions:")
+    print("JFK Era (1963) -> Modern (2026) Conversions:")
     print("-" * 60)
     
     for amount, year, description in test_cases:

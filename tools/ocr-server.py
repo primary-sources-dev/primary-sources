@@ -44,6 +44,24 @@ except ImportError:
     CITATION_AVAILABLE = False
     print("Warning: citation_generator not available")
 
+try:
+    from inflation import convert_detailed, get_multiplier, get_available_years
+    INFLATION_AVAILABLE = True
+except ImportError:
+    INFLATION_AVAILABLE = False
+    print("Warning: inflation module not available")
+
+try:
+    from entity_matcher import EntityMatcher, find_entities, generate_entities_json
+    ENTITY_MATCHER_AVAILABLE = True
+    # Initialize matcher with sample data
+    _entity_matcher = EntityMatcher()
+    _entity_matcher.load_sample_data()
+except ImportError:
+    ENTITY_MATCHER_AVAILABLE = False
+    _entity_matcher = None
+    print("Warning: entity_matcher module not available")
+
 # Flask app serving from docs/ui/ocr/
 # Note: static_url_path="/static" avoids conflict with API routes
 app = Flask(__name__, 
@@ -433,6 +451,189 @@ def cite_endpoint():
             
     except Exception as e:
         return jsonify({"error": f"Citation error: {str(e)}"}), 500
+
+
+@app.route("/api/inflate", methods=["POST"])
+def inflate_endpoint():
+    """
+    Convert historical USD to modern purchasing power.
+
+    Request body (JSON):
+        {
+            "amount": 25.00,
+            "year": 1963,
+            "target_year": 2026  // Optional, defaults to 2026
+        }
+
+    Response:
+        {
+            "original_amount": 25.0,
+            "original_year": 1963,
+            "converted_amount": 264.71,
+            "target_year": 2026,
+            "multiplier": 10.59,
+            "formatted": "$25.00 (1963) = $264.71 (2026)"
+        }
+    """
+    if not INFLATION_AVAILABLE:
+        return jsonify({"error": "Inflation converter not available"}), 503
+
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Missing request body"}), 400
+
+    amount = data.get("amount")
+    year = data.get("year")
+    target_year = data.get("target_year", 2026)
+
+    if amount is None:
+        return jsonify({"error": "Missing 'amount' field"}), 400
+    if year is None:
+        return jsonify({"error": "Missing 'year' field"}), 400
+
+    try:
+        amount = float(amount)
+        year = int(year)
+        target_year = int(target_year)
+    except (ValueError, TypeError):
+        return jsonify({"error": "Invalid amount or year format"}), 400
+
+    try:
+        result = convert_detailed(amount, year, target_year)
+        if result is None:
+            min_year, max_year = get_available_years()
+            return jsonify({
+                "error": f"Year out of range. Available: {min_year}-{max_year}"
+            }), 400
+        
+        return jsonify(result.to_dict())
+        
+    except Exception as e:
+        return jsonify({"error": f"Conversion error: {str(e)}"}), 500
+
+
+@app.route("/api/inflate/multiplier", methods=["GET"])
+def inflate_multiplier_endpoint():
+    """
+    Get inflation multiplier for a year.
+
+    Query params:
+        year: Source year (required)
+        target: Target year (optional, default 2026)
+
+    Response:
+        { "year": 1963, "target": 2026, "multiplier": 10.59 }
+    """
+    if not INFLATION_AVAILABLE:
+        return jsonify({"error": "Inflation converter not available"}), 503
+
+    year = request.args.get("year")
+    target = request.args.get("target", 2026)
+
+    if not year:
+        return jsonify({"error": "Missing 'year' query parameter"}), 400
+
+    try:
+        year = int(year)
+        target = int(target)
+    except ValueError:
+        return jsonify({"error": "Invalid year format"}), 400
+
+    multiplier = get_multiplier(year, target)
+    if multiplier is None:
+        min_year, max_year = get_available_years()
+        return jsonify({
+            "error": f"Year out of range. Available: {min_year}-{max_year}"
+        }), 400
+
+    return jsonify({
+        "year": year,
+        "target": target,
+        "multiplier": round(multiplier, 2)
+    })
+
+
+@app.route("/api/entities", methods=["POST"])
+def entities_endpoint():
+    """
+    Find known entities in OCR text.
+
+    Request body (JSON):
+        {
+            "text": "OCR text content...",
+            "filename": "document.pdf",  // Optional, for sidecar output
+            "include_candidates": true   // Optional, include new entity candidates
+        }
+
+    Response:
+        {
+            "entities": [...],
+            "new_candidates": [...],  // If include_candidates=true
+            "summary": { "matched": 4, "persons": 2, ... }
+        }
+    """
+    if not ENTITY_MATCHER_AVAILABLE:
+        return jsonify({"error": "Entity matcher not available"}), 503
+
+    data = request.get_json()
+    if not data or "text" not in data:
+        return jsonify({"error": "Missing 'text' field in request body"}), 400
+
+    text = data["text"]
+    if not text or not text.strip():
+        return jsonify({"error": "Empty text provided"}), 400
+
+    filename = data.get("filename", "document.txt")
+    include_candidates = data.get("include_candidates", True)
+
+    try:
+        if include_candidates:
+            # Full sidecar output with candidates
+            result = _entity_matcher.generate_sidecar(text, filename)
+        else:
+            # Just matched entities
+            matches = _entity_matcher.find_matches(text)
+            result = {
+                "entities": [m.to_dict() for m in matches],
+                "summary": {
+                    "matched": len(matches),
+                    "persons": len([m for m in matches if m.entity_type == "person"]),
+                    "places": len([m for m in matches if m.entity_type == "place"]),
+                    "orgs": len([m for m in matches if m.entity_type == "org"]),
+                }
+            }
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({"error": f"Entity matching error: {str(e)}"}), 500
+
+
+@app.route("/api/entities/index", methods=["GET"])
+def entities_index_endpoint():
+    """
+    Get info about the loaded entity index.
+
+    Response:
+        {
+            "total_entities": 19,
+            "loaded_at": "2026-02-23T...",
+            "breakdown": { "persons": 5, "aliases": 4, ... }
+        }
+    """
+    if not ENTITY_MATCHER_AVAILABLE:
+        return jsonify({"error": "Entity matcher not available"}), 503
+
+    return jsonify({
+        "total_entities": _entity_matcher.index.total_count(),
+        "loaded_at": _entity_matcher.index.loaded_at,
+        "breakdown": {
+            "persons": len(_entity_matcher.index.persons),
+            "aliases": len(_entity_matcher.index.aliases),
+            "places": len(_entity_matcher.index.places),
+            "orgs": len(_entity_matcher.index.orgs),
+        }
+    })
 
 
 # ============================================================================
