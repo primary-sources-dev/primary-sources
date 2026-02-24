@@ -79,10 +79,10 @@ async function loadPlaceProfile(placeId) {
   // 1. Fetch place data from API (or static JSON for now)
   let placeData;
   try {
-    // For now, use mock-places.json - will switch to /api/places/{placeId} later
-    const response = await fetch('assets/data/mock-places.json');
+    // For now, use places.json - will switch to /api/places/{placeId} later
+    const response = await fetch('assets/data/places.json');
     const allPlaces = await response.json();
-    placeData = allPlaces.find(p => p.place_id === placeId);
+    placeData = allPlaces.find(p => p.place_id === placeId || p.id === placeId);
 
     if (!placeData) {
       console.error(`Place not found: ${placeId}`);

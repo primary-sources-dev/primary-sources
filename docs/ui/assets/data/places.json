@@ -1,221 +1,325 @@
 [
-    {
-        "id": "dallas",
-        "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "icon": "location_city",
-        "label": "City · Texas",
-        "name": "Dallas",
-        "place_type": "CITY",
-        "parent_place_id": null,
-        "lat": 32.7767,
-        "lon": -96.7970,
-        "notes": "Major metropolitan area in Texas and the site of the JFK assassination on November 22, 1963."
-    },
-    {
-        "id": "new-orleans",
-        "place_id": "9f0a1b2c-3d4e-45f6-a7b8-c9d0e1f2a3b4",
-        "icon": "location_city",
-        "label": "City · Louisiana",
-        "name": "New Orleans",
-        "place_type": "CITY",
-        "parent_place_id": null,
-        "lat": 29.9511,
-        "lon": -90.0715,
-        "notes": "Birthplace of Lee Harvey Oswald and a significant location for his activities in the summer of 1963."
-    },
-    {
-        "id": "irving",
-        "place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
-        "icon": "location_city",
-        "label": "City · Texas",
-        "name": "Irving",
-        "place_type": "CITY",
-        "parent_place_id": null,
-        "lat": 32.8140,
-        "lon": -96.9489,
-        "notes": "A suburb of Dallas where the Paine residence was located and where Lee Harvey Oswald spent the night before the assassination."
-    },
-    {
-        "id": "dealey-plaza",
-        "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
-        "icon": "landscape",
-        "label": "Public Square · Dallas",
+  {
+    "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "name": "Dallas, Texas",
+    "display_name": "Dallas",
+    "place_type": "CITY",
+    "label": "City \u00c2\u00b7 Texas",
+    "description": "Major metropolitan area in Texas and the site of the JFK assassination on November 22, 1963.",
+    "events": [
+      {
+        "date": "1963-11-22",
+        "title": "Assassination of JFK",
+        "description": "President Kennedy shot in Dealey Plaza"
+      },
+      {
+        "date": "1963-11-24",
+        "title": "Oswald Transfer",
+        "description": "Lee Harvey Oswald killed by Jack Ruby"
+      }
+    ],
+    "parent_place": null,
+    "child_places": [
+      {
         "name": "Dealey Plaza",
-        "place_type": "SITE",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": 32.7791,
-        "lon": -96.8081,
-        "notes": "A city park in the West End district of downtown Dallas where President John F. Kennedy was assassinated."
-    },
-    {
-        "id": "tsbd",
-        "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
-        "icon": "corporate_fare",
-        "label": "Building · Dallas",
-        "name": "Texas School Book Depository",
-        "place_type": "BUILDING",
-        "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
-        "lat": 32.7798,
-        "lon": -96.8086,
-        "notes": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy."
-    },
-    {
-        "id": "walker-residence",
-        "place_id": "d5e6f7a8-b9c0-41d2-e3f4-a5b6c7d8e9f0",
-        "icon": "home",
-        "label": "Private Residence · Dallas",
-        "name": "Walker Residence (Turtle Creek)",
-        "place_type": "RESIDENCE",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": null,
-        "lon": null,
-        "notes": "The home of General Edwin Walker at 4011 Turtle Creek Blvd, where an assassination attempt occurred on April 10, 1963."
-    },
-    {
-        "id": "texas-butchers-supply",
-        "place_id": "e7f8a9b0-c1d2-43e4-f5a6-b7c8d9e0f1a2",
-        "icon": "storefront",
-        "label": "Business · Dallas",
-        "name": "Texas Butcher's Supply",
-        "place_type": "BUILDING",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": null,
-        "lon": null,
-        "notes": "A business in Dallas where Ralph Leon Yates was employed and from where he purportedly picked up a hitchhiker matching Oswald's description.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    },
-    {
-        "id": "paine-residence",
-        "place_id": "b3c4d5e6-f7a8-49b0-c1d2-e3f4a5b6c7d8",
-        "icon": "cottage",
-        "label": "Private Residence · Irving",
-        "name": "Ruth Paine Residence (Irving)",
-        "place_type": "RESIDENCE",
-        "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
-        "lat": 32.8364,
-        "lon": -96.9388,
-        "notes": "The home of Ruth and Michael Paine where Marina Oswald lived in late 1963 and where Lee Harvey Oswald kept his rifle."
-    },
-    {
-        "id": "triple-underpass",
-        "place_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
-        "icon": "landscape",
-        "label": "Infrastructure · Dealey Plaza",
-        "name": "Triple Underpass",
-        "place_type": "SITE",
-        "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
-        "lat": 32.7787,
-        "lon": -96.8102,
-        "notes": "Railway overpass at the west end of Dealey Plaza where Elm, Main, and Commerce Streets converge. Mentioned by the Yates hitchhiker as he exited the vehicle.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    },
-    {
-        "id": "oak-cliff",
-        "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
-        "icon": "location_city",
-        "label": "Neighborhood · Dallas, TX",
+        "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"
+      },
+      {
         "name": "Oak Cliff",
-        "place_type": "SITE",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": 32.7430,
-        "lon": -96.8530,
-        "notes": "Section of Dallas located south of downtown. Significant location for the activities of Lee Harvey Oswald in 1963.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
+        "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0"
+      }
+    ],
+    "related_places": [
+      {
+        "name": "Irving",
+        "relation": "Suburb"
+      }
+    ],
+    "features": [
+      {
+        "name": "Trinity River",
+        "type": "Natural"
+      },
+      {
+        "name": "Main Street",
+        "type": "Infrastructure"
+      }
+    ],
+    "identifiers": [
+      {
+        "type": "CITY_CODE",
+        "value": "DAL"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dallas Police Department Records",
+        "year": "1963"
+      }
+    ]
+  },
+  {
+    "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
+    "name": "Texas School Book Depository",
+    "display_name": "TSBD",
+    "place_type": "BUILDING",
+    "label": "Building \u00c2\u00b7 Dealey Plaza",
+    "description": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy.",
+    "events": [
+      {
+        "date": "1963-11-22",
+        "title": "Shots fired",
+        "description": "Three shots fired from the sixth floor window"
+      }
+    ],
+    "parent_place": {
+      "name": "Dealey Plaza",
+      "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"
     },
-    {
-        "id": "wynnewood-village",
-        "place_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
-        "icon": "local_mall",
-        "label": "Shopping Center · Dallas, TX",
-        "name": "Wynnewood Village",
-        "place_type": "SITE",
-        "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
-        "lat": 32.7310,
-        "lon": -96.8540,
-        "notes": "Shopping center in Oak Cliff section of Dallas. Location of Charlie's Ranch Meat Market.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
+    "child_places": [
+      {
+        "name": "Sixth Floor",
+        "type": "Floor"
+      }
+    ],
+    "related_places": [],
+    "features": [
+      {
+        "name": "Sixth Floor Sniper's Nest",
+        "type": "Site"
+      },
+      {
+        "name": "Hertz Clock",
+        "type": "Landmark"
+      }
+    ],
+    "identifiers": [],
+    "sources": [
+      {
+        "title": "Warren Commission Report",
+        "year": "1964"
+      }
+    ]
+  },
+  {
+    "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+    "name": "Dealey Plaza",
+    "display_name": "Dealey Plaza",
+    "place_type": "PLAZA",
+    "label": "Plaza \u00c2\u00b7 Dallas",
+    "description": "City park in downtown Dallas, Texas, where President John F. Kennedy was assassinated on November 22, 1963.",
+    "events": [
+      {
+        "date": "1963-11-22",
+        "title": "JFK Assassination",
+        "description": "President Kennedy shot while traveling in motorcade"
+      }
+    ],
+    "parent_place": {
+      "name": "Dallas, Texas",
+      "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7"
     },
-    {
-        "id": "shady-grove-road-irving",
-        "place_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
-        "icon": "signpost",
-        "label": "Street · Irving, TX",
-        "name": "Shady Grove Road at Story Road",
-        "place_type": "STREET",
-        "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
-        "lat": 32.8200,
-        "lon": -96.9700,
-        "notes": "Location of Park-It Market Drive-In Grocery and destination of Yates' verified service call on November 21, 1963.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    },
-    {
-        "id": "yates-residence",
-        "place_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
-        "icon": "home",
-        "label": "Private Residence · Dallas, TX",
-        "name": "13564 Brookgreen, Dallas TX",
-        "place_type": "RESIDENCE",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": null,
-        "lon": null,
-        "notes": "The 1963 home of Ralph Leon Yates and his family.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    },
-    {
-        "id": "jo-smith-residence",
-        "place_id": "a8b9c0d1-e2f3-4456-a7b8-c9d0e1f2a3b4",
-        "icon": "home",
-        "label": "Private Residence · Dallas, TX",
-        "name": "13770 Sprucewood, Dallas TX",
-        "place_type": "RESIDENCE",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": null,
-        "lon": null,
-        "notes": "The residence of J.O. Smith, uncle of Ralph Leon Yates.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    },
-    {
-        "id": "oswald-rooming-house",
-        "place_id": "7b8a9c0d-1e2f-4a5b-6c7d-8e9f0a1b2c3d",
-        "icon": "home",
-        "label": "Private Residence · Oak Cliff",
-        "name": "1026 N. Beckley Avenue (Rooming House)",
-        "place_type": "RESIDENCE",
-        "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
-        "lat": 32.7563,
-        "lon": -96.8288,
-        "notes": "Lee Harvey Oswald's rooming house in Oak Cliff. He returned here briefly after the assassination before walking to the scene of the Tippit shooting.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    },
-    {
-        "id": "dallas-fbi-office",
-        "place_id": "b9c0d1e2-f3a4-4567-b8c9-d0e1f2a3b4c5",
-        "icon": "corporate_fare",
-        "label": "Federal Office · Dallas, TX",
-        "name": "Dallas FBI Office",
-        "place_type": "BUILDING",
-        "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-        "lat": null,
-        "lon": null,
-        "notes": "FBI field office in Dallas, Texas. Location where Ralph Yates reported his sighting and was interviewed multiple times between November 1963 and January 1964.",
-        "tags": [
-            "The Ralph Leon Yates incident"
-        ]
-    }
+    "child_places": [
+      {
+        "name": "Texas School Book Depository",
+        "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6"
+      },
+      {
+        "name": "Grassy Knoll",
+        "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d1"
+      }
+    ],
+    "related_places": [
+      {
+        "name": "Triple Underpass",
+        "relation": "Adjacent"
+      }
+    ],
+    "features": [
+      {
+        "name": "Grassy Knoll",
+        "type": "Terrain"
+      },
+      {
+        "name": "Concrete Pergola",
+        "type": "Structure"
+      }
+    ],
+    "identifiers": [],
+    "sources": [
+      {
+        "title": "Warren Commission Report",
+        "year": "1964"
+      }
+    ]
+  },
+  {
+    "id": "rl-thornton-expressway",
+    "place_id": "c8d9e0f1-a2b3-4456-c7d8-e9f0a1b2c3d4",
+    "icon": "route",
+    "label": "Highway \u00c2\u00b7 Dallas, TX",
+    "name": "R.L. Thornton Expressway",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.77,
+    "lon": -96.82,
+    "notes": "Major expressway in Dallas where Ralph Yates picked up the hitchhiker near the Beckley Street entrance, approximately 10:30 AM on November 20 or 21, 1963.",
+    "status": "SKIPPED"
+  },
+  {
+    "id": "beckley-street",
+    "place_id": "d9e0f1a2-b3c4-4567-d8e9-f0a1b2c3d4e5",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Dallas, TX (Oak Cliff)",
+    "name": "Beckley Street",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.753,
+    "lon": -96.829,
+    "notes": "Street in Oak Cliff section of Dallas. Entrance to the R.L. Thornton Expressway where Yates reported picking up the hitchhiker. Also notable: Oswald's rooming house was located at 1026 N. Beckley.",
+    "status": "SKIPPED"
+  },
+  {
+    "id": "houston-street",
+    "place_id": "e0f1a2b3-c4d5-4678-e9f0-a1b2c3d4e5f6",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Downtown Dallas",
+    "name": "Houston Street",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.7795,
+    "lon": -96.808,
+    "notes": "Street in downtown Dallas running north-south past Dealey Plaza and the Texas School Book Depository. The hitchhiker indicated he was going to Houston Street.",
+    "status": "SKIPPED"
+  },
+  {
+    "id": "elm-houston-corner",
+    "place_id": "f1a2b3c4-d5e6-4789-f0a1-b2c3d4e5f6a7",
+    "icon": "place",
+    "label": "Intersection \u00c2\u00b7 Dealey Plaza",
+    "name": "Corner of Elm and Houston Streets",
+    "place_type": "SITE",
+    "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+    "lat": 32.7795,
+    "lon": -96.8083,
+    "notes": "Location where Yates dropped off the hitchhiker when stopped at a red light. Directly adjacent to the Texas School Book Depository building. Yates saw the man cross Elm Street going north on Houston.",
+    "status": "SKIPPED"
+  },
+  {
+    "id": "commerce-street",
+    "place_id": "a2b3c4d5-e6f7-4890-a1b2-c3d4e5f6a7b8",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Downtown Dallas",
+    "name": "Commerce Street",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.778,
+    "lon": -96.805,
+    "notes": "Street in downtown Dallas. Yates took the Commerce Street exit from the expressway, then turned onto Houston Street. Texas Butchers Supply Company was located at 2038 Commerce Street.",
+    "status": "SKIPPED"
+  },
+  {
+    "id": "triple-underpass",
+    "place_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
+    "icon": "landscape",
+    "label": "Infrastructure \u00c2\u00b7 Dealey Plaza",
+    "name": "Triple Underpass",
+    "place_type": "SITE",
+    "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+    "lat": 32.7787,
+    "lon": -96.8102,
+    "notes": "Railway overpass at the west end of Dealey Plaza where Elm, Main, and Commerce Streets converge. As the hitchhiker exited Yates' truck, he said something about the Triple Underpass that Yates could not understand.",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "oak-cliff",
+    "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+    "icon": "location_city",
+    "label": "Neighborhood \u00c2\u00b7 Dallas, TX",
+    "name": "Oak Cliff",
+    "place_type": "SITE",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.743,
+    "lon": -96.853,
+    "notes": "Section of Dallas located south of downtown. Location of Charlie's Ranch Meat Market (Wynnewood Village) and Oswald's rooming house on Beckley Street.",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "wynnewood-village",
+    "place_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
+    "icon": "local_mall",
+    "label": "Shopping Center \u00c2\u00b7 Dallas, TX",
+    "name": "Wynnewood Village (Wynnewood Shopping Center)",
+    "place_type": "SITE",
+    "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+    "lat": 32.731,
+    "lon": -96.854,
+    "notes": "Shopping center in Oak Cliff section of Dallas. Location of Charlie's Ranch Meat Market at address 249. Yates claimed he stopped here to pick up a check before encountering the hitchhiker.",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "shady-grove-road-irving",
+    "place_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Irving, TX",
+    "name": "Shady Grove Road at Story Road",
+    "place_type": "STREET",
+    "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
+    "lat": 32.82,
+    "lon": -96.97,
+    "notes": "Location of Park-It Market Drive-In Grocery at 2320 Shady Grove Road, Irving TX. Destination of Yates' verified service call on November 21, 1963.",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "yates-residence",
+    "place_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
+    "icon": "home",
+    "label": "Private Residence \u00c2\u00b7 Dallas, TX",
+    "name": "13564 Brookgreen, Dallas TX",
+    "place_type": "RESIDENCE",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": null,
+    "lon": null,
+    "notes": "Residence of Ralph Leon Yates and his family (wife Dorothy and five children) in 1963.",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "jo-smith-residence",
+    "place_id": "a8b9c0d1-e2f3-4456-a7b8-c9d0e1f2a3b4",
+    "icon": "home",
+    "label": "Private Residence \u00c2\u00b7 Dallas, TX",
+    "name": "13770 Sprucewood, Dallas TX",
+    "place_type": "RESIDENCE",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": null,
+    "lon": null,
+    "notes": "Residence of J.O. Smith, uncle of Ralph Leon Yates.",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "dallas-fbi-office",
+    "place_id": "b9c0d1e2-f3a4-4567-b8c9-d0e1f2a3b4c5",
+    "icon": "corporate_fare",
+    "label": "Federal Office \u00c2\u00b7 Dallas, TX",
+    "name": "Dallas FBI Office",
+    "place_type": "BUILDING",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": null,
+    "lon": null,
+    "notes": "FBI field office in Dallas, Texas. Location where Ralph Yates reported his sighting and was interviewed multiple times (Nov 26, Nov 27, Dec 10, Jan 3, Jan 4, Jan 15).",
+    "status": "COMPLETE"
+  },
+  {
+    "id": "del-rio-texas",
+    "place_id": "c0d1e2f3-a4b5-4678-c9d0-e1f2a3b4c5d6",
+    "icon": "location_city",
+    "label": "City \u00c2\u00b7 Texas",
+    "name": "Del Rio, Texas",
+    "place_type": "CITY",
+    "parent_place_id": null,
+    "lat": 29.3627,
+    "lon": -100.8968,
+    "notes": "City in southwest Texas near the Mexican border. Location where Ralph Leon Yates was arrested for tire theft in 1954 and sentenced to thirty days in jail.",
+    "status": "SKIPPED"
+  }
 ]

@@ -125,10 +125,11 @@ async function loadPersonProfile(personId) {
   // 1. Fetch person data from API (or static JSON for now)
   let personData;
   try {
-    // For now, use mock-person.json - will switch to /api/people/{personId} later
-    const response = await fetch('assets/data/mock-person.json');
+    // For now, use people.json - will switch to /api/people/{personId} later
+    const response = await fetch('assets/data/people.json');
     const allPeople = await response.json();
-    personData = allPeople.find(p => p.person_id === personId);
+    // Allow lookup by both UUID (person_id) and Slug (id) for maximum flexibility
+    personData = allPeople.find(p => p.person_id === personId || p.id === personId);
 
     if (!personData) {
       console.error(`Person not found: ${personId}`);

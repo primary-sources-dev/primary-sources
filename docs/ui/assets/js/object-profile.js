@@ -88,10 +88,10 @@ async function loadObjectProfile(objectId) {
   // 1. Fetch object data from API (or static JSON for now)
   let objectData;
   try {
-    // For now, use mock-objects.json - will switch to /api/objects/{objectId} later
-    const response = await fetch('assets/data/mock-objects.json');
+    // For now, use objects.json - will switch to /api/objects/{objectId} later
+    const response = await fetch('assets/data/objects.json');
     const allObjects = await response.json();
-    objectData = allObjects.find(o => o.object_id === objectId);
+    objectData = allObjects.find(o => o.object_id === objectId || o.id === objectId);
 
     if (!objectData) {
       console.error(`Object not found: ${objectId}`);

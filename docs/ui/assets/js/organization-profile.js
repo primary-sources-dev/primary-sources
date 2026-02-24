@@ -79,10 +79,10 @@ async function loadOrganizationProfile(orgId) {
   // 1. Fetch organization data from API (or static JSON for now)
   let orgData;
   try {
-    // For now, use mock-organizations.json - will switch to /api/organizations/{orgId} later
-    const response = await fetch('assets/data/mock-organizations.json');
+    // For now, use organizations.json - will switch to /api/organizations/{orgId} later
+    const response = await fetch('assets/data/organizations.json');
     const allOrgs = await response.json();
-    orgData = allOrgs.find(o => o.org_id === orgId);
+    orgData = allOrgs.find(o => o.org_id === orgId || o.id === orgId);
 
     if (!orgData) {
       console.error(`Organization not found: ${orgId}`);

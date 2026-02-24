@@ -97,10 +97,10 @@ async function loadSourceProfile(sourceId) {
   // 1. Fetch source data from API (or static JSON for now)
   let sourceData;
   try {
-    // For now, use mock-sources.json - will switch to /api/sources/{sourceId} later
-    const response = await fetch('assets/data/mock-sources.json');
+    // For now, use sources.json - will switch to /api/sources/{sourceId} later
+    const response = await fetch('assets/data/sources.json');
     const allSources = await response.json();
-    sourceData = allSources.find(s => s.source_id === sourceId);
+    sourceData = allSources.find(s => s.source_id === sourceId || s.id === sourceId);
 
     if (!sourceData) {
       console.error(`Source not found: ${sourceId}`);

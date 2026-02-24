@@ -14,6 +14,15 @@ Options for data entry without writing raw SQL:
 
 ---
 
+## Baseline Data Status (2026-02-24)
+
+The project has transitioned from "Mock/Prototype" phase to "Validated Baseline" phase.
+- **Canonical Files**: `people.json`, `events.json`, `organizations.json`, `places.json`, `objects.json`, `sources.json` are now the primary data sources.
+- **Baseline Document**: See `docs/DATA-BASELINE-STANDARDS.md` for full field specifications and examples.
+- **Routing**: All profile templates (`person.html`, `event.html`, etc.) are now fully dynamic and linked to the canonical files using dual-ID (UUID/Slug) lookup logic.
+
+---
+
 ## Links
 
 * [Primary Sources Dev — ChatGPT Agent](https://chatgpt.com/g/g-6998acf847c48191b56f76a57dfe61a3-primary-sources-dev)

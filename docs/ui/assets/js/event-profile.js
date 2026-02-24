@@ -98,8 +98,8 @@ async function loadEventProfile(eventId) {
   // 1. Fetch event data from API (or static JSON for now)
   let eventData;
   try {
-    // For now, use mock-event.json - will switch to /api/events/{eventId} later
-    const response = await fetch('assets/data/mock-event.json');
+    // For now, use events.json - will switch to /api/events/{eventId} later
+    const response = await fetch('assets/data/events.json');
     const allEvents = await response.json();
     eventData = allEvents.find(e => e.event_id === eventId || e.id === eventId);
 
