@@ -20,7 +20,7 @@
 | **organizations.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **oswald.html** | modular | simple | modular | modular | main.css | components, nav, db-logic |
 | **otd.html** | modular | none | modular | modular | main.css | components, nav |
-| **pdf-viewer.html** | ⚠️ hardcoded | none | ⚠️ none | ⚠️ none | ⚠️ inline only | ⚠️ none |
+| **pdf-viewer.html** | modular (pdf-viewer-header) | none | — | — | main.css + pdf-viewer.css | components |
 | **tools/pdf-viewer-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **people.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **person.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic, person-* |
