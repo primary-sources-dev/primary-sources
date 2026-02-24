@@ -40,3 +40,34 @@ document.addEventListener("componentLoaded", (e) => {
         breadcrumb.textContent = title;
     }
 });
+/**
+ * Cross-Port Navigation Helper
+ * If we are running on port 5000 (OCR Tool Backend), rewrite links 
+ * to point back to the main UI server on port 8000.
+ */
+document.addEventListener("componentLoaded", (e) => {
+    if (window.location.port !== "5000") return;
+    if (e.detail.name !== 'header' && e.detail.name !== 'bottom-nav') return;
+
+    const el = e.detail.element;
+    const MAIN_SITE = "http://localhost:8000";
+
+    el.querySelectorAll('a').forEach(link => {
+        let href = link.getAttribute('href');
+        if (!href) return;
+
+        // Skip absolute URLs that already have a protocol
+        if (href.startsWith('http://') || href.startsWith('https://')) return;
+
+        // Ensure root-relative style
+        if (!href.startsWith('/')) {
+            href = '/' + href;
+        }
+
+        // Exception: Keep OCR tool links on current port if they refer to the tool itself
+        if (href.startsWith('/ocr/')) return;
+
+        // Rewrite to point to port 8000
+        link.setAttribute('href', `${MAIN_SITE}${href}`);
+    });
+});
