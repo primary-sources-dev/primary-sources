@@ -162,6 +162,7 @@
         selectWrapper.appendChild(select);
         selectWrapper.appendChild(arrow);
         wrapper.appendChild(label);
+        wrapper.appendChild(selectWrapper);
         container.appendChild(wrapper);
     }
 
