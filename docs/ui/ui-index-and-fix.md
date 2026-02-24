@@ -34,6 +34,8 @@
 | **tools/document-analyzer.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **tools/citation-generator.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **tools/ocr-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+| **tools/entity-matcher.html** | modular | gradient dark | modular | modular | main.css | components, nav |
+| **tools/research-tools.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 
 ---
 
@@ -51,9 +53,9 @@
 
 | Component | Location | Used By |
 |-----------|----------|---------|
-| `header.html` | components/ | 26 pages (standard site header) |
-| `footer.html` | components/ | 26 pages (standard site footer) |
-| `bottom-nav.html` | components/ | 26 pages (mobile navigation) |
+| `header.html` | components/ | 28 pages (standard site header) |
+| `footer.html` | components/ | 28 pages (standard site footer) |
+| `bottom-nav.html` | components/ | 28 pages (mobile navigation) |
 | `facet-bar.html` | components/ | Filter pages (sidebar filters) |
 | `pdf-viewer-header.html` | components/ | pdf-viewer.html (toolbar with nav/zoom/workbench) |
 
