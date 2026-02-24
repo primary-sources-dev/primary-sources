@@ -3,6 +3,35 @@
 // Archival aesthetic with visual design from oswald.html
 // Primary Sources Project - 2026-02-24
 
+// Helper: Convert PDF URLs to use pdf-viewer.html
+function convertPdfUrl(url) {
+  if (!url || url === '#') return url;
+
+  // Check if it's a PDF file
+  if (url.includes('.pdf')) {
+    // Extract file path and parameters
+    const [filePath, params] = url.split('#');
+
+    // Build pdf-viewer.html URL
+    let viewerUrl = `pdf-viewer.html?file=${encodeURIComponent(filePath)}`;
+
+    // Extract page number if present (from #page=X or &page=X)
+    if (params) {
+      const pageMatch = params.match(/page=(\d+)/);
+      if (pageMatch) {
+        viewerUrl += `&page=${pageMatch[1]}`;
+      }
+
+      // Note: search parameter not supported by current pdf-viewer.html
+      // but could be added later
+    }
+
+    return viewerUrl;
+  }
+
+  return url;
+}
+
 // Card 1: Context & Background
 function populateContext(context) {
   const textEl = document.getElementById('context-text');
@@ -45,7 +74,7 @@ function populateTimeline(subEvents) {
               <p class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">${date}</p>
               <p class="text-xs font-bold text-archive-heading uppercase tracking-wider mb-1">${title}</p>
               ${description ? `<p class="text-[10px] text-archive-secondary/70 leading-relaxed">${description}</p>` : ''}
-              ${url ? `<a href="${url}" class="inline-flex items-center gap-1 text-[9px] text-primary hover:underline uppercase tracking-widest mt-2"><span class="material-symbols-outlined text-xs">description</span>View Document</a>` : ''}
+              ${url ? `<a href="${convertPdfUrl(url)}" class="inline-flex items-center gap-1 text-[9px] text-primary hover:underline uppercase tracking-widest mt-2"><span class="material-symbols-outlined text-xs">description</span>View Document</a>` : ''}
             </div>
           </div>
         </div>
@@ -144,7 +173,7 @@ function populateSources(sources) {
     const detailLine = [author, archive].filter(Boolean).join(' — ');
 
     return `
-      <a href="${url || '#'}" class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
+      <a href="${convertPdfUrl(url || '#')}" class="flex items-center justify-between border border-archive-secondary/20 bg-[#252021]/60 px-4 py-3 hover:border-primary transition-colors">
         <div>
           ${metaLine ? `<p class="text-[10px] text-primary uppercase tracking-widest font-bold mb-0.5">${metaLine}</p>` : ''}
           <p class="text-xs font-bold text-archive-heading uppercase tracking-wider">${title}</p>
