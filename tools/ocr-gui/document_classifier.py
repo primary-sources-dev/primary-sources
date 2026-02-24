@@ -25,6 +25,7 @@ except ImportError:
 
 class DocType(Enum):
     """Supported document type identifiers."""
+    # === Primary Source Documents ===
     FBI_302 = "FBI_302"
     FBI_REPORT = "FBI_REPORT"  # FBI reports, airtels, teletypes
     NARA_RIF = "NARA_RIF"
@@ -45,6 +46,12 @@ class DocType(Enum):
     DPD_REPORT = "DPD_REPORT"  # Dallas Police specific formats
     MEDICAL_RECORD = "MEDICAL_RECORD"  # Hospital/Psychiatric records
     HANDWRITTEN_NOTES = "HANDWRITTEN_NOTES"  # Scanned notes/scribbles
+    # === Structural Pages (Skip Processing) ===
+    BLANK = "BLANK"  # Empty or near-empty pages
+    TOC = "TOC"  # Table of contents
+    INDEX = "INDEX"  # Back-matter index pages
+    COVER = "COVER"  # Title/cover pages
+    # === Fallback ===
     UNKNOWN = "UNKNOWN"
 
 
@@ -383,6 +390,76 @@ FINGERPRINTS = {
         (r"[\?\.]{3,}", 10),              # Question marks/dots in messy text
         (r"(?:[A-Z]{1,2}\s+){5,}", 15),   # CAPS fragments
     ],
+    
+    # =========================================================================
+    # STRUCTURAL PAGE TYPES (Skip Processing)
+    # =========================================================================
+    
+    DocType.BLANK: [
+        # Blank pages detected primarily by character count (see classify_document)
+        # These patterns are for explicit "blank page" markers when char count > threshold
+        (r"(?:This page (?:intentionally )?(?:left )?blank)", 80),
+        (r"\[?\s*(?:BLANK|blank|EMPTY|empty)\s*\]?", 70),
+        (r"(?:PAGE\s+)?INTENTIONALLY\s+(?:LEFT\s+)?BLANK", 80),
+    ],
+    
+    DocType.TOC: [
+        (r"TABLE\s+OF\s+CONTENTS", 50),
+        (r"CONTENTS", 40),
+        (r"Table of Contents", 45),
+        (r"Contents", 35),
+        # Chapter/section listings with page numbers
+        (r"Chapter\s+(?:I{1,3}|IV|V|VI{0,3}|[0-9]+)\s*[\.…\-—]+\s*\d+", 35),
+        (r"(?:CHAPTER|Chapter|PART|Part|Section|SECTION)\s+\w+\s*[\.…\-—]+\s*\d+", 30),
+        # Multiple lines ending with page numbers (TOC pattern)
+        (r"[A-Z][a-z]+.*[\.…\-—]+\s*\d{1,4}$", 25),
+        (r"(?:Appendix|APPENDIX|Exhibit|EXHIBIT)\s+\w+\s*[\.…\-—]+\s*\d+", 25),
+        (r"(?:Introduction|Foreword|Preface|Summary)\s*[\.…\-—]+\s*\d+", 25),
+        (r"(?:Index|Bibliography|References)\s*[\.…\-—]+\s*\d+", 20),
+    ],
+    
+    DocType.INDEX: [
+        (r"^\s*INDEX\s*$", 50),
+        (r"^\s*Index\s*$", 45),
+        (r"GENERAL\s+INDEX", 45),
+        (r"NAME\s+INDEX", 45),
+        (r"SUBJECT\s+INDEX", 45),
+        # Alphabetical entries with page numbers (index pattern)
+        (r"^[A-Z][a-z]+,\s+[A-Z][a-z]+.*\d{1,4}", 30),  # "Smith, John... 123"
+        (r"^[A-Z][a-z]+.*,\s+\d{1,4}(?:,\s*\d{1,4})*", 35),  # "Topic, 12, 45, 78"
+        # Multiple comma-separated page numbers
+        (r"\d{1,4},\s*\d{1,4},\s*\d{1,4}", 30),
+        # "See also" cross-references
+        (r"[Ss]ee\s+(?:also\s+)?[A-Z][a-z]+", 25),
+        # Subentries (indented items)
+        (r"^\s{2,}[a-z].*\d{1,4}$", 20),
+    ],
+    
+    DocType.COVER: [
+        # Volume/Report titles
+        (r"VOLUME\s+(?:I{1,3}|IV|V|VI{0,3}|[0-9]+)", 40),
+        (r"Volume\s+(?:I{1,3}|IV|V|VI{0,3}|[0-9]+)", 35),
+        (r"REPORT\s+OF\s+THE", 35),
+        (r"Report of the", 30),
+        # Publication info
+        (r"U\.?S\.?\s+GOVERNMENT\s+PRINTING\s+OFFICE", 40),
+        (r"GOVERNMENT\s+PRINTING\s+OFFICE", 35),
+        (r"GPO", 25),
+        (r"WASHINGTON\s*(?:,\s*D\.?C\.?)?(?:\s*:\s*|\s+)\d{4}", 35),
+        (r"Washington\s*(?:,\s*D\.?C\.?)?(?:\s*:\s*|\s+)\d{4}", 30),
+        # Commission/Committee names as titles
+        (r"PRESIDENT'?S?\s+COMMISSION", 35),
+        (r"WARREN\s+COMMISSION", 35),
+        (r"HOUSE\s+SELECT\s+COMMITTEE", 30),
+        (r"SELECT\s+COMMITTEE", 25),
+        # Year patterns (publication years)
+        (r"(?:19[5-9]\d|20[0-2]\d)\s*$", 20),
+        # "Hearings" or "Report" as standalone title element
+        (r"^\s*HEARINGS?\s*$", 30),
+        (r"^\s*REPORT\s*$", 25),
+        # Sparse content indicator (covers have little body text)
+        (r"^(?:\s*\n){5,}", 15),  # Many blank lines
+    ],
 }
 
 # Calculate max possible score for each type (for normalization)
@@ -521,6 +598,24 @@ CANONICAL_FINGERPRINTS = {
         ("handwritten", 30),
         ("rough notes", 30),
     ],
+    
+    # Structural page types
+    DocType.TOC: [
+        ("TABLE OF CONTENTS", 50),
+        ("CONTENTS", 40),
+        ("Chapter", 25),
+    ],
+    DocType.INDEX: [
+        ("INDEX", 50),
+        ("GENERAL INDEX", 45),
+        ("See also", 30),
+    ],
+    DocType.COVER: [
+        ("VOLUME", 35),
+        ("GOVERNMENT PRINTING OFFICE", 40),
+        ("REPORT OF THE", 35),
+        ("WASHINGTON", 25),
+    ],
 }
 
 
@@ -629,7 +724,8 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
     """
     Classify document type by matching fingerprints against header.
     
-    Uses a two-stage approach:
+    Uses a multi-stage approach:
+    0. Structural page detection (BLANK, based on character count)
     1. Regex-based fingerprint matching (fast, precise)
     2. Levenshtein fuzzy matching (fallback for garbled OCR)
 
@@ -640,6 +736,32 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
     Returns:
         ClassificationResult with doc_type, confidence, and matched patterns
     """
+    # =================================================================
+    # Stage 0: BLANK page detection (before preprocessing)
+    # =================================================================
+    # Strip and count meaningful characters
+    stripped = text.strip()
+    char_count = len(stripped)
+    
+    # Threshold: pages with < 100 chars are likely blank or just page numbers
+    BLANK_THRESHOLD = 100
+    
+    if char_count < BLANK_THRESHOLD:
+        # Check if it's just whitespace, page numbers, or "blank" indicators
+        is_blank_page = (
+            char_count == 0 or
+            re.match(r'^[\s\d\-\.]+$', stripped) or  # Only whitespace/digits
+            re.search(r'(?:blank|empty)', stripped, re.IGNORECASE) or
+            re.match(r'^\d{1,4}$', stripped)  # Just a page number
+        )
+        if is_blank_page:
+            return ClassificationResult(
+                doc_type=DocType.BLANK,
+                confidence=0.95,
+                matched_patterns=[f"char_count={char_count}"],
+                header_sample=stripped[:100],
+            )
+    
     # Preprocess to handle OCR artifacts
     text = preprocess_text(text)
     
@@ -872,6 +994,39 @@ ZONE_CONFIG = {
         "footer_fields": ["page_number"],
         "body_fields": ["content", "subjects_mentioned"],
     },
+    # Structural page types - minimal extraction
+    DocType.BLANK: {
+        "header_lines": 0,
+        "footer_lines": 0,
+        "header_fields": [],
+        "footer_fields": [],
+        "body_fields": [],
+        "skip_processing": True,
+    },
+    DocType.TOC: {
+        "header_lines": 5,
+        "footer_lines": 3,
+        "header_fields": ["page_number"],
+        "footer_fields": ["page_number"],
+        "body_fields": ["chapter_list"],
+        "skip_processing": True,
+    },
+    DocType.INDEX: {
+        "header_lines": 3,
+        "footer_lines": 3,
+        "header_fields": ["page_number"],
+        "footer_fields": ["page_number"],
+        "body_fields": [],
+        "skip_processing": True,
+    },
+    DocType.COVER: {
+        "header_lines": 10,
+        "footer_lines": 5,
+        "header_fields": ["title", "volume", "publication_year"],
+        "footer_fields": ["publisher"],
+        "body_fields": [],
+        "skip_processing": True,
+    },
 }
 
 
@@ -922,6 +1077,25 @@ def is_nara_rif(text: str) -> bool:
     """Quick check if document appears to be NARA RIF sheet."""
     result = classify_document(text)
     return result.doc_type == DocType.NARA_RIF and result.confidence >= 0.5
+
+
+# Structural page types that should skip full body processing
+STRUCTURAL_TYPES = {DocType.BLANK, DocType.TOC, DocType.INDEX, DocType.COVER}
+
+
+def is_structural(text: str) -> bool:
+    """
+    Quick check if page is a structural element (cover, TOC, index, blank).
+    Structural pages should typically be skipped during content extraction.
+    """
+    result = classify_document(text)
+    return result.doc_type in STRUCTURAL_TYPES
+
+
+def is_blank(text: str) -> bool:
+    """Quick check if page is blank or near-empty."""
+    result = classify_document(text)
+    return result.doc_type == DocType.BLANK
 
 
 # =============================================================================
@@ -1019,12 +1193,70 @@ if __name__ == "__main__":
     print(f"Fuzzy matching: {'ENABLED' if HAS_RAPIDFUZZ else 'DISABLED'}")
     print("=" * 60)
     
+    # Structural page test samples
+    BLANK_SAMPLE = """
+    
+    
+    
+    42
+    
+    
+    """
+    
+    TOC_SAMPLE = """
+    TABLE OF CONTENTS
+    
+    Chapter I — Formation of the Warren Commission .......................... 1
+    Chapter II — Narrative of Events ........................................ 18
+    Chapter III — Analysis of Lee Harvey Oswald ............................ 375
+    Chapter IV — Conclusions ............................................... 469
+    
+    Appendix A — Exhibits .................................................. 500
+    Appendix B — Index ..................................................... 750
+    """
+    
+    INDEX_SAMPLE = """
+    INDEX
+    
+    Abt, John, 123, 456
+    Adams, Victoria, 67, 89, 234
+    Altgens, James, 45, 78
+        photograph by, 45, 78
+    Baker, Marrion L., 102, 145
+        testimony of, 102
+    Benavides, Domingo, 234, 567
+        See also Tippit shooting
+    """
+    
+    COVER_SAMPLE = """
+    
+    
+    REPORT OF THE
+    
+    PRESIDENT'S COMMISSION
+    ON THE
+    ASSASSINATION OF PRESIDENT KENNEDY
+    
+    
+    VOLUME I
+    
+    
+    
+    U.S. GOVERNMENT PRINTING OFFICE
+    WASHINGTON : 1964
+    """
+    
     test_cases = [
         ("FBI 302 (clean)", FBI_302_SAMPLE),
         ("FBI 302 (garbled)", GARBLED_FBI_302),
         ("NARA RIF", NARA_RIF_SAMPLE),
         ("MEMO", MEMO_SAMPLE),
         ("CIA Cable", CIA_CABLE_SAMPLE),
+        # Structural types
+        ("BLANK page", BLANK_SAMPLE),
+        ("TABLE OF CONTENTS", TOC_SAMPLE),
+        ("INDEX page", INDEX_SAMPLE),
+        ("COVER page", COVER_SAMPLE),
     ]
     
     for name, sample in test_cases:
