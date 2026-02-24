@@ -51,10 +51,11 @@
 
 | Component | Location | Used By |
 |-----------|----------|---------|
-| `header.html` | components/ | 26 pages (modular) |
-| `footer.html` | components/ | 26 pages (modular) |
-| `bottom-nav.html` | components/ | 26 pages (modular) |
-| `facet-bar.html` | components/ | Filter pages |
+| `header.html` | components/ | 26 pages (standard site header) |
+| `footer.html` | components/ | 26 pages (standard site footer) |
+| `bottom-nav.html` | components/ | 26 pages (mobile navigation) |
+| `facet-bar.html` | components/ | Filter pages (sidebar filters) |
+| `pdf-viewer-header.html` | components/ | pdf-viewer.html (toolbar with nav/zoom/workbench) |
 
 ---
 
@@ -93,7 +94,8 @@
 | File | Purpose | Notes |
 |------|---------|-------|
 | `main.css` | Global styles, CSS custom properties | Used by all pages |
-| `ocr-components.css` | OCR-specific styles | Now uses CSS variables from main.css |
+| `ocr-components.css` | OCR tool styles | Uses CSS variables from main.css |
+| `pdf-viewer.css` | PDF viewer styles | Uses CSS variables from main.css |
 | Inline Tailwind config | Theme colors, fonts, border-radius | Duplicated in every page head |
 
 ---
@@ -103,13 +105,14 @@
 ### 1. Create Shared Layout Components
 ```
 components/
-├── Layout.tsx          # Wraps all pages
-├── Header.tsx          # From header.html
-├── Footer.tsx          # From footer.html
-├── BottomNav.tsx       # From bottom-nav.html
-├── HeroGradient.tsx    # Gradient dark hero variant
-├── HeroSimple.tsx      # Simple hero variant
-└── FacetBar.tsx        # From facet-bar.html
+├── Layout.tsx              # Wraps all pages
+├── Header.tsx              # From header.html
+├── Footer.tsx              # From footer.html
+├── BottomNav.tsx           # From bottom-nav.html
+├── HeroGradient.tsx        # Gradient dark hero variant
+├── HeroSimple.tsx          # Simple hero variant
+├── FacetBar.tsx            # From facet-bar.html
+└── PDFViewerHeader.tsx     # From pdf-viewer-header.html (standalone tool)
 ```
 
 ### 2. Consolidate Tailwind Config
@@ -146,8 +149,8 @@ module.exports = {
 |----------|---------|
 | `ListPage` | people, events, objects, organizations, places, sources, links |
 | `DetailPage` | person, event, object, source |
-| `ToolInfoPage` | tools/* |
-| `ToolAppPage` | ocr/index (functional tool) |
+| `ToolInfoPage` | tools/* (informational pages) |
+| `ToolAppPage` | ocr/index, pdf-viewer (functional tools) |
 | `DiscoveryPage` | otd, random, witness-atlas |
 | `ContentPage` | about, blog, features |
 
@@ -161,6 +164,7 @@ module.exports = {
 - [x] Fix ocr/index.html: Add modular footer + bottom-nav
 - [x] Consolidate pdf-viewer info page to tools/pdf-viewer-features.html (pdf-viewer.html is the functional viewer, not legacy)
 - [x] Align ocr-components.css with main.css design tokens (uses CSS variables)
+- [x] Modularize pdf-viewer.html: extract header to component, CSS to pdf-viewer.css
 - [ ] Consolidate person.html + person-v2.html
 - [ ] Consolidate event.html + event-v1.html
 - [ ] Extract inline Tailwind config to shared file
