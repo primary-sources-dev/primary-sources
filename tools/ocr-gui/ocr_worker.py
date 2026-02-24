@@ -160,12 +160,19 @@ class OCRWorker:
         filename = os.path.basename(filepath)
         base_name = os.path.splitext(filename)[0]
 
-        self.log(f"Converting PDF to images: {filename}")
-
-        try:
-            images = convert_from_path(filepath, poppler_path=POPPLER_PATH)
-        except Exception as e:
-            return False, f"PDF conversion failed: {e}"
+        ext = os.path.splitext(filepath)[1].lower()
+        if ext == ".pdf":
+            self.log(f"Converting PDF to images: {filename}")
+            try:
+                images = convert_from_path(filepath, poppler_path=POPPLER_PATH)
+            except Exception as e:
+                return False, f"PDF conversion failed: {e}"
+        else:
+            self.log(f"Opening image directly: {filename}")
+            try:
+                images = [Image.open(filepath)]
+            except Exception as e:
+                return False, f"Image loading failed: {e}"
 
         total_pages = len(images)
         full_text = ""

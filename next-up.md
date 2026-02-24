@@ -29,7 +29,7 @@ Based on the [Master Roadmap](./roadmap.md), these three features represent the 
 *   **Category**: UX / Productivity / Tooling
 
 ### 5. Archival Image Support
-*   **Description**: Enable the OCR tool to process standalone high-resolution image files (.jpg, .png, .tiff) directly.
+*   [x] **#5: Archival Image Support**: Enable the OCR tool to process standalone high-resolution image files (.jpg, .png, .tiff) directly.
 *   **Logic**: Extends the `OCRWorker` to handle direct image input streams alongside PDF page-renders.
 *   **Value**: Field researchers often capture single-frame "quick-snaps" rather than multi-page PDFs; this eliminates the need for manual conversion.
 *   **Category**: Utility / Input

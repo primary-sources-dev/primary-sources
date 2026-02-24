@@ -39,7 +39,7 @@ app = Flask(__name__,
 # Configuration
 UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "processed")
 MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
-ALLOWED_EXTENSIONS = {"pdf"}
+ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp"}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = MAX_FILE_SIZE

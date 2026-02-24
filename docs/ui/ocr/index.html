@@ -9,8 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
     <script>
         tailwind.config = {
@@ -144,7 +143,8 @@
 
             <!-- Queue List -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Queue
                 </h3>
                 <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none">
@@ -156,7 +156,8 @@
 
             <!-- Log Output -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Log
                 </h3>
                 <div id="log-output"
@@ -256,32 +257,38 @@
         <section id="tab-content-guide" class="tab-content hidden">
             <!-- Quick Start -->
             <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Quick Start
                 </h3>
                 <ol class="space-y-3 text-sm">
                     <li class="flex gap-3">
                         <span class="text-primary font-bold">1.</span>
-                        <span><strong class="text-archive-heading">Add Files</strong> — Drag PDFs onto the drop zone or click to browse</span>
+                        <span><strong class="text-archive-heading">Add Files</strong> — Drag PDFs onto the drop zone or
+                            click to browse</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="text-primary font-bold">2.</span>
-                        <span><strong class="text-archive-heading">Configure</strong> — Select your backend and output options</span>
+                        <span><strong class="text-archive-heading">Configure</strong> — Select your backend and output
+                            options</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="text-primary font-bold">3.</span>
-                        <span><strong class="text-archive-heading">Process</strong> — Click "Start OCR" and monitor progress in the queue below</span>
+                        <span><strong class="text-archive-heading">Process</strong> — Click "Start OCR" and monitor
+                            progress in the queue below</span>
                     </li>
                     <li class="flex gap-3">
                         <span class="text-primary font-bold">4.</span>
-                        <span><strong class="text-archive-heading">Review</strong> — Use the "View" button to check results in the PDF viewer</span>
+                        <span><strong class="text-archive-heading">Review</strong> — Use the "View" button to check
+                            results in the PDF viewer</span>
                     </li>
                 </ol>
             </div>
 
             <!-- Backend Options -->
             <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Backend Options
                 </h3>
                 <div class="space-y-4">
@@ -290,7 +297,8 @@
                             <span class="text-primary">WSL</span> (ocrmypdf)
                         </h4>
                         <p class="text-sm text-archive-secondary/80 mb-2">
-                            High-quality OCR using the industry-standard ocrmypdf tool running in Windows Subsystem for Linux.
+                            High-quality OCR using the industry-standard ocrmypdf tool running in Windows Subsystem for
+                            Linux.
                         </p>
                         <ul class="text-xs space-y-1 text-archive-secondary/60">
                             <li>• Best accuracy for archival documents</li>
@@ -318,7 +326,8 @@
 
             <!-- Output Formats -->
             <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Output Formats
                 </h3>
                 <div class="space-y-3">
@@ -326,21 +335,24 @@
                         <span class="material-symbols-outlined text-primary text-xl">picture_as_pdf</span>
                         <div>
                             <h4 class="text-sm font-bold text-archive-heading">Searchable PDF</h4>
-                            <p class="text-xs text-archive-secondary/70">Original document with invisible text layer. Select and search text while preserving original appearance.</p>
+                            <p class="text-xs text-archive-secondary/70">Original document with invisible text layer.
+                                Select and search text while preserving original appearance.</p>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-primary text-xl">description</span>
                         <div>
                             <h4 class="text-sm font-bold text-archive-heading">Plain Text (.txt)</h4>
-                            <p class="text-xs text-archive-secondary/70">Raw extracted text with page markers. Useful for full-text search indexing and text analysis.</p>
+                            <p class="text-xs text-archive-secondary/70">Raw extracted text with page markers. Useful
+                                for full-text search indexing and text analysis.</p>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-primary text-xl">code</span>
                         <div>
                             <h4 class="text-sm font-bold text-archive-heading">Markdown (.md)</h4>
-                            <p class="text-xs text-archive-secondary/70">Structured text with headings and formatting preserved. Ideal for research notes and documentation.</p>
+                            <p class="text-xs text-archive-secondary/70">Structured text with headings and formatting
+                                preserved. Ideal for research notes and documentation.</p>
                         </div>
                     </div>
                 </div>
@@ -348,7 +360,8 @@
 
             <!-- Processing Options -->
             <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Processing Options
                 </h3>
                 <div class="space-y-3">
@@ -356,21 +369,24 @@
                         <span class="material-symbols-outlined text-primary text-xl">straighten</span>
                         <div>
                             <h4 class="text-sm font-bold text-archive-heading">Deskew</h4>
-                            <p class="text-xs text-archive-secondary/70">Automatically straightens crooked scanned pages. Essential for documents that were fed through a scanner at an angle.</p>
+                            <p class="text-xs text-archive-secondary/70">Automatically straightens crooked scanned
+                                pages. Essential for documents that were fed through a scanner at an angle.</p>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-primary text-xl">auto_fix_high</span>
                         <div>
                             <h4 class="text-sm font-bold text-archive-heading">Clean</h4>
-                            <p class="text-xs text-archive-secondary/70">Removes noise, specks, and artifacts from old photocopies. Improves OCR accuracy on degraded documents.</p>
+                            <p class="text-xs text-archive-secondary/70">Removes noise, specks, and artifacts from old
+                                photocopies. Improves OCR accuracy on degraded documents.</p>
                         </div>
                     </div>
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-primary text-xl">refresh</span>
                         <div>
                             <h4 class="text-sm font-bold text-archive-heading">Force OCR</h4>
-                            <p class="text-xs text-archive-secondary/70">Re-processes files that already have text layers. Use when existing OCR quality is poor or incomplete.</p>
+                            <p class="text-xs text-archive-secondary/70">Re-processes files that already have text
+                                layers. Use when existing OCR quality is poor or incomplete.</p>
                         </div>
                     </div>
                 </div>
@@ -378,29 +394,35 @@
 
             <!-- Tips -->
             <div class="settings-container border border-primary/30 bg-archive-dark/50 p-6">
-                <h3 class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
                     Tips for Best Results
                 </h3>
                 <ul class="space-y-2 text-sm text-archive-secondary/80">
                     <li class="flex gap-2">
                         <span class="text-primary">•</span>
-                        <span><strong class="text-archive-heading">Batch processing</strong> — Queue multiple files and process overnight for large collections</span>
+                        <span><strong class="text-archive-heading">Batch processing</strong> — Queue multiple files and
+                            process overnight for large collections</span>
                     </li>
                     <li class="flex gap-2">
                         <span class="text-primary">•</span>
-                        <span><strong class="text-archive-heading">Quality check</strong> — Test a few pages before processing an entire collection</span>
+                        <span><strong class="text-archive-heading">Quality check</strong> — Test a few pages before
+                            processing an entire collection</span>
                     </li>
                     <li class="flex gap-2">
                         <span class="text-primary">•</span>
-                        <span><strong class="text-archive-heading">Use WSL</strong> — For archival documents, WSL backend provides significantly better accuracy</span>
+                        <span><strong class="text-archive-heading">Use WSL</strong> — For archival documents, WSL
+                            backend provides significantly better accuracy</span>
                     </li>
                     <li class="flex gap-2">
                         <span class="text-primary">•</span>
-                        <span><strong class="text-archive-heading">Enable both options</strong> — Deskew + Clean together work best on old photocopies</span>
+                        <span><strong class="text-archive-heading">Enable both options</strong> — Deskew + Clean
+                            together work best on old photocopies</span>
                     </li>
                     <li class="flex gap-2">
                         <span class="text-primary">•</span>
-                        <span><strong class="text-archive-heading">Output directory</strong> — Double-click the path to copy it to your clipboard</span>
+                        <span><strong class="text-archive-heading">Output directory</strong> — Double-click the path to
+                            copy it to your clipboard</span>
                     </li>
                 </ul>
             </div>

@@ -2,7 +2,7 @@
 
 Add native support for common image formats (.jpg, .png, .tiff) to the OCR tool, allowing direct processing of "quick-snap" archival photos without manual PDF conversion.
 
-- **Status**: Proposed
+- **Status**: Completed
 - **Priority**: High
 - **Owner**: Antigravity
 - **Workorder ID**: WO-OCR-005

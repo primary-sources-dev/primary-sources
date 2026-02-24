@@ -32,11 +32,11 @@ const HELP_TEXT = `
 PRIMARY SOURCES — OCR TOOL
 ==========================
 
-This tool converts scanned PDF documents into searchable text.
+This tool converts scanned PDF documents and archival images (.jpg, .png, .tiff) into searchable text.
 
 QUICK START
 -----------
-1. Click File → Open Files (or the Browse button) to add PDFs
+1. Click File → Open Files (or the Browse button) to add PDFs or Images
 2. Choose your output settings
 3. Click "Start OCR"
 
@@ -186,13 +186,18 @@ function switchTab(tabName) {
 function handleFilesDrop(e) {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf');
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/tiff', 'image/webp'];
+    const files = Array.from(e.dataTransfer.files).filter(f => allowedTypes.includes(f.type) || f.name.toLowerCase().endsWith('.tiff')); // TIFF MIME type can be tricky
     addFilesToQueue(files);
 }
 
 function addFilesToQueue(files) {
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/tiff', 'image/webp'];
     const validFiles = files.filter(f => {
-        if (f.type !== 'application/pdf') {
+        const isAllowed = allowedTypes.includes(f.type) ||
+            ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp'].some(ext => f.name.toLowerCase().endsWith(ext));
+
+        if (!isAllowed) {
             logError(`Invalid file type: ${f.name}`);
             return false;
         }
@@ -489,7 +494,7 @@ function copyOutputPath() {
 }
 
 function downloadMarkdown(originalName) {
-    const baseName = originalName.replace('.pdf', '');
+    const baseName = originalName.substring(0, originalName.lastIndexOf('.'));
     const mdName = `${baseName}.md`;
     window.location.href = `/api/download/${mdName}`;
 }
