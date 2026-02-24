@@ -13,7 +13,7 @@ UNKNOWN_PAGES = [2, 5, 7, 9, 11, 12, 19, 22, 23, 26, 28, 29]
 
 pdf = fitz.open(PDF_PATH)
 
-for page_num in UNKNOWN_PAGES[:8]:
+for page_num in UNKNOWN_PAGES:
     text = pdf[page_num - 1].get_text()
     
     print(f"\n{'='*60}")
@@ -24,8 +24,8 @@ for page_num in UNKNOWN_PAGES[:8]:
         print("[minimal text - likely image/scan]")
         continue
     
-    preview = text[:400].replace('\n', ' ')
-    print(f"Preview: {preview[:350]}...")
+    preview = re.sub(r'[\x00-\x1F\x7F-\x9F]', ' ', text[:800]).replace('\n', ' ')
+    print(f"Preview: {preview[:400]}...")
     
     # Check what patterns exist
     patterns = []
@@ -46,7 +46,7 @@ for page_num in UNKNOWN_PAGES[:8]:
         print(f"Patterns found: {patterns}")
         
     scores = get_all_scores(text)
-    top_scores = sorted(scores.items(), key=lambda x: -x[1])[:3]
-    print(f"Top scores: {[(t.value if hasattr(t, 'value') else t, f'{s:.3f}') for t, s in top_scores]}")
+    top_scores = sorted(scores.items(), key=lambda x: -x[1])[:5]
+    print(f"Top scores: {[(t.value if hasattr(t, 'value') else str(t), f'{s:.3f}') for t, s in top_scores]}")
 
 pdf.close()

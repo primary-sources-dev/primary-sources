@@ -127,6 +127,18 @@ ZONE_CONFIG = {
         "header_lines": 10,
         "footer_lines": 5,
     },
+    DocType.CIA_201: {
+        "header_lines": 20,
+        "footer_lines": 5,
+    },
+    DocType.DPD_REPORT: {
+        "header_lines": 20,
+        "footer_lines": 10,
+    },
+    DocType.MEDICAL_RECORD: {
+        "header_lines": 15,
+        "footer_lines": 10,
+    },
     DocType.UNKNOWN: {
         "header_lines": 20,
         "footer_lines": 10,
@@ -234,8 +246,38 @@ WC_TESTIMONY_PATTERNS = [
     # Witness response patterns (generalized)
     (r"(?:Mr\.|Mrs\.)\s+(\w+)\.\s+(?:Yes|No|That is correct)", "witness_response", "body", 0.8),
     # Volume/page
-    (r"VOL(?:UME)?\.?\s*(\d+)", "volume", "any", 0.85),
     (r"(?:^|\s)(\d{1,3})(?:\s|$)", "page", "footer", 0.7),
+]
+
+HANDWRITTEN_NOTES_PATTERNS = [
+    (r"(scribe|notes|notes|memo|informal)", "note_type", "header", 0.8),
+    (r"(\d{1,2}/\d{1,2}/\d{2,4})", "note_date", "any", 0.7),
+]
+
+CIA_201_PATTERNS = [
+    (r"201-(\d{6,8})", "personality_file_number", "header", 0.98),
+    (r"SUBJECT[:\s]+(.+?)(?:\n|$)", "subject", "header", 0.95),
+    (r"Cryptonym[:\s]+([A-Z/]+)", "cryptonym", "header", 0.9),
+    (r"Project[:\s]+([A-Z0-9\-]+)", "project", "header", 0.85),
+    (r"P/F\s*[:\.]\s*(.+?)(?:\n|$)", "personality_file", "header", 0.8),
+]
+
+DPD_REPORT_PATTERNS = [
+    (r"DALLAS\s+POLICE\s+DEPARTMENT", "department", "header", 0.95),
+    (r"DALLAS\s+SHERIFF", "department", "header", 0.9),
+    (r"SUPPLEMENTARY\s+INVESTIGATION", "report_type", "header", 0.95),
+    (r"(?:CASE|REPORT|SERIAL)\s+(?:NO\.?|NUMBER|#)\s*:?\s*(\S+)", "case_number", "header", 0.9),
+    (r"(?:OFFICE\s+OF\s+)?CHIEF\s+OF\s+POLICE", "office", "header", 0.85),
+    (r"Reporting\s+Officer\s*[:\.]\s*(.+?)(?:\n|$)", "reporting_officer", "footer", 0.95),
+]
+
+MEDICAL_RECORD_PATTERNS = [
+    (r"HOSPITAL|CLINIC", "facility_type", "header", 0.85),
+    (r"MEDICAL\s+RECORD", "record_type", "header", 0.95),
+    (r"PATIENT\s*[:\.]\s*(.+?)(?:\n|$)", "patient_name", "header", 0.95),
+    (r"DIAGNOSIS\s*[:\.]\s*(.+?)(?:\n\n|$)", "diagnosis", "body", 0.9),
+    (r"TREATMENT\s*[:\.]\s*(.+?)(?:\n\n|$)", "treatment", "body", 0.85),
+    (r"Physician\s*[:\.]\s*(.+?)(?:\n|$)", "physician", "footer", 0.9),
 ]
 
 HSCA_PATTERNS = [
@@ -372,6 +414,7 @@ TYPE_PATTERNS = {
     DocType.FBI_REPORT: FBI_REPORT_PATTERNS,
     DocType.NARA_RIF: NARA_RIF_PATTERNS,
     DocType.CIA_CABLE: CIA_CABLE_PATTERNS,
+    DocType.CIA_201: CIA_201_PATTERNS,
     DocType.MEMO: MEMO_PATTERNS,
     DocType.LETTER: LETTER_PATTERNS,
     DocType.TRAVEL_DOCUMENT: TRAVEL_DOCUMENT_PATTERNS,
@@ -380,10 +423,13 @@ TYPE_PATTERNS = {
     DocType.WC_DEPOSITION: WC_DEPOSITION_PATTERNS,
     DocType.WC_AFFIDAVIT: WC_AFFIDAVIT_PATTERNS,
     DocType.POLICE_REPORT: POLICE_REPORT_PATTERNS,
+    DocType.DPD_REPORT: DPD_REPORT_PATTERNS,
+    DocType.MEDICAL_RECORD: MEDICAL_RECORD_PATTERNS,
     DocType.SENATE_REPORT: SENATE_REPORT_PATTERNS,
     DocType.CHURCH_COMMITTEE: CHURCH_COMMITTEE_PATTERNS,
     DocType.HSCA_DOC: HSCA_PATTERNS,
     DocType.HSCA_REPORT: HSCA_REPORT_PATTERNS,
+    DocType.HANDWRITTEN_NOTES: HANDWRITTEN_NOTES_PATTERNS,
 }
 
 

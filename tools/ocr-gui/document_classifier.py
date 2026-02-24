@@ -34,6 +34,10 @@ class DocType(Enum):
     CHURCH_COMMITTEE = "CHURCH_COMMITTEE"  # Church Committee specific
     HSCA_DOC = "HSCA_DOC"
     HSCA_REPORT = "HSCA_REPORT"  # HSCA Final Report narrative
+    CIA_201 = "CIA_201"  # CIA Personality File
+    DPD_REPORT = "DPD_REPORT"  # Dallas Police specific formats
+    MEDICAL_RECORD = "MEDICAL_RECORD"  # Hospital/Psychiatric records
+    HANDWRITTEN_NOTES = "HANDWRITTEN_NOTES"  # Scanned notes/scribbles
     UNKNOWN = "UNKNOWN"
 
 
@@ -326,6 +330,58 @@ FINGERPRINTS = {
         (r"motorcade", 15),
         (r"November\s+22,?\s+1963", 20),
     ],
+
+    DocType.CIA_201: [
+        (r"201-\d{6,8}", 40),  # 201 number pattern
+        (r"PERSONALITY\s+FILE", 35),
+        (r"CIA\s+Personality\s+Record", 35),
+        (r"SUBJECT\s*:\s*(?:LEE\s+HARVEY\s+)?OSWALD", 20),
+        (r"201-FILE", 30),
+        (r"Project\s+Search", 15),
+        (r"Cryptonym", 20),
+        (r"P/F\s*[:\.]", 15),
+        (r"DCA\s+(?:file|number)", 20),
+        (r"CIA.?DO", 25),
+        (r"201\s+RECORD", 30),
+        (r"PERSONALITY\s+DOSSIER", 30),
+    ],
+
+    DocType.DPD_REPORT: [
+        (r"DALLAS\s+POLICE\s+DEPARTMENT", 40),
+        (r"DALLAS\s+SHERIFF", 30),
+        (r"SUPPLEMENTARY\s+INVESTIGATION", 35),
+        (r"Jesse\s+Curry", 25),
+        (r"Will\s+Fritz", 25),
+        (r"Homicide\s+&\s+Robbery", 25),
+        (r"Handwriting\s+Specimen", 20),
+        (r"Booking\s+(?:Number|Entry)", 25),
+        (r"POLICE\s+RECORDS", 30),
+        (r"IDENTIFICATION\s+BUREAU", 25),
+        (r"OFFENSE[:\s]+HOMICIDE", 20),
+    ],
+
+    DocType.MEDICAL_RECORD: [
+        (r"HOSPITAL|CLINIC", 30),
+        (r"MEDICAL\s+(?:RECORD|REPORT|HISTORY)", 35),
+        (r"PSYCHIATRIC|PSYCHOLOGICAL", 35),
+        (r"WARD|PATIENT|PHYSICIAN", 25),
+        (r"DIAGNOSIS|TREATMENT", 25),
+        (r"Medication|Dosage", 20),
+        (r"Leavenworth|Springfield.*Medical", 30),  # Yates context
+        (r"Nurse|Doctor", 15),
+    ],
+
+    DocType.HANDWRITTEN_NOTES: [
+        (r"scribble|notes|handwritten", 20),
+        (r"(?:[a-z]{1,3}\s+){5,}", 10),  # Many short words (could be scribbles)
+        (r"[A-Z]{1}\s+[a-z]{1}", 10),    # Single letters separated by space
+        (r"informal", 15),
+        (r"rough\s+notes", 25),
+        (r"date\s+unknown", 15),
+        (r"(?:[a-z]{1,2}\s+){10,}", 20),  # Lots of tiny fragments
+        (r"[\?\.]{3,}", 10),              # Question marks/dots in messy text
+        (r"(?:[A-Z]{1,2}\s+){5,}", 15),   # CAPS fragments
+    ],
 }
 
 # Calculate max possible score for each type (for normalization)
@@ -459,7 +515,8 @@ def get_all_scores(text: str, header_lines: int = 25) -> dict[str, float]:
     """
     header_sample = extract_header_sample(text, header_lines)
     footer_sample = extract_footer_sample(text, 15)
-    combined_sample = header_sample + "\n" + footer_sample
+    body_sample = text[:3000] if len(text) > 3000 else text
+    combined_sample = header_sample + "\n" + footer_sample + "\n" + body_sample
     
     results = {}
     

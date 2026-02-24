@@ -118,15 +118,27 @@ def index():
     return send_from_directory(UI_DIR, "index.html")
 
 
-@app.route("/ocr-gui.css")
-def serve_css():
-    """Serve CSS file."""
-    return send_from_directory(UI_DIR, "ocr-gui.css")
+@app.route("/assets/<path:path>")
+def serve_assets(path):
+    """Serve global assets (CSS, JS, images)."""
+    return send_from_directory(os.path.join(PROJECT_ROOT, "docs", "ui", "assets"), path)
+
+
+@app.route("/components/<path:path>")
+def serve_components(path):
+    """Serve modular HTML components."""
+    return send_from_directory(os.path.join(PROJECT_ROOT, "docs", "ui", "components"), path)
+
+
+@app.route("/ocr-components.css")
+def serve_ocr_css():
+    """Serve OCR-specific CSS file."""
+    return send_from_directory(UI_DIR, "ocr-components.css")
 
 
 @app.route("/ocr-gui.js")
 def serve_js():
-    """Serve JS file."""
+    """Serve local JS file."""
     return send_from_directory(UI_DIR, "ocr-gui.js")
 
 

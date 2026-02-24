@@ -159,6 +159,30 @@ class MetadataParser:
             "doc_type": "FBI_302",
         },
         
+        # CIA 201 File Number
+        "cia_201_file": {
+            "pattern": r"(?:201(?:\s+File)?[:\s]*)?(?P<file>201-\d{6,8})",
+            "maps_to": "rif_number",
+            "confidence": "HIGH",
+            "doc_type": "CIA_201",
+        },
+        
+        # DPD Case Number (e.g., "Serial No. 2341", "Case No. 7890")
+        "dpd_case": {
+            "pattern": r"(?:Serial|Case|Report)\s+(?:No\.?|Number|#)?\s*(?P<case>\d{3,7})",
+            "maps_to": "rif_number",
+            "confidence": "MEDIUM",
+            "doc_type": "DPD_REPORT",
+        },
+        
+        # Medical Record
+        "medical_record_header": {
+            "pattern": r"(?:MEDICAL\s+RECORD|PATIENT\s+HISTORY|HOSPITAL\s+REPORT)",
+            "maps_to": "agency", # Using agency to store facility/record type
+            "confidence": "HIGH",
+            "doc_type": "MEDICAL_RECORD",
+        },
+        
         # Date formats (multiple patterns, ordered by specificity)
         "date_mdy_slash": {
             "pattern": r"(?:Date[:\s]*)?(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<year>\d{2,4})",

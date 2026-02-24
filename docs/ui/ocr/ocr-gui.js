@@ -479,8 +479,8 @@ async function reparseHeader(fileIdx) {
             return;
         }
 
-        // Call the parse-header API
-        const response = await fetch('/api/parse-header', {
+        // Call the parse-metadata API
+        const response = await fetch('/api/parse-metadata', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: text })
