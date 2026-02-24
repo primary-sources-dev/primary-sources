@@ -20,7 +20,7 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(TOOLS_DIR)
 UI_DIR = os.path.join(PROJECT_ROOT, "docs", "ui", "ocr")
 
-# Import OCR worker from ocr-gui
+# Import OCR worker and header parser from ocr-gui
 import sys
 sys.path.insert(0, os.path.join(TOOLS_DIR, "ocr-gui"))
 try:
@@ -29,6 +29,13 @@ try:
 except ImportError:
     OCR_AVAILABLE = False
     print("Warning: ocr_worker not available, using placeholder processing")
+
+try:
+    from header_parser import HeaderParser, parse_header
+    PARSER_AVAILABLE = True
+except ImportError:
+    PARSER_AVAILABLE = False
+    print("Warning: header_parser not available")
 
 # Flask app serving from docs/ui/ocr/
 app = Flask(__name__, 
@@ -225,6 +232,10 @@ def process_job_worker(job_id):
                         job["log"].append(f"✗ {file_info['name']} failed: {msg}")
                 
                 worker.process_file(file_info["path"], on_progress, on_complete)
+                
+                # Auto-run header parser on completed files
+                if file_info["status"] == "completed" and PARSER_AVAILABLE:
+                    _run_header_parser(file_info, job)
             else:
                 # Placeholder processing
                 import time
@@ -239,6 +250,55 @@ def process_job_worker(job_id):
     except Exception as e:
         job["status"] = "failed"
         job["log"].append(f"✗ Error: {str(e)}")
+
+
+def _run_header_parser(file_info: dict, job: dict):
+    """
+    Auto-run header parser on OCR output to extract metadata.
+    Results are stored in file_info["parsed_header"].
+    """
+    base_name = os.path.splitext(file_info["name"])[0]
+    
+    # Try to read the .txt or .md output
+    txt_path = os.path.join(UPLOAD_FOLDER, f"{base_name}.txt")
+    md_path = os.path.join(UPLOAD_FOLDER, f"{base_name}.md")
+    
+    ocr_text = None
+    for path in [txt_path, md_path]:
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    ocr_text = f.read()
+                break
+            except Exception:
+                continue
+    
+    if not ocr_text:
+        job["log"].append(f"  → Header parser: No text output found")
+        return
+    
+    try:
+        result = parse_header(ocr_text)
+        file_info["parsed_header"] = result
+        
+        # Log extraction summary
+        extractions = []
+        if result.get("rif_number"):
+            extractions.append(f"RIF: {result['rif_number']['value']}")
+        if result.get("agency"):
+            extractions.append(f"Agency: {result['agency']['value']}")
+        if result.get("date_iso"):
+            extractions.append(f"Date: {result['date_iso']}")
+        if result.get("author"):
+            extractions.append(f"Author: {result['author']['value']}")
+        
+        if extractions:
+            job["log"].append(f"  → Header parsed: {', '.join(extractions)}")
+        else:
+            job["log"].append(f"  → Header parser: No metadata patterns found")
+            
+    except Exception as e:
+        job["log"].append(f"  → Header parser error: {str(e)}")
 
 
 @app.route("/api/jobs/<job_id>/cancel", methods=["POST"])
@@ -271,6 +331,35 @@ def handle_output_dir():
     # In production, would validate and set
     new_dir = request.json.get("output_dir")
     return jsonify({"output_dir": UPLOAD_FOLDER})
+
+
+@app.route("/api/parse-header", methods=["POST"])
+def parse_header_endpoint():
+    """
+    Parse OCR text to extract archival header metadata.
+    
+    Request body (JSON):
+        { "text": "OCR text content..." }
+        
+    Response:
+        { "rif_number": {...}, "agency": {...}, "date": {...}, ... }
+    """
+    if not PARSER_AVAILABLE:
+        return jsonify({"error": "Header parser not available"}), 503
+    
+    data = request.get_json()
+    if not data or "text" not in data:
+        return jsonify({"error": "Missing 'text' field in request body"}), 400
+    
+    text = data["text"]
+    if not text or not text.strip():
+        return jsonify({"error": "Empty text provided"}), 400
+    
+    try:
+        result = parse_header(text)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": f"Parse error: {str(e)}"}), 500
 
 
 # ============================================================================
