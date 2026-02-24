@@ -25,6 +25,13 @@ from datetime import datetime
 from typing import Optional
 from dataclasses import dataclass, field, asdict
 
+# Import document classifier for type detection
+try:
+    from document_classifier import classify_document, DocType, ClassificationResult
+    CLASSIFIER_AVAILABLE = True
+except ImportError:
+    CLASSIFIER_AVAILABLE = False
+
 
 @dataclass
 class ExtractedField:
@@ -38,13 +45,18 @@ class ExtractedField:
 @dataclass
 class ParsedMetadata:
     """Complete extraction result from a document (header + footer)."""
+    # Classification info (from Document Layout Analyzer)
+    classified_type: Optional[str] = None  # FBI_302, NARA_RIF, etc.
+    classification_confidence: Optional[float] = None
+    classification_label: Optional[str] = None  # HIGH, MEDIUM, LOW
+    
     # Header-sourced fields
     rif_number: Optional[ExtractedField] = None
     agency: Optional[ExtractedField] = None
     date: Optional[ExtractedField] = None
     date_iso: Optional[str] = None  # Normalized ISO date
     author: Optional[ExtractedField] = None
-    document_type: Optional[str] = None  # FBI_302, NARA_RIF, etc.
+    document_type: Optional[str] = None  # Legacy field, use classified_type
     raw_header: str = ""
     
     # Footer-sourced fields (FBI 302 specific)
@@ -58,6 +70,11 @@ class ParsedMetadata:
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dictionary."""
         result = {
+            # Classification (Document Layout Analyzer)
+            "classified_type": self.classified_type,
+            "classification_confidence": round(self.classification_confidence, 3) if self.classification_confidence else None,
+            "classification_label": self.classification_label,
+            # Header fields
             "rif_number": asdict(self.rif_number) if self.rif_number else None,
             "agency": asdict(self.agency) if self.agency else None,
             "date": asdict(self.date) if self.date else None,
@@ -262,6 +279,17 @@ class MetadataParser:
             ParsedMetadata with extracted fields and confidence scores
         """
         result = ParsedMetadata()
+        
+        # Step 1: Classify document type (if classifier available)
+        if CLASSIFIER_AVAILABLE:
+            classification = classify_document(text)
+            result.classified_type = classification.doc_type.value
+            result.classification_confidence = classification.confidence
+            result.classification_label = classification.confidence_label
+            result.extraction_notes.append(
+                f"Document classified as {classification.doc_type.value} "
+                f"({classification.confidence:.0%} confidence)"
+            )
         
         # Only search the header window (first N characters)
         header_text = text[:self.HEADER_WINDOW]
