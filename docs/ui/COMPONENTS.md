@@ -52,9 +52,11 @@ The component loader fetches `/components/component-name.html` and injects the c
 15. OCR Tool
 16. Citation Generator
 17. Document Analyzer
+18. Entity Matcher
+19. Research Tools
 
 **Location:** `components/header.html`
-**Pages Using:** All pages except PDF viewers (24 pages)
+**Pages Using:** All pages except PDF viewer (28 pages)
 
 ---
 
@@ -118,7 +120,7 @@ The component loader fetches `/components/component-name.html` and injects the c
 - Copyright notice
 
 **Location:** `components/footer.html`
-**Pages Using:** All pages (26 pages)
+**Pages Using:** All pages (28 pages)
 
 ---
 
@@ -139,7 +141,25 @@ The component loader fetches `/components/component-name.html` and injects the c
 - `data-active` - Which section to highlight (e.g., "People", "Events", "About")
 
 **Location:** `components/bottom-nav.html`
-**Pages Using:** All pages (26 pages)
+**Pages Using:** All pages (28 pages)
+
+---
+
+### 5. PDF Viewer Header (`pdf-viewer-header.html`)
+
+**Usage:**
+```html
+<div data-component="pdf-viewer-header"></div>
+```
+
+**Features:**
+- Page navigation (prev/next, page number input)
+- Workbench toggles (Intelligence Layer, Extraction Workbench)
+- Zoom controls (zoom in/out, fit width)
+- Document title display
+
+**Location:** `components/pdf-viewer-header.html`
+**Pages Using:** pdf-viewer.html (1 page)
 
 ---
 
@@ -240,7 +260,8 @@ docs/ui/
 │   ├── header.html           # Site header with navigation
 │   ├── facet-bar.html        # Filter/sort component
 │   ├── footer.html           # Site footer
-│   └── bottom-nav.html       # Mobile bottom navigation
+│   ├── bottom-nav.html       # Mobile bottom navigation
+│   └── pdf-viewer-header.html # PDF viewer toolbar
 ├── assets/
 │   ├── js/
 │   │   ├── components.js     # Component loader
@@ -248,12 +269,28 @@ docs/ui/
 │   │   ├── db-logic.js       # Data fetching/rendering
 │   │   └── nav.js            # Navigation utilities
 │   └── css/
-│       └── main.css          # Global styles
+│       ├── main.css          # Global styles
+│       ├── ocr-components.css # OCR tool styles
+│       └── pdf-viewer.css    # PDF viewer styles
+├── tools/
+│   ├── ocr-features.html     # OCR tool info page
+│   ├── pdf-viewer-features.html # PDF viewer info page
+│   ├── document-analyzer.html # Document analyzer info page
+│   ├── citation-generator.html # Citation generator info page
+│   ├── entity-matcher.html   # Entity matcher info page
+│   └── research-tools.html   # Research tools info page
 ```
 
 ---
 
 ## Version History
+
+### 2026-02-24 (Evening)
+- **Added:** PDF Viewer Header component (`pdf-viewer-header.html`)
+- **Added:** Entity Matcher and Research Tools to header navigation (now 19 links)
+- **Added:** Six tool info pages in `tools/` directory
+- **Added:** `pdf-viewer.css` stylesheet for PDF viewer
+- **Updated:** Component page counts to 28 (added entity-matcher, research-tools)
 
 ### 2026-02-24
 - **Fixed:** Facet bar dropdown rendering bug (filter.js:165)
