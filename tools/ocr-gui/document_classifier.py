@@ -136,16 +136,24 @@ FINGERPRINTS = {
     DocType.WC_TESTIMONY: [
         (r"TESTIMONY OF\s+", 35),
         (r"The Chairman\.", 30),
-        (r"Mr\.\s+Rankin\.", 25),
         (r"President'?s Commission", 30),
         (r"HEARINGS\s+BEFORE", 25),
         (r"ASSASSINATION.*PRESIDENT.*KENNEDY", 30),
-        (r"Mrs\.\s+Oswald\.", 20),
         (r"The\s+Commission\s+met", 20),
         (r"Chief\s+Justice.*Warren", 20),
         (r"Senator\s+(?:Cooper|Russell)", 15),
         (r"Congressman\s+(?:Boggs|Ford)", 15),
         (r"Washington,\s+D\.?C\.?", 10),
+        # Questioners (Commission staff counsel)
+        (r"Mr\.\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\.", 25),
+        # Commissioners as questioners
+        (r"Mr\.\s+(?:Dulles|McCloy)\.", 20),
+        # Witness patterns (key witnesses from Vol 1)
+        (r"Mrs\.\s+Oswald\.", 20),  # Marina Oswald
+        (r"Mr\.\s+Oswald\.", 18),   # Robert Oswald
+        # Common testimony Q&A patterns
+        (r"(?:Mr\.|Mrs\.)\s+\w+\.\s+(?:Yes|No|That is correct)", 15),
+        (r"(?:sir|ma'am)[;\.]", 10),
     ],
     
     DocType.HSCA_DOC: [

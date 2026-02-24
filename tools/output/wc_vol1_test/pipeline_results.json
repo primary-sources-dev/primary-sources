@@ -1,0 +1,600 @@
+{
+  "test_info": {
+    "pdf": "raw-material/warren-commission/GPO-WARRENCOMMISSIONHEARINGS-1.pdf",
+    "total_pages": 524,
+    "pages_tested": [
+      1,
+      9,
+      17,
+      18,
+      25,
+      50,
+      100,
+      150,
+      200,
+      250,
+      300,
+      350,
+      400,
+      450,
+      500
+    ],
+    "timestamp": "2026-02-24T01:03:37.853649"
+  },
+  "type_counts": {
+    "UNKNOWN": 2,
+    "WC_TESTIMONY": 12,
+    "WC_EXHIBIT": 1
+  },
+  "type_confidences": {
+    "UNKNOWN": 0.0,
+    "WC_TESTIMONY": 0.2374166666666667,
+    "WC_EXHIBIT": 0.156
+  },
+  "results": [
+    {
+      "page": 1,
+      "char_count": 0,
+      "text_preview": "",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 9,
+      "char_count": 3606,
+      "text_preview": "Foreword On November 29, 1963, President Lyndon B. Johnson signed Executive Order No. 11130, creating a Commission \"to ascertain, evaluate and report upon the facts relating to the assassination of the late President John F. Kennedy and the subsequent violent death of the man charged with the assassination.\" By the same Executive order, the President appointed seven Commissioners : Earl Warren, Chief Justice of the United States; Richard B. Russell, Democratic Senator from Georgia ; John Sherman",
+      "classification": {
+        "type": "UNKNOWN",
+        "confidence": 0.0,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": []
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 17,
+      "char_count": 2959,
+      "text_preview": "Hearings Before the President's Commission on the Assassination of President Kennedy Monday, February 3, 1964 TESTIMONY OF MRS. LEE HARVEY OSWALD The President's Commission met at 10:35 a.m. on February 3, 1964, at 200 Maryland Avenue NE., Washington, D.C. Present were Chief Justice Earl Warren, Chairman ; Senator John Sherman Cooper, Representative Hale Boggs, Representative Gerald R. Ford, and Allen W. Dulles, members. Also present were J. Lee Rankin, general counsel ; John M. Thorne, attorney",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.533,
+        "confidence_label": "LOW",
+        "matched_patterns": [
+          "TESTIMONY OF\\s+",
+          "The Chairman\\.",
+          "President'?s Commission",
+          "HEARINGS\\s+BEFORE",
+          "ASSASSINATION.*PRESIDENT.*KENNEDY"
+        ]
+      },
+      "extraction": {
+        "fields_found": 5,
+        "field_names": [
+          "witness_name",
+          "testimony_date",
+          "commission",
+          "questioner",
+          "questioner_chairman"
+        ],
+        "fields": {
+          "witness_name": {
+            "value": "LEE HARVEY OSWALD\nThe President",
+            "zone": "header",
+            "confidence": 0.79
+          },
+          "testimony_date": {
+            "value": "February\n3, 1964",
+            "zone": "header",
+            "confidence": 0.75
+          },
+          "commission": {
+            "value": "President's Commission",
+            "zone": "header",
+            "confidence": 0.71
+          },
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.71
+          },
+          "questioner_chairman": {
+            "value": "The Chairman.",
+            "zone": "body",
+            "confidence": 0.75
+          }
+        }
+      }
+    },
+    {
+      "page": 18,
+      "char_count": 3398,
+      "text_preview": "The Chairman. Mrs. Oswald, do you have an attorney, a lawyer? Mrs. Oswald. Yes. The Chairman. And your lawyer is Mr. Thorne? Mrs. Oswald. Yes. The Chairman. He is the only lawyer you wish to represent you here? Mrs. Oswald. Yes. The Chairman. And may I ask you, Mr. Thorne, if you have received a copy of this? Mr. Rankin. Mr. Chairman, that is the copy he received there. Mr. Thorne. I have read a copy of it, Mr. Chief Justice, yes, sir. The Chairman. Are there any questions about it? Mr. Thorne. ",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.296,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "The Chairman\\.",
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mrs\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)",
+          "(?:sir|ma'am)[;\\.]"
+        ]
+      },
+      "extraction": {
+        "fields_found": 2,
+        "field_names": [
+          "questioner",
+          "questioner_chairman"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.51
+          },
+          "questioner_chairman": {
+            "value": "The Chairman.",
+            "zone": "body",
+            "confidence": 0.54
+          }
+        }
+      }
+    },
+    {
+      "page": 25,
+      "char_count": 2973,
+      "text_preview": "Mrs. Oswald. Yes, he always helped. Mr. Rankin. What about his reading habits there, were they the same? Mrs. Oswald. Yes, about the same. Mr. Rankin. Can you tell us a little more fully about his reading? Did he spend several hours each evening in this reading? Mrs. Oswald. Yes. Mr. Rankin. Do you recall any of the books that he read at Elsbeth Street? Mrs. Oswald. No. He had two books, two thick books on the history of the United States. Mr. Rankin. Did your husband come home for a midday meal",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.178,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mrs\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.38
+          },
+          "page": {
+            "value": "9",
+            "zone": "footer",
+            "confidence": 0.33
+          }
+        }
+      }
+    },
+    {
+      "page": 50,
+      "char_count": 3521,
+      "text_preview": "Mr. Rankin. So that you would have gone to Dallas to live with him some time on or about the date that he rented that apartment? Mrs. Oswald. Yes. Mr. Rankin. After you went to live with him in the apartment at Dallas, did you separate from him again and go to live with somebody else? Mrs. Oswald. Only after this quarrel. Then I stayed with my friends for one week. I had already told you about that. Mr. Rankin. That is the Meller matter? Mrs. Oswald. Yes. Mr. Rankin. Do you recall that you calle",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.178,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mrs\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.38
+          },
+          "page": {
+            "value": "34",
+            "zone": "footer",
+            "confidence": 0.33
+          }
+        }
+      }
+    },
+    {
+      "page": 100,
+      "char_count": 3048,
+      "text_preview": "It is simply that it is pity to\u2014I feel sorry for another human life. Because this will not return\u2014bring back to life Kennedy or the others who were killed. But they have their laws, and, of course, I do not have the right to change them. That is only my opinion, and perhaps they will pay some attention to it. That is all. Mr. Rankin. Had you ever been in the Carousel Nightclub? Mrs. Oswald. I have never been in nightclubs. Mr. Rankin. Did you know where it was located before your husband was kil",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.178,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mrs\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.38
+          },
+          "page": {
+            "value": "84",
+            "zone": "footer",
+            "confidence": 0.33
+          }
+        }
+      }
+    },
+    {
+      "page": 150,
+      "char_count": 3301,
+      "text_preview": "Mrs. Oswald. June. Mr. Rankin. Did you talk to Marina, and did she speak English to you? Mrs. Oswald. Yes, she spoke English, Mr. Rankin. Like she would say and we used the dictionary when she didn't understand. She would say\u2014 I would say, \"Marina, you now nurse your baby.\" \"Yes, Mama. The time.\" Or \"No time.\" With motions\u2014\"no time, Mama.\" She spoke English. Mr. Rankin. What I would like to find out for the Commission, if we can, in regard to speaking English, did you think she was able to talk ",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.178,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mrs\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.38
+          },
+          "page": {
+            "value": "134",
+            "zone": "footer",
+            "confidence": 0.33
+          }
+        }
+      }
+    },
+    {
+      "page": 200,
+      "char_count": 3964,
+      "text_preview": "Mr. Doyle. I know. But start it, and if you get tired at all, you advise the Commission, and I am certain that Mrs. Oswald. I will have something very important to this Commission that I would like to say, that would take up some time. Mr. Rankin, I spoke with you, I think it was Thursday, December 6th, and I told you that since it was publicly known I was going to appear before the Warren Commission, that I would like to have protection, as you recall. I did not get protection, sir. And so the ",
+      "classification": {
+        "type": "WC_EXHIBIT",
+        "confidence": 0.156,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "WARREN COMMISSION"
+        ]
+      },
+      "extraction": {
+        "fields_found": 0,
+        "field_names": [],
+        "fields": {}
+      }
+    },
+    {
+      "page": 250,
+      "char_count": 3956,
+      "text_preview": "And I saw the brochure. It was sponsored by very prominent people. There was nothing wrong with it. If he wanted to go, that was all right\u2014could go on this. So he started to save his money to go. However, this was in January you want the date? Mr. Rankin. Yes. Mrs. Oswald. Are we in 1955 in New Orleans? Yes. No, 1956 this would be. January, 1956\u2014Lee took his money out of the Homestead, which was approxi- mately $150, or something like that. And Lee Harvey Oswald bought an electric football machi",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.178,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mrs\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.38
+          },
+          "page": {
+            "value": "234",
+            "zone": "footer",
+            "confidence": 0.33
+          }
+        }
+      }
+    },
+    {
+      "page": 300,
+      "char_count": 2875,
+      "text_preview": "Mr. Oswald. Yes, sir ; it does. Mr. Jenner. Are you familiar with that signature? Mr. Oswald. Yes, sir ; I am. Mr. Jenner. Whose signature is it? Mr. Oswald. Mr. William A. MeKenzie. Mr. Jenner. This is the Mr. MeKenzie present here representing you? Mr. Oswald. Yes, sir. Mr. Jenner. And does that exhibit consist of more than 1 page? Mr. Oswald. Yes, sir; it does. Mr. Jenner. Turn to the second page. Does it bear a signature? Mr. Oswald. Yes, sir ; it does. Mr. Jenner. Are you familiar with thos",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.26,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mr\\.\\s+(?:Dulles|McCloy)\\.",
+          "Mr\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)",
+          "(?:sir|ma'am)[;\\.]"
+        ]
+      },
+      "extraction": {
+        "fields_found": 4,
+        "field_names": [
+          "questioner",
+          "commissioner_questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Jenner",
+            "zone": "body",
+            "confidence": 0.48
+          },
+          "commissioner_questioner": {
+            "value": "Dulles",
+            "zone": "body",
+            "confidence": 0.48
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.45
+          },
+          "page": {
+            "value": "284",
+            "zone": "footer",
+            "confidence": 0.39
+          }
+        }
+      }
+    },
+    {
+      "page": 350,
+      "char_count": 3312,
+      "text_preview": "There are five dashes there. And the word \"shoot\" was my intention to leave blank there. And the initials \"NMR\" stands for Richard M. Nixon in reverse. Mr. Jenner. I take it, then, that the five dashes were inserted there as a substitute for the word \"shoot\"? Mr. Oswald. That is correct, sir. Mr. Jenner. And the initials are those of Richard M. Nixon reversed? Mr. Oswald. That is correct, sir. Mr. Jenner. Now, would you please state fully when this matter or this incident first came to your atte",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.201,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mr\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)",
+          "(?:sir|ma'am)[;\\.]"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Jenner",
+            "zone": "body",
+            "confidence": 0.43
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.4
+          },
+          "page": {
+            "value": "334",
+            "zone": "footer",
+            "confidence": 0.35
+          }
+        }
+      }
+    },
+    {
+      "page": 400,
+      "char_count": 3651,
+      "text_preview": "Mr. McKenzie. And I call the Commission's attention particularly to the word stamped on the envelope \"reeommende\" for whatever it means. Mr. Dulles. That is French. Mr. Jenner. Would you please relate, Mr. Oswald, Marina's ability to speak or understand English at the time that she and your brother re- turned from Russia in June of 1962? Mr. Oswald. Her ability to understand was far less than her ability to speak English words. I spoke to her on the telephone the night of June 13, 1962 from New ",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.231,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mr\\.\\s+(?:Dulles|McCloy)\\.",
+          "Mr\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 3,
+        "field_names": [
+          "questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Jenner",
+            "zone": "body",
+            "confidence": 0.45
+          },
+          "witness_response": {
+            "value": "Oswald",
+            "zone": "body",
+            "confidence": 0.42
+          },
+          "page": {
+            "value": "384",
+            "zone": "footer",
+            "confidence": 0.37
+          }
+        }
+      }
+    },
+    {
+      "page": 450,
+      "char_count": 3765,
+      "text_preview": "up is that I do feel that Mr. Robert Oswald is under strict\u2014the strictest of oaths to give his testimony only to the Commission, in the interests of finding out the truth, and that he has not given any statements to the press nor have I. Mr. Dulles. On that latter point, I would say that I appreciate and respect the position that you have taken in this respect, that in the case of previous witnesses, the Commission itself has no authority to, as I understand it, and has not attempted to \"muzzle\"",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.26,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mr\\.\\s+(?:Dulles|McCloy)\\.",
+          "Mr\\.\\s+Oswald\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)",
+          "(?:sir|ma'am)[;\\.]"
+        ]
+      },
+      "extraction": {
+        "fields_found": 4,
+        "field_names": [
+          "questioner",
+          "commissioner_questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Jenner",
+            "zone": "body",
+            "confidence": 0.48
+          },
+          "commissioner_questioner": {
+            "value": "Dulles",
+            "zone": "body",
+            "confidence": 0.48
+          },
+          "witness_response": {
+            "value": "Jenner",
+            "zone": "body",
+            "confidence": 0.45
+          },
+          "page": {
+            "value": "434",
+            "zone": "footer",
+            "confidence": 0.39
+          }
+        }
+      }
+    },
+    {
+      "page": 500,
+      "char_count": 3135,
+      "text_preview": "Mr. Rankin. She was getting away from that association, was she? Mr. Martin. Yes. Mr. Rankin. By going to the other city? Mr. Martin. Yes. Mr. Rankin. Do you recall any other conversation when she told you some- thing that you don't believe? Mr. Martin. Oh, she remarked about people that she knew in Russia that had, we will say, lovers Mr. Dulles. Did she tell anything about a letter that she wrote to a boy friend in Minsk? Mr. Martin. After she was here in New Orleans? Mr. Dulles. Yes. Mr. Mart",
+      "classification": {
+        "type": "WC_TESTIMONY",
+        "confidence": 0.178,
+        "confidence_label": "UNCERTAIN",
+        "matched_patterns": [
+          "Mr\\.\\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\\.",
+          "Mr\\.\\s+(?:Dulles|McCloy)\\.",
+          "(?:Mr\\.|Mrs\\.)\\s+\\w+\\.\\s+(?:Yes|No|That is correct)"
+        ]
+      },
+      "extraction": {
+        "fields_found": 4,
+        "field_names": [
+          "questioner",
+          "commissioner_questioner",
+          "witness_response",
+          "page"
+        ],
+        "fields": {
+          "questioner": {
+            "value": "Rankin",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "commissioner_questioner": {
+            "value": "Dulles",
+            "zone": "body",
+            "confidence": 0.41
+          },
+          "witness_response": {
+            "value": "Dulles",
+            "zone": "body",
+            "confidence": 0.38
+          },
+          "page": {
+            "value": "484",
+            "zone": "footer",
+            "confidence": 0.33
+          }
+        }
+      }
+    }
+  ]
+}
