@@ -450,4 +450,66 @@ Utilities are provided by **Tailwind CSS CDN** (loaded in `index.html`). Common 
 
 ---
 
+---
+
+### 16. Extraction Workbench (Dual-Pane)
+
+The review workspace that appears alongside the PDF viewer.
+
+```html
+<div id="editor-wrapper">
+    <div class="editor-toolbar">
+        <span id="workbench-status">Ready</span>
+        <button onclick="saveExtraction()">Save Commit</button>
+    </div>
+    <div id="editor-content">
+        <div class="ocr-line">Text segment...</div>
+    </div>
+</div>
+```
+
+**CSS Classes:**
+- `.ocr-line` — Interactive text row
+- `.ocr-line:hover` — Gold left border & translucent gold bg
+- `.ocr-line.active` — Permanent gold highlight during focus
+
+---
+
+### 17. Visual PDF Splitter (Sidebar)
+
+A page-level navigation and selection sidebar.
+
+```html
+<div id="sidebar-wrapper">
+    <div id="thumbnail-list" class="thumbnail-container">
+        <div class="thumbnail-item">
+            <input type="checkbox" class="thumbnail-check">
+            <canvas></canvas>
+        </div>
+    </div>
+</div>
+```
+
+**CSS Classes:**
+- `.thumbnail-item` — Page preview card
+- `.thumbnail-check` — Selection input for surgical processing
+- `.thumbnail-label` — Page number indicator
+
+---
+
+### 18. Deep Sync Highlighter
+
+A visual overlay that tracks text focus on the original scan.
+
+```html
+<div id="sync-highlight"></div>
+```
+
+**Styles:**
+- `border: 2px solid #FFD700`
+- `background: rgba(255, 215, 0, 0.2)`
+- `box-shadow: 0 0 10px rgba(255, 215, 0, 0.5)`
+
+---
+
 *Last updated: 2026-02-23*

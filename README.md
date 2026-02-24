@@ -106,7 +106,7 @@ primary-sources/
 | [Data Entry SOP](docs/data-entry-sop.md) | 5-phase workflow for adding data |
 | [Entity Extraction](tools/notes.md) | Manual extraction process for PDFs |
 | [OCR Tool README](tools/README.md) | Tool usage and features |
-| [Roadmap](roadmap.md) | 26-feature product vision |
+| [Project Strategy](working-notes.md) | Integrated roadmap, project focus, and next steps |
 
 ---
 
@@ -121,7 +121,7 @@ The project is currently in **Phase 1: Utility & Core Structure**. The full road
 | **Simulation** | Witness POV Video, AR Overlays, Synthetic Case Files |
 | **Research** | Private Notes, Self-Service Vault, Custom Field Guides |
 
-*See [roadmap.md](roadmap.md) for the complete feature table.*
+*See [working-notes.md](working-notes.md) for the complete strategy and next-up tasks.*
 
 ---
 

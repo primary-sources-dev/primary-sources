@@ -79,7 +79,7 @@ label: uppercase, tracking-wider, text-archive-heading
 ### Recently Added Card
 ```
 image: aspect-video, grayscale + brightness-75 default
-hover → grayscale-0, brightness-100 (transition 700ms)
+hover → grayscale-0, brightness-100 (transition 300ms)
 type label: text-[10px] font-bold uppercase text-primary tracking-widest
 title: text-lg font-bold text-archive-heading, hover:text-primary
 date: text-xs text-archive-secondary opacity-70
@@ -120,7 +120,7 @@ icon + label (text-[10px] uppercase)
 | Icon default | `bg-primary/10 text-primary` |
 | Icon hover | `bg-primary text-archive-bg` |
 | Image default | `grayscale brightness-75` |
-| Image hover | `grayscale-0 brightness-100` (700ms) |
+| Image hover | `grayscale-0 brightness-100` (300ms) |
 | Text hover | `hover:text-primary` |
 
 ---

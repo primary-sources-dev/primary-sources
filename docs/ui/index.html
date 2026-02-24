@@ -80,13 +80,12 @@
 
     <hr class="border-archive-secondary/20" />
 
-    <!-- BROWSE BY CATEGORY -->
     <section class="p-6 bg-archive-bg/50">
         <h3
             class="mb-6 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
             Browse by Category
         </h3>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <a href="events.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
@@ -166,9 +165,11 @@
             class="mb-6 text-2xl font-bold text-archive-heading tracking-widest uppercase border-l-4 border-primary pl-4">
             Analytical Tools
         </h3>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a href="ocr/index.html"
-                class="flex flex-col items-center justify-center gap-3 border border-primary/40 bg-primary/5 p-6 text-center hover:border-primary transition-colors group">
+                class="flex flex-col items-center justify-center gap-3 border border-primary/40 bg-primary/5 p-6 text-center hover:border-primary transition-colors group relative">
+                <span
+                    class="absolute top-2 right-2 text-[8px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-2 py-0.5 border border-emerald-500/30">Live</span>
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/20 text-primary border border-primary/40 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
                     <span class="material-symbols-outlined">document_scanner</span>
@@ -179,7 +180,12 @@
             <!-- PDF Viewer - Member Feature -->
             <a href="pdf-viewer/index.html"
                 class="flex flex-col items-center justify-center gap-3 border border-primary/40 bg-primary/5 p-6 text-center hover:border-primary transition-colors group relative">
-                <span class="absolute top-2 right-2 text-[8px] font-bold uppercase tracking-widest bg-primary/20 text-primary px-2 py-0.5 border border-primary/30">Member</span>
+                <span class="absolute top-2 right-2 flex gap-1">
+                    <span
+                        class="text-[8px] font-bold uppercase tracking-widest bg-amber-500/20 text-amber-400 px-2 py-0.5 border border-amber-500/30">Beta</span>
+                    <span
+                        class="text-[8px] font-bold uppercase tracking-widest bg-primary/20 text-primary px-2 py-0.5 border border-primary/30">Member</span>
+                </span>
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/20 text-primary border border-primary/40 group-hover:bg-primary group-hover:text-archive-bg transition-colors">
                     <span class="material-symbols-outlined">picture_as_pdf</span>

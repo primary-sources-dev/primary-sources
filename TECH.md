@@ -28,9 +28,10 @@ We use a "Lightweight but Powerful" stack designed for high-speed research and a
 ## 3. The "Entity-Driven" Future
 To reach the goals in our roadmap (like AI simulations and network maps), we are evolving our tech in three key areas:
 
-### A. Intelligent Extraction (The "Extraction Assistant")
-Currently, a human has to read a document and type in names. 
-- **How it will work**: The tool will use **Named Entity Recognition (NER)** to scan OCR text. It will "highlight" names it recognizes from our database and suggest new ones. 
+### A. Intelligent Extraction (The "Extraction Workbench")
+Phase 1 of our extraction engine is now live.
+- **How it works now**: The **Extraction Workbench** provides a dual-pane environment where researchers verify OCR text alongside original scans. **Deep Sync** technology maps OCR coordinates to the viewer, allowing users to click any line of text to instantly zoom to the source evidence.
+- **What's next**: Integrating **Named Entity Recognition (NER)** to automatically flag people and places from our reference database.
 - **Goal Impact**: Speeds up data entry by 10x, enabling the **Digital Vault (14)**.
 
 ### B. Spatial & Temporal Intelligence

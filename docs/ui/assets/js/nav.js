@@ -9,20 +9,33 @@
 document.addEventListener("componentLoaded", (e) => {
     if (e.detail.name !== 'bottom-nav') return;
 
-    const el = e.detail.element;
     const activeItem = (el.getAttribute("data-active") || "").toLowerCase();
-    if (!activeItem) return;
 
     el.querySelectorAll('a').forEach(link => {
         const labelEl = link.querySelector('span:last-child');
-        const iconEl = link.querySelector('.material-symbols-outlined');
         const label = labelEl?.textContent?.trim().toLowerCase() || '';
 
         if (label === activeItem) {
             link.style.color = 'var(--primary)';
+            const iconEl = link.querySelector('.material-symbols-outlined');
             if (iconEl) iconEl.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
         } else {
             link.style.color = 'rgba(212,207,199,0.4)';
         }
     });
+});
+
+/**
+ * Handle Header logic: Dynamic Breadcrumbs
+ */
+document.addEventListener("componentLoaded", (e) => {
+    if (e.detail.name !== 'header') return;
+
+    const breadcrumb = document.getElementById('breadcrumb-current');
+    if (breadcrumb) {
+        let title = document.title.split(' — ')[0];
+        if (title.startsWith('Browse ')) title = title.replace('Browse ', '');
+        if (title === 'Primary Sources') title = 'Browse'; // Default to Browse for Home
+        breadcrumb.textContent = title;
+    }
 });
