@@ -104,18 +104,29 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 This section tracks the blockers for the Next.js migration and known schema/data mismatches that must be resolved to achieve full relational parity.
 
 ### 1. Critical Migration Blockers (UI/UX)
-- **Static Data Architecture**: UI currently relies on hardcoded JSON files. *Fix*: Transition `db-logic.js` to dynamic API routes (Supabase).
-- **Search & Filter Gaps**: Global search and sidebar filters are currently non-functional stubs. *Fix*: Implement PostgreSQL Full-Text Search and query param handling.
-- **Dynamic Detail Pages**: `event.html` and `person.html` require URL query param logic to populate from the database rather than placeholders.
-- **Pagination**: The "Load More" button needs offset/limit logic to handle large datasets.
+- [ ] **Static Data Architecture**: UI currently relies on hardcoded JSON files. *Fix*: Transition `db-logic.js` to dynamic API routes (Supabase).
+- [ ] **Search & Filter Gaps**: Global search and sidebar filters are currently non-functional stubs. *Fix*: Implement PostgreSQL Full-Text Search and query param handling.
+- [ ] **Dynamic Detail Pages**: `event.html` and `person.html` require URL query param logic to populate from the database rather than placeholders.
+- [ ] **Pagination**: The "Load More" button needs offset/limit logic to handle large datasets.
 
 ### 2. Schema Mismatches (Integrity)
-- **Missing UI Fields**: JSON files contain `tags`, `icon`, and `middle_name` fields that are not yet stored or enforced in the PostgreSQL schema.
-- **Cascade Deletion Bugs**: Deleting a `source_excerpt` currently cascades to `assertion_support`, silently breaking the evidentiary chain. *Fix*: Implement `prevent_source_excerpt_deletion()` trigger in Migration 005.
-- **Relationship Parity**: UI assumes `parent_event_id` and `organization` strings, whereas the schema requires `event_relation` and `event_participant` junction table links.
+- [x] **Mock Data Field Names**: Aligned with Supabase schema (`org_id`, `place_type`, `object_type`, `source_type`).
+- [ ] **Missing UI Fields**: JSON files contain `tags`, `icon` fields not in PostgreSQL schema. *Decision needed*: Add to schema or remove from mock data.
+- [ ] **Cascade Deletion Bugs**: Deleting a `source_excerpt` currently cascades to `assertion_support`, silently breaking the evidentiary chain. *Fix*: Implement `prevent_source_excerpt_deletion()` trigger.
+- [ ] **Relationship Parity**: UI assumes `parent_event_id` and `organization` strings, whereas the schema requires `event_relation` and `event_participant` junction table links.
 
-### 3. Migration 005 Task List
+### 3. Applied Migrations (001-006)
+| Migration | Purpose | Status |
+|-----------|---------|--------|
+| 001_initial_schema.sql | Core tables, indexes, polymorphic FK triggers | ✅ Ready |
+| 002_seed_vocab.sql | All 12 controlled vocabulary tables | ✅ Ready |
+| 003_predicate_registry.sql | v_predicate table + FK constraint | ✅ Ready |
+| 004_integrity_fixes.sql | CHECK constraints, deletion protection, updated_at | ✅ Ready |
+| 005_age_at_event.sql | age_at_event() function + participant view | ✅ Ready |
+| 006_fix_view_column.sql | Fix view column name (role → role_type) | ✅ Ready |
+
+### 4. Migration 007 Task List (Pending)
 - [ ] Add `prevent_source_excerpt_deletion()` trigger.
 - [ ] Implement `ON DELETE SET NULL` on all junction table `assertion_id` columns.
-- [ ] Enforce `NOT NULL` on `event.time_precision` and `event.title`.
-- [ ] Standardize UUID vs. Slug handling for entity routing.
+- [ ] Enforce `NOT NULL` on `event.time_precision` (with default 'UNKNOWN').
+- [ ] Consider adding `tags` column to entity tables for UI compatibility.
