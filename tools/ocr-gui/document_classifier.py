@@ -299,7 +299,8 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
     best_score, best_matches = scores[best_type]
     
     # If best score is too low, return UNKNOWN
-    if best_score < 0.15:
+    # Threshold lowered from 0.15 to 0.10 to catch more testimony pages
+    if best_score < 0.10:
         return ClassificationResult(
             doc_type=DocType.UNKNOWN,
             confidence=0.0,

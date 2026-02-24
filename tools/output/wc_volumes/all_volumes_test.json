@@ -1,0 +1,3060 @@
+{
+  "timestamp": "2026-02-24T01:13:51.997338",
+  "overall_counts": {
+    "UNKNOWN": 163,
+    "WC_TESTIMONY": 129,
+    "WC_EXHIBIT": 69,
+    "CIA_CABLE": 12,
+    "HSCA_REPORT": 10,
+    "FBI_302": 2,
+    "MEMO": 5
+  },
+  "volumes": [
+    {
+      "volume": 1,
+      "total_pages": 524,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 14
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 35,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.266,
+          "fields": 4,
+          "preview": "Mr. Rankin. After he shot at Walker, did you notice his taking the rifle out any more to practice? M"
+        },
+        {
+          "page": 69,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 3,
+          "preview": "Mrs. Oswald. Yes, I saw the wooden part of it, the wooden stock. Mr. Rankin. On the weekend before y"
+        },
+        {
+          "page": 103,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.237,
+          "fields": 4,
+          "preview": "Mr. Rankin. Do you know why on Exhibit 20 there is no date of admission to the school? Mrs. Oswald. "
+        },
+        {
+          "page": 137,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.266,
+          "fields": 3,
+          "preview": "The Chairman. We will take a short recess. (Brief recess.) The Chairman. We will be in order, please"
+        },
+        {
+          "page": 171,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.133,
+          "fields": 2,
+          "preview": "I said, \"Frankly, I don't. We are three couples. I don't know which name they used.\" So she told me "
+        },
+        {
+          "page": 205,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.207,
+          "fields": 3,
+          "preview": "show that she was involved in any conspiracy to assassinate President Kennedy? Mrs. Oswald. I feel l"
+        },
+        {
+          "page": 239,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "them, they will\u2014there will be copies made of them, the originals, of course, will remain in your cus"
+        },
+        {
+          "page": 273,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 4,
+          "preview": "Mrs. Oswald. Yes, sir. This is a Mother's Day card sent to me from Santa Ana, California on May 7. 1"
+        },
+        {
+          "page": 307,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.26,
+          "fields": 4,
+          "preview": "Mr. McKenzie. Mr. Ford, I presume so. But that is only a presumption on my part. I do not know. I mi"
+        },
+        {
+          "page": 341,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.201,
+          "fields": 3,
+          "preview": "there were two occasions. I did ask you to state the detail of one of the occasions which was in the"
+        },
+        {
+          "page": 375,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.26,
+          "fields": 4,
+          "preview": "time and that of your brother Lee in which he expressed his views of the char- acter that he wrote i"
+        },
+        {
+          "page": 409,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.26,
+          "fields": 3,
+          "preview": "Dallas City Jail on November 23, 1963, he did say before I had an opportunity to say anything to him"
+        },
+        {
+          "page": 443,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.482,
+          "fields": 4,
+          "preview": "Mr. Jenneb. Would you please tell me what you said to him? Mr. Oswald. That to the best of my recoll"
+        },
+        {
+          "page": 477,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.29,
+          "fields": 4,
+          "preview": "Mr. Jenner. There is a reference there to a conversation as to whether Lee Harvey Oswald would say a"
+        }
+      ]
+    },
+    {
+      "volume": 2,
+      "total_pages": 536,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_EXHIBIT": 2,
+        "WC_TESTIMONY": 12
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 36,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Mr. Dulles. That is what appeared on the recent cover issue, I guess, it was 2 weeks ago. Mr. Martin"
+        },
+        {
+          "page": 71,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.281,
+          "fields": 4,
+          "preview": "Mr. Lane. In terms of the picture with the rifle, you mean, for example? The Chairman. Well, we migh"
+        },
+        {
+          "page": 106,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Kellerman. Yes, sir ; it was confirmed that the entry of the shell here went right through the t"
+        },
+        {
+          "page": 141,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Do those photographs represent the condition of the back seat of the Presi- dent's car at some time?"
+        },
+        {
+          "page": 176,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.237,
+          "fields": 4,
+          "preview": "no, sir. I have seen them, of course, several times but I have never discussed it with them. Represe"
+        },
+        {
+          "page": 211,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "turning the corner when I heard it and saw it fire the third time, and then the fourth. Mr. Specter."
+        },
+        {
+          "page": 246,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Frazier. Well, I stood there until the parade come by. Mr. Ball. Did you see the President go by"
+        },
+        {
+          "page": 281,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.192,
+          "fields": 3,
+          "preview": "across there, and cut it, in other words, at 10:30, in other words, it would show at 10 :30. (At thi"
+        },
+        {
+          "page": 316,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mrs. Ford. No; that is right. But she stayed at Anna Meller's house for a weeli and when she came to"
+        },
+        {
+          "page": 351,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "present day life in the Soviet Union. I was asking liim questions, asked how people lived there, and"
+        },
+        {
+          "page": 386,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Mr. Specter. Mr. Chief Justice, I move now for the admis.sion into evidence of Exhibit No. 397. The "
+        },
+        {
+          "page": 421,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.222,
+          "fields": 4,
+          "preview": "Mr. LiEBELER. What else did you and Oswald say on the way home after the meeting? Mr. Paine. So I wa"
+        },
+        {
+          "page": 456,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 4,
+          "preview": "address, and as soon as I wrote, the first letter I got back gave the Neely Street address. Mr. Jenn"
+        },
+        {
+          "page": 491,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.237,
+          "fields": 4,
+          "preview": "(The letter and envelope referred to, heretofore marked for identification as Commission Exhibits No"
+        }
+      ]
+    },
+    {
+      "volume": 3,
+      "total_pages": 532,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 3,
+        "WC_EXHIBIT": 3,
+        "WC_TESTIMONY": 9
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 36,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "Mrs. Paine. Yes. Representative Ford. When it had some cord around it, did the way it was tied pull "
+        },
+        {
+          "page": 71,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.163,
+          "fields": 3,
+          "preview": "Mr. Jenner. And you were aware of that fact, were you? Mrs. Paine. That is my best recollection that"
+        },
+        {
+          "page": 106,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.503,
+          "fields": 5,
+          "preview": "was or how I reacted to the kind of person he was. He seemed to me prickly, all sharp points and edg"
+        },
+        {
+          "page": 141,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.192,
+          "fields": 3,
+          "preview": "Mrs. Paine. Yes. But that I considered it something less than actually accurate to call such a perso"
+        },
+        {
+          "page": 176,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.207,
+          "fields": 4,
+          "preview": "Then we had to move the cartons. As we go we would move cartons to vacate the space, so we could lay"
+        },
+        {
+          "page": 211,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Ball. And did you enlist in 1948? Mr. Jakman. Yes. Mr. Ball. Enlisted? Mr. Jarman. Yes. Mr. Ball"
+        },
+        {
+          "page": 246,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.192,
+          "fields": 3,
+          "preview": "Mr. Bexin. Do you know whether this was ever identified as having ever belonged to any particular em"
+        },
+        {
+          "page": 281,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.192,
+          "fields": 3,
+          "preview": "Mr. Bakek. Yes, sir. Mr. Belin. Automatic or bolt action? Mr. Baker. Bolt action. Mr. Belin. How lon"
+        },
+        {
+          "page": 316,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.562,
+          "fields": 4,
+          "preview": "Senator Cooper. Did he hit you with the pistol? Mr. McDonald. No, sir. Senator Cooper. Did he point "
+        },
+        {
+          "page": 351,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Representative Ford. How far was this last destination to the point of 10th and Patton? Mr. ScoGGiNS"
+        },
+        {
+          "page": 386,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.104,
+          "fields": 2,
+          "preview": "Mr. Specter. But based on the additional factors provided in the autopsy report, do you have an opin"
+        },
+        {
+          "page": 421,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. EiSENBEBG. Now, you said before that in order to give this 2-foot lead, you would have to aim 2 "
+        },
+        {
+          "page": 456,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "convenient means\u2014not more convenient, but a more permanent means of cor- rection. Mr. EisENBERG. By "
+        },
+        {
+          "page": 491,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "quote in part from a letter from Mr. Hoover to Mr. Rankin dated March 31, 1964. \"On March 30, 1964, "
+        }
+      ]
+    },
+    {
+      "volume": 4,
+      "total_pages": 492,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 11,
+        "WC_EXHIBIT": 3
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 33,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.104,
+          "fields": 3,
+          "preview": "Mr. Latona. To protect the prints while the rifle was intransit to the FBI. Mr. EisENBEEG. Now, when"
+        },
+        {
+          "page": 65,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.104,
+          "fields": 3,
+          "preview": "Mr. Mandella. You did not, other than giving me the photographs. Mr. EiSENBERo. Did I tell you that "
+        },
+        {
+          "page": 97,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "Mr. EisENBERG. What does that mean? Mr. Stombaugh. I removed fibers from the shirt to determine the "
+        },
+        {
+          "page": 129,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.311,
+          "fields": 3,
+          "preview": "Senator Cooper. I think, of course, it is evident from your testimony you have had wide experience i"
+        },
+        {
+          "page": 161,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 5,
+          "preview": "Mrs. ConnALLY. Yes, I was. But I assume that was before, since they left together, not much of a vis"
+        },
+        {
+          "page": 193,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.296,
+          "fields": 4,
+          "preview": "Mr. Curry. Yes, sir ; ordinarily it wouldn't even come to my attention how it was handled. Mr. R.xNK"
+        },
+        {
+          "page": 225,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Fritz. Well, I am not sure whether directly, but shortly, there wouldn't be too nmch time when w"
+        },
+        {
+          "page": 257,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.207,
+          "fields": 4,
+          "preview": "get it. But I understand that Dean had made some kind of special report to the chief but that wasn't"
+        },
+        {
+          "page": 289,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.207,
+          "fields": 4,
+          "preview": "Mr. Day. Yes, sir. Mr. Belin. All right. How far would the distance be between the east wall and the"
+        },
+        {
+          "page": 321,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Mr. Dulles. It is a Federal law? Mr. BoucK. Yes. Mr. Stern. And it involves what sort of act? Mr. Bo"
+        },
+        {
+          "page": 353,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.207,
+          "fields": 4,
+          "preview": "speculation before that perhaps the motorcade would go here and perhaps the motorcade would go there"
+        },
+        {
+          "page": 385,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "Representative Ford. All of the illustrations on 784 A, B, and C are taken from Commission exhibits "
+        },
+        {
+          "page": 417,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Sterx. We will get to that, Mr. Fain. But to the extent the case was being investigated during y"
+        },
+        {
+          "page": 449,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 4,
+          "preview": "that, I didn't continue for hours and hours\u2014I did not linow who this individual was at the time, so "
+        }
+      ]
+    },
+    {
+      "volume": 5,
+      "total_pages": 640,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 10,
+        "CIA_CABLE": 2,
+        "HSCA_REPORT": 1,
+        "WC_EXHIBIT": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 43,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.222,
+          "fields": 4,
+          "preview": "to Dallas. Hosty had established that he had a job, he was working, and had told Mrs. Paine that whe"
+        },
+        {
+          "page": 85,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 4,
+          "preview": "Mr. Specter. Would the missile then have proceeded in a forward direction? Mr. Frazier. Yes, sir ; i"
+        },
+        {
+          "page": 127,
+          "type": "CIA_CABLE",
+          "confidence": 0.108,
+          "fields": 3,
+          "preview": "But, anyway, that was in the book that was later found, and which contained many other things that O"
+        },
+        {
+          "page": 169,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 3,
+          "preview": "Mr. McCloy. But a shot has been fired at that time. Mr. Shaneyfelt. Yes. Mr. McCi.OY. So at that poi"
+        },
+        {
+          "page": 211,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 3,
+          "preview": "sister, who wrote a letter addressed either to me or to Mr. Rankin saying that you wanted to testify"
+        },
+        {
+          "page": 253,
+          "type": "HSCA_REPORT",
+          "confidence": 0.103,
+          "fields": 3,
+          "preview": "worse since all television networks were on the assassination all\u201424 hours, I mean all day. And ther"
+        },
+        {
+          "page": 295,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Mr. Coleman. Is that the despatch which you received? Mr. Snyder. Yes, sir. Senator Cooper. And then"
+        },
+        {
+          "page": 337,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 4,
+          "preview": "Representative Foud. Is there any other port such as Helsinki, in the context you are using it? Mr. "
+        },
+        {
+          "page": 379,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.163,
+          "fields": 3,
+          "preview": "Indeed without exaggeration, one could almost say the existence of the Northern Hemisphere in this n"
+        },
+        {
+          "page": 421,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.163,
+          "fields": 3,
+          "preview": "were not satisfied with life in the Soviet Union, and this Argentinian girl told me the same thing. "
+        },
+        {
+          "page": 463,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.518,
+          "fields": 4,
+          "preview": "Mr. Surrey. No, sir. Mr. Jenner. What color was it, if you noticed? Mr. Surrey. It was either a dark"
+        },
+        {
+          "page": 505,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "salesman's paradise. I invited Rill to Alount Vernon. He came np about the last week of August. I am"
+        },
+        {
+          "page": 547,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.34,
+          "fields": 4,
+          "preview": "and pointed him out to me. And this fellow just followed us rijjht out. and that was that. Mr. 1)ui."
+        },
+        {
+          "page": 589,
+          "type": "CIA_CABLE",
+          "confidence": 0.108,
+          "fields": 1,
+          "preview": "Senator Rx'ssell. Has there been any increase, Mr. Secretary, in the number of agents assigned to gu"
+        }
+      ]
+    },
+    {
+      "volume": 6,
+      "total_pages": 488,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 12,
+        "WC_EXHIBIT": 1,
+        "HSCA_REPORT": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 33,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.296,
+          "fields": 4,
+          "preview": "proceeding will be the truth, the whole truth, and nothing but the truth, so help you God? Dr. Clark"
+        },
+        {
+          "page": 65,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.311,
+          "fields": 3,
+          "preview": "Dr. Jenkins. I felt quite sure at the time that there must have been two bullets\u2014two missiles. Mr. S"
+        },
+        {
+          "page": 97,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 2,
+          "preview": "Mr. Specter. And did you leave prior to the time he was pronounced to be dead? Dr. White. Yes ; I di"
+        },
+        {
+          "page": 129,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 2,
+          "preview": "Mr. Specter. Then, did you observe any wound in the President's neck at all? Dr. Dulany. No, I just "
+        },
+        {
+          "page": 161,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Ml'. Specter. And did you ob.serve him when he was taken out of trauma room No. 2? Mrs. Nelson. Yes,"
+        },
+        {
+          "page": 193,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Beun. Why? Did he tell you that? Mrs. Rowland. Yes. He told me that, because I saw a few of his "
+        },
+        {
+          "page": 225,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Specter. \"This side\"\u2014you are meaning\u2014the east of it? Mrs. Hill. The east of it. Mr. Specter. Wer"
+        },
+        {
+          "page": 257,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Holland. Little house there. Mr. Stern. Little Mr. Holland. What do they call that thing? Mr. Mo"
+        },
+        {
+          "page": 289,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Bexin. Did you see the President's motorcade at all on that day? Mr. Rackley. No, sir ; I didn't"
+        },
+        {
+          "page": 321,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Brewer. They were there under, by the window. Mr. Belin. What window? Mr. Brewer. In the southea"
+        },
+        {
+          "page": 353,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. LovELADY. Right there at the entrance of the building standing on the top of the step, would be "
+        },
+        {
+          "page": 385,
+          "type": "HSCA_REPORT",
+          "confidence": 0.162,
+          "fields": 1,
+          "preview": "ment, nothing, so I said\u2014well, I didn't leave xmtil December 30 and got aU the routine work I had be"
+        },
+        {
+          "page": 417,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mrs. Bledsoe. But, I didn't pay any attention. He rented the room, and T didn't pay any attention. M"
+        },
+        {
+          "page": 449,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Ball. Would you stand and take the oath ? Do you solemnly swear the testimony you are about to g"
+        }
+      ]
+    },
+    {
+      "volume": 7,
+      "total_pages": 612,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 11,
+        "WC_EXHIBIT": 1,
+        "CIA_CABLE": 2
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 41,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "I went to Germany and joined the 1st Infantry Division, and I joined them in October of 1948. I land"
+        },
+        {
+          "page": 81,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Poe. Nine years and one month. Mr. Ball. And where were you born? Mr. Poe. Winnsboro, Tex. Mr. B"
+        },
+        {
+          "page": 121,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Weitzman. Yes, sir ; I scaled the wall and, apparently, my hands grabbed steampipes. I burned th"
+        },
+        {
+          "page": 161,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Ball. The third set of windows from Houston Street\u2014you mark it. Mr. Stttdebaker. Yes. (Instrumen"
+        },
+        {
+          "page": 201,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Stovall. Richard S. Stovall. Mr. Ball. And what is your address, please? Mr. Stovall. 3211 Grays"
+        },
+        {
+          "page": 241,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.251,
+          "fields": 3,
+          "preview": "Mr. Turner. No, sir; only that he said the photos of Oswald looked like the man he saw at the window"
+        },
+        {
+          "page": 281,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Cuba would be changed since the President has been assassinated. To my knowledge, that is the only o"
+        },
+        {
+          "page": 321,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Holmes. I believe not. Mr. Belin. Mr. Holmes, when we first met, we sat down and I practically s"
+        },
+        {
+          "page": 361,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Sorrels. Oh, yes ; they were in the same vicinity. Mr. Stern. Do you have any reason to believe "
+        },
+        {
+          "page": 401,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Caster. I do. Mr. Ball. Will you state your full name, please? Mr. Caster. Warren Caster. Mr. Ba"
+        },
+        {
+          "page": 441,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Mr. Eisenbekg. And why do you call one \"more cursive\"? Mr. Cadigan. Merely for description. Mr. Eise"
+        },
+        {
+          "page": 481,
+          "type": "CIA_CABLE",
+          "confidence": 0.189,
+          "fields": 0,
+          "preview": "Mr. O'Brien. I did not. Mr. Adams. Taking it from the point that you arrived there in the corridor w"
+        },
+        {
+          "page": 521,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.34,
+          "fields": 4,
+          "preview": "TESTIMONY OF MRS. DONALD BAKER The testimony of Mrs. Donald Baker was taken at 11 :50 a.m., on July "
+        },
+        {
+          "page": 561,
+          "type": "CIA_CABLE",
+          "confidence": 0.189,
+          "fields": 0,
+          "preview": "or what, I just said, \"Where were you standing?\" In an effort to prove there was some shots fired, a"
+        }
+      ]
+    },
+    {
+      "volume": 8,
+      "total_pages": 488,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 2,
+        "WC_TESTIMONY": 13
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 33,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.311,
+          "fields": 3,
+          "preview": "Mr. WuLF. Yes; I asked McBride specifically how come this boy was like this, mixed up and all, and h"
+        },
+        {
+          "page": 65,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "she did, I don't know about it, but when she came back, the way she talked, I figured that Lee was w"
+        },
+        {
+          "page": 97,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Conway. Yes, sir. Mr. Jenner. Off the record. (Discussion between Counsel Jenner and the witness"
+        },
+        {
+          "page": 129,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mrs. MuBBET. No; she had not. Mr. Jenneb. Is Covington very far away? Mrs. MuERET. No. Mr. jENNBai. "
+        },
+        {
+          "page": 161,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "home and boil and cook them. They got a big bang out of doing things like that. Now, Marina was preg"
+        },
+        {
+          "page": 193,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. MuRRET. No ; oh, I had a couple of bouts, but I never did make a career of it, or anything. Mr. "
+        },
+        {
+          "page": 225,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. LiEBELER. Let me ask you to review a photostatic copy of a document that is captioned \"Supplemen"
+        },
+        {
+          "page": 257,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Delgado. Yes. I couldn't\u2014Oswald loved to travel, right, but if he couldn't take military life, w"
+        },
+        {
+          "page": 289,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "some duties assigned naturally, and with him as an individual, I can remember that he taught me how "
+        },
+        {
+          "page": 321,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Ely. In other words, then, Oswald wanted to stay overseas longer than he was scheduleti to have "
+        },
+        {
+          "page": 353,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Jenner. [Referring to calendar] December 2 was a Monday. Mrs. Bates. Well, no ; they came to my "
+        },
+        {
+          "page": 385,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "I also gave De Mohrenschildt $20 and I got back $3 or $4 for them to take Marina to the Baylor Schoo"
+        },
+        {
+          "page": 417,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mrs. Hall. \"Well, I think I talked with Mrs. Clark about that, and we thought it strange how come th"
+        },
+        {
+          "page": 449,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mrs. VosHiNiN. According to George, he was a great\u2014he had great intel- lectual power; he was very cl"
+        }
+      ]
+    },
+    {
+      "volume": 9,
+      "total_pages": 490,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 2,
+        "WC_EXHIBIT": 2,
+        "HSCA_REPORT": 1,
+        "WC_TESTIMONY": 10
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 33,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "like that. It just reads too much like a fairy tale. I mean, as much as they claim they don't trust "
+        },
+        {
+          "page": 65,
+          "type": "HSCA_REPORT",
+          "confidence": 0.162,
+          "fields": 2,
+          "preview": "person who would stand out as being suspicious or strange would be Lee Harvey Oswald, but I was very"
+        },
+        {
+          "page": 97,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Jenner. And on these occasions, was it always that he called and asked to come over, or were you"
+        },
+        {
+          "page": 129,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Mamantov. Well, then, she asked\u2014are they going to send her back to the Soviet Union, and Mrs. Pa"
+        },
+        {
+          "page": 161,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. LiEBELER. Did he come back with the schedule before or after the occasion on which you were driv"
+        },
+        {
+          "page": 193,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "So I went to the Polish Consulate, made arrangements for the consul to be a sponsor of this movie. A"
+        },
+        {
+          "page": 225,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "appear with Mikoyan\"\u2014and the Texas Eastern people\u2014they are very conserva- tive Texas people\u2014if I app"
+        },
+        {
+          "page": 257,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "dent of the United States, he must have been unbelievably egotistical, an un- believably egotistical"
+        },
+        {
+          "page": 289,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Mr. De Mohrenschildt. Yes, indeed. Mr. .Jexxer. And on your letterhead\u2014George De Mohrenschildt, Petr"
+        },
+        {
+          "page": 321,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 2,
+          "preview": "Mr. Jenner. Now, Mrs. De Mohrenschildt. yon had discussions with both Marina and Lee about their dif"
+        },
+        {
+          "page": 353,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "once. There may have been another occasion, but my specific recollection is as to these two times. M"
+        },
+        {
+          "page": 385,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "the part of either Lee Oswald or Marina Oswald with respect to the Kennedys? Mrs. Paine. I have rela"
+        },
+        {
+          "page": 417,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Jenner. Your testimony was, as I recall, that to the best of your recol- lection the blanket-wra"
+        },
+        {
+          "page": 449,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "that I drew, I didn't sense that tJiere being another pipe I didn't put it in because I never did pl"
+        }
+      ]
+    },
+    {
+      "volume": 10,
+      "total_pages": 444,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 1,
+        "WC_TESTIMONY": 11,
+        "HSCA_REPORT": 2,
+        "WC_EXHIBIT": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 30,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Glover. I can't be sure of the number of occasions, because she came sev- eral times to the De M"
+        },
+        {
+          "page": 59,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Bringuier. [Complying.] And you agree to send me back the original? Mr. LiEBELEB. Yes. I will ta"
+        },
+        {
+          "page": 88,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Gb^eaci. Yes, sir. Mr. LiEBELEB. Now, is it correct that on tlie day that you came into the Casa"
+        },
+        {
+          "page": 117,
+          "type": "HSCA_REPORT",
+          "confidence": 0.221,
+          "fields": 4,
+          "preview": "of the assassination by Lee Harvey Oswald and his connection with the Fair Play for Cuba effort in N"
+        },
+        {
+          "page": 146,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "schools of the city and I went from there to the St. Louis metropolitan oflBce in the spring of 1940"
+        },
+        {
+          "page": 175,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 2,
+          "preview": "Mr. Babgas. I wanted a suitable employee that we could train that had some sheet metal experience, t"
+        },
+        {
+          "page": 204,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "of for what it's worth, is that at this point during his employment with us, he was very anxious for"
+        },
+        {
+          "page": 233,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. LiEBELER. Was there anything peculiar about this particular rifle that made Oswald want it? Or w"
+        },
+        {
+          "page": 262,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Jenner. Did she talk to you? Mrs. Tobias. Well, she never tried to have a conversation. I walked"
+        },
+        {
+          "page": 291,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "reverse side on this form I have described under \"date due,\" appears 9-10-58. I take it that is a da"
+        },
+        {
+          "page": 320,
+          "type": "HSCA_REPORT",
+          "confidence": 0.176,
+          "fields": 2,
+          "preview": "Mr. Belin. From one Monday to the following Monday, is that right? Mr. Johnson. Yes. Mr. Belin. Now,"
+        },
+        {
+          "page": 349,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Jenner. So, he was retracing his steps? Mr. Hutchison. Yes, sir ; retracing his steps. Mr. Jenne"
+        },
+        {
+          "page": 378,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. LiEBELER. Was anyone with him? Mrs. Davis. I don't know because he never spoke a word. I don't k"
+        },
+        {
+          "page": 407,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. LiEBELEB. Which one is that? Mr. Wood. That man right here. Mr. LiEBELER. This one right here? M"
+        }
+      ]
+    },
+    {
+      "volume": 11,
+      "total_pages": 500,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 6,
+        "WC_TESTIMONY": 5,
+        "WC_EXHIBIT": 3,
+        "FBI_302": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 34,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Jennee. All right. The question I asked you and which I keep inter- rupting in was to give me yo"
+        },
+        {
+          "page": 67,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Jenneb. Yes. Mr. Pic. A shortape of food, rationing of certain items, about eating a lot of cabb"
+        },
+        {
+          "page": 100,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "before that trip or shortly afterwards, I can remember from the books I was reading at the time and "
+        },
+        {
+          "page": 133,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "2. I am and have for several years been a foreign representative of Loma Industries, a plastics prod"
+        },
+        {
+          "page": 166,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Jenner. No. Do you have any recollection that Oswald stayed in the Elsbeth Street apartment befo"
+        },
+        {
+          "page": 199,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Miss James. It says, it is addressed to the American Embassy in Moscow and refers to this request fo"
+        },
+        {
+          "page": 232,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "We made about three stops or four stops every 2 or 3 hours, and he didn't speak to us during these s"
+        },
+        {
+          "page": 265,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Mr. LiEBELER. I show you another picture that has been marked Pizzo Ex- hibit No. 453-C, and ask you"
+        },
+        {
+          "page": 298,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.178,
+          "fields": 3,
+          "preview": "Did you see anybody else in the car at all, besides this woman and the two children? Mrs. Whitworth."
+        },
+        {
+          "page": 331,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "suspicion that somebody is trying to identify in the case or something, and this is precisely why I "
+        },
+        {
+          "page": 364,
+          "type": "FBI_302",
+          "confidence": 0.2,
+          "fields": 2,
+          "preview": "Mr. PeNa. Yes. Mr. LiEBELER. Madrid? Mr. Pena. Yes. Mr. LiEBELER. Rome? Mr. Pena. Yes. Mr. LiEBELBai"
+        },
+        {
+          "page": 397,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Mr, LiEBELER. Would you recognize this man's voice? Mrs. Odio. I don't know. I am not sure. Mr. LiEB"
+        },
+        {
+          "page": 430,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. LiEBELEK. You wouldn't believe what he said? General Walkek. He never appeared a vicious fellow,"
+        },
+        {
+          "page": 463,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Here Oswald was of an age that made him different right away. He was only 20, and I had never heard "
+        }
+      ]
+    },
+    {
+      "volume": 12,
+      "total_pages": 468,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 11,
+        "WC_TESTIMONY": 3,
+        "CIA_CABLE": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 32,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Chief Batchelor. I wasn't paying too close attention to how deep they were. There was more than one "
+        },
+        {
+          "page": 63,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Decker. Yes; and I called that oflBce and I talked to a man whom I believe to be Frazier, is tha"
+        },
+        {
+          "page": 94,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "down the ramp he did not know who that was, but did he tell you later he identified that man as bein"
+        },
+        {
+          "page": 125,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. Did you do that? Captain Talbert. Yes, sir. Mr. Hubert. All right. After that, what did "
+        },
+        {
+          "page": 156,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Griffin. Did you go with Sergeant Dean to the area that's marlced on the map stairs up, behind e"
+        },
+        {
+          "page": 187,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr, HUBEiRT. In other words, you all parked your car near Pearl Street and didn't even walk up or ri"
+        },
+        {
+          "page": 218,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Ckoy. Xo. I was standing at the scene, and there had been several reports. One. that he, of cour"
+        },
+        {
+          "page": 249,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.222,
+          "fields": 2,
+          "preview": "Mr. MacMasteb. Ted P. MaeMaster [spelling] M-a-c-M-a-s-t-e-r, assistant city attorney of the city of"
+        },
+        {
+          "page": 280,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.325,
+          "fields": 3,
+          "preview": "Mr. Holly. No ; no other report other than the one that I talked to Lieutenant Revill about. Mr. Htj"
+        },
+        {
+          "page": 311,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 2,
+          "preview": "any way and my work there. I was just on duty that morning and doing the best I could, and I ean't t"
+        },
+        {
+          "page": 342,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. GwFFiN. I don't understand. It was not over 2 weeks ago in an account Mr. Newman. An article. Th"
+        },
+        {
+          "page": 373,
+          "type": "CIA_CABLE",
+          "confidence": 0.189,
+          "fields": 1,
+          "preview": "was in what purported to be a uniform, that you weren't to let him in anyhow unless he had an identi"
+        },
+        {
+          "page": 404,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Lieutenant Wiggins. Well, that was\u2014the 24th, was my first day back since that time. I had been off 2"
+        },
+        {
+          "page": 435,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Griffin. Can I ask you directly, you did not, if I understand correctly, you did not make that d"
+        }
+      ]
+    },
+    {
+      "volume": 13,
+      "total_pages": 524,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 11,
+        "WC_TESTIMONY": 4
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 35,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.473,
+          "fields": 2,
+          "preview": "not been previously interviewed by me, or any other members of the Com- mission's stafiE, have you, "
+        },
+        {
+          "page": 69,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.459,
+          "fields": 3,
+          "preview": "testify to this, that and the other, did you hear it?\" It came up in a couple of days, but, as far a"
+        },
+        {
+          "page": 103,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 2,
+          "preview": "city jail wear. He had on different clothes than he had on at 2 :05, and I ex- plained to him what I"
+        },
+        {
+          "page": 137,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 2,
+          "preview": "tangle in which I am placing a capital A and would you agree that that figure shows, generally speak"
+        },
+        {
+          "page": 171,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Pierce. All right. Mr. Hubert. Now, Mr. Pierce, I think you have appeared here today as a result"
+        },
+        {
+          "page": 205,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Eberhardt. Right. Mr. Gkiffin. I don't understand it, now, wlien you say that you don't know whe"
+        },
+        {
+          "page": 239,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. Was that document given to him when the change was given to him? Mr. Lane. When the chan"
+        },
+        {
+          "page": 273,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. RiCHEY. I still believe that it is the same man. Mr. HuBEiRT. You were not asked by the State to"
+        },
+        {
+          "page": 307,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Wai-keb. Well, about four of us pointed at him at the same time in the truck. I mean, we all rec"
+        },
+        {
+          "page": 341,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "see some portion of it, but when I got downtown I was surprised to see that the parade had already m"
+        },
+        {
+          "page": 375,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. You don't recall the occasion when these pictures were taken? Mr. Armstrong. No. Mr. Hub"
+        },
+        {
+          "page": 409,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mrs. Che:ek. Thirteen. Mr. Griffin. Now you also indicated in your first report that you had been ac"
+        },
+        {
+          "page": 443,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. HtTBEBT. You did have a girl tyon went out with you used to meet at the Eatwell? Mr. Crafakd. On"
+        },
+        {
+          "page": 477,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. But you heard adults in the background? Mr. Ckafard. It sounded to me like it was at lea"
+        }
+      ]
+    },
+    {
+      "volume": 14,
+      "total_pages": 672,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 10,
+        "FBI_302": 1,
+        "WC_TESTIMONY": 4
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 45,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Griffin. Now, there is another entry under that. Mr. Crafaru. \"Cody-City Hall.\" Mr. Griffin. Did"
+        },
+        {
+          "page": 89,
+          "type": "FBI_302",
+          "confidence": 0.2,
+          "fields": 0,
+          "preview": "Mr. Cbafard. They are pictures of a message, I would say that\u2014there is space for who the message is "
+        },
+        {
+          "page": 133,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Griffin. Did he ever indicate that he was dissatisfied in any way with that? Mrs. Nichols. No ; "
+        },
+        {
+          "page": 177,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. Now will you state your full name? Mr. Senator. George Senator. Mr. Hubert. How old are "
+        },
+        {
+          "page": 221,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Senator. I can't base it on anything. It is only what I think. And, of course, to my way of thin"
+        },
+        {
+          "page": 265,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Senator. I called up Jim because I happened to know Jim and Jim was an attorney. \u2022 Mr. Griffin. "
+        },
+        {
+          "page": 309,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Senator. I was living next door to Jack. I wasn't living with him. When you mentioned\u2014was it Nov"
+        },
+        {
+          "page": 353,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. How long were you employed by Ruby altogether? Mrs. Rich. Probably a couple of months. M"
+        },
+        {
+          "page": 397,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Ruby. Yes. Mr. Hubert. And that in the course of that conversation he asked you about the Havana"
+        },
+        {
+          "page": 441,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.355,
+          "fields": 3,
+          "preview": "Mr. Griffin. If you would get us that we would appreciate it. yes. Mr. Ruby. Shall I mail it just he"
+        },
+        {
+          "page": 485,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mrs. Grant. Jack : he don't know that ho made them, he don't know that he made that many. I got the "
+        },
+        {
+          "page": 529,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. RVBY. One and a half cups. Mr. Herndon. That's your usual amount of coffee you have? Mr. Ruby. Y"
+        },
+        {
+          "page": 573,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "Mr. Ri^Y. \"Yes.\" Mr. IIerndon. \"Have you now told us the truth concerning why you carried $2,200 in "
+        },
+        {
+          "page": 617,
+          "type": "WC_TESTIMONY",
+          "confidence": 0.148,
+          "fields": 3,
+          "preview": "Mr. Specter. Could you have called him as late as 5:30 that afternoon? Mr. Wall. Yes. sir ; it could"
+        }
+      ]
+    },
+    {
+      "volume": 15,
+      "total_pages": 844,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 10,
+        "WC_EXHIBIT": 3,
+        "HSCA_REPORT": 1,
+        "CIA_CABLE": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 57,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "wife, not for you,\" tease you. I go over and I get a can of imported English candy. \"Take this home "
+        },
+        {
+          "page": 113,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Hubert. When you say the eluh belonged to an agent of yours you don't mean that he owned the clu"
+        },
+        {
+          "page": 169,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Cox. I believe I worked on that Friday night and again on Sunday. Mr. Hubert. That was by specia"
+        },
+        {
+          "page": 225,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "couple of other things they don't like here\u2014and was more suggestive than it should be. Jack rushed t"
+        },
+        {
+          "page": 281,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Mr. Knight. Yes ; I saw it. Mr. Griffin. Let me try to clear up then by one or two questions what ap"
+        },
+        {
+          "page": 337,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "and it seems to me he said, \"The President is at Parkland Hospital.\" And Pauline and I talked again,"
+        },
+        {
+          "page": 393,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "to station ourselves along the ramp, not too close to the exits, and once we were told that Oswald w"
+        },
+        {
+          "page": 449,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "assassination, so it must have been Saturday. If he was assassinated Friday, he didn't call me Frida"
+        },
+        {
+          "page": 505,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Mr. Hallmark. Yes. Mr. Hubert. And that's, of course, been reported in this Exhibit No. 1, and you s"
+        },
+        {
+          "page": 561,
+          "type": "HSCA_REPORT",
+          "confidence": 0.176,
+          "fields": 4,
+          "preview": "I state to you that the general nature of the Commission's inquiry is to ascertain, evaluate, and re"
+        },
+        {
+          "page": 617,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Mr. Jenkins. Well, it was a matter of a few minutes. I was trying to think where I had seen him befo"
+        },
+        {
+          "page": 673,
+          "type": "CIA_CABLE",
+          "confidence": 0.108,
+          "fields": 1,
+          "preview": "Mr. Hubert. Nor do .vou remember wbere yon saw him? Mrs. Carlin. No\u2014I saw so many different faces. I"
+        },
+        {
+          "page": 729,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 1,
+          "preview": "Mr. Oliver. That is right. Mr. Jennbr. Of Dallas, Tex. Mr. OLrv'Eni. I believe he is president. Mr. "
+        },
+        {
+          "page": 785,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Holbrook, John, vol. XIV, 576-577 Holcomb, Ray, vol. XV, 587 Holcomb, Robert G., vol. VI, 152 Hollan"
+        }
+      ]
+    },
+    {
+      "volume": 16,
+      "total_pages": 1024,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 4,
+        "WC_EXHIBIT": 10,
+        "MEMO": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 69,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 1,
+          "preview": "^7 J^^4^^0tJ^ A^t^ ^/e-***\u00ab>' J ^<^r6f f^y. /fuss. s?y>. 9: /'^^i Cru /-> 3/6 ^ ^/>^i^ iMzh.rooio Pa"
+        },
+        {
+          "page": 137,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "At the turn of the century in America In the emerging industrial revolution fe\u00ab^l- isH* private ente"
+        },
+        {
+          "page": 205,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "/c-Ca / ..(^ ^OC^O^CC^ /9 ^/^^ /^^Z S 0C^^-^( :, > <^-^^ ,/' L^-^t-eY '^.y c^W 'i' U to A-' \"/ \u2022 ' V"
+        },
+        {
+          "page": 273,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "P\" A^i ^, a:f gf , r H^ ce^^ T>-^ ^4i,f^e^ ^H't^Uy i^ Kl - ^ - 41 /^ ^ .^ *i*^ Good day, dear Marino"
+        },
+        {
+          "page": 341,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "/ 3 .ell re v cf^tl ^hr: trelnlnp Int^ epch unci t^very student Just j^e pt the fact rys snd :jlente"
+        },
+        {
+          "page": 409,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "\u2022S^^ tr7 \"^y'^ytf/^ -^*--'-' y<ry^j 'y^^*Kp fc*-yv^,^^^i5t CTT*^ \u00abf A-- ^ \u2022 /- .1. X/..-V- \u2022 O/ ^/ C"
+        },
+        {
+          "page": 477,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "T5 ^e^y9't^// SSP 1 1 rV '/^'^ jSWt'^^M^C-.^ r . t.^itt. < Ciit<\u00bbf .Mi^f^i\u2022*-**' -^-w^^lt^^J \\ -t-^*"
+        },
+        {
+          "page": 545,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 613,
+          "type": "MEMO",
+          "confidence": 0.194,
+          "fields": 1,
+          "preview": "?roi.v: Gomandcr, Karino Air Kcc: To: I'-dvatc First Clacs L-eo ' 3.yi3 n^rloy- Fort \"'ort^^ ., _;i\u00a3"
+        },
+        {
+          "page": 681,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "Commission Exhibit 239\u2014Continued 653 "
+        },
+        {
+          "page": 749,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "t CO-2-34,030 T.E A3SASSI.\\'ATI0:i OF rrinSIDHNT KEXT^HDV DALLVS, T^X^S . / / J Leo Ilarvcy Tape rcc"
+        },
+        {
+          "page": 817,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "of Uia GrAotor or ios oti'^r caut.\u00bb, tit Truct\u00abo darlna th\u00ab iU\u00abtln-x<> of l.x\u00ab Grantor n>4y, i9*:\u00ab\u00abd"
+        },
+        {
+          "page": 885,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": ".. .-*-cV^ .\u2022 * . .Ctfi?\u00bbvtf-,,^-2:<^^<?s^;;v*^-- 'iCyiS^*/^Z.^^~P^.\u00a3?^>^.y^^i'^^ Commission Exhibit"
+        },
+        {
+          "page": 953,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "C/fc,0\u20accce^^f^ ^ r.^^^oj^^ /^^^o3 / \u2014 \"^c^^5^ o^t^^<s>^^e^ o^a^^-t-o Commission Exhibit 333 925 "
+        }
+      ]
+    },
+    {
+      "volume": 17,
+      "total_pages": 936,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 6,
+        "WC_EXHIBIT": 5,
+        "CIA_CABLE": 3,
+        "MEMO": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 63,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "C^ ^ SL4S./0^^ c-'^^^^V -c-'fc.^ , '^ V^ \\> :?-N,0\\ SL4S./C>-^ oO<_*.^^A. \\^v-c->NJL^ ^ \\ v-- V \"^Ow"
+        },
+        {
+          "page": 125,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "y Conmilsslon Exhibit No. 409 1 ^^ _^^ . X -...^.^U^ _^ ^-?-2 '^^Z <*''^.. ^^'-^ ,^-^^ ^ Sit -i,^^ y"
+        },
+        {
+          "page": 187,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Commission Exhibit 429 157 "
+        },
+        {
+          "page": 249,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "TEXAS SCHOOL BOOK DEPOSITORY DIAGRAM OF SEVENTH FLOOR ^ vELEV./ \\ELEV L*00\u00a3R TO ROOF OPEN STORAGE SP"
+        },
+        {
+          "page": 311,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "CoMJussiON Exhibit 626 281 "
+        },
+        {
+          "page": 373,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "\\ l^ ' .r*' Commission Exhibit 686 00 JB 740-537 O\u201464\u2014 vol. XVII 24 343 "
+        },
+        {
+          "page": 435,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "16 16. 241 10-4, front or near? iS I'm Akard and Main if you want me to make that. Dlsp 10-4, 241..."
+        },
+        {
+          "page": 497,
+          "type": "CIA_CABLE",
+          "confidence": 0.189,
+          "fields": 0,
+          "preview": "Disp 10-4 o is 11 Poin\u201e 9 On the 3rd floor of tliis book company dovm here , we found empty rifle hu"
+        },
+        {
+          "page": 559,
+          "type": "MEMO",
+          "confidence": 0.167,
+          "fields": 1,
+          "preview": "C NFIDENTIAL Memorandum \u2014 PRS Activities in Relation to the Texas Trip Memorandum -- Procedure for H"
+        },
+        {
+          "page": 621,
+          "type": "CIA_CABLE",
+          "confidence": 0.189,
+          "fields": 1,
+          "preview": "April 6, 1964 CO-2-19259 Protective Research Case Illustrating a Phase o\u00a3 PRS Activity- Subject is a"
+        },
+        {
+          "page": 683,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "^L4uM ^ ^ C'^^a \\A/-^jU/% C^ynM^ u,-f^,4Ce'^ .^C^ ..JCjk'^^t v\u20acf .\" OtM^J Commission Exhibit 780\u2014Con"
+        },
+        {
+          "page": 745,
+          "type": "CIA_CABLE",
+          "confidence": 0.108,
+          "fields": 1,
+          "preview": "DL 100-10461 felt soi'ry for the subject inasmuch as it appeared to her that he had few if any frien"
+        },
+        {
+          "page": 807,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "On O. toi3>.-jf Jl, 1963, Mr. TED SCHUKMAN., Security Ofiicpr; Peli Helicopter Company, Fort Worth, "
+        },
+        {
+          "page": 869,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "V -^'^d^a^a^^^ iO ~ ConnnisEion Exhibit No. 839 Commission Exhibit 839 740-537 O\u201464\u2014 vol. XVII 55 "
+        }
+      ]
+    },
+    {
+      "volume": 18,
+      "total_pages": 960,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 5,
+        "WC_EXHIBIT": 6,
+        "MEMO": 1,
+        "CIA_CABLE": 1,
+        "HSCA_REPORT": 2
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 65,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "ZAPR1JDER FILM-FR\"\"ME 267  Z.ll'RUDER FIL:ll-FRA~!E 268  COMMISSIOJ'\\ EXHIBIT 88.3-Continued  \u00b1I  "
+        },
+        {
+          "page": 129,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "V cock official ccr.fiimtion th^'. r.-j h- \u2022 osj-.l-.-c? Soviet citir.c.^nhip upon his oira crpHoati"
+        },
+        {
+          "page": 193,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ". I r \u2022\u2022 1^ CERTIFICATE Cr /.CTION TAK'.ll-i I BERKBT c:.;r.r.'v tl;:-.! tho .'il)OVO passport. Kn- "
+        },
+        {
+          "page": 257,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "PPENDUD ^ VOL. 9 - VISAS -^^ CORRISPOMDEMCE ;. (3.1 Con't) (p. 5) TWENTY-FIVE The applicant should b"
+        },
+        {
+          "page": 321,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ". 6 * Th\u00bb atatutoTjr proovdur* for handling pctitiooa fc^ noo-quota or praferanoa atatua bf raaaon o"
+        },
+        {
+          "page": 385,
+          "type": "MEMO",
+          "confidence": 0.667,
+          "fields": 4,
+          "preview": "Optional Form 10 UNITED STATES GOVERNMENT MEMORANDUM CONFIDENTIAL X-42 DATE: March 31. 1961 TO : PT/"
+        },
+        {
+          "page": 449,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "c/^ BCCV ynpa['.-r:::-e 3:.CKTpoTexiiUMccKon H n;r.C:-::Tpc:iTC/;sj:Dfl CoroTK Hr.poAKoro >: ' C p P"
+        },
+        {
+          "page": 513,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "TRANSLATION FROM RUSSIAN A copy of a post card To: All Russian employees of the Soviet Embassy Dear "
+        },
+        {
+          "page": 577,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "i-^trt^ Jt. \\ ^-C^-OJl, CP-^oi. flu. \u201e Socfi-^S^O^ aa,.^,^c<^'\\ S : ^wC*^ qCV*cX^_ >y\u00ab-^</?<(j 0^,,/"
+        },
+        {
+          "page": 641,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "- 28 - for the first time. \\Jhat v/oraan's heart can resist this, especially if she is in love? Lee "
+        },
+        {
+          "page": 705,
+          "type": "CIA_CABLE",
+          "confidence": 0.108,
+          "fields": 1,
+          "preview": "statement of Special Agent Paul E. Landis, Jr., United States Secret Service, concerning his early m"
+        },
+        {
+          "page": 769,
+          "type": "HSCA_REPORT",
+          "confidence": 0.221,
+          "fields": 2,
+          "preview": "THE ASSASSINATION OF PRESIDENT JOHN F. KENNEDY ON NOVEMBER 22, I963, AT DALLAS, TEXAS Statement of S"
+        },
+        {
+          "page": 833,
+          "type": "HSCA_REPORT",
+          "confidence": 0.103,
+          "fields": 3,
+          "preview": "Mr. Belin, General Counsel - 6 - Special Agents Roberts, Ready, Lawton, and Mclntyre returned on the"
+        },
+        {
+          "page": 897,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.188,
+          "fields": 0,
+          "preview": "-ror' s-^c/^^T NATIONAL INDIGNATION CONVENTION p. O. Box 2684 Dallas 21, Texas Rl 7-9951 rhoanii. Ar"
+        }
+      ]
+    },
+    {
+      "volume": 19,
+      "total_pages": 800,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 9,
+        "WC_EXHIBIT": 5,
+        "MEMO": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 54,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "_Ex.No.5301-C SENATOR, Geo. Deposition. j;x.No.5301-C ARMSTRONG A. Deposition Washington, D.C. 4-22-"
+        },
+        {
+          "page": 107,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "A : > I J K d 6\" S i', J ^ \\: 1 \"d-\"^o'U[ J'/... ._...: -i-J/] A-fCi'/ N....Xt //-I /^.LE-. G ; N.i."
+        },
+        {
+          "page": 160,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "SERVICE DIVISION HEADOUARTERS SECTION Second Platoon 7:00 AM to 3:00 FM Matthews, Thomas Ki Brown, J"
+        },
+        {
+          "page": 213,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Oswald -2- 219055 _^ -7-^? Telephone inquiry frca Mr. Carro, Children's Court, LU8-500O ext. 30. Lee"
+        },
+        {
+          "page": 266,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "DL 44-1639 told Chief CURRY that it should not be approved, and that he would take the full responsi"
+        },
+        {
+          "page": 319,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "I*! lili I I INTERNATIONAL CERTIFICATES OF VACQNATION THE WORLD HEALTH ORGANIZATION CCnrinCATS INTWt"
+        },
+        {
+          "page": 372,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "DL 44-1639 89-43 presence and action and because it inppenod go fast, he was unable to xuake any roo"
+        },
+        {
+          "page": 425,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "TTFI or CLAIM: CEjU' \u00abCn D \"CX Q CWC occ CODE WO / 'XV 'f PHONl I CLAIMANTS SiaNATURC . MMUevID MCHU"
+        },
+        {
+          "page": 478,
+          "type": "MEMO",
+          "confidence": 0.139,
+          "fields": 3,
+          "preview": "MISCELLANEOUS CRIME REPORT CO^JNTY Off\" \u00a9ALLAS SHERIFF'S DEPAKT^flEIVT AS&MJLT WITH lOTLl/T TO COirs"
+        },
+        {
+          "page": 531,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "'ORM 11.4 SUP. INV. Kame of Complainant G QD COUNTY OF DALLAS SHERIFF'S DEPARTMENT SUPPLEMENTARY INV"
+        },
+        {
+          "page": 584,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "THE STATE CF TEXAS COUNTY OF DALLAS BEFORE ME^ AFFIDAVIT IN ANY FACT P3t.C3r HnTHy^.:; a Notary Publ"
+        },
+        {
+          "page": 637,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "r \u2022 "
+        },
+        {
+          "page": 690,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "SEA AND AIR TRAVEL-EMBARKATION SLIPS 21 August 1957 ecibarked on board the U. S, S. BEXAR at San Die"
+        },
+        {
+          "page": 743,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "DEPARTMENT OF THE ^MVY HEADQUARTERS UNITED STATES MARINE CORPS WASHINGTON 25 D C. m REPLY REFER TO C"
+        }
+      ]
+    },
+    {
+      "volume": 20,
+      "total_pages": 828,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 5,
+        "WC_EXHIBIT": 8,
+        "MEMO": 1,
+        "CIA_CABLE": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 56,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Gregory Exhibit 1 BODY DIAGRAM Front Positior. of vounds on body of Gov. Connally, suffered 11-22-63"
+        },
+        {
+          "page": 111,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "DL k-r-1639 \"November 24, 1963 \"Mr. J. E. Curry Chief or Police \"Subject: Shooting of Lee Harvey Osw"
+        },
+        {
+          "page": 166,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "1 D 1 "
+        },
+        {
+          "page": 221,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "REBIDL^'CK HALL RFPOFT Pr. w-U?IF,nTS IN: "
+        },
+        {
+          "page": 276,
+          "type": "MEMO",
+          "confidence": 0.25,
+          "fields": 1,
+          "preview": ". . . \u2022 Novcnbor 22\u00bb 1963 ^ \u2022\u2022 1630 . To: r>r. A. J. Gill, Dean The UaiversiCy ox Texas Southwest er"
+        },
+        {
+          "page": 331,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "m ivios by Priscilla Johnson What a long, private interview revealed to one reporter about the troub"
+        },
+        {
+          "page": 386,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "W'^^B Ui w W'\\ '!ri'Z U y ivS# -..\"C/ ^^^.^^ I 1 h ^^ k vA^^\u00bb AK^!; ^^ Kantob Exhibit No. 3\u2014Continue"
+        },
+        {
+          "page": 441,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "15\u2014 kennedy \"arlipr Satnrriay nitihi, it must. have h-^.en aboat 6 o'clock, I war. av/are that a 'bo"
+        },
+        {
+          "page": 496,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "DL 44-1639 In regard to any relationship between JACK RUBY and OSWALD, Mr. KLEINKAN advised he had n"
+        },
+        {
+          "page": 551,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "PamphletCase \\ Sentence Given] Lee Oswald, 23, 4907 Magazine,) Monday was sentenced to pay a| fine o"
+        },
+        {
+          "page": 606,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Loo Harvey Oswald* ftka. YoU. L: SI: L: lit hi Ut L: \u00bbl: h: M: L: U: !<} And ho v\\xn, and took my ba"
+        },
+        {
+          "page": 661,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "CITY O? DALLAS * PP.0P2RTY CLEP.K'S INVOICE OR RECEIPT :\":o:cIvcd of H. M. rroore; VJ. E. Potts; P. "
+        },
+        {
+          "page": 716,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "AMERICAN OPINION An Informal Review MARCH, 1964 $1.00 Oliver Exhibit No. 1 692 "
+        },
+        {
+          "page": 771,
+          "type": "CIA_CABLE",
+          "confidence": 0.108,
+          "fields": 0,
+          "preview": "SCO O F SO V lET ACTIVITY IN THE |ttc Dcpartmcat rtigulations. While there, Isitcd his frioad Praski"
+        }
+      ]
+    },
+    {
+      "volume": 21,
+      "total_pages": 816,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 6,
+        "HSCA_REPORT": 2,
+        "WC_EXHIBIT": 6,
+        "CIA_CABLE": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 55,
+          "type": "HSCA_REPORT",
+          "confidence": 0.118,
+          "fields": 3,
+          "preview": "I <EE HARVE7 OSWALD On August 25, 1964, B. M. Patterson, Apartment 201, labana Apartments, 1607 Nort"
+        },
+        {
+          "page": 109,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "^-.; .^. .J2^^^.^ ^^-^^y .^^^3^-^-^--:- .--/J^e V.-... <: -1:7 \u2022 /f^2 >^.:^ ^^< r coBow\"\"\" Pio Exhib"
+        },
+        {
+          "page": 163,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "fS-soi-cr.v. 3-3-58) FEDERAL BUREAU Or i,\\VESViG/i I lOM / \\^ S^ aacetiber 2. IS S3 i^l^v ^-,1 -^ "
+        },
+        {
+          "page": 217,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "TOP SECRET -14- secn the body, asked Co do so. I went back to the Morgue and asked if this were poss"
+        },
+        {
+          "page": 271,
+          "type": "CIA_CABLE",
+          "confidence": 0.189,
+          "fields": 2,
+          "preview": "TOP SECRET .2:00 Midnight, Mr. Prall of the New York World Telegram, and Miss Joyce Gggington of the"
+        },
+        {
+          "page": 325,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "I DEHTI r ICATl OH (,-OR USt IN PAWNSHOfS. StCOND.HANO. BU "
+        },
+        {
+          "page": 379,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "C4^ \u00bb^-^ 'V^^-JI-^ , '>.\u2014p ^>'W>f C^-Z. Ex.No.2 RUBY, Earl Deposition <^/ -1^ X ' W.shington, D. C. "
+        },
+        {
+          "page": 433,
+          "type": "HSCA_REPORT",
+          "confidence": 0.279,
+          "fields": 4,
+          "preview": "The Western Union Telegraph Company 0.-^>t^.i; GuL-F Division -j^-c ,-.^ \\^ 1-416 Commerce St. . . v"
+        },
+        {
+          "page": 487,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Shaneyfelt Exhibit No. l8 Shanetfelt Exhibit No. 18 459 "
+        },
+        {
+          "page": 541,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "y Sims Exhibit A\u2014Oontinued 513 "
+        },
+        {
+          "page": 595,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "r^sl of tlx^ p.'O'ty bad l\\jr>c^>cn in th.y privates ciinjrv foon'enti Irfl tho U^)n retumirvT to th"
+        },
+        {
+          "page": 649,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.125,
+          "fields": 0,
+          "preview": "Tranaoript of taped interview between William K. Stuokey and Loo Harrey Oswald, Aug. 17, 1963 r, . ."
+        },
+        {
+          "page": 703,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "The Gus Hall\u2014Benjamin J. Davis Defense Committee END McCARRANISM The Gus Hall\u2014Beniamin J. Davis Defe"
+        },
+        {
+          "page": 757,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "vv A(A iAA V DL 44-1639 \"NoveiBber 27, 1963 \"Mr. J. B. Curry Chief of Police \"Subject: Murder of Lee"
+        }
+      ]
+    },
+    {
+      "volume": 22,
+      "total_pages": 972,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 11,
+        "WC_EXHIBIT": 4
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 65,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "THE FOREIGN SERVICE OF THE UNITED STATES OF AMERICA Anerlc&n EnbAssy, Hoscov, U.S.S.R., FebruaJy 2tt"
+        },
+        {
+          "page": 129,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "? 5 5 i M "
+        },
+        {
+          "page": 193,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "&-^ 4^ 11 3 g \"- .'! S . tI \u2022 Si G. 0} tH 0) (11 CM jj; 1 -cJ a j \u2022O CM C o^-d p. ^ ^\u00ab .\u00a7s I \u00a7o I 5 "
+        },
+        {
+          "page": 257,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "M iH I -O O *i \u2022 f: 9 "
+        },
+        {
+          "page": 321,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "^& sv(rt02-ei r \".-^r::! o n X zo oo o H n s zo soo 287 "
+        },
+        {
+          "page": 385,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "p% "
+        },
+        {
+          "page": 449,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Li f II M 3 \" Si ' 5 I I i I J!nil t? J 1 ii ^ 3 II a I t i t \\ Si* I I 1 * I IS 2 fij 1^ 111 8?] 1^"
+        },
+        {
+          "page": 513,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "SOUTHEAST CORNER OF SIXTH FLOOR SHOWING ARRANGEMENT OF CARTONS SHORTLY AFTER SHOTS WERE FIRED. Commi"
+        },
+        {
+          "page": 577,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "-? o n W o oo 3 .s GoO I o Z, s w o oo 543 "
+        },
+        {
+          "page": 641,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Mill luitiiM iiii' iiiiiLKiau- ui iiK- Mi{ijriii(' I iiiiri in (nosr iiriiiiii\u00ab now [HTKlin^: iinil "
+        },
+        {
+          "page": 705,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "r-l O O (U <u O4 00 10 -H X! t>0 4J : w u fl.O "
+        },
+        {
+          "page": 769,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "\\ h -H W O (0 ^ V> I O \u00bb U M js -w a 3 ^ +^ *^ r-l (Q -M h O o a o r^ w t, i-i a 3 \u2022S soO o H Ss o v"
+        },
+        {
+          "page": 833,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "IB 'Commission Exhibit 1410 \u2022posiriL ;' O 5^> t-^ i ;.O J i\u00ab\u00ab j: 2^Y/^ 5J^-~s? -^^jft , Commission E"
+        },
+        {
+          "page": 897,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "rioa>-r-:-POOT3 ni\u00ab > o UK <a t: o .H . 3 ii O -H X> <M QJ O W ^ o \u2022H dJ 4-> fn -H n s: > p o o n c "
+        }
+      ]
+    },
+    {
+      "volume": 23,
+      "total_pages": 984,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 13,
+        "WC_EXHIBIT": 2
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 66,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "o V V e cB ^ a n V >\u2022 b o 9 'O o o o o *\u2022 3 tJ 9 ** O h U \u2022 9b*J jsvoo ** -^ a h O I IH o \u2022 01 > -H "
+        },
+        {
+          "page": 131,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "so V *> o \u2022s o c o o j: -o \u00a3 a \u00a3 <t> obt: ^ a e o o c -H \u00ab o\u00ab-< 03 '^\u00a3 to B14> r-l U*^ CO** +> OO^O^"
+        },
+        {
+          "page": 196,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "> <-) -p -. O <-f 0) o c \u00ab \u2022\u00ab O t4 (U O ra S rH s: !-< s P O .H O 43 O 3 a o H \u00a3 x; w m p s c H 0) x"
+        },
+        {
+          "page": 261,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ",1^ "
+        },
+        {
+          "page": 326,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "/j*/<.'/ ^^' ^<^^ <i^^^ ^ ^0^ ^ -<r'<r'-\u00ab^<vr TDA HISTORY SHEET T A A \u2022 - S \u2022. "
+        },
+        {
+          "page": 391,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "3S ae-p p a u 43 o c-au O S rH Oi Q} CS 6S . o> o \u00a3-P-H \u2022u CO O M a o <3 \u00bb yco O (U o II O ra < U - "
+        },
+        {
+          "page": 456,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "\u2022 CM w -o -o \" y fl \u00ab > <U T< < a -I o o . ^ *- \u00ab 1i ^^ "
+        },
+        {
+          "page": 521,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "I I 5a 3 . 45 H .-I U -4 O 9 a,A o >i i?l > \u2022 5 3 \" <H W & & O O \u2022 \u2022 3 I 9 S 9 5 5 5 "
+        },
+        {
+          "page": 586,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Jaogars-Chiles-Stovau- Inc. \u2022\u00bbctfi tt m-n r* .\u00abH^ .K<. r\u00ab\u00ab. ik... h.n\u00ab. MUST .^M witk el^ f^Mx. \u00abi.4"
+        },
+        {
+          "page": 651,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "ggars-Chiles-Stovalu inc. mOTOOtAMAC pvAMtmoa NOTE:\u2014Afi \u2022mpl\u00aby*\u00bbt ar* r\u00abqwir*d to hMp un *cctrrat\u00ab r"
+        },
+        {
+          "page": 716,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "o 9 3& S -3 \u2022 IH a m o a a J3 N 5**'5 J3 a a a a o n ^ n . \u00ab o w o i . O 4J O O com an 1^ -H S o< > "
+        },
+        {
+          "page": 781,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "iHi.i M 1 1 1 I 8 1, 11 I 3 _C CoO I o H n XW zo niS :ri K \"^ i\\ I J J> lllllll ^ I -d o I \\ \\ \u00bb i M"
+        },
+        {
+          "page": 846,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Commission Exhibit No. 1964-Continued FRANSLATION FROM RUSSIAN Photograph )C6 (Left page) Entries on"
+        },
+        {
+          "page": 911,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "-H ii u: u i: 10 "
+        }
+      ]
+    },
+    {
+      "volume": 24,
+      "total_pages": 940,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 15
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 63,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "3S J I "
+        },
+        {
+          "page": 125,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "1 I I o d X I \u00a7o I S d o I 103 "
+        },
+        {
+          "page": 187,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "^ ':^- N "
+        },
+        {
+          "page": 249,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "o5 \u2022S ** \"^ * c *> o5to<.<*><HS>..rtM S *\u2022 h op \u00b0 \" 3 oWto^noy iiOQ)ffl03>,i,>-.n o^x*^o \u2022.oom P M o"
+        },
+        {
+          "page": 311,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "5 E V t \u2022d 6 S f! I -^ \u00bb f. o K IS 1' t u i? 2 E ? g I \u00a3 c - ^ \u2022S V \"5 E. i ? e s g c o I \u00a3 o "
+        },
+        {
+          "page": 373,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "I ? \u00a7 ihl i 2S-o'S u 7l a K 4> o's d % e \"8 o M < rH p i; t O <> C \u2022** ^\u2022S\" 2 - \u00b0 fc ^ I so 3 \u2022S coO"
+        },
+        {
+          "page": 435,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "tJ> . \u2022a u u X> K m Vl \u2022 \u2022 H t> u \"u \u00bbi a \u00ab > M \u2022 \u00ab \"H >i H H \u2022 O O .H \u00ab 4J C O . r-l O 0> O \"O O T>"
+        },
+        {
+          "page": 497,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "a "
+        },
+        {
+          "page": 559,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ".HI S ti C N \u00ab>\"0 -Clj nJOtD4JQ)j:33 \u2022.COO. 4i(I)\u00bb43o \u2022-^H <\" ra <U f4 4i S: SrHrH <i\u00ab ti W C gf<cil"
+        },
+        {
+          "page": 621,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "X "
+        },
+        {
+          "page": 683,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ". ^ \u2022\u00bb< o no o 4-> <n c -p WW +\u00bb COCdra 03 4->nO'H'HO o. 'W0COX3 -(J-HOO WOS'H-IJW-rt+J.C'd cco-H ^."
+        },
+        {
+          "page": 745,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "6 - 1 -O C (n U o ^ 0) w 4J O f< a (u-H -a a) m : X cj DO :3 0) > >< ^ (1) ' .CO u) a Qj pi :3 Id -p"
+        },
+        {
+          "page": 807,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "d g !e3 5 \u00ab to P. I 2 t : ? I 5 a 5 o n \u00a3 w o ou ^ \u00a3 i \"el 2O I 5 i ^ o O fl e 5 3 .g -MCoO Io o n 2"
+        },
+        {
+          "page": 869,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "a a $ "
+        }
+      ]
+    },
+    {
+      "volume": 25,
+      "total_pages": 968,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 13,
+        "WC_EXHIBIT": 2
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 65,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "o u >> . C<dIiC3C0Om \u2014a *> c 3 CD -H .-, .D T3 <i~. Co a- co a> c t-. o p \" ra X c a \u00a3 -. . m co i-i"
+        },
+        {
+          "page": 129,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 193,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "\u2022I 51 Sa If o x o u si \u00a3 ^ H :J -C *J \u00ab i H Q. 3 So \u2022 HI a < m \u2022 J > Com \u00bb a \u2022o i. J Vl \u00ab It, \u2022 M 3 "
+        },
+        {
+          "page": 257,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "Commission Exhibit No. 2292-Continued Commission Exhibit No. 2292-Continued 223 "
+        },
+        {
+          "page": 321,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "U CO C CO \u00a3 to Cm o CO to o Ml <n .**> co 5H H XI x to \u00bb, i a bor, hCO c. c xi a - -; h e - I C 0) 0"
+        },
+        {
+          "page": 385,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "- O t- rt \u00bb iH 01 N H co co u w i< n -* M o t* fa o whido an \u00a9 v< co i < n xi a iH m -HO co i p a a "
+        },
+        {
+          "page": 449,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 513,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "3 H . 8 1 O \u2022I u <D 8 8 3 o IJ o a ^ 1a g a If n 3 .s io CM CM CM CM o "
+        },
+        {
+          "page": 577,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "SS^S^^ggffi^^^^R^oogggygj^ogygg 1^ S3 4CllArHVO^^^or1 oo CJC, ol {y rtcorovocvJ(0(rvcrV:) . ;r(r|VOv"
+        },
+        {
+          "page": 641,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "\u00a79 CD - 3 i> a m \u2022 X3 o c cdxi cd cDtVi x xi i: o - c o *> c o^o,; cd h CDcl\u00a3-iHOSHx:cd \u00a3 o t, c o p"
+        },
+        {
+          "page": 705,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "o "
+        },
+        {
+          "page": 769,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "ATTACHMENT #2 PROPOSED MANIFEST - AF #1 FORT 'WORTH TO DALLAS 1. THE PRESIDENT 20. 2. MRS, JOHN F. K"
+        },
+        {
+          "page": 833,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "? 3 *\u00bb 3 <a c - H >> s 3\"? o u <H oaou O +* XI U ri +J 01 <h t, -a - U) i o ci o -a o a o-l o [1 r. "
+        },
+        {
+          "page": 897,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "Vr\\ V\u00bb B tj to M -3 *> I I a i I 1 3 H c!5 3 .s cO oZ H 5 Iw zo 9oo H I\" \"a -o *1 m !*3 KO!3h "
+        }
+      ]
+    },
+    {
+      "volume": 26,
+      "total_pages": 980,
+      "sample_size": 15,
+      "type_counts": {
+        "UNKNOWN": 14,
+        "WC_EXHIBIT": 1
+      },
+      "results": [
+        {
+          "page": 1,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ""
+        },
+        {
+          "page": 66,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "D.,4 o a art ti J3 u a *i \"a a *' o T> o o c r +> o o fl u +\u00bb .Q fl ' o \" M -H :J >, a O . cj .a n ^"
+        },
+        {
+          "page": 131,
+          "type": "WC_EXHIBIT",
+          "confidence": 0.312,
+          "fields": 0,
+          "preview": "-..<. A.*54>y -WT^X* ^r.4\u00a3/A* \u2022-4. -V -^ ^f'-^ -^ 4u/^' V-X^ .iv4^^ .j?^ .v^^ .*-^*:<, -^-t^- 'ir'. "
+        },
+        {
+          "page": 196,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "5 \" '5 h U O Ch g o, \u00bb e o VI o ** o c \u00bb Hi II .-4 \" ;i 2 2-5 t; pic \u00abo ^ g S 3 ^ c -S \u00ae \" q mi Sf -"
+        },
+        {
+          "page": 261,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "S5 H \u00a75 ^5 rt O 13 VI ^S i \" 1 \u2022PS O I O S 31 S 1 o o m J3 O T3 3 a? S3 !3 a si oi' 1! c. "
+        },
+        {
+          "page": 326,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ": t: (4 0^^ <Tj B la OiT'O E Ew o *>*\u00bb -^ O \u00ab C13 O tt jOC3 O 3 u . t-xt- sis <H t; ou o o o o ei < "
+        },
+        {
+          "page": 391,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "u B \u00ab o a fH \u00ab Ha tj M _ o ? f. t, \u00ab o \u2022 i d oi I. e^ > vi a K-t>\u00bbHta o o 0.0 00 \u00bb jt a ^ i<ipea (Da"
+        },
+        {
+          "page": 456,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "\u00ab> Z 0) (1) J > to I S c -P a> o o H 0) \u00a73 S5\u00ab P 01 0) \u2022D -p nj > OJ 4J (0 4J-0 CO J3 P S T3 +3 C o "
+        },
+        {
+          "page": 521,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "f i I m o a o \u2022 T) t^ 3 a x: a o d n ISO H<H o ja rt J a M -rt O \u2022H-oaxiaU-Hoo a u o ooaq-a uo-HntjO"
+        },
+        {
+          "page": 586,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "1 "
+        },
+        {
+          "page": 651,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "^1 I! W 13 5SS ^ \u00ab s S ?' b a \u2022\u00ab S3' an'S 00.. 3 o (U >3 \u00b0 s i^a pfj^ S\"]/ ]o. > IN O SJ 1 ^ O Tl S^"
+        },
+        {
+          "page": 716,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": ". %J.S^63 i .^..//yQWZ-'W \\ /?lUer -I TJni CfirTcr .Zf.U ; /^/G5 /V Du.r/>AJT "
+        },
+        {
+          "page": 781,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "I li X: rl J3 o B 2 ^g 3 x: OT3 3 ^boa oj , t<^ <u - W El !3 rH - \u2022 0-1 o \u2022 So) 43 -H MO >JrHH C C S"
+        },
+        {
+          "page": 846,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "05 > c a c c c c v< a ^ u \u00ab o g 4> -S w ^ >o >. o 5 Q r^ 5 \u00a7 * 2 > n o >. 3 o ^ u v< z n o u o JJ u "
+        },
+        {
+          "page": 911,
+          "type": "UNKNOWN",
+          "confidence": 0.0,
+          "fields": 0,
+          "preview": "o> (s 8 I \".8 I: sl '^.^f a I e^ ti 5^ ti-oB \u00bb \" S3 S\u00bb \u00ab.\u2022 no \"SJ g \"'\"'ox \"oC 5 \"S Is\"! \u00b0^\" g C\u00a7 -\u00a3"
+        }
+      ]
+    }
+  ]
+}
