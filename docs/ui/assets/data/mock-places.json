@@ -1,0 +1,104 @@
+[
+    {
+        "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+        "name": "Dallas, Texas",
+        "display_name": "Dallas",
+        "type": "City",
+        "label": "City · Texas",
+        "description": "Major metropolitan area in Texas and the site of the JFK assassination on November 22, 1963.",
+        "events": [
+            {
+                "date": "1963-11-22",
+                "title": "Assassination of JFK",
+                "description": "President Kennedy shot in Dealey Plaza"
+            },
+            {
+                "date": "1963-11-24",
+                "title": "Oswald Transfer",
+                "description": "Lee Harvey Oswald killed by Jack Ruby"
+            }
+        ],
+        "parent_place": null,
+        "child_places": [
+            {
+                "name": "Dealey Plaza",
+                "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"
+            },
+            {
+                "name": "Oak Cliff",
+                "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0"
+            }
+        ],
+        "related_places": [
+            {
+                "name": "Irving",
+                "relation": "Suburb"
+            }
+        ],
+        "features": [
+            {
+                "name": "Trinity River",
+                "type": "Natural"
+            },
+            {
+                "name": "Main Street",
+                "type": "Infrastructure"
+            }
+        ],
+        "identifiers": [
+            {
+                "type": "CITY_CODE",
+                "value": "DAL"
+            }
+        ],
+        "sources": [
+            {
+                "title": "Dallas Police Department Records",
+                "year": "1963"
+            }
+        ]
+    },
+    {
+        "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
+        "name": "Texas School Book Depository",
+        "display_name": "TSBD",
+        "type": "Building",
+        "label": "Building · Dealey Plaza",
+        "description": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy.",
+        "events": [
+            {
+                "date": "1963-11-22",
+                "title": "Shots fired",
+                "description": "Three shots fired from the sixth floor window"
+            }
+        ],
+        "parent_place": {
+            "name": "Dealey Plaza",
+            "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"
+        },
+        "child_places": [
+            {
+                "name": "Sixth Floor",
+                "type": "Floor"
+            }
+        ],
+        "related_places": [],
+        "features": [
+            {
+                "name": "Sixth Floor Sniper's Nest",
+                "type": "Site"
+            },
+            {
+                "name": "Hertz Clock",
+                "type": "Landmark"
+            }
+        ],
+        "identifiers": [],
+        "sources": [
+            {
+                "title": "Warren Commission Report",
+                "year": "1964"
+            }
+        ]
+    }
+]

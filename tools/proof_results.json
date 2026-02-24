@@ -1,0 +1,197 @@
+{
+  "doc_type": "WC_TESTIMONY",
+  "doc_type_confidence": 0.581,
+  "fields": {
+    "witness_name": {
+      "value": "LEE HARVEY OSWALD",
+      "zone": "header",
+      "confidence": 0.84,
+      "pattern": "WC_TESTIMONY_witness_name"
+    },
+    "commission": {
+      "value": "President's Commission",
+      "zone": "header",
+      "confidence": 0.75,
+      "pattern": "WC_TESTIMONY_commission"
+    },
+    "questioner": {
+      "value": "RANKIN",
+      "zone": "body",
+      "confidence": 0.75,
+      "pattern": "WC_TESTIMONY_questioner"
+    },
+    "questioner_chairman": {
+      "value": "The CHAIRMAN.",
+      "zone": "body",
+      "confidence": 0.79,
+      "pattern": "WC_TESTIMONY_questioner_chairman"
+    },
+    "witness_response": {
+      "value": "OSWALD",
+      "zone": "body",
+      "confidence": 0.7,
+      "pattern": "WC_TESTIMONY_witness_response"
+    },
+    "page": {
+      "value": "1",
+      "zone": "footer",
+      "confidence": 0.62,
+      "pattern": "WC_TESTIMONY_page"
+    }
+  },
+  "segments": [
+    {
+      "id": 0,
+      "label": "INTRO",
+      "speaker": "",
+      "text": "Present: Chief Justice E. Warren, Chairman; Senator Richard B. Russell, \n    Senator John Sherman Cooper, Representative Hale Boggs, Representative \n    Gerald R. Ford, Mr. John J. McCloy, of the Commission; and Mr. J. L. \n    Rankin, General Counsel.",
+      "entities": [
+        {
+          "id": "earl-warren",
+          "type": "PERSON",
+          "label": "Warren, Earl",
+          "matched_text": "E. Warren"
+        },
+        {
+          "id": "j-lee-rankin",
+          "type": "PERSON",
+          "label": "Rankin, J. Lee",
+          "matched_text": "Rankin"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "label": "QUESTION",
+      "speaker": "The CHAIRMAN",
+      "text": "The CHAIRMAN. Mrs. Oswald, the Commission is now ready to receive your \n    testimony.",
+      "entities": [
+        {
+          "id": "lee-harvey-oswald",
+          "type": "PERSON",
+          "label": "Lee Harvey Oswald",
+          "matched_text": "Oswald"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "ANSWER",
+      "speaker": "Mr. J",
+      "text": "Mr. J. L. RANKIN. Mrs. Oswald, would you please state your full name for the Commission?",
+      "entities": [
+        {
+          "id": "lee-harvey-oswald",
+          "type": "PERSON",
+          "label": "Lee Harvey Oswald",
+          "matched_text": "Oswald"
+        },
+        {
+          "id": "j-lee-rankin",
+          "type": "PERSON",
+          "label": "Rankin, J. Lee",
+          "matched_text": "RANKIN"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "ANSWER",
+      "speaker": "Mrs. OSWALD",
+      "text": "Mrs. OSWALD. Marina Nicolaevna Oswald.",
+      "entities": []
+    },
+    {
+      "id": 4,
+      "label": "QUESTION",
+      "speaker": "Mr. RANKIN",
+      "text": "Mr. RANKIN. And where do you reside?",
+      "entities": []
+    },
+    {
+      "id": 5,
+      "label": "ANSWER",
+      "speaker": "Mrs. OSWALD",
+      "text": "Mrs. OSWALD. At the present time in Dallas.",
+      "entities": [
+        {
+          "id": "dallas",
+          "type": "PLACE",
+          "label": "Dallas",
+          "matched_text": "Dallas"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "label": "QUESTION",
+      "speaker": "Mr. RANKIN",
+      "text": "Mr. RANKIN. Were you born in Russia?",
+      "entities": []
+    },
+    {
+      "id": 7,
+      "label": "ANSWER",
+      "speaker": "Mrs. OSWALD",
+      "text": "Mrs. OSWALD. Yes.",
+      "entities": []
+    },
+    {
+      "id": 8,
+      "label": "QUESTION",
+      "speaker": "Mr. RANKIN",
+      "text": "Mr. RANKIN. On what date?",
+      "entities": []
+    },
+    {
+      "id": 9,
+      "label": "ANSWER",
+      "speaker": "Mrs. OSWALD",
+      "text": "Mrs. OSWALD. July 17, 1941.",
+      "entities": []
+    },
+    {
+      "id": 10,
+      "label": "QUESTION",
+      "speaker": "Mr. RANKIN",
+      "text": "Mr. RANKIN. In what city?",
+      "entities": []
+    },
+    {
+      "id": 11,
+      "label": "ANSWER",
+      "speaker": "Mrs. OSWALD",
+      "text": "Mrs. OSWALD. In the city of Severodvinsk.",
+      "entities": []
+    }
+  ],
+  "extraction_notes": [
+    "Extracted 6 field(s) and 12 body segment(s) for WC_TESTIMONY"
+  ],
+  "linked_entities": [
+    {
+      "id": "earl-warren",
+      "type": "PERSON",
+      "label": "Warren, Earl",
+      "matched_text": "E. Warren"
+    },
+    {
+      "id": "j-lee-rankin",
+      "type": "PERSON",
+      "label": "Rankin, J. Lee",
+      "matched_text": "Rankin"
+    },
+    {
+      "id": "lee-harvey-oswald",
+      "type": "PERSON",
+      "label": "Lee Harvey Oswald",
+      "matched_text": "Oswald"
+    },
+    {
+      "id": "dallas",
+      "type": "PLACE",
+      "label": "Dallas",
+      "matched_text": "Dallas"
+    }
+  ]
+}

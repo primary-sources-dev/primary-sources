@@ -26,13 +26,13 @@ python -m http.server 8000
 
 ```
 Comprehensive Event (Yates Incident - 9 cards):
-http://localhost:8000/event-v1.html?id=yates-hitchhiker
+http://localhost:8000/event.html?id=yates-hitchhiker
 
 Simple Event (Walker Incident - 7 cards):
-http://localhost:8000/event-v1.html?id=walker-incident
+http://localhost:8000/event.html?id=walker-incident
 
 Empty State (Minimal - 0 cards):
-http://localhost:8000/event-v1.html?id=minimal-event
+http://localhost:8000/event.html?id=minimal-event
 ```
 
 ---
@@ -41,8 +41,9 @@ http://localhost:8000/event-v1.html?id=minimal-event
 
 ```
 docs/ui/
-├── event-v1.html                        # Universal event template ⭐ NEW
-├── event.html                           # Original event template (reference)
+├── event.html                           # Canonical event template ⭐
+├── archived/
+│   └── event-original.html              # Original template (archived)
 ├── assets/
 │   ├── js/
 │   │   ├── event-v1-profile.js          # Card registry + loading
@@ -255,7 +256,7 @@ npm run dev
 
 ### 1. Add HTML Section
 ```html
-<!-- event-v1.html -->
+<!-- event.html -->
 <section id="new-card-section" data-section="new-card" class="border-b border-archive-secondary/20" style="display:none;">
   <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
        onclick="toggleCard('new-card')">

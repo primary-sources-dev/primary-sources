@@ -1,0 +1,104 @@
+[
+    {
+        "organization_id": "warren-commission",
+        "name": "The President's Commission on the Assassination of President Kennedy",
+        "display_name": "Warren Commission",
+        "type": "Government Commission",
+        "label": "Investigative Body",
+        "description": "Established by President Lyndon B. Johnson on November 29, 1963, to investigate the assassination of United States President John F. Kennedy.",
+        "events": [
+            {
+                "date": "1963-11-29",
+                "title": "Commission established",
+                "description": "Executive Order 11130 signed by LBJ"
+            },
+            {
+                "date": "1964-09-24",
+                "title": "Report delivered",
+                "description": "888-page final report presented to the President"
+            }
+        ],
+        "people": [
+            {
+                "name": "Earl Warren",
+                "role": "Chairman"
+            },
+            {
+                "name": "J. Lee Rankin",
+                "role": "General Counsel"
+            },
+            {
+                "name": "Gerald R. Ford",
+                "role": "Commissioner"
+            },
+            {
+                "name": "Allen Dulles",
+                "role": "Commissioner"
+            }
+        ],
+        "related_organizations": [
+            {
+                "name": "FBI",
+                "relation": "Investigative Support"
+            },
+            {
+                "name": "CIA",
+                "relation": "Information Source"
+            }
+        ],
+        "identifiers": [
+            {
+                "type": "EXECUTIVE_ORDER",
+                "value": "11130"
+            }
+        ],
+        "sources": [
+            {
+                "title": "Report of the President's Commission on the Assassination of President John F. Kennedy",
+                "year": "1964"
+            }
+        ]
+    },
+    {
+        "organization_id": "fbi",
+        "name": "Federal Bureau of Investigation",
+        "display_name": "FBI",
+        "type": "Federal Agency",
+        "label": "Law Enforcement",
+        "description": "Primary federal law enforcement agency of the United States, heavily involved in the JFK assassination investigation.",
+        "events": [
+            {
+                "date": "1963-11-22",
+                "title": "Investigation launched",
+                "description": "Immediately began gathering evidence in Dallas"
+            }
+        ],
+        "people": [
+            {
+                "name": "J. Edgar Hoover",
+                "role": "Director"
+            }
+        ],
+        "related_organizations": [],
+        "identifiers": [],
+        "sources": []
+    },
+    {
+        "organization_id": "texas-butchers-supply",
+        "name": "Texas Butchers Supply Company",
+        "display_name": "Texas Butchers Supply",
+        "type": "Private Company",
+        "label": "Employer",
+        "description": "The company where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
+        "events": [],
+        "people": [
+            {
+                "name": "Ralph Leon Yates",
+                "role": "Refrigeration Mechanic"
+            }
+        ],
+        "related_organizations": [],
+        "identifiers": [],
+        "sources": []
+    }
+]

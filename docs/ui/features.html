@@ -223,7 +223,7 @@
                         <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Entity
                             Matcher</h4>
                         <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Automated sidecar
-                            output mapping OCR text to known person, place, and organization IDs in the vault.</p>
+                            output mapping OCR text to known IDs using regex-strict and fuzzy-probabilistic logic.</p>
                     </div>
 
                     <div
@@ -250,6 +250,20 @@
                             Analyzer</h4>
                         <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Automated
                             classification of document types (FBI 302, NARA) with zone-specific extraction rules.</p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">spellcheck</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Fuzzy Matching
+                            Engine</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Levenshtein-based
+                            entity linking using RapidFuzz. Resolves OCR errors and name variations with confidence
+                            scoring.</p>
                     </div>
                 </div>
             </section>

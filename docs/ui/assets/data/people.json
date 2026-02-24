@@ -366,5 +366,41 @@
         "given_name": "Mark A.",
         "family_name": "Yates",
         "notes": "Second son of Ralph Leon Yates. Age 1 in 1963. Resided at 13564 Brookgreen, Dallas TX."
+    },
+    {
+        "id": "j-lee-rankin",
+        "person_id": "e4f5a6b7-c8d9-40b1-a2b3-d4e5f6a7b8c9",
+        "icon": "person",
+        "label": "General Counsel · Warren Commission",
+        "display_name": "Rankin, J. Lee",
+        "person_type": "PERSON",
+        "organization": "Warren Commission",
+        "given_name": "J. Lee",
+        "family_name": "Rankin",
+        "notes": "General Counsel for the Warren Commission who directed the investigation's legal and investigative strategy."
+    },
+    {
+        "id": "earl-warren",
+        "person_id": "f5a6b7c8-d9e0-41a2-b3c4-e5f6a7b8c9d0",
+        "icon": "person",
+        "label": "Chief Justice · Commission Chair",
+        "display_name": "Warren, Earl",
+        "person_type": "PERSON",
+        "organization": "Supreme Court / Warren Commission",
+        "given_name": "Earl",
+        "family_name": "Warren",
+        "notes": "Chief Justice of the United States and Chairman of the President's Commission on the Assassination of President Kennedy."
+    },
+    {
+        "id": "arlen-specter",
+        "person_id": "c1d2e3f4-a5b6-47a8-b9c0-d1e2f3a4b5c6",
+        "icon": "person",
+        "label": "Assistant Counsel · Warren Commission",
+        "display_name": "Specter, Arlen",
+        "person_type": "PERSON",
+        "organization": "Warren Commission",
+        "given_name": "Arlen",
+        "family_name": "Specter",
+        "notes": "Assistant Counsel for the Warren Commission, best known for developing the 'Single Bullet Theory'."
     }
 ]

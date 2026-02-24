@@ -183,7 +183,8 @@ FINGERPRINTS = {
     ],
 
     DocType.WC_EXHIBIT: [
-        (r"CE-?\s*\d{1,4}", 35),  # Commission Exhibit (CE-123, CE 123)
+        (r"COMMISSION\s+EXHIBIT\s+CE-?\d{1,4}", 40), # Strong combined marker
+        (r"CE-?\s*\d{1,4}", 25), # Lower weight if just shorthand
         (r"CD-?\s*\d{1,4}", 30),  # Commission Document
         (r"COMMISSION\s+EXHIBIT", 30),
         (r"Commission\s+Exhibit", 25),
@@ -196,16 +197,9 @@ FINGERPRINTS = {
     ],
     
     DocType.WC_TESTIMONY: [
-        (r"TESTIMONY OF\s+", 35),
-        (r"The Chairman\.", 30),
-        (r"President'?s Commission", 30),
-        (r"HEARINGS\s+BEFORE", 25),
-        (r"ASSASSINATION.*PRESIDENT.*KENNEDY", 30),
-        (r"The\s+Commission\s+met", 20),
-        (r"Chief\s+Justice.*Warren", 20),
-        (r"Senator\s+(?:Cooper|Russell)", 15),
-        (r"Congressman\s+(?:Boggs|Ford)", 15),
-        (r"Washington,\s+D\.?C\.?", 10),
+        (r"TESTIMONY\s+OF\s+(?:MRS?\.\s+)?(?:MR\.\s+)?([A-Z\s]+)", 40),
+        (r"The\s+Commission\s+met\s+at", 35),
+        (r"Washington,\s+D\.?C\.?", 15),
         # Questioners (Commission staff counsel)
         (r"Mr\.\s+(?:Rankin|Jenner|Liebeler|Ball|Belin|Specter|Redlich|Stern|Coleman|Slawson|Willens|Goldberg)\.", 25),
         # Commissioners as questioners

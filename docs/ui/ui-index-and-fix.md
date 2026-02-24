@@ -12,7 +12,7 @@
 | **blog.html** | modular | simple | modular | modular | main.css | components, nav |
 | **blog-post.html** | modular | none | modular | modular | main.css | components, nav, blog-post |
 | **event.html** | modular | none | modular | modular | main.css | components, nav, db-logic |
-| **event-v1.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, event-v1-* |
+| **event.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, event-v1-* |
 | **events.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **features.html** | modular | none | modular | modular | main.css | components, nav |
 | **links.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
@@ -24,7 +24,7 @@
 | **tools/pdf-viewer-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **people.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **person.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic, person-* |
-| **person-v2.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-v2-* |
+| **person.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-v2-* |
 | **places.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **random.html** | modular | none | modular | modular | main.css | components, nav |
 | **search.html** | modular | none | modular | modular | main.css | components, nav, db-logic, global-search |
@@ -70,8 +70,8 @@
 | ~~Missing footer~~ | ~~ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
 | ~~Legacy standalone~~ | ~~pdf-viewer.html~~ | ~~Deprecate~~ | ~~Medium~~ | ✅ Clarified: pdf-viewer.html is the functional viewer (keep); info page moved to tools/pdf-viewer-features.html |
 | ~~Custom CSS~~ | ~~ocr/index.html~~ | ~~Align with main.css~~ | ~~Medium~~ | ✅ Fixed: ocr-components.css now uses CSS variables from main.css |
-| ⚠️ Duplicate person pages | person.html, person-v2.html | Consolidate to single template | Low | Pending |
-| ⚠️ Duplicate event pages | event.html, event-v1.html | Consolidate to single template | Low | Pending |
+| ~~Duplicate person pages~~ | ~~person.html, person-v2.html~~ | ~~Consolidate to single template~~ | ~~Low~~ | ✅ Fixed (person-v2 → person.html) |
+| ~~Duplicate event pages~~ | ~~event.html, event-v1.html~~ | ~~Consolidate to single template~~ | ~~Low~~ | ✅ Fixed (event-v1 → event.html) |
 
 ---
 
@@ -167,6 +167,6 @@ module.exports = {
 - [x] Consolidate pdf-viewer info page to tools/pdf-viewer-features.html (pdf-viewer.html is the functional viewer, not legacy)
 - [x] Align ocr-components.css with main.css design tokens (uses CSS variables)
 - [x] Modularize pdf-viewer.html: extract header to component, CSS to pdf-viewer.css
-- [ ] Consolidate person.html + person-v2.html
-- [ ] Consolidate event.html + event-v1.html
+- [x] Consolidate person.html + person-v2.html (person-v2 renamed to person.html, original archived)
+- [x] Consolidate event.html + event-v1.html (event-v1 renamed to event.html, original archived)
 - [ ] Extract inline Tailwind config to shared file

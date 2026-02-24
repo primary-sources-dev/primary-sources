@@ -1,0 +1,73 @@
+
+============================================================
+PAGE 2 (2162 chars)
+============================================================
+Preview: pay:  Vapreneset  em: OR  gt  EEO  RE  EP  TT Pree ~ age $c5~ ma»  hae  aie eomanel  2  DL 89-43  DL 44-1639  YATES atated the man then asked YATES if he thought  a  person could assassinate the President.  YATES replied that he  guessed such a thing could be possible.  The man then asked YATES  if it could be done from the. top of  a building or o...
+Patterns found: ['PHONE', 'INTERVIEW', 'DALLAS_RELATED']
+Top scores: [('FBI_302', '0.176'), ('FBI_REPORT', '0.000'), ('NARA_RIF', '0.000')]
+
+============================================================
+PAGE 5 (154 chars)
+============================================================
+Preview: cas  2  BL 89-43  DL 44-1639  JONES said that the company officials should  have  a record of the tize that YATES made the call to  Irving, Texas.  Af /  ...
+Patterns found: ['PHONE', 'DALLAS_RELATED']
+Top scores: [('FBI_302', '0.176'), ('FBI_REPORT', '0.000'), ('NARA_RIF', '0.000')]
+
+============================================================
+PAGE 7 (0 chars)
+============================================================
+[minimal text - likely image/scan]
+
+============================================================
+PAGE 9 (2389 chars)
+============================================================
+Preview: om.  ai.  ‘  ce  4  2“  ate  ‘4  ‘i  Ste  .  beat,  VAL  AL  y  ”,  “ty  ition?  AG eg ORI BOG?  UO GO BE ORONO  GAG LDR  RE OG GSPN  ERAN GOP DG OAL TANT  OOM EDD  DOOR  ORL  FOUR  GS OULD SOO  Vegan  Of,  “  oot  a  s  ?  §  & ce  2  DL 100-10461  Cn ee  Ps “0 et  a  ay  s  ;  The man then said that JACK RUBENSTEIN was more  Ps  |  commonly known...
+Patterns found: ['DALLAS_RELATED']
+Top scores: [('WC_EXHIBIT', '0.149'), ('FBI_302', '0.000'), ('FBI_REPORT', '0.000')]
+
+============================================================
+PAGE 11 (1547 chars)
+============================================================
+Preview: 7  ee  4 wt  CD dT"  %  |  i  AI/ |  3 REPAIR  AL PATA ALOT CARL  LLC AMO  LCL  leat,  .  t  oy  .  4 “en  .  OMSL AEG  BONE EE GON  ss  GOOLE EEE ENC ION pI Oa  ASANTE  LSA  hy ONO  OMA  Gg Se PHONO MEN Nope  pe  ‘  oF  ab  1  Ss  4  me  2  TT MEM  et etl  |  DL 100-10461  _  "I have read this statement which is written on  han  this and one other...
+Patterns found: ['MEDICAL', 'INTERVIEW', 'FBI', 'DALLAS_RELATED']
+Top scores: [('FBI_302', '0.000'), ('FBI_REPORT', '0.000'), ('NARA_RIF', '0.000')]
+
+============================================================
+PAGE 12 (653 chars)
+============================================================
+Preview: Cp 205  *°  (  &  |  bs  |  ae  .  yak  al  nt  ,.  -4y  :  Wey  pt  2  ACA  TAVALZ  VK  Ry Nhe  rE.  Bigs, ROU  ONAL LED OE OGL  SS!  GET a) DS AUDEN  GOLI LEDS  OLESEN an.  UD  MOG GO  COLEGIO I  UTE  OUE GAA  a  a 100-10461  Relatives  ELIZABETH ANN YATES,  age  3,  .  (continued)  RALPH LEON YATES, Jr., age  2;  E  MARK A, YATES,  age 1,  all r...
+Patterns found: ['PHONE', 'DALLAS_RELATED']
+Top scores: [('FBI_302', '0.000'), ('FBI_REPORT', '0.000'), ('NARA_RIF', '0.000')]
+
+============================================================
+PAGE 19 (431 chars)
+============================================================
+Preview: , ' * Me  /  i  lias  |  8  :  is ie i  7 | oe  | eas we Fy “a &  * # ¥ ‘gla  The ge" 4 ae to oe  me F Way  te “y i ra oy PS PR EP  ee  eee  8 Seattle,  one  ce et  ee  4  j  .  :  re  .  ‘  ;  i  a  Foor.  id  wee  SERA  EY  A  FM ER eon E ergs  Hitchhiker Identified As LEE HARVEY OSWALD  rior to Assassination  ALlegediy Picked Up by RALPH LEON YA...
+Top scores: [('FBI_302', '0.139'), ('HSCA_REPORT', '0.059'), ('FBI_REPORT', '0.000')]
+
+============================================================
+PAGE 22 (14 chars)
+============================================================
+[minimal text - likely image/scan]
+
+============================================================
+PAGE 23 (11 chars)
+============================================================
+[minimal text - likely image/scan]
+
+============================================================
+PAGE 26 (18 chars)
+============================================================
+[minimal text - likely image/scan]
+
+============================================================
+PAGE 28 (0 chars)
+============================================================
+[minimal text - likely image/scan]
+
+============================================================
+PAGE 29 (419 chars)
+============================================================
+Preview: f  om  Dep tS ( Kay Ha  4 Sg Winn  di frrutye  trata Juaee  Darasany +) CF.  ips.  wirsam , 1/dey.  Yatis shnctl  Ad mahal  mo clint  Of in rift &  QA  Jie a  eeirpeceocss  Cm clactedl  2! 19] pm, Wy fey  A ie  ek Camere.  Qi 2) fm- Yylty  =.  ory leled  2/40 pr- Why  isle i and  ly yet,  ay bpm  WYofty  Yok. aoled bun pare  & cal  Ad weffe a obat ...
+Patterns found: ['PHONE']
+Top scores: [('FBI_302', '0.000'), ('FBI_REPORT', '0.000'), ('NARA_RIF', '0.000')]

@@ -10,10 +10,10 @@
 
 Universal person profile template using a **component card library** architecture. Define all possible sections once, show only sections with data.
 
-**Three templates available:**
-- **person-v2.html** ⭐ **RECOMMENDED** - Synthesized design combining oswald.html aesthetic with person.html architecture
-- **person.html** - Original universal template with hero layout
+**Template:**
+- **person.html** ⭐ **CANONICAL** - Synthesized design combining oswald.html aesthetic with universal architecture
 - **oswald.html** - Static mockup reference (archival aesthetic)
+- **archived/person-original.html** - Original template (archived)
 
 ## Quick Start
 
@@ -25,21 +25,15 @@ python -m http.server 8000
 
 ### 2. Test URLs
 
-**person-v2.html (RECOMMENDED):**
 ```
 Comprehensive Profile (12 cards):
-http://localhost:8000/person-v2.html?id=3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8
+http://localhost:8000/person.html?id=3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8
 
 Minimal Profile (7 cards):
-http://localhost:8000/person-v2.html?id=8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d
+http://localhost:8000/person.html?id=8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d
 
 Empty State (0 cards):
-http://localhost:8000/person-v2.html?id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-```
-
-**person.html (Original):**
-```
-http://localhost:8000/person.html?id=3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8
+http://localhost:8000/person.html?id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ---
@@ -48,15 +42,16 @@ http://localhost:8000/person.html?id=3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8
 
 ```
 docs/ui/
-├── person-v2.html                       # Synthesized template ⭐ RECOMMENDED
-├── person.html                          # Original universal template
+├── person.html                          # Canonical person template ⭐
 ├── oswald.html                          # Static mockup reference
+├── archived/
+│   └── person-original.html             # Original template (archived)
 ├── assets/
 │   ├── js/
-│   │   ├── person-v2-profile.js         # V2 card registry + loading
-│   │   ├── person-v2-cards.js           # V2 card populate functions
-│   │   ├── person-profile.js            # Original card registry + loading
-│   │   ├── person-cards.js              # Original card populate functions
+│   │   ├── person-v2-profile.js         # Card registry + loading
+│   │   ├── person-v2-cards.js           # Card populate functions
+│   │   ├── person-profile.js            # Legacy (archived)
+│   │   ├── person-cards.js              # Legacy (archived)
 │   │   ├── components.js                # Existing
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
@@ -71,7 +66,7 @@ docs/ui/
 
 ## Template Comparison
 
-| Feature | person-v2.html ⭐ | person.html | oswald.html |
+| Feature | person.html ⭐ | archived/person-original.html | oswald.html |
 |---------|------------------|-------------|-------------|
 | **Layout** | Responsive: Archive card (desktop) + Hero (mobile) | Hero layout (all screens) | Archive card (static) |
 | **Data Loading** | ✅ Dynamic from mock-person.json | ✅ Dynamic from mock-person.json | ❌ Hardcoded |
@@ -83,7 +78,7 @@ docs/ui/
 | **Empty State** | ✅ Yes | ✅ Yes | ❌ No |
 | **Best For** | Production use (best of both) | Reference/comparison | Design reference only |
 
-**Why person-v2.html is recommended:**
+**Why person.html is canonical:**
 - Combines oswald.html's archival aesthetic with person.html's universal architecture
 - Responsive design optimized for desktop and mobile
 - Visual timeline matches static mockup quality
@@ -231,7 +226,7 @@ npm run dev
 # Open: http://localhost:3000/person-v2?id={person_id}
 ```
 
-**Note:** person-v2.html is the recommended template for migration.
+**Note:** person.html is the canonical template for migration.
 
 ---
 

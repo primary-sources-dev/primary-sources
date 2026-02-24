@@ -12,8 +12,26 @@ See: docs/ui/ocr/plans/document-layout-analyzer.md
 
 import re
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, List
 from document_classifier import DocType, classify_document, ClassificationResult
+
+
+@dataclass
+class BodySegment:
+    """A discrete block of text within the document body."""
+    segment_id: int
+    label: str  # "QUESTION", "ANSWER", "CLAIM", "PARAGRAPH", "HEADING"
+    speaker: str
+    text: str
+    
+    def to_dict(self) -> dict:
+        """Convert to JSON-serializable dictionary."""
+        return {
+            "id": self.segment_id,
+            "label": self.label,
+            "speaker": self.speaker,
+            "text": self.text
+        }
 
 
 @dataclass
@@ -33,6 +51,7 @@ class ZoneExtractionResult:
     doc_type: str
     doc_type_confidence: float
     fields: dict[str, ExtractedZoneField] = field(default_factory=dict)
+    segments: list[BodySegment] = field(default_factory=list)
     extraction_notes: list[str] = field(default_factory=list)
     
     def to_dict(self) -> dict:
@@ -49,6 +68,7 @@ class ZoneExtractionResult:
                 }
                 for name, f in self.fields.items()
             },
+            "segments": [s.to_dict() for s in self.segments],
             "extraction_notes": self.extraction_notes,
         }
     
@@ -84,7 +104,7 @@ ZONE_CONFIG = {
         "footer_lines": 5,
     },
     DocType.WC_TESTIMONY: {
-        "header_lines": 15,
+        "header_lines": 10,
         "footer_lines": 3,
     },
     DocType.HSCA_DOC: {
@@ -235,7 +255,7 @@ WC_EXHIBIT_PATTERNS = [
 
 WC_TESTIMONY_PATTERNS = [
     # Header patterns
-    (r"TESTIMONY\s+OF\s+(?:MRS?\.\s+)?([A-Z][A-Z\s\.]+)", "witness_name", "header", 0.95),
+    (r"TESTIMONY\s+OF\s+(?:MRS?\.\s+)?([A-Z][A-Z\s\.,]{2,50}?)[\n\r]", "witness_name", "header", 0.95),
     (r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\w+\s+\d{1,2},?\s+\d{4})", "testimony_date", "header", 0.9),
     (r"President'?s\s+Commission", "commission", "header", 0.85),
     # Questioner patterns (Commission counsel)
@@ -467,6 +487,107 @@ def extract_zones(text: str, doc_type: DocType) -> tuple[str, str, str]:
     return header, body, footer
 
 
+def segment_body(body_text: str, doc_type: DocType) -> List[BodySegment]:
+    """
+    Apply type-specific segmentation to the body text.
+    
+    Args:
+        body_text: Narrative section of the document
+        doc_type: Classified document type
+        
+    Returns:
+        List of BodySegment objects
+    """
+    if not body_text.strip():
+        return []
+
+    # Choose segmenter based on type
+    if doc_type in [DocType.WC_TESTIMONY, DocType.WC_DEPOSITION, DocType.WC_AFFIDAVIT]:
+        return _segment_qa_format(body_text)
+    elif doc_type == DocType.CIA_CABLE:
+        return _segment_numbered_blocks(body_text)
+    else:
+        # Default: split by double newline (paragraphs)
+        paragraphs = [p.strip() for p in re.split(r'\n\s*\n', body_text) if p.strip()]
+        return [BodySegment(i, "PARAGRAPH", "", p) for i, p in enumerate(paragraphs)]
+
+
+def _segment_qa_format(text: str) -> List[BodySegment]:
+    """Segments testimony/deposition into Q&A blocks."""
+    segments = []
+    
+    # Speaker pattern: Handles Mr. J. L. RANKIN, THE CHAIRMAN, Q./A.
+    # Uses a greedy match for the name that stops at a period followed by space or newline.
+    speaker_pattern = re.compile(
+        r'^\s*((?:Mr\.|Mrs\.|Miss|Ms\.)\s+[A-Z\.\s]+?\.|\bThe\s+CHAIRMAN\.|\bQ\.|\bA\.)', 
+        re.MULTILINE
+    )
+    
+    matches = list(speaker_pattern.finditer(text))
+    
+    # Capture leading text before the first speaker (e.g. "Present" list)
+    if matches and matches[0].start() > 0:
+        intro_text = text[0:matches[0].start()].strip()
+        if intro_text:
+            segments.append(BodySegment(0, "INTRO", "", intro_text))
+    
+    if not matches:
+        return [BodySegment(0, "PARAGRAPH", "", text.strip())]
+    
+    COUNSEL = {
+        "SPECTER", "RANKIN", "JENNER", "LIEBELER", "BALL", "BELIN", 
+        "REDLICH", "STERN", "COLEMAN", "SLAWSON", "WILLENS", "GOLDBERG", 
+        "CHAIRMAN", "WARREN", "RUSSELL", "COOPER", "BOGGS", "FORD", 
+        "DULLES", "MCCLOY", "REPORTER"
+    }
+
+    for i in range(len(matches)):
+        start_idx = matches[i].start()
+        end_idx = matches[i+1].start() if i+1 < len(matches) else len(text)
+        
+        raw_text = text[start_idx:end_idx].strip()
+        speaker_match = matches[i].group(1)
+        
+        speaker = speaker_match.rstrip('.').strip()
+        clean_speaker = speaker.replace("Mr. ", "").replace("Mrs. ", "").replace("Ms. ", "").upper()
+        
+        label = "PARAGRAPH"
+        if speaker in ["Q", "A"]:
+            label = "QUESTION" if speaker == "Q" else "ANSWER"
+            speaker = ""
+        elif any(c in clean_speaker for c in COUNSEL):
+            label = "QUESTION"
+        else:
+            label = "ANSWER"
+            
+        segments.append(BodySegment(len(segments), label, speaker, raw_text))
+        
+    return segments
+
+
+def _segment_numbered_blocks(text: str) -> List[BodySegment]:
+    """Segments text by numbered paragraphs (1., 2., etc.)."""
+    segments = []
+    pattern = re.compile(r'^\s*(\d+)\.\s+', re.MULTILINE)
+    
+    matches = list(pattern.finditer(text))
+    
+    if not matches:
+        paragraphs = [p.strip() for p in re.split(r'\n\s*\n', text) if p.strip()]
+        return [BodySegment(i, "PARAGRAPH", "", p) for i, p in enumerate(paragraphs)]
+    
+    for i in range(len(matches)):
+        start_idx = matches[i].start()
+        end_idx = matches[i+1].start() if i+1 < len(matches) else len(text)
+        
+        raw_text = text[start_idx:end_idx].strip()
+        num = matches[i].group(1)
+        
+        segments.append(BodySegment(i, "CLAIM", f"Item {num}", raw_text))
+        
+    return segments
+
+
 def extract_by_type(text: str, classification: ClassificationResult) -> ZoneExtractionResult:
     """
     Extract fields using type-specific patterns applied to correct zones.
@@ -528,8 +649,11 @@ def extract_by_type(text: str, classification: ClassificationResult) -> ZoneExtr
                 raw_match=match.group(0),
             )
     
+    # Step 3: Segment the body
+    result.segments = segment_body(body, classification.doc_type)
+    
     result.extraction_notes.append(
-        f"Extracted {len(result.fields)} field(s) using {classification.doc_type.value} patterns"
+        f"Extracted {len(result.fields)} field(s) and {len(result.segments)} body segment(s) for {classification.doc_type.value}"
     )
     
     return result

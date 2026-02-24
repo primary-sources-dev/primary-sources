@@ -382,6 +382,71 @@ function renderMetadataPreview(parsed, fileIdx) {
             ${parsed.footer_author ? renderMetadataField('Agent (Footer)', parsed.footer_author, fileIdx) : ''}
             ${parsed.footer_file_number ? renderMetadataField('File # (Footer)', parsed.footer_file_number, fileIdx) : ''}
             ${parsed.footer_date ? renderMetadataField('Transcription Date', parsed.footer_date, fileIdx) : ''}
+            
+            ${renderBodyAnalysis(parsed, fileIdx)}
+        </div>
+    `;
+}
+
+function renderBodyAnalysis(parsed, fileIdx) {
+    if (!parsed.segments || parsed.segments.length === 0) return '';
+
+    let segmentHtml = parsed.segments.map(s => {
+        const entityChips = (s.entities || []).map(ent => {
+            const methodTag = ent.method === 'fuzzy' ? `<span class="score-tag">${Math.round(ent.score)}%</span>` : '';
+            return `
+                <span class="entity-chip ${ent.type.toLowerCase()}" title="Matched: ${ent.matched_text}${ent.method === 'fuzzy' ? ' (Fuzzy ' + ent.score + '%)' : ''}">
+                    ${ent.label}${methodTag}
+                </span>
+            `;
+        }).join('');
+
+        const speakerHtml = s.speaker ? `<span class="segment-speaker">${s.speaker}:</span>` : '';
+        const labelClass = s.label.toLowerCase();
+
+        return `
+            <div class="body-segment ${labelClass}">
+                <div class="segment-header">
+                    <span class="segment-label">${s.label}</span>
+                    <div class="segment-entities">${entityChips}</div>
+                </div>
+                <div class="segment-content">
+                    ${speakerHtml} ${s.text}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const globalEntities = (parsed.linked_entities || []).map(ent => `
+        <div class="global-entity border border-primary/20 bg-primary/5 p-2 rounded flex items-center gap-2" title="${ent.method === 'fuzzy' ? 'Fuzzy Match: ' + ent.score + '%' : 'Exact Match'}">
+            <span class="material-symbols-outlined text-primary" style="font-size: 16px;">
+                ${ent.type === 'PERSON' ? 'person' : 'location_on'}
+            </span>
+            <div class="flex-1 text-left">
+                <div class="text-[10px] font-bold text-archive-heading uppercase tracking-wide truncate max-w-[120px]">
+                    ${ent.label} ${ent.method === 'fuzzy' ? '<span class="text-primary/60 text-[7px] ml-1">' + Math.round(ent.score) + '%</span>' : ''}
+                </div>
+                <div class="text-[8px] text-archive-secondary/60">ID: ${ent.id}</div>
+            </div>
+        </div>
+    `).join('');
+
+    return `
+        <div class="body-analysis mt-4 border-t border-archive-secondary/20 pt-4">
+            <div class="flex justify-between items-center mb-3">
+                <span class="metadata-preview-title">Narrative Analysis</span>
+                <span class="text-[9px] uppercase tracking-widest text-primary font-bold">Deep Extraction</span>
+            </div>
+            
+            <!-- Global Entities Summary -->
+            <div class="grid grid-cols-2 gap-2 mb-4">
+                ${globalEntities}
+            </div>
+
+            <!-- Segments list -->
+            <div class="segments-container space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                ${segmentHtml}
+            </div>
         </div>
     `;
 }

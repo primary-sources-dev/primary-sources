@@ -54,13 +54,17 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 - **Entity Matching**: Instant lookup against the 4NF database producing an `entities.json` sidecar.
 
 ### Roadmap: Intelligent Extraction Assistant (Planned)
-- **Document Layout Analyzer**: ✅ COMPLETE
-    - **17 Document Types**: FBI_302, CIA_CABLE, NARA_RIF, WC_TESTIMONY, HSCA_DOC, CHURCH_COMMITTEE, and more.
+- **Document Layout Analyzer**: ✅ LIVE (v1.5)
+    - **20 Document Types**: FBI_302, CIA_CABLE, CIA_201, DPD_REPORT, MEDICAL_RECORD, HSCA_DOC, CHURCH_COMMITTEE, HANDWRITTEN, and more.
     - **Fingerprinting**: Weighted regex pattern matching with OCR-tolerant variants.
     - **Zone-Specific Parsing**: Type-specific extraction from headers, footers, and body zones.
-    - **75.4% Classification Rate**: Validated across Warren Commission, HSCA, Church Committee, and Yates collections.
-- **Handwriting Recognition (HTR)**: Integration of models (TrOCR/Donut) to read cursive field notes.
-- **Table Transformer (TATR)**: Converting box scores and financial ledgers into structured markdown.
+    - **78.2% Classification Rate**: Validated across Warren Commission, HSCA, Church Committee, CIA 201, and Yates collections.
+- **Layout Analyzer v2.0 (LIVE - Phase 1 & 2)**:
+    - **Body Format Analysis**: Recursive segmentation of body text into Q&A and numbered claims.
+    - **Narrative Entity Linking**: Interactive mapping of body text to people/places databases.
+    - **Fuzzy Fingerprinting**: (Planned) Levenshtein Distance matching to bypass garbled OCR.
+    - **Visual Seal Detection**: (Planned) Computer Vision (YOLO) to identify Agency seals/stamps.
+    - **Table Transformer (TATR)**: (Planned) Converting box scores and financial ledgers into structured markdown.
 - **Commit-to-DB**: One-click persistence of verified text and entities into the research vault.
 
 ---
@@ -71,10 +75,12 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 1.  **Extraction Workbench Phase 4 (Commit)**: Backend logic to save workbench results directly to SQL.
 
 ### Recently Completed (2026-02-24)
+- [x] **Document Analyzer v1.5**: Added detection for CIA 201 files, DPD Reports, Medical Records, and Handwritten notes.
+- [x] **OCR Cross-Port Nav**: Fixed core navigation header/footer breakage between port 5000 and 8000.
 - [x] **Tool Information Page Template**: Canonical structure for analytical tool pages (`docs/ui/templates/tool-information-page.md`).
 - [x] **OCR Tool Info Page**: Full informational page with Extraction Workbench, Deep Sync, batch processing features.
 - [x] **PDF Viewer Refactor**: Migrated to standard template with modular header, workflow diagram, and Live status.
-- [x] **Document Analyzer Page**: Updated to Live status with emerald styling.
+- [x] **Document Analyzer UI**: Updated to Live status with refined document grid and v1.5 metrics.
 - [x] **Citation Generator Page**: Updated to Live status with emerald styling.
 - [x] **Dashboard Card Standardization**: All 4 Analytical Tools cards now use consistent compact layout with Live badges.
 - [x] **Navigation Split Architecture**: Dashboard cards → info pages; header nav → functional tools.
