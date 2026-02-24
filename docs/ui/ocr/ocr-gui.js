@@ -240,6 +240,7 @@ function renderQueue() {
         const progress = jobFile ? jobFile.progress || 0 : 0;
         const isCompleted = status === 'completed';
         const isProcessing = status === 'processing';
+        const parsedHeader = jobFile ? jobFile.parsed_header : null;
 
         return `
         <div class="queue-item ${status}">
@@ -255,6 +256,7 @@ function renderQueue() {
                     </div>
                     <div class="text-[9px] text-primary font-bold mt-1 uppercase tracking-tighter">${progress}% Processed</div>
                 ` : ''}
+                ${isCompleted && parsedHeader ? renderMetadataPreview(parsedHeader, idx) : ''}
             </div>
                         <div class="flex items-center gap-2">
                             ${isCompleted ? `
@@ -282,6 +284,180 @@ function updateQueueBadge() {
     } else {
         queueBadge.classList.add('hidden');
     }
+}
+
+// ============================================================================
+// METADATA PREVIEW (Forensic Header Parser)
+// ============================================================================
+
+function renderMetadataPreview(parsed, fileIdx) {
+    // Check if any fields were extracted
+    const hasData = parsed.rif_number || parsed.agency || parsed.date_iso || parsed.author;
+    
+    if (!hasData) {
+        return `
+            <div class="metadata-preview">
+                <div class="metadata-preview-header">
+                    <span class="metadata-preview-title">Extracted Metadata</span>
+                </div>
+                <div class="metadata-field">
+                    <span class="metadata-value empty">No metadata patterns detected</span>
+                </div>
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="metadata-preview">
+            <div class="metadata-preview-header">
+                <span class="metadata-preview-title">
+                    Extracted Metadata
+                    ${parsed.document_type ? `<span class="doc-type-badge">${parsed.document_type.replace('_', ' ')}</span>` : ''}
+                </span>
+                <div class="metadata-preview-actions">
+                    <button class="btn-copy-all" onclick="copyAllMetadata(${fileIdx})" title="Copy all fields">
+                        <span class="material-symbols-outlined" style="font-size: 12px;">content_copy</span> Copy All
+                    </button>
+                    <button class="btn-reparse" onclick="reparseHeader(${fileIdx})" title="Re-parse header">
+                        <span class="material-symbols-outlined" style="font-size: 12px;">refresh</span> Re-parse
+                    </button>
+                </div>
+            </div>
+            ${renderMetadataField('RIF/ID', parsed.rif_number, fileIdx)}
+            ${renderMetadataField('Agency', parsed.agency, fileIdx)}
+            ${renderMetadataField('Date', parsed.date_iso ? { value: parsed.date_iso, confidence: parsed.date?.confidence || 'MEDIUM' } : parsed.date, fileIdx)}
+            ${renderMetadataField('Author', parsed.author, fileIdx)}
+        </div>
+    `;
+}
+
+function renderMetadataField(label, field, fileIdx) {
+    if (!field) {
+        return `
+            <div class="metadata-field">
+                <span class="metadata-label">${label}</span>
+                <span class="metadata-value empty">—</span>
+            </div>
+        `;
+    }
+    
+    const value = typeof field === 'object' ? field.value : field;
+    const confidence = typeof field === 'object' ? field.confidence : null;
+    const confidenceClass = confidence ? confidence.toLowerCase() : '';
+    
+    return `
+        <div class="metadata-field">
+            <span class="metadata-label">${label}</span>
+            <span class="metadata-value">
+                ${escapeHtml(value)}
+                ${confidence ? `<span class="confidence-badge ${confidenceClass}">${confidence}</span>` : ''}
+            </span>
+            <button class="btn-copy-field" onclick="copyFieldValue('${escapeHtml(value)}')" title="Copy ${label}">
+                <span class="material-symbols-outlined">content_copy</span>
+            </button>
+        </div>
+    `;
+}
+
+function copyFieldValue(value) {
+    navigator.clipboard.writeText(value).then(() => {
+        logSuccess(`Copied: ${value}`);
+    }).catch(err => {
+        logError(`Failed to copy: ${err}`);
+    });
+}
+
+function copyAllMetadata(fileIdx) {
+    const jobFile = currentJob?.files?.[fileIdx];
+    if (!jobFile?.parsed_header) {
+        logError('No metadata to copy');
+        return;
+    }
+    
+    const parsed = jobFile.parsed_header;
+    const lines = [];
+    
+    if (parsed.rif_number?.value) lines.push(`RIF/ID: ${parsed.rif_number.value}`);
+    if (parsed.agency?.value) lines.push(`Agency: ${parsed.agency.value}`);
+    if (parsed.date_iso) lines.push(`Date: ${parsed.date_iso}`);
+    if (parsed.author?.value) lines.push(`Author: ${parsed.author.value}`);
+    if (parsed.document_type) lines.push(`Document Type: ${parsed.document_type}`);
+    
+    const text = lines.join('\n');
+    
+    navigator.clipboard.writeText(text).then(() => {
+        logSuccess('Copied all metadata to clipboard');
+    }).catch(err => {
+        logError(`Failed to copy: ${err}`);
+    });
+}
+
+async function reparseHeader(fileIdx) {
+    const file = queuedFiles[fileIdx];
+    if (!file) {
+        logError('File not found');
+        return;
+    }
+    
+    logMessage(`Re-parsing header for ${file.name}...`);
+    
+    // Fetch the text file and re-parse
+    const baseName = file.name.replace(/\.[^/.]+$/, '');
+    
+    try {
+        // Try to fetch the .txt or .md file
+        let text = null;
+        for (const ext of ['.txt', '.md']) {
+            try {
+                const response = await fetch(`/api/download/${baseName}${ext}`);
+                if (response.ok) {
+                    text = await response.text();
+                    break;
+                }
+            } catch (e) {
+                continue;
+            }
+        }
+        
+        if (!text) {
+            logError('Could not find OCR output file');
+            return;
+        }
+        
+        // Call the parse-header API
+        const response = await fetch('/api/parse-header', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
+        
+        if (!response.ok) {
+            const err = await response.json();
+            logError(`Parse error: ${err.error || 'Unknown error'}`);
+            return;
+        }
+        
+        const result = await response.json();
+        
+        // Update the job file with new parsed header
+        if (currentJob?.files) {
+            const jobFile = currentJob.files.find(f => f.name === file.name);
+            if (jobFile) {
+                jobFile.parsed_header = result;
+                renderQueue();
+                logSuccess('Header re-parsed successfully');
+            }
+        }
+        
+    } catch (err) {
+        logError(`Re-parse failed: ${err.message}`);
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // ============================================================================
