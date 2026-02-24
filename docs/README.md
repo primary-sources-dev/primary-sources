@@ -20,6 +20,15 @@ This directory contains the authoritative technical specifications, ontological 
 * **[OCR Pipeline Guide](./ocr-pipeline-guide.md)**
   Complete workflow for processing scanned PDFs into searchable text. Covers tool installation, batch processing scripts, quality control, and database integration.
 
+### UI & Migration
+
+* **[Entity Audit Report](./ENTITY-AUDIT.md)**
+  Card registry pattern audit and mock data alignment with Supabase schema. Reference for Next.js migration.
+* **[UI Component Audit](./ui/ui-index-and-fix.md)**
+  Pre-migration audit of UI components, inconsistencies, and fix checklist.
+* **[UI Components Reference](./ui/COMPONENTS.md)**
+  Technical reference for modular UI components (header, footer, facet-bar, etc.).
+
 ## 2. Core Logic: The Assertion Framework
 
 To maintain academic and professional standards, this project utilizes a decoupled claim model. We do not store "Facts" as static database values. Instead, we store **Assertions** linked to **Excerpts** from **Sources**.

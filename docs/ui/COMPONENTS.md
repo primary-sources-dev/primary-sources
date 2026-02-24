@@ -267,7 +267,19 @@ docs/ui/
 │   │   ├── components.js     # Component loader
 │   │   ├── filter.js         # Facet bar logic
 │   │   ├── db-logic.js       # Data fetching/rendering
-│   │   └── nav.js            # Navigation utilities
+│   │   ├── nav.js            # Navigation utilities
+│   │   ├── person-profile.js # Person detail card registry
+│   │   ├── person-cards.js   # Person card populate functions
+│   │   ├── event-profile.js  # Event detail card registry
+│   │   ├── event-cards.js    # Event card populate functions
+│   │   ├── organization-profile.js # Org detail card registry
+│   │   ├── organization-cards.js   # Org card populate functions
+│   │   ├── place-profile.js  # Place detail card registry
+│   │   ├── place-cards.js    # Place card populate functions
+│   │   ├── object-profile.js # Object detail card registry
+│   │   ├── object-cards.js   # Object card populate functions
+│   │   ├── source-profile.js # Source detail card registry
+│   │   └── source-cards.js   # Source card populate functions
 │   └── css/
 │       ├── main.css          # Global styles
 │       ├── ocr-components.css # OCR tool styles
@@ -284,6 +296,13 @@ docs/ui/
 ---
 
 ## Version History
+
+### 2026-02-24 (Late)
+- **Updated:** Consolidated versioned JS files to canonical names
+  - `person-v2-profile.js` → `person-profile.js`
+  - `event-v1-profile.js` → `event-profile.js`
+- **Updated:** Mock data aligned with Supabase schema (org_id, place_type, etc.)
+- **Added:** All 12 entity profile JS files documented in file structure
 
 ### 2026-02-24 (Evening)
 - **Added:** PDF Viewer Header component (`pdf-viewer-header.html`)
@@ -307,6 +326,10 @@ docs/ui/
 ## See Also
 
 - [STYLE-GUIDE.md](./STYLE-GUIDE.md) - Design tokens and patterns
+- [ENTITY-AUDIT.md](../ENTITY-AUDIT.md) - Entity page audit and schema alignment
 - [BLOG-TEMPLATE-README.md](../BLOG-TEMPLATE-README.md) - Blog system documentation
 - [EVENT-TEMPLATE-README.md](../EVENT-TEMPLATE-README.md) - Event template documentation
 - [PERSON-TEMPLATE-README.md](../PERSON-TEMPLATE-README.md) - Person template documentation
+- [PLACE-TEMPLATE-README.md](../PLACE-TEMPLATE-README.md) - Place template documentation
+- [OBJECT-TEMPLATE-README.md](../OBJECT-TEMPLATE-README.md) - Object template documentation
+- [SOURCE-TEMPLATE-README.md](../SOURCE-TEMPLATE-README.md) - Source template documentation
