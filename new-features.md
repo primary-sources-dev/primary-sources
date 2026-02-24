@@ -27,28 +27,36 @@ Automated extraction of metadata from government archival forms (headers and foo
 - **Confidence Scoring**: Dynamic assessment of metadata accuracy.
 - **Footer Support**: Extended logic to handle agent/file info on FBI 302 footers.
 
-## 5. Expanded Media Ingestion
+## 5. Document Layout Analyzer
+Intelligent document classification and zone-specific extraction engine.
+- **Fingerprint Classification**: Identifies document type (FBI 302, NARA RIF, CIA Cable, Memo, WC Exhibit) using textual fingerprints.
+- **Zone Extraction**: Applies type-specific patterns to header, body, and footer zones.
+- **Multi-Field Extraction**: NARA RIF extracts 10 fields, CIA Cables extract 9 fields, FBI 302 extracts 6+ fields.
+- **API Endpoints**: `/api/classify` for type detection, `/api/extract` for full pipeline.
+- **UI Integration**: Classification banner with confidence indicator, color-coded by accuracy level.
+
+## 6. Expanded Media Ingestion
 Direct support for raw archival material without pre-processing.
 - **Native Images**: Direct OCR for `.jpg`, `.png`, `.tiff`, `.webp`, and `.bmp`.
 - **Mobile Snaps (.heic)**: Native conversion for iPhone photos (`.heic`) taken by researchers at physical archives.
 
-## 6. Research Assistant Tools
+## 7. Research Assistant Tools
 Forensic metadata surfacing for immediate context.
 - **Age-at-Event Badge**: Automatically calculates a person's age at the moment of an event based on birth record timestamps.
 - **Inflation Converter**: Historical USD → 2026 purchasing power using static CPI reference data.
 - **Auto-Citations**: One-click export to NARA, Chicago, MLA, and APA formats.
 
-## 7. Entity Matcher (Foundation)
+## 8. Entity Matcher (Foundation)
 The bridge from text to database records.
 - **Entities.json**: Automated sidecar output mapping OCR text to known person, place, and organization IDs in the research vault.
 - **Fuzzy Matching**: Handles OCR errors and name variations (e.g., "R.L. Yates" → "Ralph Leon Yates").
 - **Confidence Scoring**: High/Medium/Low match confidence for human review.
 
-## 8. Platform Discovery Suite
+## 9. Platform Discovery Suite
 Unified suite of exploratory tools featuring a premium, immersive "Discovery Port" design language.
 - **On This Day (OTD)**: Chronological discovery engine (`otd.html`) with Day/Week/Year scoping.
-- **Random Entity**: Cross-category serendipity engine (`random.html`) for unexpected discoveries.
-- **11.22 Immersion**: Geospatial and cultural reconstruction of November 22, 1963 (`1122-immersion.html`).
+- **Six Degrees**: Relational jump engine (`random.html`) for uncovering wild connections.
+- **The Witness Atlas**: Global geospatial and cultural reconstruction project (`witness-atlas.html`).
 - **Target Date Explorer**: Native calendar picker to jump to any historical date.
 - **Deep-Linking**: Full URL parameter support (`?scope=Week&date=1963-11-22`) for bookmarking forensic views.
 
