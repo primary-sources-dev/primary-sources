@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Citation Generator — Primary Sources</title>
+    <meta name="description"
+        content="Academic citation generator for archival sources. Supports Chicago, MLA, APA, and NARA citation formats." />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="../assets/js/components.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- HERO -->
+    <section class="relative w-full overflow-hidden bg-archive-dark py-12">
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-archive-bg to-transparent pointer-events-none">
+        </div>
+
+        <div class="relative z-10 px-6 flex flex-col items-center text-center">
+            <span class="text-[10px] font-bold uppercase text-sky-400 tracking-widest mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">format_quote</span>
+                Analytical Tool · Coming Soon
+            </span>
+            <h1 class="mb-4 text-4xl font-bold leading-tight text-archive-heading sm:text-5xl uppercase font-display">
+                Citation Generator
+            </h1>
+            <p class="mb-6 max-w-lg text-sm text-archive-secondary/80">
+                Academic citation formatter for archival research. Generate properly formatted citations 
+                from source metadata in Chicago, MLA, APA, and NARA archival styles.
+            </p>
+            <div class="flex gap-2">
+                <span class="text-[9px] font-bold uppercase tracking-widest bg-archive-secondary/10 text-archive-secondary/70 px-3 py-1.5 border border-archive-secondary/20">
+                    Chicago 17th
+                </span>
+                <span class="text-[9px] font-bold uppercase tracking-widest bg-archive-secondary/10 text-archive-secondary/70 px-3 py-1.5 border border-archive-secondary/20">
+                    MLA 9th
+                </span>
+                <span class="text-[9px] font-bold uppercase tracking-widest bg-archive-secondary/10 text-archive-secondary/70 px-3 py-1.5 border border-archive-secondary/20">
+                    APA 7th
+                </span>
+                <span class="text-[9px] font-bold uppercase tracking-widest bg-archive-secondary/10 text-archive-secondary/70 px-3 py-1.5 border border-archive-secondary/20">
+                    NARA
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-4xl mx-auto px-6 py-10">
+
+        <!-- WHAT IT DOES -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                What It Does
+            </h2>
+            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed space-y-4">
+                <p>
+                    The Citation Generator transforms archival source metadata into properly formatted academic citations. 
+                    Researchers can export citations in four major formats with a single click, ensuring bibliographic 
+                    accuracy for scholarly publications.
+                </p>
+                <p>
+                    The tool handles complex author name formatting (including government agent designations like "SA"), 
+                    date conversions across style requirements, and NARA Record Identification Form (RIF) number formatting.
+                </p>
+            </div>
+        </section>
+
+        <!-- SUPPORTED FORMATS -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Supported Formats
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-primary font-bold text-lg">Chicago</span>
+                        <span class="text-[9px] uppercase tracking-wider text-archive-secondary/50">17th Edition</span>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-3">
+                        Author. "Title." Source Type, Date. Archive, Reference.
+                    </p>
+                    <div class="bg-archive-bg/50 p-3 text-[10px] font-mono text-archive-secondary/80 border border-archive-secondary/10">
+                        C. Ray Hall. "Interview of Ralph Leon Yates." FBI Interview Report (FD-302), November 26, 1963. NARA, File No. DL 89-43.
+                    </div>
+                </div>
+
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-primary font-bold text-lg">MLA</span>
+                        <span class="text-[9px] uppercase tracking-wider text-archive-secondary/50">9th Edition</span>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-3">
+                        Author. "Title." Source Type, Archive, Date. Reference.
+                    </p>
+                    <div class="bg-archive-bg/50 p-3 text-[10px] font-mono text-archive-secondary/80 border border-archive-secondary/10">
+                        C. Ray Hall. "Interview of Ralph Leon Yates." FBI Interview Report (FD-302), NARA, 26 Nov. 1963. File No. DL 89-43.
+                    </div>
+                </div>
+
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-primary font-bold text-lg">APA</span>
+                        <span class="text-[9px] uppercase tracking-wider text-archive-secondary/50">7th Edition</span>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-3">
+                        Author (Year, Month Day). Title. Source Type. Archive. Reference.
+                    </p>
+                    <div class="bg-archive-bg/50 p-3 text-[10px] font-mono text-archive-secondary/80 border border-archive-secondary/10">
+                        Hall, C. R. (1963, November 26). Interview of Ralph Leon Yates. FBI Interview Report (FD-302). NARA. File No. DL 89-43.
+                    </div>
+                </div>
+
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-primary font-bold text-lg">NARA</span>
+                        <span class="text-[9px] uppercase tracking-wider text-archive-secondary/50">Archival Format</span>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-3">
+                        RIF [Number]; [Title]; [Date]; [Archive]
+                    </p>
+                    <div class="bg-archive-bg/50 p-3 text-[10px] font-mono text-archive-secondary/80 border border-archive-secondary/10">
+                        File No. DL 89-43; Interview of Ralph Leon Yates; November 26, 1963; NARA; Author: C. Ray Hall
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUPPORTED SOURCE TYPES -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Supported Source Types
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">FBI_302</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Interview Reports</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">NARA_RIF</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Declassified Records</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">WARREN_COMMISSION</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">WC Documents</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">TESTIMONY</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Hearing Transcripts</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">MEMO</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Memoranda</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">REPORT</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Agency Reports</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">LETTER</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Correspondence</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-3 text-center">
+                    <span class="text-xs font-bold text-archive-heading uppercase">PHOTOGRAPH</span>
+                    <p class="text-[9px] text-archive-secondary/60 mt-1">Photos & Images</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- KEY FEATURES -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Key Features
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">badge</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">Agent Name Formatting</h3>
+                        <p class="text-xs text-archive-secondary/70">Automatically handles government agent designations (SA, SSA) and converts to proper academic name formats.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">calendar_month</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">Date Conversion</h3>
+                        <p class="text-xs text-archive-secondary/70">Converts ISO dates to style-specific formats (Month Day, Year for Chicago; Day Mon. Year for MLA).</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">numbers</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">RIF Number Support</h3>
+                        <p class="text-xs text-archive-secondary/70">Recognizes and formats NARA Record Identification Form numbers (###-#####-#####) for archival citations.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">content_copy</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">One-Click Export</h3>
+                        <p class="text-xs text-archive-secondary/70">Generate all four citation formats simultaneously from a single source record for easy comparison.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API USAGE -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                API Usage
+            </h2>
+            <div class="bg-archive-dark/50 border border-archive-secondary/20 p-5">
+                <pre class="text-[11px] font-mono text-archive-secondary/90 overflow-x-auto"><code>from citation_generator import generate_citation, CitationFormat
+
+source = {
+    "title": "Interview of Ralph Leon Yates",
+    "author": "SA C. Ray Hall",
+    "published_date": "1963-11-26",
+    "source_type": "FBI_302",
+    "external_ref": "DL 89-43",
+    "archive": "NARA"
+}
+
+chicago = generate_citation(source, CitationFormat.CHICAGO)
+mla = generate_citation(source, CitationFormat.MLA)
+apa = generate_citation(source, CitationFormat.APA)
+nara = generate_citation(source, CitationFormat.NARA)</code></pre>
+            </div>
+        </section>
+
+        <!-- STATUS -->
+        <section class="border border-sky-500/30 bg-sky-500/5 p-6">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="material-symbols-outlined text-sky-400">info</span>
+                <span class="font-bold text-sky-400 uppercase tracking-wider text-sm">Status: Coming Soon</span>
+            </div>
+            <p class="text-xs text-archive-secondary/80">
+                The Citation Generator backend is complete and functional. UI integration with the research vault 
+                is planned for a future release. Currently available via Python API.
+            </p>
+        </section>
+
+    </main>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Home"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>
