@@ -19,7 +19,7 @@
 | **objects.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **organizations.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **oswald.html** | modular | simple | modular | modular | main.css | components, nav, db-logic |
-| **otd.html** | modular | none | ⚠️ hardcoded | ⚠️ none | main.css | components, nav |
+| **otd.html** | modular | none | modular | modular | main.css | components, nav |
 | **pdf-viewer.html** | ⚠️ hardcoded | none | ⚠️ none | ⚠️ none | ⚠️ inline only | ⚠️ none |
 | **pdf-viewer/index.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **people.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
@@ -62,8 +62,8 @@
 
 | Issue | Pages Affected | Fix | Priority |
 |-------|----------------|-----|----------|
-| ⚠️ Hardcoded footer | otd, random, witness-atlas | Convert to modular | High |
-| ⚠️ Missing bottom-nav | otd, random, witness-atlas, ocr/index | Add modular component | High |
+| ⚠️ Hardcoded footer | random, witness-atlas | Convert to modular | High |
+| ⚠️ Missing bottom-nav | random, witness-atlas, ocr/index | Add modular component | High |
 | ⚠️ Missing footer | ocr/index | Add modular component | High |
 | ⚠️ Legacy standalone | pdf-viewer.html | Deprecate (replaced by pdf-viewer/index.html) | Medium |
 | ⚠️ Custom CSS | ocr/index.html | Merge ocr-components.css into main.css | Medium |
@@ -155,7 +155,7 @@ module.exports = {
 
 ## Fix Checklist
 
-- [ ] Fix otd.html: Add modular footer + bottom-nav
+- [x] Fix otd.html: Add modular footer + bottom-nav
 - [ ] Fix random.html: Add modular footer + bottom-nav
 - [ ] Fix witness-atlas.html: Add modular footer + bottom-nav
 - [ ] Fix ocr/index.html: Add modular footer + bottom-nav
