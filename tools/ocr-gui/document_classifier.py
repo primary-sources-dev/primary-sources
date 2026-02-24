@@ -15,6 +15,13 @@ from dataclasses import dataclass
 from typing import Optional
 from enum import Enum
 
+# Fuzzy matching support
+try:
+    from rapidfuzz import fuzz
+    HAS_RAPIDFUZZ = True
+except ImportError:
+    HAS_RAPIDFUZZ = False
+
 
 class DocType(Enum):
     """Supported document type identifiers."""
@@ -386,7 +393,193 @@ MAX_SCORES = {
 
 
 # =============================================================================
-# CLASSIFICATION ENGINE
+# CANONICAL FINGERPRINTS (for Levenshtein fuzzy matching)
+# =============================================================================
+# These are the "ideal" text strings that perfect OCR would produce.
+# Used as fallback when regex-based matching produces low confidence.
+
+CANONICAL_FINGERPRINTS = {
+    DocType.FBI_302: [
+        ("FEDERAL BUREAU OF INVESTIGATION", 40),
+        ("FD-302", 30),
+        ("Date of transcription", 25),
+        ("was interviewed", 20),
+        ("transcribed by SA", 25),
+        ("Special Agent", 20),
+    ],
+    DocType.FBI_REPORT: [
+        ("AIRTEL", 35),
+        ("TELETYPE", 30),
+        ("DIRECTOR FBI", 30),
+        ("SAC DALLAS", 25),
+        ("Bureau file", 25),
+    ],
+    DocType.NARA_RIF: [
+        ("RECORD INFORMATION", 35),
+        ("RECORD NUMBER", 30),
+        ("JFK ASSASSINATION", 30),
+        ("AGENCY FILE NUMBER", 25),
+        ("ORIGINATOR", 20),
+    ],
+    DocType.CIA_CABLE: [
+        ("CLASSIFIED MESSAGE", 35),
+        ("SECRET", 25),
+        ("CONFIDENTIAL", 25),
+        ("ROUTING", 25),
+        ("CITE", 25),
+    ],
+    DocType.CIA_201: [
+        ("PERSONALITY FILE", 40),
+        ("201 FILE", 35),
+        ("CIA Personality Record", 35),
+        ("PERSONALITY DOSSIER", 30),
+    ],
+    DocType.MEMO: [
+        ("MEMORANDUM", 40),
+        ("MEMO FOR THE RECORD", 35),
+        ("INTEROFFICE", 25),
+    ],
+    DocType.LETTER: [
+        ("Dear Sir", 30),
+        ("Dear Madam", 30),
+        ("Sincerely", 25),
+        ("Respectfully", 25),
+        ("Very truly yours", 30),
+    ],
+    DocType.WC_EXHIBIT: [
+        ("COMMISSION EXHIBIT", 40),
+        ("WARREN COMMISSION", 35),
+        ("PRESIDENTS COMMISSION", 30),
+    ],
+    DocType.WC_TESTIMONY: [
+        ("TESTIMONY OF", 40),
+        ("The Commission met at", 35),
+        ("Washington DC", 25),
+    ],
+    DocType.WC_DEPOSITION: [
+        ("DEPOSITION", 40),
+        ("direct examination", 30),
+        ("cross examination", 30),
+        ("COURT REPORTER", 25),
+    ],
+    DocType.WC_AFFIDAVIT: [
+        ("AFFIDAVIT", 45),
+        ("STATE OF TEXAS", 30),
+        ("COUNTY OF DALLAS", 30),
+        ("NOTARY PUBLIC", 30),
+        ("subscribed and sworn", 30),
+    ],
+    DocType.POLICE_REPORT: [
+        ("DALLAS POLICE", 35),
+        ("SHERIFFS DEPARTMENT", 35),
+        ("OFFENSE REPORT", 30),
+        ("INVESTIGATING OFFICER", 30),
+    ],
+    DocType.DPD_REPORT: [
+        ("DALLAS POLICE DEPARTMENT", 45),
+        ("SUPPLEMENTARY INVESTIGATION", 35),
+        ("Homicide and Robbery", 30),
+    ],
+    DocType.HSCA_DOC: [
+        ("HOUSE SELECT COMMITTEE", 40),
+        ("House Select Committee on Assassinations", 45),
+        ("HSCA", 30),
+    ],
+    DocType.HSCA_REPORT: [
+        ("the committee", 25),
+        ("committee staff", 25),
+        ("the assassination", 25),
+        ("President Kennedy", 25),
+        ("Lee Harvey Oswald", 30),
+    ],
+    DocType.CHURCH_COMMITTEE: [
+        ("SELECT COMMITTEE TO STUDY GOVERNMENTAL OPERATIONS", 50),
+        ("INTELLIGENCE ACTIVITIES", 35),
+        ("FOREIGN AND MILITARY INTELLIGENCE", 40),
+        ("COINTELPRO", 40),
+    ],
+    DocType.SENATE_REPORT: [
+        ("SENATE REPORT", 35),
+        ("UNITED STATES SENATE", 35),
+        ("SELECT COMMITTEE", 30),
+        ("CONGRESS", 25),
+    ],
+    DocType.MEDICAL_RECORD: [
+        ("MEDICAL RECORD", 40),
+        ("MEDICAL REPORT", 35),
+        ("HOSPITAL", 30),
+        ("PSYCHIATRIC", 35),
+        ("DIAGNOSIS", 30),
+    ],
+    DocType.TRAVEL_DOCUMENT: [
+        ("PASSPORT", 40),
+        ("UNITED STATES PASSPORT", 45),
+        ("VISA", 35),
+        ("VACCINATION CERTIFICATE", 40),
+    ],
+    DocType.HANDWRITTEN_NOTES: [
+        ("handwritten", 30),
+        ("rough notes", 30),
+    ],
+}
+
+
+# =============================================================================
+# FUZZY CLASSIFICATION ENGINE
+# =============================================================================
+
+def fuzzy_classify(text: str, threshold: int = 70) -> tuple[DocType, float, list[str]]:
+    """
+    Classify document using Levenshtein distance against canonical fingerprints.
+    
+    This is a fallback for when regex-based classification produces low confidence,
+    typically due to garbled OCR output.
+    
+    Args:
+        text: OCR text (header + footer sample recommended)
+        threshold: Minimum fuzzy match score (0-100) to count as a match
+        
+    Returns:
+        Tuple of (best_doc_type, confidence_score, matched_fingerprints)
+    """
+    if not HAS_RAPIDFUZZ:
+        return (DocType.UNKNOWN, 0.0, [])
+    
+    text_lower = text.lower()
+    scores: dict[DocType, tuple[float, list[str]]] = {}
+    
+    for doc_type, fingerprints in CANONICAL_FINGERPRINTS.items():
+        type_score = 0.0
+        matched = []
+        max_possible = sum(weight for _, weight in fingerprints)
+        
+        for canonical, weight in fingerprints:
+            # Use partial_ratio to find the best substring match
+            score = fuzz.partial_ratio(canonical.lower(), text_lower)
+            
+            if score >= threshold:
+                # Weight the score by the fingerprint's importance
+                weighted_score = (score / 100.0) * weight
+                type_score += weighted_score
+                matched.append(f"{canonical} ({score}%)")
+        
+        # Normalize to 0.0 - 1.0
+        confidence = type_score / max_possible if max_possible > 0 else 0.0
+        scores[doc_type] = (confidence, matched)
+    
+    # Find best match
+    best_type = max(scores.keys(), key=lambda t: scores[t][0])
+    best_score, best_matches = scores[best_type]
+    
+    # Require at least one match
+    if not best_matches:
+        return (DocType.UNKNOWN, 0.0, [])
+    
+    return (best_type, best_score, best_matches)
+
+
+# =============================================================================
+# REGEX CLASSIFICATION ENGINE
 # =============================================================================
 
 def extract_header_sample(text: str, num_lines: int = 25) -> str:
@@ -435,6 +628,10 @@ def preprocess_text(text: str) -> str:
 def classify_document(text: str, header_lines: int = 25) -> ClassificationResult:
     """
     Classify document type by matching fingerprints against header.
+    
+    Uses a two-stage approach:
+    1. Regex-based fingerprint matching (fast, precise)
+    2. Levenshtein fuzzy matching (fallback for garbled OCR)
 
     Args:
         text: Full OCR text to classify
@@ -455,6 +652,9 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
     body_sample = text[:3000] if len(text) > 3000 else text
     combined_sample = header_sample + "\n" + footer_sample + "\n" + body_sample
 
+    # =================================================================
+    # Stage 1: Regex-based classification
+    # =================================================================
     scores: dict[DocType, tuple[float, list[str]]] = {}
     
     for doc_type, patterns in FINGERPRINTS.items():
@@ -473,25 +673,51 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
         normalized = score / max_score if max_score > 0 else 0.0
         scores[doc_type] = (normalized, matched)
     
-    # Find best match
+    # Find best regex match
     best_type = max(scores.keys(), key=lambda t: scores[t][0])
     best_score, best_matches = scores[best_type]
+    method = "regex"
     
-    # If best score is too low, return UNKNOWN
-    # Threshold lowered from 0.15 to 0.10 to catch more testimony pages
+    # =================================================================
+    # Stage 2: Fuzzy fallback (when regex confidence is low)
+    # =================================================================
+    FUZZY_THRESHOLD = 0.5  # Trigger fuzzy matching below this confidence
+    
+    if best_score < FUZZY_THRESHOLD and HAS_RAPIDFUZZ:
+        fuzzy_type, fuzzy_conf, fuzzy_matches = fuzzy_classify(combined_sample)
+        
+        # Case A: Fuzzy agrees with regex - boost confidence
+        if fuzzy_type == best_type and fuzzy_conf > 0:
+            # Combine scores (weighted average favoring the higher one)
+            combined_conf = max(best_score, fuzzy_conf * 0.9)
+            best_score = combined_conf
+            best_matches = best_matches + [f"[fuzzy] {m}" for m in fuzzy_matches[:3]]
+            method = "regex+fuzzy"
+        
+        # Case B: Fuzzy is much more confident - override
+        elif fuzzy_conf > best_score + 0.15 and fuzzy_conf >= 0.3:
+            best_type = fuzzy_type
+            best_score = fuzzy_conf * 0.85  # Slight penalty for fuzzy-only
+            best_matches = [f"[fuzzy] {m}" for m in fuzzy_matches]
+            method = "fuzzy"
+    
+    # =================================================================
+    # Final decision
+    # =================================================================
+    # If best score is still too low, return UNKNOWN
     if best_score < 0.10:
         return ClassificationResult(
             doc_type=DocType.UNKNOWN,
             confidence=0.0,
             matched_patterns=[],
-            header_sample=header_sample[:500],  # Truncate for storage
+            header_sample=header_sample[:500],
         )
     
     return ClassificationResult(
         doc_type=best_type,
         confidence=best_score,
         matched_patterns=best_matches,
-        header_sample=header_sample[:500],  # Truncate for storage
+        header_sample=header_sample[:500],
     )
 
 
@@ -770,12 +996,32 @@ if __name__ == "__main__":
     1. ON 1 OCTOBER 1963 A RELIABLE SOURCE REPORTED...
     """
     
+    # Garbled OCR sample (simulates poor scan quality)
+    GARBLED_FBI_302 = """
+                                    FEDIRAL EUREAU OF INVESTGATION
+
+                                                                Dete  11/26/63
+    
+    RAIPH LEON YATES, 2308 Byers, Dalias, Texes, edvised that on Novembor 20,
+    1963, at epproximately 10:30 AM, while drivinq to work, he picked up a
+    young white mele hitchhiker...
+    
+    YATES steted he did not observe the man ciosely enough to furnish a 
+    deteiled description.
+    
+    trenscribed by SA C. Rey Hail
+    DL 89-43
+    on 11/26/63
+    """
+    
     print("=" * 60)
     print("Document Classifier - Test Suite")
+    print(f"Fuzzy matching: {'ENABLED' if HAS_RAPIDFUZZ else 'DISABLED'}")
     print("=" * 60)
     
     test_cases = [
-        ("FBI 302", FBI_302_SAMPLE),
+        ("FBI 302 (clean)", FBI_302_SAMPLE),
+        ("FBI 302 (garbled)", GARBLED_FBI_302),
         ("NARA RIF", NARA_RIF_SAMPLE),
         ("MEMO", MEMO_SAMPLE),
         ("CIA Cable", CIA_CABLE_SAMPLE),
@@ -784,15 +1030,23 @@ if __name__ == "__main__":
     for name, sample in test_cases:
         print(f"\n--- {name} ---")
         result = classify_document(sample)
+        
+        # Detect if fuzzy matching was used
+        fuzzy_used = any("[fuzzy]" in p for p in result.matched_patterns)
+        method = "regex+fuzzy" if fuzzy_used else "regex"
+        
         print(f"Classified as: {result.doc_type.value}")
         print(f"Confidence: {result.confidence:.1%} ({result.confidence_label})")
-        print(f"Matched patterns: {len(result.matched_patterns)}")
+        print(f"Method: {method}")
+        print(f"Matched patterns ({len(result.matched_patterns)}):")
+        for p in result.matched_patterns[:5]:  # Show first 5
+            print(f"  - {p[:60]}{'...' if len(p) > 60 else ''}")
         
-        # Show all scores
-        print("All scores:")
+        # Show regex-only scores for comparison
+        print("Regex-only scores (top 3):")
         scores = get_all_scores(sample)
-        for doc_type, score in scores.items():
-            if score > 0:
+        for i, (doc_type, score) in enumerate(scores.items()):
+            if score > 0 and i < 3:
                 print(f"  {doc_type}: {score:.1%}")
     
     print("\n" + "=" * 60)

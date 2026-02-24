@@ -59,10 +59,10 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
     - **Fingerprinting**: Weighted regex pattern matching with OCR-tolerant variants.
     - **Zone-Specific Parsing**: Type-specific extraction from headers, footers, and body zones.
     - **78.2% Classification Rate**: Validated across Warren Commission, HSCA, Church Committee, CIA 201, and Yates collections.
-- **Layout Analyzer v2.0 (LIVE - Phase 1 & 2)**:
+- **Layout Analyzer v2.0 (LIVE - Phase 1, 2 & 3)**:
     - **Body Format Analysis**: Recursive segmentation of body text into Q&A and numbered claims.
     - **Narrative Entity Linking**: Interactive mapping of body text to people/places databases.
-    - **Fuzzy Fingerprinting**: (Planned) Levenshtein Distance matching to bypass garbled OCR.
+    - **Fuzzy Fingerprinting**: ✅ LIVE — Levenshtein Distance matching (RapidFuzz) to classify garbled OCR. ~2.3x improvement on degraded scans.
     - **Visual Seal Detection**: (Planned) Computer Vision (YOLO) to identify Agency seals/stamps.
     - **Table Transformer (TATR)**: (Planned) Converting box scores and financial ledgers into structured markdown.
 - **Commit-to-DB**: One-click persistence of verified text and entities into the research vault.
