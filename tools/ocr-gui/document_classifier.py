@@ -28,6 +28,8 @@ class DocType(Enum):
     WC_DEPOSITION = "WC_DEPOSITION"  # Q&A depositions
     WC_AFFIDAVIT = "WC_AFFIDAVIT"  # Sworn statements
     POLICE_REPORT = "POLICE_REPORT"  # Dallas PD, Sheriff reports
+    SENATE_REPORT = "SENATE_REPORT"  # Congressional committee reports
+    CHURCH_COMMITTEE = "CHURCH_COMMITTEE"  # Church Committee specific
     HSCA_DOC = "HSCA_DOC"
     HSCA_REPORT = "HSCA_REPORT"  # HSCA Final Report narrative
     UNKNOWN = "UNKNOWN"
@@ -220,6 +222,34 @@ FINGERPRINTS = {
         (r"(?:TIME|DATE)\s+OF\s+(?:OFFENSE|OCCURRENCE)", 15),
         (r"BADGE\s+(?:NO|NUMBER|#)", 15),
         (r"(?:squad|unit|car)\s+\d+", 15),
+    ],
+    
+    DocType.SENATE_REPORT: [
+        # Generic Senate/Congressional committee reports
+        (r"SENATE\s+(?:REPORT|COMMITTEE)", 30),
+        (r"\d{1,3}(?:st|nd|rd|th)\s+(?:CONGRESS|Congress)", 30),
+        (r"UNITED\s+STATES\s+SENATE", 25),
+        (r"SELECT\s+COMMITTEE", 25),
+        (r"SUBCOMMITTEE", 20),
+        (r"STAFF\s+(?:REPORT|STUDY)", 25),
+        (r"REPORT\s+(?:TO|OF)\s+THE", 20),
+        (r"CONGRESSIONAL", 15),
+        (r"HEARINGS?\s+BEFORE", 20),
+        (r"FINDINGS\s+AND\s+RECOMMENDATIONS", 25),
+    ],
+    
+    DocType.CHURCH_COMMITTEE: [
+        # Church Committee specific (1975-1976)
+        (r"CHURCH|94th\s+Congress", 30),
+        (r"SELECT\s+COMMITTEE\s+TO\s+STUDY\s+GOVERNMENTAL\s+OPERATIONS", 40),
+        (r"INTELLIGENCE\s+ACTIVITIES", 30),
+        (r"FOREIGN\s+AND\s+MILITARY\s+INTELLIGENCE", 35),
+        (r"BOOK\s+(?:I|II|III|IV|V)", 25),
+        (r"SUPPLEMENTARY.*VIEWS", 20),
+        (r"(?:CIA|FBI|NSA)\s+(?:domestic|foreign)\s+(?:operations|activities)", 25),
+        (r"COINTELPRO", 35),
+        (r"(?:assassination|covert\s+action)\s+(?:report|plot)", 30),
+        (r"(?:counterintelligence|intelligence\s+community)", 20),
     ],
 
     DocType.HSCA_DOC: [
@@ -481,6 +511,20 @@ ZONE_CONFIG = {
         "header_fields": ["department", "report_type", "case_number", "date"],
         "footer_fields": ["officer_name", "badge_number"],
         "body_fields": ["narrative"],
+    },
+    DocType.SENATE_REPORT: {
+        "header_lines": 10,
+        "footer_lines": 5,
+        "header_fields": ["congress", "session", "report_number"],
+        "footer_fields": ["page_number"],
+        "body_fields": ["content"],
+    },
+    DocType.CHURCH_COMMITTEE: {
+        "header_lines": 10,
+        "footer_lines": 5,
+        "header_fields": ["book", "chapter", "subject"],
+        "footer_fields": ["page_number"],
+        "body_fields": ["content"],
     },
     DocType.FBI_REPORT: {
         "header_lines": 20,

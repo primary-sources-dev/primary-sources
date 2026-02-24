@@ -111,6 +111,14 @@ ZONE_CONFIG = {
         "header_lines": 20,
         "footer_lines": 10,
     },
+    DocType.SENATE_REPORT: {
+        "header_lines": 10,
+        "footer_lines": 5,
+    },
+    DocType.CHURCH_COMMITTEE: {
+        "header_lines": 10,
+        "footer_lines": 5,
+    },
     DocType.UNKNOWN: {
         "header_lines": 20,
         "footer_lines": 10,
@@ -301,6 +309,33 @@ POLICE_REPORT_PATTERNS = [
     (r"BADGE\s+(?:NO\.?|#)\s*:?\s*(\S+)", "badge", "footer", 0.85),
 ]
 
+SENATE_REPORT_PATTERNS = [
+    # Header
+    (r"(\d{1,3}(?:st|nd|rd|th)\s+(?:CONGRESS|Congress))", "congress", "header", 0.9),
+    (r"(\d{1,2}(?:st|nd|rd|th)\s+Session)", "session", "header", 0.85),
+    (r"REPORT\s+(?:No\.?|NUMBER)\s*(\S+)", "report_number", "header", 0.9),
+    # Body
+    (r"(SELECT\s+COMMITTEE)", "committee_type", "body", 0.85),
+    (r"(SUBCOMMITTEE\s+ON\s+.+?)(?:\n|$)", "subcommittee", "body", 0.8),
+    # Page
+    (r"^(\d{1,3})$", "page_number", "footer", 0.8),
+]
+
+CHURCH_COMMITTEE_PATTERNS = [
+    # Header
+    (r"BOOK\s+(I{1,3}|IV|V)", "book_number", "header", 0.95),
+    (r"(?:CHAPTER|SECTION)\s+(\S+)", "chapter", "header", 0.85),
+    # Body - key topics
+    (r"(CIA\s+(?:operations?|activities?|programs?))", "cia_topic", "body", 0.85),
+    (r"(FBI\s+(?:operations?|activities?|programs?))", "fbi_topic", "body", 0.85),
+    (r"(COINTELPRO)", "cointelpro", "body", 0.95),
+    (r"(intelligence\s+community)", "intel_community", "body", 0.8),
+    (r"(covert\s+(?:action|operations?))", "covert_action", "body", 0.85),
+    (r"(assassination\s+(?:plot|attempt|report))", "assassination", "body", 0.9),
+    # Page
+    (r"^(\d{1,3})$", "page_number", "footer", 0.8),
+]
+
 # Map doc types to their patterns
 TYPE_PATTERNS = {
     DocType.FBI_302: FBI_302_PATTERNS,
@@ -313,6 +348,8 @@ TYPE_PATTERNS = {
     DocType.WC_DEPOSITION: WC_DEPOSITION_PATTERNS,
     DocType.WC_AFFIDAVIT: WC_AFFIDAVIT_PATTERNS,
     DocType.POLICE_REPORT: POLICE_REPORT_PATTERNS,
+    DocType.SENATE_REPORT: SENATE_REPORT_PATTERNS,
+    DocType.CHURCH_COMMITTEE: CHURCH_COMMITTEE_PATTERNS,
     DocType.HSCA_DOC: HSCA_PATTERNS,
     DocType.HSCA_REPORT: HSCA_REPORT_PATTERNS,
 }

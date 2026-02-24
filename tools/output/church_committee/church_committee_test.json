@@ -1,0 +1,726 @@
+{
+  "timestamp": "2026-02-24T01:23:28.163779",
+  "files": {
+    "church_book_I.pdf": [
+      {
+        "page": 1,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.4482758620689655,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 34,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 67,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.1724137931034483,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 100,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 133,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 166,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.10638297872340426,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 199,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.10294117647058823,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 232,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 265,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.10638297872340426,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 298,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 331,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.1891891891891892,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 364,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 397,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 430,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.11363636363636363,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 463,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 496,
+        "doc_type": "WC_TESTIMONY",
+        "confidence": 0.13313609467455623,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 529,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.1724137931034483,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 562,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.1724137931034483,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 595,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 628,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.1724137931034483,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      }
+    ],
+    "church_book_II.pdf": [
+      {
+        "page": 1,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.3275862068965517,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 21,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 41,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 61,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 81,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 101,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.25,
+        "label": "UNCERTAIN",
+        "fields_extracted": 4
+      },
+      {
+        "page": 121,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 141,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.1891891891891892,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 161,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.1896551724137931,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 181,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.10294117647058823,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 201,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 221,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 241,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.10294117647058823,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 261,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 281,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 301,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.29310344827586204,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 321,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 341,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.10294117647058823,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 361,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.1590909090909091,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 381,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.10810810810810811,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      }
+    ],
+    "church_book_III.pdf": [
+      {
+        "page": 1,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.40425531914893614,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 50,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 99,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 148,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 197,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 246,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.1590909090909091,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 295,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.10344827586206896,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 344,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.1702127659574468,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 393,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 442,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 491,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 540,
+        "doc_type": "FBI_REPORT",
+        "confidence": 0.1206896551724138,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 589,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 638,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 687,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.10638297872340426,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 736,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.2727272727272727,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 785,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.10294117647058823,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 834,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.10344827586206896,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 883,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.2765957446808511,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 932,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      }
+    ],
+    "church_book_IV.pdf": [
+      {
+        "page": 1,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.4482758620689655,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 10,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 19,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.1891891891891892,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 28,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 37,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 46,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.14893617021276595,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 55,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 64,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 73,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 82,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.1891891891891892,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 91,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 100,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 109,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 118,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 127,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.2127659574468085,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 136,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.1891891891891892,
+        "label": "UNCERTAIN",
+        "fields_extracted": 3
+      },
+      {
+        "page": 145,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.17647058823529413,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 154,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 163,
+        "doc_type": "UNKNOWN",
+        "confidence": 0.0,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 172,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      }
+    ],
+    "church_vol_v_jfk.pdf": [
+      {
+        "page": 1,
+        "doc_type": "SENATE_REPORT",
+        "confidence": 0.5531914893617021,
+        "label": "LOW",
+        "fields_extracted": 2
+      },
+      {
+        "page": 6,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.3235294117647059,
+        "label": "UNCERTAIN",
+        "fields_extracted": 5
+      },
+      {
+        "page": 11,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.3088235294117647,
+        "label": "UNCERTAIN",
+        "fields_extracted": 4
+      },
+      {
+        "page": 16,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 21,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.22727272727272727,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 26,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.3088235294117647,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 31,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 36,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 41,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.22727272727272727,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 46,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.22727272727272727,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 51,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.3409090909090909,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 56,
+        "doc_type": "MEMO",
+        "confidence": 0.16666666666666666,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 61,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.38235294117647056,
+        "label": "UNCERTAIN",
+        "fields_extracted": 5
+      },
+      {
+        "page": 66,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.3181818181818182,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      },
+      {
+        "page": 71,
+        "doc_type": "WC_DEPOSITION",
+        "confidence": 0.22727272727272727,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 76,
+        "doc_type": "CHURCH_COMMITTEE",
+        "confidence": 0.1724137931034483,
+        "label": "UNCERTAIN",
+        "fields_extracted": 1
+      },
+      {
+        "page": 81,
+        "doc_type": "CIA_CABLE",
+        "confidence": 0.1891891891891892,
+        "label": "UNCERTAIN",
+        "fields_extracted": 4
+      },
+      {
+        "page": 86,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.20588235294117646,
+        "label": "UNCERTAIN",
+        "fields_extracted": 3
+      },
+      {
+        "page": 91,
+        "doc_type": "FBI_REPORT",
+        "confidence": 0.1724137931034483,
+        "label": "UNCERTAIN",
+        "fields_extracted": 0
+      },
+      {
+        "page": 96,
+        "doc_type": "HSCA_REPORT",
+        "confidence": 0.17647058823529413,
+        "label": "UNCERTAIN",
+        "fields_extracted": 2
+      }
+    ]
+  },
+  "summary": {
+    "CHURCH_COMMITTEE": 12,
+    "CIA_CABLE": 14,
+    "UNKNOWN": 17,
+    "SENATE_REPORT": 9,
+    "HSCA_REPORT": 13,
+    "MEMO": 22,
+    "WC_DEPOSITION": 10,
+    "WC_TESTIMONY": 1,
+    "FBI_REPORT": 2
+  }
+}

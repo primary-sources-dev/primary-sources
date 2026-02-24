@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-02-24T01:18:09.736137",
+  "timestamp": "2026-02-24T01:24:00.121001",
   "overall_counts": {
-    "UNKNOWN": 116,
+    "UNKNOWN": 114,
     "WC_TESTIMONY": 117,
     "WC_DEPOSITION": 64,
     "WC_EXHIBIT": 63,
@@ -10,6 +10,7 @@
     "CIA_CABLE": 8,
     "HSCA_REPORT": 7,
     "FBI_302": 2,
+    "CHURCH_COMMITTEE": 2,
     "MEMO": 4
   },
   "volumes": [
@@ -1323,8 +1324,9 @@
       "total_pages": 468,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 9,
+        "UNKNOWN": 8,
         "WC_DEPOSITION": 2,
+        "CHURCH_COMMITTEE": 1,
         "WC_TESTIMONY": 3,
         "CIA_CABLE": 1
       },
@@ -1380,9 +1382,9 @@
         },
         {
           "page": 218,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "CHURCH_COMMITTEE",
+          "confidence": 0.103,
+          "fields": 1,
           "preview": "Mr. Ckoy. Xo. I was standing at the scene, and there had been several reports. One. that he, of cour"
         },
         {
@@ -1558,7 +1560,8 @@
       "total_pages": 672,
       "sample_size": 15,
       "type_counts": {
-        "UNKNOWN": 7,
+        "UNKNOWN": 6,
+        "CHURCH_COMMITTEE": 1,
         "FBI_302": 1,
         "WC_DEPOSITION": 3,
         "WC_TESTIMONY": 4
@@ -1573,9 +1576,9 @@
         },
         {
           "page": 45,
-          "type": "UNKNOWN",
-          "confidence": 0.0,
-          "fields": 0,
+          "type": "CHURCH_COMMITTEE",
+          "confidence": 0.103,
+          "fields": 1,
           "preview": "Mr. Griffin. Now, there is another entry under that. Mr. Crafaru. \"Cody-City Hall.\" Mr. Griffin. Did"
         },
         {
