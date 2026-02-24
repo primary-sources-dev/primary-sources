@@ -260,12 +260,12 @@ function renderQueue() {
             </div>
                         <div class="flex items-center gap-2">
                             ${isCompleted ? `
-                                <a href="../pdf-viewer.html?file=processed/${file.name}&mode=workbench" target="_blank" 
+                                <a href="../pdf-viewer.html?file=processed/${file.name}&mode=workbench&feature=true" target="_blank" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 border border-primary/40 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="Open in Extraction Workbench">
                                     <span class="material-symbols-outlined text-sm">construction</span> Workbench
                                 </a>
-                                <a href="../pdf-viewer.html?file=processed/${file.name}" target="_blank" 
+                                <a href="../pdf-viewer.html?file=processed/${file.name}&feature=true" target="_blank" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="View in Browser">
                                     <span class="material-symbols-outlined text-sm">visibility</span> View
@@ -310,10 +310,10 @@ function renderMetadataPreview(parsed, fileIdx) {
     const hasClassification = parsed.classified_type && parsed.classified_type !== 'UNKNOWN';
     const classificationConfidence = parsed.classification_confidence || 0;
     const classificationLabel = parsed.classification_label || '';
-    
+
     // Check if any fields were extracted
     const hasData = parsed.rif_number || parsed.agency || parsed.date_iso || parsed.author ||
-                    parsed.footer_author || parsed.footer_file_number;
+        parsed.footer_author || parsed.footer_file_number;
 
     if (!hasData && !hasClassification) {
         return `
@@ -338,8 +338,8 @@ function renderMetadataPreview(parsed, fileIdx) {
 
     // Determine document type for badge (prefer classified_type, fall back to document_type)
     const docType = parsed.classified_type || parsed.document_type;
-    const docTypeBadge = docType && docType !== 'UNKNOWN' 
-        ? `<span class="doc-type-badge">${docType.replace('_', ' ')}</span>` 
+    const docTypeBadge = docType && docType !== 'UNKNOWN'
+        ? `<span class="doc-type-badge">${docType.replace('_', ' ')}</span>`
         : '';
 
     return `

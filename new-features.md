@@ -60,5 +60,18 @@ Unified suite of exploratory tools featuring a premium, immersive "Discovery Por
 - **Target Date Explorer**: Native calendar picker to jump to any historical date.
 - **Deep-Linking**: Full URL parameter support (`?scope=Week&date=1963-11-22`) for bookmarking forensic views.
 
+## 10. Core UI & UX Standardization
+System-wide refinement for visual consistency and structural integrity.
+- **Badge Component System**: Centralized `.badge` classes replacing ad-hoc Tailwind strings. Semantic variants include `badge-small`, `badge-large`, `badge-wip` (with construction icon), and `Live` indicators.
+- **Modular Header Migration**: Full integration of Discovery Portals into the modular `header` component. Automatically generates dynamic breadcrumbs (e.g., `Archive > Witness Atlas`) and provides unified master menu access.
+- **Tracking Convention**: Standardized usage of `feature=true` URL parameters across all platform entry points for consistent state management.
+
+## 11. Forensic PDF Workbench & Intelligence Layer
+Advanced evidentiary analysis features integrated into the primary document viewer.
+- **Forensic Metadata Ribbon**: Implementation of a high-fidelity metadata strip in the PDF Viewer that surfaces document classification, RIF IDs, and agency data directly above the workspace.
+- **Intelligence Layer (Psychology)**: Added an AI-powered overlay system (the "Psychology" toggle) that highlights extracted entities (Names, CIA/FBI references) directly on the document canvas using OCR coordinates.
+- **Universal Component Architecture**: Refactored `components.js` and `header.html` to use site-root relative paths (`/`), ensuring consistent global navigation regardless of directory depth (e.g., specialized tools in `/ocr/`).
+- **Workbench Persistence**: Enhanced `ocr-gui.js` to automatically pass tracking parameters through the extraction pipeline to the workbench viewer.
+
 ---
-*Status: All features committed and integrated into `docs/ui/`*
+*Status: All features committed and integrated into `docs/ui/` — v0.8.2-alpha*

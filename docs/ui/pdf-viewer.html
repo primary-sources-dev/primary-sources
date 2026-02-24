@@ -160,6 +160,100 @@
             transform: translateX(0);
         }
 
+        /* Forensic Ribbon Styles */
+        #forensic-ribbon {
+            height: 32px;
+            background: #1A1718;
+            border-bottom: 1px solid rgba(176, 139, 73, 0.2);
+            display: none;
+            /* Shown when classification data exists */
+            align-items: center;
+            padding: 0 1.5rem;
+            gap: 1.5rem;
+            z-index: 100;
+            position: relative;
+        }
+
+        .ribbon-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .ribbon-label {
+            color: rgba(176, 139, 73, 0.6);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .ribbon-value {
+            color: var(--archive-heading);
+            font-weight: bold;
+        }
+
+        .classification-badge {
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+        }
+
+        .classification-badge.high {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .classification-badge.medium {
+            background: rgba(234, 179, 8, 0.2);
+            color: #fde047;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+
+        .classification-badge.low {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Intelligence Layer Overlay */
+        .intelligence-box {
+            position: absolute;
+            border: 2px solid var(--primary);
+            background: rgba(176, 139, 73, 0.1);
+            pointer-events: auto;
+            cursor: help;
+            z-index: 40;
+            transition: all 0.2s;
+        }
+
+        .intelligence-box:hover {
+            background: rgba(176, 139, 73, 0.3);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .intelligence-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: var(--primary);
+            color: var(--archive-dark);
+            font-size: 8px;
+            font-weight: bold;
+            padding: 2px 4px;
+            white-space: nowrap;
+            text-transform: uppercase;
+            display: none;
+        }
+
+        .intelligence-box:hover .intelligence-tooltip {
+            display: block;
+        }
+
         #editor-content {
             flex: 1;
             padding: 2rem;
@@ -292,6 +386,12 @@
 
         <!-- WORKBENCH TOGGLE -->
         <div class="flex items-center gap-4">
+            <button id="toggle-intelligence"
+                class="flex items-center gap-2 px-4 py-2 border border-white/10 text-xs font-bold uppercase tracking-widest text-white/40 hover:text-primary hover:border-primary/40 transition-all rounded-sm"
+                title="Toggle Intelligence Layer (Entity Highlighting)">
+                <span class="material-symbols-outlined text-sm">psychology</span> Intelligence
+            </button>
+
             <button id="toggle-workbench"
                 class="flex items-center gap-2 px-4 py-2 border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary/10 transition-all rounded-sm">
                 <span class="material-symbols-outlined text-sm">construction</span> Workbench
@@ -314,6 +414,30 @@
             </div>
         </div>
     </header>
+
+    <!-- FORENSIC METADATA RIBBON -->
+    <div id="forensic-ribbon">
+        <!-- Classification -->
+        <div id="ribbon-classification" class="flex items-center gap-2 pr-4 border-r border-white/10 h-4">
+            <span class="ribbon-label">Type:</span>
+            <span id="ribbon-type-badge" class="classification-badge">UNKNOWN</span>
+        </div>
+        <!-- RIF NUMBER -->
+        <div class="ribbon-field">
+            <span class="ribbon-label">RIF ID:</span>
+            <span id="ribbon-rif" class="ribbon-value">—</span>
+        </div>
+        <!-- AGENCY -->
+        <div class="ribbon-field">
+            <span class="ribbon-label">Agency:</span>
+            <span id="ribbon-agency" class="ribbon-value">—</span>
+        </div>
+        <!-- DATE -->
+        <div class="ribbon-field">
+            <span class="ribbon-label">Archive Date:</span>
+            <span id="ribbon-date" class="ribbon-value">—</span>
+        </div>
+    </div>
 
     <!-- LOADING STATE -->
     <div id="loading-overlay">
@@ -591,6 +715,7 @@
         const editorContent = document.getElementById('editor-content');
         const syncHighlight = document.getElementById('sync-highlight');
         let ocrData = null;
+        let intelligenceMode = false;
 
         function toggleWorkbench() {
             document.body.classList.toggle('workbench-active');
@@ -610,16 +735,48 @@
 
         btnToggleWorkbench.addEventListener('click', toggleWorkbench);
 
+        // Intelligence Toggle
+        const btnToggleIntelligence = document.getElementById('toggle-intelligence');
+        btnToggleIntelligence.addEventListener('click', () => {
+            intelligenceMode = !intelligenceMode;
+            btnToggleIntelligence.classList.toggle('active', intelligenceMode);
+            btnToggleIntelligence.style.color = intelligenceMode ? 'var(--primary)' : 'rgba(255,255,255,0.4)';
+            btnToggleIntelligence.style.borderColor = intelligenceMode ? 'var(--primary)' : 'rgba(255,255,255,0.1)';
+            drawIntelligenceLayer();
+        });
+
         async function loadWorkbenchData(fileUrl) {
             if (!fileUrl) return;
             const baseName = fileUrl.split('/').pop().replace('.pdf', '');
             document.getElementById('workbench-status').textContent = "Loading Forensic Data...";
 
             try {
+                // 1. Fetch Coordinate Data
                 const response = await fetch(`/api/download/${baseName}.ocr.json`);
                 if (!response.ok) throw new Error("No coordinate data");
                 ocrData = await response.json();
                 renderWorkbenchLines();
+
+                // 2. Fetch Metadata for Ribbon (Forensic Metadata Parser)
+                try {
+                    const metaResponse = await fetch(`/api/download/${baseName}.txt`);
+                    if (metaResponse.ok) {
+                        const text = await metaResponse.text();
+                        // Call parse API (client-side classification demo or real backend call)
+                        const parseResponse = await fetch('/api/parse-header', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ text: text })
+                        });
+                        if (parseResponse.ok) {
+                            const meta = await parseResponse.json();
+                            renderForensicRibbon(meta);
+                        }
+                    }
+                } catch (metaErr) {
+                    console.warn("Metadata population failed:", metaErr);
+                }
+
             } catch (err) {
                 console.warn("Workbench: Falling back to text-only (No coordinates found)");
                 fetch(`/api/download/${baseName}.txt`)
@@ -629,6 +786,79 @@
                         document.getElementById('workbench-status').textContent = "Manual Review Mode";
                     });
             }
+        }
+
+        function renderForensicRibbon(meta) {
+            const ribbon = document.getElementById('forensic-ribbon');
+            const typeBadge = document.getElementById('ribbon-type-badge');
+            const rifEl = document.getElementById('ribbon-rif');
+            const agencyEl = document.getElementById('ribbon-agency');
+            const dateEl = document.getElementById('ribbon-date');
+
+            if (!meta) return;
+
+            // Type & Confidence
+            const type = meta.classified_type || meta.document_type || 'UNKNOWN';
+            const confidence = meta.classification_label || 'low';
+            typeBadge.textContent = type.replace(/_/g, ' ');
+            typeBadge.className = `classification-badge ${confidence.toLowerCase()}`;
+
+            // Fields
+            rifEl.textContent = (typeof meta.rif_number === 'object' ? meta.rif_number.value : meta.rif_number) || '—';
+            agencyEl.textContent = (typeof meta.agency === 'object' ? meta.agency.value : meta.agency) || '—';
+            dateEl.textContent = (meta.date_iso || (typeof meta.date === 'object' ? meta.date.value : meta.date)) || '—';
+
+            ribbon.style.display = 'flex';
+        }
+
+        function drawIntelligenceLayer() {
+            // Remove existing boxes
+            document.querySelectorAll('.intelligence-box').forEach(el => el.remove());
+            if (!intelligenceMode || !ocrData) return;
+
+            const pageData = ocrData.pages.find(p => p.page === currentPageNum);
+            if (!pageData) return;
+
+            // JFK Forensic Context Keywords
+            const entities = [
+                { pattern: /CIA|CENTRAL INTELLIGENCE/i, label: "ORG: CIA" },
+                { pattern: /FBI|FEDERAL BUREAU/i, label: "ORG: FBI" },
+                { pattern: /OSWALD|LEE HARVEY/i, label: "PERSON: OSWALD" },
+                { pattern: /KENNEDY|JFK/i, label: "PERSON: KENNEDY" },
+                { pattern: /DALLAS|TEXAS/i, label: "PLACE: DALLAS" },
+                { pattern: /SECRET SERVICE/i, label: "ORG: SECRET SERVICE" }
+            ];
+
+            const canvas = document.getElementById('pdf-render');
+            if (!canvas) return;
+
+            // Get canvas dimensions and scaling
+            const rect = canvas.getBoundingClientRect();
+            const container = document.getElementById('canvas-container');
+
+            pageData.lines.forEach(line => {
+                entities.forEach(entity => {
+                    if (entity.pattern.test(line.text)) {
+                        const box = document.createElement('div');
+                        box.className = 'intelligence-box';
+
+                        // bbox format assumed [x0, y0, x1, y1] in normalized 0-1000 coordinates
+                        // mapping to canvas coordinate space
+                        const [x0, y0, x1, y1] = line.bbox;
+                        box.style.left = (x0 / 1000 * canvas.width) + 'px';
+                        box.style.top = (y0 / 1000 * canvas.height) + 'px';
+                        box.style.width = ((x1 - x0) / 1000 * canvas.width) + 'px';
+                        box.style.height = ((y1 - y0) / 1000 * canvas.height) + 'px';
+
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'intelligence-tooltip';
+                        tooltip.textContent = entity.label;
+                        box.appendChild(tooltip);
+
+                        container.appendChild(box);
+                    }
+                });
+            });
         }
 
         function renderWorkbenchLines() {

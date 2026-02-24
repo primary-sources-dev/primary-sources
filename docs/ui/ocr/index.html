@@ -36,79 +36,13 @@
         }
     </script>
     <link rel="stylesheet" href="ocr-components.css">
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/nav.js"></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono">
     <!-- Header -->
-    <header class="sticky top-0 z-50 border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
-        <div class="h-16 flex items-center justify-between px-6">
-            <div class="flex items-center gap-4">
-                <a href="../index.html" class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-                    <h1 class="text-xl font-bold tracking-widest text-archive-heading uppercase font-display">Primary
-                        Sources</h1>
-                </a>
-
-                <!-- BREADCRUMBS -->
-                <nav id="breadcrumb-nav"
-                    class="hidden md:flex items-center gap-2 border-l border-archive-secondary/20 pl-4 py-1">
-                    <span class="text-xs uppercase tracking-widest text-archive-secondary/40"
-                        style="opacity: 0.4;">Archive</span>
-                    <span class="material-symbols-outlined text-xs text-archive-secondary/20"
-                        style="opacity: 0.2; font-size: 14px;">chevron_right</span>
-                    <span id="breadcrumb-current"
-                        class="text-xs font-bold uppercase tracking-wider text-primary">OCR</span>
-                </nav>
-            </div>
-
-            <a href="../index.html"
-                class="text-xs font-bold uppercase text-archive-secondary/60 hover:text-primary transition-all tracking-tighter"
-                style="opacity: 0.6;">
-                [ Return to Archive ]
-            </a>
-        </div>
-        <!-- Desktop Menu Bar (commented out for now)
-        <nav class="menu-bar">
-            <div class="menu-item">
-                File
-                <div class="menu-dropdown">
-                    <div class="dropdown-item" id="menu-file-open">
-                        Open Files...
-                        <span class="shortcut">Ctrl+O</span>
-                    </div>
-                    <div class="dropdown-item" id="menu-file-dir">
-                        Set Output Directory...
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item" id="menu-file-folder">
-                        Open Output Folder
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item" id="menu-file-clear">
-                        Clear Queue
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <a href="../index.html" class="dropdown-item">
-                        Exit
-                        <span class="shortcut">Alt+F4</span>
-                    </a>
-                </div>
-            </div>
-            <div class="menu-item">
-                Help
-                <div class="menu-dropdown">
-                    <div class="dropdown-item" id="menu-help-use">
-                        How to Use
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item" id="menu-help-about">
-                        About
-                    </div>
-                </div>
-            </div>
-        </nav>
-        -->
-    </header>
+    <div data-component="header"></div>
 
     <!-- Main Content -->
     <main class="max-w-3xl mx-auto p-6">

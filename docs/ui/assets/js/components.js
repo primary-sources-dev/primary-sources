@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const componentName = el.getAttribute("data-component");
 
         try {
-            const response = await fetch(`components/${componentName}.html`);
-            if (!response.ok) throw new Error(`Failed to load ${componentName}`);
+            // Use root-relative path to ensure components load from any directory depth
+            const response = await fetch(`/components/${componentName}.html`);
+            if (!response.ok) throw new Error(`Failed to load ${componentName} from root-relative path`);
 
             const html = await response.text();
             el.innerHTML = html;

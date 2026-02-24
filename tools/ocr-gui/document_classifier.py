@@ -83,12 +83,16 @@ FINGERPRINTS = {
         (r"transcribed by SA", 20),
         (r"dictated\s+\d{1,2}/\d{1,2}/\d{2,4}", 15),
         (r"File\s*(?:#|Number|No)?", 10),
-        (r"[A-Z]{2}\s*\d{2,3}-\d+", 15),  # Field office file pattern (DL 89-43)
+        (r"[A-Z]{2}\s*\d{2,3}-\d+", 20),  # Field office file pattern (DL 89-43) - increased weight
+        (r"DL\s*(?:89|44|100)-\d+", 25),  # Dallas field office specific
         (r"at which time .* was interviewed", 10),
-        (r"advised as follows", 10),
+        (r"advised as follows", 15),  # increased
         (r"on \d{1,2}/\d{1,2}/\d{2,4} at", 10),
-        (r"voluntarily\s+(?:appeared|furnished)", 15),  # Common FBI 302 phrase
+        (r"voluntarily\s+(?:appeared|furnished)", 15),
         (r"Special Agent[s]?\s+of\s+the", 15),
+        (r"(?:stated|advised|said)\s+(?:that|he|she)", 12),  # Common interview language
+        (r"interview(?:ed)?", 12),  # Generic interview mention
+        (r"FBI\s+(?:interview|agent|file)", 15),  # FBI mention
     ],
     
     DocType.FBI_REPORT: [
