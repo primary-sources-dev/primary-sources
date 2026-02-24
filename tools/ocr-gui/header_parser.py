@@ -66,9 +66,15 @@ class HeaderParser:
         result = parser.parse(ocr_text)
         if result.has_extractions():
             print(result.to_dict())
+    
+    Known Limitations:
+        - FBI FD-302 forms (1960s): Agent name and file number are in the FOOTER,
+          not the header. This parser only scans the first HEADER_WINDOW characters.
+          Future enhancement: add footer scanning for FBI 302 metadata.
     """
     
     # Number of characters from start of document to search for headers
+    # NOTE: FBI 302 agent/file info is in footer - may need footer scan mode
     HEADER_WINDOW = 2000
     
     # ==========================================================================

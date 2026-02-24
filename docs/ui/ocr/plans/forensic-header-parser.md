@@ -144,6 +144,13 @@ PATTERNS = {
 | **OCR Quality**: Degraded scans produce garbled headers | Confidence scoring accounts for partial matches |
 | **False Positives**: Random number sequences match RIF pattern | Require contextual anchors (e.g., "RIF:" prefix nearby) |
 
+## 9.1 Known Limitations
+
+| Limitation | Notes |
+|------------|-------|
+| **FBI 302 Footer Fields** | Original FD-302 forms (1960s) place the interviewing agent name and file number in the **footer**, not the header. Current parser only scans the first 2000 characters. Future enhancement: add footer scanning mode. |
+| **Multi-page Headers** | Some NARA cover sheets span multiple pages. Parser currently only reads first page header window. |
+
 ## 10. Decisions (Resolved)
 
 > All blocking decisions resolved 2026-02-23.
