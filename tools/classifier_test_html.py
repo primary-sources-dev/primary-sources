@@ -66,15 +66,24 @@ def test_pages(pdf_path: str, page_numbers: list[int]) -> list[dict]:
         all_scores = get_all_scores(text)
         
         # Extract highlight terms from matched patterns
+        # Patterns can be:
+        # - Raw regex: "FEDERAL BUREAU OF INVESTIGATION"
+        # - Fuzzy match: "[fuzzy] FEDERAL BUREAU OF INVESTIGATION (90%)"
         highlight_terms = []
         for pattern in result.matched_patterns[:8]:
-            if ":" in pattern:
-                term = pattern.split(":", 1)[1].strip()
-            elif "]" in pattern:
-                term = pattern.split("]", 1)[1].strip()
-            else:
-                term = pattern
-            if term and len(term) >= 4:
+            term = pattern
+            # Handle fuzzy prefix
+            if term.startswith("[fuzzy]"):
+                term = term.replace("[fuzzy]", "").strip()
+            # Remove percentage suffix like "(90%)"
+            if "(" in term and "%" in term:
+                term = term.rsplit("(", 1)[0].strip()
+            # Skip pure regex patterns (contain special chars like \s, ^, $, etc)
+            if any(c in term for c in ['\\', '^', '$', '+', '*', '?', '[', ']', '{', '}']):
+                continue
+            # Clean and validate
+            term = term.strip()
+            if term and len(term) >= 4 and len(term) <= 50:
                 highlight_terms.append(term)
         
         # Clean text for HTML display
@@ -147,6 +156,11 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         .image-modal.active {{ display: flex; }}
         .image-modal canvas {{ max-width: 95%; max-height: 95%; }}
         
+        /* Text layer highlighting */
+        .text-layer {{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; opacity: 0.3; line-height: 1; pointer-events: none; }}
+        .text-layer span {{ position: absolute; white-space: pre; color: transparent; }}
+        .text-layer .highlight {{ background-color: #B08B49; color: transparent; border-radius: 2px; }}
+        
         /* Type buttons */
         .type-btn {{ 
             padding: 4px 8px; 
@@ -203,6 +217,9 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             }}
         }}
         
+        // Store highlight terms for each page
+        const pageHighlights = {{}};
+        
         async function renderPage(pageIndex, canvasId, scale = 1.5) {{
             try {{
                 if (!pdfDoc) {{
@@ -220,11 +237,68 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                 canvas.width = viewport.width;
                 canvas.height = viewport.height;
                 await page.render({{ canvasContext: ctx, viewport }}).promise;
+                
+                // Get highlight terms for this page
+                const card = canvas.closest('[data-page-index]');
+                const highlightTerms = card ? (pageHighlights[pageIndex] || []) : [];
+                
+                // Render text layer with highlights if we have terms
+                if (highlightTerms.length > 0) {{
+                    await renderTextLayer(page, canvas, viewport, highlightTerms);
+                }}
+                
                 // Remove loading indicator
                 const loading = canvas.parentElement.querySelector('.canvas-loading');
                 if (loading) loading.remove();
             }} catch (err) {{
                 console.error('Failed to render page', pageIndex, err);
+            }}
+        }}
+        
+        async function renderTextLayer(page, canvas, viewport, highlightTerms) {{
+            try {{
+                const textContent = await page.getTextContent();
+                const container = canvas.parentElement;
+                
+                // Create or get text layer div
+                let textLayer = container.querySelector('.text-layer');
+                if (!textLayer) {{
+                    textLayer = document.createElement('div');
+                    textLayer.className = 'text-layer';
+                    textLayer.style.width = canvas.width + 'px';
+                    textLayer.style.height = canvas.height + 'px';
+                    container.appendChild(textLayer);
+                }}
+                
+                // Clear existing content
+                textLayer.innerHTML = '';
+                
+                // Build regex for all highlight terms
+                const escapedTerms = highlightTerms.map(t => t.replace(/[.*+?^${{}}()|[\\]\\\\]/g, '\\\\$&'));
+                const highlightRegex = new RegExp('(' + escapedTerms.join('|') + ')', 'gi');
+                
+                // Process text items
+                for (const item of textContent.items) {{
+                    const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+                    const span = document.createElement('span');
+                    
+                    // Check if this text contains any highlight terms
+                    const text = item.str;
+                    if (highlightRegex.test(text)) {{
+                        span.className = 'highlight';
+                    }}
+                    highlightRegex.lastIndex = 0; // Reset regex
+                    
+                    span.textContent = text;
+                    span.style.left = tx[4] + 'px';
+                    span.style.top = (canvas.height - tx[5]) + 'px';
+                    span.style.fontSize = Math.abs(tx[0]) + 'px';
+                    span.style.fontFamily = item.fontName || 'sans-serif';
+                    
+                    textLayer.appendChild(span);
+                }}
+            }} catch (err) {{
+                console.error('Failed to render text layer', err);
             }}
         }}
         
@@ -234,6 +308,18 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             cards.forEach(el => {{
                 const pageIndex = parseInt(el.dataset.pageIndex);
                 const canvasId = `canvas-${{pageIndex}}`;
+                
+                // Store highlight terms for this page
+                try {{
+                    const highlights = JSON.parse(el.dataset.highlights || '[]');
+                    if (highlights.length > 0) {{
+                        pageHighlights[pageIndex] = highlights;
+                        console.log('Page', pageIndex, 'highlights:', highlights);
+                    }}
+                }} catch (e) {{
+                    console.warn('Failed to parse highlights for page', pageIndex);
+                }}
+                
                 console.log('Rendering page index:', pageIndex, 'canvas:', canvasId);
                 renderPage(pageIndex, canvasId);
             }});
@@ -364,7 +450,7 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         other_buttons_html = "".join(other_buttons)
         
         html_content += f'''
-            <div id="page-{page}" class="card border p-4 pending" data-page="{page}" data-page-index="{page_index}" data-predicted="{doc_type}" data-confidence="{conf}">
+            <div id="page-{page}" class="card border p-4 pending" data-page="{page}" data-page-index="{page_index}" data-predicted="{doc_type}" data-confidence="{conf}" data-highlights='{highlight_json}'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
                     <div class="flex-shrink-0">
@@ -383,6 +469,10 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                         
                         <div class="mb-2 text-xs opacity-50">
                             <span>Predicted: <strong>{doc_type}</strong> | Alt: {alt_html}</span>
+                        </div>
+                        
+                        <div class="mb-2 text-xs" style="color: var(--primary);">
+                            <span class="opacity-60">Highlight terms:</span> {', '.join(highlight_terms[:5]) if highlight_terms else '<em class="opacity-40">none</em>'}
                         </div>
                         
                         <!-- One-Click Type Selection -->
