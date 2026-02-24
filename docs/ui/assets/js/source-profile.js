@@ -50,6 +50,15 @@ const CARD_REGISTRY = {
     populate: (data) => populateOrganizations(data.organizations)
   },
 
+  places: {
+    icon: 'place',
+    title: 'Related Places',
+    dataField: 'places',
+    autoExpand: false,
+    showWhen: (data) => data.places && data.places.length > 0,
+    populate: (data) => populatePlaces(data.places)
+  },
+
   citations: {
     icon: 'format_quote',
     title: 'Citations',

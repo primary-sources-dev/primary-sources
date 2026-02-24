@@ -100,5 +100,57 @@
                 "year": "1964"
             }
         ]
+    },
+    {
+        "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+        "name": "Dealey Plaza",
+        "display_name": "Dealey Plaza",
+        "place_type": "PLAZA",
+        "label": "Plaza · Dallas",
+        "description": "City park in downtown Dallas, Texas, where President John F. Kennedy was assassinated on November 22, 1963.",
+        "events": [
+            {
+                "date": "1963-11-22",
+                "title": "JFK Assassination",
+                "description": "President Kennedy shot while traveling in motorcade"
+            }
+        ],
+        "parent_place": {
+            "name": "Dallas, Texas",
+            "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7"
+        },
+        "child_places": [
+            {
+                "name": "Texas School Book Depository",
+                "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6"
+            },
+            {
+                "name": "Grassy Knoll",
+                "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d1"
+            }
+        ],
+        "related_places": [
+            {
+                "name": "Triple Underpass",
+                "relation": "Adjacent"
+            }
+        ],
+        "features": [
+            {
+                "name": "Grassy Knoll",
+                "type": "Terrain"
+            },
+            {
+                "name": "Concrete Pergola",
+                "type": "Structure"
+            }
+        ],
+        "identifiers": [],
+        "sources": [
+            {
+                "title": "Warren Commission Report",
+                "year": "1964"
+            }
+        ]
     }
 ]

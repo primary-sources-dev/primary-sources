@@ -196,6 +196,29 @@ function populateOrganizations(orgs) {
   }).join('');
 }
 
+// Card 5.5: Related Places (NEW)
+function populatePlaces(places) {
+  const list = document.getElementById('places-list');
+  if (!list || !places || places.length === 0) return;
+
+  list.innerHTML = places.map(place => {
+    const name = place.name || 'Unknown Place';
+    const relevance = place.relevance || '';
+    const mentions = place.mentions || 0;
+
+    return `
+      <div class="p-4 bg-archive-dark border border-archive-secondary/20 hover:bg-archive-dark/80 transition-colors">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="material-symbols-outlined text-primary">place</span>
+          <h4 class="text-base font-bold text-archive-heading uppercase">${name}</h4>
+        </div>
+        ${relevance ? `<p class="text-sm text-archive-secondary/80 mb-1">${relevance}</p>` : ''}
+        ${mentions ? `<p class="text-[10px] text-archive-secondary/60 uppercase tracking-widest">${mentions} Mentions in Document</p>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
 // Card 6: Citations
 function populateCitations(data) {
   const list = document.getElementById('citations-list');

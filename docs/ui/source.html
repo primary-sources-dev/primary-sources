@@ -54,8 +54,7 @@
         <div class="flex items-center gap-2 text-[10px] uppercase tracking-widest">
             <a href="index.html" class="text-archive-secondary/40 hover:text-primary transition-colors">Archive</a>
             <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
-            <a href="sources.html"
-                class="text-archive-secondary/60 hover:text-primary transition-colors">Sources</a>
+            <a href="sources.html" class="text-archive-secondary/60 hover:text-primary transition-colors">Sources</a>
             <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
             <span id="breadcrumb-current" class="text-primary font-bold">Loading...</span>
         </div>
@@ -67,13 +66,15 @@
             <!-- Icon Box -->
             <div id="source-icon-box"
                 class="flex-shrink-0 w-24 h-28 border border-archive-secondary/10 bg-archive-dark flex items-center justify-center">
-                <span id="source-icon" class="material-symbols-outlined text-archive-secondary/30 text-6xl">description</span>
+                <span id="source-icon"
+                    class="material-symbols-outlined text-archive-secondary/30 text-6xl">description</span>
             </div>
 
             <!-- Identity Block -->
             <div class="flex flex-col gap-2 flex-1">
                 <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Primary Source Record</span>
-                <h1 id="source-title" class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
+                <h1 id="source-title"
+                    class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
                     LOADING...
                 </h1>
 
@@ -123,7 +124,8 @@
                         class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
                         Overview</h2>
                 </div>
-                <span id="overview-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                <span id="overview-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
                     expand_more
                 </span>
             </div>
@@ -145,7 +147,8 @@
                         class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
                         Content Summary</h2>
                 </div>
-                <span id="content-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                <span id="content-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
                     expand_more
                 </span>
             </div>
@@ -231,6 +234,30 @@
             </div>
         </section>
 
+        <!-- Card 5.5: Places (NEW) -->
+        <section id="places-section" data-section="places" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('places')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">place</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Related Places</h2>
+                    <span id="places-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="places-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="places-content" class="px-6 py-8" style="display:none;">
+                <div id="places-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Place cards injected here -->
+                </div>
+            </div>
+        </section>
+
         <!-- Card 6: Citations -->
         <section id="citations-section" data-section="citations" class="border-b border-archive-secondary/20"
             style="display:none;">
@@ -282,8 +309,8 @@
         </section>
 
         <!-- Card 8: Related Sources -->
-        <section id="related-sources-section" data-section="related-sources" class="border-b border-archive-secondary/20"
-            style="display:none;">
+        <section id="related-sources-section" data-section="related-sources"
+            class="border-b border-archive-secondary/20" style="display:none;">
             <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
                 onclick="toggleCard('related-sources')">
                 <div class="flex items-center gap-4">

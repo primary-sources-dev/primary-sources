@@ -37,6 +37,25 @@
                 "role": "Contributor"
             }
         ],
+        "places": [
+            {
+                "name": "Dallas, Texas",
+                "place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+                "relevance": "Primary focus of investigation",
+                "mentions": 1247
+            },
+            {
+                "name": "Texas School Book Depository",
+                "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
+                "relevance": "Crime scene location",
+                "mentions": 342
+            },
+            {
+                "name": "Parkland Hospital",
+                "relevance": "President pronounced dead",
+                "mentions": 89
+            }
+        ],
         "citations": {
             "chicago": "Warren Commission. Report of the President's Commission on the Assassination of President John F. Kennedy. Washington, DC: GPO, 1964.",
             "apa": "Warren Commission (1964). Report of the President's Commission on the Assassination of President John F. Kennedy.",
@@ -50,6 +69,79 @@
             {
                 "title": "Warren Commission Hearings (26 Volumes)",
                 "relation": "Supporting Testimony"
+            }
+        ]
+    },
+    {
+        "source_id": "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
+        "title": "Final Report of the Select Committee on Assassinations",
+        "display_name": "HSCA Final Report",
+        "source_type": "CONGRESSIONAL_REPORT",
+        "label": "Report · 1979",
+        "description": "Congressional investigation that re-examined the JFK assassination using modern forensics and concluded there was likely a conspiracy.",
+        "content_summary": "686-page report including photographic and acoustic evidence analysis. Concluded JFK was probably assassinated as a result of a conspiracy.",
+        "events": [
+            {
+                "date": "1976-09-17",
+                "title": "Committee established",
+                "description": "House Resolution 1540 created the HSCA"
+            },
+            {
+                "date": "1979-03-29",
+                "title": "Report released",
+                "description": "Final report published with conclusion of probable conspiracy"
+            }
+        ],
+        "people": [
+            {
+                "name": "Louis Stokes",
+                "role": "Committee Chairman"
+            },
+            {
+                "name": "Robert Blakey",
+                "role": "Chief Counsel"
+            }
+        ],
+        "organizations": [
+            {
+                "name": "House Select Committee on Assassinations",
+                "role": "Author"
+            },
+            {
+                "name": "Warren Commission",
+                "role": "Previous Investigation"
+            }
+        ],
+        "places": [
+            {
+                "name": "Dallas, Texas",
+                "relevance": "Assassination site",
+                "mentions": 892
+            },
+            {
+                "name": "Dealey Plaza",
+                "relevance": "Acoustic analysis focus",
+                "mentions": 234
+            }
+        ],
+        "citations": {
+            "chicago": "United States House Select Committee on Assassinations. Final Report of the Select Committee on Assassinations. Washington, DC: GPO, 1979.",
+            "apa": "House Select Committee on Assassinations. (1979). Final Report of the Select Committee on Assassinations. U.S. Government Printing Office.",
+            "mla": "United States House Select Committee on Assassinations. Final Report of the Select Committee on Assassinations. GPO, 1979."
+        },
+        "provenance": {
+            "repository": "National Archives (NARA)",
+            "collection": "Record Group 233",
+            "digital_id": "HSCA-180-10065"
+        },
+        "related_sources": [
+            {
+                "title": "Warren Commission Report",
+                "relation": "Previous Investigation"
+            },
+            {
+                "title": "HSCA Hearings and Appendices (12 Volumes)",
+                "relation": "Supporting Evidence"
             }
         ]
     }

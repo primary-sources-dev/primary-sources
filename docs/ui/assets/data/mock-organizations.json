@@ -46,6 +46,18 @@
                 "relation": "Information Source"
             }
         ],
+        "locations": [
+            {
+                "name": "Washington, D.C.",
+                "role": "Headquarters",
+                "address": "200 Maryland Avenue NE"
+            },
+            {
+                "name": "Dallas, Texas",
+                "role": "Investigation Site",
+                "dates": "1963-11-22 to 1964-02-15"
+            }
+        ],
         "identifiers": [
             {
                 "type": "EXECUTIVE_ORDER",
@@ -79,9 +91,43 @@
                 "role": "Director"
             }
         ],
-        "related_organizations": [],
-        "identifiers": [],
-        "sources": []
+        "related_organizations": [
+            {
+                "name": "Warren Commission",
+                "relation": "Investigation Partner"
+            },
+            {
+                "name": "Dallas Police Department",
+                "relation": "Local Coordination"
+            }
+        ],
+        "locations": [
+            {
+                "name": "Washington, D.C.",
+                "role": "Headquarters"
+            },
+            {
+                "name": "Dallas Field Office",
+                "role": "Investigation Coordination"
+            }
+        ],
+        "identifiers": [
+            {
+                "type": "AGENCY_CODE",
+                "value": "FBI"
+            },
+            {
+                "type": "RECORD_GROUP",
+                "value": "RG 65"
+            }
+        ],
+        "sources": [
+            {
+                "title": "FBI Reports on Lee Harvey Oswald",
+                "year": "1963-1964",
+                "volume": "CD 1-1564"
+            }
+        ]
     },
     {
         "org_id": "texas-butchers-supply",
@@ -100,5 +146,55 @@
         "related_organizations": [],
         "identifiers": [],
         "sources": []
+    },
+    {
+        "org_id": "cia",
+        "name": "Central Intelligence Agency",
+        "display_name": "CIA",
+        "org_type": "INTELLIGENCE_AGENCY",
+        "label": "Agency · Langley, VA",
+        "description": "Foreign intelligence service of the federal government of the United States. Frequently discussed in relation to Lee Harvey Oswald's defection and New Orleans activities.",
+        "events": [
+            {
+                "date": "1959-10",
+                "title": "Oswald Watch Opened",
+                "description": "201 file opened for Lee Harvey Oswald following his defection"
+            }
+        ],
+        "members": [
+            {
+                "name": "Richard Helms",
+                "role": "Deputy Director for Plans"
+            },
+            {
+                "name": "James Angleton",
+                "role": "Chief of Counterintelligence"
+            }
+        ],
+        "related_organizations": [
+            {
+                "name": "FBI",
+                "relation": "Inter-agency Coordination"
+            }
+        ],
+        "locations": [
+            {
+                "name": "CIA Headquarters",
+                "role": "Central Command",
+                "address": "Langley, Virginia"
+            }
+        ],
+        "identifiers": [
+            {
+                "type": "AGENCY_CODE",
+                "value": "CIA"
+            }
+        ],
+        "sources": [
+            {
+                "title": "CIA Oswald File (201-289248)",
+                "year": "1959-1964"
+            }
+        ]
     }
 ]
