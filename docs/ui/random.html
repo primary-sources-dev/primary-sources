@@ -37,8 +37,8 @@
             },
         }
     </script>
-    <script src="assets/js/components.js" defer></script>
-    <script src="assets/js/nav.js" defer></script>
+    <script src="/assets/js/components.js" defer></script>
+    <script src="/assets/js/nav.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
@@ -184,12 +184,17 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-archive-secondary/20 p-8 text-center bg-archive-dark/30">
-        <p class="text-[10px] text-archive-secondary/40 uppercase tracking-[0.2em]">
-            © 2026 Primary Sources — Relational Discovery Lab
-        </p>
-    </footer>
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Home"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
 </body>
 
 </html>

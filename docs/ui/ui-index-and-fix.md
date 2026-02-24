@@ -1,5 +1,5 @@
 # UI Component Audit & Fix List
-*Generated: 2026-02-24 — Pre-Next.js Migration*
+*Updated: 2026-02-24 — Pre-Next.js Migration*
 
 ---
 
@@ -26,11 +26,11 @@
 | **person.html** | modular | gradient dark | modular | modular | main.css | components, nav, db-logic, person-* |
 | **person-v2.html** | modular | simple | modular | modular | main.css | components, nav, db-logic, person-v2-* |
 | **places.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
-| **random.html** | modular | none | ⚠️ hardcoded | ⚠️ none | main.css | components, nav |
+| **random.html** | modular | none | modular | modular | main.css | components, nav |
 | **search.html** | modular | none | modular | modular | main.css | components, nav, db-logic, global-search |
 | **sources.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
-| **witness-atlas.html** | modular | none | ⚠️ hardcoded | ⚠️ none | main.css | components, nav |
-| **ocr/index.html** | modular | none | ⚠️ none | ⚠️ none | ⚠️ ocr-components.css | components, nav, ocr-gui |
+| **witness-atlas.html** | modular | none | modular | modular | main.css | components, nav |
+| **ocr/index.html** | modular | none | modular | modular | ⚠️ ocr-components.css | components, nav, ocr-gui |
 | **tools/document-analyzer.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **tools/citation-generator.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **tools/ocr-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
@@ -52,23 +52,23 @@
 | Component | Location | Used By |
 |-----------|----------|---------|
 | `header.html` | components/ | 26 pages (modular) |
-| `footer.html` | components/ | 22 pages (modular) |
-| `bottom-nav.html` | components/ | 22 pages (modular) |
+| `footer.html` | components/ | 26 pages (modular) |
+| `bottom-nav.html` | components/ | 26 pages (modular) |
 | `facet-bar.html` | components/ | Filter pages |
 
 ---
 
 ## Inconsistencies to Fix Before Next.js
 
-| Issue | Pages Affected | Fix | Priority |
-|-------|----------------|-----|----------|
-| ⚠️ Hardcoded footer | random, witness-atlas | Convert to modular | High |
-| ⚠️ Missing bottom-nav | random, witness-atlas, ocr/index | Add modular component | High |
-| ⚠️ Missing footer | ocr/index | Add modular component | High |
-| ⚠️ Legacy standalone | pdf-viewer.html | Deprecate (replaced by pdf-viewer/index.html) | Medium |
-| ⚠️ Custom CSS | ocr/index.html | Merge ocr-components.css into main.css | Medium |
-| ⚠️ Duplicate person pages | person.html, person-v2.html | Consolidate to single template | Low |
-| ⚠️ Duplicate event pages | event.html, event-v1.html | Consolidate to single template | Low |
+| Issue | Pages Affected | Fix | Priority | Status |
+|-------|----------------|-----|----------|--------|
+| ~~Hardcoded footer~~ | ~~random, witness-atlas~~ | ~~Convert to modular~~ | ~~High~~ | ✅ Fixed |
+| ~~Missing bottom-nav~~ | ~~random, witness-atlas, ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
+| ~~Missing footer~~ | ~~ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
+| ⚠️ Legacy standalone | pdf-viewer.html | Deprecate (replaced by pdf-viewer/index.html) | Medium | Pending |
+| ⚠️ Custom CSS | ocr/index.html | Merge ocr-components.css into main.css | Medium | Pending |
+| ⚠️ Duplicate person pages | person.html, person-v2.html | Consolidate to single template | Low | Pending |
+| ⚠️ Duplicate event pages | event.html, event-v1.html | Consolidate to single template | Low | Pending |
 
 ---
 
@@ -156,9 +156,9 @@ module.exports = {
 ## Fix Checklist
 
 - [x] Fix otd.html: Add modular footer + bottom-nav
-- [ ] Fix random.html: Add modular footer + bottom-nav
-- [ ] Fix witness-atlas.html: Add modular footer + bottom-nav
-- [ ] Fix ocr/index.html: Add modular footer + bottom-nav
+- [x] Fix random.html: Add modular footer + bottom-nav
+- [x] Fix witness-atlas.html: Add modular footer + bottom-nav
+- [x] Fix ocr/index.html: Add modular footer + bottom-nav
 - [ ] Delete pdf-viewer.html (legacy)
 - [ ] Merge ocr-components.css into main.css
 - [ ] Consolidate person.html + person-v2.html

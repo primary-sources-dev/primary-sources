@@ -36,8 +36,8 @@
         }
     </script>
     <link rel="stylesheet" href="ocr-components.css">
-    <script src="../assets/js/components.js"></script>
-    <script src="../assets/js/nav.js"></script>
+    <script src="/assets/js/components.js" defer></script>
+    <script src="/assets/js/nav.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono">
@@ -412,6 +412,17 @@
             </div>
         </div>
     </div>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Tools"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
 
     <script src="ocr-gui.js"></script>
 </body>
