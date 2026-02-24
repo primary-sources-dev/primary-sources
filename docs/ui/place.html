@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Place Profile — Primary Sources</title>
+    <meta name="description"
+        content="Location profile from the Primary Sources digital archive of JFK assassination records." />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/place-profile.js" defer></script>
+    <script src="assets/js/place-cards.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- BREADCRUMB NAVIGATION -->
+    <nav class="px-6 py-4 border-b border-archive-secondary/20">
+        <div class="flex items-center gap-2 text-[10px] uppercase tracking-widest">
+            <a href="index.html" class="text-archive-secondary/40 hover:text-primary transition-colors">Archive</a>
+            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
+            <a href="places.html"
+                class="text-archive-secondary/60 hover:text-primary transition-colors">Places</a>
+            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
+            <span id="breadcrumb-current" class="text-primary font-bold">Loading...</span>
+        </div>
+    </nav>
+
+    <!-- PLACE HEADER (Archive Card Layout) -->
+    <section class="bg-archive-dark px-6 py-6 border-b border-archive-secondary/20">
+        <div class="flex gap-5 items-start max-w-7xl mx-auto">
+            <!-- Icon Box -->
+            <div id="place-icon-box"
+                class="flex-shrink-0 w-24 h-28 border border-archive-secondary/10 bg-archive-dark flex items-center justify-center">
+                <span id="place-icon" class="material-symbols-outlined text-archive-secondary/30 text-6xl">place</span>
+            </div>
+
+            <!-- Identity Block -->
+            <div class="flex flex-col gap-2 flex-1">
+                <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Location Record</span>
+                <h1 id="place-name" class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
+                    LOADING...
+                </h1>
+
+                <!-- Type Badge -->
+                <div id="place-type-badge-wrapper" style="display:none;">
+                    <span id="place-type-badge"
+                        class="inline-block text-[10px] px-2 py-1 bg-primary/20 text-primary uppercase tracking-widest">
+                    </span>
+                </div>
+
+                <!-- 6-Stat Grid -->
+                <div class="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-archive-secondary">
+                    <span id="stat-type-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Type</span>&nbsp; <span
+                            id="stat-type">UNKNOWN</span></span>
+                    <span id="stat-address-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Address</span>&nbsp; <span
+                            id="stat-address">UNKNOWN</span></span>
+                    <span id="stat-city-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">City</span>&nbsp; <span
+                            id="stat-city">UNKNOWN</span></span>
+                    <span id="stat-state-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">State</span>&nbsp; <span
+                            id="stat-state">UNKNOWN</span></span>
+                    <span id="stat-coordinates-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Coordinates</span>&nbsp; <span
+                            id="stat-coordinates">—</span></span>
+                    <span><span class="text-primary uppercase text-[10px] tracking-wider">Sources</span>&nbsp; <span
+                            id="stat-sources">0</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARD LIBRARY (7 sections) -->
+    <div id="cards-container" class="w-full">
+
+        <!-- Card 1: Overview/Description -->
+        <section id="overview-section" data-section="overview" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('overview')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">info</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Overview</h2>
+                </div>
+                <span id="overview-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="overview-content" class="px-6 py-8" style="display:none;">
+                <div class="max-w-6xl mx-auto">
+                    <p id="overview-text" class="text-sm text-archive-secondary/80 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 2: Events -->
+        <section id="events-section" data-section="events" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('events')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">event</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Events at This Location</h2>
+                    <span id="events-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="events-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="events-content" class="px-6 py-8" style="display:none;">
+                <div id="events-list" class="max-w-6xl mx-auto flex flex-col gap-3">
+                    <!-- Event cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 3: Parent/Child Locations -->
+        <section id="hierarchy-section" data-section="hierarchy" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('hierarchy')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">account_tree</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Location Hierarchy</h2>
+                </div>
+                <span id="hierarchy-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="hierarchy-content" class="px-6 py-8" style="display:none;">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Parent location -->
+                    <div id="parent-location-wrapper" style="display:none;" class="mb-6">
+                        <h3 class="text-xs uppercase tracking-widest text-primary mb-3">Parent Location</h3>
+                        <div id="parent-location" class="flex flex-col gap-2">
+                            <!-- Parent card injected here -->
+                        </div>
+                    </div>
+                    <!-- Child locations -->
+                    <div id="child-locations-wrapper" style="display:none;">
+                        <h3 class="text-xs uppercase tracking-widest text-primary mb-3">Child Locations</h3>
+                        <div id="child-locations" class="flex flex-col gap-2">
+                            <!-- Child cards injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 4: Related Places -->
+        <section id="related-places-section" data-section="related-places" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('related-places')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">pin_drop</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Related Places</h2>
+                    <span id="related-places-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="related-places-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="related-places-content" class="px-6 py-8" style="display:none;">
+                <div id="related-places-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Related place cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 5: Notable Features -->
+        <section id="features-section" data-section="features" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('features')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">architecture</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Notable Features</h2>
+                    <span id="features-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="features-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="features-content" class="px-6 py-8" style="display:none;">
+                <div id="features-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Feature items injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 6: Identifiers -->
+        <section id="identifiers-section" data-section="identifiers" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('identifiers')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">badge</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Identifiers</h2>
+                    <span id="identifiers-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="identifiers-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="identifiers-content" class="px-6 py-8" style="display:none;">
+                <div id="identifiers-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Identifier items injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 7: Sources -->
+        <section id="sources-section" data-section="sources" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('sources')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">description</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Primary Sources</h2>
+                    <span id="sources-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="sources-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="sources-content" class="px-6 py-8" style="display:none;">
+                <div id="sources-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Source cards injected here -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Empty State (if no cards visible) -->
+    <div id="empty-state" class="py-20 text-center" style="display:none;">
+        <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">place</span>
+        <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">No Data Available</p>
+        <p class="text-sm text-archive-secondary/60">
+            This location record has limited information.
+        </p>
+    </div>
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Places"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>
