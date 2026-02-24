@@ -302,14 +302,20 @@ function updateQueueBadge() {
 }
 
 // ============================================================================
-// METADATA PREVIEW (Forensic Metadata Parser)
+// METADATA PREVIEW (Forensic Metadata Parser + Document Layout Analyzer)
 // ============================================================================
 
 function renderMetadataPreview(parsed, fileIdx) {
+    // Check if we have classification info (Document Layout Analyzer)
+    const hasClassification = parsed.classified_type && parsed.classified_type !== 'UNKNOWN';
+    const classificationConfidence = parsed.classification_confidence || 0;
+    const classificationLabel = parsed.classification_label || '';
+    
     // Check if any fields were extracted
-    const hasData = parsed.rif_number || parsed.agency || parsed.date_iso || parsed.author;
+    const hasData = parsed.rif_number || parsed.agency || parsed.date_iso || parsed.author ||
+                    parsed.footer_author || parsed.footer_file_number;
 
-    if (!hasData) {
+    if (!hasData && !hasClassification) {
         return `
             <div class="metadata-preview">
                 <div class="metadata-preview-header">
@@ -322,12 +328,26 @@ function renderMetadataPreview(parsed, fileIdx) {
         `;
     }
 
+    // Build classification badge
+    const classificationBadge = hasClassification ? `
+        <div class="classification-banner ${classificationLabel.toLowerCase()}">
+            <span class="classification-type">${parsed.classified_type.replace('_', ' ')}</span>
+            <span class="classification-confidence">${Math.round(classificationConfidence * 100)}% ${classificationLabel}</span>
+        </div>
+    ` : '';
+
+    // Determine document type for badge (prefer classified_type, fall back to document_type)
+    const docType = parsed.classified_type || parsed.document_type;
+    const docTypeBadge = docType && docType !== 'UNKNOWN' 
+        ? `<span class="doc-type-badge">${docType.replace('_', ' ')}</span>` 
+        : '';
+
     return `
         <div class="metadata-preview">
+            ${classificationBadge}
             <div class="metadata-preview-header">
                 <span class="metadata-preview-title">
-                    Extracted Metadata
-                    ${parsed.document_type ? `<span class="doc-type-badge">${parsed.document_type.replace('_', ' ')}</span>` : ''}
+                    Extracted Metadata ${docTypeBadge}
                 </span>
                 <div class="metadata-preview-actions">
                     <button class="btn-copy-all" onclick="copyAllMetadata(${fileIdx})" title="Copy all fields">
@@ -342,6 +362,9 @@ function renderMetadataPreview(parsed, fileIdx) {
             ${renderMetadataField('Agency', parsed.agency, fileIdx)}
             ${renderMetadataField('Date', parsed.date_iso ? { value: parsed.date_iso, confidence: parsed.date?.confidence || 'MEDIUM' } : parsed.date, fileIdx)}
             ${renderMetadataField('Author', parsed.author, fileIdx)}
+            ${parsed.footer_author ? renderMetadataField('Agent (Footer)', parsed.footer_author, fileIdx) : ''}
+            ${parsed.footer_file_number ? renderMetadataField('File # (Footer)', parsed.footer_file_number, fileIdx) : ''}
+            ${parsed.footer_date ? renderMetadataField('Transcription Date', parsed.footer_date, fileIdx) : ''}
         </div>
     `;
 }

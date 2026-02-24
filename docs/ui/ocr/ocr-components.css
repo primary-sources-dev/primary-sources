@@ -489,7 +489,7 @@ input[type="radio"] + div {
 }
 
 /* ============================================================================
- * Metadata Preview Card (Forensic Metadata Parser)
+ * Metadata Preview Card (Forensic Metadata Parser + Document Layout Analyzer)
  * ============================================================================ */
 
 .metadata-preview {
@@ -498,6 +498,64 @@ input[type="radio"] + div {
     background-color: rgba(26, 23, 24, 0.6);
     border: 1px solid rgba(176, 139, 73, 0.3);
     border-left: 3px solid #B08B49;
+}
+
+/* Document Classification Banner */
+.classification-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: -12px -16px 12px -16px;
+    background: linear-gradient(90deg, rgba(176, 139, 73, 0.2), transparent);
+    border-bottom: 1px solid rgba(176, 139, 73, 0.3);
+}
+
+.classification-banner.high {
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.15), transparent);
+    border-bottom-color: rgba(34, 197, 94, 0.3);
+}
+
+.classification-banner.medium {
+    background: linear-gradient(90deg, rgba(176, 139, 73, 0.2), transparent);
+    border-bottom-color: rgba(176, 139, 73, 0.3);
+}
+
+.classification-banner.low,
+.classification-banner.uncertain {
+    background: linear-gradient(90deg, rgba(251, 191, 36, 0.15), transparent);
+    border-bottom-color: rgba(251, 191, 36, 0.3);
+}
+
+.classification-type {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #F0EDE0;
+}
+
+.classification-confidence {
+    font-size: 9px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.classification-banner.high .classification-confidence {
+    color: #22c55e;
+}
+
+.classification-banner.medium .classification-confidence {
+    color: #B08B49;
+}
+
+.classification-banner.low .classification-confidence,
+.classification-banner.uncertain .classification-confidence {
+    color: #fbbf24;
 }
 
 .metadata-preview-header {
