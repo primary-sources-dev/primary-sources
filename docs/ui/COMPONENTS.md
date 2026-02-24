@@ -328,8 +328,9 @@ docs/ui/
 - [STYLE-GUIDE.md](./STYLE-GUIDE.md) - Design tokens and patterns
 - [ENTITY-AUDIT.md](../ENTITY-AUDIT.md) - Entity page audit and schema alignment
 - [BLOG-TEMPLATE-README.md](../BLOG-TEMPLATE-README.md) - Blog system documentation
-- [EVENT-TEMPLATE-README.md](../EVENT-TEMPLATE-README.md) - Event template documentation
 - [PERSON-TEMPLATE-README.md](../PERSON-TEMPLATE-README.md) - Person template documentation
+- [EVENT-TEMPLATE-README.md](../EVENT-TEMPLATE-README.md) - Event template documentation
+- [ORGANIZATION-TEMPLATE-README.md](../ORGANIZATION-TEMPLATE-README.md) - Organization template documentation
 - [PLACE-TEMPLATE-README.md](../PLACE-TEMPLATE-README.md) - Place template documentation
 - [OBJECT-TEMPLATE-README.md](../OBJECT-TEMPLATE-README.md) - Object template documentation
 - [SOURCE-TEMPLATE-README.md](../SOURCE-TEMPLATE-README.md) - Source template documentation
