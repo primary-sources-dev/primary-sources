@@ -181,5 +181,5 @@ module.exports = {
 - [x] Rename person-v2-cards.js → person-cards.js (original archived)
 - [x] Rename event-v1-profile.js → event-profile.js
 - [x] Rename event-v1-cards.js → event-cards.js
-- [x] Align mock data with Supabase schema field names (org_id, place_type, object_type, source_type)
+- [x] Align baseline data with Supabase schema field names (org_id, place_type, object_type, source_type)
 - [ ] Extract inline Tailwind config to shared file

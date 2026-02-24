@@ -52,8 +52,7 @@ docs/ui/
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
 │   ├── data/
-│   │   ├── mock-places.json             # Test data
-│   │   └── places.json                  # Original data (PRESERVED)
+│   │   ├── places.json                  # Baseline Data (Canonical)
 │   └── css/
 │       └── main.css                     # Existing
 ```
@@ -182,7 +181,7 @@ export async function GET(
 ```javascript
 // place-profile.js line 83
 // Change from:
-const response = await fetch('assets/data/mock-places.json');
+const response = await fetch('assets/data/places.json');
 
 // To:
 const response = await fetch(`/api/places/${placeId}`);
@@ -205,8 +204,7 @@ const response = await fetch(`/api/places/${placeId}`);
 
 ## Support
 
-**Test Data:** `assets/data/mock-places.json`
-**Original Data:** `assets/data/places.json` (preserved)
+**Baseline Data:** `assets/data/places.json`
 
 ---
 

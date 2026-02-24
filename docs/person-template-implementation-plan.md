@@ -109,7 +109,7 @@ person.html
 
 ```
 docs/ui/
-├── person.html                          ← NEW (universal template)
+├── person.html                          ← Baseline universal template
 ├── oswald.html                          ← KEEP (reference only)
 ├── assets/
 │   ├── js/
@@ -495,8 +495,8 @@ function setCardCount(cardId, count) {
 
 ### **Phase 4: Data Integration (30 minutes)**
 - [ ] Update `db-logic.js` with person data helpers
-- [ ] Create mock data for testing (comprehensive profile)
-- [ ] Create mock data for testing (minimal profile)
+- [ ] Create baseline data for validation (comprehensive profile)
+- [ ] Create baseline data for validation (minimal profile)
 - [ ] Test with `people.json` static data
 - [ ] Prepare API endpoint structure documentation
 
@@ -514,11 +514,9 @@ function setCardCount(cardId, count) {
 
 ---
 
-## 🧪 Test Scenarios
+### **Baseline Data Summary**
 
-### **Test Case 1: Lee Harvey Oswald (Comprehensive)**
-
-**Mock Data:**
+**Baseline Data:**
 ```json
 {
   "person_id": "3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8",
@@ -577,7 +575,7 @@ function setCardCount(cardId, count) {
 
 ### **Test Case 2: Ralph Yates (Minimal)**
 
-**Mock Data:**
+**Baseline Data:**
 ```json
 {
   "person_id": "8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
@@ -618,7 +616,7 @@ function setCardCount(cardId, count) {
 
 ### **Test Case 3: John Smith (Fleeting Witness)**
 
-**Mock Data:**
+**Baseline Data:**
 ```json
 {
   "person_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",

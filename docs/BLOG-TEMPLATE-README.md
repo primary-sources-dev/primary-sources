@@ -61,7 +61,7 @@ docs/ui/
 │   │   ├── components.js              # Existing
 │   │   └── nav.js                     # Existing
 │   ├── data/
-│   │   └── mock-blog.json             # Blog post data ⭐ NEW
+│   │   └── blog.json                  # Blog post data ⭐ NEW
 │   └── css/
 │       └── main.css                   # Existing
 ```
@@ -190,7 +190,7 @@ docs/ui/
 ## Adding a New Post
 
 ### Step 1: Create Content
-Open `assets/data/mock-blog.json` and add new post object:
+Open `assets/data/blog.json` and add new post object:
 
 ```json
 {
@@ -438,7 +438,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
 ### Posts Not Showing
 1. Check browser console for errors
-2. Verify `mock-blog.json` is valid JSON
+2. Verify `blog.json` is valid JSON
 3. Ensure `category` matches filter options exactly
 4. Check that `slug` is unique
 
@@ -462,7 +462,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
 ## Support
 
-**Example Posts:** See `mock-blog.json` for 4 complete examples
+**Example Posts:** See `blog.json` for 4 complete examples
 **Event Template:** Similar patterns in `EVENT-TEMPLATE-README.md`
 **Person Template:** Component card library in `PERSON-TEMPLATE-README.md`
 

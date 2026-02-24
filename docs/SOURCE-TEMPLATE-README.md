@@ -52,8 +52,7 @@ docs/ui/
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
 │   ├── data/
-│   │   ├── mock-sources.json            # Test data
-│   │   └── sources.json                 # Original data (PRESERVED)
+│   │   └── sources.json                 # Baseline Data (Canonical)
 │   └── css/
 │       └── main.css                     # Existing
 ```
@@ -200,7 +199,7 @@ export async function GET(
 ```javascript
 // source-profile.js line 91
 // Change from:
-const response = await fetch('assets/data/mock-sources.json');
+const response = await fetch('assets/data/sources.json');
 
 // To:
 const response = await fetch(`/api/sources/${sourceId}`);
@@ -254,8 +253,7 @@ function populateCitations(data) {
 
 ## Support
 
-**Test Data:** `assets/data/mock-sources.json`
-**Original Data:** `assets/data/sources.json` (preserved)
+**Baseline Data:** `assets/data/sources.json`
 
 ---
 

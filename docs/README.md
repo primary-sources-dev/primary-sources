@@ -23,7 +23,7 @@ This directory contains the authoritative technical specifications, ontological 
 ### UI & Migration
 
 * **[Entity Audit Report](./ENTITY-AUDIT.md)**
-  Card registry pattern audit and mock data alignment with Supabase schema. Reference for Next.js migration.
+  Card registry pattern audit and baseline data alignment with Supabase schema. Reference for Next.js migration.
 * **[UI Component Audit](./ui/ui-index-and-fix.md)**
   Pre-migration audit of UI components, inconsistencies, and fix checklist.
 * **[UI Components Reference](./ui/COMPONENTS.md)**

@@ -31,11 +31,11 @@ We have established a **validated baseline** for all 6 entity profile types (Per
 |----------|-------------|----------------|----------|--------|---------------|
 | **Person** | 12 | 12 | 100% | ✅ Complete | None (Oswald entry covers all) |
 | **Event** | 9 | 9 | 100% | ✅ Complete | None (Yates entry covers all) |
-| **Organization** | 7 | 6 | 85% | ⚠️ Blocked | Missing `locations` field |
+| **Organization** | 7 | 7 | 100% | ✅ Complete | None (Warren Commission covers all) |
 | **Place** | 7 | 7 | 100% | ✅ Complete | None (Dallas/TSBD cover all) |
 | **Object** | 8 | 8 | 100% | ✅ Complete | None (Carcano covers all) |
-| **Source** | 8 | 7 | 87% | ⚠️ Blocked | Missing `places` field |
-| **TOTAL** | **51** | **49** | **96%** | ⚠️ **2 GAPS** | **2 critical fields missing** |
+| **Source** | 8 | 8 | 100% | ✅ Complete | None (Warren Report covers all) |
+| **TOTAL** | **51** | **51** | **100%** | ✅ **COMPLETE** | **All critical fields present** |
 
 **Baseline Status:**
 - ✅ **100% Coverage:** All cards for all templates are populated.
@@ -44,7 +44,7 @@ We have established a **validated baseline** for all 6 entity profile types (Per
 
 ---
 
-## Why Mock Data Matters
+## Why Baseline Data Integrity Matters
 
 ### The Component Card System
 
@@ -69,7 +69,7 @@ members: {
 ### **1. Person Template** (person.html)
 **12 Cards:** Biography, Chronology, Aliases, Residences, Organizations, Family, Events, Objects, Sources, Identifiers, Assertions, Media
 
-#### Current Mock Data (3 people):
+#### Current Baseline Data (3 people):
 
 ✅ **Lee Harvey Oswald** - **EXCELLENT COVERAGE**
 - ALL 12 fields populated with rich detail
@@ -96,7 +96,7 @@ members: {
 ### **2. Event Template** (event.html)
 **9 Cards:** Context, Timeline (sub_events), Participants, Evidence, Sources, Locations, Related Events, Assertions, Media
 
-#### Current Mock Data (3 events):
+#### Current Baseline Data (3 events):
 
 ✅ **Yates Hitchhiker Incident** - **EXCELLENT COVERAGE**
 - ALL 9 fields populated with comprehensive detail
@@ -597,7 +597,7 @@ The document is written for non-technical team members - they just need to copy-
 
 ---
 
-## How to Add Mock Data (Step-by-Step)
+## How to Append Baseline Data (Step-by-Step)
 
 ### Prerequisites
 - Text editor (VS Code, Notepad++, etc.)
@@ -654,9 +654,9 @@ Right-click → Open With → Text Editor
 
 ---
 
-## Testing Checklist
+## Implementation Checklist
 
-After adding mock data, verify each template loads correctly:
+After updating the baseline data, verify each profile loads correctly:
 
 ### Person Template
 ```
@@ -806,7 +806,7 @@ Before marking this task complete, verify:
 
 **Historical Accuracy:**
 - Use Warren Commission Report Vol 1 as reference
-- Use existing mock-person.json (Lee Harvey Oswald) as example
+- Use existing people.json (Lee Harvey Oswald) as example
 
 **Template Not Loading:**
 - Check browser console (F12) for errors
@@ -887,7 +887,7 @@ Before marking this task complete, verify:
   "events": "array (optional)",
   "members": "array (optional)",
   "related_organizations": "array (optional)",
-  "locations": "array (MISSING - ADD THIS)",
+  "locations": "array (optional)",
   "identifiers": "array (optional)",
   "sources": "array (optional)"
 }
@@ -906,7 +906,7 @@ Before marking this task complete, verify:
   "events": "array (optional)",
   "people": "array (optional)",
   "organizations": "array (optional)",
-  "places": "array (MISSING - ADD THIS)",
+  "places": "array (optional)",
   "citations": "object (optional)",
   "provenance": "object (optional)",
   "related_sources": "array (optional)"

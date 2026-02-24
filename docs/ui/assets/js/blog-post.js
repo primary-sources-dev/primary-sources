@@ -6,7 +6,7 @@
 // Main loading function
 async function loadBlogPost(slug) {
     try {
-        const response = await fetch('assets/data/mock-blog.json');
+        const response = await fetch('assets/data/blog.json');
         const allPosts = await response.json();
         const post = allPosts.find(p => p.slug === slug);
 

@@ -56,8 +56,7 @@ docs/ui/
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
 │   ├── data/
-│   │   ├── mock-organizations.json      # Test data
-│   │   └── organizations.json           # Original data (PRESERVED)
+│   │   ├── organizations.json           # Baseline Data (Canonical)
 │   └── css/
 │       └── main.css                     # Existing
 ```
@@ -154,7 +153,7 @@ const CARD_REGISTRY = {
 
 ## Supabase Schema Mapping
 
-| Mock Field | Schema Table | Schema Column |
+| Baseline Field | Schema Table | Schema Column |
 |------------|--------------|---------------|
 | `org_id` | `org` | `org_id` (UUID) |
 | `name` | `org` | `name` |
@@ -201,7 +200,7 @@ export async function GET(
 ```javascript
 // organization-profile.js line 83
 // Change from:
-const response = await fetch('assets/data/mock-organizations.json');
+const response = await fetch('assets/data/organizations.json');
 
 // To:
 const response = await fetch(`/api/organizations/${orgId}`);
@@ -238,8 +237,7 @@ const response = await fetch(`/api/organizations/${orgId}`);
 
 ## Support
 
-**Test Data:** `assets/data/mock-organizations.json`
-**Original Data:** `assets/data/organizations.json` (preserved)
+**Baseline Data:** `assets/data/organizations.json`
 
 ---
 

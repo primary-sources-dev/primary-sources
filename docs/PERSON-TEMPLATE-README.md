@@ -56,8 +56,7 @@ docs/ui/
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
 │   ├── data/
-│   │   ├── mock-person.json             # Test data (NEW)
-│   │   └── people.json                  # Original data (PRESERVED)
+│   │   ├── people.json                  # Baseline Data (Canonical)
 │   └── css/
 │       └── main.css                     # Existing
 ```
@@ -69,7 +68,7 @@ docs/ui/
 | Feature | person.html ⭐ | archived/person-original.html | oswald.html |
 |---------|------------------|-------------|-------------|
 | **Layout** | Responsive: Archive card (desktop) + Hero (mobile) | Hero layout (all screens) | Archive card (static) |
-| **Data Loading** | ✅ Dynamic from mock-person.json | ✅ Dynamic from mock-person.json | ❌ Hardcoded |
+| **Data Loading** | ✅ Dynamic from people.json | ✅ Dynamic from people.json | ❌ Hardcoded |
 | **Card System** | ✅ 12 conditional cards | ✅ 12 conditional cards | ❌ Fixed sections |
 | **Timeline Design** | Visual dots + connectors | Vertical line style | Visual dots + connectors |
 | **Card Backgrounds** | Lighter (`bg-[#252021]/60`) | Darker (`bg-archive-bg/30`) | Lighter (`bg-[#252021]/60`) |
@@ -214,7 +213,7 @@ export async function GET(
 ```javascript
 // person-v2-profile.js line 128
 // Change from:
-const response = await fetch('assets/data/mock-person.json');
+const response = await fetch('assets/data/people.json');
 
 // To:
 const response = await fetch(`/api/people/${personId}`);
@@ -316,8 +315,7 @@ function populateNewCard(data) {
 ## Support
 
 **Documentation:** `person-template-implementation-plan.md`
-**Test Data:** `assets/data/mock-person.json`
-**Original Data:** `assets/data/people.json` (preserved)
+**Baseline Data:** `assets/data/people.json`
 
 ---
 

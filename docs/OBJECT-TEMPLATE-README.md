@@ -52,8 +52,7 @@ docs/ui/
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
 │   ├── data/
-│   │   ├── mock-objects.json            # Test data
-│   │   └── objects.json                 # Original data (PRESERVED)
+│        └── objects.json                 # Baseline Data (Canonical)
 │   └── css/
 │       └── main.css                     # Existing
 ```
@@ -186,7 +185,7 @@ export async function GET(
 ```javascript
 // object-profile.js line 91
 // Change from:
-const response = await fetch('assets/data/mock-objects.json');
+const response = await fetch('assets/data/objects.json');
 
 // To:
 const response = await fetch(`/api/objects/${objectId}`);
@@ -210,8 +209,7 @@ const response = await fetch(`/api/objects/${objectId}`);
 
 ## Support
 
-**Test Data:** `assets/data/mock-objects.json`
-**Original Data:** `assets/data/objects.json` (preserved)
+**Baseline Data:** `assets/data/objects.json`
 
 ---
 

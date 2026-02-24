@@ -52,8 +52,7 @@ docs/ui/
 │   │   ├── nav.js                       # Existing
 │   │   └── db-logic.js                  # Existing
 │   ├── data/
-│   │   ├── mock-event.json              # Test data (NEW)
-│   │   └── events.json                  # Original data (PRESERVED)
+│   │   ├── events.json                  # Baseline Data (Canonical)
 │   └── css/
 │       └── main.css                     # Existing
 ```
@@ -181,7 +180,7 @@ const CARD_REGISTRY = {
 - ✅ Accordion behavior for progressive disclosure
 - ✅ Auto-expand rules (Context always, Timeline if ≥ 3 sub-events)
 - ✅ Empty state handling
-- ✅ Dynamic data loading from mock-event.json
+- ✅ Dynamic data loading from events.json
 
 ---
 
@@ -238,7 +237,7 @@ export async function GET(
 ```javascript
 // event-v1-profile.js line 78
 // Change from:
-const response = await fetch('assets/data/mock-event.json');
+const response = await fetch('assets/data/events.json');
 
 // To:
 const response = await fetch(`/api/events/${eventId}`);
@@ -338,8 +337,7 @@ function populateNewCard(data) {
 ## Support
 
 **Documentation:** `event-template-implementation-plan.md` (coming soon)
-**Test Data:** `assets/data/mock-event.json`
-**Original Data:** `assets/data/events.json` (preserved)
+**Baseline Data:** `assets/data/events.json`
 
 ---
 

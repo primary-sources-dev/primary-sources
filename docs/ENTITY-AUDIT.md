@@ -1,7 +1,7 @@
 # Entity Page Audit Report
 
 **Date:** 2026-02-24
-**Purpose:** Ensure card registry pattern consistency and align mock data with Supabase schema
+**Purpose:** Ensure card registry pattern consistency and align baseline data with Supabase schema
 
 ---
 
@@ -39,7 +39,7 @@ const CARD_REGISTRY = {
 
 ---
 
-## 2. Mock Data Format Audit
+## 2. Baseline Data Format Audit
 
 ### Supabase Schema Field Names (Canonical)
 
@@ -56,43 +56,43 @@ const CARD_REGISTRY = {
 
 | File | Issue | Current | Should Be |
 |------|-------|---------|-----------|
-| `mock-organizations.json` | Wrong primary key | `organization_id` | `org_id` |
-| `mock-organizations.json` | Wrong type field | `type` | `org_type` |
-| `mock-places.json` | Wrong type field | `type` | `place_type` |
-| `mock-objects.json` | Wrong type field | `type` | `object_type` |
-| `mock-sources.json` | Wrong type field | `type` | `source_type` |
-| All mock files | Using `description` | `description` | OK for display (maps to `notes`) |
+| `organizations.json` | Wrong primary key | `organization_id` | `org_id` |
+| `organizations.json` | Wrong type field | `type` | `org_type` |
+| `places.json` | Wrong type field | `type` | `place_type` |
+| `objects.json` | Wrong type field | `type` | `object_type` |
+| `sources.json` | Wrong type field | `type` | `source_type` |
+| All baseline files | Using `description` | `description` | OK for display (maps to `notes`) |
 
 ### Additional Field Mappings
 
-The mock data uses some display-friendly field names that map to schema fields:
+The baseline data uses some display-friendly field names that map to schema fields:
 
-| Mock Field | Schema Field | Notes |
+| Baseline Field | Schema Field | Notes |
 |------------|--------------|-------|
 | `description` | `notes` | OK - UI display name |
 | `display_name` | — | UI convenience field (computed) |
 | `label` | — | UI convenience field (computed) |
-| `events` | Junction via `event_participant` etc. | Denormalized for mock |
-| `sources` | Junction via `assertion_support` | Denormalized for mock |
+| `events` | Junction via `event_participant` etc. | Denormalized for baseline |
+| `sources` | Junction via `assertion_support` | Denormalized for baseline |
 
 ---
 
 ## 3. Required Fixes
 
-### 3.1 Mock Data Files
+### 3.1 Baseline Data Files
 
-**mock-organizations.json:**
+**organizations.json:**
 - [x] Rename `organization_id` → `org_id`
 - [x] Rename `type` → `org_type`
 - [x] Rename `people` → `members` (matches card registry)
 
-**mock-places.json:**
+**places.json:**
 - [x] Rename `type` → `place_type`
 
-**mock-objects.json:**
+**objects.json:**
 - [x] Rename `type` → `object_type`
 
-**mock-sources.json:**
+**sources.json:**
 - [x] Rename `type` → `source_type`
 
 ### 3.2 Profile JS Files

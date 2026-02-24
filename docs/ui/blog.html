@@ -62,22 +62,28 @@
     <section class="px-6 py-6 border-b border-archive-secondary/20">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-wrap gap-2">
-                <button onclick="filterByCategory('all')" class="category-filter active px-4 py-2 text-xs uppercase tracking-widest border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 transition-colors">
+                <button onclick="filterByCategory('all')"
+                    class="category-filter active px-4 py-2 text-xs uppercase tracking-widest border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 transition-colors">
                     All Posts
                 </button>
-                <button onclick="filterByCategory('featured')" class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
+                <button onclick="filterByCategory('featured')"
+                    class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
                     Featured
                 </button>
-                <button onclick="filterByCategory('About')" class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
+                <button onclick="filterByCategory('About')"
+                    class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
                     About
                 </button>
-                <button onclick="filterByCategory('Development')" class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
+                <button onclick="filterByCategory('Development')"
+                    class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
                     Development
                 </button>
-                <button onclick="filterByCategory('Research')" class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
+                <button onclick="filterByCategory('Research')"
+                    class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
                     Research
                 </button>
-                <button onclick="filterByCategory('Updates')" class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
+                <button onclick="filterByCategory('Updates')"
+                    class="category-filter px-4 py-2 text-xs uppercase tracking-widest border border-archive-secondary/20 text-archive-secondary/70 hover:border-primary/40 hover:text-primary transition-colors">
                     Updates
                 </button>
             </div>
@@ -118,7 +124,7 @@
         // Load blog posts
         async function loadBlogPosts() {
             try {
-                const response = await fetch('assets/data/mock-blog.json');
+                const response = await fetch('assets/data/blog.json');
                 allPosts = await response.json();
 
                 // Sort by date (newest first)

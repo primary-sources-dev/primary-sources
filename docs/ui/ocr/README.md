@@ -1,6 +1,6 @@
-# OCR Web UI (v1 Mockup)
+# OCR Web UI (v1 Interface)
 
-> **Note:** This is the first version of the OCR web interface, created as a static HTML/CSS/JS mockup before migration to the Next.js web application.
+> **Note:** This is the first version of the OCR web interface, created as a static HTML/CSS/JS prototype before migration to the Next.js web application.
 
 ## Purpose
 
@@ -91,7 +91,7 @@ The **Extraction Workbench** provides the deep sync bridge between visual eviden
 
 ## Design Tokens
 
-This mockup follows the Primary Sources design system via **Tailwind CSS CDN**:
+This interface follows the Primary Sources design system via **Tailwind CSS CDN**:
 
 | Token | Value | Tailwind Class |
 |-------|-------|----------------|
