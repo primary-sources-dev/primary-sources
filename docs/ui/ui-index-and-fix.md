@@ -30,7 +30,7 @@
 | **search.html** | modular | none | modular | modular | main.css | components, nav, db-logic, global-search |
 | **sources.html** | modular | none | modular | modular | main.css | components, nav, db-logic, filter |
 | **witness-atlas.html** | modular | none | modular | modular | main.css | components, nav |
-| **ocr/index.html** | modular | none | modular | modular | ⚠️ ocr-components.css | components, nav, ocr-gui |
+| **ocr/index.html** | modular | none | modular | modular | main.css + ocr-components.css | components, nav, ocr-gui |
 | **tools/document-analyzer.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **tools/citation-generator.html** | modular | gradient dark | modular | modular | main.css | components, nav |
 | **tools/ocr-features.html** | modular | gradient dark | modular | modular | main.css | components, nav |
@@ -66,7 +66,7 @@
 | ~~Missing bottom-nav~~ | ~~random, witness-atlas, ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
 | ~~Missing footer~~ | ~~ocr/index~~ | ~~Add modular component~~ | ~~High~~ | ✅ Fixed |
 | ~~Legacy standalone~~ | ~~pdf-viewer.html~~ | ~~Deprecate~~ | ~~Medium~~ | ✅ Clarified: pdf-viewer.html is the functional viewer (keep); info page moved to tools/pdf-viewer-features.html |
-| ⚠️ Custom CSS | ocr/index.html | Merge ocr-components.css into main.css | Medium | Pending |
+| ~~Custom CSS~~ | ~~ocr/index.html~~ | ~~Align with main.css~~ | ~~Medium~~ | ✅ Fixed: ocr-components.css now uses CSS variables from main.css |
 | ⚠️ Duplicate person pages | person.html, person-v2.html | Consolidate to single template | Low | Pending |
 | ⚠️ Duplicate event pages | event.html, event-v1.html | Consolidate to single template | Low | Pending |
 
@@ -92,8 +92,8 @@
 
 | File | Purpose | Notes |
 |------|---------|-------|
-| `main.css` | Global styles, custom properties | Used by 26/27 pages |
-| `ocr-components.css` | OCR-specific styles | Should merge into main.css |
+| `main.css` | Global styles, CSS custom properties | Used by all pages |
+| `ocr-components.css` | OCR-specific styles | Now uses CSS variables from main.css |
 | Inline Tailwind config | Theme colors, fonts, border-radius | Duplicated in every page head |
 
 ---
@@ -160,7 +160,7 @@ module.exports = {
 - [x] Fix witness-atlas.html: Add modular footer + bottom-nav
 - [x] Fix ocr/index.html: Add modular footer + bottom-nav
 - [x] Consolidate pdf-viewer info page to tools/pdf-viewer-features.html (pdf-viewer.html is the functional viewer, not legacy)
-- [ ] Merge ocr-components.css into main.css
+- [x] Align ocr-components.css with main.css design tokens (uses CSS variables)
 - [ ] Consolidate person.html + person-v2.html
 - [ ] Consolidate event.html + event-v1.html
 - [ ] Extract inline Tailwind config to shared file
