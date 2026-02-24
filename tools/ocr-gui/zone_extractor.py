@@ -111,6 +111,14 @@ ZONE_CONFIG = {
         "header_lines": 20,
         "footer_lines": 10,
     },
+    DocType.LETTER: {
+        "header_lines": 10,
+        "footer_lines": 10,
+    },
+    DocType.TRAVEL_DOCUMENT: {
+        "header_lines": 15,
+        "footer_lines": 10,
+    },
     DocType.SENATE_REPORT: {
         "header_lines": 10,
         "footer_lines": 5,
@@ -309,6 +317,28 @@ POLICE_REPORT_PATTERNS = [
     (r"BADGE\s+(?:NO\.?|#)\s*:?\s*(\S+)", "badge", "footer", 0.85),
 ]
 
+LETTER_PATTERNS = [
+    # Header
+    (r"(\w+\s+\d{1,2},?\s+\d{4})", "date", "header", 0.85),
+    (r"Dear\s+(.+?)(?:\n|$)", "addressee", "header", 0.9),
+    # Body
+    (r"(enclos(?:ed|ure))", "has_enclosure", "body", 0.8),
+    # Footer
+    (r"(?:Sincerely|Respectfully|Yours truly),?\s*\n(.+?)(?:\n|$)", "signature", "footer", 0.9),
+]
+
+TRAVEL_DOCUMENT_PATTERNS = [
+    # Header
+    (r"(?:PASSPORT|VISA)\s*(?:NO\.?|NUMBER)?\s*:?\s*(\S+)", "document_number", "header", 0.9),
+    (r"(?:Name|HOLDER|NOM)\s*:?\s*(.+?)(?:\n|$)", "holder_name", "header", 0.85),
+    (r"(?:Nationality|NATIONALITE)\s*:?\s*(.+?)(?:\n|$)", "nationality", "header", 0.85),
+    # Body
+    (r"(?:Date\s+of\s+)?(?:Birth|BIRTH)\s*:?\s*(.+?)(?:\n|$)", "date_of_birth", "body", 0.8),
+    (r"(?:Place\s+of\s+)?(?:Birth|BIRTH)\s*:?\s*(.+?)(?:\n|$)", "place_of_birth", "body", 0.8),
+    # Footer
+    (r"(?:Issued|DATE)\s*:?\s*(.+?)(?:\n|$)", "date_issued", "footer", 0.8),
+]
+
 SENATE_REPORT_PATTERNS = [
     # Header
     (r"(\d{1,3}(?:st|nd|rd|th)\s+(?:CONGRESS|Congress))", "congress", "header", 0.9),
@@ -343,6 +373,8 @@ TYPE_PATTERNS = {
     DocType.NARA_RIF: NARA_RIF_PATTERNS,
     DocType.CIA_CABLE: CIA_CABLE_PATTERNS,
     DocType.MEMO: MEMO_PATTERNS,
+    DocType.LETTER: LETTER_PATTERNS,
+    DocType.TRAVEL_DOCUMENT: TRAVEL_DOCUMENT_PATTERNS,
     DocType.WC_EXHIBIT: WC_EXHIBIT_PATTERNS,
     DocType.WC_TESTIMONY: WC_TESTIMONY_PATTERNS,
     DocType.WC_DEPOSITION: WC_DEPOSITION_PATTERNS,

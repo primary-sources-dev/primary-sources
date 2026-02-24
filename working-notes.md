@@ -69,14 +69,16 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 1.  **Extraction Workbench Phase 4 (Commit)**: Backend logic to save workbench results directly to SQL.
 
 ### Recently Completed (2026-02-23 Marathon)
+- [x] **Forensic PDF Workbench**: High-fidelity metadata ribbon (RIF, Agency, Date) and sidecar review pane.
+- [x] **Intelligence Layer (Psychology)**: AI-powered entity highlighting (CIA, FBI, Oswald) directly on document scans.
+- [x] **Universal Navigation Robustness**: Site-root relative component loading (`/`) fixing header breakage in subdirectories.
+- [x] **"On This Day" (OTD) Dashboard**: Refactored from home page widget to dedicated discovery portal with Day/Week/Year temporal filters.
 - [x] **UX/UI Polish Bundle**: Snappy transitions (300ms), dynamic breadcrumbs, and status labels.
 - [x] **Auto-Generated Citations**: Chicago, MLA, APA, NARA formats in one click.
 - [x] **Mobile Native Support**: Direct upload of iPhone .heic images.
 - [x] **Footer Parsing**: Extraction of Agency File numbers and Agent names from FBI 302 footers.
-- [x] **Grayscale Interactions**: Premium hover feedback across all capability and vision items.
 - [x] **Universal Person Profile**: Production-ready `person.html` with modular card library architecture.
 - [x] **ZIP Processor**: Batch unrolling of .zip and .tar archives for bulk archival ingestion.
-- [x] **"On This Day" (OTD) Dashboard**: Refactored from home page widget to dedicated discovery portal with Day/Week/Year temporal filters.
 
 ---
 

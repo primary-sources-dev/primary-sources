@@ -23,6 +23,8 @@ class DocType(Enum):
     NARA_RIF = "NARA_RIF"
     CIA_CABLE = "CIA_CABLE"
     MEMO = "MEMO"
+    LETTER = "LETTER"  # Correspondence
+    TRAVEL_DOCUMENT = "TRAVEL_DOCUMENT"  # Passports, visas, embarkation
     WC_EXHIBIT = "WC_EXHIBIT"
     WC_TESTIMONY = "WC_TESTIMONY"
     WC_DEPOSITION = "WC_DEPOSITION"  # Q&A depositions
@@ -152,13 +154,41 @@ FINGERPRINTS = {
         (r"CC\s*:|COPIES\s+TO\s*:", 10),
     ],
     
+    DocType.LETTER: [
+        (r"Dear\s+(?:Mr\.|Mrs\.|Ms\.|Sir|Madam)", 30),
+        (r"(?:Sincerely|Respectfully|Yours\s+truly)", 25),
+        (r"(?:Very\s+truly\s+yours|Cordially)", 20),
+        (r"\d{1,2},?\s+\d{4}$", 15),  # Date at end of line
+        (r"(?:Dear|To)\s+(?:Sir|Madam|Senator|Congressman)", 25),
+        (r"enclosure|enclosed|attach", 15),
+        (r"(?:Re|Reference|Regarding)\s*:", 15),
+    ],
+    
+    DocType.TRAVEL_DOCUMENT: [
+        # Very specific passport/visa indicators
+        (r"PASSPORT\s+(?:NO\.?|NUMBER)", 40),
+        (r"UNITED\s+STATES\s+(?:PASSPORT|OF\s+AMERICA)", 35),
+        (r"(?:VISA|VISTO)\s+(?:NO\.?|NUMBER|TYPE)", 35),
+        (r"VACCINATION\s+(?:CERTIFICATE|RECORD)", 35),
+        (r"IMMUNIZATION\s+(?:RECORD|CERTIFICATE)", 35),
+        (r"EMBARKATION\s+(?:CARD|SLIP|RECORD)", 30),
+        (r"WORLD\s+HEALTH\s+ORGANIZATION", 30),
+        (r"INTERNATIONAL\s+(?:CERTIFICATE|TRAVEL)", 25),
+        (r"PORT\s+OF\s+(?:ENTRY|EXIT|EMBARKATION)", 25),
+        # These are too generic, removed: travel, departure, arrival, citizen
+    ],
+
     DocType.WC_EXHIBIT: [
-        (r"CE-\d{1,4}", 35),  # Commission Exhibit
-        (r"CD-\d{1,4}", 30),  # Commission Document
-        (r"COMMISSION EXHIBIT", 30),
-        (r"WARREN COMMISSION", 25),
-        (r"EXHIBIT NO\.", 20),
-        (r"PRESIDENT'S COMMISSION", 20),
+        (r"CE-?\s*\d{1,4}", 35),  # Commission Exhibit (CE-123, CE 123)
+        (r"CD-?\s*\d{1,4}", 30),  # Commission Document
+        (r"COMMISSION\s+EXHIBIT", 30),
+        (r"Commission\s+Exhibit", 25),
+        (r"WARREN\s+COMMISSION", 25),
+        (r"EXHIBIT\s+(?:NO\.?|NUMBER)", 20),
+        (r"PRESIDENT'?S?\s+COMMISSION", 20),
+        (r"(?:Exhibit|EXHIBIT)\s+\d{1,4}", 25),
+        (r"(?:continued|Continued)", 15),  # Continuation pages
+        (r"see\s+(?:next|following)\s+page", 10),
     ],
     
     DocType.WC_TESTIMONY: [
@@ -479,6 +509,20 @@ ZONE_CONFIG = {
         "footer_lines": 8,
         "header_fields": ["to", "from", "date", "subject"],
         "footer_fields": ["signature", "cc_list"],
+        "body_fields": ["content"],
+    },
+    DocType.LETTER: {
+        "header_lines": 10,
+        "footer_lines": 10,
+        "header_fields": ["date", "addressee"],
+        "footer_fields": ["signature", "sender"],
+        "body_fields": ["content"],
+    },
+    DocType.TRAVEL_DOCUMENT: {
+        "header_lines": 15,
+        "footer_lines": 10,
+        "header_fields": ["document_type", "holder_name", "nationality"],
+        "footer_fields": ["issuing_authority", "date_issued"],
         "body_fields": ["content"],
     },
     DocType.WC_EXHIBIT: {

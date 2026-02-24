@@ -223,8 +223,33 @@
                         <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Entity
                             Matcher</h4>
                         <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Automated sidecar
-                            output
-                            mapping OCR text to known person, place, and organization IDs in the vault.</p>
+                            output mapping OCR text to known person, place, and organization IDs in the vault.</p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">psychology</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Intelligence
+                            Layer</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">"Psychology" toggle
+                            surfacing AI-extracted entities (CIA, FBI, Oswald) directly on archival document scans.</p>
+                    </div>
+
+                    <div
+                        class="p-6 border border-archive-secondary/5 bg-archive-dark/40 group hover:border-primary/30 transition-all duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">view_quilt</span>
+                            <span
+                                class="px-2 py-1 bg-green-500/10 text-green-500 text-[8px] font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-widest mb-2">Layout
+                            Analyzer</h4>
+                        <p class="text-[10px] text-archive-secondary/60 leading-relaxed font-mono">Automated
+                            classification of document types (FBI 302, NARA) with zone-specific extraction rules.</p>
                     </div>
                 </div>
             </section>
@@ -240,25 +265,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div
-                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
-                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
-                            <span class="material-symbols-outlined text-[120px] text-primary">event_upcoming</span>
-                        </div>
-                        <div class="flex justify-between items-start mb-6">
-                            <span
-                                class="material-symbols-outlined text-primary text-4xl font-light">event_upcoming</span>
-                            <span
-                                class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
-                                Queue</span>
-                        </div>
-                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">OTD Dashboard
-                            (#24)</h4>
-                        <p class="text-xs text-archive-secondary/70 leading-relaxed">"On This Day" surfacing engine.
-                            Automatically highlights historical events from the archive occurring on the current
-                            calendar date.</p>
-                    </div>
-
                     <div
                         class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
                         <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
@@ -280,20 +286,35 @@
                     <div
                         class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group">
                         <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
-                            <span class="material-symbols-outlined text-[120px] text-primary">document_scanner</span>
+                            <span class="material-symbols-outlined text-[120px] text-primary">history_edu</span>
                         </div>
                         <div class="flex justify-between items-start mb-6">
-                            <span
-                                class="material-symbols-outlined text-primary text-4xl font-light">document_scanner</span>
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">history_edu</span>
                             <span
                                 class="px-2 py-1 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest border border-primary/20 animate-pulse">In
                                 Queue</span>
                         </div>
-                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Document
-                            Layout
-                            Analyzer</h4>
-                        <p class="text-xs text-archive-secondary/70 leading-relaxed">ML-based classification of document
-                            types (FBI 302, NARA cover sheet, memo) with zone-specific extraction rules.</p>
+                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">HTR Engine
+                        </h4>
+                        <p class="text-xs text-archive-secondary/70 leading-relaxed">Handwriting recognition integration
+                            (TrOCR/Donut) for transcribing cursive field notes and margin stamps.</p>
+                    </div>
+
+                    <div
+                        class="p-8 border border-primary/20 bg-archive-dark/60 shadow-2xl relative overflow-hidden group opacity-50 grayscale">
+                        <div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-all">
+                            <span class="material-symbols-outlined text-[120px] text-primary">table_rows</span>
+                        </div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="material-symbols-outlined text-primary text-4xl font-light">table_rows</span>
+                            <span
+                                class="px-2 py-1 bg-archive-secondary/10 text-archive-secondary text-[8px] font-bold uppercase tracking-widest border border-archive-secondary/20">Planned</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-archive-heading uppercase tracking-widest mb-4">Table
+                            Transformer</h4>
+                        <p class="text-xs text-archive-secondary/70 leading-relaxed">TATR-based extraction for
+                            converting
+                            archival box scores and financial ledgers into dynamic markdown tables.</p>
                     </div>
                 </div>
             </section>
