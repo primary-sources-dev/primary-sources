@@ -23,6 +23,7 @@ class DocType(Enum):
     CIA_CABLE = "CIA_CABLE"
     MEMO = "MEMO"
     WC_EXHIBIT = "WC_EXHIBIT"
+    WC_TESTIMONY = "WC_TESTIMONY"
     HSCA_DOC = "HSCA_DOC"
     UNKNOWN = "UNKNOWN"
 
@@ -67,17 +68,20 @@ class ClassificationResult:
 FINGERPRINTS = {
     DocType.FBI_302: [
         (r"FEDERAL BUREAU OF INVESTIGATION", 30),
-        (r"FD-302\b", 25),
-        (r"FD-302a", 20),
-        (r"Date of transcription", 20),
+        (r"F.?D.?E.?R.?A.?L\s+BUREAU", 20),  # OCR-tolerant
+        (r"FD.?302", 25),  # Handles FD-302, FD~302, FD 302
+        (r"FD.?302.?a", 20),
+        (r"Date.{0,5}(?:of\s+)?transcription", 20),
         (r"was interviewed", 15),
         (r"transcribed by SA", 20),
         (r"dictated\s+\d{1,2}/\d{1,2}/\d{2,4}", 15),
-        (r"File #|File Number", 10),
+        (r"File\s*(?:#|Number|No)?", 10),
         (r"[A-Z]{2}\s*\d{2,3}-\d+", 15),  # Field office file pattern (DL 89-43)
         (r"at which time .* was interviewed", 10),
         (r"advised as follows", 10),
         (r"on \d{1,2}/\d{1,2}/\d{2,4} at", 10),
+        (r"voluntarily\s+(?:appeared|furnished)", 15),  # Common FBI 302 phrase
+        (r"Special Agent[s]?\s+of\s+the", 15),
     ],
     
     DocType.NARA_RIF: [
@@ -127,7 +131,21 @@ FINGERPRINTS = {
         (r"WARREN COMMISSION", 25),
         (r"EXHIBIT NO\.", 20),
         (r"PRESIDENT'S COMMISSION", 20),
-        (r"HEARINGS.*TESTIMONY", 15),
+    ],
+    
+    DocType.WC_TESTIMONY: [
+        (r"TESTIMONY OF\s+", 35),
+        (r"The Chairman\.", 30),
+        (r"Mr\.\s+Rankin\.", 25),
+        (r"President'?s Commission", 30),
+        (r"HEARINGS\s+BEFORE", 25),
+        (r"ASSASSINATION.*PRESIDENT.*KENNEDY", 30),
+        (r"Mrs\.\s+Oswald\.", 20),
+        (r"The\s+Commission\s+met", 20),
+        (r"Chief\s+Justice.*Warren", 20),
+        (r"Senator\s+(?:Cooper|Russell)", 15),
+        (r"Congressman\s+(?:Boggs|Ford)", 15),
+        (r"Washington,\s+D\.?C\.?", 10),
     ],
     
     DocType.HSCA_DOC: [
@@ -310,6 +328,13 @@ ZONE_CONFIG = {
         "header_fields": ["exhibit_number", "exhibit_type"],
         "footer_fields": [],
         "body_fields": ["content", "related_testimony"],
+    },
+    DocType.WC_TESTIMONY: {
+        "header_lines": 10,
+        "footer_lines": 3,
+        "header_fields": ["testimony_date", "witness_name", "session_info"],
+        "footer_fields": ["page_number"],
+        "body_fields": ["testimony_content", "questioner", "response"],
     },
     DocType.HSCA_DOC: {
         "header_lines": 15,

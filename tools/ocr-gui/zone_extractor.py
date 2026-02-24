@@ -83,6 +83,10 @@ ZONE_CONFIG = {
         "header_lines": 12,
         "footer_lines": 5,
     },
+    DocType.WC_TESTIMONY: {
+        "header_lines": 15,
+        "footer_lines": 3,
+    },
     DocType.HSCA_DOC: {
         "header_lines": 20,
         "footer_lines": 8,
@@ -181,6 +185,21 @@ WC_EXHIBIT_PATTERNS = [
     (r"PAGE\s*(\d+)", "page", "any", 0.8),
 ]
 
+WC_TESTIMONY_PATTERNS = [
+    # Header patterns
+    (r"TESTIMONY\s+OF\s+(?:MRS?\.\s+)?([A-Z][A-Z\s\.]+)", "witness_name", "header", 0.95),
+    (r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(\w+\s+\d{1,2},?\s+\d{4})", "testimony_date", "header", 0.9),
+    (r"President'?s\s+Commission", "commission", "header", 0.85),
+    # Questioner patterns
+    (r"(?:Mr\.|Mrs\.|Ms\.)\s+(Rankin|Dulles|McCloy|Boggs|Ford)", "questioner", "body", 0.85),
+    (r"The\s+Chairman\.", "questioner_chairman", "body", 0.9),
+    # Witness response patterns
+    (r"(?:Mr\.|Mrs\.)\s+(Oswald)\.", "witness_oswald", "body", 0.95),
+    # Volume/page
+    (r"VOL(?:UME)?\.?\s*(\d+)", "volume", "any", 0.85),
+    (r"(?:^|\s)(\d{1,3})(?:\s|$)", "page", "footer", 0.7),
+]
+
 HSCA_PATTERNS = [
     # Header patterns
     (r"RG\s*(\d+)", "record_group", "header", 0.9),
@@ -196,6 +215,7 @@ TYPE_PATTERNS = {
     DocType.CIA_CABLE: CIA_CABLE_PATTERNS,
     DocType.MEMO: MEMO_PATTERNS,
     DocType.WC_EXHIBIT: WC_EXHIBIT_PATTERNS,
+    DocType.WC_TESTIMONY: WC_TESTIMONY_PATTERNS,
     DocType.HSCA_DOC: HSCA_PATTERNS,
 }
 
