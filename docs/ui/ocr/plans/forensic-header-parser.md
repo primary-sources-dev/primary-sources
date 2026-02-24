@@ -30,28 +30,21 @@ Field researchers spend significant time manually transcribing header metadata f
 
 ## 3. Architecture Decision
 
-> **DECISION REQUIRED**: Frontend-only vs. Backend post-processor
+> **DECIDED**: Backend Post-Processor (Python)
 
-**Option A: Frontend-Only (JavaScript)**
-- Runs in browser after OCR text is returned
-- Zero backend changes
-- Patterns bundled in `ocr-gui.js`
-- Pro: Simpler deployment
-- Con: Complex regex harder to maintain in JS; no server-side pattern updates
-
-**Option B: Backend Post-Processor (Python)** ← Recommended
+**Selected: Option B — Backend Post-Processor (Python)**
 - New module `header_parser.py` alongside `ocr_worker.py`
 - Returns structured JSON with extracted fields
-- Pro: Python's `re` module with named groups is more maintainable
-- Pro: Pattern library can be updated without frontend deployment
-- Con: Requires backend change
+- Python's `re` module with named groups is more maintainable
+- Pattern library can be updated without frontend deployment
 
 ## 4. Key Features
 
-1. **Pattern Library**: Regex patterns for FBI, CIA, NARA, HSCA, and Warren Commission header formats
-2. **Confidence Scoring**: Each extracted field tagged with confidence (HIGH/MEDIUM/LOW) based on pattern specificity
-3. **Pre-filled Metadata Card**: UI component showing extracted values for researcher review before commit
-4. **Override Support**: All auto-detected values are editable; human judgment remains final
+1. **Pattern Library**: Regex patterns for FBI 302 and NARA RIF formats (Phase 1), expandable to HSCA/Warren Commission
+2. **Auto-Run**: Parser executes automatically after each OCR job completes
+3. **Confidence Scoring**: Each extracted field tagged with confidence (HIGH/MEDIUM/LOW) based on pattern specificity
+4. **Metadata Preview Card**: Read-only UI component showing extracted values with copy-to-clipboard buttons
+5. **Non-Destructive**: Human judgment remains final; extracted values are suggestions only
 
 ## 5. Implementation Phases
 
@@ -70,17 +63,17 @@ Field researchers spend significant time manually transcribing header metadata f
 | Task ID | Description |
 |---------|-------------|
 | **SERVER-001** | Add `/api/parse-header` endpoint accepting OCR text |
-| **SERVER-002** | Integrate parser into post-OCR pipeline (optional auto-run) |
-| **SERVER-003** | Return metadata alongside existing OCR response |
+| **SERVER-002** | Integrate parser into post-OCR pipeline (auto-run on job completion) |
+| **SERVER-003** | Return extracted metadata alongside existing OCR response JSON |
 
 ### Phase 3: Frontend UI
 
 | Task ID | Description |
 |---------|-------------|
-| **UI-001** | Add "Metadata Preview" card below queue item on completion |
-| **UI-002** | Display extracted fields with confidence badges |
-| **UI-003** | Add "Copy to Clipboard" for quick paste into database entry form |
-| **UI-004** | Add manual "Re-parse Header" button for edge cases |
+| **UI-001** | Add read-only "Metadata Preview" card below queue item on completion |
+| **UI-002** | Display extracted fields with confidence badges (HIGH/MEDIUM/LOW) |
+| **UI-003** | Add "Copy All" and per-field copy buttons for clipboard export |
+| **UI-004** | Add manual "Re-parse" button for edge cases or re-OCR scenarios |
 
 ### Phase 4: Testing & Refinement
 
@@ -143,19 +136,21 @@ PATTERNS = {
 | **OCR Quality**: Degraded scans produce garbled headers | Confidence scoring accounts for partial matches |
 | **False Positives**: Random number sequences match RIF pattern | Require contextual anchors (e.g., "RIF:" prefix nearby) |
 
-## 10. Open Decisions
+## 10. Decisions (Resolved)
 
-> These items must be resolved before implementation begins:
+> All blocking decisions resolved 2026-02-23.
 
-1. **Architecture**: Frontend-only (JS) or Backend post-processor (Python)?
-2. **Trigger Mode**: Auto-run after every OCR job, or on-demand via button?
-3. **Output UX**: Pre-fill a form, or display for manual copy/paste?
-4. **Priority Patterns**: Which document types to implement first?
+| Decision | Resolution |
+|----------|------------|
+| **Architecture** | Backend Python module (`header_parser.py`) |
+| **Trigger Mode** | Auto-run after every OCR job completes |
+| **Output UX** | Read-only display with copy-to-clipboard button |
+| **Priority Patterns** | FBI 302 + NARA RIF sheets first (Phase 1) |
 
 ## 11. Deliverables
 
 1. `header_parser.py` — Pattern library and extraction logic
-2. `/api/parse-header` — REST endpoint (if backend approach chosen)
-3. UI metadata preview component
+2. `/api/parse-header` — REST endpoint for header extraction
+3. UI metadata preview component with copy-to-clipboard
 4. Documentation update to `docs/ui/ocr/README.md`
-5. Test corpus: 20 sample documents with expected extraction results
+5. Test corpus: 20 sample documents (10 FBI 302, 10 NARA RIF) with expected extraction results
