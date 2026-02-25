@@ -425,6 +425,22 @@ def _run_metadata_parser(file_info: dict, job: dict):
     except Exception as e:
         job["log"].append(f"  → Metadata parser error: {str(e)}")
 
+    # Auto-classify document type (feeds the badge in ocr-gui.js)
+    if CLASSIFIER_AVAILABLE and ocr_text:
+        try:
+            classification = classify_document(ocr_text)
+            if "parsed_metadata" not in file_info:
+                file_info["parsed_metadata"] = {}
+            file_info["parsed_metadata"]["classified_type"] = classification.doc_type.value
+            file_info["parsed_metadata"]["classification_confidence"] = round(classification.confidence, 3)
+            file_info["parsed_metadata"]["classification_label"] = classification.confidence_label
+            job["log"].append(
+                f"  → Classified: {classification.doc_type.value} "
+                f"({round(classification.confidence * 100)}% {classification.confidence_label})"
+            )
+        except Exception as e:
+            job["log"].append(f"  → Classifier error: {str(e)}")
+
 
 @app.route("/api/jobs/<job_id>/cancel", methods=["POST"])
 def cancel_job(job_id):

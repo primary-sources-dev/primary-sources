@@ -1,6 +1,16 @@
 """
 classifier_test_html.py — Generate Interactive HTML Classification Report
 
+⚠️  DEPRECATED (2026-02-25)
+    This CLI script generates static HTML reports. It has been replaced by the
+    dynamic classifier-ui.html which loads data from /api/review/<filename>
+    at runtime. Use the web UI instead:
+
+        1. Start the server:   python tools/ocr_server.py
+        2. Open in browser:    http://localhost:5000/tools/classifier/classifier-ui.html?file=<your-file.pdf>
+
+    This script is kept for reference only and may be removed in a future cleanup.
+
 Creates an HTML page for human review of document classification results.
 User can mark each classification as correct/incorrect and specify the correct type.
 Feedback is saved to localStorage and can be exported as JSON.
