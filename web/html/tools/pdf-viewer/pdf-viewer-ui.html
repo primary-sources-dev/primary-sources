@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Viewer — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <!-- Required for Text Layer matching/selection -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf_viewer.min.css">
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/pdf-viewer.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="../../assets/js/components.js" defer></script>
+    <script src="../../assets/js/collapsible-menu.js" defer></script>
+</head>
+
+<body class="overflow-hidden text-archive-secondary pdf-viewer-page">
+
+    <!-- MODULAR HEADER / TOOLBAR -->
+    <div data-component="pdf-viewer-header"></div>
+
+    <!-- FORENSIC METADATA RIBBON -->
+    <div id="forensic-ribbon">
+        <!-- Classification -->
+        <div id="ribbon-classification" class="flex items-center gap-2 pr-4 border-r border-white/10 h-4">
+            <span class="ribbon-label">Type:</span>
+            <span id="ribbon-type-badge" class="classification-badge">UNKNOWN</span>
+        </div>
+        <!-- RIF NUMBER -->
+        <div class="ribbon-field">
+            <span class="ribbon-label">RIF ID:</span>
+            <span id="ribbon-rif" class="ribbon-value">—</span>
+        </div>
+        <!-- AGENCY -->
+        <div class="ribbon-field">
+            <span class="ribbon-label">Agency:</span>
+            <span id="ribbon-agency" class="ribbon-value">—</span>
+        </div>
+        <!-- DATE -->
+        <div class="ribbon-field">
+            <span class="ribbon-label">Archive Date:</span>
+            <span id="ribbon-date" class="ribbon-value">—</span>
+        </div>
+    </div>
+
+    <!-- LOADING STATE -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary animate-pulse">Accessing Evidentiary
+            File...</span>
+    </div>
+
+    <!-- MAIN WORKSPACE -->
+    <main id="main-container">
+        <!-- SIDEBAR (Splitter) -->
+        <div id="sidebar-wrapper">
+            <div class="h-10 bg-black/40 border-b border-white/5 flex items-center px-4 justify-between">
+                <span class="text-[9px] font-bold uppercase tracking-widest text-primary/60">Pages / Splitter</span>
+                <button class="text-[9px] font-bold uppercase tracking-widest text-primary hover:text-white"
+                    onclick="selectAllPages()">All</button>
+            </div>
+            <div id="thumbnail-list" class="thumbnail-container">
+                <!-- Thumbnails injected here -->
+            </div>
+            <div class="p-4 border-t border-white/5 bg-black/20">
+                <button id="btn-split"
+                    class="w-full py-2 bg-primary text-archive-dark text-[10px] font-bold uppercase tracking-widest hover:bg-archive-heading transition-all"
+                    onclick="submitSplitJob()">
+                    Process Selected
+                </button>
+            </div>
+        </div>
+
+        <!-- VIEWER AREA -->
+        <div id="viewer-wrapper">
+            <div id="canvas-container">
+                <canvas id="pdf-canvas"></canvas>
+                <div id="text-layer" class="textLayer"></div>
+                <!-- Visual Sync Overlay -->
+                <div id="sync-highlight"></div>
+            </div>
+        </div>
+
+        <!-- EXTRACTION WORKBENCH (EDITOR Pane) -->
+        <div id="editor-wrapper">
+            <div class="editor-toolbar">
+                <span id="workbench-status"
+                    class="text-[10px] font-bold uppercase tracking-widest text-primary/60 flex-1">Extraction
+                    Review</span>
+                <button class="text-[10px] font-bold uppercase tracking-widest text-primary hover:text-white"
+                    onclick="saveExtraction()">Save Commit</button>
+            </div>
+            <div id="editor-content" class="text-archive-heading font-mono text-sm leading-relaxed"
+                contenteditable="true">
+                <p class="text-white/20">Loading forensic data...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        let scale = 1.5;
+        let canvas = document.getElementById('pdf-canvas');
+        let ctx = canvas.getContext('2d');
+
+        const params = new URLSearchParams(window.location.search);
+        const url = params.get('file');
+        const initialPage = parseInt(params.get('page')) || 1;
+
+        async function renderPage(num) {
+            pageRendering = true;
+            const page = await pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: scale });
+
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // 1. Render Canvas (Image)
+            const renderContext = { canvasContext: ctx, viewport: viewport };
+            await page.render(renderContext).promise;
+
+            // 2. Render Text Layer (Copyable)
+            const textLayerDiv = document.getElementById('text-layer');
+            textLayerDiv.style.width = `${viewport.width}px`;
+            textLayerDiv.style.height = `${viewport.height}px`;
+            textLayerDiv.innerHTML = ""; // Clear old layer
+
+            const textContent = await page.getTextContent();
+            pdfjsLib.renderTextLayer({
+                textContent: textContent,
+                container: textLayerDiv,
+                viewport: viewport,
+                textDivs: []
+            });
+
+            pageRendering = false;
+            if (pageNumPending !== null) {
+                renderPage(pageNumPending);
+                pageNumPending = null;
+            }
+
+            document.getElementById('page-num-input').value = num;
+            document.getElementById('zoom-level').textContent = Math.round(scale * 66) + '%';
+            document.getElementById('prev-page').disabled = (num <= 1);
+            document.getElementById('next-page').disabled = (num >= pdfDoc.numPages);
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        /**
+         * If another page rendering in progress, waits until the rendering is finised.
+         */
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        /**
+         * Navigation Logic
+         */
+        function onPrevPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+
+        /**
+         * Zoom Logic
+         */
+        function onZoomIn() {
+            scale += 0.25;
+            queueRenderPage(pageNum);
+        }
+
+        function onZoomOut() {
+            if (scale <= 0.5) return;
+            scale -= 0.25;
+            queueRenderPage(pageNum);
+        }
+
+        function onFitWidth() {
+            const containerWidth = document.getElementById('viewer-wrapper').clientWidth - 80;
+            pdfDoc.getPage(pageNum).then(page => {
+                const viewport = page.getViewport({ scale: 1 });
+                scale = containerWidth / viewport.width;
+                queueRenderPage(pageNum);
+            });
+        }
+
+        async function renderThumbnails() {
+            const list = document.getElementById('thumbnail-list');
+            list.innerHTML = "";
+
+            // Limit thumbnails for large documents for performance
+            const limit = Math.min(pdfDoc.numPages, 100);
+
+            for (let i = 1; i <= limit; i++) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 0.2 });
+
+                const item = document.createElement('div');
+                item.className = "thumbnail-item";
+                if (i === pageNum) item.classList.add('active');
+                item.dataset.page = i;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = "relative bg-black/40 overflow-hidden";
+                wrapper.style.aspectRatio = `${viewport.width} / ${viewport.height}`;
+
+                const tCanvas = document.createElement('canvas');
+                tCanvas.width = viewport.width * 2; // sharper
+                tCanvas.height = viewport.height * 2;
+                tCanvas.className = "w-full h-auto opacity-60 transition-opacity hover:opacity-100";
+
+                const tCtx = tCanvas.getContext('2d');
+                await page.render({ canvasContext: tCtx, viewport: page.getViewport({ scale: 0.4 }) }).promise;
+
+                const check = document.createElement('input');
+                check.type = "checkbox";
+                check.className = "thumbnail-check cursor-pointer";
+                check.addEventListener('click', (e) => e.stopPropagation());
+
+                const label = document.createElement('div');
+                label.className = "thumbnail-label";
+                label.textContent = i;
+
+                wrapper.appendChild(tCanvas);
+                wrapper.appendChild(check);
+                wrapper.appendChild(label);
+                item.appendChild(wrapper);
+
+                item.addEventListener('click', () => {
+                    pageNum = i;
+                    queueRenderPage(pageNum);
+                    updateThumbnailActive();
+                });
+
+                list.appendChild(item);
+            }
+        }
+
+        function updateThumbnailActive() {
+            document.querySelectorAll('.thumbnail-item').forEach(item => {
+                item.classList.toggle('active', parseInt(item.dataset.page) === pageNum);
+            });
+        }
+
+        function selectAllPages() {
+            document.querySelectorAll('.thumbnail-check').forEach(cb => cb.checked = true);
+        }
+
+        function submitSplitJob() {
+            const selected = Array.from(document.querySelectorAll('.thumbnail-item'))
+                .filter(item => item.querySelector('.thumbnail-check').checked)
+                .map(item => parseInt(item.dataset.page));
+
+            if (selected.length === 0) {
+                alert("Please select at least one page to process.");
+                return;
+            }
+
+            alert(`Surgical Split NOT YET IMPLEMENTED.\nWould send pages [${selected.join(', ')}] to OCR API.`);
+        }
+
+        /**
+         * Initialization
+         */
+        if (url) {
+            pdfjsLib.getDocument(url).promise.then(doc => {
+                pdfDoc = doc;
+                document.getElementById('page-count').textContent = doc.numPages;
+                document.getElementById('doc-title').textContent = url.split('/').pop().replace('.pdf', '').replace(/-/g, ' ');
+
+                // Jump to initial page from URL
+                pageNum = initialPage > doc.numPages ? 1 : initialPage;
+                renderPage(pageNum);
+
+                // Load thumbnails if workbench active
+                if (document.body.classList.contains('workbench-active')) {
+                    renderThumbnails();
+                }
+            }).catch(err => {
+                console.error("Error loading PDF:", err);
+                document.getElementById('status-info').textContent = "Load Error";
+            });
+        }
+
+        // Event Listeners
+        document.getElementById('prev-page').addEventListener('click', onPrevPage);
+        document.getElementById('next-page').addEventListener('click', onNextPage);
+        document.getElementById('zoom-in').addEventListener('click', onZoomIn);
+        document.getElementById('zoom-out').addEventListener('click', onZoomOut);
+        document.getElementById('fit-width').addEventListener('click', onFitWidth);
+
+        document.getElementById('page-num-input').addEventListener('change', (e) => {
+            const val = parseInt(e.target.value);
+            if (val > 0 && val <= pdfDoc.numPages) {
+                pageNum = val;
+                queueRenderPage(pageNum);
+            }
+        });
+
+        // Workbench Logic
+        const btnToggleWorkbench = document.getElementById('toggle-workbench');
+        const editorContent = document.getElementById('editor-content');
+        const syncHighlight = document.getElementById('sync-highlight');
+        let ocrData = null;
+        let intelligenceMode = false;
+
+        function toggleWorkbench() {
+            document.body.classList.toggle('workbench-active');
+            const isActive = document.body.classList.contains('workbench-active');
+            btnToggleWorkbench.classList.toggle('active', isActive);
+
+            if (isActive) {
+                if (!ocrData) loadWorkbenchData(url);
+                if (pdfDoc && document.getElementById('thumbnail-list').children.length === 0) {
+                    renderThumbnails();
+                }
+            }
+
+            // Re-render PDF if we changed dimensions significantly
+            setTimeout(() => onFitWidth(), 450);
+        }
+
+        btnToggleWorkbench.addEventListener('click', toggleWorkbench);
+
+        // Intelligence Toggle
+        const btnToggleIntelligence = document.getElementById('toggle-intelligence');
+        btnToggleIntelligence.addEventListener('click', () => {
+            intelligenceMode = !intelligenceMode;
+            btnToggleIntelligence.classList.toggle('active', intelligenceMode);
+            btnToggleIntelligence.style.color = intelligenceMode ? 'var(--primary)' : 'rgba(255,255,255,0.4)';
+            btnToggleIntelligence.style.borderColor = intelligenceMode ? 'var(--primary)' : 'rgba(255,255,255,0.1)';
+            drawIntelligenceLayer();
+        });
+
+        async function loadWorkbenchData(fileUrl) {
+            if (!fileUrl) return;
+            const baseName = fileUrl.split('/').pop().replace('.pdf', '');
+            document.getElementById('workbench-status').textContent = "Loading Forensic Data...";
+
+            try {
+                // 1. Fetch Coordinate Data
+                const response = await fetch(`/api/download/${baseName}.ocr.json`);
+                if (!response.ok) throw new Error("No coordinate data");
+                ocrData = await response.json();
+                renderWorkbenchLines();
+
+                // 2. Fetch Metadata for Ribbon (Forensic Metadata Parser)
+                try {
+                    const metaResponse = await fetch(`/api/download/${baseName}.txt`);
+                    if (metaResponse.ok) {
+                        const text = await metaResponse.text();
+                        // Call parse API (client-side classification demo or real backend call)
+                        const parseResponse = await fetch('/api/parse-header', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ text: text })
+                        });
+                        if (parseResponse.ok) {
+                            const meta = await parseResponse.json();
+                            renderForensicRibbon(meta);
+                        }
+                    }
+                } catch (metaErr) {
+                    console.warn("Metadata population failed:", metaErr);
+                }
+
+            } catch (err) {
+                console.warn("Workbench: Falling back to text-only (No coordinates found)");
+                fetch(`/api/download/${baseName}.txt`)
+                    .then(r => r.ok ? r.text() : "No text available")
+                    .then(text => {
+                        editorContent.innerHTML = `<div class='p-4 opacity-50 text-xs uppercase mb-4 italic'>Mode: Text-Only (Coordinates Unavailable)</div><pre class='whitespace-pre-wrap'>${text}</pre>`;
+                        document.getElementById('workbench-status').textContent = "Manual Review Mode";
+                    });
+            }
+        }
+
+        function renderForensicRibbon(meta) {
+            const ribbon = document.getElementById('forensic-ribbon');
+            const typeBadge = document.getElementById('ribbon-type-badge');
+            const rifEl = document.getElementById('ribbon-rif');
+            const agencyEl = document.getElementById('ribbon-agency');
+            const dateEl = document.getElementById('ribbon-date');
+
+            if (!meta) return;
+
+            // Type & Confidence
+            const type = meta.classified_type || meta.document_type || 'UNKNOWN';
+            const confidence = meta.classification_label || 'low';
+            typeBadge.textContent = type.replace(/_/g, ' ');
+            typeBadge.className = `classification-badge ${confidence.toLowerCase()}`;
+
+            // Fields
+            rifEl.textContent = (typeof meta.rif_number === 'object' ? meta.rif_number.value : meta.rif_number) || '—';
+            agencyEl.textContent = (typeof meta.agency === 'object' ? meta.agency.value : meta.agency) || '—';
+            dateEl.textContent = (meta.date_iso || (typeof meta.date === 'object' ? meta.date.value : meta.date)) || '—';
+
+            ribbon.style.display = 'flex';
+        }
+
+        function drawIntelligenceLayer() {
+            // Remove existing boxes
+            document.querySelectorAll('.intelligence-box').forEach(el => el.remove());
+            if (!intelligenceMode || !ocrData) return;
+
+            const pageData = ocrData.pages.find(p => p.page === currentPageNum);
+            if (!pageData) return;
+
+            // JFK Forensic Context Keywords
+            const entities = [
+                { pattern: /CIA|CENTRAL INTELLIGENCE/i, label: "ORG: CIA" },
+                { pattern: /FBI|FEDERAL BUREAU/i, label: "ORG: FBI" },
+                { pattern: /OSWALD|LEE HARVEY/i, label: "PERSON: OSWALD" },
+                { pattern: /KENNEDY|JFK/i, label: "PERSON: KENNEDY" },
+                { pattern: /DALLAS|TEXAS/i, label: "PLACE: DALLAS" },
+                { pattern: /SECRET SERVICE/i, label: "ORG: SECRET SERVICE" }
+            ];
+
+            const canvas = document.getElementById('pdf-render');
+            if (!canvas) return;
+
+            // Get canvas dimensions and scaling
+            const rect = canvas.getBoundingClientRect();
+            const container = document.getElementById('canvas-container');
+
+            pageData.lines.forEach(line => {
+                entities.forEach(entity => {
+                    if (entity.pattern.test(line.text)) {
+                        const box = document.createElement('div');
+                        box.className = 'intelligence-box';
+
+                        // bbox format assumed [x0, y0, x1, y1] in normalized 0-1000 coordinates
+                        // mapping to canvas coordinate space
+                        const [x0, y0, x1, y1] = line.bbox;
+                        box.style.left = (x0 / 1000 * canvas.width) + 'px';
+                        box.style.top = (y0 / 1000 * canvas.height) + 'px';
+                        box.style.width = ((x1 - x0) / 1000 * canvas.width) + 'px';
+                        box.style.height = ((y1 - y0) / 1000 * canvas.height) + 'px';
+
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'intelligence-tooltip';
+                        tooltip.textContent = entity.label;
+                        box.appendChild(tooltip);
+
+                        container.appendChild(box);
+                    }
+                });
+            });
+        }
+
+        function renderWorkbenchLines() {
+            editorContent.innerHTML = "";
+            ocrData.pages.forEach(pg => {
+                const pageHeader = document.createElement('div');
+                pageHeader.className = "text-[10px] text-primary/40 font-bold uppercase mt-8 mb-4 border-b border-primary/10 pb-1";
+                pageHeader.textContent = `Page ${pg.page}`;
+                editorContent.appendChild(pageHeader);
+
+                pg.lines.forEach(line => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = "ocr-line";
+                    lineDiv.textContent = line.text;
+
+                    lineDiv.addEventListener('click', () => {
+                        scrollToCoordinate(pg.page, line.bbox);
+                        // Highlight active line
+                        document.querySelectorAll('.ocr-line').forEach(l => l.classList.remove('active'));
+                        lineDiv.classList.add('active');
+                    });
+
+                    editorContent.appendChild(lineDiv);
+                });
+            });
+            document.getElementById('workbench-status').textContent = "Ready for Verification";
+        }
+
+        function scrollToCoordinate(page, bbox) {
+            if (pageNum !== page) {
+                pageNum = page;
+                queueRenderPage(pageNum);
+            }
+
+            // Small delay to ensure render is finishing
+            setTimeout(() => {
+                const [x1, y1, x2, y2] = bbox;
+                const container = document.getElementById('viewer-wrapper');
+
+                // OCR coordinates are usually in "pixel" space of the original image
+                // We need to scale them to current canvas scale
+                const pgInfo = ocrData.pages.find(p => p.page === page);
+                const scaleFactor = canvas.width / pgInfo.width;
+
+                const top = y1 * scaleFactor;
+                const left = x1 * scaleFactor;
+                const width = (x2 - x1) * scaleFactor;
+                const height = (y2 - y1) * scaleFactor;
+
+                // Move highlight
+                syncHighlight.style.display = 'block';
+                syncHighlight.style.top = `${top}px`;
+                syncHighlight.style.left = `${left}px`;
+                syncHighlight.style.width = `${width}px`;
+                syncHighlight.style.height = `${height}px`;
+
+                // Scroll into view
+                container.scrollTo({
+                    top: top - 150,
+                    behavior: 'smooth'
+                });
+            }, 150);
+        }
+
+        // Check for initial workbench mode
+        if (params.get('mode') === 'workbench') {
+            toggleWorkbench();
+        }
+
+        function saveExtraction() {
+            alert("Commit to database not yet implemented. This will be Phase 4.");
+        }
+
+        // Keyboard Support
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') onNextPage();
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') onPrevPage();
+            if (e.key === '+' || (e.key === '=' && e.ctrlKey)) onZoomIn();
+            if (e.key === '-' && e.ctrlKey) onZoomOut();
+            if (e.key === 'w' && e.ctrlKey) {
+                e.preventDefault();
+                toggleWorkbench();
+            }
+        });
+    </script>
+</body>
+
+</html>

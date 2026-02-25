@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "mission-statement",
+    "title": "Our Mission: Preserving History Through Digital Archives",
+    "excerpt": "Why we're building a comprehensive digital archive of primary source documents and what makes this project different.",
+    "category": "About",
+    "date": "2026-02-24",
+    "author": "Primary Sources Team",
+    "featured": true,
+    "hero_image": "",
+    "tags": ["mission", "about", "vision"],
+    "content": [
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Archive Vision"
+      },
+      {
+        "type": "text",
+        "content": "Primary Sources exists to make historical documents accessible, understandable, and interconnected. We believe that primary source materials—the original documents, testimonies, photographs, and records—are essential for understanding complex historical events."
+      },
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "What Makes Us Different",
+        "content": "Unlike traditional archives, we connect documents across collections, build contextual relationships between events and people, and present information through multiple entry points—whether you're researching a specific person, event, or document."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Core Principles"
+      },
+      {
+        "type": "quote",
+        "content": "Documents don't speak for themselves. Context, relationships, and careful presentation transform raw materials into accessible knowledge.",
+        "author": "Archive Philosophy"
+      },
+      {
+        "type": "text",
+        "content": "Our work is guided by three core principles that shape every design decision and feature we build:"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Accessibility First — Complex historical materials should be approachable for researchers at all levels",
+          "Context Matters — Documents need surrounding information to be properly understood",
+          "Connections Reveal Truth — Linking people, events, and documents exposes patterns and relationships",
+          "Source Integrity — We preserve and present original documents without alteration",
+          "Progressive Disclosure — Information should be layered from overview to deep detail"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "What We're Building"
+      },
+      {
+        "type": "text",
+        "content": "The archive combines traditional archival practices with modern web technology. Our component-based architecture allows us to present the same information through multiple views—event timelines, person profiles, document collections—while maintaining consistency and accuracy."
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Technical Approach",
+        "content": "We use modular component design patterns that make templates reusable and portable. Every template works as standalone HTML first, then migrates cleanly to modern frameworks like Next.js when needed."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Road Ahead"
+      },
+      {
+        "type": "text",
+        "content": "This project is iterative by design. We build features incrementally, test with real data, and refine based on how well they serve researchers. The blog you're reading now follows the same pattern—designed to be simple, replicable, and easy to port to future platforms."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Expand document collection with systematic scanning",
+          "Build relationship mapping tools between events and people",
+          "Integrate timeline visualizations for complex sequences",
+          "Create search and discovery features for cross-collection research",
+          "Develop citation tools for academic use"
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "success",
+        "title": "Join the Journey",
+        "content": "This archive is a long-term commitment to preserving and presenting history accurately. Follow our development blog for updates on new features, document collections, and technical milestones."
+      }
+    ],
+    "related": ["welcome-to-development", "design-philosophy"]
+  },
+  {
+    "slug": "welcome-to-development",
+    "title": "Development Blog Launch",
+    "excerpt": "Introducing the Primary Sources development blog—a space for project updates, technical insights, and research progress.",
+    "category": "Updates",
+    "date": "2026-02-23",
+    "author": "Development Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["announcement", "blog", "updates"],
+    "content": [
+      {
+        "type": "text",
+        "content": "Welcome to the Primary Sources development blog. This space will document our journey building a comprehensive digital archive of historical materials."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "What You'll Find Here"
+      },
+      {
+        "type": "text",
+        "content": "We'll be sharing regular updates across several categories:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Development updates on new features and technical improvements",
+          "Research insights from working with archival materials",
+          "Design decisions explaining our approach to presenting complex information",
+          "Project milestones and progress reports"
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Subscribe for Updates",
+        "content": "Follow along as we build tools for researchers, historians, and anyone interested in exploring primary source documents through modern interfaces."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Built for Portability"
+      },
+      {
+        "type": "text",
+        "content": "This blog itself demonstrates our technical philosophy. The modular content block system you're reading right now is designed to work as static HTML today and migrate seamlessly to Next.js and MDX tomorrow."
+      },
+      {
+        "type": "quote",
+        "content": "Good architecture makes future migrations easy, not impossible.",
+        "author": "Project Principle"
+      }
+    ],
+    "related": ["mission-statement", "design-philosophy"]
+  },
+  {
+    "slug": "design-philosophy",
+    "title": "Design Philosophy: Archival Aesthetic Meets Modern Web",
+    "excerpt": "How we balance the gravitas of archival materials with the usability expectations of modern web interfaces.",
+    "category": "Development",
+    "date": "2026-02-22",
+    "author": "Design Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["design", "architecture", "ui"],
+    "content": [
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Challenge"
+      },
+      {
+        "type": "text",
+        "content": "Presenting historical documents requires balancing two competing needs: the weight and seriousness of archival materials, and the clarity and usability modern web users expect."
+      },
+      {
+        "type": "callout",
+        "variant": "warning",
+        "title": "Design Tension",
+        "content": "Too academic and you lose general audiences. Too casual and you diminish the gravity of the materials. The sweet spot is 'accessible authority.'"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Our Approach"
+      },
+      {
+        "type": "text",
+        "content": "We developed what we call the 'archival aesthetic'—a design language that honors the seriousness of historical materials while maintaining modern usability standards."
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Muted color palette with strategic accent colors",
+          "Archive card layouts that reference physical archive boxes",
+          "Uppercase typography for headers suggesting official documents",
+          "Border-left accents creating visual hierarchy",
+          "Grayscale imagery with hover color for engagement",
+          "Monospace fonts referencing typewritten documents"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "content": "Component Architecture"
+      },
+      {
+        "type": "text",
+        "content": "Every template uses a component card library system. Cards appear only when relevant data exists, automatically expand based on content density, and maintain consistent styling across person profiles, event timelines, and document collections."
+      },
+      {
+        "type": "quote",
+        "content": "Design systems succeed when they're flexible enough to handle edge cases but consistent enough to feel unified.",
+        "author": "Design Principle"
+      },
+      {
+        "type": "callout",
+        "variant": "success",
+        "title": "Result",
+        "content": "The system works for comprehensive profiles with dozens of data points and simple entries with just basic information. Progressive disclosure through accordions lets users dive as deep as they want."
+      }
+    ],
+    "related": ["mission-statement", "component-library-explained"]
+  },
+  {
+    "slug": "component-library-explained",
+    "title": "Building a Universal Component Card Library",
+    "excerpt": "Deep dive into our reusable card system that powers person profiles, event timelines, and now blog posts.",
+    "category": "Development",
+    "date": "2026-02-21",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["technical", "components", "architecture"],
+    "content": [
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem"
+      },
+      {
+        "type": "text",
+        "content": "Early prototypes had separate HTML templates for each type of content—person profiles, events, documents. This led to design drift, duplicated code, and maintenance nightmares."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution"
+      },
+      {
+        "type": "text",
+        "content": "We built a universal component card library. Each card type is defined once with clear responsibilities:"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Card Registry — Centralized configuration mapping card IDs to behavior",
+          "Show Logic — Each card defines when it should appear based on data",
+          "Auto-Expand Rules — Cards can auto-expand based on content density",
+          "Populate Functions — Modular rendering functions for each card type"
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Code Example",
+        "content": "A card registry entry defines everything: icon, title, data field, visibility condition, and render function. The template evaluates these rules dynamically."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Real-World Benefits"
+      },
+      {
+        "type": "text",
+        "content": "This architecture solved multiple problems simultaneously:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Works for comprehensive datasets AND minimal entries",
+          "Empty states handle gracefully (no cards shown if no data)",
+          "Adding new card types requires one registry entry",
+          "Design changes propagate automatically across all templates",
+          "Migration to frameworks like Next.js is straightforward"
+        ]
+      },
+      {
+        "type": "quote",
+        "content": "The best architecture makes the common case trivial and the complex case possible.",
+        "author": "Engineering Philosophy"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Next Steps"
+      },
+      {
+        "type": "text",
+        "content": "We're applying this same pattern to the blog system you're reading right now. Content blocks work like cards—modular, reusable, and defined once. This makes adding new block types (like video embeds or interactive timelines) as simple as adding a new renderer function."
+      }
+    ],
+    "related": ["design-philosophy", "mission-statement"]
+  }
+]

@@ -33,30 +33,12 @@
         }
     </script>
     <style>
-        :root {
-            --primary: #B08B49;
-            --primary-light: #c9a15e;
-            --archive-bg: #2E282A;
-            --archive-surface: #252021;
-            --archive-secondary: #D4CFC7;
-            --archive-heading: #F0EDE0;
-            --archive-dark: #1A1718;
-        }
-        body {
-            font-family: 'Roboto Mono', monospace;
-            background-color: var(--archive-bg);
-            color: var(--archive-secondary);
-        }
-        h1, h2, h3 {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            color: var(--archive-heading);
-        }
+        /* Page-specific styles (global styles from main.css) */
         .correct { background-color: rgba(34, 197, 94, 0.12) !important; border-color: #22c55e !important; }
         .incorrect { background-color: rgba(239, 68, 68, 0.12) !important; border-color: #ef4444 !important; }
         .pending { background-color: var(--archive-surface) !important; border-color: rgba(176, 139, 73, 0.4) !important; }
         pre { white-space: pre-wrap; word-wrap: break-word; font-size: 11px; }
-        .card { background-color: var(--archive-surface); border-color: rgba(176, 139, 73, 0.3); }
+        .card { background-color: var(--archive-surface); border-color: rgba(176, 139, 73, 0.3); overflow: hidden; }
         .card.hidden { display: none; }
         .pdf-canvas { max-height: 500px; width: auto; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .pdf-canvas:hover { border-color: var(--primary); }
@@ -269,7 +251,7 @@
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-2xl font-bold mb-2">Document Classification Review</h1>
-            <p class="text-sm opacity-60">yates-searchable.pdf &bull; 43 pages &bull; Generated 2026-02-25 01:24</p>
+            <p class="text-sm opacity-60">yates-searchable.pdf &bull; 43 pages &bull; Generated 2026-02-25 01:41</p>
         </div>
         
         <!-- Summary Stats -->
@@ -327,7 +309,7 @@
             <div id="page-1" class="card border p-4 pending" data-page="1" data-page-index="0" data-predicted="FBI_302" data-confidence="0.454" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-0" class="pdf-canvas" onclick="showModalPage(0)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -335,7 +317,7 @@
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 1</span>
@@ -375,18 +357,18 @@
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-1" onchange="applyNotePreset(1)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-1" onchange="applyNotePreset(1)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-1" placeholder="Custom note..." onchange="saveNote(1)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-1" placeholder="Custom note..." onchange="saveNote(1)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -445,7 +427,7 @@ and he had stopped and pickieg</pre>
             <div id="page-2" class="card border p-4 pending" data-page="2" data-page-index="1" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.25" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-1" class="pdf-canvas" onclick="showModalPage(1)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -453,7 +435,7 @@ and he had stopped and pickieg</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 2</span>
@@ -493,18 +475,18 @@ and he had stopped and pickieg</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-2" onchange="applyNotePreset(2)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-2" onchange="applyNotePreset(2)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-2" placeholder="Custom note..." onchange="saveNote(2)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-2" placeholder="Custom note..." onchange="saveNote(2)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -552,7 +534,7 @@ YATES said that the man then a</pre>
             <div id="page-3" class="card border p-4 pending" data-page="3" data-page-index="2" data-predicted="FBI_302" data-confidence="0.176" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-2" class="pdf-canvas" onclick="showModalPage(2)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -560,7 +542,7 @@ YATES said that the man then a</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 3</span>
@@ -600,18 +582,18 @@ YATES said that the man then a</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-3" onchange="applyNotePreset(3)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-3" onchange="applyNotePreset(3)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-3" placeholder="Custom note..." onchange="saveNote(3)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-3" placeholder="Custom note..." onchange="saveNote(3)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -637,7 +619,7 @@ from the fact he was furnishing this information.
             <div id="page-4" class="card border p-4 pending" data-page="4" data-page-index="3" data-predicted="FBI_302" data-confidence="0.478" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION", "FD-302"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-3" class="pdf-canvas" onclick="showModalPage(3)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -645,7 +627,7 @@ from the fact he was furnishing this information.
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 4</span>
@@ -685,18 +667,18 @@ from the fact he was furnishing this information.
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-4" onchange="applyNotePreset(4)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-4" onchange="applyNotePreset(4)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-4" placeholder="Custom note..." onchange="saveNote(4)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-4" placeholder="Custom note..." onchange="saveNote(4)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -739,7 +721,7 @@ boy in Oak Cli</pre>
             <div id="page-5" class="card border p-4 pending" data-page="5" data-page-index="4" data-predicted="FBI_302" data-confidence="0.176" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-4" class="pdf-canvas" onclick="showModalPage(4)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -747,7 +729,7 @@ boy in Oak Cli</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 5</span>
@@ -787,18 +769,18 @@ boy in Oak Cli</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-5" onchange="applyNotePreset(5)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-5" onchange="applyNotePreset(5)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-5" placeholder="Custom note..." onchange="saveNote(5)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-5" placeholder="Custom note..." onchange="saveNote(5)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -821,7 +803,7 @@ Af /</pre>
             <div id="page-6" class="card border p-4 pending" data-page="6" data-page-index="5" data-predicted="FBI_302" data-confidence="0.506" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-5" class="pdf-canvas" onclick="showModalPage(5)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -829,7 +811,7 @@ Af /</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 6</span>
@@ -869,18 +851,18 @@ Af /</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-6" onchange="applyNotePreset(6)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-6" onchange="applyNotePreset(6)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-6" placeholder="Custom note..." onchange="saveNote(6)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-6" placeholder="Custom note..." onchange="saveNote(6)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -936,7 +918,7 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
             <div id="page-7" class="card border p-4 pending" data-page="7" data-page-index="6" data-predicted="NO_TEXT" data-confidence="0" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-6" class="pdf-canvas" onclick="showModalPage(6)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -944,7 +926,7 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 7</span>
@@ -980,18 +962,18 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-7" onchange="applyNotePreset(7)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-7" onchange="applyNotePreset(7)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-7" placeholder="Custom note..." onchange="saveNote(7)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-7" placeholder="Custom note..." onchange="saveNote(7)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1006,7 +988,7 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
             <div id="page-8" class="card border p-4 pending" data-page="8" data-page-index="7" data-predicted="WITNESS_STATEMENT" data-confidence="0.363" data-highlights='["STATEMENT OF", "SIGNED STATEMENT", "make the following statement"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-7" class="pdf-canvas" onclick="showModalPage(7)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1014,7 +996,7 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 8</span>
@@ -1054,18 +1036,18 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-8" onchange="applyNotePreset(8)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-8" onchange="applyNotePreset(8)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-8" placeholder="Custom note..." onchange="saveNote(8)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-8" placeholder="Custom note..." onchange="saveNote(8)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1134,7 +1116,7 @@ a csurt of Law.
             <div id="page-9" class="card border p-4 pending" data-page="9" data-page-index="8" data-predicted="FBI_302" data-confidence="0.176" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-8" class="pdf-canvas" onclick="showModalPage(8)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1142,7 +1124,7 @@ a csurt of Law.
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 9</span>
@@ -1182,18 +1164,18 @@ a csurt of Law.
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-9" onchange="applyNotePreset(9)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-9" onchange="applyNotePreset(9)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-9" placeholder="Custom note..." onchange="saveNote(9)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-9" placeholder="Custom note..." onchange="saveNote(9)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1285,7 +1267,7 @@ a lot of excitement in Dallas soo</pre>
             <div id="page-10" class="card border p-4 pending" data-page="10" data-page-index="9" data-predicted="HSCA_REPORT" data-confidence="0.601" data-highlights='["the committee", "the assassination", "President Kennedy", "Lee Harvey Oswald"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-9" class="pdf-canvas" onclick="showModalPage(9)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1293,7 +1275,7 @@ a lot of excitement in Dallas soo</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 10</span>
@@ -1331,18 +1313,18 @@ a lot of excitement in Dallas soo</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-10" onchange="applyNotePreset(10)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-10" onchange="applyNotePreset(10)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-10" placeholder="Custom note..." onchange="saveNote(10)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-10" placeholder="Custom note..." onchange="saveNote(10)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1416,7 +1398,7 @@ turned lef</pre>
             <div id="page-11" class="card border p-4 pending" data-page="11" data-page-index="10" data-predicted="MEDICAL_RECORD" data-confidence="0.326" data-highlights='["HOSPITAL|CLINIC", "WARD|PATIENT|PHYSICIAN", "Nurse|Doctor"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-10" class="pdf-canvas" onclick="showModalPage(10)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1424,7 +1406,7 @@ turned lef</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 11</span>
@@ -1465,18 +1447,18 @@ OMA</span><span class="mr-3"><b>File#:</b> DL 100-10461</span>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-11" onchange="applyNotePreset(11)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-11" onchange="applyNotePreset(11)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-11" placeholder="Custom note..." onchange="saveNote(11)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-11" placeholder="Custom note..." onchange="saveNote(11)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1560,7 +1542,7 @@ he got out of the servide he learned that he h</pre>
             <div id="page-12" class="card border p-4 pending" data-page="12" data-page-index="11" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.143" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-11" class="pdf-canvas" onclick="showModalPage(11)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1568,7 +1550,7 @@ he got out of the servide he learned that he h</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 12</span>
@@ -1608,18 +1590,18 @@ he got out of the servide he learned that he h</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-12" onchange="applyNotePreset(12)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-12" onchange="applyNotePreset(12)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-12" placeholder="Custom note..." onchange="saveNote(12)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-12" placeholder="Custom note..." onchange="saveNote(12)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1701,7 +1683,7 @@ E&gt;</pre>
             <div id="page-13" class="card border p-4 pending" data-page="13" data-page-index="12" data-predicted="FBI_302" data-confidence="0.427" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION", "was interviewed", "Special Agent"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-12" class="pdf-canvas" onclick="showModalPage(12)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1709,7 +1691,7 @@ E&gt;</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 13</span>
@@ -1747,18 +1729,18 @@ E&gt;</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-13" onchange="applyNotePreset(13)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-13" onchange="applyNotePreset(13)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-13" placeholder="Custom note..." onchange="saveNote(13)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-13" placeholder="Custom note..." onchange="saveNote(13)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1790,7 +1772,7 @@ uw
             <div id="page-14" class="card border p-4 pending" data-page="14" data-page-index="13" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.655" data-highlights='["handwritten", "rough notes"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-13" class="pdf-canvas" onclick="showModalPage(13)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1798,7 +1780,7 @@ uw
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 14</span>
@@ -1838,18 +1820,18 @@ uw
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-14" onchange="applyNotePreset(14)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-14" onchange="applyNotePreset(14)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-14" placeholder="Custom note..." onchange="saveNote(14)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-14" placeholder="Custom note..." onchange="saveNote(14)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1937,7 +1919,7 @@ REINTERVIEN YAT</pre>
             <div id="page-15" class="card border p-4 pending" data-page="15" data-page-index="14" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.464" data-highlights='["scribble|notes|handwritten"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-14" class="pdf-canvas" onclick="showModalPage(14)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -1945,7 +1927,7 @@ REINTERVIEN YAT</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 15</span>
@@ -1985,18 +1967,18 @@ REINTERVIEN YAT</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-15" onchange="applyNotePreset(15)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-15" onchange="applyNotePreset(15)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-15" placeholder="Custom note..." onchange="saveNote(15)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-15" placeholder="Custom note..." onchange="saveNote(15)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2084,7 +2066,7 @@ During:....%.
             <div id="page-16" class="card border p-4 pending" data-page="16" data-page-index="15" data-predicted="FBI_302" data-confidence="0.596" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION", "FD-302", "was interviewed"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-15" class="pdf-canvas" onclick="showModalPage(15)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2092,7 +2074,7 @@ During:....%.
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 16</span>
@@ -2132,18 +2114,18 @@ During:....%.
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-16" onchange="applyNotePreset(16)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-16" onchange="applyNotePreset(16)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-16" placeholder="Custom note..." onchange="saveNote(16)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-16" placeholder="Custom note..." onchange="saveNote(16)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2214,7 +2196,7 @@ YATES advi</pre>
             <div id="page-17" class="card border p-4 pending" data-page="17" data-page-index="16" data-predicted="FBI_302" data-confidence="0.461" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION", "FD-302"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-16" class="pdf-canvas" onclick="showModalPage(16)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2222,7 +2204,7 @@ YATES advi</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 17</span>
@@ -2264,18 +2246,18 @@ YATES advi</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-17" onchange="applyNotePreset(17)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-17" onchange="applyNotePreset(17)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-17" placeholder="Custom note..." onchange="saveNote(17)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-17" placeholder="Custom note..." onchange="saveNote(17)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2334,7 +2316,7 @@ check was issued to TBSC on or about November 20 or 21, 1963,</pre>
             <div id="page-18" class="card border p-4 pending" data-page="18" data-page-index="17" data-predicted="FBI_302" data-confidence="0.478" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION", "FD-302", "Special Agent"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-17" class="pdf-canvas" onclick="showModalPage(17)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2342,7 +2324,7 @@ check was issued to TBSC on or about November 20 or 21, 1963,</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 18</span>
@@ -2382,18 +2364,18 @@ check was issued to TBSC on or about November 20 or 21, 1963,</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-18" onchange="applyNotePreset(18)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-18" onchange="applyNotePreset(18)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-18" placeholder="Custom note..." onchange="saveNote(18)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-18" placeholder="Custom note..." onchange="saveNote(18)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2498,7 +2480,7 @@ wa 1-364</pre>
             <div id="page-19" class="card border p-4 pending" data-page="19" data-page-index="18" data-predicted="HSCA_REPORT" data-confidence="0.34" data-highlights='["the assassination", "Lee Harvey Oswald"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-18" class="pdf-canvas" onclick="showModalPage(18)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2506,7 +2488,7 @@ wa 1-364</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 19</span>
@@ -2546,18 +2528,18 @@ wa 1-364</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-19" onchange="applyNotePreset(19)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-19" onchange="applyNotePreset(19)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-19" placeholder="Custom note..." onchange="saveNote(19)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-19" placeholder="Custom note..." onchange="saveNote(19)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2621,7 +2603,7 @@ te eles alt RCE
             <div id="page-20" class="card border p-4 pending" data-page="20" data-page-index="19" data-predicted="WITNESS_STATEMENT" data-confidence="0.45" data-highlights='["STATEMENT OF", "SIGNED STATEMENT", "make the following statement"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-19" class="pdf-canvas" onclick="showModalPage(19)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2629,7 +2611,7 @@ te eles alt RCE
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 20</span>
@@ -2669,18 +2651,18 @@ te eles alt RCE
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-20" onchange="applyNotePreset(20)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-20" onchange="applyNotePreset(20)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-20" placeholder="Custom note..." onchange="saveNote(20)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-20" placeholder="Custom note..." onchange="saveNote(20)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2727,7 +2709,7 @@ this statement and SA DE BRUEYS has read it t</pre>
             <div id="page-21" class="card border p-4 pending" data-page="21" data-page-index="20" data-predicted="WITNESS_STATEMENT" data-confidence="0.383" data-highlights='["STATEMENT OF", "SIGNED STATEMENT", "statement is true and correct"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-20" class="pdf-canvas" onclick="showModalPage(20)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2735,7 +2717,7 @@ this statement and SA DE BRUEYS has read it t</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 21</span>
@@ -2775,18 +2757,18 @@ this statement and SA DE BRUEYS has read it t</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-21" onchange="applyNotePreset(21)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-21" onchange="applyNotePreset(21)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-21" placeholder="Custom note..." onchange="saveNote(21)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-21" placeholder="Custom note..." onchange="saveNote(21)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2830,7 +2812,7 @@ I have read this statement</pre>
             <div id="page-22" class="card border p-4 pending" data-page="22" data-page-index="21" data-predicted="UNKNOWN" data-confidence="0.0" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-21" class="pdf-canvas" onclick="showModalPage(21)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2838,7 +2820,7 @@ I have read this statement</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 22</span>
@@ -2874,18 +2856,18 @@ I have read this statement</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-22" onchange="applyNotePreset(22)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-22" onchange="applyNotePreset(22)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-22" placeholder="Custom note..." onchange="saveNote(22)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-22" placeholder="Custom note..." onchange="saveNote(22)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2901,7 +2883,7 @@ Osh)</pre>
             <div id="page-23" class="card border p-4 pending" data-page="23" data-page-index="22" data-predicted="UNKNOWN" data-confidence="0.0" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-22" class="pdf-canvas" onclick="showModalPage(22)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2909,7 +2891,7 @@ Osh)</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 23</span>
@@ -2945,18 +2927,18 @@ Osh)</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-23" onchange="applyNotePreset(23)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-23" onchange="applyNotePreset(23)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-23" placeholder="Custom note..." onchange="saveNote(23)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-23" placeholder="Custom note..." onchange="saveNote(23)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2973,7 +2955,7 @@ b¢
             <div id="page-24" class="card border p-4 pending" data-page="24" data-page-index="23" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.25" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-23" class="pdf-canvas" onclick="showModalPage(23)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -2981,7 +2963,7 @@ b¢
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 24</span>
@@ -3017,18 +2999,18 @@ b¢
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-24" onchange="applyNotePreset(24)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-24" onchange="applyNotePreset(24)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-24" placeholder="Custom note..." onchange="saveNote(24)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-24" placeholder="Custom note..." onchange="saveNote(24)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3099,7 +3081,7 @@ eer
             <div id="page-25" class="card border p-4 pending" data-page="25" data-page-index="24" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.143" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-24" class="pdf-canvas" onclick="showModalPage(24)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3107,7 +3089,7 @@ eer
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 25</span>
@@ -3143,18 +3125,18 @@ eer
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-25" onchange="applyNotePreset(25)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-25" onchange="applyNotePreset(25)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-25" placeholder="Custom note..." onchange="saveNote(25)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-25" placeholder="Custom note..." onchange="saveNote(25)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3202,7 +3184,7 @@ os
             <div id="page-26" class="card border p-4 pending" data-page="26" data-page-index="25" data-predicted="UNKNOWN" data-confidence="0.0" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-25" class="pdf-canvas" onclick="showModalPage(25)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3210,7 +3192,7 @@ os
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 26</span>
@@ -3246,18 +3228,18 @@ os
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-26" onchange="applyNotePreset(26)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-26" onchange="applyNotePreset(26)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-26" placeholder="Custom note..." onchange="saveNote(26)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-26" placeholder="Custom note..." onchange="saveNote(26)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3273,7 +3255,7 @@ os
             <div id="page-27" class="card border p-4 pending" data-page="27" data-page-index="26" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.25" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-26" class="pdf-canvas" onclick="showModalPage(26)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3281,7 +3263,7 @@ os
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 27</span>
@@ -3317,18 +3299,18 @@ os
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-27" onchange="applyNotePreset(27)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-27" onchange="applyNotePreset(27)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-27" placeholder="Custom note..." onchange="saveNote(27)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-27" placeholder="Custom note..." onchange="saveNote(27)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3414,7 +3396,7 @@ Ae</pre>
             <div id="page-28" class="card border p-4 pending" data-page="28" data-page-index="27" data-predicted="NO_TEXT" data-confidence="0" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-27" class="pdf-canvas" onclick="showModalPage(27)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3422,7 +3404,7 @@ Ae</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 28</span>
@@ -3458,18 +3440,18 @@ Ae</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-28" onchange="applyNotePreset(28)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-28" onchange="applyNotePreset(28)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-28" placeholder="Custom note..." onchange="saveNote(28)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-28" placeholder="Custom note..." onchange="saveNote(28)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3484,7 +3466,7 @@ Ae</pre>
             <div id="page-29" class="card border p-4 pending" data-page="29" data-page-index="28" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.143" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-28" class="pdf-canvas" onclick="showModalPage(28)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3492,7 +3474,7 @@ Ae</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 29</span>
@@ -3528,18 +3510,18 @@ Ae</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-29" onchange="applyNotePreset(29)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-29" onchange="applyNotePreset(29)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-29" placeholder="Custom note..." onchange="saveNote(29)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-29" placeholder="Custom note..." onchange="saveNote(29)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3586,7 +3568,7 @@ hwy bo dla</pre>
             <div id="page-30" class="card border p-4 pending" data-page="30" data-page-index="29" data-predicted="FBI_302" data-confidence="0.321" data-highlights='["FEDERAL BUREAU OF INVESTIGATION"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-29" class="pdf-canvas" onclick="showModalPage(29)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3594,7 +3576,7 @@ hwy bo dla</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 30</span>
@@ -3634,18 +3616,18 @@ hwy bo dla</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-30" onchange="applyNotePreset(30)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-30" onchange="applyNotePreset(30)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-30" placeholder="Custom note..." onchange="saveNote(30)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-30" placeholder="Custom note..." onchange="saveNote(30)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3769,7 +3751,7 @@ z
             <div id="page-31" class="card border p-4 pending" data-page="31" data-page-index="30" data-predicted="FBI_REPORT" data-confidence="0.589" data-highlights='["TELETYPE", "DIRECTOR FBI", "SAC DALLAS", "Bureau file"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-30" class="pdf-canvas" onclick="showModalPage(30)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3777,7 +3759,7 @@ z
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 31</span>
@@ -3818,18 +3800,18 @@ RAY HALL</span>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-31" onchange="applyNotePreset(31)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-31" onchange="applyNotePreset(31)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-31" placeholder="Custom note..." onchange="saveNote(31)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-31" placeholder="Custom note..." onchange="saveNote(31)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3921,7 +3903,7 @@ xpressway</pre>
             <div id="page-32" class="card border p-4 pending" data-page="32" data-page-index="31" data-predicted="FBI_302" data-confidence="0.213" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-31" class="pdf-canvas" onclick="showModalPage(31)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -3929,7 +3911,7 @@ xpressway</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 32</span>
@@ -3969,18 +3951,18 @@ xpressway</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-32" onchange="applyNotePreset(32)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-32" onchange="applyNotePreset(32)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-32" placeholder="Custom note..." onchange="saveNote(32)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-32" placeholder="Custom note..." onchange="saveNote(32)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4037,7 +4019,7 @@ a
             <div id="page-33" class="card border p-4 pending" data-page="33" data-page-index="32" data-predicted="MEDICAL_RECORD" data-confidence="0.442" data-highlights='["HOSPITAL|CLINIC", "WARD|PATIENT|PHYSICIAN", "DIAGNOSIS|TREATMENT", "Nurse|Doctor"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-32" class="pdf-canvas" onclick="showModalPage(32)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4045,7 +4027,7 @@ a
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 33</span>
@@ -4085,18 +4067,18 @@ a
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-33" onchange="applyNotePreset(33)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-33" onchange="applyNotePreset(33)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-33" placeholder="Custom note..." onchange="saveNote(33)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-33" placeholder="Custom note..." onchange="saveNote(33)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4142,7 +4124,7 @@ He said that</pre>
             <div id="page-34" class="card border p-4 pending" data-page="34" data-page-index="33" data-predicted="FBI_302" data-confidence="0.213" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-33" class="pdf-canvas" onclick="showModalPage(33)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4150,7 +4132,7 @@ He said that</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 34</span>
@@ -4190,18 +4172,18 @@ He said that</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-34" onchange="applyNotePreset(34)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-34" onchange="applyNotePreset(34)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-34" placeholder="Custom note..." onchange="saveNote(34)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-34" placeholder="Custom note..." onchange="saveNote(34)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4231,7 +4213,7 @@ Q</pre>
             <div id="page-35" class="card border p-4 pending" data-page="35" data-page-index="34" data-predicted="HSCA_REPORT" data-confidence="0.523" data-highlights='["the assassination", "President Kennedy", "Lee Harvey Oswald"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-34" class="pdf-canvas" onclick="showModalPage(34)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4239,7 +4221,7 @@ Q</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 35</span>
@@ -4279,18 +4261,18 @@ Q</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-35" onchange="applyNotePreset(35)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-35" onchange="applyNotePreset(35)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-35" placeholder="Custom note..." onchange="saveNote(35)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-35" placeholder="Custom note..." onchange="saveNote(35)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4328,7 +4310,7 @@ husband was abandoned by his mother when he</pre>
             <div id="page-36" class="card border p-4 pending" data-page="36" data-page-index="35" data-predicted="FBI_302" data-confidence="0.506" data-highlights='["FEDERAL BUREAU OF INVESTIGATION", "FEDERAL BUREAU OF INVESTIGATION"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-35" class="pdf-canvas" onclick="showModalPage(35)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4336,7 +4318,7 @@ husband was abandoned by his mother when he</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 36</span>
@@ -4376,18 +4358,18 @@ husband was abandoned by his mother when he</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-36" onchange="applyNotePreset(36)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-36" onchange="applyNotePreset(36)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-36" placeholder="Custom note..." onchange="saveNote(36)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-36" placeholder="Custom note..." onchange="saveNote(36)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4429,7 +4411,7 @@ all his tho</pre>
             <div id="page-37" class="card border p-4 pending" data-page="37" data-page-index="36" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.327" data-highlights='["rough notes"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-36" class="pdf-canvas" onclick="showModalPage(36)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4437,7 +4419,7 @@ all his tho</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 37</span>
@@ -4477,18 +4459,18 @@ all his tho</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-37" onchange="applyNotePreset(37)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-37" onchange="applyNotePreset(37)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-37" placeholder="Custom note..." onchange="saveNote(37)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-37" placeholder="Custom note..." onchange="saveNote(37)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4543,7 +4525,7 @@ tell the (truth) but they didnt belive</pre>
             <div id="page-38" class="card border p-4 pending" data-page="38" data-page-index="37" data-predicted="MEDICAL_RECORD" data-confidence="0.14" data-highlights='["HOSPITAL|CLINIC"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-37" class="pdf-canvas" onclick="showModalPage(37)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4551,7 +4533,7 @@ tell the (truth) but they didnt belive</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 38</span>
@@ -4591,18 +4573,18 @@ tell the (truth) but they didnt belive</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-38" onchange="applyNotePreset(38)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-38" onchange="applyNotePreset(38)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-38" placeholder="Custom note..." onchange="saveNote(38)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-38" placeholder="Custom note..." onchange="saveNote(38)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4642,7 +4624,7 @@ But are so wrapt up in there bussin</pre>
             <div id="page-39" class="card border p-4 pending" data-page="39" data-page-index="38" data-predicted="HANDWRITTEN_NOTES" data-confidence="0.25" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-38" class="pdf-canvas" onclick="showModalPage(38)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4650,7 +4632,7 @@ But are so wrapt up in there bussin</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 39</span>
@@ -4688,18 +4670,18 @@ But are so wrapt up in there bussin</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-39" onchange="applyNotePreset(39)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-39" onchange="applyNotePreset(39)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-39" placeholder="Custom note..." onchange="saveNote(39)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-39" placeholder="Custom note..." onchange="saveNote(39)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4750,7 +4732,7 @@ out stick</pre>
             <div id="page-40" class="card border p-4 pending" data-page="40" data-page-index="39" data-predicted="BLANK" data-confidence="0.304" data-highlights='[]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-39" class="pdf-canvas" onclick="showModalPage(39)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4758,7 +4740,7 @@ out stick</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 40</span>
@@ -4798,18 +4780,18 @@ out stick</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-40" onchange="applyNotePreset(40)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-40" onchange="applyNotePreset(40)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-40" placeholder="Custom note..." onchange="saveNote(40)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-40" placeholder="Custom note..." onchange="saveNote(40)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4881,7 +4863,7 @@ D L Jones
             <div id="page-41" class="card border p-4 pending" data-page="41" data-page-index="40" data-predicted="FBI_302" data-confidence="0.203" data-highlights='["FEDERAL BUREAU OF INVESTIGATION"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-40" class="pdf-canvas" onclick="showModalPage(40)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -4889,7 +4871,7 @@ D L Jones
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 41</span>
@@ -4929,18 +4911,18 @@ D L Jones
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-41" onchange="applyNotePreset(41)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-41" onchange="applyNotePreset(41)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-41" placeholder="Custom note..." onchange="saveNote(41)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-41" placeholder="Custom note..." onchange="saveNote(41)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4995,7 +4977,7 @@ Q r</pre>
             <div id="page-42" class="card border p-4 pending" data-page="42" data-page-index="41" data-predicted="MEDICAL_RECORD" data-confidence="0.605" data-highlights='["HOSPITAL|CLINIC", "PSYCHIATRIC|PSYCHOLOGICAL", "WARD|PATIENT|PHYSICIAN", "DIAGNOSIS|TREATMENT", "Nurse|Doctor"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-41" class="pdf-canvas" onclick="showModalPage(41)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -5003,7 +4985,7 @@ Q r</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 42</span>
@@ -5043,18 +5025,18 @@ Q r</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-42" onchange="applyNotePreset(42)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-42" onchange="applyNotePreset(42)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-42" placeholder="Custom note..." onchange="saveNote(42)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-42" placeholder="Custom note..." onchange="saveNote(42)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -5129,7 +5111,7 @@ H i)</pre>
             <div id="page-43" class="card border p-4 pending" data-page="43" data-page-index="42" data-predicted="MEDICAL_RECORD" data-confidence="0.535" data-highlights='["HOSPITAL|CLINIC", "PSYCHIATRIC|PSYCHOLOGICAL", "WARD|PATIENT|PHYSICIAN", "DIAGNOSIS|TREATMENT"]'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         <div class="canvas-container">
                             <canvas id="canvas-42" class="pdf-canvas" onclick="showModalPage(42)"></canvas>
                             <div class="canvas-loading">Loading...</div>
@@ -5137,7 +5119,7 @@ H i)</pre>
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page 43</span>
@@ -5177,18 +5159,18 @@ H i)</pre>
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-43" onchange="applyNotePreset(43)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-43" onchange="applyNotePreset(43)" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-43" placeholder="Custom note..." onchange="saveNote(43)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-43" placeholder="Custom note..." onchange="saveNote(43)" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Toolbox — Primary Sources</title>
+    <meta name="description"
+        content="Advanced analytical tools for archival research, including OCR, document classification, and entity matching." />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="../assets/js/components.js" defer></script>
+    <script src="../assets/js/collapsible-menu.js" defer></script>
+    <script src="../assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- HERO -->
+    <section class="relative w-full overflow-hidden bg-archive-dark py-16">
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-archive-bg to-transparent pointer-events-none">
+        </div>
+
+        <div class="relative z-10 px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
+            <span class="text-[10px] font-bold uppercase text-primary tracking-widest mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">home_storage</span>
+                Analytical Infrastructure
+            </span>
+            <h1 class="mb-4 text-4xl font-bold leading-tight text-archive-heading sm:text-6xl uppercase font-display">
+                Research Toolbox
+            </h1>
+            <p class="mb-8 max-w-2xl text-base text-archive-secondary/80">
+                A suite of specialized tools designed for the forensic analysis of declassified JFK assassination
+                records.
+                From automated OCR to intelligent document classification.
+            </p>
+        </div>
+    </section>
+
+    <!-- TOOLS GRID -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- OCR TOOL -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">document_scanner</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-emerald-500 text-black px-2 py-0.5 border border-emerald-500/30">Active
+                            Tool</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">OCR Engine</h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        High-precision optical character recognition optimized for typewritten archival records.
+                        Supports surgical splitting and local processing.
+                    </p>
+                    <div class="flex gap-2">
+                        <a href="ocr/ocr-details.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">Details</a>
+                        <a href="ocr/ocr-ui.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest bg-primary text-archive-dark hover:bg-archive-heading transition-all">Launch
+                            UI</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLASSIFIER -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">inventory_2</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-emerald-500 text-black px-2 py-0.5 border border-emerald-500/30">Active
+                            Tool</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">Document Classifier
+                    </h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        Intelligent document classification review for Yates incident reports. Extracts metadata and
+                        linked entities for vault integration.
+                    </p>
+                    <div class="flex gap-2">
+                        <a href="classifier/classifier-details.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">Specs</a>
+                        <a href="classifier/classifier-ui.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest bg-primary text-archive-dark hover:bg-archive-heading transition-all">Launch
+                            Review</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF VIEWER -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">picture_as_pdf</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-emerald-500 text-black px-2 py-0.5 border border-emerald-500/30">Active
+                            Tool</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">PDF Forensic Viewer
+                    </h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        Advanced document viewer with coordinated OCR text layer and forensic metadata ribbon. Optimized
+                        for declassified PDF materials.
+                    </p>
+                    <div class="flex gap-2">
+                        <a href="pdf-viewer/pdf-viewer-details.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">Details</a>
+                        <a href="pdf-viewer/pdf-viewer-ui.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest bg-primary text-archive-dark hover:bg-archive-heading transition-all">Launch
+                            Viewer</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENTITY MATCHER -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">link</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-amber-500 text-black px-2 py-0.5 border border-amber-500/30">Service
+                            Only</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">Entity Matcher</h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        Automated entity recognition that maps OCR text to known persons, places, and organizations
+                        using fuzzy matching.
+                    </p>
+                    <div class="flex">
+                        <a href="matcher/matcher-details.html"
+                            class="w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">API
+                            Specs & Documentation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAYOUT ANALYZER -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">auto_awesome</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-amber-500 text-black px-2 py-0.5 border border-amber-500/30">Service
+                            Only</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">Document Analyzer
+                    </h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        Intelligent layout analysis engine for fingerprint-based document classification and zone
+                        extraction.
+                    </p>
+                    <div class="flex">
+                        <a href="analyzer/analyzer-details.html"
+                            class="w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">API
+                            Specs & Documentation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CITATION GENERATOR -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">format_quote</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-amber-500 text-black px-2 py-0.5 border border-amber-500/30">Service
+                            Only</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">Citation Generator
+                    </h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        Academic citation formatter for archival sources. Supports Chicago, MLA, APA, and NARA styles.
+                    </p>
+                    <div class="flex">
+                        <a href="citation/citation-details.html"
+                            class="w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">API
+                            Specs & Documentation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESEARCH CALCULATORS -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">calculate</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-amber-500 text-black px-2 py-0.5 border border-amber-500/30">Service
+                            Only</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">Research Calculators
+                    </h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        Inflation converter and age-at-event calculator for contextualizing historical data points.
+                    </p>
+                    <div class="flex">
+                        <a href="research/research-details.html"
+                            class="w-full py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">API
+                            Specs & Documentation</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Tools"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>

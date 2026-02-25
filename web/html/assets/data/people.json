@@ -1,7 +1,7 @@
 [
   {
     "person_id": "3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8",
-    "display_name": "Oswald, Lee Harvey",
+    "display_name": "Lee Harvey Oswald",
     "given_name": "Lee",
     "middle_name": "Harvey",
     "family_name": "Oswald",
@@ -724,8 +724,7 @@
     "label": "Family \u00c2\u00b7 Yates Son",
     "display_name": "Yates, Ralph Leon Jr.",
     "person_type": "PERSON",
-    "given_name": "Ralph",
-    "middle_name": "Leon",
+    "given_name": "Ralph Leon",
     "family_name": "Yates",
     "notes": "First son of Ralph Leon Yates. Age 2 in 1963. Resided at 13564 Brookgreen, Dallas TX.",
     "status": "COMPLETE",

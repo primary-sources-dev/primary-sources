@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Blog Post — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="../assets/js/components.js" defer></script>
+    <script src="../assets/js/collapsible-menu.js" defer></script>
+    <script src="../assets/js/nav.js" defer></script>
+    <script src="../assets/js/blog-post.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- BREADCRUMB NAVIGATION -->
+    <nav class="px-6 py-4 border-b border-archive-secondary/20">
+        <div class="flex items-center gap-2 text-[10px] uppercase tracking-widest">
+            <a href="../index.html" class="text-archive-secondary/40 hover:text-primary transition-colors">Archive</a>
+            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
+            <a href="about.html" class="text-archive-secondary/60 hover:text-primary transition-colors">About</a>
+            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
+            <a href="blog.html" class="text-archive-secondary/60 hover:text-primary transition-colors">Blog</a>
+            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
+            <span id="breadcrumb-current" class="text-primary font-bold">Loading...</span>
+        </div>
+    </nav>
+
+    <!-- POST HEADER -->
+    <article class="max-w-4xl mx-auto px-6">
+
+        <!-- Meta Info -->
+        <section class="py-8 border-b border-archive-secondary/20">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+                <span id="post-category"
+                    class="text-[10px] px-2 py-1 bg-primary/20 text-primary uppercase tracking-widest">
+                    Category
+                </span>
+                <span id="post-date" class="text-[10px] text-archive-secondary/50 uppercase tracking-widest">
+                    Loading...
+                </span>
+            </div>
+            <h1 id="post-title"
+                class="text-5xl font-bold leading-tight text-archive-heading uppercase font-display mb-4">
+                LOADING POST TITLE...
+            </h1>
+            <div class="flex items-center gap-3 text-sm text-archive-secondary/70">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base">person</span>
+                    <span id="post-author">Loading...</span>
+                </div>
+                <span class="text-archive-secondary/30">•</span>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-base">schedule</span>
+                    <span id="post-reading-time">5 min read</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Image (Optional) -->
+        <section id="hero-image-section" class="py-8" style="display:none;">
+            <div class="border border-archive-secondary/20 overflow-hidden">
+                <img id="hero-image" src="" alt="" class="w-full aspect-video object-cover grayscale opacity-90" />
+            </div>
+        </section>
+
+        <!-- Post Content (Modular Blocks) -->
+        <section id="post-content" class="py-8 space-y-8 border-b border-archive-secondary/20">
+            <!-- Content blocks injected here -->
+        </section>
+
+        <!-- Tags -->
+        <section id="tags-section" class="py-6" style="display:none;">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-base">label</span>
+                <div id="tags-list" class="flex flex-wrap gap-2">
+                    <!-- Tags injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Posts -->
+        <section id="related-posts-section" class="py-12" style="display:none;">
+            <h2
+                class="text-2xl font-bold text-archive-heading uppercase font-display mb-6 border-l-4 border-primary pl-4">
+                Related Posts
+            </h2>
+            <div id="related-posts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Related posts injected here -->
+            </div>
+        </section>
+
+        <!-- Back to Blog -->
+        <section class="py-12">
+            <a href="blog.html"
+                class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back to All Posts
+            </a>
+        </section>
+
+    </article>
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="About"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>

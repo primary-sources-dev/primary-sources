@@ -1,0 +1,442 @@
+[
+  {
+    "id": "yates-hitchhiker",
+    "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+    "event_type": "SIGHTING",
+    "icon": "person_pin",
+    "label": "Nov 20 \u00e2\u20ac\u201c 21, 1963 \u00c2\u00b7 Dallas, TX",
+    "title": "The Ralph Leon Yates Incident",
+    "location": "Dallas, TX",
+    "description": "Ralph Leon Yates reported picking up a hitchhiker on Nov 20, but FBI alibi checks suggest the event likely occurred on Nov 21. Both dates are preserved here for analysis of potential Oswald movements.",
+    "context": "The Ralph Yates incident represents one of the most compelling witness accounts of a possible Oswald sighting before the JFK assassination. Yates, a refrigeration mechanic, reported picking up a hitchhiker matching Oswald's description who carried a package and discussed shooting the President from a window. The FBI conducted extensive interviews but ultimately determined discrepancies in Yates' timeline. Yates later experienced a mental health crisis and was hospitalized. The case remains disputed among researchers.",
+    "featured": true,
+    "is_conflict": true,
+    "start_ts": "1963-11-20T10:30:00Z",
+    "time_precision": "APPROX",
+    "sub_events": [
+      {
+        "id": "park-it-market-service-call",
+        "event_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+        "event_type": "TRANSFER",
+        "icon": "build",
+        "label": "Nov 21, 1963 \u00c2\u00b7 Irving, TX",
+        "title": "Park-It Market Service Call (Verified)",
+        "description": "Ralph Yates performed a verified refrigeration service call at Park-It Market Drive-In Grocery, 2320 Shady Grove Road, Irving TX. He was dispatched around 10:30 AM, called in after 11:30 AM, and returned to TBSC around 12:30-1:00 PM. The compressor was out of oil. Documented by Shop Bill No. 8760, Invoice No. 36919 ($12.00 for 2-hour call).",
+        "start_ts": "1963-11-21T10:30:00Z",
+        "end_ts": "1963-11-21T13:00:00Z",
+        "time_precision": "RANGE",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "event_id": "4a5b6c7d-8e9f-40a1-b2c3-d4e5f6a7b8c9",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "REPORT_WRITTEN",
+        "icon": "campaign",
+        "label": "Nov 26, 1963",
+        "title": "First Yates Report",
+        "description": "Ralph Leon Yates voluntarily contacts the Dallas FBI office to report picking up a hitchhiker he believes was Lee Harvey Oswald carrying a package of 'curtain rods'.",
+        "start_ts": "1963-11-26T00:00:00Z",
+        "time_precision": "EXACT",
+        "url": "/assets/documents/yates-searchable.pdf#page=1&search=\"Yates\""
+      },
+      {
+        "event_id": "b6c7d8e9-f0a1-42b3-c4d5-e6f7a8b9c0d1",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963",
+        "title": "Formal FBI Interview",
+        "description": "Yates appears at the FBI office with his uncle, J.O. Smith. He details the hitchhiker's questions about shooting the President from a window. Agents Arthur Carter and C. Ray Hall conduct the interview.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT",
+        "url": "/assets/documents/yates-searchable.pdf#page=8&search=\"Hall\""
+      },
+      {
+        "id": "jones-fbi-interview",
+        "event_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963 \u00c2\u00b7 Dallas, TX",
+        "title": "Dempsey Jones FBI Interview",
+        "description": "FBI Special Agent Arthur E. Carter interviewed Dempsey Jones at Route 4, Box 376, Dallas TX. Jones confirmed Yates told him about the hitchhiker before the assassination. He described Yates as 'a big talker who always talks about a lot of foolishness.' Jones said Yates mentioned the man had a package and discussed shooting the President from a building.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "id": "gilpin-fbi-interview",
+        "event_id": "f9a0b1c2-d3e4-4567-f8a9-b0c1d2e3f4a5",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963 \u00c2\u00b7 Dallas, TX",
+        "title": "J.R. Gilpin FBI Interview",
+        "description": "FBI interviewed J.R. Gilpin, partner at Texas Butchers Supply Company. Gilpin located Shop Bill No. 8760 and Invoice No. 36919 documenting Yates' service call to Park-It Market in Irving on November 21, 1963. He confirmed dispatching Yates around 10:30 AM and calling him at the market around noon.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "event_id": "e2f3a4b5-c6d7-48e9-f0a1-b2c3d4e5f6a7",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "history_edu",
+        "label": "Dec 10, 1963",
+        "title": "Signed Statement & Photo ID",
+        "description": "Yates provides a sworn affidavit to SA C. Ray Hall. He positively identifies a photo of Oswald. He adds details about the hitchhiker showing him a picture of a man with a rifle.",
+        "start_ts": "1963-12-10T00:00:00Z",
+        "time_precision": "EXACT",
+        "url": "/assets/documents/yates-searchable.pdf#page=14&search=\"Affidavit\""
+      },
+      {
+        "event_id": "0f1a2b3c-4d5e-46f7-a8b9-c0d1e2f3a4b5",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "search",
+        "label": "Jan 3, 1964",
+        "title": "Alibi Verification Check",
+        "description": "FBI Agents re-interview Yates regarding discrepancies in his service call timeline. They confront him with the lack of a check stub from Charlie's Meat Market.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT",
+        "url": "/assets/documents/yates-searchable.pdf#page=22&search=\"Charlie\""
+      },
+      {
+        "id": "ayres-fbi-interview",
+        "event_id": "a0b1c2d3-e4f5-4678-a9b0-c1d2e3f4a5b6",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Jan 3, 1964 \u00c2\u00b7 Dallas, TX",
+        "title": "Thomas Ayres FBI Interview",
+        "description": "FBI Special Agent John T. Kesler interviewed Thomas Ayres at Charlie's Ranch Meat Market, 249 Wynnewood Village. Ayres was on duty November 20-21, 1963 but could not recall giving a check to a TBSC employee. He reviewed check stubs with negative results. Stated only one check is issued to TBSC each month.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "id": "mask-fbi-interview",
+        "event_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Jan 3, 1964 \u00c2\u00b7 Dallas, TX",
+        "title": "Donald Mask FBI Interview",
+        "description": "FBI Special Agent John T. Kesler interviewed Donald Mask at Charlie's Ranch Meat Market. Mask was on duty November 21, 1963 but could not recall giving a check to a TBSC employee. Like Ayres, he confirmed only one check is typically issued to TBSC each month.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "event_id": "c4d5e6f7-a8b9-40c1-d2e3-f4a5b6c7d8e9",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "graphic_eq",
+        "label": "Jan 4, 1964",
+        "title": "Polygraph Examination",
+        "description": "Yates submits to a polygraph test administered by the FBI. The results are recorded as 'inconclusive' with no significant deception indicated.",
+        "start_ts": "1964-01-04T00:00:00Z",
+        "time_precision": "EXACT",
+        "url": "/assets/documents/yates-searchable.pdf#page=13&search=\"polygraph\""
+      },
+      {
+        "event_id": "a8b9c0d1-e2f3-44a5-b6c7-d8e9f0a1b2c3",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "PHONE_CALL",
+        "icon": "phone_in_talk",
+        "label": "Jan 8, 1964",
+        "title": "Distressed Phone Call",
+        "description": "Yates calls SA C. Ray Hall late at night, crying and emotionally upset. He returns the next morning (Jan 9) to discuss his family's history of mental illness.",
+        "start_ts": "1964-01-08T23:00:00Z",
+        "time_precision": "APPROX",
+        "url": "/assets/documents/yates-searchable.pdf#page=33&search=\"upset\""
+      },
+      {
+        "event_id": "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+        "event_type": "INTERVIEW",
+        "icon": "local_hospital",
+        "label": "Jan 15, 1964",
+        "title": "Final Appearance & Hospitalization",
+        "description": "Yates appears with his wife, carrying pills he claims his doctors are using to kill him. Following this visit, he is admitted to Woodlawn Hospital for psychiatric observation.",
+        "start_ts": "1964-01-15T00:00:00Z",
+        "time_precision": "EXACT",
+        "url": "/assets/documents/yates-searchable.pdf#page=42&search=\"Woodlawn\""
+      }
+    ],
+    "participants": [
+      {
+        "name": "Ralph Leon Yates",
+        "role": "Witness",
+        "description": "Refrigeration mechanic who reported the hitchhiker sighting"
+      },
+      {
+        "name": "SA Arthur Carter",
+        "role": "FBI Agent",
+        "description": "Conducted initial interviews with Yates"
+      },
+      {
+        "name": "SA C. Ray Hall",
+        "role": "FBI Agent",
+        "description": "Lead investigator on Yates case"
+      },
+      {
+        "name": "J.O. Smith",
+        "role": "Relative",
+        "description": "Yates' uncle who accompanied him to FBI office"
+      },
+      {
+        "name": "Dorothy Yates",
+        "role": "Family",
+        "description": "Yates' wife, present at final interview"
+      }
+    ],
+    "evidence": [
+      {
+        "name": "Curtain Rods Package",
+        "type": "DESCRIBED OBJECT",
+        "description": "Package allegedly carried by hitchhiker, similar to story Oswald told Wesley Frazier"
+      },
+      {
+        "name": "Yates Work Vehicle",
+        "type": "VEHICLE",
+        "description": "Texas Butchers Supply Co. refrigeration truck used for service calls"
+      }
+    ],
+    "sources": [
+      {
+        "title": "FBI Report on Ralph Yates",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1963-1964",
+        "author": "FBI Dallas Office",
+        "archive": "NARA",
+        "url": "/assets/documents/yates-searchable.pdf"
+      },
+      {
+        "title": "Warren Commission Exhibit",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1964",
+        "author": "Warren Commission",
+        "archive": "NARA"
+      },
+      {
+        "title": "Yates Signed Affidavit",
+        "type": "AFFIDAVIT",
+        "date": "Dec 10, 1963",
+        "author": "Ralph Leon Yates",
+        "archive": "NARA",
+        "url": "/assets/documents/yates-searchable.pdf#page=14"
+      }
+    ],
+    "locations": [
+      {
+        "name": "Elm & Houston St Intersection",
+        "address": "Dallas, TX 75202",
+        "description": "Alleged drop-off location near Texas School Book Depository",
+        "significance": "Same location where Oswald worked"
+      },
+      {
+        "name": "Dallas FBI Office",
+        "address": "Santa Fe Building, Dallas, TX",
+        "description": "Location of Yates interviews"
+      },
+      {
+        "name": "Charlie's Meat Market",
+        "address": "Dallas, TX",
+        "description": "Service call location disputed in alibi verification"
+      },
+      {
+        "name": "Woodlawn Hospital",
+        "address": "Dallas, TX",
+        "description": "Psychiatric facility where Yates was admitted Jan 1964"
+      }
+    ],
+    "related_events": [
+      {
+        "title": "JFK Assassination",
+        "date": "Nov 22, 1963",
+        "description": "President Kennedy killed in Dealey Plaza",
+        "event_type": "HISTORICAL",
+        "relation": "PRECEDED BY"
+      },
+      {
+        "title": "Oswald Hired at TSBD",
+        "date": "Oct 16, 1963",
+        "description": "Lee Harvey Oswald begins work at Texas School Book Depository",
+        "event_type": "EMPLOYMENT",
+        "relation": "PRECEDED BY"
+      }
+    ],
+    "assertions": [
+      {
+        "claim": "Yates picked up a hitchhiker matching Oswald's description on Nov 20 or 21, 1963",
+        "source": "Yates testimony",
+        "confidence": "DISPUTED",
+        "analysis": "FBI timeline analysis contradicts Yates' service call alibi"
+      },
+      {
+        "claim": "The hitchhiker discussed shooting the President from a window",
+        "source": "Yates affidavit",
+        "confidence": "DISPUTED",
+        "analysis": "Detail emerged after assassination was widely known"
+      },
+      {
+        "claim": "Yates experienced a mental health crisis following FBI interviews",
+        "source": "FBI reports",
+        "confidence": "CONFIRMED",
+        "analysis": "Documented hospitalization at Woodlawn Hospital Jan 1964"
+      },
+      {
+        "claim": "Polygraph test was inconclusive",
+        "source": "FBI polygraph report",
+        "confidence": "CONFIRMED",
+        "analysis": "Official FBI finding with no deception indicated"
+      }
+    ],
+    "media": []
+  },
+  {
+    "id": "walker-incident",
+    "event_id": "2c3d4e5f-6a7b-48c9-d0e1-f2a3b4c5d6e7",
+    "event_type": "SHOT",
+    "icon": "gps_fixed",
+    "label": "April 10, 1963 \u00c2\u00b7 Dallas, TX",
+    "title": "The Walker Incident",
+    "location": "4011 Turtle Creek Blvd, Dallas, TX",
+    "description": "An assassination attempt is made on General Edwin Walker at his home. A bullet is fired through his window, narrowly missing him. The Warren Commission later concluded Lee Harvey Oswald was the shooter.",
+    "context": "General Edwin Walker, a controversial right-wing political figure, was the target of an assassination attempt at his Dallas home. A single shot was fired through a window while Walker sat at his desk. The bullet narrowly missed him, deflected by the window frame. Initially unsolved, the case was later connected to Lee Harvey Oswald based on testimony from his wife Marina and physical evidence.",
+    "featured": true,
+    "start_ts": "1963-04-10T21:00:00Z",
+    "time_precision": "APPROX",
+    "sub_events": [
+      {
+        "event_id": "a1a2a3a4-b5b6-4c7c-8d9d-e0e1f2f3a4a5",
+        "parent_event_id": "2c3d4e5f-6a7b-48c9-d0e1-f2a3b4c5d6e7",
+        "event_type": "SHOT",
+        "icon": "gps_fixed",
+        "label": "April 10, 1963 \u00c2\u00b7 9:00 PM",
+        "title": "Shot fired through window",
+        "description": "Single shot fired at General Walker while he sat at his desk",
+        "start_ts": "1963-04-10T21:00:00Z",
+        "time_precision": "APPROX"
+      },
+      {
+        "event_id": "b2b3b4b5-c6c7-4d8d-9e0e-f1f2a3a4b5b6",
+        "parent_event_id": "2c3d4e5f-6a7b-48c9-d0e1-f2a3b4c5d6e7",
+        "event_type": "REPORT_WRITTEN",
+        "icon": "local_police",
+        "label": "April 10, 1963 \u00c2\u00b7 9:15 PM",
+        "title": "Dallas Police called",
+        "description": "Walker reports shooting to Dallas Police Department",
+        "start_ts": "1963-04-10T21:15:00Z",
+        "time_precision": "APPROX"
+      },
+      {
+        "event_id": "c3c4c5c6-d7d8-4e9e-0f1f-a2a3b4b5c6c7",
+        "parent_event_id": "2c3d4e5f-6a7b-48c9-d0e1-f2a3b4c5d6e7",
+        "event_type": "INTERVIEW",
+        "icon": "search",
+        "label": "April 11-30, 1963",
+        "title": "Initial investigation",
+        "description": "Police conduct investigation but fail to identify shooter",
+        "start_ts": "1963-04-11T00:00:00Z",
+        "time_precision": "RANGE"
+      },
+      {
+        "event_id": "d4d5d6d7-e8e9-4f0f-1a2a-b3b4c5c6d7d8",
+        "parent_event_id": "2c3d4e5f-6a7b-48c9-d0e1-f2a3b4c5d6e7",
+        "event_type": "REPORT_WRITTEN",
+        "icon": "fact_check",
+        "label": "Dec 1963",
+        "title": "Marina Oswald revelation",
+        "description": "Marina tells FBI that Oswald confessed to shooting at Walker",
+        "start_ts": "1963-12-01T00:00:00Z",
+        "time_precision": "MONTH"
+      }
+    ],
+    "participants": [
+      {
+        "name": "General Edwin Walker",
+        "role": "Target",
+        "description": "Former U.S. Army officer and political activist"
+      },
+      {
+        "name": "Lee Harvey Oswald",
+        "role": "Suspect",
+        "description": "Later identified as shooter by Warren Commission"
+      },
+      {
+        "name": "Marina Oswald",
+        "role": "Witness",
+        "description": "Testified that Oswald told her about the shooting"
+      }
+    ],
+    "evidence": [
+      {
+        "name": "Bullet Fragment",
+        "type": "PHYSICAL EVIDENCE",
+        "description": "Bullet recovered from Walker residence, too damaged for ballistics match"
+      },
+      {
+        "name": "Photographs of Walker Home",
+        "type": "PHOTO",
+        "description": "Photos found in Oswald's possessions showing surveillance of Walker's residence"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Warren Commission Report",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1964",
+        "author": "Warren Commission",
+        "archive": "NARA"
+      },
+      {
+        "title": "Marina Oswald Testimony",
+        "type": "TESTIMONY",
+        "date": "1964",
+        "author": "Marina Oswald",
+        "archive": "NARA"
+      },
+      {
+        "title": "Dallas Police Department Report",
+        "type": "POLICE RECORD",
+        "year": "1963",
+        "archive": "Dallas Municipal Archives"
+      }
+    ],
+    "locations": [
+      {
+        "name": "Walker Residence",
+        "address": "4011 Turtle Creek Blvd, Dallas, TX",
+        "description": "General Walker's home where shooting occurred",
+        "significance": "Window through which shot was fired"
+      }
+    ],
+    "related_events": [
+      {
+        "title": "JFK Assassination",
+        "date": "Nov 22, 1963",
+        "description": "Oswald accused of killing President Kennedy",
+        "event_type": "HISTORICAL",
+        "relation": "FOLLOWED BY"
+      }
+    ],
+    "assertions": [
+      {
+        "claim": "Lee Harvey Oswald was the shooter",
+        "source": "Warren Commission",
+        "confidence": "SUPPORTED",
+        "analysis": "Based on Marina Oswald testimony and photographic evidence"
+      },
+      {
+        "claim": "Bullet was fired from Oswald's Carcano rifle",
+        "source": "Warren Commission",
+        "confidence": "DISPUTED",
+        "analysis": "Bullet too damaged for definitive ballistics match"
+      }
+    ],
+    "media": []
+  }
+]

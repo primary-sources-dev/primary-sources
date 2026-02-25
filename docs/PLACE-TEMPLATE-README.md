@@ -1,3 +1,4 @@
+review the updates to the docs
 # Place Profile Template - Quick Start Guide
 
 **Status:** ✅ Production Ready

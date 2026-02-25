@@ -1,18 +1,26 @@
 /**
  * db-logic.js — Generic entity card renderer
- *
- * All 6 entity types (person, org, place, object, event, source) share
- * one card layout. Each JSON file maps its fields to 4 standard slots:
- *
- *   icon        — Material Symbol name
- *   label       — metadata line (date, role, category, etc.)
- *   title       — primary display name
- *   description — short description or summary (falls back to notes or body)
- *   link        — optional href (defaults to "#")
- *   featured    — optional boolean for wide/highlighted treatment
- *
- * For events: Only parent events (without parent_event_id) are displayed.
  */
+
+// Centralized path resolution
+const getBasePath = () => {
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; i++) {
+        const src = scripts[i].src;
+        if (src.includes('assets/js/db-logic.js')) {
+            return src.split('assets/js/db-logic.js')[0];
+        }
+    }
+    // Fallback: try to find any script that might be in assets/js/
+    for (let i = 0; i < scripts.length; i++) {
+        if (scripts[i].src.includes('assets/js/')) {
+            return scripts[i].src.split('assets/js/')[0];
+        }
+    }
+    return '';
+};
+window.basePath = getBasePath();
+const basePath = window.basePath;
 
 function buildCard(item) {
     const featured = !!item.featured;
@@ -51,12 +59,12 @@ function buildCard(item) {
     // Determine the link: handle all entity types based on their ID fields
     let itemLink = item.url || item.link;
     if (!itemLink) {
-        if (item.person_id) itemLink = `/docs/ui/entities/person.html?id=${item.id || item.person_id}`;
-        else if (item.org_id) itemLink = `/docs/ui/entities/organization.html?id=${item.id || item.org_id}`;
-        else if (item.place_id) itemLink = `/docs/ui/entities/place.html?id=${item.id || item.place_id}`;
-        else if (item.object_id) itemLink = `/docs/ui/entities/object.html?id=${item.id || item.object_id}`;
-        else if (item.source_id) itemLink = `/docs/ui/entities/source.html?id=${item.id || item.source_id}`;
-        else if (item.event_id || item.id) itemLink = `/docs/ui/entities/event.html?id=${item.id || item.event_id}`;
+        if (item.person_id) itemLink = `${basePath}entities/person.html?id=${item.id || item.person_id}`;
+        else if (item.org_id) itemLink = `${basePath}entities/organization.html?id=${item.id || item.org_id}`;
+        else if (item.place_id) itemLink = `${basePath}entities/place.html?id=${item.id || item.place_id}`;
+        else if (item.object_id) itemLink = `${basePath}entities/object.html?id=${item.id || item.object_id}`;
+        else if (item.source_id) itemLink = `${basePath}entities/source.html?id=${item.id || item.source_id}`;
+        else if (item.event_id || item.id) itemLink = `${basePath}entities/event.html?id=${item.id || item.event_id}`;
         else itemLink = '#';
     }
 
@@ -68,7 +76,7 @@ function buildCard(item) {
         const search = queryParams.get('search') || '';
 
         // Handle path depth (removed hack in favor of absolute paths)
-        itemLink = `/docs/ui/ocr/pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
+        itemLink = `${basePath}tools/pdf-viewer/pdf-viewer-ui.html?file=${filePath}&page=${page}&search=${search}`;
     }
 
     // Only use target="_blank" for external links or documents, not internal profile pages
@@ -115,10 +123,10 @@ async function renderEventDetail() {
     try {
         // Fetch all necessary data files
         const [events, people, sources, objects] = await Promise.all([
-            fetch('/docs/ui/assets/data/events.json').then(r => r.json()),
-            fetch('/docs/ui/assets/data/people.json').then(r => r.json()),
-            fetch('/docs/ui/assets/data/sources.json').then(r => r.json()),
-            fetch('/docs/ui/assets/data/objects.json').then(r => r.json())
+            fetch(`${basePath}assets/data/events.json`).then(r => r.json()),
+            fetch(`${basePath}assets/data/people.json`).then(r => r.json()),
+            fetch(`${basePath}assets/data/sources.json`).then(r => r.json()),
+            fetch(`${basePath}assets/data/objects.json`).then(r => r.json())
         ]);
 
         const event = events.find(e => e.id === eventId);
@@ -188,7 +196,7 @@ function renderEntities(container) {
 
     if (!dataSource) return;
 
-    fetch(`/docs/ui/assets/data/${dataSource}.json`)
+    fetch(`${basePath}assets/data/${dataSource}.json`)
         .then(r => {
             if (!r.ok) throw new Error(`Failed to fetch ${dataSource}.json`);
             return r.json();
@@ -232,7 +240,7 @@ function renderOTDPage(container, scope = "Day", targetDate = new Date()) {
     // Show loading state
     container.innerHTML = `<div class="col-span-full text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">history</span><p class="uppercase tracking-[0.3em] text-[10px]">Scanning chronological archives...</p></div>`;
 
-    fetch(`/docs/ui/assets/data/events.json`)
+    fetch(`${basePath}assets/data/events.json`)
         .then(r => r.json())
         .then(data => {
             const results = data.filter(item => {
@@ -286,12 +294,12 @@ async function renderRandomEntity(container) {
     container.innerHTML = `<div class="text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">cyclone</span><p class="uppercase tracking-[0.3em] text-[10px]">Tuning to a random archival frequency...</p></div>`;
 
     const dataFiles = [
-        '/docs/ui/assets/data/events.json',
-        '/docs/ui/assets/data/people.json',
-        '/docs/ui/assets/data/organizations.json',
-        '/docs/ui/assets/data/places.json',
-        '/docs/ui/assets/data/objects.json',
-        '/docs/ui/assets/data/sources.json'
+        `${basePath}assets/data/events.json`,
+        `${basePath}assets/data/people.json`,
+        `${basePath}assets/data/organizations.json`,
+        `${basePath}assets/data/places.json`,
+        `${basePath}assets/data/objects.json`,
+        `${basePath}assets/data/sources.json`
     ];
 
     try {
@@ -379,7 +387,7 @@ function buildOTDCard(item) {
         </div>
 
         <div class="mt-8 pt-6 border-t border-archive-secondary/10 w-full flex justify-center gap-6">
-            <a href="/docs/ui/entities/event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
+            <a href="${basePath}entities/event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">auto_stories</span>
                 View Deep Record
             </a>

@@ -21,7 +21,9 @@ from werkzeug.utils import secure_filename
 # Paths
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(TOOLS_DIR)
-UI_DIR = os.path.join(PROJECT_ROOT, "docs", "ui", "ocr")
+# NEW: Base directory for the reconstructed UI
+NEW_UI_ROOT = os.path.join(PROJECT_ROOT, "web", "html")
+UI_DIR = os.path.join(NEW_UI_ROOT, "tools", "ocr") # Directory for OCR tool files
 
 # Import OCR worker and metadata parser from ocr-gui
 import sys
@@ -70,7 +72,7 @@ except ImportError:
     print("Warning: entity_linker not available")
 
 # Initialize global engines
-DATA_DIR = Path(PROJECT_ROOT) / "docs" / "ui" / "assets" / "data"
+DATA_DIR = Path(NEW_UI_ROOT) / "assets" / "data"
 linker = EntityLinker(DATA_DIR) if LINKER_AVAILABLE else None
 
 try:
@@ -125,20 +127,20 @@ def is_processrable(filename):
 
 @app.route("/")
 def index():
-    """Serve the main OCR tool page from docs/ui/ocr/."""
-    return send_from_directory(UI_DIR, "index.html")
+    """Serve the main landing page from web/html/index.html."""
+    return send_from_directory(NEW_UI_ROOT, "index.html")
 
 
 @app.route("/assets/<path:path>")
 def serve_assets(path):
     """Serve global assets (CSS, JS, images)."""
-    return send_from_directory(os.path.join(PROJECT_ROOT, "docs", "ui", "assets"), path)
+    return send_from_directory(os.path.join(NEW_UI_ROOT, "assets"), path)
 
 
 @app.route("/components/<path:path>")
 def serve_components(path):
     """Serve modular HTML components."""
-    return send_from_directory(os.path.join(PROJECT_ROOT, "docs", "ui", "components"), path)
+    return send_from_directory(os.path.join(NEW_UI_ROOT, "components"), path)
 
 
 @app.route("/ocr-components.css")
@@ -155,12 +157,10 @@ def serve_js():
 
 @app.route("/<path:filename>")
 def serve_ui_files(filename):
-    """Serve HTML files and other resources from main docs/ui/ directory."""
-    main_ui_dir = os.path.join(PROJECT_ROOT, "docs", "ui")
-
-    # Security check: only serve .html, .css, .js files from root UI directory
-    if filename.endswith(('.html', '.css', '.js')):
-        return send_from_directory(main_ui_dir, filename)
+    """Serve HTML files and other resources from main web/html/ directory."""
+    # Security check: only serve .html, .css, .js files from UI root or subdirs
+    if filename.endswith(('.html', '.css', '.js', '.png', '.jpg', '.svg', '.json')):
+        return send_from_directory(NEW_UI_ROOT, filename)
 
     # For other paths, return 404
     return jsonify({"error": "Not found"}), 404

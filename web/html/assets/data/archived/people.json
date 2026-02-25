@@ -1,7 +1,7 @@
 [
   {
     "person_id": "3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8",
-    "display_name": "Oswald, Lee Harvey",
+    "display_name": "Lee Harvey Oswald",
     "given_name": "Lee",
     "middle_name": "Harvey",
     "family_name": "Oswald",
@@ -433,304 +433,25 @@
     ]
   },
   {
-    "id": "mark-a-yates",
-    "person_id": "a0b1c2d3-e4f5-4678-a9b0-c1d2e3f4a5b6",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Son",
-    "display_name": "Yates, Mark A.",
-    "person_type": "PERSON",
-    "given_name": "Mark A.",
-    "family_name": "Yates",
-    "notes": "Second son of Ralph Leon Yates. Age 1 in 1963. Resided at 13564 Brookgreen, Dallas TX.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "jo-smith",
-    "person_id": "a2b3c4d5-e6f7-4890-a1b2-c3d4e5f6a7b8",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Uncle",
-    "display_name": "Smith, J.O.",
-    "person_type": "PERSON",
-    "given_name": "J.O.",
+    "person_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "display_name": "Smith, John",
+    "given_name": "John",
     "family_name": "Smith",
-    "notes": "Uncle of Ralph Leon Yates. Resided at 13770 Sprucewood, Dallas TX. Accompanied Yates to the Dallas FBI office on November 27, 1963 for his formal interview.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "albert-guy-bogard",
-    "person_id": "a4b5c6d7-e8f9-4012-a3b4-c5d6e7f8a9b0",
-    "icon": "person",
-    "label": "Witness \u00c2\u00b7 Auto Salesman",
-    "display_name": "Bogard, Albert Guy",
-    "person_type": "PERSON",
-    "given_name": "Albert Guy",
-    "family_name": "Bogard",
-    "notes": "Auto salesman who claimed that at about 3 PM on November 9, 1963, he accompanied an individual who identified himself as 'Lee Oswald' on a new car demonstration ride. Subject reportedly drove 75-85 mph and indicated he would pay cash for a new car within 2-3 weeks. Bogard wrote name on business card which he destroyed after subject's death.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "maurice-j-white",
-    "person_id": "a8b9c0d1-e2f3-4456-a7b8-c9d0e1f2a3b4",
-    "icon": "person",
-    "label": "FBI Special Agent \u00c2\u00b7 Dallas Office",
-    "display_name": "White, Maurice J.",
-    "person_type": "PERSON",
-    "given_name": "Maurice J.",
-    "family_name": "White",
-    "notes": "FBI Special Agent who witnessed Ralph Yates' signed statement on December 10, 1963 in Dallas, Texas.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "dempsey-jones",
-    "person_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
-    "icon": "person",
-    "label": "Witness \u00c2\u00b7 TBSC Employee",
-    "display_name": "Jones, Dempsey",
-    "person_type": "PERSON",
-    "given_name": "Dempsey",
-    "family_name": "Jones",
-    "notes": "Co-worker of Ralph Yates at Texas Butchers Supply Company for 9.5 years. Route 4, Box 376, Dallas TX, phone Diamond 8-1051. Corroborated that Yates told him about the hitchhiker BEFORE the assassination. Described Yates as 'a big talker who always talks about a lot of foolishness.'",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "bernice-yates",
-    "person_id": "b5c6d7e8-f9a0-4123-b4c5-d6e7f8a9b0c1",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Mother",
-    "display_name": "Bernice (last name unknown)",
-    "person_type": "PERSON",
-    "given_name": "Bernice",
-    "family_name": null,
-    "notes": "Mother of Ralph Leon Yates. Resided on Elizabeth Street, Dallas TX. Yates mentioned family history of mental illness during his distressed state.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "john-t-kesler",
-    "person_id": "b9c0d1e2-f3a4-4567-b8c9-d0e1f2a3b4c5",
-    "icon": "person",
-    "label": "FBI Special Agent \u00c2\u00b7 Dallas Office",
-    "display_name": "Kesler, John T.",
-    "person_type": "PERSON",
-    "given_name": "John T.",
-    "family_name": "Kesler",
-    "notes": "FBI Special Agent who conducted re-interview of Ralph Yates on January 3, 1964, regarding discrepancies in his service call timeline. Also interviewed Thomas Ayres and Donald Mask at Charlie's Ranch Meat Market.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "jack-ruby",
-    "person_id": "c0d1e2f3-a4b5-4678-c9d0-e1f2a3b4c5d6",
-    "icon": "person",
-    "label": "Nightclub Owner \u00c2\u00b7 1911 \u00e2\u20ac\u201c 1967",
-    "display_name": "Ruby, Jack",
-    "person_type": "PERSON",
-    "given_name": "Jack",
-    "family_name": "Ruby",
-    "notes": "Owner of the Carousel Club nightclub in Dallas. Born Jacob Leon Rubenstein. The hitchhiker in Yates' account asked if Yates knew 'Jack Rubenstein, more commonly known as Jack Ruby' who ran the Carousel Club. Ruby later shot and killed Lee Harvey Oswald on November 24, 1963.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "jr-gilpin",
-    "person_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
-    "icon": "person",
-    "label": "Employer \u00c2\u00b7 TBSC Partner",
-    "display_name": "Gilpin, J.R.",
-    "person_type": "PERSON",
-    "given_name": "J.R.",
-    "family_name": "Gilpin",
-    "notes": "Partner at Texas Butchers Supply Company. Verified service call records (Shop Bill No. 8760, Invoice No. 36919) confirming Yates was dispatched to Irving on November 21, 1963. Recalled giving Yates the order around 10:30 AM.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "jacquelyn-marie-yates",
-    "person_id": "c6d7e8f9-a0b1-4234-c5d6-e7f8a9b0c1d2",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Daughter",
-    "display_name": "Yates, Jacquelyn Marie",
-    "person_type": "PERSON",
-    "given_name": "Jacquelyn Marie",
-    "family_name": "Yates",
-    "notes": "Eldest daughter of Ralph Leon Yates. Age 6 in 1963. Resided at 13564 Brookgreen, Dallas TX.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "adlai-stevenson",
-    "person_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
-    "icon": "person",
-    "label": "Politician \u00c2\u00b7 1900 \u00e2\u20ac\u201c 1965",
-    "display_name": "Stevenson, Adlai",
-    "person_type": "PERSON",
-    "given_name": "Adlai",
-    "family_name": "Stevenson",
-    "notes": "U.S. Ambassador to the United Nations. Referenced by Yates in his conversation with the hitchhiker\u00e2\u20ac\u201dYates mentioned the hostile reception Stevenson received in Dallas (October 24, 1963) as a reason the President should not visit.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "dorothy-yates",
-    "person_id": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
-    "icon": "person",
-    "label": "Spouse \u00c2\u00b7 Yates Family",
-    "display_name": "Yates, Dorothy",
-    "person_type": "PERSON",
-    "given_name": "Dorothy",
-    "family_name": "Yates",
-    "notes": "Wife of Ralph Leon Yates. Accompanied him to the Dallas FBI office on January 15, 1964, during his final appearance before hospitalization.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "sam-owens",
-    "person_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
-    "icon": "person",
-    "label": "Employer \u00c2\u00b7 TBSC Partner",
-    "display_name": "Owens, Sam",
-    "person_type": "PERSON",
-    "given_name": "Sam",
-    "family_name": "Owens",
-    "notes": "Partner at Texas Butchers Supply Company. Recalled that Yates called in from Irving, Texas sometime after 11:30 AM on November 21, 1963.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "lorrie-jo-yates",
-    "person_id": "d7e8f9a0-b1c2-4345-d6e7-f8a9b0c1d2e3",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Daughter",
-    "display_name": "Yates, Lorrie Jo",
-    "person_type": "PERSON",
-    "given_name": "Lorrie Jo",
-    "family_name": "Yates",
-    "notes": "Second daughter of Ralph Leon Yates. Age 5 in 1963. Resided at 13564 Brookgreen, Dallas TX.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "thomas-ayres",
-    "person_id": "e2f3a4b5-c6d7-4890-e1f2-a3b4c5d6e7f8",
-    "icon": "person",
-    "label": "Witness \u00c2\u00b7 Charlie's Meat Market",
-    "display_name": "Ayres, Thomas",
-    "person_type": "PERSON",
-    "given_name": "Thomas",
-    "family_name": "Ayres",
-    "notes": "Employee at Charlie's Ranch Meat Market, 249 Wynnewood Village, Dallas TX. On duty November 20-21, 1963. Could not recall giving a check to a TBSC employee. Reviewed check stubs with negative results.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "c-ray-hall",
-    "person_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
-    "icon": "person",
-    "label": "FBI Special Agent \u00c2\u00b7 Dallas Office",
-    "display_name": "Hall, C. Ray",
-    "person_type": "PERSON",
-    "given_name": "C. Ray",
-    "family_name": "Hall",
-    "notes": "FBI Special Agent who conducted multiple interviews with Ralph Yates. Took signed statement December 10, 1963. Received distressed phone call from Yates on January 8, 1964. Present during Yates' final appearance January 15, 1964.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "elizabeth-ann-yates",
-    "person_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Daughter",
-    "display_name": "Yates, Elizabeth Ann",
-    "person_type": "PERSON",
-    "given_name": "Elizabeth Ann",
-    "family_name": "Yates",
-    "notes": "Third daughter of Ralph Leon Yates. Age 3 in 1963. Resided at 13564 Brookgreen, Dallas TX.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "donald-mask",
-    "person_id": "f3a4b5c6-d7e8-4901-f2a3-b4c5d6e7f8a9",
-    "icon": "person",
-    "label": "Witness \u00c2\u00b7 Charlie's Meat Market",
-    "display_name": "Mask, Donald",
-    "person_type": "PERSON",
-    "given_name": "Donald",
-    "family_name": "Mask",
-    "notes": "Employee at Charlie's Ranch Meat Market, 249 Wynnewood Village, Dallas TX. On duty November 21, 1963. Could not recall giving a check to a TBSC employee.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "arthur-e-carter",
-    "person_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
-    "icon": "person",
-    "label": "FBI Special Agent \u00c2\u00b7 Dallas Office",
-    "display_name": "Carter, Arthur E.",
-    "person_type": "PERSON",
-    "given_name": "Arthur E.",
-    "family_name": "Carter",
-    "notes": "FBI Special Agent who conducted initial interview with Ralph Yates on November 27, 1963. Also interviewed Dempsey Jones on the same date.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
-  },
-  {
-    "id": "ralph-leon-yates-jr",
-    "person_id": "f9a0b1c2-d3e4-4567-f8a9-b0c1d2e3f4a5",
-    "icon": "person",
-    "label": "Family \u00c2\u00b7 Yates Son",
-    "display_name": "Yates, Ralph Leon Jr.",
-    "person_type": "PERSON",
-    "given_name": "Ralph",
-    "middle_name": "Leon",
-    "family_name": "Yates",
-    "notes": "First son of Ralph Leon Yates. Age 2 in 1963. Resided at 13564 Brookgreen, Dallas TX.",
-    "status": "COMPLETE",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
+    "birth_date": null,
+    "death_date": null,
+    "label": "Unknown Witness",
+    "portrait_url": "",
+    "notes": null,
+    "aliases": [],
+    "residences": [],
+    "organizations": [],
+    "family": [],
+    "events": [],
+    "related_events": [],
+    "objects": [],
+    "sources": [],
+    "identifiers": [],
+    "assertions": [],
+    "media": []
   }
 ]

@@ -245,30 +245,12 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         }}
     </script>
     <style>
-        :root {{
-            --primary: #B08B49;
-            --primary-light: #c9a15e;
-            --archive-bg: #2E282A;
-            --archive-surface: #252021;
-            --archive-secondary: #D4CFC7;
-            --archive-heading: #F0EDE0;
-            --archive-dark: #1A1718;
-        }}
-        body {{
-            font-family: 'Roboto Mono', monospace;
-            background-color: var(--archive-bg);
-            color: var(--archive-secondary);
-        }}
-        h1, h2, h3 {{
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            color: var(--archive-heading);
-        }}
+        /* Page-specific styles (global styles from main.css) */
         .correct {{ background-color: rgba(34, 197, 94, 0.12) !important; border-color: #22c55e !important; }}
         .incorrect {{ background-color: rgba(239, 68, 68, 0.12) !important; border-color: #ef4444 !important; }}
         .pending {{ background-color: var(--archive-surface) !important; border-color: rgba(176, 139, 73, 0.4) !important; }}
         pre {{ white-space: pre-wrap; word-wrap: break-word; font-size: 11px; }}
-        .card {{ background-color: var(--archive-surface); border-color: rgba(176, 139, 73, 0.3); }}
+        .card {{ background-color: var(--archive-surface); border-color: rgba(176, 139, 73, 0.3); overflow: hidden; }}
         .card.hidden {{ display: none; }}
         .pdf-canvas {{ max-height: 500px; width: auto; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }}
         .pdf-canvas:hover {{ border-color: var(--primary); }}
@@ -603,12 +585,12 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             <div id="page-{page}" class="card border p-4 pending" data-page="{page}" data-page-index="{page_index}" data-predicted="{doc_type}" data-confidence="{conf}" data-highlights='{highlight_json}'>
                 <div class="flex gap-6">
                     <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0">
+                    <div class="flex-shrink-0 max-w-[350px]">
                         {canvas_html}
                     </div>
                     
                     <!-- Right: Classification Details -->
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <span class="font-bold text-lg" style="color: var(--primary);">Page {page}</span>
@@ -644,18 +626,18 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                         </div>
                         
                         <!-- Notes -->
-                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
                             <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2">
-                                <select id="note-preset-{page}" onchange="applyNotePreset({page})" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                                    <option value="">Select common note...</option>
-                                    <option value="NEW_TYPE">Consider new document type</option>
-                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
-                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
-                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
-                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                            <div class="flex gap-2 min-w-0">
+                                <select id="note-preset-{page}" onchange="applyNotePreset({page})" class="text-xs flex-shrink-0" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
+                                    <option value="">Select note...</option>
+                                    <option value="NEW_TYPE">New doc type</option>
+                                    <option value="NEW_PATTERN">Add pattern</option>
+                                    <option value="SCHEMA_UPDATE">Schema change</option>
+                                    <option value="OCR_QUALITY">Poor OCR</option>
+                                    <option value="AMBIGUOUS">Ambiguous</option>
                                 </select>
-                                <input type="text" id="note-text-{page}" placeholder="Custom note..." onchange="saveNote({page})" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                                <input type="text" id="note-text-{page}" placeholder="Custom note..." onchange="saveNote({page})" class="flex-1 min-w-0 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         

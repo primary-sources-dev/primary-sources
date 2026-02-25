@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>The Witness Atlas — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                        "archive-surface": "#252021",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"],
+                        "serif": ["Lora", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="../assets/js/components.js" defer></script>
+    <script src="../assets/js/collapsible-menu.js" defer></script>
+    <script src="../assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 py-20">
+        <!-- Badge -->
+        <div class="mb-8">
+            <span class="badge badge-large">
+                Collective Global Record — Coming Soon
+            </span>
+        </div>
+
+        <!-- Global Icon -->
+        <div class="mb-8 relative">
+            <div
+                class="flex h-24 w-24 items-center justify-center bg-primary/10 text-primary border-2 border-primary/40 rounded-full">
+                <span class="material-symbols-outlined text-5xl animate-spin"
+                    style="animation-duration: 20s">public</span>
+            </div>
+            <div
+                class="absolute -bottom-2 -right-2 h-10 w-10 bg-archive-dark border border-primary/40 flex items-center justify-center rounded-full shadow-lg">
+                <span class="material-symbols-outlined text-sm text-primary animate-pulse">location_on</span>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h2
+            class="text-4xl md:text-5xl font-bold text-archive-heading uppercase tracking-widest font-display mb-4 text-center">
+            The Witness Atlas
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="text-lg text-archive-secondary/80 text-center max-w-3xl mb-12 font-serif italic leading-relaxed">
+            A worldwide tapestry of simultaneity. Explore the global atmosphere and the diverse "Where were you?"
+            testimonies across time zones as history unfolded on November 22, 1963.
+        </p>
+
+        <!-- Simultaneity Visualization -->
+        <div class="w-full max-w-5xl mb-16 border border-archive-secondary/10 bg-archive-dark/40 p-1">
+            <div class="border border-archive-secondary/10 p-8">
+                <div class="flex flex-col md:flex-row gap-8 justify-between items-center opacity-60">
+                    <!-- City 1 -->
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="text-[10px] uppercase tracking-widest text-primary font-bold">12:30 PM CST</span>
+                        <h4 class="text-sm font-bold text-archive-heading">Dallas, Texas</h4>
+                        <div class="h-1 w-20 bg-primary/30"></div>
+                        <span class="text-[9px] italic opacity-60">"The crowd went silent..."</span>
+                    </div>
+                    <!-- City 2 -->
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="text-[10px] uppercase tracking-widest text-primary font-bold">1:30 PM EST</span>
+                        <h4 class="text-sm font-bold text-archive-heading">New York, NY</h4>
+                        <div class="h-1 w-20 bg-primary/30"></div>
+                        <span class="text-[9px] italic opacity-60">"Teletypes began to chime..."</span>
+                    </div>
+                    <!-- City 3 -->
+                    <div class="flex flex-col items-center gap-2 text-center md:text-left">
+                        <span class="text-[10px] uppercase tracking-widest text-primary font-bold">6:30 PM GMT</span>
+                        <h4 class="text-sm font-bold text-archive-heading">London, UK</h4>
+                        <div class="h-1 w-20 bg-primary/30"></div>
+                        <span class="text-[9px] italic opacity-60">"The evening papers stopped..."</span>
+                    </div>
+                    <!-- City 4 -->
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="text-[10px] uppercase tracking-widest text-primary font-bold">3:30 AM JST</span>
+                        <h4 class="text-sm font-bold text-archive-heading">Tokyo, Japan</h4>
+                        <div class="h-1 w-20 bg-primary/30"></div>
+                        <span class="text-[9px] italic opacity-60">"Radio signals cut through..."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Grid -->
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl w-full mb-16">
+            <!-- Feature 1 -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">language</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Global Reach</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Trace the news ripple effect across the world’s continents, mapping the exact moment information
+                    reached different time zones.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Module: Temporal Mapping</span>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">chat_bubble</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">The Common Record</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    A collection of "first-hand, second-hand" memories—where people reveal their personal surroundings
+                    the second they heard the news.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Module: Narrative Deposit</span>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">schedule</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Atmospheric Flow</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Experience the before, during, and after through localized cultural artifacts: radio logs, community
+                    teletypes, and weather reports.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Module: Cultural
+                        Reconstruction</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Section -->
+        <div
+            class="border border-primary/30 bg-archive-dark/80 p-10 max-w-4xl w-full mb-16 relative overflow-hidden text-center">
+            <h3 class="text-xl font-bold text-archive-heading uppercase tracking-widest mb-6">
+                WORLDWIDE WITNESS INTAKE
+            </h3>
+            <p class="text-xs text-archive-secondary/60 font-serif italic mb-8 max-w-lg mx-auto leading-relaxed">
+                The Atlas aims to digitize the global collective unconsciousness of November 1963, preserving the
+                peripheral details that established historians often overlook.
+            </p>
+            <div class="flex justify-center gap-4">
+                <div
+                    class="flex flex-col items-center gap-2 border border-primary/20 p-4 bg-primary/5 hover:bg-primary/10 transition-colors cursor-not-allowed opacity-40">
+                    <span class="material-symbols-outlined text-xl">upload_file</span>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">Contribute Story</span>
+                </div>
+                <div
+                    class="flex flex-col items-center gap-2 border border-primary/20 p-4 bg-primary/5 hover:bg-primary/10 transition-colors cursor-not-allowed opacity-40">
+                    <span class="material-symbols-outlined text-xl">map</span>
+                    <span class="text-[9px] font-bold uppercase tracking-widest">Browse The Globe</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="../index.html"
+                class="inline-flex items-center gap-2 bg-primary text-archive-bg px-8 py-3 font-bold uppercase tracking-wider hover:brightness-110 transition-all shadow-lg active:scale-95">
+                Return to Dashboard
+            </a>
+        </div>
+    </main>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Home"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>
