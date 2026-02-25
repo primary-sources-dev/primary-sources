@@ -45,7 +45,7 @@ Move `docs/ui/` to `web/` with subdirectories:
 primary-sources/
 ├── web/
 │   ├── html/                         ← Current HTML prototype
-│   └── app/                          ← Next.js build
+│   └── next/                         ← Next.js build
 ├── docs/                             ← Only documentation
 ├── supabase/
 ├── tools/
@@ -66,7 +66,7 @@ primary-sources/
 │   │   ├── pages/
 │   │   ├── browse/
 │   │   └── assets/
-│   └── app/                          # Next.js production app
+│   └── next/                         # Next.js production app
 │       ├── package.json
 │       ├── app/
 │       ├── components/
@@ -97,7 +97,7 @@ primary-sources/
 **Migration Path:**
 1. Move `docs/ui/` → `web/html/`
 2. Update all paths `/docs/ui/` → `/web/html/`
-3. Initialize Next.js in `web/app/`
+3. Initialize Next.js in `web/next/`
 4. Migrate features incrementally
 5. Delete `web/html/` when migration complete
 
@@ -226,14 +226,14 @@ primary-sources/
 
 ---
 
-## Recommended Approach: **Option 1 (Your Proposal) - Modified**
+## Recommended Approach: **Option 1 (Your Proposal)**
 
-I recommend **your original proposal with one key modification**:
+I recommend **your original proposal**:
 
 ```
 primary-sources/
 ├── web/
-│   ├── prototype/                    # HTML prototype (NOT "html")
+│   ├── html/                         # HTML prototype
 │   │   ├── index.html
 │   │   ├── pages/
 │   │   ├── browse/
@@ -241,7 +241,7 @@ primary-sources/
 │   │   ├── features/
 │   │   ├── components/
 │   │   └── assets/
-│   └── app/                          # Next.js app (standard Next.js location)
+│   └── next/                         # Next.js app
 │       ├── package.json
 │       ├── next.config.js
 │       ├── app/
@@ -260,12 +260,18 @@ primary-sources/
 └── data/                             # Raw data
 ```
 
-### Why This Modification?
+### Why This Structure?
 
-**Changed: `html/` → `prototype/`**
-- More descriptive (it's a working prototype, not just HTML)
-- Avoids confusion with Next.js `/public/html/` or similar
-- Clearer intent: "this is the prototype, not production"
+**Using `web/html/`:**
+- Clear indication of technology stack
+- Allows future experimentation with other UI frameworks (Svelte, Vue, etc.)
+- Each framework gets its own directory (`web/svelte/`, `web/vue/`, etc.)
+- Easy to compare different implementations side-by-side
+
+**Using `web/next/` (not `web/app/`):**
+- More descriptive - explicitly states it's the Next.js implementation
+- Consistent with framework-specific naming pattern
+- Avoids confusion with Next.js internal `/app/` directory
 
 **Keep: `docs/ui/` for documentation**
 - REFACTOR-STATUS.md belongs in docs
@@ -282,23 +288,23 @@ primary-sources/
 **Step 1: Move HTML Prototype**
 ```bash
 # Create directory structure
-mkdir -p web/prototype
+mkdir -p web/html
 
-# Move docs/ui/ contents to web/prototype/
-mv docs/ui/* web/prototype/
+# Move docs/ui/ contents to web/html/
+mv docs/ui/* web/html/
 
 # Move UI documentation to docs/ui/ (keep docs separate)
 mkdir docs/ui
-mv web/prototype/REFACTOR-STATUS.md docs/ui/
-mv web/prototype/PATH-FIX-PLAN.md docs/ui/
-mv web/prototype/COLLAPSIBLE-MENU-IMPLEMENTATION.md docs/ui/
-mv web/prototype/REFACTOR.md docs/ui/
-mv web/prototype/SITE-STRUCTURE-ANALYSIS.md docs/ui/
-mv web/prototype/STRUCTURE.md docs/ui/
+mv web/html/REFACTOR-STATUS.md docs/ui/
+mv web/html/PATH-FIX-PLAN.md docs/ui/
+mv web/html/COLLAPSIBLE-MENU-IMPLEMENTATION.md docs/ui/
+mv web/html/REFACTOR.md docs/ui/
+mv web/html/SITE-STRUCTURE-ANALYSIS.md docs/ui/
+mv web/html/STRUCTURE.md docs/ui/
 ```
 
 **Step 2: Update Paths**
-All instances of `/docs/ui/` → `/web/prototype/`:
+All instances of `/docs/ui/` → `/web/html/`:
 - `assets/js/components.js` - Line 12
 - `assets/js/db-logic.js` - Lines 54-59, 71, 114-117, 187, 231, 285-290, 378
 - `assets/js/*-profile.js` - 6 files, 2 changes each
@@ -312,7 +318,7 @@ All instances of `/docs/ui/` → `/web/prototype/`:
 **Step 3: Update Server**
 ```bash
 # Run server from new location
-cd web/prototype
+cd web/html
 python -m http.server 8000
 # Access at: http://localhost:8000/index.html
 ```
@@ -326,7 +332,7 @@ python -m http.server 8000
 
 ```bash
 cd web
-npx create-next-app@latest app --typescript --tailwind --app --src-dir --import-alias "@/*"
+npx create-next-app@latest next --typescript --tailwind --app --src-dir --import-alias "@/*"
 ```
 
 **Configuration:**
@@ -338,7 +344,7 @@ npx create-next-app@latest app --typescript --tailwind --app --src-dir --import-
 
 **Initial Setup:**
 ```bash
-cd web/app
+cd web/next
 npm install @supabase/supabase-js
 npm install @supabase/auth-helpers-nextjs
 ```
@@ -364,7 +370,7 @@ npm install @supabase/auth-helpers-nextjs
 ### Phase 4: Cleanup (after migration)
 
 Once Next.js app reaches feature parity:
-1. Archive prototype: `web/prototype/` → `docs/archived/html-prototype/`
+1. Archive prototype: `web/html/` → `docs/archived/html-prototype/`
 2. Update all documentation
 3. Remove prototype from production deployment
 4. Celebrate! 🎉
@@ -376,36 +382,36 @@ Once Next.js app reaches feature parity:
 ### Files Requiring Path Updates (After Move)
 
 **Critical JavaScript Files:**
-1. `web/prototype/assets/js/components.js`
-   - Line 12: `fetch(/web/prototype/components/${componentName}.html)`
+1. `web/html/assets/js/components.js`
+   - Line 12: `fetch(/web/html/components/${componentName}.html)`
 
-2. `web/prototype/assets/js/db-logic.js`
-   - Lines 54-59: Entity links → `/web/prototype/entities/...`
-   - Line 71: PDF viewer → `/web/prototype/ocr/pdf-viewer.html`
-   - Lines 114-117: Data fetches → `/web/prototype/assets/data/...`
-   - Line 187: Data fetch → `/web/prototype/assets/data/${dataSource}.json`
-   - Line 231: Events data → `/web/prototype/assets/data/events.json`
-   - Lines 285-290: All data files → `/web/prototype/assets/data/...`
-   - Line 378: Event link → `/web/prototype/entities/event.html`
+2. `web/html/assets/js/db-logic.js`
+   - Lines 54-59: Entity links → `/web/html/entities/...`
+   - Line 71: PDF viewer → `/web/html/ocr/pdf-viewer.html`
+   - Lines 114-117: Data fetches → `/web/html/assets/data/...`
+   - Line 187: Data fetch → `/web/html/assets/data/${dataSource}.json`
+   - Line 231: Events data → `/web/html/assets/data/events.json`
+   - Lines 285-290: All data files → `/web/html/assets/data/...`
+   - Line 378: Event link → `/web/html/entities/event.html`
 
-3. `web/prototype/assets/js/*-profile.js` (6 files)
-   - Data fetch: `/web/prototype/assets/data/...`
-   - Back link: `/web/prototype/browse/...`
+3. `web/html/assets/js/*-profile.js` (6 files)
+   - Data fetch: `/web/html/assets/data/...`
+   - Back link: `/web/html/browse/...`
 
-4. `web/prototype/assets/js/blog-post.js`
-   - Data fetch: `/web/prototype/assets/data/blog.json`
-   - Post links: `/web/prototype/pages/blog-post.html`
-   - Back link: `/web/prototype/pages/blog.html`
+4. `web/html/assets/js/blog-post.js`
+   - Data fetch: `/web/html/assets/data/blog.json`
+   - Post links: `/web/html/pages/blog-post.html`
+   - Back link: `/web/html/pages/blog.html`
 
 **HTML Component Files:**
-5. `web/prototype/components/header.html`
+5. `web/html/components/header.html`
    - All `href` attributes (20+ links)
 
-6. `web/prototype/components/bottom-nav.html`
+6. `web/html/components/bottom-nav.html`
    - All `href` attributes (5 links)
 
 **HTML Page Files:**
-7. `web/prototype/browse/people.html`
+7. `web/html/browse/people.html`
    - Data filters path
 
 **Total:** ~30 files, ~100 individual path updates
@@ -415,37 +421,37 @@ Once Next.js app reaches feature parity:
 ```bash
 #!/bin/bash
 # run-path-update.sh
-# Updates all /docs/ui/ references to /web/prototype/
+# Updates all /docs/ui/ references to /web/html/
 
-cd web/prototype
+cd web/html
 
 # JavaScript files
-find assets/js -name "*.js" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find assets/js -name "*.js" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (components)
-find components -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find components -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (browse pages)
-find browse -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find browse -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (entities)
-find entities -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find entities -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (features)
-find features -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find features -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (pages)
-find pages -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find pages -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (tools)
-find tools -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find tools -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # HTML files (ocr)
-find ocr -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/prototype/|g' {} \;
+find ocr -name "*.html" -type f -exec sed -i 's|/docs/ui/|/web/html/|g' {} \;
 
 # Root HTML files
-sed -i 's|/docs/ui/|/web/prototype/|g' index.html
-sed -i 's|/docs/ui/|/web/prototype/|g' search.html
+sed -i 's|/docs/ui/|/web/html/|g' index.html
+sed -i 's|/docs/ui/|/web/html/|g' search.html
 
 echo "Path update complete!"
 ```
@@ -459,9 +465,10 @@ If you want to move quickly and archive the prototype:
 ```
 primary-sources/
 ├── web/                              # Next.js app (fresh start)
-│   ├── package.json
-│   ├── app/
-│   └── ...
+│   ├── next/                         # Next.js implementation
+│   │   ├── package.json
+│   │   ├── app/
+│   │   └── ...
 ├── docs/
 │   ├── archived/
 │   │   └── html-prototype/           # Archived HTML prototype
@@ -488,7 +495,7 @@ primary-sources/
 
 ## Recommendation Summary
 
-**I recommend: Option 1 (Modified) - `web/prototype/` + `web/app/`**
+**I recommend: Option 1 - `web/html/` + `web/next/`**
 
 ### Why?
 
@@ -502,13 +509,13 @@ primary-sources/
 ### Implementation:
 
 **Short-term (This Week):**
-- Move `docs/ui/` → `web/prototype/`
+- Move `docs/ui/` → `web/html/`
 - Update all paths (automated script)
 - Move UI docs to `docs/ui/`
 - Test prototype still works
 
 **Medium-term (Next 1-2 Months):**
-- Initialize Next.js in `web/app/`
+- Initialize Next.js in `web/next/`
 - Set up Supabase integration
 - Migrate core components
 - Migrate entity pages
@@ -560,7 +567,7 @@ Before proceeding, consider:
 **If you choose Option 2:**
 
 1. **Archive prototype now**
-2. **Initialize Next.js in `web/`**
+2. **Initialize Next.js in `web/next/`**
 3. **Rapid migration sprint**
 
 **If you choose Option 3:**

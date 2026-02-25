@@ -92,7 +92,7 @@
                 const loadingTask = pdfjsLib.getDocument(PDF_URL);
                 pdfDoc = await loadingTask.promise;
                 console.log('PDF loaded successfully:', pdfDoc.numPages, 'pages');
-                renderAllPages();
+                setupLazyLoading();
             } catch (err) {
                 console.error('Failed to load PDF:', err);
                 document.querySelectorAll('.canvas-loading').forEach(el => {
@@ -187,27 +187,45 @@
             }
         }
         
-        function renderAllPages() {
+        const renderedPages = new Set();
+        
+        function setupLazyLoading() {
             const cards = document.querySelectorAll('[data-page-index]');
-            console.log('Found', cards.length, 'page cards to render');
+            console.log('Found', cards.length, 'page cards, setting up lazy loading');
+            
+            // Parse highlights for all pages upfront
             cards.forEach(el => {
                 const pageIndex = parseInt(el.dataset.pageIndex);
-                const canvasId = `canvas-${pageIndex}`;
-                
-                // Store highlight terms for this page
                 try {
                     const highlights = JSON.parse(el.dataset.highlights || '[]');
                     if (highlights.length > 0) {
                         pageHighlights[pageIndex] = highlights;
-                        console.log('Page', pageIndex, 'highlights:', highlights);
                     }
                 } catch (e) {
                     console.warn('Failed to parse highlights for page', pageIndex);
                 }
-                
-                console.log('Rendering page index:', pageIndex, 'canvas:', canvasId);
-                renderPage(pageIndex, canvasId);
             });
+            
+            // Intersection Observer for lazy loading
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const pageIndex = parseInt(el.dataset.pageIndex);
+                        if (!renderedPages.has(pageIndex)) {
+                            renderedPages.add(pageIndex);
+                            const canvasId = `canvas-${pageIndex}`;
+                            console.log('Lazy rendering page:', pageIndex);
+                            renderPage(pageIndex, canvasId);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '200px', // Start loading 200px before visible
+                threshold: 0.01
+            });
+            
+            cards.forEach(card => observer.observe(card));
         }
         
         // Load PDF when page loads
@@ -220,7 +238,7 @@
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-2xl font-bold mb-2">Document Classification Review</h1>
-            <p class="text-sm opacity-60">yates-searchable.pdf &bull; 43 pages &bull; Generated 2026-02-25 00:35</p>
+            <p class="text-sm opacity-60">yates-searchable.pdf &bull; 43 pages &bull; Generated 2026-02-25 01:02</p>
         </div>
         
         <!-- Summary Stats -->
@@ -5331,7 +5349,7 @@ Additiona</pre>
             }
             if (noteText && data.notes) {
                 noteText.value = data.notes;
-            });
+            }
         }
         
         function saveFeedback() {

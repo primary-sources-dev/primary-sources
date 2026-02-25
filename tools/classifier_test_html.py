@@ -304,7 +304,7 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                 const loadingTask = pdfjsLib.getDocument(PDF_URL);
                 pdfDoc = await loadingTask.promise;
                 console.log('PDF loaded successfully:', pdfDoc.numPages, 'pages');
-                renderAllPages();
+                setupLazyLoading();
             }} catch (err) {{
                 console.error('Failed to load PDF:', err);
                 document.querySelectorAll('.canvas-loading').forEach(el => {{
@@ -399,27 +399,45 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             }}
         }}
         
-        function renderAllPages() {{
+        const renderedPages = new Set();
+        
+        function setupLazyLoading() {{
             const cards = document.querySelectorAll('[data-page-index]');
-            console.log('Found', cards.length, 'page cards to render');
+            console.log('Found', cards.length, 'page cards, setting up lazy loading');
+            
+            // Parse highlights for all pages upfront
             cards.forEach(el => {{
                 const pageIndex = parseInt(el.dataset.pageIndex);
-                const canvasId = `canvas-${{pageIndex}}`;
-                
-                // Store highlight terms for this page
                 try {{
                     const highlights = JSON.parse(el.dataset.highlights || '[]');
                     if (highlights.length > 0) {{
                         pageHighlights[pageIndex] = highlights;
-                        console.log('Page', pageIndex, 'highlights:', highlights);
                     }}
                 }} catch (e) {{
                     console.warn('Failed to parse highlights for page', pageIndex);
                 }}
-                
-                console.log('Rendering page index:', pageIndex, 'canvas:', canvasId);
-                renderPage(pageIndex, canvasId);
             }});
+            
+            // Intersection Observer for lazy loading
+            const observer = new IntersectionObserver((entries) => {{
+                entries.forEach(entry => {{
+                    if (entry.isIntersecting) {{
+                        const el = entry.target;
+                        const pageIndex = parseInt(el.dataset.pageIndex);
+                        if (!renderedPages.has(pageIndex)) {{
+                            renderedPages.add(pageIndex);
+                            const canvasId = `canvas-${{pageIndex}}`;
+                            console.log('Lazy rendering page:', pageIndex);
+                            renderPage(pageIndex, canvasId);
+                        }}
+                    }}
+                }});
+            }}, {{
+                rootMargin: '200px', // Start loading 200px before visible
+                threshold: 0.01
+            }});
+            
+            cards.forEach(card => observer.observe(card));
         }}
         
         // Load PDF when page loads
@@ -776,7 +794,7 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             }
             if (noteText && data.notes) {
                 noteText.value = data.notes;
-            });
+            }
         }
         
         function saveFeedback() {
