@@ -74,7 +74,7 @@
                 </span>
                 <span
                     class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
-                    Confidence Scoring
+                    Entity Linker
                 </span>
                 <span
                     class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
@@ -232,6 +232,43 @@
             </div>
         </section>
 
+        <!-- ENTITY LINKER -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Entity Linker Engine
+            </h2>
+            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed mb-6">
+                <p>
+                    The Entity Linker is the runtime engine that cross-references archival text with the 
+                    People and Places databases. It builds high-speed pattern matchers at startup and uses 
+                    RapidFuzz for fuzzy matching when exact patterns don't match.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">People Database</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-2">Matches against display names, given names, family names, and known aliases.</p>
+                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">22 People</span>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">location_on</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Places Database</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-2">Matches against place names, addresses, and location descriptions.</p>
+                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">16 Places</span>
+                </div>
+            </div>
+            <div class="mt-4 bg-archive-dark/50 border border-archive-secondary/20 p-4">
+                <p class="text-xs text-archive-secondary/70 mb-2"><strong class="text-archive-heading">Data Sources:</strong></p>
+                <code class="text-[10px] text-primary">docs/ui/assets/data/people.json</code><br>
+                <code class="text-[10px] text-primary">docs/ui/assets/data/places.json</code>
+            </div>
+        </section>
+
         <!-- API USAGE -->
         <section class="mb-12">
             <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
@@ -239,19 +276,21 @@
             </h2>
             <div class="bg-archive-dark/50 border border-archive-secondary/20 p-5">
                 <pre class="text-[11px] font-mono text-archive-secondary/90 overflow-x-auto"><code>from entity_matcher import EntityMatcher
+from entity_linker import EntityLinker
+from pathlib import Path
 
-# Initialize with vault connection
+# Entity Matcher — Vault-based matching
 matcher = EntityMatcher(vault_url="https://your-vault.supabase.co")
-
-# Match entities from OCR text
-text = "Lee Harvey Oswald was seen at the Texas School Book Depository"
-matches = matcher.match(text)
-
+matches = matcher.match("Lee Harvey Oswald was seen...")
 for match in matches:
     print(f"{match.text} -> {match.entity_type}: {match.entity_id}")
-    print(f"  Confidence: {match.confidence}")
-    # "Lee Harvey Oswald" -> person: uuid-123
-    #   Confidence: HIGH</code></pre>
+
+# Entity Linker — Local JSON-based matching (used in OCR pipeline)
+DATA_DIR = Path("docs/ui/assets/data")
+linker = EntityLinker(DATA_DIR)
+entities = linker.link_entities("Ralph Yates drove to Dallas...")
+for ent in entities:
+    print(f"{ent['matched_text']} -> {ent['type']}: {ent['id']}")</code></pre>
             </div>
         </section>
 

@@ -847,21 +847,12 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
     print(f"Report saved to: {output_path}")
 
 def main():
-    # Warren Commission Volume 1
-    pdf_path = "raw-material/warren-commission/GPO-WARRENCOMMISSIONHEARINGS-1.pdf"
+    # Yates FBI 302 Documents
+    pdf_path = "docs/ui/assets/documents/yates-searchable.pdf"
     output_path = "docs/ui/classifier-review.html"
     
-    # Sample pages - broader spread for better testing
-    sample_pages = [
-        0, 1, 2, 3, 4, 5,           # Front matter (0-indexed)
-        12, 13, 14, 15, 16, 17,     # Early content
-        25, 30, 35, 40, 45,         # Early testimony
-        50, 55, 60, 65, 70,         # Mid-early
-        100, 110, 120, 130, 140,    # Mid
-        150, 175, 200, 225, 250,    # Spread
-        275, 300, 325, 350, 375,    # Later
-        400, 425, 450, 475, 500,    # Late sections
-    ]
+    # All 43 pages (0-indexed)
+    sample_pages = list(range(43))
     
     results = test_pages(pdf_path, sample_pages)
     generate_html_report(results, Path(pdf_path).name, pdf_path, output_path)

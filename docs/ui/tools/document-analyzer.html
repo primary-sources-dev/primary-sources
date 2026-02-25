@@ -71,11 +71,15 @@
             <div class="flex flex-wrap justify-center gap-2">
                 <span
                     class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
-                    20 Document Types
+                    28 Document Types
                 </span>
                 <span
                     class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
-                    78.2% Classification Rate
+                    Zone Extraction
+                </span>
+                <span
+                    class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
+                    Metadata Parsing
                 </span>
             </div>
         </div>
@@ -360,6 +364,97 @@
             </div>
         </section>
 
+        <!-- ZONE EXTRACTOR -->
+        <section class="mb-12">
+            <h2
+                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Zone Extractor
+            </h2>
+            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed mb-6">
+                <p>
+                    The Zone Extractor applies type-specific extraction patterns based on the classified document type.
+                    Each document type has defined zones (header, body, footer) with targeted regex patterns optimized
+                    for that format.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">vertical_align_top</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Header Zone</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70">Agency headers, file numbers, classification markings, document titles, addressees.</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">article</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Body Zone</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70">Q&A pairs, numbered claims, narrative paragraphs, exhibit references, subject names.</p>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">vertical_align_bottom</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Footer Zone</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70">Agent signatures, file references, page numbers, date stamps, approval blocks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- METADATA PARSER -->
+        <section class="mb-12">
+            <h2
+                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Metadata Parser
+            </h2>
+            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed mb-6">
+                <p>
+                    The Metadata Parser extracts structured archival metadata from document headers and footers.
+                    It recognizes NARA RIF numbers, agency identifiers, dates, and author information using
+                    pattern-based extraction with confidence scoring.
+                </p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm border border-archive-secondary/20">
+                    <thead>
+                        <tr class="bg-archive-dark/50 border-b border-archive-secondary/20">
+                            <th class="text-left px-4 py-3 text-archive-heading uppercase tracking-wider text-xs">Field</th>
+                            <th class="text-left px-4 py-3 text-archive-heading uppercase tracking-wider text-xs">Pattern Example</th>
+                            <th class="text-left px-4 py-3 text-archive-heading uppercase tracking-wider text-xs">Zone</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-archive-secondary/10 text-xs">
+                        <tr>
+                            <td class="px-4 py-3 text-archive-heading font-bold">RIF Number</td>
+                            <td class="px-4 py-3 text-primary">104-10001-10101</td>
+                            <td class="px-4 py-3 text-archive-secondary/70">Header</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-archive-heading font-bold">Agency</td>
+                            <td class="px-4 py-3 text-primary">FBI, CIA, DPD</td>
+                            <td class="px-4 py-3 text-archive-secondary/70">Header</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-archive-heading font-bold">Date</td>
+                            <td class="px-4 py-3 text-primary">November 22, 1963</td>
+                            <td class="px-4 py-3 text-archive-secondary/70">Header/Footer</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-archive-heading font-bold">Author</td>
+                            <td class="px-4 py-3 text-primary">SA C. Ray Hall</td>
+                            <td class="px-4 py-3 text-archive-secondary/70">Footer</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-archive-heading font-bold">File Number</td>
+                            <td class="px-4 py-3 text-primary">DL 89-43</td>
+                            <td class="px-4 py-3 text-archive-secondary/70">Header</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- API USAGE -->
         <section class="mb-12">
             <h2
@@ -369,16 +464,22 @@
             <div class="bg-archive-dark/50 border border-archive-secondary/20 p-5">
                 <pre class="text-[11px] font-mono text-archive-secondary/90 overflow-x-auto"><code>from document_classifier import classify_document
 from zone_extractor import extract_document
+from metadata_parser import parse_metadata
 
 # Classify document type
 result = classify_document(ocr_text)
 print(f"Type: {result.doc_type.value}")
 print(f"Confidence: {result.confidence:.0%}")
 
-# Extract metadata fields
+# Extract metadata fields via zone extractor
 extraction = extract_document(ocr_text)
 for field, value in extraction.fields.items():
-    print(f"  {field}: {value}")</code></pre>
+    print(f"  {field}: {value}")
+
+# Parse header/footer metadata
+metadata = parse_metadata(ocr_text)
+print(f"RIF: {metadata.get('rif_number', {}).get('value')}")
+print(f"Agency: {metadata.get('agency', {}).get('value')}")</code></pre>
             </div>
         </section>
 

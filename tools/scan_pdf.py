@@ -1,3 +1,15 @@
+"""
+scan_pdf.py — Simple PDF Keyword Search Utility
+
+Searches a PDF for specified keywords and reports which pages contain them.
+Used for quick document analysis and locating specific content.
+
+Usage:
+    python tools/scan_pdf.py
+    
+    # Or modify the pdf_path and keywords in __main__ section
+"""
+
 import pypdf
 import sys
 

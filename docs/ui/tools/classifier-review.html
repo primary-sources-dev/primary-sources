@@ -73,10 +73,13 @@
                     PDF.js Rendering
                 </span>
                 <span class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
-                    Text Layer Sync
+                    Training Loop
                 </span>
                 <span class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
-                    Live Validation
+                    Entity Linking
+                </span>
+                <span class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
+                    Metadata Extraction
                 </span>
             </div>
         </div>
@@ -187,12 +190,106 @@
                 </div>
                 <div class="border-l-2 border-primary/30 pl-4">
                     <h4 class="text-sm font-bold text-archive-heading uppercase tracking-wide mb-1">
-                        <span class="text-primary">4.</span> Export Training Data
+                        <span class="text-primary">4.</span> Automatic Training Data
                     </h4>
                     <p class="text-sm text-archive-secondary/80 mb-2">
-                        Corrected classifications are saved to a validation dataset. Use this data to
-                        retrain and improve classifier accuracy over time.
+                        Each click automatically POSTs feedback to the OCR server, which saves it to
+                        <code class="text-primary">data/classifier-feedback.json</code> for classifier improvement.
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRAINING LOOP -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Training Loop
+            </h2>
+            <div class="bg-archive-dark/30 border border-archive-secondary/20 p-6 mb-6">
+                <div class="flex flex-col items-center gap-2 text-center text-xs">
+                    <div class="flex items-center gap-4">
+                        <div class="px-3 py-2 border border-archive-secondary/20 bg-archive-dark/50">
+                            <span class="material-symbols-outlined text-lg text-archive-secondary">touch_app</span>
+                            <p class="text-[9px] mt-1">User Click</p>
+                        </div>
+                        <span class="material-symbols-outlined text-archive-secondary/30">arrow_forward</span>
+                        <div class="px-3 py-2 border border-archive-secondary/20 bg-archive-dark/50">
+                            <span class="material-symbols-outlined text-lg text-archive-secondary">cloud_upload</span>
+                            <p class="text-[9px] mt-1">POST /api/feedback</p>
+                        </div>
+                        <span class="material-symbols-outlined text-archive-secondary/30">arrow_forward</span>
+                        <div class="px-3 py-2 border border-primary/30 bg-primary/10">
+                            <span class="material-symbols-outlined text-lg text-primary">database</span>
+                            <p class="text-[9px] mt-1 text-primary">feedback.json</p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined text-archive-secondary/30">arrow_downward</span>
+                    <div class="flex items-center gap-4">
+                        <div class="px-3 py-2 border border-primary/30 bg-primary/10">
+                            <span class="material-symbols-outlined text-lg text-primary">model_training</span>
+                            <p class="text-[9px] mt-1 text-primary">train_classifier.py</p>
+                        </div>
+                        <span class="material-symbols-outlined text-archive-secondary/30">arrow_forward</span>
+                        <div class="px-3 py-2 border border-archive-secondary/20 bg-archive-dark/50">
+                            <span class="material-symbols-outlined text-lg text-archive-secondary">lightbulb</span>
+                            <p class="text-[9px] mt-1">Pattern Suggestions</p>
+                        </div>
+                        <span class="material-symbols-outlined text-archive-secondary/30">arrow_forward</span>
+                        <div class="px-3 py-2 border border-emerald-500/30 bg-emerald-500/10">
+                            <span class="material-symbols-outlined text-lg text-emerald-400">upgrade</span>
+                            <p class="text-[9px] mt-1 text-emerald-400">Classifier Updated</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-3 text-sm text-archive-secondary/80">
+                <p>
+                    <strong class="text-archive-heading">Feedback Collection:</strong>
+                    When you click a type button, the tool POSTs to the OCR server's <code class="text-primary">/api/feedback</code>
+                    endpoint. Each entry includes the predicted type, selected type, and a text sample.
+                </p>
+                <p>
+                    <strong class="text-archive-heading">Pattern Analysis:</strong>
+                    Run <code class="text-primary">python tools/train_classifier.py --suggest</code> to analyze corrections.
+                    The script extracts common phrases from misclassified documents and suggests new fingerprint patterns.
+                </p>
+                <p>
+                    <strong class="text-archive-heading">Classifier Update:</strong>
+                    Review suggestions and add validated patterns to <code class="text-primary">document_classifier.py</code>.
+                    Regenerate the review report to verify improvement.
+                </p>
+            </div>
+        </section>
+
+        <!-- INTEGRATED PIPELINE -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Integrated Pipeline
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">auto_awesome</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Document Classifier</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-2">24 document types + 4 structural types with regex fingerprints and Levenshtein fuzzy matching.</p>
+                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">28 Types</span>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">data_object</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Metadata Parser</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-2">Extracts RIF numbers, agency, date, author from headers. FBI 302 footer parsing for agent names.</p>
+                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">Header + Footer</span>
+                </div>
+                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-primary">group</span>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase">Entity Linker</h3>
+                    </div>
+                    <p class="text-xs text-archive-secondary/70 mb-2">Cross-references OCR text against research database. Links mentions to known people and places.</p>
+                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">22 People · 16 Places</span>
                 </div>
             </div>
         </section>
@@ -247,22 +344,33 @@
                 <div class="flex gap-4 items-start">
                     <span class="material-symbols-outlined text-primary text-xl">code</span>
                     <div>
-                        <h4 class="text-sm font-bold text-archive-heading">Client-Side Processing</h4>
-                        <p class="text-xs text-archive-secondary/70">Pure JavaScript implementation using PDF.js. No server required—runs entirely in the browser for privacy and speed.</p>
+                        <h4 class="text-sm font-bold text-archive-heading">Client-Side Rendering</h4>
+                        <p class="text-xs text-archive-secondary/70">PDF.js renders pages at full resolution with text layer overlay for fingerprint highlighting.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-primary text-xl">cloud_sync</span>
+                    <div>
+                        <h4 class="text-sm font-bold text-archive-heading">Server-Side Feedback</h4>
+                        <p class="text-xs text-archive-secondary/70">Clicks POST to <code class="text-primary">/api/feedback</code> on the OCR server for persistent storage and training data collection.</p>
                     </div>
                 </div>
                 <div class="flex gap-4 items-start">
                     <span class="material-symbols-outlined text-primary text-xl">layers</span>
                     <div>
-                        <h4 class="text-sm font-bold text-archive-heading">Text Layer Rendering</h4>
-                        <p class="text-xs text-archive-secondary/70">Extracts PDF text layer coordinates and overlays transparent spans with background highlighting to show matched fingerprints.</p>
+                        <h4 class="text-sm font-bold text-archive-heading">Text Layer Highlighting</h4>
+                        <p class="text-xs text-archive-secondary/70">Extracts PDF text coordinates and overlays transparent spans with yellow highlights on matched fingerprint terms.</p>
                     </div>
                 </div>
                 <div class="flex gap-4 items-start">
-                    <span class="material-symbols-outlined text-primary text-xl">storage</span>
+                    <span class="material-symbols-outlined text-primary text-xl">api</span>
                     <div>
-                        <h4 class="text-sm font-bold text-archive-heading">JSON Data Format</h4>
-                        <p class="text-xs text-archive-secondary/70">Reads classification results from *.classification.json files generated by document_classifier.py (v1.5).</p>
+                        <h4 class="text-sm font-bold text-archive-heading">Feedback API Endpoints</h4>
+                        <p class="text-xs text-archive-secondary/70">
+                            <code class="text-primary">POST /api/feedback</code> — Save user validation<br>
+                            <code class="text-primary">GET /api/feedback</code> — Retrieve all feedback<br>
+                            <code class="text-primary">GET /api/feedback/corrections</code> — Get only misclassifications
+                        </p>
                     </div>
                 </div>
             </div>
@@ -305,10 +413,25 @@
                 <span class="material-symbols-outlined text-emerald-400">check_circle</span>
                 <span class="font-bold text-emerald-400 uppercase tracking-wider text-sm">Status: Live</span>
             </div>
-            <p class="text-xs text-archive-secondary/80">
-                The Classification Review Tool is fully operational. Supports all 20 document types from the
-                Document Layout Analyzer v1.5 with PDF.js rendering and text layer highlighting.
+            <p class="text-xs text-archive-secondary/80 mb-3">
+                The Classification Review Tool is fully operational with integrated training loop.
+                Supports 28 document types with PDF.js rendering, metadata extraction, entity linking, and
+                server-side feedback collection.
             </p>
+            <div class="flex flex-wrap gap-2 text-[9px]">
+                <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
+                    <span class="text-archive-secondary/60">Generator:</span>
+                    <span class="text-primary">classifier_test_html.py</span>
+                </span>
+                <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
+                    <span class="text-archive-secondary/60">Feedback:</span>
+                    <span class="text-primary">data/classifier-feedback.json</span>
+                </span>
+                <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
+                    <span class="text-archive-secondary/60">Training:</span>
+                    <span class="text-primary">train_classifier.py</span>
+                </span>
+            </div>
         </section>
 
     </main>

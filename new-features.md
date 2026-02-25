@@ -91,5 +91,99 @@ Standardized informational pages for all analytical tools with consistent templa
 - **Navigation Split**: Dashboard cards link to informational pages; header nav links to functional tools.
 - **Modular Header Integration**: All pages use `data-component="header"` with dynamic breadcrumbs via `nav.js`.
 
+## 13. Classification Review Tool & Training Loop (2026-02-23)
+Human-in-the-loop classifier improvement system with integrated feedback collection.
+- **Classification Review Tool** (`tools/classifier-review.html`): Visual bulk review interface with PDF.js rendering.
+- **Text Layer Highlighting**: Displays matched fingerprint patterns directly on document canvas.
+- **Integrated Pipeline**: Combines Document Classifier (28 types), Metadata Parser, and Entity Linker in single view.
+- **Server-Side Feedback**: User clicks POST to `/api/feedback` endpoint, saving to `data/classifier-feedback.json`.
+- **Training Script** (`tools/train_classifier.py`): Analyzes corrections, extracts common phrases, suggests new patterns.
+- **Feedback API Endpoints**: `POST /api/feedback`, `GET /api/feedback`, `GET /api/feedback/corrections`.
+
 ---
-*Status: All features committed and integrated into `docs/ui/` — v0.8.3-alpha*
+
+## Tool Codebase Audit (2026-02-23)
+
+### Existing Tool Pages (`docs/ui/tools/`)
+
+| # | Page File | Tool Name | Status |
+|---|-----------|-----------|--------|
+| 1 | `pdf-viewer-features.html` | PDF Viewer | ✅ Live |
+| 2 | `ocr-features.html` | OCR Tool | ✅ Live |
+| 3 | `document-analyzer.html` | Document Layout Analyzer (+ Zone Extractor, Metadata Parser) | ✅ Live |
+| 4 | `classifier-review.html` | Classification Review Tool (+ Training Loop) | ✅ Live |
+| 5 | `citation-generator.html` | Citation Generator | ✅ Live |
+| 6 | `entity-matcher.html` | Entity Matcher (+ Entity Linker) | ✅ Live |
+| 7 | `research-tools.html` | Research Tools (Inflation + Age Calculator) | ✅ Live |
+| 8 | `pattern-discovery.html` | Pattern Discovery Tool | ✅ Live |
+| 9 | `ocr-api.html` | OCR API Reference | ✅ Live |
+
+### Code Files Without Tool Pages (Candidates)
+
+#### High Priority — User-Facing Tools
+
+| # | Code File | Tool Name | Description | Page |
+|---|-----------|-----------|-------------|------|
+| 1 | `tools/train_classifier.py` | Classifier Training Script | Analyzes feedback, suggests patterns | ✅ `classifier-review.html` |
+| 2 | `tools/ocr-gui/zone_extractor.py` | Zone Extractor | Type-specific field extraction | ✅ `document-analyzer.html` |
+| 3 | `tools/ocr-gui/entity_linker.py` | Entity Linker | Cross-references OCR with people/places | ✅ `entity-matcher.html` |
+| 4 | `tools/ocr-gui/metadata_parser.py` | Metadata Parser | Extracts RIF, agency, date, author | ✅ `document-analyzer.html` |
+| 5 | `tools/discover_patterns.py` | Pattern Discovery Tool | Finds new document type patterns | ✅ `pattern-discovery.html` |
+
+#### Medium Priority — Internal/Infrastructure
+
+| # | Code File | Purpose |
+|---|-----------|---------|
+| 6 | `tools/classifier_test_html.py` | Generates classifier-review.html |
+| 7 | `tools/ocr_server.py` | Flask backend for OCR + feedback API |
+| 8 | `tools/ocr-gui/ocr_gui.py` | Desktop GUI (covered by ocr-features.html) |
+| 9 | `tools/scan_pdf.py` | Simple keyword search in PDFs |
+| 10 | `tools/full_pipeline_test.py` | End-to-end OCR pipeline test |
+
+#### Low Priority — Test/Analysis Scripts
+
+| # | Code File | Purpose |
+|---|-----------|---------|
+| 11 | `tools/wc_volume_test.py` | Warren Commission volume testing |
+| 12 | `tools/church_committee_test.py` | Church Committee testing |
+| 13 | `tools/cia_201_test.py` | CIA 201 file testing |
+| 14 | `tools/yates_test.py` | Yates document testing |
+| 15 | `tools/analyze_wc_unknowns.py` | Analyze unclassified WC pages |
+| 16 | `tools/examine_*.py` (5 files) | Examine unknown pages |
+| 17 | `tools/check_page_scores.py` | Debug classification scores |
+| 18 | `tools/test_classifier.py` | Unit tests for classifier |
+| 19 | `tools/test_dpd_detection.py` | Dallas PD pattern tests |
+| 20 | `tools/prove_it_works.py` | Demonstration script |
+
+#### Data Management Scripts (Internal)
+
+| # | Code File | Purpose |
+|---|-----------|---------|
+| 21 | `tools/merge_data.py` | Merge JSON datasets |
+| 22 | `tools/clean_baseline.py` | Clean baseline data |
+| 23 | `tools/deduplicate_baseline.py` | Remove duplicates |
+| 24 | `tools/restructure_events.py` | Restructure event data |
+| 25 | `tools/tag_yates_entities.py` | Tag entities in Yates docs |
+| 26 | `tools/all_collections_summary.py` | Generate collection summaries |
+
+### Recommended New Tool Pages — COMPLETED
+
+| Priority | Tool | Action |
+|----------|------|--------|
+| 1 | ~~Classifier Training~~ | ✅ Covered in `classifier-review.html` |
+| 2 | ~~Pattern Discovery~~ | ✅ Created `pattern-discovery.html` |
+| 3 | ~~Zone Extractor~~ | ✅ Merged into `document-analyzer.html` |
+| 4 | ~~Metadata Parser~~ | ✅ Merged into `document-analyzer.html` |
+| 5 | ~~Entity Linker~~ | ✅ Merged into `entity-matcher.html` |
+| 6 | OCR API Reference | ✅ Created `ocr-api.html` |
+
+## 14. Tool Documentation Expansion (2026-02-23)
+Comprehensive documentation coverage for all high-priority tools.
+- **Pattern Discovery Tool** (`tools/pattern-discovery.html`): New standalone page documenting the UNKNOWN page analysis workflow.
+- **OCR API Reference** (`tools/ocr-api.html`): Complete REST API documentation for all 12 endpoints (classification, extraction, entities, citations, feedback).
+- **Document Analyzer Update**: Added Zone Extractor and Metadata Parser sections with field tables and zone descriptions.
+- **Entity Matcher Update**: Added Entity Linker engine documentation with People/Places database info.
+- **Internal Script Docstrings**: Added module-level docstrings to `scan_pdf.py` and verified existing docstrings.
+
+---
+*Status: All features committed and integrated into `docs/ui/` — v0.8.5-alpha*
