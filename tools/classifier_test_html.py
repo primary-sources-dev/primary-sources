@@ -626,21 +626,61 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         });
         
         // One-click type selection
-        function selectType(page, selectedType) {
-            const el = document.getElementById(`page-${page}`);
+        // OCR Server feedback endpoint
+        const FEEDBACK_API = 'http://localhost:5000/api/feedback';
+        const SOURCE_NAME = '{html.escape(pdf_name)}';
+        
+        function selectType(page, selectedType) {{
+            const el = document.getElementById(`page-${{page}}`);
             const predicted = el.dataset.predicted;
             const isCorrect = (selectedType === predicted);
             
-            // Save feedback
-            feedback[page] = {
+            // Get text sample for training
+            const textEl = el.querySelector('pre');
+            const textSample = textEl ? textEl.textContent.substring(0, 500) : '';
+
+            // Save feedback locally
+            feedback[page] = {{
                 status: isCorrect ? "correct" : "incorrect",
                 predictedType: predicted,
                 selectedType: selectedType
-            };
+            }};
             saveFeedback();
             applyFeedbackUI(page, feedback[page]);
             updateStats();
-        }
+            
+            // POST to server for training
+            fetch(FEEDBACK_API, {{
+                method: 'POST',
+                headers: {{ 'Content-Type': 'application/json' }},
+                body: JSON.stringify({{
+                    page: page,
+                    source: SOURCE_NAME,
+                    predictedType: predicted,
+                    selectedType: selectedType,
+                    status: isCorrect ? "correct" : "incorrect",
+                    textSample: textSample
+                }})
+            }})
+            .then(res => res.json())
+            .then(data => {{
+                if (data.success) {{
+                    console.log(`Feedback saved to server: ${{data.totalEntries}} total entries`);
+                    showToast(`Saved to training data (${{data.summary.total}} entries)`);
+                }}
+            }})
+            .catch(err => {{
+                console.warn('Could not save to server (OCR server may not be running):', err);
+            }});
+        }}
+        
+        function showToast(message) {{
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--primary);color:var(--archive-dark);padding:8px 16px;border-radius:4px;font-size:12px;z-index:9999;';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }}
         
         function applyFeedbackUI(page, data) {
             const el = document.getElementById(`page-${page}`);

@@ -864,6 +864,159 @@ def entities_index_endpoint():
 
 
 # ============================================================================
+# FEEDBACK / TRAINING DATA ENDPOINTS
+# ============================================================================
+
+FEEDBACK_FILE = os.path.join(PROJECT_ROOT, "data", "classifier-feedback.json")
+
+def load_feedback() -> dict:
+    """Load existing feedback from file."""
+    if os.path.exists(FEEDBACK_FILE):
+        try:
+            with open(FEEDBACK_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            pass
+    return {"entries": [], "summary": {"total": 0, "correct": 0, "incorrect": 0}}
+
+def save_feedback(data: dict):
+    """Save feedback to file."""
+    os.makedirs(os.path.dirname(FEEDBACK_FILE), exist_ok=True)
+    with open(FEEDBACK_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+
+
+@app.route("/api/feedback", methods=["POST"])
+def feedback_post():
+    """
+    Save classification feedback for training.
+    
+    Request body (JSON):
+        {
+            "page": 42,
+            "source": "GPO-WARRENCOMMISSIONHEARINGS-1.pdf",
+            "predictedType": "WC_TESTIMONY",
+            "selectedType": "FBI_302",
+            "status": "incorrect",
+            "textSample": "First 500 chars of OCR text..."
+        }
+    
+    Response:
+        { "success": true, "totalEntries": 150 }
+    """
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Missing JSON body"}), 400
+    
+    required = ["page", "predictedType", "selectedType", "status"]
+    missing = [f for f in required if f not in data]
+    if missing:
+        return jsonify({"error": f"Missing required fields: {missing}"}), 400
+    
+    # Load existing feedback
+    feedback = load_feedback()
+    
+    # Add timestamp
+    from datetime import datetime
+    data["timestamp"] = datetime.now().isoformat()
+    
+    # Check for duplicate (same source + page)
+    source = data.get("source", "unknown")
+    page = data.get("page")
+    existing_idx = None
+    for i, entry in enumerate(feedback["entries"]):
+        if entry.get("source") == source and entry.get("page") == page:
+            existing_idx = i
+            break
+    
+    if existing_idx is not None:
+        # Update existing entry
+        old_status = feedback["entries"][existing_idx].get("status")
+        feedback["entries"][existing_idx] = data
+        # Update summary
+        if old_status == "correct":
+            feedback["summary"]["correct"] -= 1
+        elif old_status == "incorrect":
+            feedback["summary"]["incorrect"] -= 1
+    else:
+        # Add new entry
+        feedback["entries"].append(data)
+        feedback["summary"]["total"] += 1
+    
+    # Update summary counts
+    if data["status"] == "correct":
+        feedback["summary"]["correct"] += 1
+    elif data["status"] == "incorrect":
+        feedback["summary"]["incorrect"] += 1
+    
+    # Save
+    save_feedback(feedback)
+    
+    return jsonify({
+        "success": True,
+        "totalEntries": len(feedback["entries"]),
+        "summary": feedback["summary"]
+    })
+
+
+@app.route("/api/feedback", methods=["GET"])
+def feedback_get():
+    """
+    Retrieve all saved feedback.
+    
+    Response:
+        {
+            "entries": [...],
+            "summary": { "total": 150, "correct": 120, "incorrect": 30 }
+        }
+    """
+    feedback = load_feedback()
+    return jsonify(feedback)
+
+
+@app.route("/api/feedback/corrections", methods=["GET"])
+def feedback_corrections():
+    """
+    Get only incorrect classifications for training analysis.
+    
+    Response:
+        {
+            "corrections": [
+                { "predictedType": "WC_TESTIMONY", "selectedType": "FBI_302", "count": 5, "samples": [...] }
+            ]
+        }
+    """
+    feedback = load_feedback()
+    
+    # Group corrections by predicted->selected type pairs
+    corrections = {}
+    for entry in feedback["entries"]:
+        if entry.get("status") != "incorrect":
+            continue
+        
+        key = f"{entry['predictedType']}->{entry['selectedType']}"
+        if key not in corrections:
+            corrections[key] = {
+                "predictedType": entry["predictedType"],
+                "selectedType": entry["selectedType"],
+                "count": 0,
+                "samples": []
+            }
+        corrections[key]["count"] += 1
+        if len(corrections[key]["samples"]) < 5:  # Keep up to 5 samples
+            corrections[key]["samples"].append({
+                "page": entry.get("page"),
+                "source": entry.get("source"),
+                "textSample": entry.get("textSample", "")[:200]
+            })
+    
+    return jsonify({
+        "corrections": list(corrections.values()),
+        "total_incorrect": sum(c["count"] for c in corrections.values())
+    })
+
+
+# ============================================================================
 # MAIN
 # ============================================================================
 
