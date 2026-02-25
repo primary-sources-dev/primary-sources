@@ -145,3 +145,143 @@ hr {
 .group:hover .badge-wip {
     opacity: 1;
 }
+/* ==============================
+   COLLAPSIBLE NAVIGATION MENU
+   ============================== */
+
+/* Category container */
+.menu-category {
+    border-bottom: 1px solid rgba(176, 139, 73, 0.1);
+}
+
+/* Category toggle button */
+.category-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    color: #D4CFC7;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.category-toggle:hover {
+    background: rgba(176, 139, 73, 0.05);
+    color: #B08B49;
+}
+
+/* Category icon */
+.category-toggle .material-symbols-outlined:first-child {
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+/* Chevron icon */
+.category-toggle .chevron {
+    margin-left: auto;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.category-toggle.expanded .chevron {
+    transform: rotate(180deg);
+}
+
+/* Category items container */
+.category-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    background: rgba(26, 23, 24, 0.5);
+}
+
+.category-items.expanded {
+    max-height: 500px;
+}
+
+/* Menu links */
+.menu-link {
+    display: block;
+    padding: 10px 16px 10px 48px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(212, 207, 199, 0.8);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid rgba(176, 139, 73, 0.05);
+}
+
+.menu-link:hover {
+    background: rgba(176, 139, 73, 0.05);
+    color: #B08B49;
+    padding-left: 52px;
+}
+
+/* Subcategory container */
+.menu-subcategory {
+    border-left: 2px solid rgba(176, 139, 73, 0.2);
+    margin-left: 16px;
+}
+
+/* Subcategory toggle button */
+.subcategory-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    color: rgba(212, 207, 199, 0.7);
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.subcategory-toggle:hover {
+    color: #B08B49;
+}
+
+.subcategory-toggle .chevron {
+    margin-left: auto;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.subcategory-toggle.expanded .chevron {
+    transform: rotate(180deg);
+}
+
+/* Subcategory items */
+.subcategory-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.subcategory-items.expanded {
+    max-height: 300px;
+}
+
+/* Nested menu links (extra indent) */
+.subcategory-items .menu-link {
+    padding-left: 56px;
+}
+
+.subcategory-items .menu-link:hover {
+    padding-left: 60px;
+}

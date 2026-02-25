@@ -148,8 +148,8 @@ To support timeline generation and research tools, indexes are applied to:
 
 All 28 tables in the schema, grouped by architectural layer.
 
-**Controlled Vocabularies (13)**
-`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type` · `v_predicate`
+**Controlled Vocabularies (15)**
+`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type` · `v_predicate` · `v_person_relation_type` · `v_assertion_support_type`
 
 **Core Entities (4)**
 `person` · `org` · `place` · `object`
@@ -160,8 +160,8 @@ All 28 tables in the schema, grouped by architectural layer.
 **Evidence Layer (4)**
 `source` · `source_excerpt` · `assertion` · `assertion_support`
 
-**Attribute Tables (2)**
-`person_alias` · `entity_identifier`
+**Attribute and Relationship Tables (3)**
+`person_alias` · `entity_identifier` · `person_relation`
 
 > For column-level detail and DDL, see [`supabase/migrations/001_initial_schema.sql`](../supabase/migrations/001_initial_schema.sql).
 

@@ -22,6 +22,8 @@ create table if not exists v_time_precision  (code text primary key, label text 
 create table if not exists v_org_type        (code text primary key, label text not null);
 create table if not exists v_place_type      (code text primary key, label text not null);
 create table if not exists v_object_type     (code text primary key, label text not null);
+create table if not exists v_predicate       (code text primary key, label text not null);
+create table if not exists v_person_relation_type (code text primary key, label text not null);
 
 -- -----------------------
 -- Core entity tables
@@ -96,7 +98,7 @@ create table if not exists assertion (
   context_event_id uuid references event(event_id) on delete set null,
   subject_type     text not null check (subject_type in ('person','org','place','object','event')),
   subject_id       uuid not null,
-  predicate        text not null,
+  predicate        text not null references v_predicate(code),
   object_type      text,
   object_id        uuid,
   object_value     text,
@@ -203,6 +205,16 @@ create table if not exists entity_identifier (
   assertion_id uuid references assertion(assertion_id),
   created_at   timestamptz not null default now(),
   primary key (entity_type, entity_id, id_type, id_value)
+);
+
+create table if not exists person_relation (
+  person_id_1    uuid not null references person(person_id) on delete cascade,
+  relation_type  text not null references v_person_relation_type(code),
+  person_id_2    uuid not null references person(person_id) on delete cascade,
+  assertion_id   uuid references assertion(assertion_id),
+  notes          text,
+  created_at     timestamptz not null default now(),
+  primary key (person_id_1, relation_type, person_id_2)
 );
 
 -- -----------------------

@@ -17,12 +17,16 @@ on conflict (code) do nothing;
 
 -- 2. Participant roles
 insert into v_role_type (code, label) values
-  ('WITNESS',      'Individual who personally observed the event'),
-  ('SUBJECT',      'Primary focus of the event'),
-  ('INVESTIGATOR', 'Official conducting the inquiry or reporting'),
-  ('PHOTOGRAPHER', 'Individual capturing visual evidence'),
-  ('PHYSICIAN',    'Medical professional performing an evaluation'),
-  ('OFFICER',      'Law enforcement personnel participating in the event')
+  ('WITNESS',         'Individual who personally observed the event'),
+  ('SUBJECT',         'Primary focus of the event'),
+  ('INVESTIGATOR',    'Official conducting the inquiry or reporting'),
+  ('REPORTING_AGENT', 'Official authoring the formal record/document'),
+  ('INTERVIEWER',    'Agent physically conducting the questioning session'),
+  ('EXAMINER',       'Specialist conducting forensic or technical tests (e.g. Polygraph)'),
+  ('AFFIANT',        'Individual providing a signed, sworn statement'),
+  ('PHOTOGRAPHER',    'Individual capturing visual evidence'),
+  ('PHYSICIAN',       'Medical professional performing an evaluation'),
+  ('OFFICER',         'Law enforcement personnel participating in the event')
 on conflict (code) do nothing;
 
 -- 3. Place roles
@@ -44,10 +48,12 @@ on conflict (code) do nothing;
 
 -- 5. Event relation types
 insert into v_relation_type (code, label) values
-  ('PRECEDES',     'Event A occurs chronologically before Event B'),
-  ('PART_OF',      'Event A is a sub-component of larger Event B'),
-  ('CORROBORATES', 'Event A provides secondary evidence that Event B occurred'),
-  ('CONTRADICTS',  'Event A makes the occurrence or timing of Event B logically impossible')
+  ('PRECEDES',          'Event A occurs chronologically before Event B'),
+  ('PART_OF',           'Event A is a sub-component of larger Event B'),
+  ('CORROBORATES',      'Event A provides secondary evidence that Event B occurred'),
+  ('CONTRADICTS',       'Event A makes the occurrence or timing of Event B logically impossible'),
+  ('RESULTS_IN',        'Event A procedurally leads to the initiation of Event B'),
+  ('FOLLOWS_PROCEDURE', 'Event B occurs as a formal follow-up to Event A')
 on conflict (code) do nothing;
 
 -- 6. Source types
@@ -113,4 +119,29 @@ insert into v_object_type (code, label) values
   ('VEHICLE',       'A car, motorcycle, or other mode of transport'),
   ('MEDIA_CARRIER', 'A film reel, audio tape, or photographic negative'),
   ('CLOTHING',      'Garments or personal effects worn by a subject')
+on conflict (code) do nothing;
+
+-- 13. Predicates (Subject-Verb-Object labels for assertions)
+insert into v_predicate (code, label) values
+  ('STATED_OBSERVATION', 'Subject declared they saw a specific detail'),
+  ('IDENTIFIED_PHOTO',   'Subject identified an entity from a photograph'),
+  ('PROVIDED_ALIBI',     'Subject provided information verifying their location elsewhere'),
+  ('DENIED_KNOWLEDGE',   'Subject explicitly stated they have no information on the topic'),
+  ('REPORTED_MOVEMENT',  'Subject described the travel or transfer of an entity'),
+  ('WAS_PRESENT_AT',     'Subject was physically at the specified location'),
+  ('IS_SPOUSE_OF',       'Subject is legally married to the object'),
+  ('IS_CHILD_OF',        'Subject is the biological or legal offspring of the object'),
+  ('IS_PARENT_OF',       'Subject is the biological or legal parent of the object'),
+  ('IS_SIBLING_OF',      'Subject shares parents with the object')
+on conflict (code) do nothing;
+
+-- 14. Global Person Relations
+insert into v_person_relation_type (code, label) values
+  ('SPOUSE', 'Legal or common-law marriage'),
+  ('CHILD',  'Biological or legal offspring'),
+  ('PARENT', 'Biological or legal parent'),
+  ('SIBLING', 'Biological or legal brother or sister'),
+  ('CO-WORKER', 'Professional colleague at the same organization'),
+  ('EMPLOYER', 'Organization or person and their employee'),
+  ('FRIEND', 'Non-familial social relationship')
 on conflict (code) do nothing;
