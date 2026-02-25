@@ -594,6 +594,22 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-{page}" onchange="applyNotePreset({page})" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-{page}" placeholder="Custom note..." onchange="saveNote({page})" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">{preview}</pre>
@@ -630,6 +646,36 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         const FEEDBACK_API = 'http://localhost:5000/api/feedback';
         const SOURCE_NAME = '__PDF_NAME__';
         
+        // Note preset labels for display
+        const NOTE_PRESETS = {
+            'NEW_TYPE': 'Consider new document type',
+            'NEW_PATTERN': 'Add pattern to classifier',
+            'SCHEMA_UPDATE': 'Schema change needed',
+            'OCR_QUALITY': 'Poor OCR / illegible',
+            'AMBIGUOUS': 'Ambiguous classification'
+        };
+        
+        function applyNotePreset(page) {
+            const preset = document.getElementById(`note-preset-${page}`).value;
+            const textField = document.getElementById(`note-text-${page}`);
+            if (preset && NOTE_PRESETS[preset]) {
+                textField.value = NOTE_PRESETS[preset];
+            }
+            saveNote(page);
+        }
+        
+        function saveNote(page) {
+            const preset = document.getElementById(`note-preset-${page}`).value;
+            const text = document.getElementById(`note-text-${page}`).value;
+            
+            if (!feedback[page]) {
+                feedback[page] = { status: 'pending' };
+            }
+            feedback[page].noteType = preset || null;
+            feedback[page].notes = text || null;
+            saveFeedback();
+        }
+        
         function selectType(page, selectedType) {
             const el = document.getElementById(`page-${page}`);
             const predicted = el.dataset.predicted;
@@ -638,12 +684,18 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             // Get text sample for training
             const textEl = el.querySelector('pre');
             const textSample = textEl ? textEl.textContent.substring(0, 500) : '';
+            
+            // Get notes
+            const noteType = document.getElementById(`note-preset-${page}`).value || null;
+            const notes = document.getElementById(`note-text-${page}`).value || null;
 
             // Save feedback locally
             feedback[page] = {
                 status: isCorrect ? "correct" : "incorrect",
                 predictedType: predicted,
-                selectedType: selectedType
+                selectedType: selectedType,
+                noteType: noteType,
+                notes: notes
             };
             saveFeedback();
             applyFeedbackUI(page, feedback[page]);
@@ -659,7 +711,9 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                     predictedType: predicted,
                     selectedType: selectedType,
                     status: isCorrect ? "correct" : "incorrect",
-                    textSample: textSample
+                    textSample: textSample,
+                    noteType: noteType,
+                    notes: notes
                 })
             })
             .then(res => res.json())
@@ -712,6 +766,16 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                         btn.classList.add("wrong");
                     }
                 }
+            });
+            
+            // Restore notes
+            const notePreset = document.getElementById(`note-preset-${page}`);
+            const noteText = document.getElementById(`note-text-${page}`);
+            if (notePreset && data.noteType) {
+                notePreset.value = data.noteType;
+            }
+            if (noteText && data.notes) {
+                noteText.value = data.notes;
             });
         }
         

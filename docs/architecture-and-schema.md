@@ -35,6 +35,49 @@ Primary sources are cataloged from multiple archival repositories (NARA, Mary Fe
   - `SITE`: Specific areas or geographic zones (e.g., Dealey Plaza assassination site)
   - Distinguishes from `BUILDING` (structures) and `REGION` (administrative zones)
 
+### 2.2 Source Typing Model
+
+Sources have a two-level typing system to balance queryability with specificity:
+
+| Column | Purpose | Example |
+|--------|---------|---------|
+| `source.source_type` | Broad category (FK to `v_source_type`) | `REPORT` |
+| `source.detected_type` | Classifier-specific subtype (free text) | `FBI_302`, `WITNESS_STATEMENT` |
+
+**Rationale:** The OCR document classifier identifies 25+ specific document types (FBI_302, CIA_CABLE, WITNESS_STATEMENT, etc.), but the database schema uses broad categories for simpler querying. The `detected_type` column captures the specific classification without requiring a separate vocabulary table.
+
+**Classifier-to-Database Mapping:**
+
+| Classifier Type | source_type | detected_type |
+|-----------------|-------------|---------------|
+| FBI_302, FBI_REPORT, DPD_REPORT | REPORT | (as detected) |
+| WITNESS_STATEMENT | REPORT | WITNESS_STATEMENT |
+| WC_TESTIMONY, WC_DEPOSITION, WC_AFFIDAVIT | TESTIMONY | (as detected) |
+| CIA_CABLE, CIA_201 | REPORT | (as detected) |
+| MEMO, LETTER | MEMO | (as detected) |
+
+### 2.3 Source Reference Systems
+
+A single source can exist in multiple reference systems. These are stored in `entity_identifier` with `entity_type = 'source'`:
+
+| id_type | Example | Meaning |
+|---------|---------|---------|
+| `NARA_RIF` | 180-10001-10234 | National Archives catalog number |
+| `CD_NUMBER` | CD-205 | Warren Commission Document |
+| `CE_NUMBER` | CE-2003 | Warren Commission Exhibit |
+| `FBI_FILE` | DL 44-1639 | FBI field office file |
+
+**Example:** The Ralph Yates FBI 302 might have:
+```sql
+-- source record
+source_type = 'REPORT', detected_type = 'FBI_302'
+
+-- entity_identifier records
+(entity_type='source', id_type='NARA_RIF', id_value='180-10001-10234')
+(entity_type='source', id_type='CD_NUMBER', id_value='CD-205')
+(entity_type='source', id_type='FBI_FILE', id_value='DL 44-1639')
+```
+
 ## 3. The Event Model (The Golden Thread)
 
 Events serve as the relational hub for the entire system.
@@ -148,8 +191,8 @@ To support timeline generation and research tools, indexes are applied to:
 
 All 28 tables in the schema, grouped by architectural layer.
 
-**Controlled Vocabularies (15)**
-`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type` · `v_predicate` · `v_person_relation_type` · `v_assertion_support_type`
+**Controlled Vocabularies (16)**
+`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type` · `v_predicate` · `v_person_relation_type` · `v_id_type`
 
 **Core Entities (4)**
 `person` · `org` · `place` · `object`

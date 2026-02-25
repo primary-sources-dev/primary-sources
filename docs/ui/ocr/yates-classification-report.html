@@ -220,7 +220,7 @@
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-2xl font-bold mb-2">Document Classification Review</h1>
-            <p class="text-sm opacity-60">yates-searchable.pdf &bull; 43 pages &bull; Generated 2026-02-24 23:37</p>
+            <p class="text-sm opacity-60">yates-searchable.pdf &bull; 43 pages &bull; Generated 2026-02-25 00:35</p>
         </div>
         
         <!-- Summary Stats -->
@@ -322,6 +322,22 @@
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(1, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(1, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(1, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(1, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(1, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(1, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(1, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(1, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(1, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(1, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(1, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(1, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(1, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(1, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(1, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(1, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(1, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(1, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(1, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(1, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(1, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(1, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-1" onchange="applyNotePreset(1)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-1" placeholder="Custom note..." onchange="saveNote(1)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -427,6 +443,22 @@ and he had stopped and pickieg</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-2" onchange="applyNotePreset(2)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-2" placeholder="Custom note..." onchange="saveNote(2)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">pay: 
@@ -518,6 +550,22 @@ YATES said that the man then a</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-3" onchange="applyNotePreset(3)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-3" placeholder="Custom note..." onchange="saveNote(3)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">3 
@@ -584,6 +632,22 @@ from the fact he was furnishing this information.
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(4, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(4, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(4, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(4, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(4, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(4, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(4, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(4, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(4, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(4, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(4, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(4, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(4, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(4, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(4, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(4, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(4, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(4, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(4, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(4, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(4, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(4, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-4" onchange="applyNotePreset(4)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-4" placeholder="Custom note..." onchange="saveNote(4)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -673,6 +737,22 @@ boy in Oak Cli</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-5" onchange="applyNotePreset(5)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-5" placeholder="Custom note..." onchange="saveNote(5)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">cas 
@@ -736,6 +816,22 @@ Af /</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(6, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(6, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(6, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(6, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(6, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(6, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(6, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(6, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(6, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(6, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(6, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(6, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(6, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(6, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(6, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(6, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(6, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(6, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(6, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(6, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(6, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(6, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-6" onchange="applyNotePreset(6)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-6" placeholder="Custom note..." onchange="saveNote(6)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -834,6 +930,22 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-7" onchange="applyNotePreset(7)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-7" placeholder="Custom note..." onchange="saveNote(7)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">[Empty or image-only page]</pre>
@@ -889,6 +1001,22 @@ Arlington Food Stcres, Post Office Box 91, Ar</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(8, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(8, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(8, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(8, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(8, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(8, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(8, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(8, 'HANDWRITTEN_NOTES')" class="type-btn" data-type="HANDWRITTEN_NOTES">HANDWRITTEN_NOTES</button><button onclick="selectType(8, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(8, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(8, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(8, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(8, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(8, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(8, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(8, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(8, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(8, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(8, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(8, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(8, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(8, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-8" onchange="applyNotePreset(8)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-8" placeholder="Custom note..." onchange="saveNote(8)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1001,6 +1129,22 @@ a csurt of Law.
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(9, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(9, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(9, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(9, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(9, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(9, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(9, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(9, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(9, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(9, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(9, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(9, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(9, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(9, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(9, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(9, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(9, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(9, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(9, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(9, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(9, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(9, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-9" onchange="applyNotePreset(9)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-9" placeholder="Custom note..." onchange="saveNote(9)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1137,6 +1281,22 @@ a lot of excitement in Dallas soo</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-10" onchange="applyNotePreset(10)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-10" placeholder="Custom note..." onchange="saveNote(10)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">7 
@@ -1252,6 +1412,22 @@ OMA</span><span class="mr-3"><b>File#:</b> DL 100-10461</span>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(11, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(11, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(11, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(11, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(11, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(11, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(11, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(11, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(11, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(11, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(11, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(11, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(11, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(11, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(11, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(11, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(11, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(11, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(11, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(11, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(11, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(11, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-11" onchange="applyNotePreset(11)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-11" placeholder="Custom note..." onchange="saveNote(11)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1382,6 +1558,22 @@ he got out of the servide he learned that he h</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-12" onchange="applyNotePreset(12)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-12" placeholder="Custom note..." onchange="saveNote(12)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">Cp 205 
@@ -1505,6 +1697,22 @@ E&gt;</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-13" onchange="applyNotePreset(13)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-13" placeholder="Custom note..." onchange="saveNote(13)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">Consent to Interview with Polygraph 
@@ -1577,6 +1785,22 @@ uw
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(14, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(14, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(14, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(14, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(14, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(14, 'FBI_302')" class="type-btn" data-type="FBI_302">FBI_302</button><button onclick="selectType(14, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(14, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(14, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(14, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(14, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(14, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(14, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(14, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(14, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(14, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(14, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(14, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(14, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(14, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(14, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(14, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-14" onchange="applyNotePreset(14)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-14" placeholder="Custom note..." onchange="saveNote(14)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -1711,6 +1935,22 @@ REINTERVIEN YAT</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-15" onchange="applyNotePreset(15)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-15" placeholder="Custom note..." onchange="saveNote(15)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">2 
@@ -1842,6 +2082,22 @@ During:....%.
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-16" onchange="applyNotePreset(16)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-16" placeholder="Custom note..." onchange="saveNote(16)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">4 
@@ -1958,6 +2214,22 @@ YATES advi</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-17" onchange="applyNotePreset(17)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-17" placeholder="Custom note..." onchange="saveNote(17)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">a 
@@ -2057,6 +2329,22 @@ check was issued to TBSC on or about November 20 or 21, 1963,</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(18, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(18, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(18, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(18, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(18, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(18, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(18, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(18, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(18, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(18, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(18, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(18, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(18, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(18, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(18, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(18, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(18, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(18, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(18, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(18, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(18, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(18, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-18" onchange="applyNotePreset(18)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-18" placeholder="Custom note..." onchange="saveNote(18)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2208,6 +2496,22 @@ wa 1-364</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-19" onchange="applyNotePreset(19)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-19" placeholder="Custom note..." onchange="saveNote(19)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">, &#x27; * Me 
@@ -2315,6 +2619,22 @@ te eles alt RCE
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-20" onchange="applyNotePreset(20)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-20" placeholder="Custom note..." onchange="saveNote(20)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">1 
@@ -2405,6 +2725,22 @@ this statement and SA DE BRUEYS has read it t</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-21" onchange="applyNotePreset(21)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-21" placeholder="Custom note..." onchange="saveNote(21)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">2 
@@ -2488,6 +2824,22 @@ I have read this statement</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-22" onchange="applyNotePreset(22)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-22" placeholder="Custom note..." onchange="saveNote(22)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">arenes 
@@ -2540,6 +2892,22 @@ Osh)</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(23, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(23, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(23, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(23, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(23, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(23, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(23, 'FBI_302')" class="type-btn" data-type="FBI_302">FBI_302</button><button onclick="selectType(23, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(23, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(23, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(23, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(23, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(23, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(23, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(23, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(23, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(23, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(23, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(23, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(23, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(23, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(23, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(23, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(23, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-23" onchange="applyNotePreset(23)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-23" placeholder="Custom note..." onchange="saveNote(23)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2596,6 +2964,22 @@ b¢
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(24, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(24, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(24, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(24, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(24, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(24, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(24, 'FBI_302')" class="type-btn" data-type="FBI_302">FBI_302</button><button onclick="selectType(24, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(24, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(24, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(24, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(24, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(24, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(24, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(24, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(24, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(24, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(24, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(24, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(24, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(24, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(24, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(24, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-24" onchange="applyNotePreset(24)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-24" placeholder="Custom note..." onchange="saveNote(24)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2709,6 +3093,22 @@ eer
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-25" onchange="applyNotePreset(25)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-25" placeholder="Custom note..." onchange="saveNote(25)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">Sa 
@@ -2796,6 +3196,22 @@ os
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-26" onchange="applyNotePreset(26)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-26" placeholder="Custom note..." onchange="saveNote(26)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">ew cee ao 
@@ -2848,6 +3264,22 @@ os
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(27, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(27, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(27, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(27, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(27, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(27, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(27, 'FBI_302')" class="type-btn" data-type="FBI_302">FBI_302</button><button onclick="selectType(27, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(27, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(27, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(27, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(27, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(27, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(27, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(27, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(27, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(27, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(27, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(27, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(27, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(27, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(27, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(27, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(27, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-27" onchange="applyNotePreset(27)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-27" placeholder="Custom note..." onchange="saveNote(27)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -2976,6 +3408,22 @@ Ae</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-28" onchange="applyNotePreset(28)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-28" placeholder="Custom note..." onchange="saveNote(28)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">[Empty or image-only page]</pre>
@@ -3027,6 +3475,22 @@ Ae</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(29, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(29, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(29, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(29, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(29, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(29, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(29, 'FBI_302')" class="type-btn" data-type="FBI_302">FBI_302</button><button onclick="selectType(29, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(29, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(29, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(29, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(29, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(29, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(29, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(29, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(29, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(29, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(29, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(29, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(29, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(29, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(29, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(29, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(29, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-29" onchange="applyNotePreset(29)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-29" placeholder="Custom note..." onchange="saveNote(29)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3117,6 +3581,22 @@ hwy bo dla</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(30, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(30, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(30, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(30, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(30, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(30, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(30, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(30, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(30, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(30, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(30, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(30, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(30, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(30, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(30, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(30, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(30, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(30, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(30, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(30, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(30, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(30, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-30" onchange="applyNotePreset(30)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-30" placeholder="Custom note..." onchange="saveNote(30)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3288,6 +3768,22 @@ RAY HALL</span>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-31" onchange="applyNotePreset(31)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-31" placeholder="Custom note..." onchange="saveNote(31)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">AIP IINAT, FORPE SO 8 
@@ -3423,6 +3919,22 @@ xpressway</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-32" onchange="applyNotePreset(32)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-32" placeholder="Custom note..." onchange="saveNote(32)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">DL 
@@ -3523,6 +4035,22 @@ a
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-33" onchange="applyNotePreset(33)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-33" placeholder="Custom note..." onchange="saveNote(33)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">FD-302 (Rev, 92359) 
@@ -3612,6 +4140,22 @@ He said that</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-34" onchange="applyNotePreset(34)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-34" placeholder="Custom note..." onchange="saveNote(34)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">5 
@@ -3682,6 +4226,22 @@ Q</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(35, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(35, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(35, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(35, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(35, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(35, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(35, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(35, 'HANDWRITTEN_NOTES')" class="type-btn" data-type="HANDWRITTEN_NOTES">HANDWRITTEN_NOTES</button><button onclick="selectType(35, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(35, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(35, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(35, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(35, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(35, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(35, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(35, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(35, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(35, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(35, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(35, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(35, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(35, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-35" onchange="applyNotePreset(35)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-35" placeholder="Custom note..." onchange="saveNote(35)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3763,6 +4323,22 @@ husband was abandoned by his mother when he</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(36, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(36, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(36, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(36, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(36, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(36, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(36, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(36, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(36, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(36, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(36, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(36, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(36, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(36, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(36, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(36, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(36, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(36, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(36, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(36, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(36, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(36, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-36" onchange="applyNotePreset(36)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-36" placeholder="Custom note..." onchange="saveNote(36)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3848,6 +4424,22 @@ all his tho</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(37, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(37, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(37, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(37, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(37, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(37, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(37, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(37, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(37, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(37, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(37, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(37, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(37, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(37, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(37, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(37, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(37, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(37, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(37, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(37, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(37, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(37, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-37" onchange="applyNotePreset(37)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-37" placeholder="Custom note..." onchange="saveNote(37)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -3949,6 +4541,22 @@ tell the (truth) but they didnt belive</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-38" onchange="applyNotePreset(38)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-38" placeholder="Custom note..." onchange="saveNote(38)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">3 
@@ -4027,6 +4635,22 @@ But are so wrapt up in there bussin</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(39, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(39, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(39, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(39, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(39, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(39, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(39, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(39, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(39, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(39, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(39, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(39, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(39, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(39, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(39, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(39, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(39, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(39, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(39, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(39, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(39, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(39, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(39, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-39" onchange="applyNotePreset(39)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-39" placeholder="Custom note..." onchange="saveNote(39)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4121,6 +4745,22 @@ out stick</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(40, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(40, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(40, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(40, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(40, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(40, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(40, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(40, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(40, 'INDEX')" class="type-btn" data-type="INDEX">INDEX</button><button onclick="selectType(40, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(40, 'MEDICAL_RECORD')" class="type-btn" data-type="MEDICAL_RECORD">MEDICAL_RECORD</button><button onclick="selectType(40, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(40, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(40, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(40, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(40, 'TOC')" class="type-btn" data-type="TOC">TOC</button><button onclick="selectType(40, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(40, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(40, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(40, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(40, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(40, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(40, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-40" onchange="applyNotePreset(40)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-40" placeholder="Custom note..." onchange="saveNote(40)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4239,6 +4879,22 @@ D L Jones
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-41" onchange="applyNotePreset(41)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-41" placeholder="Custom note..." onchange="saveNote(41)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">&amp; 
@@ -4334,6 +4990,22 @@ Q r</pre>
                             <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
                             <div class="flex flex-wrap gap-1">
                                 <button onclick="selectType(42, 'BLANK')" class="type-btn" data-type="BLANK">BLANK</button><button onclick="selectType(42, 'CHURCH_COMMITTEE')" class="type-btn" data-type="CHURCH_COMMITTEE">CHURCH_COMMITTEE</button><button onclick="selectType(42, 'CIA_201')" class="type-btn" data-type="CIA_201">CIA_201</button><button onclick="selectType(42, 'CIA_CABLE')" class="type-btn" data-type="CIA_CABLE">CIA_CABLE</button><button onclick="selectType(42, 'COVER')" class="type-btn" data-type="COVER">COVER</button><button onclick="selectType(42, 'DPD_REPORT')" class="type-btn" data-type="DPD_REPORT">DPD_REPORT</button><button onclick="selectType(42, 'FBI_REPORT')" class="type-btn" data-type="FBI_REPORT">FBI_REPORT</button><button onclick="selectType(42, 'HANDWRITTEN_NOTES')" class="type-btn" data-type="HANDWRITTEN_NOTES">HANDWRITTEN_NOTES</button><button onclick="selectType(42, 'HSCA_DOC')" class="type-btn" data-type="HSCA_DOC">HSCA_DOC</button><button onclick="selectType(42, 'HSCA_REPORT')" class="type-btn" data-type="HSCA_REPORT">HSCA_REPORT</button><button onclick="selectType(42, 'LETTER')" class="type-btn" data-type="LETTER">LETTER</button><button onclick="selectType(42, 'MEMO')" class="type-btn" data-type="MEMO">MEMO</button><button onclick="selectType(42, 'NARA_RIF')" class="type-btn" data-type="NARA_RIF">NARA_RIF</button><button onclick="selectType(42, 'POLICE_REPORT')" class="type-btn" data-type="POLICE_REPORT">POLICE_REPORT</button><button onclick="selectType(42, 'SENATE_REPORT')" class="type-btn" data-type="SENATE_REPORT">SENATE_REPORT</button><button onclick="selectType(42, 'TRAVEL_DOCUMENT')" class="type-btn" data-type="TRAVEL_DOCUMENT">TRAVEL_DOCUMENT</button><button onclick="selectType(42, 'UNKNOWN')" class="type-btn" data-type="UNKNOWN">UNKNOWN</button><button onclick="selectType(42, 'WC_AFFIDAVIT')" class="type-btn" data-type="WC_AFFIDAVIT">WC_AFFIDAVIT</button><button onclick="selectType(42, 'WC_DEPOSITION')" class="type-btn" data-type="WC_DEPOSITION">WC_DEPOSITION</button><button onclick="selectType(42, 'WC_EXHIBIT')" class="type-btn" data-type="WC_EXHIBIT">WC_EXHIBIT</button><button onclick="selectType(42, 'WC_TESTIMONY')" class="type-btn" data-type="WC_TESTIMONY">WC_TESTIMONY</button><button onclick="selectType(42, 'WITNESS_STATEMENT')" class="type-btn" data-type="WITNESS_STATEMENT">WITNESS_STATEMENT</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-42" onchange="applyNotePreset(42)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-42" placeholder="Custom note..." onchange="saveNote(42)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
                             </div>
                         </div>
                         
@@ -4455,6 +5127,22 @@ H i)</pre>
                             </div>
                         </div>
                         
+                        <!-- Notes -->
+                        <div class="mb-3 p-2" style="background: var(--archive-dark); border-radius: 4px;">
+                            <div class="text-xs opacity-60 mb-2">Notes:</div>
+                            <div class="flex gap-2">
+                                <select id="note-preset-43" onchange="applyNotePreset(43)" class="text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                                    <option value="">Select common note...</option>
+                                    <option value="NEW_TYPE">Consider new document type</option>
+                                    <option value="NEW_PATTERN">Add pattern to classifier</option>
+                                    <option value="SCHEMA_UPDATE">Schema change needed</option>
+                                    <option value="OCR_QUALITY">Poor OCR / illegible</option>
+                                    <option value="AMBIGUOUS">Ambiguous classification</option>
+                                </select>
+                                <input type="text" id="note-text-43" placeholder="Custom note..." onchange="saveNote(43)" class="flex-1 text-xs" style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
+                            </div>
+                        </div>
+                        
                         <details class="text-xs">
                             <summary class="cursor-pointer opacity-60 hover:opacity-100">Show OCR text</summary>
                             <pre class="mt-2 p-2 max-h-48 overflow-auto" style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.1);">» 
@@ -4513,6 +5201,36 @@ Additiona</pre>
         const FEEDBACK_API = 'http://localhost:5000/api/feedback';
         const SOURCE_NAME = 'yates-searchable.pdf';
         
+        // Note preset labels for display
+        const NOTE_PRESETS = {
+            'NEW_TYPE': 'Consider new document type',
+            'NEW_PATTERN': 'Add pattern to classifier',
+            'SCHEMA_UPDATE': 'Schema change needed',
+            'OCR_QUALITY': 'Poor OCR / illegible',
+            'AMBIGUOUS': 'Ambiguous classification'
+        };
+        
+        function applyNotePreset(page) {
+            const preset = document.getElementById(`note-preset-${page}`).value;
+            const textField = document.getElementById(`note-text-${page}`);
+            if (preset && NOTE_PRESETS[preset]) {
+                textField.value = NOTE_PRESETS[preset];
+            }
+            saveNote(page);
+        }
+        
+        function saveNote(page) {
+            const preset = document.getElementById(`note-preset-${page}`).value;
+            const text = document.getElementById(`note-text-${page}`).value;
+            
+            if (!feedback[page]) {
+                feedback[page] = { status: 'pending' };
+            }
+            feedback[page].noteType = preset || null;
+            feedback[page].notes = text || null;
+            saveFeedback();
+        }
+        
         function selectType(page, selectedType) {
             const el = document.getElementById(`page-${page}`);
             const predicted = el.dataset.predicted;
@@ -4521,12 +5239,18 @@ Additiona</pre>
             // Get text sample for training
             const textEl = el.querySelector('pre');
             const textSample = textEl ? textEl.textContent.substring(0, 500) : '';
+            
+            // Get notes
+            const noteType = document.getElementById(`note-preset-${page}`).value || null;
+            const notes = document.getElementById(`note-text-${page}`).value || null;
 
             // Save feedback locally
             feedback[page] = {
                 status: isCorrect ? "correct" : "incorrect",
                 predictedType: predicted,
-                selectedType: selectedType
+                selectedType: selectedType,
+                noteType: noteType,
+                notes: notes
             };
             saveFeedback();
             applyFeedbackUI(page, feedback[page]);
@@ -4542,7 +5266,9 @@ Additiona</pre>
                     predictedType: predicted,
                     selectedType: selectedType,
                     status: isCorrect ? "correct" : "incorrect",
-                    textSample: textSample
+                    textSample: textSample,
+                    noteType: noteType,
+                    notes: notes
                 })
             })
             .then(res => res.json())
@@ -4595,6 +5321,16 @@ Additiona</pre>
                         btn.classList.add("wrong");
                     }
                 }
+            });
+            
+            // Restore notes
+            const notePreset = document.getElementById(`note-preset-${page}`);
+            const noteText = document.getElementById(`note-text-${page}`);
+            if (notePreset && data.noteType) {
+                notePreset.value = data.noteType;
+            }
+            if (noteText && data.notes) {
+                noteText.value = data.notes;
             });
         }
         

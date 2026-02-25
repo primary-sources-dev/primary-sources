@@ -174,6 +174,23 @@ Each page displays:
 | Export Feedback JSON | Downloads local feedback file |
 | Clear All | Removes all local feedback |
 
+### Notes Feature
+
+Each page card includes a notes section with:
+
+**Dropdown presets:**
+| Code | Label |
+|------|-------|
+| `NEW_TYPE` | Consider new document type |
+| `NEW_PATTERN` | Add pattern to classifier |
+| `SCHEMA_UPDATE` | Schema change needed |
+| `OCR_QUALITY` | Poor OCR / illegible |
+| `AMBIGUOUS` | Ambiguous classification |
+
+**Custom field:** Free-text input for additional notes.
+
+Notes are saved with feedback and included in the training data export.
+
 ## Training Workflow
 
 ### Step 1: Generate Review Report
@@ -291,6 +308,8 @@ See `start.txt` in project root for full instructions.
       "selectedType": "FBI_302",
       "status": "incorrect",
       "textSample": "FEDERAL BUREAU OF INVESTIGATION...",
+      "noteType": "NEW_TYPE",
+      "notes": "Consider new document type - WITNESS_STATEMENT",
       "timestamp": "2026-02-23T14:30:00.000Z"
     }
   ],

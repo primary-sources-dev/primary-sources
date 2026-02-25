@@ -145,3 +145,18 @@ insert into v_person_relation_type (code, label) values
   ('EMPLOYER', 'Organization or person and their employee'),
   ('FRIEND', 'Non-familial social relationship')
 on conflict (code) do nothing;
+
+-- 15. Identifier Types (reference systems for entity_identifier)
+insert into v_id_type (code, label) values
+  ('NARA_RIF',         'NARA Record Information Form number (e.g., 180-10001-10234)'),
+  ('CD_NUMBER',        'Warren Commission Document number (e.g., CD-205)'),
+  ('CE_NUMBER',        'Warren Commission Exhibit number (e.g., CE-2003)'),
+  ('FBI_FILE',         'FBI field office file number (e.g., DL 44-1639)'),
+  ('CIA_FILE',         'CIA file or reference number'),
+  ('CIA_201',          'CIA 201 personality file number'),
+  ('DPD_FILE',         'Dallas Police Department file number'),
+  ('HSCA_DOC',         'HSCA document reference number'),
+  ('SSN',              'Social Security Number'),
+  ('PASSPORT',         'Passport number'),
+  ('ARCHIVE_CUSTODIAN', 'Archive holding the source (e.g., NARA, MFF)')
+on conflict (code) do nothing;

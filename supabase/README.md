@@ -8,12 +8,11 @@ Supabase project configuration and database migrations for the Primary Sources r
 supabase/
 └── migrations/
     ├── 001_initial_schema.sql        # Full DDL: all tables, indexes, and triggers
-    ├── 002_seed_vocab.sql            # Seed data: all 12 controlled vocabulary tables
+    ├── 002_seed_vocab.sql            # Seed data: all 15 controlled vocabulary tables
     ├── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
     ├── 004_integrity_fixes.sql       # Integrity enforcement: polymorphic FKs, CHECK constraints, deletion protection
     ├── 005_age_at_event.sql          # Age-at-Event Badge: age_at_event() function + view
-    ├── 006_fix_view_column.sql       # Fix: view column name (role → role_type)
-    └── 007_add_witness_statement.sql # Add WITNESS_STATEMENT to v_source_type
+    └── 006_fix_view_column.sql       # Fix: view column name (role → role_type)
 ```
 
 ## Running the Migrations
@@ -28,9 +27,8 @@ supabase/
 6. Paste and run `004_integrity_fixes.sql`
 7. Paste and run `005_age_at_event.sql`
 8. Paste and run `006_fix_view_column.sql`
-9. Paste and run `007_add_witness_statement.sql`
 
-> **Important:** Run migrations in numerical order (001 → 007). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
+> **Important:** Run migrations in numerical order (001 → 006). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
 
 ### Option B — Supabase CLI
 
@@ -54,7 +52,6 @@ psql -U postgres -d postgres -f supabase/migrations/003_predicate_registry.sql
 psql -U postgres -d postgres -f supabase/migrations/004_integrity_fixes.sql
 psql -U postgres -d postgres -f supabase/migrations/005_age_at_event.sql
 psql -U postgres -d postgres -f supabase/migrations/006_fix_view_column.sql
-psql -U postgres -d postgres -f supabase/migrations/007_add_witness_statement.sql
 ```
 
 ## Schema Overview
@@ -73,7 +70,7 @@ See [`docs/architecture-and-schema.md`](../docs/architecture-and-schema.md) for 
 
 ## Vocab Tables Seeded
 
-`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type`
+`v_event_type` · `v_role_type` · `v_place_role` · `v_object_role` · `v_relation_type` · `v_source_type` · `v_assertion_type` · `v_support_type` · `v_time_precision` · `v_org_type` · `v_place_type` · `v_object_type` · `v_predicate` · `v_person_relation_type` · `v_id_type`
 
 All seed inserts use `ON CONFLICT DO NOTHING` — safe to re-run on an existing database.
 

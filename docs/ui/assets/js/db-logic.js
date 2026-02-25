@@ -111,10 +111,10 @@ async function renderEventDetail() {
     try {
         // Fetch all necessary data files
         const [events, people, sources, objects] = await Promise.all([
-            fetch('/assets/data/events.json').then(r => r.json()),
-            fetch('/assets/data/people.json').then(r => r.json()),
-            fetch('/assets/data/sources.json').then(r => r.json()),
-            fetch('/assets/data/objects.json').then(r => r.json())
+            fetch('/docs/ui/assets/data/events.json').then(r => r.json()),
+            fetch('/docs/ui/assets/data/people.json').then(r => r.json()),
+            fetch('/docs/ui/assets/data/sources.json').then(r => r.json()),
+            fetch('/docs/ui/assets/data/objects.json').then(r => r.json())
         ]);
 
         const event = events.find(e => e.id === eventId);
@@ -228,7 +228,7 @@ function renderOTDPage(container, scope = "Day", targetDate = new Date()) {
     // Show loading state
     container.innerHTML = `<div class="col-span-full text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">history</span><p class="uppercase tracking-[0.3em] text-[10px]">Scanning chronological archives...</p></div>`;
 
-    fetch(`/assets/data/events.json`)
+    fetch(`/docs/ui/assets/data/events.json`)
         .then(r => r.json())
         .then(data => {
             const results = data.filter(item => {
@@ -282,12 +282,12 @@ async function renderRandomEntity(container) {
     container.innerHTML = `<div class="text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">cyclone</span><p class="uppercase tracking-[0.3em] text-[10px]">Tuning to a random archival frequency...</p></div>`;
 
     const dataFiles = [
-        '/assets/data/events.json',
-        '/assets/data/people.json',
-        '/assets/data/organizations.json',
-        '/assets/data/places.json',
-        '/assets/data/objects.json',
-        '/assets/data/sources.json'
+        '/docs/ui/assets/data/events.json',
+        '/docs/ui/assets/data/people.json',
+        '/docs/ui/assets/data/organizations.json',
+        '/docs/ui/assets/data/places.json',
+        '/docs/ui/assets/data/objects.json',
+        '/docs/ui/assets/data/sources.json'
     ];
 
     try {

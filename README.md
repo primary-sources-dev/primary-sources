@@ -48,23 +48,24 @@ The archive currently contains **real historical research data** from the **Ralp
 The primary discovery portal for researchers to browse the structured database.
 
 ```bash
-python -m http.server 8000 --directory docs/ui/
+# Run from project root to support absolute /docs/ui/ paths
+python -m http.server 8000
 ```
 
-**URL**: [http://localhost:8000](http://localhost:8000)
+**URL**: [http://localhost:8000/docs/ui/index.html](http://localhost:8000/docs/ui/index.html)
 
 **Browse Pages**:
-- [People](http://localhost:8000/people.html) — 22 witnesses, suspects, FBI agents, family members
-- [Places](http://localhost:8000/places.html) — 17 Dallas-area locations with hierarchical relationships
-- [Events](http://localhost:8000/events.html) — Chronological timeline with procedural sub-events
-- [Objects](http://localhost:8000/objects.html) — 11 pieces of physical evidence with custody chains
-- [Organizations](http://localhost:8000/organizations.html) — 30+ archives, agencies, and businesses
-- [Sources](http://localhost:8000/sources.html) — 5 primary source documents with citations
+- [People](http://localhost:8000/docs/ui/browse/people.html) — 22 witnesses, suspects, FBI agents, family members
+- [Places](http://localhost:8000/docs/ui/browse/places.html) — 17 Dallas-area locations with hierarchical relationships
+- [Events](http://localhost:8000/docs/ui/browse/events.html) — Chronological timeline with procedural sub-events
+- [Objects](http://localhost:8000/docs/ui/browse/objects.html) — 11 pieces of physical evidence with custody chains
+- [Organizations](http://localhost:8000/docs/ui/browse/organizations.html) — 30+ archives, agencies, and businesses
+- [Sources](http://localhost:8000/docs/ui/browse/sources.html) — 5 primary source documents with citations
 
 **Entity Detail Pages**:
-- [Lee Harvey Oswald Profile](http://localhost:8000/person.html?id=3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8) — 12-card comprehensive profile
-- [Ralph Yates Profile](http://localhost:8000/person.html?id=8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d) — Witness profile with timeline
-- [Yates Hitchhiker Incident](http://localhost:8000/event.html?id=yates-hitchhiker) — 7-phase procedural timeline
+- [Lee Harvey Oswald Profile](http://localhost:8000/docs/ui/entities/person.html?id=3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8) — 12-card comprehensive profile
+- [Ralph Yates Profile](http://localhost:8000/docs/ui/entities/person.html?id=8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d) — Witness profile with timeline
+- [Yates Hitchhiker Incident](http://localhost:8000/docs/ui/entities/event.html?id=yates-hitchhiker) — 7-phase procedural timeline
 
 ### 2. OCR Analytical Tool
 
@@ -102,8 +103,8 @@ python ocr-server.py
 
 Built-in document viewer for examining source materials.
 
-- **Path**: `docs/ui/pdf-viewer.html?file=path/to/document.pdf`
-- **Example**: [Yates FBI File](http://localhost:8000/pdf-viewer.html?file=assets/documents/yates-searchable.pdf)
+- **Path**: `docs/ui/ocr/pdf-viewer.html?file=path/to/document.pdf`
+- **Example**: [Yates FBI File](http://localhost:8000/docs/ui/ocr/pdf-viewer.html?file=assets/documents/yates-searchable.pdf)
 
 ---
 
@@ -114,35 +115,32 @@ primary-sources/
 ├── docs/
 │   ├── ui/                    # Frontend (HTML/CSS/JS)
 │   │   ├── index.html         # Main archive landing page
-│   │   ├── people.html        # Browse 22 people
-│   │   ├── places.html        # Browse 17 places
-│   │   ├── events.html        # Browse 8+ events
-│   │   ├── objects.html       # Browse 11 objects
-│   │   ├── organizations.html # Browse 30+ organizations
-│   │   ├── sources.html       # Browse 5 primary sources
-│   │   ├── person.html        # Person detail page (12-card layout)
-│   │   ├── event.html         # Event detail page (sub-events timeline)
-│   │   ├── pdf-viewer.html    # Document viewer
+│   │   ├── browse/            # Multi-entity list views
+│   │   │   ├── people.html    # Browse 22 people
+│   │   │   ├── events.html    # Browse 8+ events
+│   │   │   └── ...            # Other browse pages
+│   │   ├── entities/          # Single-entity profiles
+│   │   │   ├── person.html    # Person detail page (12-card layout)
+│   │   │   ├── event.html     # Event detail page (sub-events timeline)
+│   │   │   └── ...            # Other entity pages
+│   │   ├── ocr/               # OCR components & PDF viewer
+│   │   │   └── pdf-viewer.html # Document viewer
 │   │   └── assets/
 │   │       ├── data/          # Real historical data (JSON)
 │   │       │   ├── people.json        # 22 people
 │   │       │   ├── places.json        # 17 places
-│   │       │   ├── events.json        # 8+ events
-│   │       │   ├── objects.json       # 11 objects
-│   │       │   ├── organizations.json # 30+ orgs
-│   │       │   └── sources.json       # 5 sources
-│   │       ├── documents/     # Searchable PDFs (Yates FBI file)
-│   │       ├── js/            # Component card libraries
-│   │       │   ├── person-profile.js  # 12-card system
-│   │       │   ├── event-profile.js   # 9-card system
-│   │       │   ├── place-profile.js   # 7-card system
-│   │       │   ├── object-profile.js  # 8-card system
-│   │       │   └── organization-profile.js # 7-card system
+│   │       │   └── ...                # Other data files
+│   │       ├── js/            # Core logic & card libraries
+│   │       │   ├── components.js      # Dynamic component loader
+│   │       │   ├── db-logic.js        # Universal data fetcher
+│   │       │   └── ...                # Entity-specific cards
 │   │       └── css/
 │   ├── architecture-and-schema.md    # Database specification (4NF)
-│   ├── data-entry-sop.md             # 5-phase workflow
 │   ├── ontology-and-controlled-vocab.md
-│   └── ocr-pipeline-guide.md         # OCR tool documentation
+│   ├── provenance-and-sourcing.md    # Evidentiary standards
+│   ├── data-entry-sop.md             # 5-phase workflow
+│   ├── ocr-pipeline-guide.md         # OCR tool documentation
+│   └── ENTITY-AUDIT.md               # Quality control & audit log
 ├── tools/
 │   ├── ocr-server.py          # Flask API (10 REST endpoints)
 │   ├── ocr-gui/               # Desktop GUI (customtkinter)
@@ -176,10 +174,11 @@ primary-sources/
 |----------|-------------|
 | [Architecture & Schema](docs/architecture-and-schema.md) | PostgreSQL 4NF database specification with polymorphic foreign keys |
 | [Ontology & Vocabulary](docs/ontology-and-controlled-vocab.md) | Controlled vocabulary definitions for entity types |
+| [Provenance & Sourcing](docs/provenance-and-sourcing.md) | Forensic evidentiary standards and NARA citation rules |
 | [Data Entry SOP](docs/data-entry-sop.md) | 5-phase workflow for adding archival data |
-| [OCR Pipeline Guide](docs/ocr-pipeline-guide.md) | Complete OCR workflow, batch processing, quality control procedures |
-| [Entity Extraction](tools/notes.md) | Manual extraction process for PDFs |
-| [Project Strategy](working-notes.md) | Integrated roadmap and next steps |
+| [OCR Pipeline Guide](docs/ocr-pipeline-guide.md) | Complete OCR workflow and quality control procedures |
+| [Entity Audit](docs/ENTITY-AUDIT.md) | Quality verification and data integrity audit log |
+| [Document Index](document-index.md) | Comprehensive categorized map of all project documentation |
 
 ---
 

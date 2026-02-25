@@ -24,6 +24,7 @@ create table if not exists v_place_type      (code text primary key, label text 
 create table if not exists v_object_type     (code text primary key, label text not null);
 create table if not exists v_predicate       (code text primary key, label text not null);
 create table if not exists v_person_relation_type (code text primary key, label text not null);
+create table if not exists v_id_type         (code text primary key, label text not null);
 
 -- -----------------------
 -- Core entity tables
@@ -156,6 +157,7 @@ create table if not exists event_relation (
 create table if not exists source (
   source_id     uuid primary key default gen_random_uuid(),
   source_type   text not null references v_source_type(code),
+  detected_type text,  -- Classifier-detected subtype (FBI_302, WITNESS_STATEMENT, etc.)
   title         text not null,
   author        text,
   publisher     text,
@@ -199,7 +201,7 @@ create table if not exists person_alias (
 create table if not exists entity_identifier (
   entity_type  text not null check (entity_type in ('person','org','place','object','event','source')),
   entity_id    uuid not null,
-  id_type      text not null,
+  id_type      text not null references v_id_type(code),
   id_value     text not null,
   issuer       text,
   assertion_id uuid references assertion(assertion_id),

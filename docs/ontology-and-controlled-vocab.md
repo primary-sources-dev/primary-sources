@@ -28,14 +28,15 @@ Defines the functional capacity of an entity during an event.
 
 Categorizes the nature of the evidence container.
 
-* **`REPORT`**: Official government or agency findings (e.g., FBI 302 — agent's summary).
-* **`WITNESS_STATEMENT`**: Signed statement in witness's own words (distinct from agent summary). Higher evidentiary weight than REPORT.
-* **`TESTIMONY`**: Sworn statements, depositions, or hearings before a commission/court.
+* **`REPORT`**: Official government or agency findings (e.g., FBI 302).
+* **`TESTIMONY`**: Sworn statements, depositions, or hearings.
 * **`BOOK`**: Published historical or investigative literature.
 * **`FILM`**: Moving image artifacts (e.g., newsreels, home movies).
 * **`PHOTO`**: Still photography.
 * **`MEMO`**: Internal informal correspondence or notes.
 * **`ARTICLE`**: Periodical or newspaper clippings.
+
+> **Note:** The `source.detected_type` column stores classifier-specific subtypes (FBI_302, WITNESS_STATEMENT, CIA_CABLE, etc.) while `source_type` remains broad.
 
 ## 4. Time Precision (`v_time_precision`)
 
@@ -130,7 +131,25 @@ See [`supabase/migrations/003_predicate_registry.sql`](../supabase/migrations/00
 * **Testimony:** `TESTIFIED_THAT`, `DOCUMENTED`, `CONTRADICTED`
 * **State:** `WAS_ALIVE_AT`, `WAS_DECEASED_AT`, `WAS_INJURED_AT`
 
-## 11. Vocabulary Governance Policy
+## 11. Identifier Types (`v_id_type`)
+
+Defines the reference systems used in `entity_identifier` to catalog sources and entities across archives.
+
+* **`NARA_RIF`**: NARA Record Information Form number (e.g., 180-10001-10234).
+* **`CD_NUMBER`**: Warren Commission Document number (e.g., CD-205).
+* **`CE_NUMBER`**: Warren Commission Exhibit number (e.g., CE-2003).
+* **`FBI_FILE`**: FBI field office file number (e.g., DL 44-1639).
+* **`CIA_FILE`**: CIA file or reference number.
+* **`CIA_201`**: CIA 201 personality file number.
+* **`DPD_FILE`**: Dallas Police Department file number.
+* **`HSCA_DOC`**: HSCA document reference number.
+* **`SSN`**: Social Security Number.
+* **`PASSPORT`**: Passport number.
+* **`ARCHIVE_CUSTODIAN`**: Archive holding the source (e.g., NARA, MFF).
+
+> **Usage:** A single source can have multiple `entity_identifier` rows, one for each reference system. For example, an FBI 302 might have entries for `NARA_RIF`, `CD_NUMBER`, and `FBI_FILE`.
+
+## 12. Vocabulary Governance Policy
 
 All codes in `v_` tables are intentional and version-controlled. The following rules govern additions.
 

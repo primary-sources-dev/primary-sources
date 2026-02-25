@@ -68,37 +68,30 @@ Events must follow strict modeling rules (see `docs/architecture-and-schema.md` 
 ```
 primary-sources/
 ├── docs/                          # All technical documentation
-│   ├── README.md                  # Documentation index
 │   ├── architecture-and-schema.md # Technical architecture spec
 │   ├── ontology-and-controlled-vocab.md  # All v_ table definitions
 │   ├── data-entry-sop.md          # Data entry workflow (5 phases)
 │   ├── provenance-and-sourcing.md # Source citation standards
-│   ├── MOCK-DATA-REQUIREMENTS.md  # Mock data specification and coverage report
+│   ├── ENTITY-AUDIT.md            # Quality control & audit log
+│   ├── ocr-pipeline-guide.md      # OCR tool documentation
 │   └── ui/                        # UI templates and assets
-│       ├── components/            # Reusable HTML components (header, footer, nav)
+│       ├── browse/                # Entity collection views
+│       ├── entities/               # Single entity templates
+│       ├── components/            # Reusable HTML components
+│       ├── ocr/                   # OCR UI & PDF viewer
 │       ├── assets/
-│       │   ├── data/              # Mock JSON data for testing
-│       │   └── js/                # JavaScript modules for entity profiles
-│       ├── person.html            # Person entity template
-│       ├── event.html             # Event entity template
-│       ├── organization.html      # Organization entity template
-│       ├── place.html             # Place entity template
-│       ├── object.html            # Object entity template
-│       └── source.html            # Source entity template
+│       │   ├── data/              # Real historical data (JSON)
+│       │   └── js/                # JavaScript modules
+│       └── index.html             # Main archive landing page
+├── document-index.md              # Categorized map of all docs
+├── README.md                      # Project overview & quickstart
+├── CLAUDE.md                      # AI Assistant Guide (this file)
 ├── supabase/
 │   ├── README.md                  # Migration runner instructions
-│   └── migrations/
-│       ├── 001_initial_schema.sql        # Core tables + triggers
-│       ├── 002_seed_vocab.sql            # Controlled vocabulary seed data
-│       ├── 003_predicate_registry.sql    # Predicate FK constraint
-│       ├── 004_integrity_fixes.sql       # Polymorphic FKs, CHECK constraints, deletion protection
-│       ├── 005_age_at_event.sql          # Age calculation function and view
-│       └── 006_fix_view_column.sql       # View column naming fix
+│   └── migrations/                # 001-006 migration files
 ├── tools/
-│   └── ocr-gui/                   # OCR processing and document classification
-│       ├── ocr_server.py          # Flask server for OCR tools (port 5000)
-│       └── document_classifier.py # Document type classifier (v1.5 LIVE)
-└── web/                           # Next.js data entry app (future scope)
+│   └── ocr-gui/                   # OCR processing scripts
+└── working-notes.md               # Roadmap & status tracking
 ```
 
 ---
@@ -107,19 +100,20 @@ primary-sources/
 
 ### Essential Reading
 
-1. **`docs/README.md`** — Start here for navigational overview
+1. **`document-index.md`** — Start here for a categorized map of all docs
 2. **`docs/architecture-and-schema.md`** — Complete technical specification
-   - Section 5: Referential triggers (polymorphic FK enforcement)
+   - Section 2.2: Source Typing Model (NEW)
+   - Section 2.3: Source Reference Systems (NEW)
    - Section 8: Event Boundary Doctrine
 3. **`docs/ontology-and-controlled-vocab.md`** — Definitions of all type/role codes
-4. **`docs/data-entry-sop.md`** — 5-phase workflow for adding data
+4. **`docs/provenance-and-sourcing.md`** — Forensic evidentiary & citation standards
+5. **`docs/data-entry-sop.md`** — 5-phase workflow for adding data
 
 ### Reference Files
 
 - **`supabase/migrations/*.sql`** — Actual schema DDL (source of truth for table structure)
-- **`docs/provenance-and-sourcing.md`** — NARA RIF citation standards
 - **`working-notes.md`** — Project roadmap, status tracking, and feature inventory
-- **`docs/MOCK-DATA-REQUIREMENTS.md`** — UI template testing requirements and coverage analysis
+- **`docs/ENTITY-AUDIT.md`** — Quality verification and data integrity audit log
 
 ---
 
@@ -164,7 +158,7 @@ The project includes 6 entity profile templates with a dynamic component card sy
 
 ### Template Architecture
 
-**Core Templates:**
+**Core Templates (docs/ui/entities/):**
 - `person.html` — 12 cards (Biography, Chronology, Aliases, Residences, Organizations, Family, Events, Objects, Sources, Identifiers, Assertions, Media)
 - `event.html` — 9 cards (Context, Timeline, Participants, Evidence, Sources, Locations, Related Events, Assertions, Media)
 - `organization.html` — 7 cards (Overview, Members, Events, Locations, Related Organizations, Identifiers, Sources)

@@ -10,12 +10,12 @@
 
     // List of data sources to search through
     const sources = [
-        'assets/data/events.json',
-        'assets/data/people.json',
-        'assets/data/orgs.json',
-        'assets/data/places.json',
-        'assets/data/objects.json',
-        'assets/data/sources.json'
+        '/docs/ui/assets/data/events.json',
+        '/docs/ui/assets/data/people.json',
+        '/docs/ui/assets/data/organizations.json',
+        '/docs/ui/assets/data/places.json',
+        '/docs/ui/assets/data/objects.json',
+        '/docs/ui/assets/data/sources.json'
     ];
 
     async function loadAllData() {
