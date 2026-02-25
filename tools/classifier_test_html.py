@@ -215,10 +215,35 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classification Review: {html.escape(pdf_name)}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Classification Review</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
+    <script>
+        tailwind.config = {{
+            darkMode: "class",
+            theme: {{
+                extend: {{
+                    colors: {{
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    }},
+                    fontFamily: {{
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    }},
+                    borderRadius: {{
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    }},
+                }},
+            }},
+        }}
+    </script>
     <style>
         :root {{
             --primary: #B08B49;
@@ -290,8 +315,14 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         }}
         details[open] summary {{ opacity: 0.7; }}
     </style>
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
 </head>
-<body class="p-6">
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+    <!-- Global Header -->
+    <header data-component="header" class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+    
     <script>
         // PDF.js setup
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -446,7 +477,7 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
             loadPDF();
         }});
     </script>
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto p-6">
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-2xl font-bold mb-2">Document Classification Review</h1>
