@@ -864,6 +864,87 @@ def entities_index_endpoint():
 
 
 # ============================================================================
+# CLASSIFIER REVIEW ENDPOINT
+# ============================================================================
+
+@app.route("/api/review/<filename>", methods=["GET"])
+def review_endpoint(filename):
+    """
+    Return per-page classification data for a processed PDF.
+
+    Used by classifier-ui.html to render a dynamic review UI.
+
+    URL params:
+        filename: Name of the PDF file in the processed/ directory
+                  (e.g. "yates-searchable.pdf")
+
+    Response:
+        {
+            "filename": "yates-searchable.pdf",
+            "total_pages": 43,
+            "pages": [
+                {
+                    "page":             1,
+                    "page_index":       0,
+                    "doc_type":         "FBI_302",
+                    "confidence":       0.454,
+                    "matched_patterns": ["FEDERAL BUREAU OF INVESTIGATION", ...],
+                    "all_scores":       { "FBI_302": 0.454, "TOC": 0.23, ... }
+                },
+                ...
+            ]
+        }
+    """
+    if not CLASSIFIER_AVAILABLE:
+        return jsonify({"error": "Document classifier not available"}), 503
+
+    # Only look in the processed/ output folder — never traverse outside it
+    safe_name = os.path.basename(filename)
+    pdf_path = os.path.join(UPLOAD_FOLDER, safe_name)
+
+    if not os.path.exists(pdf_path):
+        return jsonify({"error": f"File not found: {safe_name}"}), 404
+
+    if not safe_name.lower().endswith(".pdf"):
+        return jsonify({"error": "Only PDF files are supported for review"}), 400
+
+    try:
+        import fitz  # PyMuPDF — already used by the OCR stack
+
+        results = []
+        doc = fitz.open(pdf_path)
+
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            text = page.get_text()
+
+            classification = classify_document(text)
+            all_scores = get_all_scores(text)
+
+            results.append({
+                "page":             page_num + 1,
+                "page_index":       page_num,
+                "doc_type":         classification.doc_type.value,
+                "confidence":       round(classification.confidence, 4),
+                "matched_patterns": classification.matched_patterns[:5],
+                "all_scores":       {k: round(v, 4) for k, v in all_scores.items()},
+            })
+
+        doc.close()
+
+        return jsonify({
+            "filename":    safe_name,
+            "total_pages": len(results),
+            "pages":       results,
+        })
+
+    except ImportError:
+        return jsonify({"error": "PyMuPDF (fitz) not installed. Run: pip install pymupdf"}), 503
+    except Exception as e:
+        return jsonify({"error": f"Review error: {str(e)}"}), 500
+
+
+# ============================================================================
 # FEEDBACK / TRAINING DATA ENDPOINTS
 # ============================================================================
 

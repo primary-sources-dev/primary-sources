@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sitemap — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/components.js" defer></script>
+    <script src="assets/js/collapsible-menu.js" defer></script>
+    <script src="assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- BREADCRUMB -->
+    <div class="px-6 pt-4 pb-2 text-[10px] uppercase tracking-widest text-archive-secondary opacity-60">
+        <a href="index.html" class="hover:text-primary">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-archive-heading">Sitemap</span>
+    </div>
+
+    <!-- PAGE HEADING -->
+    <section class="bg-archive-dark px-6 pt-8 pb-10 border-b border-archive-secondary/20">
+        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Navigation</span>
+        <h2 class="mt-2 text-4xl font-bold leading-tight text-archive-heading uppercase font-display">Sitemap</h2>
+        <p class="mt-3 text-xs text-archive-secondary opacity-70 uppercase tracking-tighter max-w-sm">
+            Complete directory of all pages in the archive
+        </p>
+    </section>
+
+    <!-- SITEMAP CONTENT -->
+    <section class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- HOME & GENERAL -->
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                    <span class="material-symbols-outlined text-primary">home</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Home & General</h3>
+                </div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Home
+                    </a></li>
+                    <li><a href="search.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Search
+                    </a></li>
+                </ul>
+            </div>
+
+            <!-- BROWSE ENTITIES -->
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                    <span class="material-symbols-outlined text-primary">dataset</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Browse Entities</h3>
+                </div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="entities/event/event-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Events
+                    </a></li>
+                    <li><a href="entities/person/person-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>People
+                    </a></li>
+                    <li><a href="entities/organization/org-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Organizations
+                    </a></li>
+                    <li><a href="entities/place/place-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Places
+                    </a></li>
+                    <li><a href="entities/object/object-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Objects
+                    </a></li>
+                    <li><a href="entities/source/source-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Sources
+                    </a></li>
+                </ul>
+            </div>
+
+            <!-- DISCOVERY FEATURES -->
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                    <span class="material-symbols-outlined text-primary">auto_awesome</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Discovery</h3>
+                </div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="exploration/otd.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>On This Day
+                    </a></li>
+                    <li><a href="exploration/random.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Six Degrees
+                    </a></li>
+                    <li><a href="exploration/witness-atlas.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Witness Atlas
+                    </a></li>
+                </ul>
+            </div>
+
+            <!-- RESEARCH TOOLS -->
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                    <span class="material-symbols-outlined text-primary">construction</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Research Tools</h3>
+                </div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="tools/tools-index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>All Tools
+                    </a></li>
+                    <li><a href="tools/ocr/ocr-ui.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>OCR Scanner
+                    </a></li>
+                    <li><a href="tools/pdf-viewer/pdf-viewer-ui.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>PDF Viewer
+                    </a></li>
+                    <li><a href="tools/classifier/classifier-ui.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Document Classifier
+                    </a></li>
+                    <li><a href="tools/citation/citation-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Citation Generator
+                    </a></li>
+                    <li><a href="tools/matcher/matcher-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Entity Matcher
+                    </a></li>
+                    <li><a href="tools/analyzer/analyzer-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Document Analyzer
+                    </a></li>
+                    <li><a href="tools/research/research-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Research Tools
+                    </a></li>
+                </ul>
+            </div>
+
+            <!-- ABOUT & INFO -->
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                    <span class="material-symbols-outlined text-primary">info</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">About & Info</h3>
+                </div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="pages/about.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>About This Project
+                    </a></li>
+                    <li><a href="pages/features.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Vision & Roadmap
+                    </a></li>
+                    <li><a href="pages/blog.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Development Blog
+                    </a></li>
+                    <li><a href="pages/links.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>External Links
+                    </a></li>
+                </ul>
+            </div>
+
+            <!-- TOOL DOCUMENTATION -->
+            <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                    <span class="material-symbols-outlined text-primary">description</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Tool Documentation</h3>
+                </div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="tools/ocr/ocr-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>OCR Documentation
+                    </a></li>
+                    <li><a href="tools/pdf-viewer/pdf-viewer-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>PDF Viewer Docs
+                    </a></li>
+                    <li><a href="tools/classifier/classifier-details.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Classifier Docs
+                    </a></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+    <div class="h-16"></div>
+
+</body>
+
+</html>
