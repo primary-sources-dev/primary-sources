@@ -4,6 +4,11 @@ classifier_test_html.py — Generate Interactive HTML Classification Report
 Creates an HTML page for human review of document classification results.
 User can mark each classification as correct/incorrect and specify the correct type.
 Feedback is saved to localStorage and can be exported as JSON.
+
+Integrates:
+- Document Classifier (type detection)
+- Metadata Parser (header/footer extraction)
+- Entity Linker (people/places database matching)
 """
 
 import sys
@@ -17,6 +22,23 @@ import html
 sys.path.insert(0, str(Path(__file__).parent / "ocr-gui"))
 
 from document_classifier import classify_document, DocType, get_all_scores
+from metadata_parser import MetadataParser
+
+# Entity linker requires data files
+ENTITY_LINKER_AVAILABLE = False
+try:
+    from entity_linker import EntityLinker
+    DATA_DIR = Path(__file__).parent.parent / "docs" / "ui" / "assets" / "data"
+    if (DATA_DIR / "people.json").exists():
+        entity_linker = EntityLinker(DATA_DIR)
+        ENTITY_LINKER_AVAILABLE = True
+        print(f"Entity Linker: Loaded {len(entity_linker.people)} people, {len(entity_linker.places)} places")
+except Exception as e:
+    print(f"Entity Linker: Not available ({e})")
+    entity_linker = None
+
+# Initialize metadata parser
+metadata_parser = MetadataParser()
 
 def extract_page_text(pdf_path: str, page_num: int) -> str:
     """Extract text from a specific page of a PDF."""
@@ -65,6 +87,18 @@ def test_pages(pdf_path: str, page_numbers: list[int]) -> list[dict]:
         result = classify_document(text)
         all_scores = get_all_scores(text)
         
+        # Parse metadata (header + footer)
+        metadata = metadata_parser.parse(text)
+        metadata_dict = metadata.to_dict()
+        
+        # Extract entities
+        entities = []
+        if ENTITY_LINKER_AVAILABLE and entity_linker:
+            try:
+                entities = entity_linker.link_entities(text)
+            except Exception:
+                pass
+        
         # Extract highlight terms from matched patterns
         # Patterns can be:
         # - Raw regex: "FEDERAL BUREAU OF INVESTIGATION"
@@ -99,10 +133,73 @@ def test_pages(pdf_path: str, page_numbers: list[int]) -> list[dict]:
             "text_preview": preview,
             "text_length": len(text),
             "highlight_terms": highlight_terms,
+            # New: Metadata extraction
+            "metadata": {
+                "rif_number": metadata_dict.get("rif_number", {}).get("value") if metadata_dict.get("rif_number") else None,
+                "agency": metadata_dict.get("agency", {}).get("value") if metadata_dict.get("agency") else None,
+                "date": metadata_dict.get("date", {}).get("value") if metadata_dict.get("date") else None,
+                "date_iso": metadata_dict.get("date_iso"),
+                "author": metadata_dict.get("author", {}).get("value") if metadata_dict.get("author") else None,
+                "footer_author": metadata_dict.get("footer_author", {}).get("value") if metadata_dict.get("footer_author") else None,
+                "footer_file": metadata_dict.get("footer_file_number", {}).get("value") if metadata_dict.get("footer_file_number") else None,
+            },
+            # New: Entity links
+            "entities": entities[:10],  # Limit to first 10
         })
     
     print(f"\nProcessed {len(results)} pages.")
     return results
+
+def generate_metadata_html(metadata: dict) -> str:
+    """Generate HTML for extracted metadata fields."""
+    if not metadata or not any(metadata.values()):
+        return ""
+    
+    fields = []
+    if metadata.get("rif_number"):
+        fields.append(f'<span class="mr-3"><b>RIF:</b> {html.escape(str(metadata["rif_number"]))}</span>')
+    if metadata.get("agency"):
+        fields.append(f'<span class="mr-3"><b>Agency:</b> {html.escape(str(metadata["agency"]))}</span>')
+    if metadata.get("date"):
+        date_str = metadata.get("date_iso") or metadata.get("date")
+        fields.append(f'<span class="mr-3"><b>Date:</b> {html.escape(str(date_str))}</span>')
+    if metadata.get("author") or metadata.get("footer_author"):
+        author = metadata.get("author") or metadata.get("footer_author")
+        fields.append(f'<span class="mr-3"><b>Author:</b> {html.escape(str(author))}</span>')
+    if metadata.get("footer_file"):
+        fields.append(f'<span class="mr-3"><b>File#:</b> {html.escape(str(metadata["footer_file"]))}</span>')
+    
+    if not fields:
+        return ""
+    
+    return f'''<div class="mb-2 p-2 text-xs" style="background: rgba(176, 139, 73, 0.1); border-left: 2px solid var(--primary); border-radius: 2px;">
+                            <span class="opacity-60">Metadata:</span> {"".join(fields)}
+                        </div>'''
+
+
+def generate_entities_html(entities: list) -> str:
+    """Generate HTML for linked entities."""
+    if not entities:
+        return ""
+    
+    people = [e for e in entities if e.get("type") == "PERSON"]
+    places = [e for e in entities if e.get("type") == "PLACE"]
+    
+    parts = []
+    if people:
+        names = [f'<span class="text-blue-300">{html.escape(e.get("label", e.get("matched_text", "?")))}</span>' for e in people[:5]]
+        parts.append(f'<b>People:</b> {", ".join(names)}')
+    if places:
+        names = [f'<span class="text-green-300">{html.escape(e.get("label", e.get("matched_text", "?")))}</span>' for e in places[:5]]
+        parts.append(f'<b>Places:</b> {", ".join(names)}')
+    
+    if not parts:
+        return ""
+    
+    return f'''<div class="mb-2 p-2 text-xs" style="background: rgba(100, 149, 237, 0.1); border-left: 2px solid cornflowerblue; border-radius: 2px;">
+                            <span class="opacity-60">Entities:</span> {" &bull; ".join(parts)}
+                        </div>'''
+
 
 def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, output_path: str):
     """Generate interactive HTML report."""
@@ -403,6 +500,10 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         highlight_terms = r.get("highlight_terms", [])
         highlight_json = json.dumps(highlight_terms)
         
+        # New: Metadata and entities
+        metadata = r.get("metadata", {})
+        entities = r.get("entities", [])
+        
         # Confidence color
         if conf >= 0.7:
             conf_color = "text-green-400"
@@ -474,6 +575,12 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                         <div class="mb-2 text-xs" style="color: var(--primary);">
                             <span class="opacity-60">Highlight terms:</span> {', '.join(highlight_terms[:5]) if highlight_terms else '<em class="opacity-40">none</em>'}
                         </div>
+                        
+                        <!-- Extracted Metadata -->
+                        {generate_metadata_html(metadata)}
+                        
+                        <!-- Linked Entities -->
+                        {generate_entities_html(entities)}
                         
                         <!-- One-Click Type Selection -->
                         <div class="mb-3 p-2 type-grid" style="background: var(--archive-dark); border-radius: 4px;">

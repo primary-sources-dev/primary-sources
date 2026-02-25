@@ -59,49 +59,6 @@
     ]
   },
   {
-    "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
-    "name": "Texas School Book Depository",
-    "display_name": "TSBD",
-    "place_type": "BUILDING",
-    "label": "Building \u00c2\u00b7 Dealey Plaza",
-    "description": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy.",
-    "events": [
-      {
-        "date": "1963-11-22",
-        "title": "Shots fired",
-        "description": "Three shots fired from the sixth floor window"
-      }
-    ],
-    "parent_place": {
-      "name": "Dealey Plaza",
-      "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"
-    },
-    "child_places": [
-      {
-        "name": "Sixth Floor",
-        "type": "Floor"
-      }
-    ],
-    "related_places": [],
-    "features": [
-      {
-        "name": "Sixth Floor Sniper's Nest",
-        "type": "Site"
-      },
-      {
-        "name": "Hertz Clock",
-        "type": "Landmark"
-      }
-    ],
-    "identifiers": [],
-    "sources": [
-      {
-        "title": "Warren Commission Report",
-        "year": "1964"
-      }
-    ]
-  },
-  {
     "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
     "name": "Dealey Plaza",
     "display_name": "Dealey Plaza",
@@ -154,56 +111,47 @@
     ]
   },
   {
-    "id": "rl-thornton-expressway",
-    "place_id": "c8d9e0f1-a2b3-4456-c7d8-e9f0a1b2c3d4",
-    "icon": "route",
-    "label": "Highway \u00c2\u00b7 Dallas, TX",
-    "name": "R.L. Thornton Expressway",
-    "place_type": "STREET",
-    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-    "lat": 32.77,
-    "lon": -96.82,
-    "notes": "Major expressway in Dallas where Ralph Yates picked up the hitchhiker near the Beckley Street entrance, approximately 10:30 AM on November 20 or 21, 1963.",
-    "status": "SKIPPED"
-  },
-  {
-    "id": "beckley-street",
-    "place_id": "d9e0f1a2-b3c4-4567-d8e9-f0a1b2c3d4e5",
-    "icon": "signpost",
-    "label": "Street \u00c2\u00b7 Dallas, TX (Oak Cliff)",
-    "name": "Beckley Street",
-    "place_type": "STREET",
-    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-    "lat": 32.753,
-    "lon": -96.829,
-    "notes": "Street in Oak Cliff section of Dallas. Entrance to the R.L. Thornton Expressway where Yates reported picking up the hitchhiker. Also notable: Oswald's rooming house was located at 1026 N. Beckley.",
-    "status": "SKIPPED"
-  },
-  {
-    "id": "houston-street",
-    "place_id": "e0f1a2b3-c4d5-4678-e9f0-a1b2c3d4e5f6",
-    "icon": "signpost",
-    "label": "Street \u00c2\u00b7 Downtown Dallas",
-    "name": "Houston Street",
-    "place_type": "STREET",
-    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-    "lat": 32.7795,
-    "lon": -96.808,
-    "notes": "Street in downtown Dallas running north-south past Dealey Plaza and the Texas School Book Depository. The hitchhiker indicated he was going to Houston Street.",
-    "status": "SKIPPED"
-  },
-  {
-    "id": "elm-houston-corner",
-    "place_id": "f1a2b3c4-d5e6-4789-f0a1-b2c3d4e5f6a7",
-    "icon": "place",
-    "label": "Intersection \u00c2\u00b7 Dealey Plaza",
-    "name": "Corner of Elm and Houston Streets",
-    "place_type": "SITE",
-    "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
-    "lat": 32.7795,
-    "lon": -96.8083,
-    "notes": "Location where Yates dropped off the hitchhiker when stopped at a red light. Directly adjacent to the Texas School Book Depository building. Yates saw the man cross Elm Street going north on Houston.",
-    "status": "SKIPPED"
+    "place_id": "a1b2c3d4-e5f6-4778-a9b0-c1d2e3f4a5b6",
+    "name": "Texas School Book Depository",
+    "display_name": "TSBD",
+    "place_type": "BUILDING",
+    "label": "Building \u00c2\u00b7 Dealey Plaza",
+    "description": "The workplace of Lee Harvey Oswald and the site from which the Warren Commission concluded he fired the shots that killed President Kennedy.",
+    "events": [
+      {
+        "date": "1963-11-22",
+        "title": "Shots fired",
+        "description": "Three shots fired from the sixth floor window"
+      }
+    ],
+    "parent_place": {
+      "name": "Dealey Plaza",
+      "place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2"
+    },
+    "child_places": [
+      {
+        "name": "Sixth Floor",
+        "type": "Floor"
+      }
+    ],
+    "related_places": [],
+    "features": [
+      {
+        "name": "Sixth Floor Sniper's Nest",
+        "type": "Site"
+      },
+      {
+        "name": "Hertz Clock",
+        "type": "Landmark"
+      }
+    ],
+    "identifiers": [],
+    "sources": [
+      {
+        "title": "Warren Commission Report",
+        "year": "1964"
+      }
+    ]
   },
   {
     "id": "commerce-street",
@@ -216,72 +164,10 @@
     "lat": 32.778,
     "lon": -96.805,
     "notes": "Street in downtown Dallas. Yates took the Commerce Street exit from the expressway, then turned onto Houston Street. Texas Butchers Supply Company was located at 2038 Commerce Street.",
-    "status": "SKIPPED"
-  },
-  {
-    "id": "triple-underpass",
-    "place_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
-    "icon": "landscape",
-    "label": "Infrastructure \u00c2\u00b7 Dealey Plaza",
-    "name": "Triple Underpass",
-    "place_type": "SITE",
-    "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
-    "lat": 32.7787,
-    "lon": -96.8102,
-    "notes": "Railway overpass at the west end of Dealey Plaza where Elm, Main, and Commerce Streets converge. As the hitchhiker exited Yates' truck, he said something about the Triple Underpass that Yates could not understand.",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "oak-cliff",
-    "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
-    "icon": "location_city",
-    "label": "Neighborhood \u00c2\u00b7 Dallas, TX",
-    "name": "Oak Cliff",
-    "place_type": "SITE",
-    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-    "lat": 32.743,
-    "lon": -96.853,
-    "notes": "Section of Dallas located south of downtown. Location of Charlie's Ranch Meat Market (Wynnewood Village) and Oswald's rooming house on Beckley Street.",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "wynnewood-village",
-    "place_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
-    "icon": "local_mall",
-    "label": "Shopping Center \u00c2\u00b7 Dallas, TX",
-    "name": "Wynnewood Village (Wynnewood Shopping Center)",
-    "place_type": "SITE",
-    "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
-    "lat": 32.731,
-    "lon": -96.854,
-    "notes": "Shopping center in Oak Cliff section of Dallas. Location of Charlie's Ranch Meat Market at address 249. Yates claimed he stopped here to pick up a check before encountering the hitchhiker.",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "shady-grove-road-irving",
-    "place_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
-    "icon": "signpost",
-    "label": "Street \u00c2\u00b7 Irving, TX",
-    "name": "Shady Grove Road at Story Road",
-    "place_type": "STREET",
-    "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
-    "lat": 32.82,
-    "lon": -96.97,
-    "notes": "Location of Park-It Market Drive-In Grocery at 2320 Shady Grove Road, Irving TX. Destination of Yates' verified service call on November 21, 1963.",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "yates-residence",
-    "place_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
-    "icon": "home",
-    "label": "Private Residence \u00c2\u00b7 Dallas, TX",
-    "name": "13564 Brookgreen, Dallas TX",
-    "place_type": "RESIDENCE",
-    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
-    "lat": null,
-    "lon": null,
-    "notes": "Residence of Ralph Leon Yates and his family (wife Dorothy and five children) in 1963.",
-    "status": "COMPLETE"
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
   },
   {
     "id": "jo-smith-residence",
@@ -294,7 +180,26 @@
     "lat": null,
     "lon": null,
     "notes": "Residence of J.O. Smith, uncle of Ralph Leon Yates.",
-    "status": "COMPLETE"
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "triple-underpass",
+    "place_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
+    "icon": "landscape",
+    "label": "Infrastructure \u00c2\u00b7 Dealey Plaza",
+    "name": "Triple Underpass",
+    "place_type": "SITE",
+    "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+    "lat": 32.7787,
+    "lon": -96.8102,
+    "notes": "Railway overpass at the west end of Dealey Plaza where Elm, Main, and Commerce Streets converge. As the hitchhiker exited Yates' truck, he said something about the Triple Underpass that Yates could not understand.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
   },
   {
     "id": "dallas-fbi-office",
@@ -307,7 +212,10 @@
     "lat": null,
     "lon": null,
     "notes": "FBI field office in Dallas, Texas. Location where Ralph Yates reported his sighting and was interviewed multiple times (Nov 26, Nov 27, Dec 10, Jan 3, Jan 4, Jan 15).",
-    "status": "COMPLETE"
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
   },
   {
     "id": "del-rio-texas",
@@ -320,6 +228,137 @@
     "lat": 29.3627,
     "lon": -100.8968,
     "notes": "City in southwest Texas near the Mexican border. Location where Ralph Leon Yates was arrested for tire theft in 1954 and sentenced to thirty days in jail.",
-    "status": "SKIPPED"
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "oak-cliff",
+    "place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+    "icon": "location_city",
+    "label": "Neighborhood \u00c2\u00b7 Dallas, TX",
+    "name": "Oak Cliff",
+    "place_type": "SITE",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.743,
+    "lon": -96.853,
+    "notes": "Section of Dallas located south of downtown. Location of Charlie's Ranch Meat Market (Wynnewood Village) and Oswald's rooming house on Beckley Street.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "rl-thornton-expressway",
+    "place_id": "c8d9e0f1-a2b3-4456-c7d8-e9f0a1b2c3d4",
+    "icon": "route",
+    "label": "Highway \u00c2\u00b7 Dallas, TX",
+    "name": "R.L. Thornton Expressway",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.77,
+    "lon": -96.82,
+    "notes": "Major expressway in Dallas where Ralph Yates picked up the hitchhiker near the Beckley Street entrance, approximately 10:30 AM on November 20 or 21, 1963.",
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "wynnewood-village",
+    "place_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
+    "icon": "local_mall",
+    "label": "Shopping Center \u00c2\u00b7 Dallas, TX",
+    "name": "Wynnewood Village (Wynnewood Shopping Center)",
+    "place_type": "SITE",
+    "parent_place_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+    "lat": 32.731,
+    "lon": -96.854,
+    "notes": "Shopping center in Oak Cliff section of Dallas. Location of Charlie's Ranch Meat Market at address 249. Yates claimed he stopped here to pick up a check before encountering the hitchhiker.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "beckley-street",
+    "place_id": "d9e0f1a2-b3c4-4567-d8e9-f0a1b2c3d4e5",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Dallas, TX (Oak Cliff)",
+    "name": "Beckley Street",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.753,
+    "lon": -96.829,
+    "notes": "Street in Oak Cliff section of Dallas. Entrance to the R.L. Thornton Expressway where Yates reported picking up the hitchhiker. Also notable: Oswald's rooming house was located at 1026 N. Beckley.",
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "houston-street",
+    "place_id": "e0f1a2b3-c4d5-4678-e9f0-a1b2c3d4e5f6",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Downtown Dallas",
+    "name": "Houston Street",
+    "place_type": "STREET",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": 32.7795,
+    "lon": -96.808,
+    "notes": "Street in downtown Dallas running north-south past Dealey Plaza and the Texas School Book Depository. The hitchhiker indicated he was going to Houston Street.",
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "shady-grove-road-irving",
+    "place_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
+    "icon": "signpost",
+    "label": "Street \u00c2\u00b7 Irving, TX",
+    "name": "Shady Grove Road at Story Road",
+    "place_type": "STREET",
+    "parent_place_id": "4b5c6d7e-8f9a-40b1-c2d3-e4f5a6b7c8d9",
+    "lat": 32.82,
+    "lon": -96.97,
+    "notes": "Location of Park-It Market Drive-In Grocery at 2320 Shady Grove Road, Irving TX. Destination of Yates' verified service call on November 21, 1963.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "elm-houston-corner",
+    "place_id": "f1a2b3c4-d5e6-4789-f0a1-b2c3d4e5f6a7",
+    "icon": "place",
+    "label": "Intersection \u00c2\u00b7 Dealey Plaza",
+    "name": "Corner of Elm and Houston Streets",
+    "place_type": "SITE",
+    "parent_place_id": "7c8d9e0f-1a2b-43c4-d5e6-f7a8b9c0d1e2",
+    "lat": 32.7795,
+    "lon": -96.8083,
+    "notes": "Location where Yates dropped off the hitchhiker when stopped at a red light. Directly adjacent to the Texas School Book Depository building. Yates saw the man cross Elm Street going north on Houston.",
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "yates-residence",
+    "place_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
+    "icon": "home",
+    "label": "Private Residence \u00c2\u00b7 Dallas, TX",
+    "name": "13564 Brookgreen, Dallas TX",
+    "place_type": "RESIDENCE",
+    "parent_place_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+    "lat": null,
+    "lon": null,
+    "notes": "Residence of Ralph Leon Yates and his family (wife Dorothy and five children) in 1963.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
   }
 ]

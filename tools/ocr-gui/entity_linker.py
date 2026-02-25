@@ -71,10 +71,11 @@ class EntityLinker:
             
             if names:
                 for name in names:
+                    entity_id = p.get("id") or p.get("person_id") or "unknown"
                     patterns.append({
                         "pattern": re.compile(r'\b' + re.escape(name) + r'\b', re.IGNORECASE),
-                        "id": p["id"],
-                        "display": display or p["id"],
+                        "id": entity_id,
+                        "display": display or entity_id,
                         "match_len": len(name)
                     })
         return patterns
@@ -89,10 +90,11 @@ class EntityLinker:
             names = list(set([n for n in names if n and len(n) > 3]))
             if names:
                 for name in names:
+                    entity_id = p.get("id") or p.get("place_id") or "unknown"
                     patterns.append({
                         "pattern": re.compile(r'\b' + re.escape(name) + r'\b', re.IGNORECASE),
-                        "id": p["id"],
-                        "display": p.get("name", p["id"]),
+                        "id": entity_id,
+                        "display": p.get("name", entity_id),
                         "match_len": len(name)
                     })
         return patterns
@@ -114,10 +116,11 @@ class EntityLinker:
             
             for name in names:
                 if len(name) > 3:
+                    entity_id = item.get("id") or item.get("person_id") or item.get("place_id") or "unknown"
                     master.append({
                         "name": name,
-                        "id": item["id"],
-                        "display": item.get("display_name") or item.get("name") or item["id"]
+                        "id": entity_id,
+                        "display": item.get("display_name") or item.get("name") or entity_id
                     })
         return master
 

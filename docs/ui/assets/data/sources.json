@@ -78,36 +78,6 @@
     ]
   },
   {
-    "id": "hsca-report",
-    "source_id": "d7e8f9a0-b1c2-43d4-e5f6-a7b8c9d0e1f2",
-    "icon": "description",
-    "label": "Report \u00c2\u00b7 1979",
-    "name": "HSCA Final Report",
-    "source_type": "REPORT",
-    "notes": "The final report of the House Select Committee on Assassinations, which re-investigated the assassination and concluded a 'probable conspiracy'.",
-    "url": "https://www.archives.gov/research/jfk/hsca"
-  },
-  {
-    "id": "church-committee-report",
-    "source_id": "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
-    "icon": "gavel",
-    "label": "Report \u00c2\u00b7 1976",
-    "name": "Church Committee Final Report",
-    "source_type": "REPORT",
-    "notes": "Final report of the U.S. Senate Select Committee to Study Governmental Operations with Respect to Intelligence Activities. Investigated intelligence abuses by the CIA, FBI, IRS, and NSA.",
-    "url": "https://www.intelligence.senate.gov/churchcommittee.html"
-  },
-  {
-    "id": "yates-searchable",
-    "source_id": "e9f0a1b2-c3d4-45e6-f7a8-b9c0d1e2f3a4",
-    "icon": "picture_as_pdf",
-    "label": "Document \u00c2\u00b7 FBI Files",
-    "name": "Ralph Leon Yates FBI File (Searchable PDF)",
-    "source_type": "DOCUMENT",
-    "notes": "Compiled FBI documentation regarding Ralph Leon Yates and the hitchhiker incident. Searchable PDF format containing interview reports, polygraph results, and investigation notes.",
-    "url": "assets/documents/yates-searchable.pdf"
-  },
-  {
     "source_id": "b4c5d6e7-f8a9-40b1-c2d3-e4f5a6b7c8d9",
     "title": "Final Report of the Select Committee on Assassinations",
     "display_name": "HSCA Final Report",
@@ -179,5 +149,35 @@
         "relation": "Supporting Evidence"
       }
     ]
+  },
+  {
+    "id": "church-committee-report",
+    "source_id": "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+    "icon": "gavel",
+    "label": "Report \u00c2\u00b7 1976",
+    "name": "Church Committee Final Report",
+    "source_type": "REPORT",
+    "notes": "Final report of the U.S. Senate Select Committee to Study Governmental Operations with Respect to Intelligence Activities. Investigated intelligence abuses by the CIA, FBI, IRS, and NSA.",
+    "url": "https://www.intelligence.senate.gov/churchcommittee.html"
+  },
+  {
+    "id": "hsca-report",
+    "source_id": "d7e8f9a0-b1c2-43d4-e5f6-a7b8c9d0e1f2",
+    "icon": "description",
+    "label": "Report \u00c2\u00b7 1979",
+    "name": "HSCA Final Report",
+    "source_type": "REPORT",
+    "notes": "The final report of the House Select Committee on Assassinations, which re-investigated the assassination and concluded a 'probable conspiracy'.",
+    "url": "https://www.archives.gov/research/jfk/hsca"
+  },
+  {
+    "id": "yates-searchable",
+    "source_id": "e9f0a1b2-c3d4-45e6-f7a8-b9c0d1e2f3a4",
+    "icon": "picture_as_pdf",
+    "label": "Document \u00c2\u00b7 FBI Files",
+    "name": "Ralph Leon Yates FBI File (Searchable PDF)",
+    "source_type": "DOCUMENT",
+    "notes": "Compiled FBI documentation regarding Ralph Leon Yates and the hitchhiker incident. Searchable PDF format containing interview reports, polygraph results, and investigation notes.",
+    "url": "assets/documents/yates-searchable.pdf"
   }
 ]

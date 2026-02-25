@@ -1,113 +1,13 @@
 [
   {
-    "id": "nara",
-    "org_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    "org_type": "ARCHIVE",
-    "icon": "account_balance",
-    "label": "Federal Repository \u00c2\u00b7 Washington, D.C.",
-    "name": "National Archives (NARA)",
-    "notes": "Primary custodian of the JFK Assassination Records Collection under the JFK Records Act of 1992. Holds millions of pages from over 60 government agencies.",
-    "url": "https://www.archives.gov/research/jfk"
-  },
-  {
-    "id": "nsa",
-    "org_id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-    "org_type": "ARCHIVE",
-    "icon": "account_balance",
-    "label": "Federal Repository \u00c2\u00b7 NSA",
-    "name": "NSA Historical Releases \u00e2\u20ac\u201d JFK",
-    "notes": "National Security Agency signals intelligence records declassified under the JFK Records Act transparency initiative.",
-    "url": "https://www.nsa.gov/Helpful-Links/NSA-FOIA/Declassification-Transparency-Initiatives/Historical-Releases/JFK/"
-  },
-  {
-    "id": "jfk-library",
-    "org_id": "3d813cbb-47fb-4c54-a8a7-1c3f5c7f8a9c",
-    "org_type": "ARCHIVE",
-    "icon": "local_library",
-    "label": "Presidential Library \u00c2\u00b7 Boston, MA",
-    "name": "John F. Kennedy Presidential Library",
-    "notes": "Official presidential library housing Kennedy's personal papers, White House records, oral histories, and photographs from his administration.",
-    "url": "https://www.jfklibrary.org/archives"
-  },
-  {
-    "id": "lbj-library",
-    "org_id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
-    "org_type": "ARCHIVE",
-    "icon": "local_library",
-    "label": "Presidential Library \u00c2\u00b7 Austin, TX",
-    "name": "Lyndon B. Johnson Presidential Library",
-    "notes": "Holds records from the Johnson administration including Warren Commission materials, post-assassination transition files, and related correspondence.",
-    "url": "https://www.lbjlibrary.org/research/online-collections-resources"
-  },
-  {
-    "id": "ford-library",
-    "org_id": "550e8400-e29b-41d4-a716-446655440000",
-    "org_type": "ARCHIVE",
-    "icon": "local_library",
-    "label": "Presidential Library \u00c2\u00b7 Ann Arbor, MI",
-    "name": "Gerald R. Ford Presidential Library",
-    "notes": "Contains Ford's files as a Warren Commission member, including working papers, interview notes, and correspondence during the 1964 investigation.",
-    "url": "https://www.fordlibrarymuseum.gov/digital-research-room/finding-aids/ford-library-project-file-president-kennedys-assassination"
-  },
-  {
-    "id": "mary-ferrell",
-    "org_id": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd",
-    "org_type": "ARCHIVE",
-    "icon": "menu_book",
-    "label": "Independent Archive \u00c2\u00b7 Digital",
-    "name": "Mary Ferrell Foundation",
-    "notes": "Largest independent online repository of JFK assassination records. Hosts over 1.5 million digitized pages cross-referenced with the NARA collection.",
-    "url": "https://www.maryferrell.org"
-  },
-  {
-    "id": "weisberg-archive",
-    "org_id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
-    "org_type": "ARCHIVE",
-    "icon": "menu_book",
-    "label": "University Archive \u00c2\u00b7 Hood College, MD",
-    "name": "Harold Weisberg Archive",
-    "notes": "Personal research archive of assassination critic Harold Weisberg. Contains correspondence, FOIA responses, and original investigative documents spanning four decades.",
-    "url": "https://archive.org/details/weisberg-complete-archive"
-  },
-  {
-    "id": "baylor-poage",
-    "org_id": "87b5b3a3-3c50-4b36-9a1a-ef5e8f9c5d2e",
+    "id": "unt-portal",
+    "org_id": "1d2e3f4a-5b6c-4d7e-8f9a-0b1c2d3e4f5a",
     "org_type": "ARCHIVE",
     "icon": "school",
-    "label": "University Archive \u00c2\u00b7 Waco, TX",
-    "name": "Baylor University Poage Library \u00e2\u20ac\u201d JFK Collection",
-    "notes": "Academic collection of materials related to the Kennedy assassination, including congressional records and regional Texas documents.",
-    "url": "https://library.web.baylor.edu/visit/baylor-collections-political-materials-w-r-poage-library/bcpm-collections/jfk-collections"
-  },
-  {
-    "id": "aarc",
-    "org_id": "9b3f4a2c-5d6e-4f7a-8b9c-0d1e2f3a4b5c",
-    "org_type": "ARCHIVE",
-    "icon": "menu_book",
-    "label": "Independent Archive \u00c2\u00b7 Washington, D.C.",
-    "name": "Assassination Archives and Research Center (AARC)",
-    "notes": "Non-profit repository specializing in political assassination records. Holds unique materials obtained through FOIA and private donation since 1984.",
-    "url": "https://aarclibrary.org"
-  },
-  {
-    "id": "sixth-floor",
-    "org_id": "6e8d4f2b-1c3a-4e5d-9f7b-8a0c1d2e3f4a",
-    "org_type": "ARCHIVE",
-    "icon": "museum",
-    "label": "Museum Archive \u00c2\u00b7 Dallas, TX",
-    "name": "Sixth Floor Museum at Dealey Plaza",
-    "notes": "Located in the former Texas School Book Depository. Maintains oral histories, photographs, and artifacts related to the assassination and its aftermath.",
-    "url": "https://www.jfk.org"
-  },
-  {
-    "id": "black-vault",
-    "org_id": "4f3e2d1c-0b9a-4857-b6c5-d4e3f2a1b0c9",
-    "org_type": "ARCHIVE",
-    "icon": "menu_book",
-    "label": "Independent Archive \u00c2\u00b7 Digital",
-    "name": "The Black Vault \u00e2\u20ac\u201d JFK Records",
-    "notes": "FOIA-driven digital archive. Hosts thousands of declassified government documents obtained through independent records requests.",
-    "url": "https://www.theblackvault.com/documentarchive/j-f-k-assassination-records/"
+    "label": "University Archive \u00c2\u00b7 Denton, TX",
+    "name": "University of North Texas \u00e2\u20ac\u201d JFK Portal",
+    "notes": "Digitized Texas-based JFK materials from the UNT Texas History Portal, including Dallas-area news coverage and municipal records.",
+    "url": "https://texashistory.unt.edu/explore/collections/JFKAM/"
   },
   {
     "id": "history-matters",
@@ -120,14 +20,34 @@
     "url": "https://history-matters.com"
   },
   {
-    "id": "unt-portal",
-    "org_id": "1d2e3f4a-5b6c-4d7e-8f9a-0b1c2d3e4f5a",
+    "id": "jfk-library",
+    "org_id": "3d813cbb-47fb-4c54-a8a7-1c3f5c7f8a9c",
     "org_type": "ARCHIVE",
-    "icon": "school",
-    "label": "University Archive \u00c2\u00b7 Denton, TX",
-    "name": "University of North Texas \u00e2\u20ac\u201d JFK Portal",
-    "notes": "Digitized Texas-based JFK materials from the UNT Texas History Portal, including Dallas-area news coverage and municipal records.",
-    "url": "https://texashistory.unt.edu/explore/collections/JFKAM/"
+    "icon": "local_library",
+    "label": "Presidential Library \u00c2\u00b7 Boston, MA",
+    "name": "John F. Kennedy Presidential Library",
+    "notes": "Official presidential library housing Kennedy's personal papers, White House records, oral histories, and photographs from his administration.",
+    "url": "https://www.jfklibrary.org/archives"
+  },
+  {
+    "id": "black-vault",
+    "org_id": "4f3e2d1c-0b9a-4857-b6c5-d4e3f2a1b0c9",
+    "org_type": "ARCHIVE",
+    "icon": "menu_book",
+    "label": "Independent Archive \u00c2\u00b7 Digital",
+    "name": "The Black Vault \u00e2\u20ac\u201d JFK Records",
+    "notes": "FOIA-driven digital archive. Hosts thousands of declassified government documents obtained through independent records requests.",
+    "url": "https://www.theblackvault.com/documentarchive/j-f-k-assassination-records/"
+  },
+  {
+    "id": "ford-library",
+    "org_id": "550e8400-e29b-41d4-a716-446655440000",
+    "org_type": "ARCHIVE",
+    "icon": "local_library",
+    "label": "Presidential Library \u00c2\u00b7 Ann Arbor, MI",
+    "name": "Gerald R. Ford Presidential Library",
+    "notes": "Contains Ford's files as a Warren Commission member, including working papers, interview notes, and correspondence during the 1964 investigation.",
+    "url": "https://www.fordlibrarymuseum.gov/digital-research-room/finding-aids/ford-library-project-file-president-kennedys-assassination"
   },
   {
     "id": "uta-libraries",
@@ -140,6 +60,46 @@
     "url": "https://libraries.uta.edu/special-collections"
   },
   {
+    "id": "nsa",
+    "org_id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+    "org_type": "ARCHIVE",
+    "icon": "account_balance",
+    "label": "Federal Repository \u00c2\u00b7 NSA",
+    "name": "NSA Historical Releases \u00e2\u20ac\u201d JFK",
+    "notes": "National Security Agency signals intelligence records declassified under the JFK Records Act transparency initiative.",
+    "url": "https://www.nsa.gov/Helpful-Links/NSA-FOIA/Declassification-Transparency-Initiatives/Historical-Releases/JFK/"
+  },
+  {
+    "id": "sixth-floor",
+    "org_id": "6e8d4f2b-1c3a-4e5d-9f7b-8a0c1d2e3f4a",
+    "org_type": "ARCHIVE",
+    "icon": "museum",
+    "label": "Museum Archive \u00c2\u00b7 Dallas, TX",
+    "name": "Sixth Floor Museum at Dealey Plaza",
+    "notes": "Located in the former Texas School Book Depository. Maintains oral histories, photographs, and artifacts related to the assassination and its aftermath.",
+    "url": "https://www.jfk.org"
+  },
+  {
+    "id": "lbj-library",
+    "org_id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "org_type": "ARCHIVE",
+    "icon": "local_library",
+    "label": "Presidential Library \u00c2\u00b7 Austin, TX",
+    "name": "Lyndon B. Johnson Presidential Library",
+    "notes": "Holds records from the Johnson administration including Warren Commission materials, post-assassination transition files, and related correspondence.",
+    "url": "https://www.lbjlibrary.org/research/online-collections-resources"
+  },
+  {
+    "id": "baylor-poage",
+    "org_id": "87b5b3a3-3c50-4b36-9a1a-ef5e8f9c5d2e",
+    "org_type": "ARCHIVE",
+    "icon": "school",
+    "label": "University Archive \u00c2\u00b7 Waco, TX",
+    "name": "Baylor University Poage Library \u00e2\u20ac\u201d JFK Collection",
+    "notes": "Academic collection of materials related to the Kennedy assassination, including congressional records and regional Texas documents.",
+    "url": "https://library.web.baylor.edu/visit/baylor-collections-political-materials-w-r-poage-library/bcpm-collections/jfk-collections"
+  },
+  {
     "id": "dallas-municipal",
     "org_id": "8c9d0e1f-2a3b-4c5d-6e7f-8a9b0c1d2e3f",
     "org_type": "ARCHIVE",
@@ -150,47 +110,14 @@
     "url": "https://www.dallascityhall.com/government/citysecretary/Pages/Municipal-Archives.aspx"
   },
   {
-    "id": "dallas-public-library",
-    "org_id": "b0c1d2e3-f4a5-4b6c-7d8e-9f0a1b2c3d4e",
+    "id": "aarc",
+    "org_id": "9b3f4a2c-5d6e-4f7a-8b9c-0d1e2f3a4b5c",
     "org_type": "ARCHIVE",
-    "icon": "local_library",
-    "label": "Public Library \u00c2\u00b7 Dallas, TX",
-    "name": "Dallas Public Library \u00e2\u20ac\u201d History Division",
-    "notes": "Holds local history materials, newspaper archives, and photographic collections documenting Dallas in November 1963.",
-    "url": "https://dallaslibrary.org/dallas-history-archives-division/"
-  },
-  {
-    "id": "tufts-tisch",
-    "org_id": "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
-    "org_type": "ARCHIVE",
-    "icon": "school",
-    "label": "University Archive \u00c2\u00b7 Medford, MA",
-    "name": "Tufts University Tisch Library \u00e2\u20ac\u201d JFK Collection",
-    "notes": "Academic database access to the JFK Assassination Collection. Digitized primary sources available for scholarly research.",
-    "url": "https://tischlibrary.tufts.edu/what-we-have/databases/john-f-kennedy-assassination-collection"
-  },
-  {
-    "id": "nsarchive-gwu",
-    "org_id": "e6f7a8b9-c0d1-42e3-f4a5-b6c7d8e9f0a1",
-    "org_type": "ARCHIVE",
-    "icon": "school",
-    "label": "University Archive \u00c2\u00b7 Washington, D.C.",
-    "name": "National Security Archive (GWU)",
-    "notes": "George Washington University non-governmental research institute. Holds declassified CIA covert operations files and briefing books on the Kennedy assassination records.",
-    "url": "https://nsarchive.gwu.edu"
-  },
-  {
-    "id": "texas-butchers",
-    "org_id": "f8a9b0c1-d2e3-4354-a5b6-c7d8e9f0a1b2",
-    "org_type": "BUSINESS",
-    "icon": "store",
-    "label": "Industrial \u00c2\u00b7 Dallas, TX",
-    "name": "Texas Butchers Supply Company",
-    "notes": "Privately owned company in Dallas where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
-    "url": "#",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ]
+    "icon": "menu_book",
+    "label": "Independent Archive \u00c2\u00b7 Washington, D.C.",
+    "name": "Assassination Archives and Research Center (AARC)",
+    "notes": "Non-profit repository specializing in political assassination records. Holds unique materials obtained through FOIA and private donation since 1984.",
+    "url": "https://aarclibrary.org"
   },
   {
     "id": "fbi",
@@ -206,6 +133,64 @@
     ]
   },
   {
+    "id": "arrb",
+    "org_id": "a2b3c4d5-e6f7-4823-a0b1-c2d3e4f5a6b7",
+    "org_type": "AGENCY",
+    "icon": "gavel",
+    "label": "Independent Agency \u00c2\u00b7 1994-1998",
+    "name": "Assassination Records Review Board (ARRB)",
+    "notes": "Independent U.S. government agency created to oversee the release of government records related to the assassination of President John F. Kennedy.",
+    "url": "#"
+  },
+  {
+    "id": "weisberg-archive",
+    "org_id": "a3bb189e-8bf9-3888-9912-ace4e6543002",
+    "org_type": "ARCHIVE",
+    "icon": "menu_book",
+    "label": "University Archive \u00c2\u00b7 Hood College, MD",
+    "name": "Harold Weisberg Archive",
+    "notes": "Personal research archive of assassination critic Harold Weisberg. Contains correspondence, FOIA responses, and original investigative documents spanning four decades.",
+    "url": "https://archive.org/details/weisberg-complete-archive"
+  },
+  {
+    "id": "arlington-food-stores",
+    "org_id": "a6b7c8d9-e0f1-4234-a5b6-c7d8e9f0a1b2",
+    "org_type": "BUSINESS",
+    "icon": "store",
+    "label": "Grocery Chain \u00c2\u00b7 Arlington, TX",
+    "name": "Arlington Food Stores",
+    "notes": "PO Box 91, Arlington TX, phone AN 2-0597. Billed for the Park-It Market service call on November 21, 1963 (Invoice No. 36919).",
+    "url": null,
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE"
+  },
+  {
+    "id": "dallas-public-library",
+    "org_id": "b0c1d2e3-f4a5-4b6c-7d8e-9f0a1b2c3d4e",
+    "org_type": "ARCHIVE",
+    "icon": "local_library",
+    "label": "Public Library \u00c2\u00b7 Dallas, TX",
+    "name": "Dallas Public Library \u00e2\u20ac\u201d History Division",
+    "notes": "Holds local history materials, newspaper archives, and photographic collections documenting Dallas in November 1963.",
+    "url": "https://dallaslibrary.org/dallas-history-archives-division/"
+  },
+  {
+    "id": "us-air-force",
+    "org_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
+    "org_type": "AGENCY",
+    "icon": "military_tech",
+    "label": "Military Branch \u00c2\u00b7 United States",
+    "name": "United States Air Force",
+    "notes": "Branch of the U.S. Armed Forces. Ralph Leon Yates served from February 2, 1954 to November/December 1957 (AFSN 18 453 689). Yates was treated for a 'nervous condition' during his service.",
+    "url": null,
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE"
+  },
+  {
     "id": "dallas-pd",
     "org_id": "b2c3d4e5-f6a7-4889-b0c1-d2e3f4a5b6c7",
     "org_type": "AGENCY",
@@ -214,6 +199,44 @@
     "name": "Dallas Police Department (DPD)",
     "notes": "Local law enforcement agency responsible for the immediate crime scene investigation and the arrest of Lee Harvey Oswald.",
     "url": "#"
+  },
+  {
+    "id": "noda",
+    "org_id": "b4c5d6e7-f8a9-4045-b2c3-d4e5f6a7b8c9",
+    "org_type": "AGENCY",
+    "icon": "local_police",
+    "label": "District DA \u00c2\u00b7 New Orleans, LA",
+    "name": "New Orleans District Attorney's Office (NODA)",
+    "notes": "The office of District Attorney Jim Garrison, which conducted the only criminal trial (State of Louisiana v. Clay Shaw) related to the assassination of President Kennedy.",
+    "url": "#"
+  },
+  {
+    "id": "woodlawn-hospital",
+    "org_id": "b7c8d9e0-f1a2-4345-b6c7-d8e9f0a1b2c3",
+    "org_type": "ORGANIZATION",
+    "icon": "local_hospital",
+    "label": "Psychiatric Facility \u00c2\u00b7 Dallas, TX",
+    "name": "Woodlawn Hospital",
+    "notes": "Psychiatric facility in Dallas where Ralph Leon Yates was admitted on January 15, 1964, following his final appearance at the FBI office. He claimed doctors were using pills to kill him.",
+    "url": null,
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE"
+  },
+  {
+    "id": "carousel-club",
+    "org_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+    "org_type": "BUSINESS",
+    "icon": "nightlife",
+    "label": "Nightclub \u00c2\u00b7 Dallas, TX",
+    "name": "Carousel Club",
+    "notes": "Nightclub operated by Jack Ruby (Jack Rubenstein) in Dallas. The hitchhiker in Yates' account asked if Yates knew where the Carousel Club was and whether he had ever been there. The hitchhiker identified Ruby as the operator.",
+    "url": null,
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE"
   },
   {
     "id": "warren-commission",
@@ -226,6 +249,90 @@
     "url": "#"
   },
   {
+    "id": "mary-ferrell",
+    "org_id": "c73bcdcc-2669-4bf6-81d3-e4ae73fb11fd",
+    "org_type": "ARCHIVE",
+    "icon": "menu_book",
+    "label": "Independent Archive \u00c2\u00b7 Digital",
+    "name": "Mary Ferrell Foundation",
+    "notes": "Largest independent online repository of JFK assassination records. Hosts over 1.5 million digitized pages cross-referenced with the NARA collection.",
+    "url": "https://www.maryferrell.org"
+  },
+  {
+    "org_id": "cia",
+    "name": "Central Intelligence Agency",
+    "display_name": "CIA",
+    "org_type": "INTELLIGENCE_AGENCY",
+    "label": "Agency \u00c2\u00b7 Langley, VA",
+    "description": "Foreign intelligence service of the federal government of the United States. Frequently discussed in relation to Lee Harvey Oswald's defection and New Orleans activities.",
+    "events": [
+      {
+        "date": "1959-10",
+        "title": "Oswald Watch Opened",
+        "description": "201 file opened for Lee Harvey Oswald following his defection"
+      }
+    ],
+    "members": [
+      {
+        "name": "Richard Helms",
+        "role": "Deputy Director for Plans"
+      },
+      {
+        "name": "James Angleton",
+        "role": "Chief of Counterintelligence"
+      }
+    ],
+    "related_organizations": [
+      {
+        "name": "FBI",
+        "relation": "Inter-agency Coordination"
+      }
+    ],
+    "locations": [
+      {
+        "name": "CIA Headquarters",
+        "role": "Central Command",
+        "address": "Langley, Virginia"
+      }
+    ],
+    "identifiers": [
+      {
+        "type": "AGENCY_CODE",
+        "value": "CIA"
+      }
+    ],
+    "sources": [
+      {
+        "title": "CIA Oswald File (201-289248)",
+        "year": "1959-1964"
+      }
+    ]
+  },
+  {
+    "id": "jacks-branch-office-lounge",
+    "org_id": "d3e4f5a6-b7c8-4901-d2e3-f4a5b6c7d8e9",
+    "org_type": "BUSINESS",
+    "icon": "local_bar",
+    "label": "Bar \u00c2\u00b7 Dallas, TX",
+    "name": "Jack's Branch Office Lounge",
+    "notes": "Bar located on Industrial Street in Dallas. During the hitchhiker conversation, Yates asked if Jack Ruby ran this establishment; the hitchhiker said he did not.",
+    "url": null,
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE"
+  },
+  {
+    "id": "tufts-tisch",
+    "org_id": "d4e5f6a7-b8c9-40d1-e2f3-a4b5c6d7e8f9",
+    "org_type": "ARCHIVE",
+    "icon": "school",
+    "label": "University Archive \u00c2\u00b7 Medford, MA",
+    "name": "Tufts University Tisch Library \u00e2\u20ac\u201d JFK Collection",
+    "notes": "Academic database access to the JFK Assassination Collection. Digitized primary sources available for scholarly research.",
+    "url": "https://tischlibrary.tufts.edu/what-we-have/databases/john-f-kennedy-assassination-collection"
+  },
+  {
     "id": "hsca",
     "org_id": "d6e7f8a9-b0c1-42cd-e4f5-a6b7c8d9e0f1",
     "org_type": "AGENCY",
@@ -234,6 +341,30 @@
     "name": "House Select Committee on Assassinations (HSCA)",
     "notes": "U.S. House of Representatives committee established to investigate the assassinations of JFK and MLK. Concluded that JFK was 'probably assassinated as a result of a conspiracy'.",
     "url": "#"
+  },
+  {
+    "id": "charlies-ranch-meat-market",
+    "org_id": "e4f5a6b7-c8d9-4012-e3f4-a5b6c7d8e9f0",
+    "org_type": "BUSINESS",
+    "icon": "storefront",
+    "label": "Butcher Shop \u00c2\u00b7 Dallas, TX (Oak Cliff)",
+    "name": "Charlie's Ranch Meat Market",
+    "notes": "Located at 249 Wynnewood Village, Dallas TX (Wynnewood Shopping Center, Oak Cliff). Yates claimed he stopped here to pick up a check before encountering the hitchhiker. FBI investigation could not verify any check was issued to TBSC on November 20-21, 1963.",
+    "url": null,
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE"
+  },
+  {
+    "id": "nsarchive-gwu",
+    "org_id": "e6f7a8b9-c0d1-42e3-f4a5-b6c7d8e9f0a1",
+    "org_type": "ARCHIVE",
+    "icon": "school",
+    "label": "University Archive \u00c2\u00b7 Washington, D.C.",
+    "name": "National Security Archive (GWU)",
+    "notes": "George Washington University non-governmental research institute. Holds declassified CIA covert operations files and briefing books on the Kennedy assassination records.",
+    "url": "https://nsarchive.gwu.edu"
   },
   {
     "id": "church-committee",
@@ -256,80 +387,14 @@
     "url": "#"
   },
   {
-    "id": "arrb",
-    "org_id": "a2b3c4d5-e6f7-4823-a0b1-c2d3e4f5a6b7",
-    "org_type": "AGENCY",
-    "icon": "gavel",
-    "label": "Independent Agency \u00c2\u00b7 1994-1998",
-    "name": "Assassination Records Review Board (ARRB)",
-    "notes": "Independent U.S. government agency created to oversee the release of government records related to the assassination of President John F. Kennedy.",
-    "url": "#"
-  },
-  {
-    "id": "noda",
-    "org_id": "b4c5d6e7-f8a9-4045-b2c3-d4e5f6a7b8c9",
-    "org_type": "AGENCY",
-    "icon": "local_police",
-    "label": "District DA \u00c2\u00b7 New Orleans, LA",
-    "name": "New Orleans District Attorney's Office (NODA)",
-    "notes": "The office of District Attorney Jim Garrison, which conducted the only criminal trial (State of Louisiana v. Clay Shaw) related to the assassination of President Kennedy.",
-    "url": "#"
-  },
-  {
-    "id": "us-air-force",
-    "org_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
-    "org_type": "AGENCY",
-    "icon": "military_tech",
-    "label": "Military Branch \u00c2\u00b7 United States",
-    "name": "United States Air Force",
-    "notes": "Branch of the U.S. Armed Forces. Ralph Leon Yates served from February 2, 1954 to November/December 1957 (AFSN 18 453 689). Yates was treated for a 'nervous condition' during his service.",
-    "url": null,
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
-  },
-  {
-    "id": "carousel-club",
-    "org_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
-    "org_type": "BUSINESS",
-    "icon": "nightlife",
-    "label": "Nightclub \u00c2\u00b7 Dallas, TX",
-    "name": "Carousel Club",
-    "notes": "Nightclub operated by Jack Ruby (Jack Rubenstein) in Dallas. The hitchhiker in Yates' account asked if Yates knew where the Carousel Club was and whether he had ever been there. The hitchhiker identified Ruby as the operator.",
-    "url": null,
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
-  },
-  {
-    "id": "jacks-branch-office-lounge",
-    "org_id": "d3e4f5a6-b7c8-4901-d2e3-f4a5b6c7d8e9",
-    "org_type": "BUSINESS",
-    "icon": "local_bar",
-    "label": "Bar \u00c2\u00b7 Dallas, TX",
-    "name": "Jack's Branch Office Lounge",
-    "notes": "Bar located on Industrial Street in Dallas. During the hitchhiker conversation, Yates asked if Jack Ruby ran this establishment; the hitchhiker said he did not.",
-    "url": null,
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
-  },
-  {
-    "id": "charlies-ranch-meat-market",
-    "org_id": "e4f5a6b7-c8d9-4012-e3f4-a5b6c7d8e9f0",
-    "org_type": "BUSINESS",
-    "icon": "storefront",
-    "label": "Butcher Shop \u00c2\u00b7 Dallas, TX (Oak Cliff)",
-    "name": "Charlie's Ranch Meat Market",
-    "notes": "Located at 249 Wynnewood Village, Dallas TX (Wynnewood Shopping Center, Oak Cliff). Yates claimed he stopped here to pick up a check before encountering the hitchhiker. FBI investigation could not verify any check was issued to TBSC on November 20-21, 1963.",
-    "url": null,
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
+    "id": "nara",
+    "org_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "org_type": "ARCHIVE",
+    "icon": "account_balance",
+    "label": "Federal Repository \u00c2\u00b7 Washington, D.C.",
+    "name": "National Archives (NARA)",
+    "notes": "Primary custodian of the JFK Assassination Records Collection under the JFK Records Act of 1992. Holds millions of pages from over 60 government agencies.",
+    "url": "https://www.archives.gov/research/jfk"
   },
   {
     "id": "park-it-market",
@@ -346,103 +411,16 @@
     "status": "COMPLETE"
   },
   {
-    "id": "arlington-food-stores",
-    "org_id": "a6b7c8d9-e0f1-4234-a5b6-c7d8e9f0a1b2",
+    "id": "texas-butchers",
+    "org_id": "f8a9b0c1-d2e3-4354-a5b6-c7d8e9f0a1b2",
     "org_type": "BUSINESS",
     "icon": "store",
-    "label": "Grocery Chain \u00c2\u00b7 Arlington, TX",
-    "name": "Arlington Food Stores",
-    "notes": "PO Box 91, Arlington TX, phone AN 2-0597. Billed for the Park-It Market service call on November 21, 1963 (Invoice No. 36919).",
-    "url": null,
+    "label": "Industrial \u00c2\u00b7 Dallas, TX",
+    "name": "Texas Butchers Supply Company",
+    "notes": "Privately owned company in Dallas where Ralph Leon Yates was employed as a refrigeration mechanic in 1963.",
+    "url": "#",
     "tags": [
       "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
-  },
-  {
-    "id": "woodlawn-hospital",
-    "org_id": "b7c8d9e0-f1a2-4345-b6c7-d8e9f0a1b2c3",
-    "org_type": "ORGANIZATION",
-    "icon": "local_hospital",
-    "label": "Psychiatric Facility \u00c2\u00b7 Dallas, TX",
-    "name": "Woodlawn Hospital",
-    "notes": "Psychiatric facility in Dallas where Ralph Leon Yates was admitted on January 15, 1964, following his final appearance at the FBI office. He claimed doctors were using pills to kill him.",
-    "url": null,
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
-  },
-  {
-    "org_id": "warren-commission",
-    "name": "The President's Commission on the Assassination of President Kennedy",
-    "display_name": "Warren Commission",
-    "org_type": "COMMISSION",
-    "label": "Investigative Body",
-    "description": "Established by President Lyndon B. Johnson on November 29, 1963, to investigate the assassination of United States President John F. Kennedy.",
-    "events": [
-      {
-        "date": "1963-11-29",
-        "title": "Commission established",
-        "description": "Executive Order 11130 signed by LBJ"
-      },
-      {
-        "date": "1964-09-24",
-        "title": "Report delivered",
-        "description": "888-page final report presented to the President"
-      }
-    ],
-    "members": [
-      {
-        "name": "Earl Warren",
-        "role": "Chairman"
-      },
-      {
-        "name": "J. Lee Rankin",
-        "role": "General Counsel"
-      },
-      {
-        "name": "Gerald R. Ford",
-        "role": "Commissioner"
-      },
-      {
-        "name": "Allen Dulles",
-        "role": "Commissioner"
-      }
-    ],
-    "related_organizations": [
-      {
-        "name": "FBI",
-        "relation": "Investigative Support"
-      },
-      {
-        "name": "CIA",
-        "relation": "Information Source"
-      }
-    ],
-    "locations": [
-      {
-        "name": "Washington, D.C.",
-        "role": "Headquarters",
-        "address": "200 Maryland Avenue NE"
-      },
-      {
-        "name": "Dallas, Texas",
-        "role": "Investigation Site",
-        "dates": "1963-11-22 to 1964-02-15"
-      }
-    ],
-    "identifiers": [
-      {
-        "type": "EXECUTIVE_ORDER",
-        "value": "11130"
-      }
-    ],
-    "sources": [
-      {
-        "title": "Report of the President's Commission on the Assassination of President John F. Kennedy",
-        "year": "1964"
-      }
     ]
   },
   {
@@ -522,52 +500,74 @@
     "sources": []
   },
   {
-    "org_id": "cia",
-    "name": "Central Intelligence Agency",
-    "display_name": "CIA",
-    "org_type": "INTELLIGENCE_AGENCY",
-    "label": "Agency \u00c2\u00b7 Langley, VA",
-    "description": "Foreign intelligence service of the federal government of the United States. Frequently discussed in relation to Lee Harvey Oswald's defection and New Orleans activities.",
+    "org_id": "warren-commission",
+    "name": "The President's Commission on the Assassination of President Kennedy",
+    "display_name": "Warren Commission",
+    "org_type": "COMMISSION",
+    "label": "Investigative Body",
+    "description": "Established by President Lyndon B. Johnson on November 29, 1963, to investigate the assassination of United States President John F. Kennedy.",
     "events": [
       {
-        "date": "1959-10",
-        "title": "Oswald Watch Opened",
-        "description": "201 file opened for Lee Harvey Oswald following his defection"
+        "date": "1963-11-29",
+        "title": "Commission established",
+        "description": "Executive Order 11130 signed by LBJ"
+      },
+      {
+        "date": "1964-09-24",
+        "title": "Report delivered",
+        "description": "888-page final report presented to the President"
       }
     ],
     "members": [
       {
-        "name": "Richard Helms",
-        "role": "Deputy Director for Plans"
+        "name": "Earl Warren",
+        "role": "Chairman"
       },
       {
-        "name": "James Angleton",
-        "role": "Chief of Counterintelligence"
+        "name": "J. Lee Rankin",
+        "role": "General Counsel"
+      },
+      {
+        "name": "Gerald R. Ford",
+        "role": "Commissioner"
+      },
+      {
+        "name": "Allen Dulles",
+        "role": "Commissioner"
       }
     ],
     "related_organizations": [
       {
         "name": "FBI",
-        "relation": "Inter-agency Coordination"
+        "relation": "Investigative Support"
+      },
+      {
+        "name": "CIA",
+        "relation": "Information Source"
       }
     ],
     "locations": [
       {
-        "name": "CIA Headquarters",
-        "role": "Central Command",
-        "address": "Langley, Virginia"
+        "name": "Washington, D.C.",
+        "role": "Headquarters",
+        "address": "200 Maryland Avenue NE"
+      },
+      {
+        "name": "Dallas, Texas",
+        "role": "Investigation Site",
+        "dates": "1963-11-22 to 1964-02-15"
       }
     ],
     "identifiers": [
       {
-        "type": "AGENCY_CODE",
-        "value": "CIA"
+        "type": "EXECUTIVE_ORDER",
+        "value": "11130"
       }
     ],
     "sources": [
       {
-        "title": "CIA Oswald File (201-289248)",
-        "year": "1959-1964"
+        "title": "Report of the President's Commission on the Assassination of President John F. Kennedy",
+        "year": "1964"
       }
     ]
   }

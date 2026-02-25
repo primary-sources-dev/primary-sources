@@ -15,6 +15,20 @@
     "time_precision": "APPROX",
     "sub_events": [
       {
+        "id": "park-it-market-service-call",
+        "event_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+        "event_type": "TRANSFER",
+        "icon": "build",
+        "label": "Nov 21, 1963 \u00c2\u00b7 Irving, TX",
+        "title": "Park-It Market Service Call (Verified)",
+        "description": "Ralph Yates performed a verified refrigeration service call at Park-It Market Drive-In Grocery, 2320 Shady Grove Road, Irving TX. He was dispatched around 10:30 AM, called in after 11:30 AM, and returned to TBSC around 12:30-1:00 PM. The compressor was out of oil. Documented by Shop Bill No. 8760, Invoice No. 36919 ($12.00 for 2-hour call).",
+        "start_ts": "1963-11-21T10:30:00Z",
+        "end_ts": "1963-11-21T13:00:00Z",
+        "time_precision": "RANGE",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
         "event_id": "4a5b6c7d-8e9f-40a1-b2c3-d4e5f6a7b8c9",
         "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
         "event_type": "REPORT_WRITTEN",
@@ -39,6 +53,32 @@
         "url": "assets/documents/yates-searchable.pdf#page=8&search=\"Hall\""
       },
       {
+        "id": "jones-fbi-interview",
+        "event_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963 \u00c2\u00b7 Dallas, TX",
+        "title": "Dempsey Jones FBI Interview",
+        "description": "FBI Special Agent Arthur E. Carter interviewed Dempsey Jones at Route 4, Box 376, Dallas TX. Jones confirmed Yates told him about the hitchhiker before the assassination. He described Yates as 'a big talker who always talks about a lot of foolishness.' Jones said Yates mentioned the man had a package and discussed shooting the President from a building.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "id": "gilpin-fbi-interview",
+        "event_id": "f9a0b1c2-d3e4-4567-f8a9-b0c1d2e3f4a5",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Nov 27, 1963 \u00c2\u00b7 Dallas, TX",
+        "title": "J.R. Gilpin FBI Interview",
+        "description": "FBI interviewed J.R. Gilpin, partner at Texas Butchers Supply Company. Gilpin located Shop Bill No. 8760 and Invoice No. 36919 documenting Yates' service call to Park-It Market in Irving on November 21, 1963. He confirmed dispatching Yates around 10:30 AM and calling him at the market around noon.",
+        "start_ts": "1963-11-27T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
         "event_id": "e2f3a4b5-c6d7-48e9-f0a1-b2c3d4e5f6a7",
         "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
         "event_type": "INTERVIEW",
@@ -61,6 +101,32 @@
         "start_ts": "1964-01-03T00:00:00Z",
         "time_precision": "EXACT",
         "url": "assets/documents/yates-searchable.pdf#page=22&search=\"Charlie\""
+      },
+      {
+        "id": "ayres-fbi-interview",
+        "event_id": "a0b1c2d3-e4f5-4678-a9b0-c1d2e3f4a5b6",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Jan 3, 1964 \u00c2\u00b7 Dallas, TX",
+        "title": "Thomas Ayres FBI Interview",
+        "description": "FBI Special Agent John T. Kesler interviewed Thomas Ayres at Charlie's Ranch Meat Market, 249 Wynnewood Village. Ayres was on duty November 20-21, 1963 but could not recall giving a check to a TBSC employee. He reviewed check stubs with negative results. Stated only one check is issued to TBSC each month.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "id": "mask-fbi-interview",
+        "event_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
+        "event_type": "INTERVIEW",
+        "icon": "assignment_ind",
+        "label": "Jan 3, 1964 \u00c2\u00b7 Dallas, TX",
+        "title": "Donald Mask FBI Interview",
+        "description": "FBI Special Agent John T. Kesler interviewed Donald Mask at Charlie's Ranch Meat Market. Mask was on duty November 21, 1963 but could not recall giving a check to a TBSC employee. Like Ayres, he confirmed only one check is typically issued to TBSC each month.",
+        "start_ts": "1964-01-03T00:00:00Z",
+        "time_precision": "EXACT",
+        "status": "COMPLETE",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
       },
       {
         "event_id": "c4d5e6f7-a8b9-40c1-d2e3-f4a5b6c7d8e9",
@@ -372,112 +438,5 @@
       }
     ],
     "media": []
-  },
-  {
-    "id": "minimal-event",
-    "event_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    "event_type": "UNKNOWN",
-    "icon": "event",
-    "label": "Date Unknown",
-    "title": "Minimal Event Record",
-    "description": "This event has minimal archival records.",
-    "featured": false,
-    "start_ts": null,
-    "time_precision": "UNKNOWN",
-    "sub_events": [],
-    "participants": [],
-    "evidence": [],
-    "sources": [],
-    "locations": [],
-    "related_events": [],
-    "assertions": [],
-    "media": []
-  },
-  {
-    "id": "hitchhiker-dropoff",
-    "event_id": "c6d7e8f9-a0b1-4234-c5d6-e7f8a9b0c1d2",
-    "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
-    "event_type": "TRANSFER",
-    "icon": "pin_drop",
-    "label": "Nov 20\u00e2\u20ac\u201c21, 1963 \u00c2\u00b7 Elm & Houston",
-    "title": "Hitchhiker Drop-off at TSBD Corner",
-    "description": "Ralph Yates dropped off the hitchhiker at the corner of Elm and Houston Streets when he stopped for a red light. The man took his brown paper package and crossed Elm Street going north on Houston (toward the TSBD). As he exited, he said something about the Triple Underpass that Yates could not understand.",
-    "start_ts": "1963-11-20T10:45:00Z",
-    "time_precision": "APPROX",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "yates-tells-jones",
-    "event_id": "d7e8f9a0-b1c2-4345-d6e7-f8a9b0c1d2e3",
-    "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
-    "event_type": "REPORT_WRITTEN",
-    "icon": "record_voice_over",
-    "label": "Nov 20\u00e2\u20ac\u201c21, 1963 \u00c2\u00b7 TBSC Shop",
-    "title": "Yates Tells Dempsey Jones About Hitchhiker",
-    "description": "After returning from Irving, Yates told co-worker Dempsey Jones about the hitchhiker conversation on the second floor of the TBSC shop. This conversation occurred BEFORE the assassination, providing contemporaneous corroboration of Yates' account. Jones confirmed Yates mentioned the man discussed shooting the President from a building.",
-    "start_ts": "1963-11-20T13:00:00Z",
-    "time_precision": "APPROX",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "jones-fbi-interview",
-    "event_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
-    "event_type": "INTERVIEW",
-    "icon": "assignment_ind",
-    "label": "Nov 27, 1963 \u00c2\u00b7 Dallas, TX",
-    "title": "Dempsey Jones FBI Interview",
-    "description": "FBI Special Agent Arthur E. Carter interviewed Dempsey Jones at Route 4, Box 376, Dallas TX. Jones confirmed Yates told him about the hitchhiker before the assassination. He described Yates as 'a big talker who always talks about a lot of foolishness.' Jones said Yates mentioned the man had a package and discussed shooting the President from a building.",
-    "start_ts": "1963-11-27T00:00:00Z",
-    "time_precision": "EXACT",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "gilpin-fbi-interview",
-    "event_id": "f9a0b1c2-d3e4-4567-f8a9-b0c1d2e3f4a5",
-    "event_type": "INTERVIEW",
-    "icon": "assignment_ind",
-    "label": "Nov 27, 1963 \u00c2\u00b7 Dallas, TX",
-    "title": "J.R. Gilpin FBI Interview",
-    "description": "FBI interviewed J.R. Gilpin, partner at Texas Butchers Supply Company. Gilpin located Shop Bill No. 8760 and Invoice No. 36919 documenting Yates' service call to Park-It Market in Irving on November 21, 1963. He confirmed dispatching Yates around 10:30 AM and calling him at the market around noon.",
-    "start_ts": "1963-11-27T00:00:00Z",
-    "time_precision": "EXACT",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "ayres-fbi-interview",
-    "event_id": "a0b1c2d3-e4f5-4678-a9b0-c1d2e3f4a5b6",
-    "event_type": "INTERVIEW",
-    "icon": "assignment_ind",
-    "label": "Jan 3, 1964 \u00c2\u00b7 Dallas, TX",
-    "title": "Thomas Ayres FBI Interview",
-    "description": "FBI Special Agent John T. Kesler interviewed Thomas Ayres at Charlie's Ranch Meat Market, 249 Wynnewood Village. Ayres was on duty November 20-21, 1963 but could not recall giving a check to a TBSC employee. He reviewed check stubs with negative results. Stated only one check is issued to TBSC each month.",
-    "start_ts": "1964-01-03T00:00:00Z",
-    "time_precision": "EXACT",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "mask-fbi-interview",
-    "event_id": "b1c2d3e4-f5a6-4789-b0c1-d2e3f4a5b6c7",
-    "event_type": "INTERVIEW",
-    "icon": "assignment_ind",
-    "label": "Jan 3, 1964 \u00c2\u00b7 Dallas, TX",
-    "title": "Donald Mask FBI Interview",
-    "description": "FBI Special Agent John T. Kesler interviewed Donald Mask at Charlie's Ranch Meat Market. Mask was on duty November 21, 1963 but could not recall giving a check to a TBSC employee. Like Ayres, he confirmed only one check is typically issued to TBSC each month.",
-    "start_ts": "1964-01-03T00:00:00Z",
-    "time_precision": "EXACT",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "park-it-market-service-call",
-    "event_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
-    "event_type": "TRANSFER",
-    "icon": "build",
-    "label": "Nov 21, 1963 \u00c2\u00b7 Irving, TX",
-    "title": "Park-It Market Service Call (Verified)",
-    "description": "Ralph Yates performed a verified refrigeration service call at Park-It Market Drive-In Grocery, 2320 Shady Grove Road, Irving TX. He was dispatched around 10:30 AM, called in after 11:30 AM, and returned to TBSC around 12:30-1:00 PM. The compressor was out of oil. Documented by Shop Bill No. 8760, Invoice No. 36919 ($12.00 for 2-hour call).",
-    "start_ts": "1963-11-21T10:30:00Z",
-    "end_ts": "1963-11-21T13:00:00Z",
-    "time_precision": "RANGE",
-    "status": "COMPLETE"
   }
 ]

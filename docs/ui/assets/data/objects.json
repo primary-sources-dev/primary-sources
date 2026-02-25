@@ -97,33 +97,6 @@
     ]
   },
   {
-    "id": "brown-paper-package-yates",
-    "object_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
-    "icon": "inventory_2",
-    "label": "Package \u00c2\u00b7 Yates Testimony",
-    "name": "Brown Paper Package ('Curtain Rods')",
-    "object_type": "DOCUMENT",
-    "description": "Package wrapped in brown wrapping paper, approximately 4 to 4.5 feet long. Carried by the hitchhiker picked up by Ralph Yates. The hitchhiker claimed it contained 'curtain rods' and insisted on carrying it in the cab rather than placing it in the truck bed. Potentially related to CE 142 (brown paper sack found on 6th floor of TSBD).",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE",
-    "related_to": "paper-sack-ce142"
-  },
-  {
-    "id": "tbsc-invoice-36919",
-    "object_id": "a4b5c6d7-e8f9-4012-a3b4-c5d6e7f8a9b0",
-    "icon": "receipt_long",
-    "label": "Business Record \u00c2\u00b7 TBSC",
-    "name": "Shop Bill No. 8760 / Invoice No. 36919",
-    "object_type": "DOCUMENT",
-    "description": "Texas Butchers Supply Company service record dated November 21, 1963. Billed November 23, 1963 to Arlington Food Stores for $12.00 (2-hour service call). Documents Yates' verified trip to Park-It Market in Irving, TX. Key evidence for establishing timeline of Yates' movements.",
-    "tags": [
-      "The Ralph Leon Yates incident"
-    ],
-    "status": "COMPLETE"
-  },
-  {
     "object_id": "9a8b7c6d-5e4f-4321-a0b1-c2d3e4f5a6b7",
     "name": "Commission Exhibit 399",
     "display_name": "CE 399 (Magic Bullet)",
@@ -213,23 +186,16 @@
     ]
   },
   {
-    "id": "photo-man-with-rifle",
-    "object_id": "e2f3a4b5-c6d7-4890-e1f2-a3b4c5d6e7f8",
-    "icon": "photo",
-    "label": "Photograph \u00c2\u00b7 Yates Testimony",
-    "name": "Photograph of Man with Rifle",
-    "object_type": "MEDIA_CARRIER",
-    "description": "Photograph pulled from hitchhiker's pocket and shown to Yates. Depicted the hitchhiker holding a rifle. The hitchhiker asked Yates if he thought the President could be killed with a gun like the one shown. Yates initially claimed he did not look at it, but later provided detailed description. Potentially one of the Oswald backyard photographs.",
-    "status": "COMPLETE"
-  },
-  {
-    "id": "dallas-police-photo-74018",
-    "object_id": "f3a4b5c6-d7e8-4901-f2a3-b4c5d6e7f8a9",
-    "icon": "badge",
-    "label": "Mugshot \u00c2\u00b7 Dallas Police",
-    "name": "Dallas Police Photo 74018",
-    "object_type": "MEDIA_CARRIER",
-    "description": "Dallas Police Department photograph of Lee Harvey Oswald, labeled '74018, 11 23 63.' Used by FBI agents for Ralph Yates to positively identify the hitchhiker as Oswald on December 10, 1963.",
+    "id": "tbsc-invoice-36919",
+    "object_id": "a4b5c6d7-e8f9-4012-a3b4-c5d6e7f8a9b0",
+    "icon": "receipt_long",
+    "label": "Business Record \u00c2\u00b7 TBSC",
+    "name": "Shop Bill No. 8760 / Invoice No. 36919",
+    "object_type": "DOCUMENT",
+    "description": "Texas Butchers Supply Company service record dated November 21, 1963. Billed November 23, 1963 to Arlington Food Stores for $12.00 (2-hour service call). Documents Yates' verified trip to Park-It Market in Irving, TX. Key evidence for establishing timeline of Yates' movements.",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
     "status": "COMPLETE"
   },
   {
@@ -240,6 +206,49 @@
     "name": "TBSC Pickup Truck",
     "object_type": "VEHICLE",
     "description": "Texas Butchers Supply Company pickup truck driven by Ralph Leon Yates on November 20/21, 1963. Vehicle used for refrigeration service calls. The hitchhiker rode in the cab with his package rather than placing it in the truck bed.",
-    "status": "SKIPPED"
+    "status": "SKIPPED",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "brown-paper-package-yates",
+    "object_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
+    "icon": "inventory_2",
+    "label": "Package \u00c2\u00b7 Yates Testimony",
+    "name": "Brown Paper Package ('Curtain Rods')",
+    "object_type": "DOCUMENT",
+    "description": "Package wrapped in brown wrapping paper, approximately 4 to 4.5 feet long. Carried by the hitchhiker picked up by Ralph Yates. The hitchhiker claimed it contained 'curtain rods' and insisted on carrying it in the cab rather than placing it in the truck bed. Potentially related to CE 142 (brown paper sack found on 6th floor of TSBD).",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ],
+    "status": "COMPLETE",
+    "related_to": "paper-sack-ce142"
+  },
+  {
+    "id": "photo-man-with-rifle",
+    "object_id": "e2f3a4b5-c6d7-4890-e1f2-a3b4c5d6e7f8",
+    "icon": "photo",
+    "label": "Photograph \u00c2\u00b7 Yates Testimony",
+    "name": "Photograph of Man with Rifle",
+    "object_type": "MEDIA_CARRIER",
+    "description": "Photograph pulled from hitchhiker's pocket and shown to Yates. Depicted the hitchhiker holding a rifle. The hitchhiker asked Yates if he thought the President could be killed with a gun like the one shown. Yates initially claimed he did not look at it, but later provided detailed description. Potentially one of the Oswald backyard photographs.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
+  },
+  {
+    "id": "dallas-police-photo-74018",
+    "object_id": "f3a4b5c6-d7e8-4901-f2a3-b4c5d6e7f8a9",
+    "icon": "badge",
+    "label": "Mugshot \u00c2\u00b7 Dallas Police",
+    "name": "Dallas Police Photo 74018",
+    "object_type": "MEDIA_CARRIER",
+    "description": "Dallas Police Department photograph of Lee Harvey Oswald, labeled '74018, 11 23 63.' Used by FBI agents for Ralph Yates to positively identify the hitchhiker as Oswald on December 10, 1963.",
+    "status": "COMPLETE",
+    "tags": [
+      "The Ralph Leon Yates incident"
+    ]
   }
 ]
