@@ -287,6 +287,11 @@ function renderQueue() {
                                    title="View in Browser">
                                     <span class="material-symbols-outlined text-sm">visibility</span> View
                                 </a>
+                                <a href="../classifier/classifier-ui.html?file=${encodeURIComponent(file.name)}" target="_blank"
+                                   class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/40 px-3 py-1.5 hover:bg-emerald-500 hover:text-archive-bg transition-all flex items-center gap-1"
+                                   title="Review Classification">
+                                    <span class="material-symbols-outlined text-sm">fact_check</span> Review
+                                </a>
                                 <button onclick="downloadTxt('${file.name}')" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="Download as Plain Text">

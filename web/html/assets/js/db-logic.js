@@ -59,12 +59,12 @@ function buildCard(item) {
     // Determine the link: handle all entity types based on their ID fields
     let itemLink = item.url || item.link;
     if (!itemLink) {
-        if (item.person_id) itemLink = `${basePath}entities/person.html?id=${item.id || item.person_id}`;
-        else if (item.org_id) itemLink = `${basePath}entities/organization.html?id=${item.id || item.org_id}`;
-        else if (item.place_id) itemLink = `${basePath}entities/place.html?id=${item.id || item.place_id}`;
-        else if (item.object_id) itemLink = `${basePath}entities/object.html?id=${item.id || item.object_id}`;
-        else if (item.source_id) itemLink = `${basePath}entities/source.html?id=${item.id || item.source_id}`;
-        else if (item.event_id || item.id) itemLink = `${basePath}entities/event.html?id=${item.id || item.event_id}`;
+        if (item.person_id) itemLink = `${basePath}entities/person/person-details.html?id=${item.id || item.person_id}`;
+        else if (item.org_id) itemLink = `${basePath}entities/organization/org-details.html?id=${item.id || item.org_id}`;
+        else if (item.place_id) itemLink = `${basePath}entities/place/place-details.html?id=${item.id || item.place_id}`;
+        else if (item.object_id) itemLink = `${basePath}entities/object/object-details.html?id=${item.id || item.object_id}`;
+        else if (item.source_id) itemLink = `${basePath}entities/source/source-details.html?id=${item.id || item.source_id}`;
+        else if (item.event_id || item.id) itemLink = `${basePath}entities/event/event-details.html?id=${item.id || item.event_id}`;
         else itemLink = '#';
     }
 
@@ -329,8 +329,8 @@ async function renderRandomEntity(container) {
 
 // Handle raw [data-data-source] divs already in the page HTML
 document.addEventListener("DOMContentLoaded", () => {
-    // If we are on event.html, run the detail renderer
-    if (window.location.pathname.includes('event.html')) {
+    // If we are on event-details.html, run the detail renderer
+    if (window.location.pathname.includes('event-details.html')) {
         renderEventDetail();
     }
 
@@ -387,7 +387,7 @@ function buildOTDCard(item) {
         </div>
 
         <div class="mt-8 pt-6 border-t border-archive-secondary/10 w-full flex justify-center gap-6">
-            <a href="${basePath}entities/event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
+            <a href="${basePath}entities/event/event-details.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">auto_stories</span>
                 View Deep Record
             </a>
