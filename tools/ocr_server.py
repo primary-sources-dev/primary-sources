@@ -442,8 +442,9 @@ def cancel_job(job_id):
 
 @app.route("/api/download/<filename>")
 def download_file(filename):
-    """Download a processed file."""
-    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+    """Serve a processed file. Use ?download=true to force browser download."""
+    as_attachment = request.args.get("download", "").lower() == "true"
+    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=as_attachment)
 
 
 @app.route("/api/output-dir", methods=["GET", "POST"])
