@@ -243,6 +243,13 @@ input[type="radio"]+div {
     padding: 12px 16px;
     border-bottom: 1px solid rgba(212, 207, 199, 0.2);
     font-size: 13px;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.queue-item > .flex-1 {
+    min-width: 0;
+    overflow: hidden;
 }
 
 .queue-item:last-child {
@@ -495,6 +502,8 @@ input[type="radio"]+div {
     background-color: rgba(26, 23, 24, 0.6);
     border: 1px solid rgba(176, 139, 73, 0.3);
     border-left: 3px solid var(--primary);
+    overflow: hidden;
+    min-width: 0;
 }
 
 /* Document Classification Banner */
@@ -776,6 +785,14 @@ input[type="radio"]+div {
     color: var(--archive-secondary);
 }
 
+.segment-entities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    overflow: hidden;
+    max-width: 200px;
+}
+
 .entity-chip {
     font-size: 9px;
     font-weight: 700;
@@ -785,6 +802,20 @@ input[type="radio"]+div {
     color: var(--primary);
     border: 1px solid rgba(176, 139, 73, 0.3);
     cursor: help;
+    white-space: nowrap;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.entity-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    overflow: hidden;
+    max-height: 60px;
 }
 
 .entity-chip.person {

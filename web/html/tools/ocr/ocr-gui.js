@@ -277,12 +277,12 @@ function renderQueue() {
             </div>
                         <div class="flex items-center gap-2">
                             ${isCompleted ? `
-                                <a href="../pdf-viewer/pdf-viewer-ui.html?file=processed/${file.name}&mode=workbench&feature=true" target="_blank" 
+                                <a href="../pdf-viewer/pdf-viewer-ui.html?file=/api/download/${encodeURIComponent(file.name)}&mode=workbench&feature=true" target="_blank" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 border border-primary/40 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="Open in Extraction Workbench">
                                     <span class="material-symbols-outlined text-sm">construction</span> Workbench
                                 </a>
-                                <a href="../pdf-viewer/pdf-viewer-ui.html?file=processed/${file.name}&feature=true" target="_blank" 
+                                <a href="../pdf-viewer/pdf-viewer-ui.html?file=/api/download/${encodeURIComponent(file.name)}&feature=true" target="_blank" 
                                    class="text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20 px-3 py-1.5 hover:bg-primary hover:text-archive-bg transition-all flex items-center gap-1"
                                    title="View in Browser">
                                     <span class="material-symbols-outlined text-sm">visibility</span> View
@@ -703,7 +703,7 @@ function pollJobProgress() {
                 btnStart.disabled = false;
                 btnCancel.disabled = true;
                 logSuccess('Processing completed!');
-                clearQueue();
+                renderQueue();
             } else if (job.status === 'failed') {
                 btnStart.disabled = false;
                 btnCancel.disabled = true;

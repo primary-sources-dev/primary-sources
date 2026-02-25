@@ -458,9 +458,33 @@ def cancel_job(job_id):
 
 @app.route("/api/download/<filename>")
 def download_file(filename):
-    """Serve a processed file. Use ?download=true to force browser download."""
+    """Serve a processed file. Use ?download=true to force browser download.
+    
+    Checks multiple locations:
+    1. processed/{filename} (OCR output)
+    2. processed/{basename}_searchable.pdf (OCR output with suffix)
+    3. processed/uploads/{filename} (original uploads / skipped files)
+    """
     as_attachment = request.args.get("download", "").lower() == "true"
-    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=as_attachment)
+    safe_name = os.path.basename(filename)
+    
+    # Check multiple locations
+    direct_path = os.path.join(UPLOAD_FOLDER, safe_name)
+    uploads_path = os.path.join(UPLOAD_FOLDER, "uploads", safe_name)
+    
+    # Also try with _searchable suffix
+    base_name = safe_name.replace("_searchable.pdf", ".pdf") if "_searchable" in safe_name else safe_name
+    searchable_name = base_name.replace(".pdf", "_searchable.pdf")
+    searchable_path = os.path.join(UPLOAD_FOLDER, searchable_name)
+    
+    if os.path.exists(direct_path):
+        return send_from_directory(UPLOAD_FOLDER, safe_name, as_attachment=as_attachment)
+    elif os.path.exists(searchable_path):
+        return send_from_directory(UPLOAD_FOLDER, searchable_name, as_attachment=as_attachment)
+    elif os.path.exists(uploads_path):
+        return send_from_directory(os.path.join(UPLOAD_FOLDER, "uploads"), safe_name, as_attachment=as_attachment)
+    else:
+        return jsonify({"error": f"File not found: {safe_name}"}), 404
 
 
 @app.route("/api/output-dir", methods=["GET", "POST"])
@@ -917,10 +941,28 @@ def review_endpoint(filename):
 
     # Only look in the processed/ output folder — never traverse outside it
     safe_name = os.path.basename(filename)
+    
+    # Check multiple possible locations:
+    # 1. Direct output: processed/{filename} (OCR'd files)
+    # 2. Uploads subfolder: processed/uploads/{filename} (skipped/original files)
+    # 3. With _searchable suffix: processed/{basename}_searchable.pdf
     pdf_path = os.path.join(UPLOAD_FOLDER, safe_name)
-
-    if not os.path.exists(pdf_path):
-        return jsonify({"error": f"File not found: {safe_name}"}), 404
+    uploads_path = os.path.join(UPLOAD_FOLDER, "uploads", safe_name)
+    
+    # Also try without _searchable suffix (user might pass original name)
+    base_name = safe_name.replace("_searchable.pdf", ".pdf") if "_searchable" in safe_name else safe_name
+    searchable_name = base_name.replace(".pdf", "_searchable.pdf")
+    searchable_path = os.path.join(UPLOAD_FOLDER, searchable_name)
+    
+    # Priority: direct path > searchable version > uploads folder
+    if os.path.exists(pdf_path):
+        pass  # Use pdf_path as-is
+    elif os.path.exists(searchable_path):
+        pdf_path = searchable_path
+    elif os.path.exists(uploads_path):
+        pdf_path = uploads_path
+    else:
+        return jsonify({"error": f"File not found: {safe_name} (checked processed/, processed/uploads/, and _searchable variants)"}), 404
 
     if not safe_name.lower().endswith(".pdf"):
         return jsonify({"error": "Only PDF files are supported for review"}), 400

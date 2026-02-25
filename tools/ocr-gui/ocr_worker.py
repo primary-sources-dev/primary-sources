@@ -545,8 +545,23 @@ class OCRWorker:
                 return True, "Complete"
             else:
                 error_msg = result.stderr.strip() or "Unknown error"
-                self.log(f"  Error: {error_msg}")
-                return False, error_msg
+                
+                # Provide user-friendly messages for common OCRmyPDF errors
+                if "PriorOcrFoundError" in error_msg or "already has text" in error_msg:
+                    friendly_msg = "PDF already has text layer (already searchable). Use 'Force OCR' option to re-process, or skip this file."
+                    self.log(f"  ⚠ Skipped: {friendly_msg}")
+                    return False, friendly_msg
+                elif "EncryptedPdfError" in error_msg:
+                    friendly_msg = "PDF is encrypted/password-protected. Cannot process."
+                    self.log(f"  Error: {friendly_msg}")
+                    return False, friendly_msg
+                elif "InputFileError" in error_msg:
+                    friendly_msg = "Invalid or corrupted PDF file."
+                    self.log(f"  Error: {friendly_msg}")
+                    return False, friendly_msg
+                else:
+                    self.log(f"  Error: {error_msg}")
+                    return False, error_msg
 
         except Exception as e:
             self.log(f"  Error: {str(e)}")
