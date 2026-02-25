@@ -126,7 +126,7 @@ async function loadPersonProfile(personId) {
   let personData;
   try {
     // For now, use people.json - will switch to /api/people/{personId} later
-    const response = await fetch('/assets/data/people.json');
+    const response = await fetch('/docs/ui/assets/data/people.json');
     const allPeople = await response.json();
     // Allow lookup by both UUID (person_id) and Slug (id) for maximum flexibility
     personData = allPeople.find(p => p.person_id === personId || p.id === personId);
@@ -436,7 +436,7 @@ function showErrorState(message) {
         <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">error</span>
         <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">Error</p>
         <p class="text-sm text-archive-secondary/60 mb-6">${message}</p>
-        <a href="/browse/people.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
+        <a href="/docs/ui/browse/people.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
           <span class="material-symbols-outlined text-sm">arrow_back</span>
           Back to People
         </a>

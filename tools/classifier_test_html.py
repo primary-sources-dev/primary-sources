@@ -254,9 +254,9 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
         .image-modal canvas {{ max-width: 95%; max-height: 95%; }}
         
         /* Text layer highlighting */
-        .text-layer {{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; opacity: 0.3; line-height: 1; pointer-events: none; }}
+        .text-layer {{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; opacity: 0.7; line-height: 1; pointer-events: none; }}
         .text-layer span {{ position: absolute; white-space: pre; color: transparent; }}
-        .text-layer .highlight {{ background-color: #B08B49; color: transparent; border-radius: 2px; }}
+        .text-layer .highlight {{ background-color: #FFFF00; color: transparent; border-radius: 2px; }}
         
         /* Type buttons */
         .type-btn {{ 
@@ -388,7 +388,7 @@ def generate_html_report(results: list[dict], pdf_name: str, pdf_path: str, outp
                     
                     span.textContent = text;
                     span.style.left = tx[4] + 'px';
-                    span.style.top = (canvas.height - tx[5]) + 'px';
+                    span.style.top = tx[5] + 'px';
                     span.style.fontSize = Math.abs(tx[0]) + 'px';
                     span.style.fontFamily = item.fontName || 'sans-serif';
                     

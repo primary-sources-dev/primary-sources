@@ -2,8 +2,9 @@
 
 **Status:** ✅ LIVE  
 **Feature ID:** WO-OCR-012  
-**Location:** `docs/ui/classifier-review.html`  
-**Generator:** `tools/classifier_test_html.py`
+**Location:** `docs/ui/ocr/yates-classification-report.html`  
+**Generator:** `tools/classifier_test_html.py`  
+**Tool Info Page:** `docs/ui/tools/classifier-review.html`
 
 ## Overview
 
@@ -69,6 +70,7 @@ Identifies document types using regex fingerprints and Levenshtein fuzzy matchin
 | Congressional | `HSCA_DOC`, `HSCA_REPORT`, `SENATE_REPORT`, `CHURCH_COMMITTEE` |
 | Police | `POLICE_REPORT` |
 | Correspondence | `MEMO`, `LETTER` |
+| Witness | `WITNESS_STATEMENT` (signed statements, distinct from FBI 302 agent summaries) |
 | Other | `NARA_RIF`, `TRAVEL_DOCUMENT`, `MEDICAL_RECORD`, `HANDWRITTEN_NOTES` |
 | Structural | `BLANK`, `TOC`, `INDEX`, `COVER` |
 | Fallback | `UNKNOWN` |
@@ -237,13 +239,15 @@ SUGGESTED NEW PATTERNS
 
 ```
 primary-sources/
+├── start.txt                         # Server startup instructions
 ├── data/
 │   ├── classifier-feedback.json      # Accumulated training feedback
 │   └── classifier-suggestions.json   # Generated pattern suggestions
 ├── docs/ui/
-│   ├── classifier-review.html        # Generated review interface
-│   └── ocr/plans/
-│       └── classifier-review-tool.md # This documentation
+│   ├── ocr/
+│   │   └── yates-classification-report.html  # Generated review interface
+│   └── tools/
+│       └── classifier-review.html    # Tool information page
 ├── tools/
 │   ├── classifier_test_html.py       # HTML generator
 │   ├── train_classifier.py           # Training analysis script
@@ -254,6 +258,24 @@ primary-sources/
 │       └── entity_linker.py          # Database entity matching
 └── raw-material/                     # Source PDFs
 ```
+
+## Server Requirements
+
+**Critical:** Both servers must run from the **project root** directory.
+
+```bash
+# Terminal 1 - Static file server (port 8000)
+cd C:\Users\willh\Desktop\primary-sources
+python -m http.server 8000
+
+# Terminal 2 - OCR/Feedback server (port 5000)
+cd C:\Users\willh\Desktop\primary-sources
+python tools/ocr_server.py
+```
+
+**Access URL:** `http://localhost:8000/docs/ui/ocr/yates-classification-report.html`
+
+See `start.txt` in project root for full instructions.
 
 ## Feedback JSON Schema
 
@@ -313,6 +335,46 @@ primary-sources/
 - [Forensic Metadata Parser](forensic-metadata-parser.md)
 - [Document Layout Analyzer](document-layout-analyzer.md)
 
+## Known Issues
+
+### Text Layer Highlighting Not Visible (2026-02-25)
+
+**Status:** 🔴 UNRESOLVED
+
+**Symptom:** Yellow highlight overlays on matched fingerprint terms are not appearing on the rendered PDF pages.
+
+**Investigation:**
+
+1. **CSS verified correct:**
+   - `.text-layer` has `opacity: 0.7`, `position: absolute`
+   - `.highlight` spans have `background-color: #FFFF00` (bright yellow)
+
+2. **JavaScript verified executing:**
+   - Console shows `pageHighlights` populated correctly
+   - `renderTextLayer()` function is called for pages with highlights
+   - Text layer `<div>` is created and appended to `.canvas-container`
+   - Highlight `<span>` elements are created with `.highlight` class
+
+3. **Root cause identified: Y-coordinate positioning**
+   - PDF.js `Util.transform(viewport.transform, item.transform)` returns screen coordinates
+   - Original code: `span.style.top = (canvas.height - tx[5]) + 'px'` — double-inverted Y axis
+   - Spans positioned at `top: 1209px` (near bottom) instead of `top: ~50px` (near top)
+   - "FEDERAL BUREAU OF INVESTIGATION" header should be at top, not bottom
+
+4. **Fix attempted:**
+   - Changed to `span.style.top = tx[5] + 'px'` (direct use of transformed coordinate)
+   - **Result:** Still not working
+
+**Next steps to investigate:**
+
+- Verify `tx[5]` value range after viewport transform (expected: 0-100 for top-of-page text)
+- Check if viewport transform is being applied correctly
+- Consider using PDF.js built-in `TextLayerBuilder` instead of manual positioning
+- Inspect z-index stacking (text layer may still be behind canvas)
+- Check if `overflow: hidden` on `.text-layer` is clipping content
+
+**Workaround:** The highlight terms are displayed in text form below each page card ("Highlight terms: FEDERAL BUREAU OF INVESTIGATION...") for manual reference.
+
 ## Changelog
 
 | Date | Change |
@@ -321,3 +383,4 @@ primary-sources/
 | 2026-02-23 | Added server-side feedback loop |
 | 2026-02-23 | Added structural page types (BLANK, TOC, INDEX, COVER) |
 | 2026-02-23 | Added PDF.js rendering with text layer highlighting |
+| 2026-02-25 | Documented text layer highlighting issue (unresolved) |

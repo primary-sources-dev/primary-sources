@@ -28,8 +28,9 @@ Defines the functional capacity of an entity during an event.
 
 Categorizes the nature of the evidence container.
 
-* **`REPORT`**: Official government or agency findings (e.g., FBI 302).
-* **`TESTIMONY`**: Sworn statements, depositions, or hearings.
+* **`REPORT`**: Official government or agency findings (e.g., FBI 302 — agent's summary).
+* **`WITNESS_STATEMENT`**: Signed statement in witness's own words (distinct from agent summary). Higher evidentiary weight than REPORT.
+* **`TESTIMONY`**: Sworn statements, depositions, or hearings before a commission/court.
 * **`BOOK`**: Published historical or investigative literature.
 * **`FILM`**: Moving image artifacts (e.g., newsreels, home movies).
 * **`PHOTO`**: Still photography.

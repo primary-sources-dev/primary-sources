@@ -185,5 +185,29 @@ Comprehensive documentation coverage for all high-priority tools.
 - **Entity Matcher Update**: Added Entity Linker engine documentation with People/Places database info.
 - **Internal Script Docstrings**: Added module-level docstrings to `scan_pdf.py` and verified existing docstrings.
 
+## 15. URL Path Refactor & Server Architecture (2026-02-25)
+
+Static file server must now run from **project root** (`C:\Users\willh\Desktop\primary-sources`), not from `docs/ui/`.
+
+### Path Changes
+All HTML files updated to use `/docs/ui/` prefix for absolute paths:
+- `href="/assets/"` → `href="/docs/ui/assets/"`
+- `href="/pages/"` → `href="/docs/ui/pages/"`
+- `href="/browse/"` → `href="/docs/ui/browse/"`
+- `href="/features/"` → `href="/docs/ui/features/"`
+- `href="/tools/"` → `href="/docs/ui/tools/"`
+- `href="/ocr/"` → `href="/docs/ui/ocr/"`
+- `href="/entities/"` → `href="/docs/ui/entities/"`
+
+### Server Startup
+See `start.txt` in project root for commands:
+- **Port 8000**: `python -m http.server 8000` (from project root)
+- **Port 5000**: `python tools/ocr_server.py` (from project root)
+
+### Classifier Review Tool Fixes
+- Fixed f-string escaping in `classifier_test_html.py`
+- Generator now uses placeholder replacement for PDF name
+- Output path: `docs/ui/ocr/yates-classification-report.html`
+
 ---
-*Status: All features committed and integrated into `docs/ui/` — v0.8.5-alpha*
+*Status: All features committed and integrated into `docs/ui/` — v0.8.6-alpha*

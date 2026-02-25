@@ -80,7 +80,13 @@ Converting "Raw Material" into "Smart Evidence." This tool is the engine's prima
 ### Active Build Pool (High Impact / Low Effort)
 1.  **Extraction Workbench Phase 4 (Commit)**: Backend logic to save workbench results directly to SQL.
 
-### Recently Completed (2026-02-24)
+### Recently Completed (2026-02-25)
+- [x] **URL Path Refactor**: All HTML files now use `/docs/ui/` prefix for absolute paths, enabling server to run from project root.
+- [x] **Classifier Review Tool Fix**: Fixed f-string escaping issues in `classifier_test_html.py` generator; PDF paths now correct.
+- [x] **Server Startup Guide**: Created `start.txt` with clear instructions for running static (8000) and OCR (5000) servers.
+- [x] **Yates Classification Report**: Generated 43-page review at `docs/ui/ocr/yates-classification-report.html`.
+
+### Previously Completed (2026-02-24)
 - [x] **Document Analyzer v1.5**: Added detection for CIA 201 files, DPD Reports, Medical Records, and Handwritten notes.
 - [x] **OCR Cross-Port Nav**: Fixed core navigation header/footer breakage between port 5000 and 8000.
 - [x] **Tool Information Page Template**: Canonical structure for analytical tool pages (`docs/ui/templates/tool-information-page.md`).

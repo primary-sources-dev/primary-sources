@@ -46,6 +46,7 @@ class DocType(Enum):
     DPD_REPORT = "DPD_REPORT"  # Dallas Police specific formats
     MEDICAL_RECORD = "MEDICAL_RECORD"  # Hospital/Psychiatric records
     HANDWRITTEN_NOTES = "HANDWRITTEN_NOTES"  # Scanned notes/scribbles
+    WITNESS_STATEMENT = "WITNESS_STATEMENT"  # Signed witness statements (distinct from FBI 302)
     # === Structural Pages (Skip Processing) ===
     BLANK = "BLANK"  # Empty or near-empty pages
     TOC = "TOC"  # Table of contents
@@ -390,6 +391,24 @@ FINGERPRINTS = {
         (r"[\?\.]{3,}", 10),              # Question marks/dots in messy text
         (r"(?:[A-Z]{1,2}\s+){5,}", 15),   # CAPS fragments
     ],
+
+    DocType.WITNESS_STATEMENT: [
+        # Distinct from FBI 302 (agent's summary) - this is witness's own words
+        (r"STATEMENT\s+OF\s+[A-Z]", 40),
+        (r"VOLUNTARY\s+STATEMENT", 40),
+        (r"SIGNED\s+STATEMENT", 35),
+        (r"I,\s+[A-Z][a-z]+\s+[A-Z][a-z]+,?\s+(?:make|give|furnish)", 35),
+        (r"make\s+the\s+following\s+(?:voluntary\s+)?statement", 35),
+        (r"following\s+statement\s+(?:of\s+my\s+own\s+)?free\s+will", 30),
+        (r"(?:Signed|Signature)\s*[:\-]?\s*$", 25),
+        (r"/s/\s*[A-Z]", 25),  # Signature notation
+        (r"(?:WITNESS|Witness)\s*[:\-]?\s*$", 20),
+        (r"(?:typed|prepared)\s+(?:by|at)\s+(?:my\s+)?(?:request|direction)", 20),
+        (r"read\s+(?:this|the\s+above)\s+statement", 20),
+        (r"statement\s+is\s+true\s+and\s+correct", 25),
+        (r"no\s+(?:threats|promises|coercion)", 20),
+        (r"of\s+my\s+own\s+free\s+will", 25),
+    ],
     
     # =========================================================================
     # STRUCTURAL PAGE TYPES (Skip Processing)
@@ -597,6 +616,14 @@ CANONICAL_FINGERPRINTS = {
     DocType.HANDWRITTEN_NOTES: [
         ("handwritten", 30),
         ("rough notes", 30),
+    ],
+    DocType.WITNESS_STATEMENT: [
+        ("STATEMENT OF", 40),
+        ("VOLUNTARY STATEMENT", 45),
+        ("SIGNED STATEMENT", 40),
+        ("make the following statement", 35),
+        ("of my own free will", 35),
+        ("statement is true and correct", 35),
     ],
     
     # Structural page types
@@ -993,6 +1020,13 @@ ZONE_CONFIG = {
         "header_fields": ["page_number"],
         "footer_fields": ["page_number"],
         "body_fields": ["content", "subjects_mentioned"],
+    },
+    DocType.WITNESS_STATEMENT: {
+        "header_lines": 15,
+        "footer_lines": 15,
+        "header_fields": ["statement_of", "date", "location"],
+        "footer_fields": ["signature", "witness_signature", "date_signed"],
+        "body_fields": ["statement_content"],
     },
     # Structural page types - minimal extraction
     DocType.BLANK: {

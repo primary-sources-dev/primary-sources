@@ -51,12 +51,12 @@ function buildCard(item) {
     // Determine the link: handle all entity types based on their ID fields
     let itemLink = item.url || item.link;
     if (!itemLink) {
-        if (item.person_id) itemLink = `/entities/person.html?id=${item.id || item.person_id}`;
-        else if (item.org_id) itemLink = `/entities/organization.html?id=${item.id || item.org_id}`;
-        else if (item.place_id) itemLink = `/entities/place.html?id=${item.id || item.place_id}`;
-        else if (item.object_id) itemLink = `/entities/object.html?id=${item.id || item.object_id}`;
-        else if (item.source_id) itemLink = `/entities/source.html?id=${item.id || item.source_id}`;
-        else if (item.event_id || item.id) itemLink = `/entities/event.html?id=${item.id || item.event_id}`;
+        if (item.person_id) itemLink = `/docs/ui/entities/person.html?id=${item.id || item.person_id}`;
+        else if (item.org_id) itemLink = `/docs/ui/entities/organization.html?id=${item.id || item.org_id}`;
+        else if (item.place_id) itemLink = `/docs/ui/entities/place.html?id=${item.id || item.place_id}`;
+        else if (item.object_id) itemLink = `/docs/ui/entities/object.html?id=${item.id || item.object_id}`;
+        else if (item.source_id) itemLink = `/docs/ui/entities/source.html?id=${item.id || item.source_id}`;
+        else if (item.event_id || item.id) itemLink = `/docs/ui/entities/event.html?id=${item.id || item.event_id}`;
         else itemLink = '#';
     }
 
@@ -68,7 +68,7 @@ function buildCard(item) {
         const search = queryParams.get('search') || '';
 
         // Handle path depth (removed hack in favor of absolute paths)
-        itemLink = `/ocr/pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
+        itemLink = `/docs/ui/ocr/pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
     }
 
     return `
@@ -184,7 +184,7 @@ function renderEntities(container) {
 
     if (!dataSource) return;
 
-    fetch(`/assets/data/${dataSource}.json`)
+    fetch(`/docs/ui/assets/data/${dataSource}.json`)
         .then(r => {
             if (!r.ok) throw new Error(`Failed to fetch ${dataSource}.json`);
             return r.json();
@@ -375,7 +375,7 @@ function buildOTDCard(item) {
         </div>
 
         <div class="mt-8 pt-6 border-t border-archive-secondary/10 w-full flex justify-center gap-6">
-            <a href="/entities/event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
+            <a href="/docs/ui/entities/event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">auto_stories</span>
                 View Deep Record
             </a>

@@ -98,7 +98,7 @@ async function loadSourceProfile(sourceId) {
   let sourceData;
   try {
     // For now, use sources.json - will switch to /api/sources/{sourceId} later
-    const response = await fetch('/assets/data/sources.json');
+    const response = await fetch('/docs/ui/assets/data/sources.json');
     const allSources = await response.json();
     sourceData = allSources.find(s => s.source_id === sourceId || s.id === sourceId);
 
@@ -235,7 +235,7 @@ function showErrorState(message) {
         <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">error</span>
         <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">Error</p>
         <p class="text-sm text-archive-secondary/60 mb-6">${message}</p>
-        <a href="/browse/sources.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
+        <a href="/docs/ui/browse/sources.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
           <span class="material-symbols-outlined text-sm">arrow_back</span>
           Back to Sources
         </a>
