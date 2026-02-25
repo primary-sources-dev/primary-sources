@@ -99,7 +99,7 @@ async function loadEventProfile(eventId) {
   let eventData;
   try {
     // For now, use events.json - will switch to /api/events/{eventId} later
-    const response = await fetch('assets/data/events.json');
+    const response = await fetch('/assets/data/events.json');
     const allEvents = await response.json();
     eventData = allEvents.find(e => e.event_id === eventId || e.id === eventId);
 
@@ -338,7 +338,7 @@ function showErrorState(message) {
         <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">error</span>
         <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">Error</p>
         <p class="text-sm text-archive-secondary/60 mb-6">${message}</p>
-        <a href="events.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
+        <a href="/browse/events.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
           <span class="material-symbols-outlined text-sm">arrow_back</span>
           Back to Events
         </a>
@@ -414,3 +414,4 @@ document.addEventListener('DOMContentLoaded', () => {
     showErrorState('No event ID provided');
   }
 });
+

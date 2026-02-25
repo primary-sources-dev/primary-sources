@@ -13,7 +13,7 @@ function convertPdfUrl(url) {
     const [filePath, params] = url.split('#');
 
     // Build pdf-viewer.html URL
-    let viewerUrl = `pdf-viewer.html?file=${encodeURIComponent(filePath)}`;
+    let viewerUrl = `/ocr/pdf-viewer.html?file=${encodeURIComponent(filePath)}`;
 
     // Extract page number if present (from #page=X or &page=X)
     if (params) {

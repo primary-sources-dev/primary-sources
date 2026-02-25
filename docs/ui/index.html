@@ -13,7 +13,7 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
     <script>
         tailwind.config = {
             darkMode: "class",
@@ -37,9 +37,10 @@
             },
         }
     </script>
-    <script src="assets/js/components.js" defer></script>
-    <script src="assets/js/nav.js" defer></script>
-    <script src="assets/js/db-logic.js" defer></script>
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+    <script src="/docs/ui/assets/js/db-logic.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
@@ -70,7 +71,7 @@
             <p class="mb-8 max-w-md text-xs text-archive-secondary/70 uppercase tracking-widest">
                 Preserving history through unedited primary materials for scholarly research and public record.
             </p>
-            <a href="about.html"
+            <a href="/docs/ui/pages/about.html"
                 class="inline-flex h-12 items-center justify-center bg-primary px-8 text-sm font-bold text-archive-bg shadow-lg hover:brightness-110 active:scale-95 transition-all">
                 About This Project
                 <span class="material-symbols-outlined ml-2 text-base">arrow_forward</span>
@@ -86,7 +87,7 @@
             Platform Features
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <a href="otd.html?scope=Day&feature=true"
+            <a href="/docs/ui/features/otd.html?scope=Day&feature=true"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group relative">
                 <div class="absolute top-2 right-2 badge badge-small badge-wip">
                     <span class="material-symbols-outlined text-[10px]">construction</span>
@@ -99,7 +100,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">On This Day</span>
             </a>
 
-            <a href="random.html?feature=true"
+            <a href="/docs/ui/features/random.html?feature=true"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group relative">
                 <div class="absolute top-2 right-2 badge badge-small badge-wip">
                     <span class="material-symbols-outlined text-[10px]">construction</span>
@@ -112,7 +113,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">Six Degrees</span>
             </a>
 
-            <a href="witness-atlas.html?feature=true"
+            <a href="/docs/ui/features/witness-atlas.html?feature=true"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group relative">
                 <div class="absolute top-2 right-2 badge badge-small badge-wip">
                     <span class="material-symbols-outlined text-[10px]">construction</span>
@@ -135,7 +136,7 @@
             Browse by Category
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <a href="events.html"
+            <a href="/docs/ui/browse/events.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:border-primary transition-colors">
@@ -144,7 +145,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">Events</span>
             </a>
 
-            <a href="people.html"
+            <a href="/docs/ui/browse/people.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:border-primary transition-colors">
@@ -153,7 +154,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">People</span>
             </a>
 
-            <a href="organizations.html"
+            <a href="/docs/ui/browse/organizations.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:border-primary transition-colors">
@@ -162,7 +163,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">Organizations</span>
             </a>
 
-            <a href="sources.html"
+            <a href="/docs/ui/browse/sources.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:border-primary transition-colors">
@@ -171,7 +172,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">Sources</span>
             </a>
 
-            <a href="places.html"
+            <a href="/docs/ui/browse/places.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:border-primary transition-colors">
@@ -180,7 +181,7 @@
                 <span class="font-bold text-archive-heading uppercase tracking-wider">Places</span>
             </a>
 
-            <a href="objects.html"
+            <a href="/docs/ui/browse/objects.html"
                 class="flex flex-col items-center justify-center gap-3 border border-archive-secondary/20 bg-[#252021]/60 p-6 text-center hover:border-primary transition-colors group">
                 <div
                     class="flex h-12 w-12 items-center justify-center bg-primary/10 text-primary border border-primary/20 group-hover:border-primary transition-colors">
@@ -197,7 +198,8 @@
     <section class="p-6">
         <div class="mb-6 flex items-center justify-between border-l-4 border-primary pl-4">
             <h3 class="text-2xl font-bold text-archive-heading tracking-widest uppercase">Recently Added</h3>
-            <a href="events.html" class="text-xs font-bold uppercase text-primary hover:underline tracking-tighter">[
+            <a href="/docs/ui/browse/events.html"
+                class="text-xs font-bold uppercase text-primary hover:underline tracking-tighter">[
                 View All ]</a>
         </div>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2" data-data-source="events">

@@ -6,7 +6,7 @@
 // Main loading function
 async function loadBlogPost(slug) {
     try {
-        const response = await fetch('assets/data/blog.json');
+        const response = await fetch('/assets/data/blog.json');
         const allPosts = await response.json();
         const post = allPosts.find(p => p.slug === slug);
 
@@ -209,7 +209,7 @@ function populateRelatedPosts(relatedSlugs, allPosts) {
     if (relatedPosts.length === 0) return;
 
     grid.innerHTML = relatedPosts.map(post => `
-        <a href="blog-post.html?slug=${post.slug}" class="block border border-archive-secondary/20 bg-[#252021]/60 hover:border-primary transition-colors overflow-hidden group">
+        <a href="/pages/blog-post.html?slug=${post.slug}" class="block border border-archive-secondary/20 bg-[#252021]/60 hover:border-primary transition-colors overflow-hidden group">
             <div class="p-6">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="text-[10px] px-2 py-1 bg-primary/20 text-primary uppercase tracking-widest">${post.category}</span>
@@ -251,7 +251,7 @@ function showErrorState(message) {
             <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">error</span>
             <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">Error</p>
             <p class="text-sm text-archive-secondary/60 mb-6">${message}</p>
-            <a href="blog.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
+            <a href="/pages/blog.html" class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
                 <span class="material-symbols-outlined text-sm">arrow_back</span>
                 Back to Blog
             </a>
@@ -270,3 +270,4 @@ document.addEventListener('DOMContentLoaded', () => {
         showErrorState('No post slug provided');
     }
 });
+

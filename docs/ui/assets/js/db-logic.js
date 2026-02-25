@@ -51,12 +51,12 @@ function buildCard(item) {
     // Determine the link: handle all entity types based on their ID fields
     let itemLink = item.url || item.link;
     if (!itemLink) {
-        if (item.person_id) itemLink = `person.html?id=${item.person_id}`;
-        else if (item.event_id || item.id) itemLink = `event.html?id=${item.id || item.event_id}`;
-        else if (item.org_id) itemLink = `organization.html?id=${item.org_id}`;
-        else if (item.place_id) itemLink = `place.html?id=${item.place_id}`;
-        else if (item.object_id) itemLink = `object.html?id=${item.object_id}`;
-        else if (item.source_id) itemLink = `source.html?id=${item.source_id}`;
+        if (item.person_id) itemLink = `/entities/person.html?id=${item.id || item.person_id}`;
+        else if (item.org_id) itemLink = `/entities/organization.html?id=${item.id || item.org_id}`;
+        else if (item.place_id) itemLink = `/entities/place.html?id=${item.id || item.place_id}`;
+        else if (item.object_id) itemLink = `/entities/object.html?id=${item.id || item.object_id}`;
+        else if (item.source_id) itemLink = `/entities/source.html?id=${item.id || item.source_id}`;
+        else if (item.event_id || item.id) itemLink = `/entities/event.html?id=${item.id || item.event_id}`;
         else itemLink = '#';
     }
 
@@ -67,9 +67,8 @@ function buildCard(item) {
         const page = queryParams.get('page') || 1;
         const search = queryParams.get('search') || '';
 
-        // Handle path depth (if we are in ocr/ or other subfolder)
-        const pathPrefix = window.location.pathname.includes('/ocr/') ? '../' : '';
-        itemLink = `${pathPrefix}pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
+        // Handle path depth (removed hack in favor of absolute paths)
+        itemLink = `/ocr/pdf-viewer.html?file=${filePath}&page=${page}&search=${search}`;
     }
 
     return `
@@ -112,10 +111,10 @@ async function renderEventDetail() {
     try {
         // Fetch all necessary data files
         const [events, people, sources, objects] = await Promise.all([
-            fetch('assets/data/events.json').then(r => r.json()),
-            fetch('assets/data/people.json').then(r => r.json()),
-            fetch('assets/data/sources.json').then(r => r.json()),
-            fetch('assets/data/objects.json').then(r => r.json())
+            fetch('/assets/data/events.json').then(r => r.json()),
+            fetch('/assets/data/people.json').then(r => r.json()),
+            fetch('/assets/data/sources.json').then(r => r.json()),
+            fetch('/assets/data/objects.json').then(r => r.json())
         ]);
 
         const event = events.find(e => e.id === eventId);
@@ -185,7 +184,7 @@ function renderEntities(container) {
 
     if (!dataSource) return;
 
-    fetch(`assets/data/${dataSource}.json`)
+    fetch(`/assets/data/${dataSource}.json`)
         .then(r => {
             if (!r.ok) throw new Error(`Failed to fetch ${dataSource}.json`);
             return r.json();
@@ -229,7 +228,7 @@ function renderOTDPage(container, scope = "Day", targetDate = new Date()) {
     // Show loading state
     container.innerHTML = `<div class="col-span-full text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">history</span><p class="uppercase tracking-[0.3em] text-[10px]">Scanning chronological archives...</p></div>`;
 
-    fetch(`assets/data/events.json`)
+    fetch(`/assets/data/events.json`)
         .then(r => r.json())
         .then(data => {
             const results = data.filter(item => {
@@ -283,12 +282,12 @@ async function renderRandomEntity(container) {
     container.innerHTML = `<div class="text-center py-20 opacity-30"><span class="material-symbols-outlined animate-spin text-4xl mb-4">cyclone</span><p class="uppercase tracking-[0.3em] text-[10px]">Tuning to a random archival frequency...</p></div>`;
 
     const dataFiles = [
-        'assets/data/events.json',
-        'assets/data/people.json',
-        'assets/data/orgs.json',
-        'assets/data/places.json',
-        'assets/data/objects.json',
-        'assets/data/sources.json'
+        '/assets/data/events.json',
+        '/assets/data/people.json',
+        '/assets/data/organizations.json',
+        '/assets/data/places.json',
+        '/assets/data/objects.json',
+        '/assets/data/sources.json'
     ];
 
     try {
@@ -376,7 +375,7 @@ function buildOTDCard(item) {
         </div>
 
         <div class="mt-8 pt-6 border-t border-archive-secondary/10 w-full flex justify-center gap-6">
-            <a href="event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
+            <a href="/entities/event.html?id=${item.id}" class="text-[10px] font-bold uppercase text-primary hover:underline tracking-widest flex items-center gap-2">
                 <span class="material-symbols-outlined text-sm">auto_stories</span>
                 View Deep Record
             </a>
@@ -390,3 +389,5 @@ function buildOTDCard(item) {
     </article>
     `;
 }
+
+

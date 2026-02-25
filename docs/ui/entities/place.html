@@ -13,7 +13,7 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
     <script>
         tailwind.config = {
             darkMode: "class",
@@ -37,10 +37,12 @@
             },
         }
     </script>
-    <script src="assets/js/components.js" defer></script>
-    <script src="assets/js/nav.js" defer></script>
-    <script src="assets/js/place-profile.js" defer></script>
-    <script src="assets/js/place-cards.js" defer></script>
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+    <script src="/docs/ui/assets/js/db-logic.js" defer></script>
+    <script src="/docs/ui/assets/js/place-profile.js" defer></script>
+    <script src="/docs/ui/assets/js/place-cards.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
@@ -52,9 +54,9 @@
     <!-- BREADCRUMB NAVIGATION -->
     <nav class="px-6 py-4 border-b border-archive-secondary/20">
         <div class="flex items-center gap-2 text-[10px] uppercase tracking-widest">
-            <a href="index.html" class="text-archive-secondary/40 hover:text-primary transition-colors">Archive</a>
+            <a href="/docs/ui/index.html" class="text-archive-secondary/40 hover:text-primary transition-colors">Archive</a>
             <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
-            <a href="places.html"
+            <a href="/docs/ui/browse/places.html"
                 class="text-archive-secondary/60 hover:text-primary transition-colors">Places</a>
             <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
             <span id="breadcrumb-current" class="text-primary font-bold">Loading...</span>
@@ -73,7 +75,8 @@
             <!-- Identity Block -->
             <div class="flex flex-col gap-2 flex-1">
                 <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Location Record</span>
-                <h1 id="place-name" class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
+                <h1 id="place-name"
+                    class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
                     LOADING...
                 </h1>
 
@@ -122,7 +125,8 @@
                         class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
                         Overview</h2>
                 </div>
-                <span id="overview-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                <span id="overview-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
                     expand_more
                 </span>
             </div>
@@ -281,7 +285,8 @@
                     <span id="sources-count"
                         class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
                 </div>
-                <span id="sources-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                <span id="sources-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
                     expand_more
                 </span>
             </div>
