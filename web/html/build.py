@@ -66,13 +66,10 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
     found = 0
     injected = 0
     
-    # Pattern to find data-component elements
-    # Matches: <tag data-component="name" ...> ... </tag>
+    # Pattern to find data-component opening tags
     pattern = re.compile(
-        r'(<(\w+)\s+[^>]*data-component="([^"]+)"[^>]*>)'  # Opening tag with attribute
-        r'(.*?)'  # Content (non-greedy)
-        r'(</\2>)',  # Closing tag
-        re.DOTALL
+        r'<(\w+)\b[^>]*\bdata-component="([^"]+)"[^>]*>',
+        re.IGNORECASE
     )
     
     def add_loaded_class(tag: str) -> str:
@@ -92,43 +89,97 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
         tag = re.sub(r' class=""', '', tag)
         return tag
     
-    def replacer(match):
-        nonlocal found, injected
-        found += 1
+    def strip_orphan_injected(text: str) -> str:
+        """Remove any injected blocks that sit outside component wrappers."""
+        text = re.sub(
+            r'\s*<!-- BUILD:INJECTED -->.*?<!-- /BUILD:INJECTED -->\s*',
+            "\n",
+            text,
+            flags=re.DOTALL
+        )
+        # Remove orphaned footer fragments that lost their <footer> opening tag
+        footer_signature = (
+            r'This\s+archive\s+presents\s+primary\s+source\s+materials\s+'
+            r'without\s+editorial\s+interpretation\.'
+        )
+        text = re.sub(
+            rf'\s*<p[^>]*>\s*{footer_signature}[\s\S]*?</footer>\s*(?:<!-- /BUILD:INJECTED -->\s*)?</div>\s*',
+            "\n",
+            text,
+            flags=re.DOTALL
+        )
+        return text
+    
+    def find_matching_close(text: str, start_idx: int, tag_name: str) -> tuple[int, int] | None:
+        """Find the matching closing tag for a given opening tag."""
+        tag_re = re.compile(rf'<(/?){re.escape(tag_name)}\b[^>]*>', re.IGNORECASE)
+        depth = 1
+        for match in tag_re.finditer(text, start_idx):
+            tag_text = match.group(0)
+            if tag_text.endswith("/>"):
+                continue
+            if match.group(1) == "/":
+                depth -= 1
+            else:
+                depth += 1
+            if depth == 0:
+                return match.start(), match.end()
+        return None
+    
+    if clean:
+        content = strip_orphan_injected(content)
+    
+    new_parts = []
+    pos = 0
+    
+    while True:
+        match = pattern.search(content, pos)
+        if not match:
+            break
         
-        opening_tag = match.group(1)
-        tag_name = match.group(2)
-        component_name = match.group(3)
-        existing_content = match.group(4)
-        closing_tag = match.group(5)
+        opening_tag = match.group(0)
+        tag_name = match.group(1)
+        component_name = match.group(2)
+        
+        close = find_matching_close(content, match.end(), tag_name)
+        if not close:
+            break
+        
+        found += 1
+        new_parts.append(content[pos:match.start()])
+        
+        existing_content = content[match.end():close[0]]
+        closing_tag = content[close[0]:close[1]]
+        original_block = content[match.start():close[1]]
         
         if clean:
-            # Remove injected content and component-loaded class
             if INJECT_START in existing_content:
                 injected += 1
-                cleaned_tag = remove_loaded_class(opening_tag)
-                return f"{cleaned_tag}{closing_tag}"
-            return match.group(0)
+            cleaned_tag = remove_loaded_class(opening_tag)
+            new_parts.append(f"{cleaned_tag}{closing_tag}")
+            pos = close[1]
+            continue
         
-        # Skip if already has injected content
         if INJECT_START in existing_content:
-            return match.group(0)
+            new_parts.append(original_block)
+            pos = close[1]
+            continue
         
-        # Get component content
         component_html = get_component_content(component_name)
         if not component_html:
-            return match.group(0)
+            new_parts.append(original_block)
+            pos = close[1]
+            continue
         
-        # Adjust paths for file depth
         adjusted_html = adjust_paths(component_html, base_path)
-        
-        # Add component-loaded class to prevent flash
         modified_tag = add_loaded_class(opening_tag)
         
         injected += 1
-        return f"{modified_tag}\n{INJECT_START}\n{adjusted_html}\n{INJECT_END}\n{closing_tag}"
+        new_parts.append(f"{modified_tag}\n{INJECT_START}\n{adjusted_html}\n{INJECT_END}\n{closing_tag}")
+        pos = close[1]
     
-    new_content = pattern.sub(replacer, content)
+    new_parts.append(content[pos:])
+    new_content = "".join(new_parts)
     
     if new_content != content:
         html_file.write_text(new_content, encoding="utf-8")
