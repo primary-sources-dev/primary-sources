@@ -1,0 +1,159 @@
+[
+    {
+        "object_id": "1f2a3b4c-5d6e-47f8-a9b0-c1d2e3f4a5b6",
+        "name": "Mannlicher-Carcano Rifle (C2766)",
+        "display_name": "Carcano Rifle",
+        "object_type": "WEAPON",
+        "label": "Weapon · CE 139",
+        "description": "6.5mm Italian carbine with serial number C2766, identified as the weapon used in the assassination. Recovered from the 6th floor of the TSBD.",
+        "properties": {
+            "serial_number": "C2766",
+            "caliber": "6.5mm",
+            "origin": "Italy",
+            "length": "40.2 inches"
+        },
+        "events": [
+            {
+                "date": "1963-03-12",
+                "title": "Purchased",
+                "description": "Ordered via mail from Klein's Sporting Goods"
+            },
+            {
+                "date": "1963-11-22",
+                "title": "Recovered",
+                "description": "Found on the 6th floor of the TSBD"
+            }
+        ],
+        "people": [
+            {
+                "name": "Lee Harvey Oswald",
+                "role": "Purchaser/User"
+            },
+            {
+                "name": "Jack Ruby",
+                "role": "Assassin of User"
+            }
+        ],
+        "custody_chain": [
+            {
+                "date": "1963-11-22",
+                "holder": "Dallas Police Department"
+            },
+            {
+                "date": "1963-11-23",
+                "holder": "FBI Laboratory"
+            }
+        ],
+        "related_objects": [
+            {
+                "name": "Carcano ammunition",
+                "type": "Ordnance"
+            }
+        ],
+        "identifiers": [
+            {
+                "type": "SERIAL",
+                "value": "C2766"
+            },
+            {
+                "type": "EXHIBIT_NUMBER",
+                "value": "CE 139"
+            }
+        ],
+        "sources": [
+            {
+                "title": "Warren Commission Exhibit 139",
+                "year": "1964"
+            }
+        ]
+    },
+    {
+        "object_id": "9a8b7c6d-5e4f-4321-a0b1-c2d3e4f5a6b7",
+        "name": "Commission Exhibit 399",
+        "display_name": "CE 399 (Magic Bullet)",
+        "object_type": "EVIDENCE",
+        "label": "Ballistic Evidence · CE 399",
+        "description": "Nearly pristine bullet found on a stretcher at Parkland Hospital. Alleged to have caused 7 wounds in Kennedy and Connally.",
+        "properties": {
+            "weight": "158.6 grains",
+            "caliber": "6.5mm",
+            "condition": "Nearly pristine",
+            "composition": "Copper-jacketed lead"
+        },
+        "events": [
+            {
+                "date": "1963-11-22",
+                "title": "Discovered",
+                "description": "Found on stretcher at Parkland Hospital by Darrell Tomlinson"
+            },
+            {
+                "date": "1963-11-27",
+                "title": "FBI Analysis",
+                "description": "Ballistics testing conducted"
+            }
+        ],
+        "people": [
+            {
+                "name": "Darrell Tomlinson",
+                "role": "Discoverer"
+            },
+            {
+                "name": "Robert Frazier",
+                "role": "FBI Examiner"
+            }
+        ],
+        "custody_chain": [
+            {
+                "date": "1963-11-22 14:00",
+                "holder": "Darrell Tomlinson",
+                "location": "Parkland Hospital",
+                "action": "Discovered on stretcher"
+            },
+            {
+                "date": "1963-11-22 15:45",
+                "holder": "O.P. Wright",
+                "location": "Parkland Hospital",
+                "action": "Received from Tomlinson"
+            },
+            {
+                "date": "1963-11-22 19:30",
+                "holder": "Richard Johnsen",
+                "location": "Secret Service",
+                "action": "Transferred to Secret Service"
+            },
+            {
+                "date": "1963-11-23",
+                "holder": "FBI Laboratory",
+                "location": "Washington D.C.",
+                "action": "Ballistics analysis"
+            }
+        ],
+        "related_objects": [
+            {
+                "name": "Carcano Rifle (C2766)",
+                "type": "Source weapon",
+                "object_id": "1f2a3b4c-5d6e-47f8-a9b0-c1d2e3f4a5b6"
+            }
+        ],
+        "identifiers": [
+            {
+                "type": "EXHIBIT_NUMBER",
+                "value": "CE 399"
+            },
+            {
+                "type": "FBI_NUMBER",
+                "value": "Q1"
+            }
+        ],
+        "sources": [
+            {
+                "title": "Warren Commission Exhibit 399",
+                "year": "1964"
+            },
+            {
+                "title": "FBI Laboratory Report",
+                "year": "1963"
+            }
+        ]
+    }
+]

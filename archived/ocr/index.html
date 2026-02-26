@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primary Sources — OCR Tool</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                        "archive-surface": "#252021",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
+    <link rel="stylesheet" href="/docs/ui/ocr/ocr-components.css">
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono">
+    <!-- Header -->
+    <div data-component="header"></div>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto p-6">
+        <!-- Tabs -->
+        <div class="flex gap-1 mb-8 border-b border-archive-secondary/20">
+            <button id="tab-home" class="tab-btn active" data-tab="home">
+                <span class="text-base font-bold uppercase tracking-wider text-archive-heading">
+                    Home
+                </span>
+                <span id="queue-badge" class="queue-badge hidden">0</span>
+            </button>
+            <button id="tab-guide" class="tab-btn" data-tab="guide">
+                <span class="text-base font-bold uppercase tracking-wider text-archive-heading">
+                    Guide
+                </span>
+            </button>
+        </div>
+
+        <!-- HOME TAB -->
+        <section id="tab-content-home" class="tab-content active">
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="drop-zone border border-archive-secondary/20 bg-archive-dark/50 mb-6">
+                <div class="drop-zone-content">
+                    <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M12 16v-4m0 0V8m0 4H8m0 0h4m0 0h4m0 0v4m0 0h-4m0 0h4m0 0H8m0 0H4m0 0h4" />
+                    </svg>
+                    <p class="text-archive-secondary text-base">Drop PDFs, Images, or Archives (.zip, .tar) here</p>
+                </div>
+                <input id="file-input" type="file"
+                    accept=".pdf,.jpg,.jpeg,.png,.tiff,.webp,.heic,.heif,.zip,.tar,.gz,.tgz,.bz2" multiple hidden>
+            </div>
+
+            <!-- Queue List -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3
+                        class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4">
+                        Queue
+                    </h3>
+                    <div class="flex gap-2">
+                        <button id="btn-clear-completed"
+                            class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-primary transition-all flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">cleaning_services</span> Clear Completed
+                        </button>
+                        <button id="btn-clear-all"
+                            class="text-[10px] font-bold uppercase tracking-widest text-archive-secondary/60 hover:text-archive-secondary transition-all flex items-center gap-1">
+                            <span class="material-symbols-outlined text-sm">delete_sweep</span> Clear All
+                        </button>
+                    </div>
+                </div>
+                <div id="queue-list" class="bg-archive-dark/50 border border-archive-secondary/20 rounded-none mb-6">
+                    <div class="empty-state">
+                        <p class="text-archive-secondary text-sm">No files queued</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Log & Summary Output -->
+            <div class="mb-6">
+                <div class="flex justify-between items-end mb-4">
+                    <h3
+                        class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4">
+                        Process Log
+                    </h3>
+                    <div id="session-summary" class="flex gap-4 text-[9px] uppercase tracking-tighter opacity-80">
+                        <div class="flex flex-col items-end">
+                            <span class="text-primary/60">Total Docs</span>
+                            <span id="stat-total" class="font-bold text-archive-heading">0</span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="text-primary/60">Avg Conf</span>
+                            <span id="stat-confidence" class="font-bold text-archive-heading">0%</span>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span class="text-primary/60">Succeeded</span>
+                            <span id="stat-success" class="font-bold text-archive-heading">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="log-output"
+                    class="bg-archive-dark/50 border border-archive-secondary/20 p-4 font-mono text-xs text-archive-secondary h-32 overflow-y-auto">
+                    <p class="text-archive-secondary/60">Waiting to start processing...</p>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-8">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                    Settings
+                </h3>
+
+                <!-- Backend Selection -->
+                <div class="setting-group mb-4">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary">Backend</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="backend" value="wsl" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">WSL (ocrmypdf)</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="radio" name="backend" value="python" class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Python (pytesseract)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group mb-4">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary">Output Format</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="output-pdf" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Searchable PDF</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="output-txt" class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Plain Text</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="output-md" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Markdown (.md)</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="output-html" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Archival HTML</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- OCR Options -->
+                <div class="setting-group mb-6">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary">Options</label>
+                    <div class="flex gap-4 mt-2 flex-wrap">
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="option-deskew" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Deskew</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="option-clean" checked class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Clean</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" id="option-force" class="hidden peer">
+                            <div class="w-4 h-4 border border-primary peer-checked:bg-primary"></div>
+                            <span class="text-sm">Force OCR</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Save To Directory -->
+                <div class="setting-group">
+                    <label class="text-xs font-bold uppercase tracking-wider text-primary block mb-2">Save to</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="output-dir" readonly
+                            class="flex-1 bg-archive-bg border border-primary px-3 py-2 text-archive-secondary text-sm cursor-text"
+                            title="Double-click to copy">
+                        <button class="btn-secondary btn-sm" onclick="changeOutputDir()">Change...</button>
+                        <button class="btn-primary btn-sm" onclick="openOutputFolder()">Open</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-4 justify-center">
+                <button id="btn-start" class="btn-primary btn-lg">Start OCR</button>
+                <button id="btn-cancel" class="btn-secondary btn-lg" disabled>Cancel</button>
+            </div>
+        </section>
+
+        <!-- GUIDE TAB -->
+        <section id="tab-content-guide" class="tab-content hidden">
+            <!-- Quick Start -->
+            <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Quick Start
+                </h3>
+                <ol class="space-y-3 text-sm">
+                    <li class="flex gap-3">
+                        <span class="text-primary font-bold">1.</span>
+                        <span><strong class="text-archive-heading">Add Files</strong> — Drag PDFs onto the drop zone or
+                            click to browse</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-primary font-bold">2.</span>
+                        <span><strong class="text-archive-heading">Configure</strong> — Select your backend and output
+                            options</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-primary font-bold">3.</span>
+                        <span><strong class="text-archive-heading">Process</strong> — Click "Start OCR" and monitor
+                            progress in the queue below</span>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="text-primary font-bold">4.</span>
+                        <span><strong class="text-archive-heading">Review</strong> — Use the "View" button to check
+                            results in the PDF viewer</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Backend Options -->
+            <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Backend Options
+                </h3>
+                <div class="space-y-4">
+                    <div class="border-l-2 border-primary/30 pl-4">
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-wide mb-1">
+                            <span class="text-primary">WSL</span> (ocrmypdf)
+                        </h4>
+                        <p class="text-sm text-archive-secondary/80 mb-2">
+                            High-quality OCR using the industry-standard ocrmypdf tool running in Windows Subsystem for
+                            Linux.
+                        </p>
+                        <ul class="text-xs space-y-1 text-archive-secondary/60">
+                            <li>• Best accuracy for archival documents</li>
+                            <li>• Creates searchable PDFs with invisible text layer</li>
+                            <li>• Supports advanced preprocessing (deskew, clean)</li>
+                            <li>• Requires WSL with ocrmypdf installed</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-2 border-archive-secondary/30 pl-4">
+                        <h4 class="text-sm font-bold text-archive-heading uppercase tracking-wide mb-1">
+                            <span class="text-archive-secondary">Python</span> (pytesseract)
+                        </h4>
+                        <p class="text-sm text-archive-secondary/80 mb-2">
+                            Windows-native OCR using Python's pytesseract wrapper for Tesseract.
+                        </p>
+                        <ul class="text-xs space-y-1 text-archive-secondary/60">
+                            <li>• Faster setup — no WSL required</li>
+                            <li>• Outputs plain text extraction</li>
+                            <li>• Good for quick text extraction tasks</li>
+                            <li>• Requires Tesseract OCR installed on Windows</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Formats -->
+            <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Output Formats
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl">picture_as_pdf</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-archive-heading">Searchable PDF</h4>
+                            <p class="text-xs text-archive-secondary/70">Original document with invisible text layer.
+                                Select and search text while preserving original appearance.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl">description</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-archive-heading">Plain Text (.txt)</h4>
+                            <p class="text-xs text-archive-secondary/70">Raw extracted text with page markers. Useful
+                                for full-text search indexing and text analysis.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl">code</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-archive-heading">Markdown (.md)</h4>
+                            <p class="text-xs text-archive-secondary/70">Structured text with headings and formatting
+                                preserved. Ideal for research notes and documentation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Processing Options -->
+            <div class="settings-container border border-archive-secondary/20 bg-archive-surface/60 p-6 mb-6">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Processing Options
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl">straighten</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-archive-heading">Deskew</h4>
+                            <p class="text-xs text-archive-secondary/70">Automatically straightens crooked scanned
+                                pages. Essential for documents that were fed through a scanner at an angle.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl">auto_fix_high</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-archive-heading">Clean</h4>
+                            <p class="text-xs text-archive-secondary/70">Removes noise, specks, and artifacts from old
+                                photocopies. Improves OCR accuracy on degraded documents.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl">refresh</span>
+                        <div>
+                            <h4 class="text-sm font-bold text-archive-heading">Force OCR</h4>
+                            <p class="text-xs text-archive-secondary/70">Re-processes files that already have text
+                                layers. Use when existing OCR quality is poor or incomplete.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="settings-container border border-primary/30 bg-archive-dark/50 p-6">
+                <h3
+                    class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-4">
+                    Tips for Best Results
+                </h3>
+                <ul class="space-y-2 text-sm text-archive-secondary/80">
+                    <li class="flex gap-2">
+                        <span class="text-primary">•</span>
+                        <span><strong class="text-archive-heading">Batch processing</strong> — Queue multiple files and
+                            process overnight for large collections</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-primary">•</span>
+                        <span><strong class="text-archive-heading">Quality check</strong> — Test a few pages before
+                            processing an entire collection</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-primary">•</span>
+                        <span><strong class="text-archive-heading">Use WSL</strong> — For archival documents, WSL
+                            backend provides significantly better accuracy</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-primary">•</span>
+                        <span><strong class="text-archive-heading">Enable both options</strong> — Deskew + Clean
+                            together work best on old photocopies</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-primary">•</span>
+                        <span><strong class="text-archive-heading">Output directory</strong> — Double-click the path to
+                            copy it to your clipboard</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Modal Title</h2>
+                <button class="btn-close-modal" id="modal-close">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary btn-sm" id="modal-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Tools"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+    <script src="/docs/ui/ocr/ocr-gui.js"></script>
+</body>
+
+</html>
+

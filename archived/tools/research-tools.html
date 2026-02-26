@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Tools — Primary Sources</title>
+    <meta name="description"
+        content="Inflation converter and age-at-event calculator for contextualizing historical documents with period-accurate values." />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- HERO -->
+    <section class="relative w-full overflow-hidden bg-archive-dark py-12">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-archive-bg to-transparent pointer-events-none">
+        </div>
+
+        <div class="relative z-10 px-6 flex flex-col items-center text-center">
+            <span class="text-[10px] font-bold uppercase text-emerald-400 tracking-widest mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">calculate</span>
+                Analytical Tools · Live
+            </span>
+            <h1 class="mb-4 text-4xl font-bold leading-tight text-archive-heading sm:text-5xl uppercase font-display">
+                Research Tools
+            </h1>
+            <p class="mb-6 max-w-lg text-sm text-archive-secondary/80">
+                Contextual calculators for historical research: convert period currency to modern values and 
+                determine ages at specific events with automatic database integration.
+            </p>
+            <div class="flex flex-wrap justify-center gap-2">
+                <span
+                    class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
+                    Inflation Converter
+                </span>
+                <span
+                    class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
+                    Age Calculator
+                </span>
+                <span
+                    class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
+                    DB Integration
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-4xl mx-auto px-6 py-10">
+
+        <!-- INFLATION CONVERTER -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Inflation Converter
+            </h2>
+            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed space-y-4 mb-6">
+                <p>
+                    Historical documents often mention monetary amounts that lack modern context. The Inflation Converter 
+                    transforms period currency into today's equivalent using Bureau of Labor Statistics CPI data, helping 
+                    researchers understand the true value of transactions and expenses.
+                </p>
+                <p>
+                    When processing a 1963 document mentioning "$25," the tool calculates the modern equivalent (~$250 in 
+                    2024 dollars), providing essential context for understanding financial relationships and motivations.
+                </p>
+            </div>
+            <div class="bg-archive-dark/30 border border-archive-secondary/20 p-6">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-archive-secondary/10 border border-archive-secondary/20">
+                            <span class="material-symbols-outlined text-2xl text-archive-secondary">attach_money</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-archive-secondary/70">Period Amount</span>
+                    </div>
+                    <span class="material-symbols-outlined text-archive-secondary/30 rotate-90 md:rotate-0">arrow_forward</span>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-primary/20 border border-primary/40">
+                            <span class="material-symbols-outlined text-2xl text-primary">trending_up</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-primary">CPI Adjustment</span>
+                    </div>
+                    <span class="material-symbols-outlined text-archive-secondary/30 rotate-90 md:rotate-0">arrow_forward</span>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-emerald-500/20 border border-emerald-500/40">
+                            <span class="material-symbols-outlined text-2xl text-emerald-400">payments</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-emerald-400">Modern Value</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AGE-AT-EVENT CALCULATOR -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Age-at-Event Calculator
+            </h2>
+            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed space-y-4 mb-6">
+                <p>
+                    Understanding how old someone was during a specific event provides crucial context for analyzing their 
+                    role, motivations, and capabilities. The Age Calculator computes exact ages using birth dates from the 
+                    database and event timestamps.
+                </p>
+                <p>
+                    Integrated as a PostgreSQL function, it returns age in years, months, and days. For example: 
+                    "Lee Harvey Oswald was 24 years, 0 months, 4 days old on November 22, 1963."
+                </p>
+            </div>
+            <div class="bg-archive-dark/30 border border-archive-secondary/20 p-6">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-archive-secondary/10 border border-archive-secondary/20">
+                            <span class="material-symbols-outlined text-2xl text-archive-secondary">cake</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-archive-secondary/70">Birth Date</span>
+                    </div>
+                    <span class="material-symbols-outlined text-archive-secondary/30 rotate-90 md:rotate-0">add</span>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-archive-secondary/10 border border-archive-secondary/20">
+                            <span class="material-symbols-outlined text-2xl text-archive-secondary">event</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-archive-secondary/70">Event Date</span>
+                    </div>
+                    <span class="material-symbols-outlined text-archive-secondary/30 rotate-90 md:rotate-0">arrow_forward</span>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-primary/20 border border-primary/40">
+                            <span class="material-symbols-outlined text-2xl text-primary">calculate</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-primary">age_at_event()</span>
+                    </div>
+                    <span class="material-symbols-outlined text-archive-secondary/30 rotate-90 md:rotate-0">arrow_forward</span>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-16 flex items-center justify-center bg-emerald-500/20 border border-emerald-500/40">
+                            <span class="material-symbols-outlined text-2xl text-emerald-400">person</span>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-wider text-emerald-400">Y / M / D</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KEY FEATURES -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Key Features
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">history</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">Historical CPI Data</h3>
+                        <p class="text-xs text-archive-secondary/70">Bureau of Labor Statistics Consumer Price Index from 1913 to present for accurate inflation calculations.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">database</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">PostgreSQL Function</h3>
+                        <p class="text-xs text-archive-secondary/70">Age calculator implemented as a native database function for seamless integration with queries and views.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">precision_manufacturing</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">Precise Calculations</h3>
+                        <p class="text-xs text-archive-secondary/70">Age computed to years, months, and days; inflation to two decimal places with source year verification.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">integration_instructions</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">API & SQL Access</h3>
+                        <p class="text-xs text-archive-secondary/70">Available via Python API for programmatic use and directly in SQL queries for complex analysis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API USAGE -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                API Usage
+            </h2>
+            <div class="bg-archive-dark/50 border border-archive-secondary/20 p-5 mb-4">
+                <p class="text-[10px] uppercase tracking-wider text-archive-secondary/50 mb-3">Inflation Converter</p>
+                <pre class="text-[11px] font-mono text-archive-secondary/90 overflow-x-auto"><code>from inflation_converter import adjust_for_inflation
+
+# Convert 1963 dollars to 2024 dollars
+original = 25.00
+year = 1963
+
+modern_value = adjust_for_inflation(original, year)
+print(f"${original} in {year} = ${modern_value:.2f} today")
+# $25.00 in 1963 = $250.47 today</code></pre>
+            </div>
+            <div class="bg-archive-dark/50 border border-archive-secondary/20 p-5">
+                <p class="text-[10px] uppercase tracking-wider text-archive-secondary/50 mb-3">Age-at-Event Calculator (SQL)</p>
+                <pre class="text-[11px] font-mono text-archive-secondary/90 overflow-x-auto"><code>-- Get age of person at specific event
+SELECT 
+    p.display_name,
+    e.event_type,
+    age_at_event(p.birth_date, e.start_ts) as age
+FROM person p
+JOIN event_participant ep ON p.person_id = ep.party_id
+JOIN event e ON ep.event_id = e.event_id
+WHERE e.event_type = 'ASSASSINATION';
+
+-- Result: Lee Harvey Oswald | ASSASSINATION | (24, 0, 4)</code></pre>
+            </div>
+        </section>
+
+        <!-- STATUS -->
+        <section class="border border-emerald-500/30 bg-emerald-500/5 p-6">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="material-symbols-outlined text-emerald-400">check_circle</span>
+                <span class="font-bold text-emerald-400 uppercase tracking-wider text-sm">Status: Live</span>
+            </div>
+            <p class="text-xs text-archive-secondary/80">
+                Both Research Tools are fully operational. The Inflation Converter is available via Python API, and the 
+                Age-at-Event Calculator is deployed as a PostgreSQL function (migration 005) with full database integration.
+            </p>
+        </section>
+
+    </main>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Tools"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>
+

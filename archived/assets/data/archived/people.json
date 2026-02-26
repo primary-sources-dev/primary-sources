@@ -1,0 +1,457 @@
+[
+  {
+    "person_id": "3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8",
+    "display_name": "Lee Harvey Oswald",
+    "given_name": "Lee",
+    "middle_name": "Harvey",
+    "family_name": "Oswald",
+    "birth_date": "1939-10-18",
+    "death_date": "1963-11-24",
+    "label": "Suspect",
+    "portrait_url": "",
+    "notes": "Former U.S. Marine who defected to the Soviet Union in October 1959. Returned to the United States in June 1962 with his Russian wife, Marina. Lived in New Orleans and Dallas, where he was employed at the Texas School Book Depository. Primary suspect in the assassination of President John F. Kennedy on November 22, 1963. Shot and killed by Jack Ruby two days later while in police custody.",
+    "aliases": [
+      {
+        "alias_name": "Alek James Hidell",
+        "alias_type": "PRIMARY"
+      },
+      {
+        "alias_name": "O.H. Lee",
+        "alias_type": "SECONDARY"
+      }
+    ],
+    "residences": [
+      {
+        "place": "New Orleans, LA",
+        "address": "4907 Magazine St",
+        "dates": "May-Sep 1963"
+      },
+      {
+        "place": "Dallas, TX",
+        "address": "1026 N. Beckley",
+        "dates": "Oct-Nov 1963"
+      },
+      {
+        "place": "Irving, TX",
+        "address": "Ruth Paine's residence",
+        "dates": "Weekends, Oct-Nov 1963"
+      },
+      {
+        "place": "Fort Worth, TX",
+        "address": "2703 Mercedes St",
+        "dates": "Jun-Oct 1962"
+      }
+    ],
+    "organizations": [
+      {
+        "name": "U.S. Marine Corps",
+        "role": "Enlisted",
+        "dates": "1956-1959"
+      },
+      {
+        "name": "Fair Play for Cuba Committee",
+        "role": "Member",
+        "dates": "1963"
+      },
+      {
+        "name": "Texas School Book Depository",
+        "role": "Order Filler",
+        "dates": "Oct-Nov 1963"
+      }
+    ],
+    "family": [
+      {
+        "name": "Marina Nikolayevna Prusakova",
+        "relation": "Spouse",
+        "date": "m. Apr 30, 1961"
+      },
+      {
+        "name": "June Lee Oswald",
+        "relation": "Daughter",
+        "date": "b. Feb 15, 1962"
+      },
+      {
+        "name": "Marguerite Frances Claverie",
+        "relation": "Mother",
+        "date": "1907-1981"
+      },
+      {
+        "name": "Robert Edward Lee Oswald",
+        "relation": "Brother",
+        "date": "b. 1934"
+      },
+      {
+        "name": "John Edward Pic",
+        "relation": "Half-brother",
+        "date": "b. 1932"
+      }
+    ],
+    "events": [
+      {
+        "date": "1956-10-24",
+        "title": "Enlisted in U.S. Marine Corps",
+        "description": "Joined USMC at age 17",
+        "type": "MILITARY"
+      },
+      {
+        "date": "1959-09-11",
+        "title": "Honorable discharge from USMC",
+        "description": "Discharged early to care for mother",
+        "type": "MILITARY"
+      },
+      {
+        "date": "1959-10-16",
+        "title": "Arrived in Soviet Union",
+        "description": "Defected to USSR via Helsinki",
+        "type": "TRAVEL"
+      },
+      {
+        "date": "1961-04-30",
+        "title": "Married Marina Prusakova",
+        "description": "Married in Minsk, USSR",
+        "type": "PERSONAL"
+      },
+      {
+        "date": "1962-06-13",
+        "title": "Returned to United States",
+        "description": "Arrived with Marina and daughter June",
+        "type": "TRAVEL"
+      },
+      {
+        "date": "1963-04-10",
+        "title": "Walker shooting attempt",
+        "description": "Attempted assassination of Gen. Edwin Walker",
+        "type": "CRIMINAL"
+      },
+      {
+        "date": "1963-08",
+        "title": "Fair Play for Cuba activity",
+        "description": "Distributed FPCC pamphlets in New Orleans",
+        "type": "POLITICAL"
+      },
+      {
+        "date": "1963-10-16",
+        "title": "Hired at TSBD",
+        "description": "Started work as order filler",
+        "type": "EMPLOYMENT"
+      },
+      {
+        "date": "1963-11-22",
+        "title": "JFK Assassination",
+        "description": "President Kennedy shot in Dealey Plaza",
+        "type": "HISTORICAL"
+      },
+      {
+        "date": "1963-11-22",
+        "title": "Officer Tippit shooting",
+        "description": "Shot Dallas Police Officer J.D. Tippit",
+        "type": "CRIMINAL"
+      },
+      {
+        "date": "1963-11-22",
+        "title": "Arrested at Texas Theatre",
+        "description": "Captured after resisting arrest",
+        "type": "ARREST"
+      },
+      {
+        "date": "1963-11-24",
+        "title": "Shot by Jack Ruby",
+        "description": "Killed while being transferred to county jail",
+        "type": "DEATH"
+      }
+    ],
+    "related_events": [
+      {
+        "title": "JFK Assassination",
+        "date": "1963-11-22",
+        "description": "President Kennedy killed in Dallas",
+        "type": "HISTORICAL"
+      },
+      {
+        "title": "Oswald Hired at TSBD",
+        "date": "1963-10-16",
+        "description": "Ruth Paine helped secure job",
+        "type": "EMPLOYMENT"
+      },
+      {
+        "title": "Walker Incident",
+        "date": "1963-04-10",
+        "description": "Attempted assassination",
+        "type": "CRIMINAL"
+      }
+    ],
+    "objects": [
+      {
+        "name": "Carcano Rifle (C2766)",
+        "type": "WEAPON",
+        "description": "6.5mm Italian rifle purchased via mail order"
+      },
+      {
+        "name": "FPCC Membership Card",
+        "type": "DOCUMENT",
+        "description": "Fair Play for Cuba Committee card"
+      },
+      {
+        "name": "Selective Service Card (Hidell)",
+        "type": "DOCUMENT",
+        "description": "Forged ID card in name of A.J. Hidell"
+      },
+      {
+        "name": "Backyard Photos",
+        "type": "PHOTO",
+        "description": "Photos showing Oswald holding rifle"
+      },
+      {
+        "name": "Curtain Rods Package",
+        "type": "OBJECT",
+        "description": "Package carried to TSBD on Nov 22"
+      },
+      {
+        "name": ".38 Revolver",
+        "type": "WEAPON",
+        "description": "Smith & Wesson used to shoot Officer Tippit"
+      },
+      {
+        "name": "Klein's Sporting Goods Receipt",
+        "type": "DOCUMENT",
+        "description": "Mail order receipt for Carcano rifle"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Warren Commission Report",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1964",
+        "author": "Warren Commission",
+        "archive": "NARA"
+      },
+      {
+        "title": "FBI Report on Lee Harvey Oswald",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1963",
+        "author": "FBI",
+        "archive": "NARA"
+      },
+      {
+        "title": "HSCA Final Report",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1979",
+        "author": "House Select Committee",
+        "archive": "NARA"
+      },
+      {
+        "title": "Dallas Police Department Records",
+        "type": "POLICE RECORD",
+        "year": "1963",
+        "archive": "Dallas Municipal Archives"
+      },
+      {
+        "title": "Marina Oswald Testimony",
+        "type": "TESTIMONY",
+        "year": "1964",
+        "author": "Marina Oswald",
+        "archive": "NARA"
+      }
+    ],
+    "identifiers": [
+      {
+        "type": "FBI_FILE",
+        "value": "105-82555"
+      },
+      {
+        "type": "USMC_SERVICE",
+        "value": "1653230"
+      },
+      {
+        "type": "SSN",
+        "value": "433-54-3937"
+      }
+    ],
+    "assertions": [
+      {
+        "claim": "Oswald acted alone in the assassination",
+        "source": "Warren Commission",
+        "confidence": "DISPUTED"
+      },
+      {
+        "claim": "Oswald was a communist sympathizer",
+        "source": "FBI Reports",
+        "confidence": "SUPPORTED"
+      },
+      {
+        "claim": "Oswald attempted to assassinate General Walker",
+        "source": "Marina Oswald testimony",
+        "confidence": "LIKELY"
+      }
+    ],
+    "media": [
+      {
+        "url": "/assets/images/oswald-mugshot.jpg",
+        "caption": "Dallas Police Department mugshot, Nov 22 1963",
+        "type": "PHOTO"
+      },
+      {
+        "url": "/assets/images/backyard-photo.jpg",
+        "caption": "Backyard photo with rifle and newspapers",
+        "type": "PHOTO"
+      },
+      {
+        "url": "/assets/images/oswald-arrest.jpg",
+        "caption": "Arrest at Texas Theatre",
+        "type": "PHOTO"
+      }
+    ]
+  },
+  {
+    "person_id": "8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+    "display_name": "Yates, Ralph Leon",
+    "given_name": "Ralph",
+    "middle_name": "Leon",
+    "family_name": "Yates",
+    "birth_date": "1928",
+    "death_date": "1975",
+    "label": "Witness",
+    "portrait_url": "",
+    "notes": "Refrigeration mechanic who reported picking up a hitchhiker on November 20, 1963 matching Oswald's description. The hitchhiker carried a package resembling curtain rods and discussed President Kennedy's upcoming Dallas visit. Yates reported the incident to FBI before the assassination. Later suffered mental health crisis and was committed to psychiatric facility.",
+    "aliases": [],
+    "residences": [
+      {
+        "place": "Dallas, TX",
+        "address": "13564 Brookgreen",
+        "dates": "1963"
+      }
+    ],
+    "organizations": [
+      {
+        "name": "Texas Butchers Supply Co.",
+        "role": "Refrigeration Mechanic",
+        "dates": "1963"
+      }
+    ],
+    "family": [
+      {
+        "name": "Dorothy Yates",
+        "relation": "Spouse",
+        "date": "m. unknown"
+      }
+    ],
+    "events": [
+      {
+        "date": "1963-11-20",
+        "title": "Hitchhiker encounter",
+        "description": "Picked up hitchhiker matching Oswald's description",
+        "type": "SIGHTING"
+      },
+      {
+        "date": "1963-11-27",
+        "title": "FBI Interview",
+        "description": "Interviewed by Special Agents Carter and Hall",
+        "type": "INTERVIEW"
+      },
+      {
+        "date": "1963-12-10",
+        "title": "Signed FBI statement",
+        "description": "Provided formal signed statement",
+        "type": "INTERVIEW"
+      },
+      {
+        "date": "1964-01-15",
+        "title": "Final FBI appearance",
+        "description": "Last appearance before hospitalization",
+        "type": "INTERVIEW"
+      }
+    ],
+    "related_events": [
+      {
+        "title": "The Ralph Leon Yates incident",
+        "date": "1963-11-20",
+        "description": "Hitchhiker sighting report",
+        "type": "SIGHTING"
+      }
+    ],
+    "objects": [
+      {
+        "name": "Texas Butchers Supply Truck",
+        "type": "VEHICLE",
+        "description": "Refrigeration truck used for service calls on Nov 20-21, 1963"
+      },
+      {
+        "name": "Yates Work Records",
+        "type": "DOCUMENT",
+        "description": "Service call logs and receipts for alibi verification"
+      }
+    ],
+    "sources": [
+      {
+        "title": "FBI Interview Report",
+        "type": "GOVERNMENT DOCUMENT",
+        "year": "1963",
+        "author": "FBI Dallas Office",
+        "archive": "NARA"
+      },
+      {
+        "title": "Yates Signed Statement",
+        "type": "AFFIDAVIT",
+        "year": "1963",
+        "author": "Ralph Leon Yates",
+        "archive": "NARA"
+      }
+    ],
+    "identifiers": [
+      {
+        "type": "FBI_FILE",
+        "value": "DL 89-43"
+      },
+      {
+        "type": "HOSPITAL_RECORD",
+        "value": "Woodlawn Hospital - Jan 1964"
+      }
+    ],
+    "assertions": [
+      {
+        "claim": "Yates picked up a hitchhiker resembling Oswald on Nov 20 or 21",
+        "source": "FBI Interview Reports",
+        "confidence": "DISPUTED"
+      },
+      {
+        "claim": "Yates experienced mental health crisis following FBI interviews",
+        "source": "FBI Reports",
+        "confidence": "SUPPORTED"
+      },
+      {
+        "claim": "Polygraph test showed no significant deception",
+        "source": "FBI Polygraph Report",
+        "confidence": "SUPPORTED"
+      }
+    ],
+    "media": [
+      {
+        "url": "/assets/images/yates-fbi-report.jpg",
+        "caption": "FBI interview report with Yates, Nov 27 1963",
+        "type": "DOCUMENT"
+      }
+    ]
+  },
+  {
+    "person_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "display_name": "Smith, John",
+    "given_name": "John",
+    "family_name": "Smith",
+    "birth_date": null,
+    "death_date": null,
+    "label": "Unknown Witness",
+    "portrait_url": "",
+    "notes": null,
+    "aliases": [],
+    "residences": [],
+    "organizations": [],
+    "family": [],
+    "events": [],
+    "related_events": [],
+    "objects": [],
+    "sources": [],
+    "identifiers": [],
+    "assertions": [],
+    "media": []
+  }
+]

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Six Degrees — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                        "archive-surface": "#252021",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"],
+                        "serif": ["Lora", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 py-20">
+        <!-- Badge -->
+        <div class="mb-8 text-center">
+            <span class="badge badge-large">
+                Six Degrees of History — Coming Soon
+            </span>
+        </div>
+
+        <!-- Animated Network Icon -->
+        <div class="mb-8 relative">
+            <div
+                class="flex h-24 w-24 items-center justify-center bg-primary/10 text-primary border-2 border-primary/40 rounded-full animate-pulse">
+                <span class="material-symbols-outlined text-5xl">hub</span>
+            </div>
+            <!-- Floating nodes decoration -->
+            <div class="absolute -top-2 -right-2 h-4 w-4 bg-primary/40 rounded-full animate-bounce"></div>
+            <div class="absolute -bottom-4 -left-6 h-3 w-3 bg-primary/20 rounded-full animate-bounce"
+                style="animation-delay: 0.5s"></div>
+        </div>
+
+        <!-- Title -->
+        <h2
+            class="text-4xl md:text-5xl font-bold text-archive-heading uppercase tracking-widest font-display mb-4 text-center">
+            Six Degrees
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="text-lg text-archive-secondary/80 text-center max-w-2xl mb-12 font-serif italic">
+            There are no isolated events in the archive. Discover the hidden threads connecting the most disparate
+            entities in our knowledge graph through a wild, relational jump engine.
+        </p>
+
+        <!-- Dynamic Connection Example (Aesthetically focused) -->
+        <div
+            class="w-full max-w-4xl mb-16 border border-archive-secondary/10 bg-archive-dark/40 p-1 bg-[radial-gradient(circle_at_center,_rgba(176,139,73,0.05)_0%,_transparent_70%)]">
+            <div class="border border-archive-secondary/10 p-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 relative">
+                    <!-- Target A -->
+                    <div class="flex flex-col items-center gap-3 z-10">
+                        <div
+                            class="h-16 w-16 border border-primary/40 flex items-center justify-center bg-archive-surface">
+                            <span class="material-symbols-outlined text-primary">person</span>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-archive-heading">Target
+                            A</span>
+                    </div>
+
+                    <!-- Connection Path -->
+                    <div class="flex-1 flex items-center justify-center gap-2 opacity-30">
+                        <div
+                            class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary to-transparent hidden md:block">
+                        </div>
+                        <div class="material-symbols-outlined animate-spin" style="animation-duration: 10s">cyclone
+                        </div>
+                        <div
+                            class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary to-transparent hidden md:block">
+                        </div>
+                    </div>
+
+                    <!-- Target B -->
+                    <div class="flex flex-col items-center gap-3 z-10">
+                        <div
+                            class="h-16 w-16 border border-primary/40 flex items-center justify-center bg-archive-surface">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-archive-heading">Target
+                            B</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <p class="text-[10px] text-archive-secondary/40 uppercase tracking-[0.3em]">Mapping Shortest Path
+                        via Relational Bridges...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept Grid -->
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl w-full mb-16">
+            <!-- Feature 1 -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">insights</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Path Discovery</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Input any two persons, organizations, or documents and let the engine calculate the relational
+                    bridges that connect them.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Logic: Graph Traversal</span>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">shuffle</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Serendipity Mode</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Let the system pick two random entities and show you how they are linked through a chain of unlikely
+                    historical events.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Logic: Weighted Randomizer</span>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">share</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Degree Mapping</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Visualize the "distance" between nodes in the historical knowledge graph—from direct contact to
+                    obscure third-party references.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Logic: Node distance BFS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="/docs/ui/index.html"
+                class="inline-flex items-center gap-2 bg-primary text-archive-bg px-8 py-3 font-bold uppercase tracking-wider hover:brightness-110 transition-all shadow-lg active:scale-95">
+                Return to Dashboard
+            </a>
+        </div>
+    </main>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Home"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>

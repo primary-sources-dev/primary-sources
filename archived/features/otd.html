@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On This Day — Primary Sources</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#B08B49",
+                        "archive-bg": "#2E282A",
+                        "archive-secondary": "#D4CFC7",
+                        "archive-heading": "#F0EDE0",
+                        "archive-dark": "#1A1718",
+                        "archive-surface": "#252021",
+                    },
+                    fontFamily: {
+                        "display": ["Oswald", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"],
+                        "serif": ["Lora", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="/docs/ui/assets/css/main.css">
+    <script src="/docs/ui/assets/js/components.js" defer></script>
+    <script src="/docs/ui/assets/js/collapsible-menu.js" defer></script>
+    <script src="/docs/ui/assets/js/nav.js" defer></script>
+</head>
+
+<body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 py-20">
+        <!-- Coming Soon Badge -->
+        <div class="mb-8">
+            <span class="badge badge-large">
+                Discovery Port — Coming Soon
+            </span>
+        </div>
+
+        <!-- Icon -->
+        <div class="mb-8">
+            <div
+                class="flex h-24 w-24 items-center justify-center bg-primary/10 text-primary border-2 border-primary/40">
+                <span class="material-symbols-outlined text-5xl">event_note</span>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h2
+            class="text-4xl md:text-5xl font-bold text-archive-heading uppercase tracking-widest font-display mb-4 text-center">
+            On This Day
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="text-lg text-archive-secondary/80 text-center max-w-2xl mb-12 font-serif italic">
+            A real-time chronological discovery engine. Surfaces archival records, surveillance reports, and community
+            echos based on the current calendar day.
+        </p>
+
+        <!-- Feature Grid -->
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl w-full mb-16">
+            <!-- Feature 1 -->
+            <div class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">calendar_today</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Temporal Windows</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Switch between precise daily matches, weekly archival windows, or monthly summaries of historical
+                    echos.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Status: Logic Core
+                        Complete</span>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">history</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Historical Jumps</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Pick any day in the archival calendar to see exactly what primary sources were recorded at that
+                    precise historical moment.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Status: Date Picker Active</span>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary">share</span>
+                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Forensic Deep-Links</h3>
+                </div>
+                <p class="text-xs leading-relaxed text-archive-secondary/70">
+                    Share specific time-filtered views directly with other researchers using persistent URL parameters.
+                </p>
+                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
+                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Status: Routing Enabled</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow Diagram -->
+        <div class="border border-primary/30 bg-archive-dark/50 p-8 max-w-3xl w-full mb-12">
+            <h3
+                class="text-lg font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
+                Discovery Logic
+            </h3>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+                <div class="flex flex-col items-center gap-2">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center bg-primary/20 text-primary border border-primary/40 text-xs font-bold">
+                        FEBRUARY 24</div>
+                    <span class="text-[10px] uppercase font-bold text-archive-secondary">Request Date</span>
+                </div>
+                <span class="material-symbols-outlined text-primary/40 rotate-90 md:rotate-0">arrow_forward</span>
+                <div class="flex flex-col items-center gap-2">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center bg-primary/20 text-primary border border-primary/40">
+                        <span class="material-symbols-outlined">filter_list</span>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-archive-secondary">Temporal Filter</span>
+                </div>
+                <span class="material-symbols-outlined text-primary/40 rotate-90 md:rotate-0">arrow_forward</span>
+                <div class="flex flex-col items-center gap-2">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center bg-primary text-archive-bg border border-primary font-bold">
+                        1963</div>
+                    <span class="text-[10px] uppercase font-bold text-primary">Archival Hits</span>
+                </div>
+                <span class="material-symbols-outlined text-primary/40 rotate-90 md:rotate-0">arrow_forward</span>
+                <div class="flex flex-col items-center gap-2">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center bg-primary/20 text-primary border border-primary/40">
+                        <span class="material-symbols-outlined">description</span>
+                    </div>
+                    <span class="text-[10px] uppercase font-bold text-archive-secondary">Display Echo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="/docs/ui/index.html"
+                class="inline-flex items-center gap-2 bg-primary text-archive-bg px-8 py-3 font-bold uppercase tracking-wider hover:brightness-110 transition-all shadow-lg">
+                Return to Dashboard
+            </a>
+        </div>
+    </main>
+
+    <hr class="border-archive-secondary/20" />
+
+    <!-- MODULAR FOOTER -->
+    <div data-component="footer"></div>
+
+    <!-- MODULAR BOTTOM NAV -->
+    <nav data-component="bottom-nav" data-active="Home"
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+
+    <div class="h-24"></div>
+
+</body>
+
+</html>
