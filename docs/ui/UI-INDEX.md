@@ -16,6 +16,7 @@ Welcome to the Primary Sources UI documentation. This index provides quick acces
 
 ### Structural Components
 - [**Header**](./components/HEADER.md) — Global navigation header with menu, search, branding, breadcrumbs.
+- [**Nav Menu**](./components/NAV-MENU.md) — Collapsible dropdown menu with categories and subcategories.
 - [**Footer**](./components/FOOTER.md) — Global footer with links and sitemap.
 - [**Bottom Nav**](./components/BOTTOM-NAV.md) — Mobile bottom navigation bar.
 - [**Facet Bar**](./components/FACET-BAR.md) — Filter controls for browse pages.
@@ -149,6 +150,6 @@ Welcome to the Primary Sources UI documentation. This index provides quick acces
 
 ---
 
-**Summary:** 6 modular components, 4 CSS files, 17 JS modules, 8 badge variants, 5 card patterns, 7 data files.
+**Summary:** 6 modular components, 4 CSS files, 17 JS modules, 8 badge variants, 5 card patterns, 7 data files, 11 component docs.
 
 *Last Updated by Cursor*
