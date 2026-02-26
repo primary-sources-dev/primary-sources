@@ -10,13 +10,14 @@ A comprehensive, collapsible dropdown menu that provides access to all major sec
 ```
 
 ## Structure
-The mega menu is organized into five logical cards, each covering a specific functional area:
+The menu is divided into 6 distinct containers, each identified by a unique `nav-{n}` ID and a visible number:
 
-1.  **Home & General**: Navigation to the dashboard, global search, and site-wide overview.
-2.  **Browse Archives**: Direct links to entity-specific indices (People, Events, Organizations, etc.).
-3.  **Exploration**: Interactive tools like "On This Day," Random Discovery, and the Witness Atlas.
-4.  **Archive Tools**: Technical tools for researchers (OCR, PDF Viewer, Classifier, Matcher).
-5.  **Information**: Links to About, Features, Blog, Links, and Site Map.
+1.  **#nav-1: Home & General**: Direct links to the root and search.
+2.  **#nav-2: About & Info**: Project background, features, blog, and links.
+3.  **#nav-3: Browse Entities**: Core archive indices (People, Events, etc.).
+4.  **#nav-4: Research Tools**: Advanced scanning and analysis applications.
+5.  **#nav-5: Discovery**: Dynamic exploration tools.
+6.  **#nav-6: Tool Documentation**: Educational resources and technical guides.
 
 ## Key Features
 - **Grid Layout**: Uses a responsive 2-column grid of cards on both mobile and desktop.

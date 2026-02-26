@@ -47,7 +47,73 @@
 <body class="overflow-hidden text-archive-secondary pdf-viewer-page">
 
     <!-- MODULAR HEADER / TOOLBAR -->
-    <div data-component="pdf-viewer-header" class="component-loaded"></div>
+    <div data-component="pdf-viewer-header" class="component-loaded component-loaded" data-prebuilt="true">
+<!-- BUILD:INJECTED -->
+<!-- PDF Viewer Header Component -->
+<header class="pdf-viewer-header h-16 border-b border-white/10 flex items-center justify-between px-6 bg-[#2E282A] z-[110] relative shadow-xl">
+    <div class="flex items-center gap-6">
+        <button onclick="window.close()"
+            class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            Exit
+        </button>
+        <div class="h-6 w-px bg-white/10"></div>
+        <h1 id="doc-title"
+            class="text-archive-heading font-display font-bold uppercase tracking-wider text-sm truncate max-w-[200px] md:max-w-md">
+            Primary Source</h1>
+    </div>
+
+    <!-- NAVIGATION CONTROLS -->
+    <div class="flex items-center gap-2 bg-black/20 p-1 rounded-sm border border-white/5">
+        <button id="prev-page" class="toolbar-btn" title="Previous Page">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+
+        <div class="flex items-center gap-2 px-3">
+            <input type="number" id="page-num-input"
+                class="w-12 bg-archive-dark border border-white/10 text-center text-xs font-bold text-primary focus:border-primary outline-none py-1"
+                value="1">
+            <span class="text-[10px] font-bold text-white/40 uppercase tracking-tighter">of <span
+                    id="page-count">0</span></span>
+        </div>
+
+        <button id="next-page" class="toolbar-btn" title="Next Page">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+    </div>
+
+    <!-- WORKBENCH TOGGLE -->
+    <div class="flex items-center gap-4">
+        <button id="toggle-intelligence"
+            class="flex items-center gap-2 px-4 py-2 border border-white/10 text-xs font-bold uppercase tracking-widest text-white/40 hover:text-primary hover:border-primary/40 transition-all rounded-sm"
+            title="Toggle Intelligence Layer (Entity Highlighting)">
+            <span class="material-symbols-outlined text-sm">psychology</span> Intelligence
+        </button>
+
+        <button id="toggle-workbench"
+            class="flex items-center gap-2 px-4 py-2 border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary/10 transition-all rounded-sm">
+            <span class="material-symbols-outlined text-sm">construction</span> Workbench
+        </button>
+
+        <!-- ZOOM CONTROLS -->
+        <div class="flex items-center gap-1">
+            <button id="zoom-out" class="toolbar-btn" title="Zoom Out">
+                <span class="material-symbols-outlined">remove</span>
+            </button>
+            <span id="zoom-level"
+                class="text-[9px] font-bold text-white/40 w-10 text-center uppercase tracking-tighter">100%</span>
+            <button id="zoom-in" class="toolbar-btn" title="Zoom In">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+            <div class="h-6 w-px bg-white/10 mx-2"></div>
+            <button id="fit-width" class="toolbar-btn" title="Fit to Width">
+                <span class="material-symbols-outlined">fit_screen</span>
+            </button>
+        </div>
+    </div>
+</header>
+<!-- /BUILD:INJECTED -->
+</div>
         <h1 id="doc-title"
             class="text-archive-heading font-display font-bold uppercase tracking-wider text-sm truncate max-w-[200px] md:max-w-md">
             Primary Source</h1>
