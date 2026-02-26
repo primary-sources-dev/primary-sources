@@ -472,21 +472,106 @@ class OCRWorker:
         if self.clean: cmd.append("--clean")
         if self.force_ocr: cmd.append("--force-ocr")
         if txt_output: cmd.extend(["--sidecar", txt_output])
-
+        
+        # Use --verbose 1 to get page-level logging
+        cmd.extend(["--verbose", "1"])
         cmd.extend([wsl_input, pdf_output])
 
         self.log(f"  Running OCRmyPDF...")
 
-        if self.on_progress:
-            try:
-                self.on_progress(filename, 0, 100, "OCRmyPDF running...")
-            except TypeError:
-                self.on_progress(10, "Starting OCRmyPDF in WSL...")
+        # Use fitz to get reliable page count before processing starts
+        total_pages = 1
+        try:
+            import fitz
+            with fitz.open(filepath) as doc:
+                total_pages = len(doc)
+            self.log(f"  Detected {total_pages} pages using fitz.")
+        except Exception as e:
+            self.log(f"  Warning: Could not get page count with fitz: {e}. Defaulting to 1.")
+
+        # Progress tracking state
+        ocr_pages_done = 0
+        current_stage = "startup" # startup, ocr, post, opt
+        
+        def update_progress(pct, msg):
+            # Clamp progress to 99% until complete to prevent overflow
+            clamped_pct = min(pct, 99)
+            if self.on_progress:
+                try:
+                    # GUI expects (filename, current, total, msg)
+                    curr = int((clamped_pct / 100) * total_pages)
+                    self.on_progress(filename, curr, total_pages, msg)
+                except TypeError:
+                    # Server expects (pct, msg)
+                    self.on_progress(clamped_pct, msg)
+
+        update_progress(10, f"Initializing WSL for {total_pages} pages...")
 
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+            import subprocess
+            # We use bufsize=1 and universal_newlines=True to get line-by-line output
+            process = subprocess.Popen(
+                cmd, 
+                stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE, 
+                text=True, 
+                bufsize=1,
+                universal_newlines=True
+            )
 
-            if result.returncode == 0:
+            full_stderr = []
+            
+            while True:
+                line = process.stderr.readline()
+                if not line and process.poll() is not None:
+                    break
+                
+                if line:
+                    line = line.strip()
+                    full_stderr.append(line)
+                    self.log(f"    {line}")
+                    
+                    # 1. OCR Stage Start detection
+                    if "Start processing" in line and "pages" in line:
+                        current_stage = "ocr"
+                        update_progress(15, f"OCR started ({total_pages} pages)...")
+                        continue
+                    
+                    # 2. OCR stage progress
+                    if current_stage == "ocr" and "Running: ['tesseract'" in line:
+                        ocr_pages_done += 1
+                        pct = int(15 + (ocr_pages_done / total_pages) * 55) # 15% -> 70%
+                        update_progress(pct, f"OCR: Processing page {ocr_pages_done}/{total_pages}")
+                        continue
+                    
+                    # 3. Postprocessing detection
+                    if "Postprocessing..." in line:
+                        current_stage = "post"
+                        update_progress(70, "Finalizing PDF structure...")
+                        continue
+                    
+                    # 4. Postprocessing progress (Ghostscript pages)
+                    if current_stage == "post" and line.startswith("Page "):
+                        try:
+                            parts = line.split()
+                            if len(parts) >= 2:
+                                post_pages_done = int(parts[1])
+                                pct = int(70 + (post_pages_done / total_pages) * 25) # 70% -> 95%
+                                update_progress(pct, f"Post-processing: Page {post_pages_done}/{total_pages}")
+                        except:
+                            pass
+                        continue
+                    
+                    # 5. Optimization detection
+                    if "Image optimization ratio" in line:
+                        current_stage = "opt"
+                        update_progress(98, "Optimizing images...")
+                        continue
+
+            process.wait()
+            stderr_text = "\n".join(full_stderr)
+
+            if process.returncode == 0:
                 self.log(f"  Saved: {base_name}_searchable.pdf")
                 if self.output_txt: self.log(f"  Saved: {base_name}.txt")
                 
@@ -509,13 +594,12 @@ class OCRWorker:
                         
                         html_path = os.path.join(self.output_dir, f"{base_name}.html")
                         
-                        # WSL output text usually doesn't have page markers unless we add them,
-                        # but we'll try to handle it consistently.
+                        # WSL output text usually doesn't have page markers unless we add them
                         sections = []
                         if "--- PAGE " in text:
                             parts = text.split("--- PAGE ")
                         else:
-                            parts = ["1 ---\n\n" + text] # Fallback for single page/no markers
+                            parts = ["1 ---\n\n" + text] 
                             
                         for part in parts:
                             if not part.strip(): continue
@@ -544,9 +628,8 @@ class OCRWorker:
 
                 return True, "Complete"
             else:
-                error_msg = result.stderr.strip() or "Unknown error"
+                error_msg = stderr_text.strip() or "Unknown error"
                 
-                # Provide user-friendly messages for common OCRmyPDF errors
                 if "PriorOcrFoundError" in error_msg or "already has text" in error_msg:
                     friendly_msg = "PDF already has text layer (already searchable). Use 'Force OCR' option to re-process, or skip this file."
                     self.log(f"  ⚠ Skipped: {friendly_msg}")

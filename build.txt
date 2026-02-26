@@ -1,0 +1,9 @@
+PRIMARY SOURCES - BUILD
+
+cd C:\Users\willh\Desktop\primary-sources\web\html
+
+Clean injected components:
+python build.py --clean
+
+Build/inject components:
+python build.py

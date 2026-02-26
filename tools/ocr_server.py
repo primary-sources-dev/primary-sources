@@ -344,6 +344,7 @@ def process_job_worker(job_id):
                 def on_progress(pct, msg):
                     job["log"].append(msg)
                     file_info["progress"] = pct
+                    file_info["current_msg"] = msg # New: store detailed step
                     job["progress"] = int((i / total_files) * 100 + (pct / total_files))
                 
                 def on_complete(success, msg):

@@ -509,16 +509,16 @@ FINGERPRINTS = {
         # Sparse content indicator (covers have little body text)
         (r"^(?:\s*\n){5,}", 15),  # Many blank lines
     ],
-
-    # === Pseudo-Type for internal logic ===
-    "CONTINUITY": [
-        (r"PAGE\s*(?:TWO|2|THREE|3|FOUR|4|FIVE|5)", 30),
-        (r"\(?CONT'D\)?", 30),
-        (r"\(?CONTINUED\)?", 30),
-        (r"page\s*\d+\s+of\s+\d+", 20),
-        (r"-(?:\s*\d+\s*)-", 15),  # Centered page number - 2 -
-    ],
 }
+
+# === Pseudo-Type for internal logic ===
+CONTINUITY_FINGERPRINTS = [
+    (r"PAGE\s*(?:TWO|2|THREE|3|FOUR|4|FIVE|5)", 30),
+    (r"\(?CONT'D\)?", 30),
+    (r"\(?CONTINUED\)?", 30),
+    (r"page\s*\d+\s+of\s+\d+", 20),
+    (r"-(?:\s*\d+\s*)-", 15),  # Centered page number - 2 -
+]
 
 # Calculate max possible score for each type (for normalization)
 MAX_SCORES = {

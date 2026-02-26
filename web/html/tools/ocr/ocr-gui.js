@@ -271,7 +271,10 @@ function renderQueue() {
                     <div class="queue-progress">
                         <div class="queue-progress-bar" style="width: ${progress}%"></div>
                     </div>
-                    <div class="text-[9px] text-primary font-bold mt-1 uppercase tracking-tighter">${progress}% Processed</div>
+                    <div class="flex justify-between items-center mt-1">
+                        <div class="text-[9px] text-primary font-bold uppercase tracking-tighter">${progress}% Processed</div>
+                        <div class="text-[8px] opacity-60 italic text-right truncate overflow-hidden whitespace-nowrap" style="max-width: 150px;">${jobFile.current_msg || ''}</div>
+                    </div>
                 ` : ''}
                 ${isCompleted && parsedMetadata ? renderMetadataPreview(parsedMetadata, idx) : ''}
             </div>
