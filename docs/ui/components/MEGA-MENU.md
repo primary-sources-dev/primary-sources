@@ -19,7 +19,7 @@ The mega menu is organized into five logical cards, each covering a specific fun
 5.  **Information**: Links to About, Features, Blog, Links, and Site Map.
 
 ## Key Features
-- **Grid Layout**: Uses a responsive grid of cards (1 column mobile, 3 columns desktop).
+- **Grid Layout**: Uses a responsive 2-column grid of cards on both mobile and desktop.
 - **Interactive States**: Hover effects on links with primary color accents.
 - **Micro-Animations**: Uses Material Symbols with subtle transitions.
 - **Accessibility**: High-contrast text on semi-transparent dark backgrounds (`bg-[#252021]/60`).

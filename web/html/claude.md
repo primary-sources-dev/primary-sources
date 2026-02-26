@@ -40,7 +40,7 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
 
 ```json
 {
-  "id": "yates-hitchhiker",
+  "id": "yates-incident",
   "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
   "title": "The Ralph Leon Yates Incident",
   "event_type": "SIGHTING",
@@ -72,10 +72,12 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
 ## WORKFLOW (Ordered List)
 
 ### 1. Review Current Events
-   1. Open `yates_entities.json`
-   2. Review 7 existing events for completeness
-   3. Identify gaps in timeline (Nov 20-Jan 15, 1964)
-   4. Note missing interviews, reports, meetings
+   1. Open `assets/data/events.json`
+   2. Locate parent event: "The Ralph Leon Yates Incident" (id: "yates-incident")
+   3. Review existing sub-events in `sub_events` array (currently 12 events)
+   4. Identify gaps in timeline (Nov 20-Jan 15, 1964)
+   5. Note missing interviews, reports, meetings
+   6. Reference `yates_entities.json` for additional entity details
 
 ### 2. OCR Extraction
    1. Launch `tools/ocr/ocr-ui.html`
@@ -102,11 +104,12 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
       - `start_ts` / `end_ts` (ISO 8601 format)
       - `time_precision` (UNKNOWN, APPROX, EXACT, RANGE)
       - `parent_event_id` (if sub-event)
-   3. Draft event JSON following schema:
+   3. Draft sub-event JSON following schema:
       ```json
       {
         "id": "event-slug",
-        "event_id": "uuid",
+        "event_id": "unique-uuid-here",
+        "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
         "event_type": "INTERVIEW",
         "icon": "assignment_ind",
         "label": "Nov 27, 1963 · Dallas, TX",
@@ -117,6 +120,7 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
         "status": "COMPLETE"
       }
       ```
+      **NOTE:** This will be added to parent's `sub_events` array, NOT root level
    4. Cross-reference participants against `people` array
    5. Cross-reference locations against `places` array
    6. Cross-reference objects against `objects` array
@@ -172,8 +176,12 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
    5. Iterate until quality threshold met
 
 ### 9. Save & Update
-   1. Add new event to `events` array in `yates_entities.json`
-   2. Update `summary.total_events`
+   1. **Add new sub-event to parent's `sub_events` array**:
+      - Open `assets/data/events.json`
+      - Locate parent event (id: "yates-incident", event_id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d")
+      - Add new event object to `sub_events` array
+      - Ensure `parent_event_id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"` is set
+   2. Update summary counts if needed
    3. Create HTML entity page: `entities/event/event-{id}.html`
    4. Update `entities/event/event-index.html` with new entry
    5. Document extraction notes/decisions
@@ -195,21 +203,25 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
 - **Traceability**: Can be linked back to specific source page
 - **Consistency**: Follows established schema patterns
 
-### Minimum Event Data
+### Minimum Sub-Event Data
 ```json
 {
-  "id": "required",
-  "event_id": "required-uuid",
+  "event_id": "required-unique-uuid",
+  "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
   "event_type": "required-from-vocab",
-  "icon": "required-material-symbol",
-  "label": "required-short-summary",
   "title": "required-concise-title",
   "description": "required-detailed-narrative",
   "start_ts": "required-if-known",
   "time_precision": "required",
-  "status": "COMPLETE|PARTIAL|PENDING"
+  "id": "optional-slug",
+  "icon": "optional-material-symbol",
+  "label": "optional-short-summary",
+  "status": "optional-COMPLETE|PARTIAL|PENDING",
+  "url": "optional-source-link"
 }
 ```
+
+**CRITICAL:** This sub-event object must be placed inside the parent event's `sub_events` array in `assets/data/events.json`, not at root level.
 
 ### Known Gaps (Prioritize)
 Based on CLAUDE.md context, missing events likely include:
@@ -234,12 +246,15 @@ Based on CLAUDE.md context, missing events likely include:
 - Document reasoning for ambiguous decisions
 
 **DO NOT:**
+- **Create flat event structures** (CRITICAL: all events MUST be nested in parent's sub_events array)
+- Place Yates sub-events at root level of events.json
 - Skip pages without obvious event markers
 - Assume event details not in source
 - Merge distinct events into single entry
 - Create events without temporal information
 - Bypass schema validation
 - Ignore vocabulary compliance
+- Create events without `parent_event_id` reference
 
 **FOCUS:**
 - Events involving Ralph Yates directly
@@ -263,5 +278,31 @@ Based on CLAUDE.md context, missing events likely include:
 
 ---
 
+## SYSTEM ALIGNMENT COMPLETED ✅
+
+### JavaScript Code Update
+
+**File:** `assets/js/db-logic.js` (Lines 148-151)
+
+**Previous Code (INCORRECT):**
+```javascript
+const children = events
+    .filter(e => e.parent_event_id === event.event_id)
+    .sort((a, b) => (a.start_ts || '').localeCompare(b.start_ts || ''));
+```
+
+**Updated Code (CORRECT):**
+```javascript
+// Read sub-events from nested array structure
+const children = event.sub_events || [];
+children.sort((a, b) => (a.start_ts || '').localeCompare(b.start_ts || ''));
+```
+
+**Status:** ✅ COMPLETED (2026-02-26)
+**Change:** Updated db-logic.js to read from `event.sub_events` array instead of filtering all events by `parent_event_id`.
+
+---
+
 **STATUS:** Active MVP - Continue Yates Events Review
 **LAST UPDATED:** 2026-02-26
+**ID CHANGE:** yates-hitchhiker → yates-incident (completed 2026-02-26)

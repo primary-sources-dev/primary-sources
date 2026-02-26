@@ -74,7 +74,14 @@ body {
     background-color: var(--archive-bg);
     color: var(--archive-secondary);
     min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     transition: background-color 0.3s, color 0.3s;
+}
+
+.main-content {
+    flex: 1;
+    padding-bottom: var(--navbar-height);
 }
 
 h1,
@@ -441,9 +448,9 @@ hr {
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .mega-menu-container {
-        grid-template-columns: 1fr;
-        padding: 2rem;
-        gap: 2rem;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+        gap: 1rem;
         top: calc(var(--header-height) + 8px);
         bottom: calc(var(--navbar-height) + 8px);
         width: 98vw;

@@ -146,9 +146,9 @@ async function renderEventDetail() {
         if (iconEl) iconEl.textContent = event.icon || 'calendar_month';
 
         // 2. Filter & Render Child Events (Timeline)
-        const children = events
-            .filter(e => e.parent_event_id === event.event_id)
-            .sort((a, b) => (a.start_ts || '').localeCompare(b.start_ts || ''));
+        // Read sub-events from nested array structure
+        const children = event.sub_events || [];
+        children.sort((a, b) => (a.start_ts || '').localeCompare(b.start_ts || ''));
 
         const timelineContainer = document.getElementById('event-timeline');
         if (timelineContainer) {
