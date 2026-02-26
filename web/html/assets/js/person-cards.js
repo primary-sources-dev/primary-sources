@@ -214,7 +214,7 @@ function populateSources(sources) {
     const author = source.author || '';
     const archive = source.archive || '';
 
-    const metaLine = [type, year].filter(Boolean).join(' · ');
+    const metaLine = [type, year].filter(Boolean).join(' &middot; ');
     const detailLine = [author, archive].filter(Boolean).join(' — ');
 
     return `

@@ -3211,14 +3211,6 @@ hr {
   font-size: 10px;
 }
 
-.badge-wip {
-  opacity: .5;
-  transition: opacity .2s;
-}
-
-.group:hover .badge-wip {
-  opacity: 1;
-}
 
 .menu-category {
   border-bottom: 1px solid #b08b491a;

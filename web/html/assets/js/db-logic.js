@@ -103,7 +103,6 @@ function buildCard(item) {
         <div style="display:flex;flex-direction:column;height:100%;padding:0.25rem 0;min-width:0;">
             <div style="display:flex;align-items:center;margin-bottom:4px;">
                 <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--primary);letter-spacing:0.1em;">${item.label || ''}</span>
-                ${item.is_conflict ? '<span style="background:rgba(176,139,73,0.15);color:var(--primary);font-size:8px;padding:2px 4px;border:1px solid rgba(176,139,73,0.3);margin-left:8px;font-weight:700;display:flex;align-items:center;gap:3px;"><span class="material-symbols-outlined" style="font-size:10px;">history_toggle_off</span>CONFLICT</span>' : ''}
             </div>
             <h4 style="font-family:\'Oswald\',sans-serif;font-size:${featured ? '1.15rem' : '1rem'};font-weight:700;text-transform:uppercase;color:var(--archive-heading);line-height:1.25;margin:0">${item.display_name || item.title || item.name || ''}</h4>
             <p style="font-size:0.72rem;color:rgba(212,207,199,0.75);margin-top:8px;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">${item.description || item.notes || item.body || ''}</p>

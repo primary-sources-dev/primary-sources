@@ -455,7 +455,6 @@
 
 **Page-Specific Elements:**
 - On This Day feature UI
-- WIP badge
 
 **JavaScript:**
 - `components.js`
@@ -472,7 +471,6 @@
 
 **Page-Specific Elements:**
 - Six Degrees feature UI
-- WIP badge
 
 **JavaScript:**
 - `components.js`
@@ -489,7 +487,6 @@
 
 **Page-Specific Elements:**
 - Witness Atlas feature UI
-- WIP badge
 
 **JavaScript:**
 - `components.js`

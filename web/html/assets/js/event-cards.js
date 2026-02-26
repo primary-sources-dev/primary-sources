@@ -169,7 +169,7 @@ function populateSources(sources) {
     const archive = source.archive || '';
     const url = source.url || '';
 
-    const metaLine = [type, date].filter(Boolean).join(' · ');
+    const metaLine = [type, date].filter(Boolean).join(' &middot; ');
     const detailLine = [author, archive].filter(Boolean).join(' — ');
 
     return `
@@ -307,7 +307,7 @@ function formatTimelineDate(dateStr) {
   if (!dateStr) return '';
 
   // If it's already a formatted label, return as-is
-  if (dateStr.includes('·') || dateStr.includes(',')) {
+  if (dateStr.includes('&middot;') || dateStr.includes('·') || dateStr.includes(',')) {
     return dateStr;
   }
 
