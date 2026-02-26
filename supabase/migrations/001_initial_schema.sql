@@ -25,6 +25,9 @@ create table if not exists v_object_type     (code text primary key, label text 
 create table if not exists v_predicate       (code text primary key, label text not null);
 create table if not exists v_person_relation_type (code text primary key, label text not null);
 create table if not exists v_id_type         (code text primary key, label text not null);
+create table if not exists v_agency          (code text primary key, label text not null);
+create table if not exists v_doc_format      (code text primary key, label text not null);
+create table if not exists v_content_type    (code text primary key, label text not null);
 
 -- -----------------------
 -- Core entity tables
@@ -157,7 +160,9 @@ create table if not exists event_relation (
 create table if not exists source (
   source_id     uuid primary key default gen_random_uuid(),
   source_type   text not null references v_source_type(code),
-  detected_type text,  -- Classifier-detected subtype (FBI_302, WITNESS_STATEMENT, etc.)
+  doc_format    text references v_doc_format(code),   -- Template/Form (302, TELETYPE, etc.)
+  -- Multi-tagging via source_content_type table
+  origin_agency text references v_agency(code),       -- Originating agency (FBI, CIA, etc.)
   title         text not null,
   author        text,
   publisher     text,
@@ -174,6 +179,13 @@ create table if not exists source_excerpt (
   locator      text not null,
   excerpt_text text,
   created_at   timestamptz not null default now()
+);
+
+-- Junction for multi-tagging content types
+create table if not exists source_content_type (
+  source_id     uuid references source(source_id) on delete cascade,
+  content_type  text references v_content_type(code) on delete cascade,
+  primary key (source_id, content_type)
 );
 
 create table if not exists assertion_support (

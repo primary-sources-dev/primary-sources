@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "docs" / "ui" / "assets" / "data"
+DATA_DIR = PROJECT_ROOT / "web" / "html" / "assets" / "data"
 YATES_JSON = PROJECT_ROOT / "raw-material" / "yates" / "yates_entities.json"
 
 TAG = "The Ralph Leon Yates incident"

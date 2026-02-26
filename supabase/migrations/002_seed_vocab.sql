@@ -160,3 +160,46 @@ insert into v_id_type (code, label) values
   ('PASSPORT',         'Passport number'),
   ('ARCHIVE_CUSTODIAN', 'Archive holding the source (e.g., NARA, MFF)')
 on conflict (code) do nothing;
+
+-- 16. Agencies
+insert into v_agency (code, label) values
+  ('FBI',  'Federal Bureau of Investigation'),
+  ('CIA',  'Central Intelligence Agency'),
+  ('DPD',  'Dallas Police Department'),
+  ('WC',   'Warren Commission'),
+  ('HSCA', 'House Select Committee on Assassinations'),
+  ('NARA', 'National Archives and Records Administration'),
+  ('SS',   'Secret Service'),
+  ('UNKNOWN', 'Unspecified or Ambiguous Agency')
+on conflict (code) do nothing;
+
+-- 17. Document Formats (Classifier support)
+insert into v_doc_format (code, label) values
+  ('CABLE',            'Field cable communication'),
+  ('201_FILE',         'Personality File dossier'),
+  ('RIF',              'NARA Record Information Form'),
+  ('AFFIDAVIT',        'Sworn written affidavit form'),
+  ('DEPOSITION',       'Legal deposition transcript'),
+  ('EXHIBIT',          'Evidence exhibit (Commission/Court)'),
+  ('TESTIMONY',        'Sworn oral testimony transcript'),
+  ('COVER_SHEET',      'Document cover or routing sheet'),
+  ('INDEX_PAGE',       'Index or file inventory page'),
+  ('TOC',              'Table of Contents'),
+  ('GENERIC_TEMPLATE', 'Standard agency letterhead or blank form')
+on conflict (code) do nothing;
+
+-- 18. Content Types (Functional purpose)
+insert into v_content_type (code, label) values
+  ('WITNESS_INTERVIEW',  'Questioning of a witness or subject'),
+  ('FORENSIC_ANALYSIS',  'Scientific or technical lab evaluation'),
+  ('BALLISTICS',         'Firearms and ammunition analysis'),
+  ('SURVEILLANCE',       'Physical or electronic monitoring report'),
+  ('INVESTIGATIVE_SUMM', 'Summary of findings in an inquiry'),
+  ('AUTOPSY_REPORT',     'Post-mortem medical examination'),
+  ('SECURITY_CLEARANCE', 'Personnel security or background check'),
+  ('POLYGRAPH_EXAM',    'Lie detector test results'),
+  ('TIPS_AND_LEADS',     'Incoming information or public tips'),
+  ('ADMINISTRATIVE',     'Internal housekeeping or procedural matter'),
+  ('CORRESPONDENCE',     'Direct communication between parties'),
+  ('SEARCH_WARRANT',     'Legal authorization for search/seizure')
+on conflict (code) do nothing;

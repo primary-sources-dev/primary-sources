@@ -1,26 +1,7 @@
 <div class="flex h-16 items-center justify-between px-4">
-    <div class="flex items-center gap-4">
-        <a href="/index.html" class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-3xl">account_balance</span>
-            <h1 class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary Sources
-            </h1>
-        </a>
-
-        <!-- BREADCRUMBS -->
-        <nav id="breadcrumb-nav"
-            class="hidden md:flex items-center gap-2 border-l border-archive-secondary/20 pl-4 py-1">
-            <span class="text-[10px] uppercase tracking-widest text-archive-secondary/40">Archive</span>
-            <span class="material-symbols-outlined text-xs text-archive-secondary/20">chevron_right</span>
-            <span id="breadcrumb-current"
-                class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Browse</span>
-        </nav>
-    </div>
-
+    <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
     <div class="flex items-center gap-3">
-        <a href="/search.html"
-            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
-            <span class="material-symbols-outlined">search</span>
-        </a>
+        <!-- Nav Menu -->
         <div class="relative group">
             <button id="menu-toggle"
                 class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
@@ -29,7 +10,7 @@
 
             <!-- DROPDOWN MENU (COLLAPSIBLE CATEGORIES) -->
             <div id="header-dropdown"
-                class="absolute right-0 top-full mt-1 w-64 bg-archive-dark border border-archive-secondary/20 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100]">
+                class="absolute left-0 top-full mt-1 w-64 bg-archive-dark border border-archive-secondary/20 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100]">
 
                 <!-- CATEGORY 1: Home & General -->
                 <div class="menu-category" data-category="home">
@@ -136,5 +117,30 @@
 
             </div>
         </div>
+
+        <!-- Search -->
+        <a href="/search.html"
+            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
+            <span class="material-symbols-outlined">search</span>
+        </a>
+
+        <!-- Branding: Title -->
+        <a href="/index.html" class="pl-4">
+            <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary Sources:<span class="text-primary">JFK</span></span>
+        </a>
+
+        <!-- Breadcrumbs: Shows current section (hidden on homepage via nav.js) -->
+        <nav id="breadcrumb-nav" class="flex items-center gap-2 pl-3">
+            <span class="material-symbols-outlined text-sm text-archive-secondary/30">chevron_right</span>
+            <span id="breadcrumb-current" class="text-xs font-bold uppercase tracking-[0.15em] text-primary">Browse</span>
+        </nav>
+    </div>
+
+    <!-- RIGHT: User Icon -->
+    <div class="flex items-center">
+        <button id="user-menu-toggle"
+            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+            <span class="material-symbols-outlined text-archive-secondary">person</span>
+        </button>
     </div>
 </div>

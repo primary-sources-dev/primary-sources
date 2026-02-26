@@ -47,6 +47,7 @@ class DocType(Enum):
     MEDICAL_RECORD = "MEDICAL_RECORD"  # Hospital/Psychiatric records
     HANDWRITTEN_NOTES = "HANDWRITTEN_NOTES"  # Scanned notes/scribbles
     WITNESS_STATEMENT = "WITNESS_STATEMENT"  # Signed witness statements (distinct from FBI 302)
+    FBI_TELETYPE = "FBI_TELETYPE"  # FBI Teletypes
     # === Structural Pages (Skip Processing) ===
     BLANK = "BLANK"  # Empty or near-empty pages
     TOC = "TOC"  # Table of contents
@@ -117,20 +118,27 @@ FINGERPRINTS = {
     ],
     
     DocType.FBI_REPORT: [
-        # FBI reports, airtels, teletypes (not 302 interview forms)
+        # FBI reports, memos, airtels (not 302 interview forms or teletypes)
         (r"AIRTEL", 35),
-        (r"TELETYPE", 30),
         (r"Bureau\s+(?:file|letter)", 25),
         (r"SAC\s+(?:[A-Z]+|Dallas|New Orleans|Miami)", 25),
         (r"DIRECTOR,?\s+FBI", 25),
         (r"RE:\s+", 15),
         (r"BUFILE", 20),
-        (r"URGENT|ROUTINE|PRIORITY", 15),
-        (r"ENCODED MESSAGE", 20),
         (r"(?:FBI|Bureau)\s+Laboratory", 20),
         (r"Laboratory\s+(?:Report|Work\s+Sheet)", 25),
         (r"Latent\s+Fingerprint", 20),
         (r"submitted\s+(?:for|to)\s+examination", 15),
+    ],
+    
+    DocType.FBI_TELETYPE: [
+        (r"TELETYPE", 40),
+        (r"URGENT|ROUTINE|PRIORITY|IMMEDIATE|PRECEDENCE", 20),
+        (r"COMMUNICATIONS SECTION", 30),
+        (r"DE [A-Z]{2,4}", 25),  # Station code e.g. DE DL (Dallas)
+        (r"ENCODED MESSAGE", 20),
+        (r"P R I O R I T Y", 25),
+        (r"U R G E N T", 25),
     ],
     
     DocType.NARA_RIF: [
@@ -479,6 +487,15 @@ FINGERPRINTS = {
         # Sparse content indicator (covers have little body text)
         (r"^(?:\s*\n){5,}", 15),  # Many blank lines
     ],
+
+    # === Pseudo-Type for internal logic ===
+    "CONTINUITY": [
+        (r"PAGE\s*(?:TWO|2|THREE|3|FOUR|4|FIVE|5)", 30),
+        (r"\(?CONT'D\)?", 30),
+        (r"\(?CONTINUED\)?", 30),
+        (r"page\s*\d+\s+of\s+\d+", 20),
+        (r"-(?:\s*\d+\s*)-", 15),  # Centered page number - 2 -
+    ],
 }
 
 # Calculate max possible score for each type (for normalization)
@@ -505,10 +522,15 @@ CANONICAL_FINGERPRINTS = {
     ],
     DocType.FBI_REPORT: [
         ("AIRTEL", 35),
-        ("TELETYPE", 30),
         ("DIRECTOR FBI", 30),
         ("SAC DALLAS", 25),
         ("Bureau file", 25),
+    ],
+    DocType.FBI_TELETYPE: [
+        ("TELETYPE", 40),
+        ("COMMUNICATIONS SECTION", 30),
+        ("URGENT", 25),
+        ("PRIORITY", 25),
     ],
     DocType.NARA_RIF: [
         ("RECORD INFORMATION", 35),
@@ -747,7 +769,30 @@ def preprocess_text(text: str) -> str:
     return text
 
 
-def classify_document(text: str, header_lines: int = 25) -> ClassificationResult:
+def get_agency(doc_type: DocType) -> str:
+    """Map document type to origin agency."""
+    mapping = {
+        DocType.FBI_302: "FBI",
+        DocType.FBI_REPORT: "FBI",
+        DocType.FBI_TELETYPE: "FBI",
+        DocType.NARA_RIF: "NARA",
+        DocType.CIA_CABLE: "CIA",
+        DocType.CIA_201: "CIA",
+        DocType.WC_EXHIBIT: "WARREN COMMISSION",
+        DocType.WC_TESTIMONY: "WARREN COMMISSION",
+        DocType.WC_DEPOSITION: "WARREN COMMISSION",
+        DocType.WC_AFFIDAVIT: "WARREN COMMISSION",
+        DocType.POLICE_REPORT: "DPD",
+        DocType.DPD_REPORT: "DPD",
+        DocType.CHURCH_COMMITTEE: "CHURCH COMMITTEE",
+        DocType.HSCA_DOC: "HSCA",
+        DocType.HSCA_REPORT: "HSCA",
+        DocType.MEDICAL_RECORD: "MEDICAL",
+    }
+    return mapping.get(doc_type, "UNKNOWN")
+
+
+def classify_document(text: str, header_lines: int = 25, prev_type: Optional[str] = None) -> ClassificationResult:
     """
     Classify document type by matching fingerprints against header.
     
@@ -755,10 +800,12 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
     0. Structural page detection (BLANK, based on character count)
     1. Regex-based fingerprint matching (fast, precise)
     2. Levenshtein fuzzy matching (fallback for garbled OCR)
+    3. Stateful continuity (handles multi-page reports)
 
     Args:
         text: Full OCR text to classify
         header_lines: Number of lines to analyze (default: 25)
+        prev_type: Type of the previous page (for continuity)
 
     Returns:
         ClassificationResult with doc_type, confidence, and matched patterns
@@ -793,13 +840,75 @@ def classify_document(text: str, header_lines: int = 25) -> ClassificationResult
     text = preprocess_text(text)
     
     header_sample = extract_header_sample(text, header_lines)
-
-    # Also check footer for FBI 302 (agent signature)
     footer_sample = extract_footer_sample(text, 15)
     
-    # For narrative reports (HSCA), also check body content
-    body_sample = text[:3000] if len(text) > 3000 else text
-    combined_sample = header_sample + "\n" + footer_sample + "\n" + body_sample
+    # =================================================================
+    # Stage 1: Regex Fingerprints
+    # =================================================================
+    results: dict[DocType, tuple[float, list[str]]] = {}
+    
+    for doc_type, patterns in FINGERPRINTS.items():
+        score = 0.0
+        matched = []
+        
+        # Determine search range (some docs have fingerprints in body/footer)
+        search_text = header_sample
+        if doc_type in [DocType.FBI_302, DocType.WITNESS_STATEMENT]:
+            search_text = text # Check full text for interviews/statements
+            
+        for pattern, weight in patterns:
+            if re.search(pattern, search_text, re.IGNORECASE):
+                score += weight
+                matched.append(pattern)
+        
+        confidence = score / MAX_SCORES[doc_type] if MAX_SCORES[doc_type] > 0 else 0.0
+        results[doc_type] = (confidence, matched)
+
+    # Find best regex match
+    best_type = max(results.keys(), key=lambda t: results[t][0])
+    best_score, best_matches = results[best_type]
+
+    # =================================================================
+    # Stage 2: Fuzzy Logic (Fallback for low confidence)
+    # =================================================================
+    if best_score < 0.4 and HAS_RAPIDFUZZ:
+        fuzzy_type, fuzzy_score, fuzzy_matches = fuzzy_classify(header_sample)
+        if fuzzy_score > best_score:
+            best_type = fuzzy_type
+            best_score = fuzzy_score
+            best_matches = fuzzy_matches
+
+    # =================================================================
+    # Stage 3: Stateful Continuity (Carry-over)
+    # =================================================================
+    if prev_type and prev_type != "UNKNOWN" and prev_type != "BLANK":
+        # Professional continuation rule:
+        # If previous was 302, Teletype, or Cable and current score is weak, carry-over
+        report_types = ["FBI_302", "FBI_TELETYPE", "CIA_CABLE", "MEMO", "WC_TESTIMONY", "WC_EXHIBIT"]
+        
+        if prev_type in report_types:
+            # Check for continuity hints in the current text
+            continuity_score = 0
+            for pattern, weight in FINGERPRINTS.get("CONTINUITY", []):
+                if re.search(pattern, header_sample, re.IGNORECASE):
+                    continuity_score += weight
+            
+            # If we have clear continuity hints, OR the current best guess is weak...
+            if continuity_score >= 30 or best_score < 0.5:
+                # But don't override if the new page is clearly a BLANK or a new identifiable type
+                if best_type not in [DocType.BLANK, DocType.TOC, DocType.NARA_RIF] or best_score < 0.3:
+                    best_type = DocType[prev_type]
+                    best_score = max(best_score, 0.7) # High confidence if carry-over + hint
+                    best_matches.append(f"CONTINUITY_FROM_{prev_type}")
+                    if continuity_score >= 30:
+                        best_matches.append("CONTINUITY_HINT_DETECTED")
+
+    return ClassificationResult(
+        doc_type=best_type,
+        confidence=best_score,
+        matched_patterns=best_matches,
+        header_sample=header_sample
+    )
 
     # =================================================================
     # Stage 1: Regex-based classification

@@ -1,76 +1,8 @@
-================================================================================
-PRIMARY SOURCES - SERVER STARTUP GUIDE
-================================================================================
+PRIMARY SOURCES - START
 
-Run these commands in Windows PowerShell or Command Prompt (outside of Cursor).
+cd C:\Users\willh\Desktop\primary-sources\tools
+python ocr_server.py
 
-================================================================================
-OPTION A: NEW STRUCTURE (web/html/)
-================================================================================
+Open: http://localhost:5000
 
---------------------------------------------------------------------------------
-STEP 1: Start Static File Server (Port 8000)
---------------------------------------------------------------------------------
-
-    cd C:\Users\willh\Desktop\primary-sources\web\html
-    python -m http.server 8000
-
-Keep this terminal open. Access UI at:
-  - http://localhost:8000/
-  - http://localhost:8000/tools/ocr/ocr-ui.html
-  - http://localhost:8000/tools/classifier/classifier-ui.html
-
---------------------------------------------------------------------------------
-STEP 2: Start OCR/Feedback Server (Port 5000)
---------------------------------------------------------------------------------
-
-Open a SECOND terminal window, then:
-
-    cd C:\Users\willh\Desktop\primary-sources\tools
-    python ocr_server.py
-
-Keep this terminal open. Handles feedback API and OCR processing.
-
-================================================================================
-OPTION B: LEGACY STRUCTURE (docs/ui/) - During Migration
-================================================================================
-
---------------------------------------------------------------------------------
-STEP 1: Start Static File Server (Port 8000)
---------------------------------------------------------------------------------
-
-    cd C:\Users\willh\Desktop\primary-sources
-    python -m http.server 8000
-
-Keep this terminal open. Access UI at:
-  - http://localhost:8000/docs/ui/index.html
-  - http://localhost:8000/docs/ui/ocr/yates-classification-report.html
-
---------------------------------------------------------------------------------
-STEP 2: Start OCR/Feedback Server (Port 5000)
---------------------------------------------------------------------------------
-
-Open a SECOND terminal window, then:
-
-    cd C:\Users\willh\Desktop\primary-sources
-    python tools/ocr_server.py
-
-================================================================================
-TO STOP SERVERS
-================================================================================
-
-Press Ctrl+C in each terminal window.
-
-================================================================================
-QUICK REFERENCE
-================================================================================
-
-  Server   Port   Purpose
-  ------   ----   -------
-  Static   8000   Serves HTML, CSS, JS, PDFs
-  OCR      5000   Feedback API, OCR processing
-
-  NEW STRUCTURE:     Run static server from web/html/
-  LEGACY STRUCTURE:  Run static server from project root
-
-================================================================================
+Stop: Ctrl+C

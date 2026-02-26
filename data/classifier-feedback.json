@@ -1,0 +1,240 @@
+{
+  "entries": [
+    {
+      "page": 1,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:31:03.442013"
+    },
+    {
+      "page": 2,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "HANDWRITTEN_NOTES",
+      "selectedType": "FBI_302",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:35:18.193455"
+    },
+    {
+      "page": 3,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:31:24.009118"
+    },
+    {
+      "page": 4,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:31:25.929165"
+    },
+    {
+      "page": 5,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:31:28.111378"
+    },
+    {
+      "page": 6,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:31:30.925683"
+    },
+    {
+      "page": 8,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "WITNESS_STATEMENT",
+      "selectedType": "WITNESS_STATEMENT",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:32:08.631764"
+    },
+    {
+      "page": 11,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "MEDICAL_RECORD",
+      "selectedType": "WITNESS_STATEMENT",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:36:37.591108"
+    },
+    {
+      "page": 9,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "WITNESS_STATEMENT",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:36:19.926986"
+    },
+    {
+      "page": 10,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "HSCA_REPORT",
+      "selectedType": "WITNESS_STATEMENT",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:36:24.845798"
+    },
+    {
+      "page": 12,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "HANDWRITTEN_NOTES",
+      "selectedType": "WC_TESTIMONY",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:36:39.838181"
+    },
+    {
+      "page": 16,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:37:16.663752"
+    },
+    {
+      "page": 17,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:37:20.301765"
+    },
+    {
+      "page": 18,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:37:22.004703"
+    },
+    {
+      "page": 20,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "WITNESS_STATEMENT",
+      "selectedType": "WITNESS_STATEMENT",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:37:55.859454"
+    },
+    {
+      "page": 21,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "WITNESS_STATEMENT",
+      "selectedType": "WITNESS_STATEMENT",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:37:57.367143"
+    },
+    {
+      "page": 33,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "MEDICAL_RECORD",
+      "selectedType": "FBI_302",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:43:47.346256"
+    },
+    {
+      "page": 34,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:43:49.028455"
+    },
+    {
+      "page": 35,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "HSCA_REPORT",
+      "selectedType": "FBI_REPORT",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:45:24.852539"
+    },
+    {
+      "page": 36,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "status": "correct",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:45:39.006452"
+    },
+    {
+      "page": 42,
+      "source": "ralphleonyatesdocumentsfull.pdf",
+      "predictedType": "MEDICAL_RECORD",
+      "selectedType": "FBI_302",
+      "status": "incorrect",
+      "textSample": "",
+      "noteType": null,
+      "notes": null,
+      "timestamp": "2026-02-26T00:47:55.333792"
+    }
+  ],
+  "summary": {
+    "total": 21,
+    "correct": 13,
+    "incorrect": 8
+  }
+}

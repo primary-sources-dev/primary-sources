@@ -28,46 +28,24 @@ document.addEventListener("componentLoaded", (e) => {
 
 /**
  * Handle Header logic: Dynamic Breadcrumbs
+ * Hides breadcrumbs on homepage, shows current section elsewhere
  */
 document.addEventListener("componentLoaded", (e) => {
     if (e.detail.name !== 'header') return;
 
+    const breadcrumbNav = document.getElementById('breadcrumb-nav');
     const breadcrumb = document.getElementById('breadcrumb-current');
-    if (breadcrumb) {
+    
+    // Detect homepage by path or title
+    const path = window.location.pathname;
+    const isHomepage = path === '/' || path.endsWith('/index.html') || path === '/index.html';
+    
+    if (isHomepage && breadcrumbNav) {
+        breadcrumbNav.style.display = 'none';
+    } else if (breadcrumb) {
         let title = document.title.split(' — ')[0];
         if (title.startsWith('Browse ')) title = title.replace('Browse ', '');
-        if (title === 'Primary Sources') title = 'Browse'; // Default to Browse for Home
+        if (title === 'Primary Sources') title = 'Browse';
         breadcrumb.textContent = title;
     }
-});
-/**
- * Cross-Port Navigation Helper
- * If we are running on port 5000 (OCR Tool Backend), rewrite links 
- * to point back to the main UI server on port 8000.
- */
-document.addEventListener("componentLoaded", (e) => {
-    if (window.location.port !== "5000") return;
-    if (e.detail.name !== 'header' && e.detail.name !== 'bottom-nav') return;
-
-    const el = e.detail.element;
-    const MAIN_SITE = "http://localhost:8000";
-
-    el.querySelectorAll('a').forEach(link => {
-        let href = link.getAttribute('href');
-        if (!href) return;
-
-        // Skip absolute URLs that already have a protocol
-        if (href.startsWith('http://') || href.startsWith('https://')) return;
-
-        // Ensure root-relative style
-        if (!href.startsWith('/')) {
-            href = '/' + href;
-        }
-
-        // Exception: Keep OCR tool links on current port if they refer to the tool itself
-        if (href.startsWith('/ocr/')) return;
-
-        // Rewrite to point to port 8000
-        link.setAttribute('href', `${MAIN_SITE}${href}`);
-    });
 });

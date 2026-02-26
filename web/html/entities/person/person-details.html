@@ -44,7 +44,156 @@
 
     <!-- MODULAR HEADER -->
     <header data-component="header"
-        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
+<!-- BUILD:INJECTED -->
+<div class="flex h-16 items-center justify-between px-4">
+    <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
+    <div class="flex items-center gap-3">
+        <!-- Nav Menu -->
+        <div class="relative group">
+            <button id="menu-toggle"
+                class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-archive-heading">menu</span>
+            </button>
+
+            <!-- DROPDOWN MENU (COLLAPSIBLE CATEGORIES) -->
+            <div id="header-dropdown"
+                class="absolute left-0 top-full mt-1 w-64 bg-archive-dark border border-archive-secondary/20 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100]">
+
+                <!-- CATEGORY 1: Home & General -->
+                <div class="menu-category" data-category="home">
+                    <button class="category-toggle" data-target="home-items" aria-expanded="false"
+                        aria-controls="home-items">
+                        <span class="material-symbols-outlined">home</span>
+                        <span>Home & General</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="home-items" class="category-items" role="region">
+                        <a href="../../index.html" class="menu-link">Home</a>
+                        <a href="../../pages/about.html" class="menu-link">About</a>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 2: Content & Info -->
+                <div class="menu-category" data-category="content">
+                    <button class="category-toggle" data-target="content-items" aria-expanded="false"
+                        aria-controls="content-items">
+                        <span class="material-symbols-outlined">article</span>
+                        <span>Content & Info</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="content-items" class="category-items" role="region">
+                        <a href="../../pages/blog.html" class="menu-link">Blog</a>
+                        <a href="../../pages/links.html" class="menu-link">Links</a>
+                        <a href="../../pages/features.html" class="menu-link">Vision & Roadmap</a>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 3: Browse Entities -->
+                <div class="menu-category" data-category="browse">
+                    <button class="category-toggle" data-target="browse-items" aria-expanded="false"
+                        aria-controls="browse-items">
+                        <span class="material-symbols-outlined">dataset</span>
+                        <span>Browse Entities</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="browse-items" class="category-items" role="region">
+                        <a href="../../entities/event/event-index.html" class="menu-link">Events</a>
+                        <a href="../../entities/person/person-index.html" class="menu-link">People</a>
+                        <a href="../../entities/organization/org-index.html" class="menu-link">Organizations</a>
+                        <a href="../../entities/place/place-index.html" class="menu-link">Places</a>
+                        <a href="../../entities/object/object-index.html" class="menu-link">Objects</a>
+                        <a href="../../entities/source/source-index.html" class="menu-link">Sources</a>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 4: Features -->
+                <div class="menu-category" data-category="features">
+                    <button class="category-toggle" data-target="features-items" aria-expanded="false"
+                        aria-controls="features-items">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                        <span>Features</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="features-items" class="category-items" role="region">
+                        <a href="../../exploration/otd.html?scope=Day&feature=true" class="menu-link">On This Day</a>
+                        <a href="../../exploration/random.html?feature=true" class="menu-link">Six Degrees</a>
+                        <a href="../../exploration/witness-atlas.html?feature=true" class="menu-link">Witness Atlas</a>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 5: Tools (with subcategories) -->
+                <div class="menu-category" data-category="tools">
+                    <button class="category-toggle" data-target="tools-items" aria-expanded="false"
+                        aria-controls="tools-items">
+                        <span class="material-symbols-outlined">construction</span>
+                        <span>Tools</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="tools-items" class="category-items" role="region">
+
+                        <!-- SUBCATEGORY: OCR & Documents -->
+                        <div class="menu-subcategory">
+                            <button class="subcategory-toggle" data-target="tools-ocr-items" aria-expanded="false"
+                                aria-controls="tools-ocr-items">
+                                <span>OCR & Documents</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="tools-ocr-items" class="subcategory-items" role="region">
+                                <a href="../../tools/ocr/ocr-ui.html?feature=true" class="menu-link">OCR Tool</a>
+                                <a href="../../tools/analyzer/analyzer-details.html" class="menu-link">Document Analyzer</a>
+                                <a href="../../tools/classifier/classifier-ui.html" class="menu-link">Classifier Review</a>
+                            </div>
+                        </div>
+
+                        <!-- SUBCATEGORY: Research & Data -->
+                        <div class="menu-subcategory">
+                            <button class="subcategory-toggle" data-target="tools-research-items" aria-expanded="false"
+                                aria-controls="tools-research-items">
+                                <span>Research & Data</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="tools-research-items" class="subcategory-items" role="region">
+                                <a href="../../tools/citation/citation-details.html" class="menu-link">Citation Generator</a>
+                                <a href="../../tools/matcher/matcher-details.html" class="menu-link">Entity Matcher</a>
+                                <a href="../../tools/research/research-details.html" class="menu-link">Research Tools</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Search -->
+        <a href="../../search.html"
+            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
+            <span class="material-symbols-outlined">search</span>
+        </a>
+
+        <!-- Branding: Title -->
+        <a href="../../index.html" class="pl-4">
+            <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary Sources:<span class="text-primary">JFK</span></span>
+        </a>
+
+        <!-- Breadcrumbs: Shows current section (hidden on homepage via nav.js) -->
+        <nav id="breadcrumb-nav" class="flex items-center gap-2 pl-3">
+            <span class="material-symbols-outlined text-sm text-archive-secondary/30">chevron_right</span>
+            <span id="breadcrumb-current" class="text-xs font-bold uppercase tracking-[0.15em] text-primary">Browse</span>
+        </nav>
+    </div>
+
+    <!-- RIGHT: User Icon -->
+    <div class="flex items-center">
+        <button id="user-menu-toggle"
+            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+            <span class="material-symbols-outlined text-archive-secondary">person</span>
+        </button>
+    </div>
+</div>
+<!-- /BUILD:INJECTED -->
+</header>
 
     <!-- PERSON HEADER (Responsive: Archive Card on Desktop, Hero on Mobile) -->
     <section class="bg-archive-dark px-6 py-6 md:py-6 border-b border-archive-secondary/20">
@@ -490,11 +639,81 @@
     </section>
 
     <!-- MODULAR FOOTER -->
-    <div data-component="footer"></div>
+    <div data-component="footer">
+<!-- BUILD:INJECTED -->
+<footer class="mt-20 border-t border-archive-secondary/10 bg-archive-dark px-6 py-12">
+    <div class="mb-12">
+        <div class="mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">account_balance</span>
+            <span class="text-sm font-bold uppercase tracking-[0.2em] text-archive-heading font-display">Primary
+                Sources</span>
+        </div>
+        <p class="max-w-xl text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
+            This archive presents primary source materials without editorial interpretation. All materials are
+            primary sources provided for the purpose of scholarly research, education, and public historical record.
+        </p>
+    </div>
+    <nav
+        class="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-y-4 text-[10px] font-bold uppercase tracking-widest text-archive-secondary">
+        <a class="hover:text-primary transition-colors" href="../../sitemap.html">Sitemap</a>
+        <a class="hover:text-primary transition-colors" href="#">Disclaimer</a>
+        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
+        <a class="hover:text-primary transition-colors" href="#">Contact Archive</a>
+    </nav>
+    <div class="border-t border-archive-secondary/5 pt-6">
+        <p class="text-[9px] text-archive-secondary opacity-40 uppercase tracking-widest">
+            © 2026 Primary Sources. All rights reserved. Managed by the Independent Historical Preservation
+            Group.
+        </p>
+    </div>
+</footer>
+<!-- /BUILD:INJECTED -->
+</div>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="People"
-        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4"></nav>
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4">
+<!-- BUILD:INJECTED -->
+<!-- 
+  CRITICAL INSTRUCTION FOR AI AGENTS: 
+  DO NOT MODIFY THIS NAVIGATION STRUCTURE, ICONS, OR LINKS UNLESS EXPLICITLY INSTRUCTED BY THE USER.
+  THIS IS THE MASTER GLOBAL NAVIGATION COMPONENT.
+-->
+<div class="grid grid-cols-5 w-full">
+    <a href="../../index.html"
+        class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
+        style="color:rgba(212,207,199,0.4)">
+        <span class="material-symbols-outlined" style="font-size:1.5rem">home</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">Home</span>
+    </a>
+    <a href="../../entities/person/person-index.html"
+        class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
+        style="color:rgba(212,207,199,0.4)">
+        <span class="material-symbols-outlined" style="font-size:1.5rem">groups</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">People</span>
+    </a>
+    <a href="../../entities/event/event-index.html"
+        class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
+        style="color:rgba(212,207,199,0.4)">
+        <span class="material-symbols-outlined" style="font-size:1.5rem">event</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">Events</span>
+    </a>
+    <a href="../../pages/about.html"
+        class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
+        style="color:rgba(212,207,199,0.4)">
+        <span class="material-symbols-outlined" style="font-size:1.5rem">info</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">About</span>
+    </a>
+    <a href="../../pages/links.html"
+        class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
+        style="color:rgba(212,207,199,0.4)">
+        <span class="material-symbols-outlined" style="font-size:1.5rem">link</span>
+        <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">Links</span>
+    </a>
+</div>
+<!-- /BUILD:INJECTED -->
+</nav>
 
     <div class="h-24"></div>
 

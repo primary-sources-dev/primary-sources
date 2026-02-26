@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classification Review</title>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <!-- CRITICAL CSS: Prevent white flash and basic layout -->
@@ -31,7 +31,7 @@
         }
     </style>
     <link rel="stylesheet" href="../../assets/css/tailwind-prod.css">
-    
+
     <style>
         /* Page-specific styles (global styles from main.css) */
         .correct {
@@ -174,25 +174,56 @@
             border-color: #ef4444;
         }
 
-        details[open] summary {
-            opacity: 0.7;
+        /* 4-Tier Badges */
+        .badge-tier {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Loading state */
-        .loading-spinner {
+        .badge-agency {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .badge-class {
+            background: rgba(168, 85, 247, 0.2);
+            color: #d8b4fe;
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .badge-format {
+            background: rgba(234, 179, 8, 0.2);
+            color: #fde047;
+            border-color: rgba(234, 179, 8, 0.4);
+        }
+
+        .badge-content {
+            background: rgba(20, 184, 166, 0.2);
+            color: #99f6e4;
+            border-color: rgba(20, 184, 166, 0.4);
+        }
+
+        .content-tag {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(176, 139, 73, 0.3);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            font-size: 9px;
+            padding: 1px 4px;
+            margin: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .verified-badge {
+            color: #22c55e;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
     </style>
     <script src="../../assets/js/components.js" defer></script>
@@ -203,7 +234,166 @@
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
     <!-- Global Header -->
     <header data-component="header"
-        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur"></header>
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
+        <!-- BUILD:INJECTED -->
+        <div class="flex h-16 items-center justify-between px-4">
+            <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
+            <div class="flex items-center gap-3">
+                <!-- Nav Menu -->
+                <div class="relative group">
+                    <button id="menu-toggle"
+                        class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+                        <span class="material-symbols-outlined text-archive-heading">menu</span>
+                    </button>
+
+                    <!-- DROPDOWN MENU (COLLAPSIBLE CATEGORIES) -->
+                    <div id="header-dropdown"
+                        class="absolute left-0 top-full mt-1 w-64 bg-archive-dark border border-archive-secondary/20 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100]">
+
+                        <!-- CATEGORY 1: Home & General -->
+                        <div class="menu-category" data-category="home">
+                            <button class="category-toggle" data-target="home-items" aria-expanded="false"
+                                aria-controls="home-items">
+                                <span class="material-symbols-outlined">home</span>
+                                <span>Home & General</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="home-items" class="category-items" role="region">
+                                <a href="../../index.html" class="menu-link">Home</a>
+                                <a href="../../pages/about.html" class="menu-link">About</a>
+                            </div>
+                        </div>
+
+                        <!-- CATEGORY 2: Content & Info -->
+                        <div class="menu-category" data-category="content">
+                            <button class="category-toggle" data-target="content-items" aria-expanded="false"
+                                aria-controls="content-items">
+                                <span class="material-symbols-outlined">article</span>
+                                <span>Content & Info</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="content-items" class="category-items" role="region">
+                                <a href="../../pages/blog.html" class="menu-link">Blog</a>
+                                <a href="../../pages/links.html" class="menu-link">Links</a>
+                                <a href="../../pages/features.html" class="menu-link">Vision & Roadmap</a>
+                            </div>
+                        </div>
+
+                        <!-- CATEGORY 3: Browse Entities -->
+                        <div class="menu-category" data-category="browse">
+                            <button class="category-toggle" data-target="browse-items" aria-expanded="false"
+                                aria-controls="browse-items">
+                                <span class="material-symbols-outlined">dataset</span>
+                                <span>Browse Entities</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="browse-items" class="category-items" role="region">
+                                <a href="../../entities/event/event-index.html" class="menu-link">Events</a>
+                                <a href="../../entities/person/person-index.html" class="menu-link">People</a>
+                                <a href="../../entities/organization/org-index.html" class="menu-link">Organizations</a>
+                                <a href="../../entities/place/place-index.html" class="menu-link">Places</a>
+                                <a href="../../entities/object/object-index.html" class="menu-link">Objects</a>
+                                <a href="../../entities/source/source-index.html" class="menu-link">Sources</a>
+                            </div>
+                        </div>
+
+                        <!-- CATEGORY 4: Features -->
+                        <div class="menu-category" data-category="features">
+                            <button class="category-toggle" data-target="features-items" aria-expanded="false"
+                                aria-controls="features-items">
+                                <span class="material-symbols-outlined">auto_awesome</span>
+                                <span>Features</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="features-items" class="category-items" role="region">
+                                <a href="../../exploration/otd.html?scope=Day&feature=true" class="menu-link">On This
+                                    Day</a>
+                                <a href="../../exploration/random.html?feature=true" class="menu-link">Six Degrees</a>
+                                <a href="../../exploration/witness-atlas.html?feature=true" class="menu-link">Witness
+                                    Atlas</a>
+                            </div>
+                        </div>
+
+                        <!-- CATEGORY 5: Tools (with subcategories) -->
+                        <div class="menu-category" data-category="tools">
+                            <button class="category-toggle" data-target="tools-items" aria-expanded="false"
+                                aria-controls="tools-items">
+                                <span class="material-symbols-outlined">construction</span>
+                                <span>Tools</span>
+                                <span class="chevron material-symbols-outlined">expand_more</span>
+                            </button>
+                            <div id="tools-items" class="category-items" role="region">
+
+                                <!-- SUBCATEGORY: OCR & Documents -->
+                                <div class="menu-subcategory">
+                                    <button class="subcategory-toggle" data-target="tools-ocr-items"
+                                        aria-expanded="false" aria-controls="tools-ocr-items">
+                                        <span>OCR & Documents</span>
+                                        <span class="chevron material-symbols-outlined">expand_more</span>
+                                    </button>
+                                    <div id="tools-ocr-items" class="subcategory-items" role="region">
+                                        <a href="../../tools/ocr/ocr-ui.html?feature=true" class="menu-link">OCR
+                                            Tool</a>
+                                        <a href="../../tools/analyzer/analyzer-details.html" class="menu-link">Document
+                                            Analyzer</a>
+                                        <a href="../../tools/classifier/classifier-ui.html" class="menu-link">Classifier
+                                            Review</a>
+                                    </div>
+                                </div>
+
+                                <!-- SUBCATEGORY: Research & Data -->
+                                <div class="menu-subcategory">
+                                    <button class="subcategory-toggle" data-target="tools-research-items"
+                                        aria-expanded="false" aria-controls="tools-research-items">
+                                        <span>Research & Data</span>
+                                        <span class="chevron material-symbols-outlined">expand_more</span>
+                                    </button>
+                                    <div id="tools-research-items" class="subcategory-items" role="region">
+                                        <a href="../../tools/citation/citation-details.html" class="menu-link">Citation
+                                            Generator</a>
+                                        <a href="../../tools/matcher/matcher-details.html" class="menu-link">Entity
+                                            Matcher</a>
+                                        <a href="../../tools/research/research-details.html" class="menu-link">Research
+                                            Tools</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <a href="../../search.html"
+                    class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
+                    <span class="material-symbols-outlined">search</span>
+                </a>
+
+                <!-- Branding: Title -->
+                <a href="../../index.html" class="pl-4">
+                    <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary
+                        Sources:<span class="text-primary">JFK</span></span>
+                </a>
+
+                <!-- Breadcrumbs: Shows current section (hidden on homepage via nav.js) -->
+                <nav id="breadcrumb-nav" class="flex items-center gap-2 pl-3">
+                    <span class="material-symbols-outlined text-sm text-archive-secondary/30">chevron_right</span>
+                    <span id="breadcrumb-current"
+                        class="text-xs font-bold uppercase tracking-[0.15em] text-primary">Browse</span>
+                </nav>
+            </div>
+
+            <!-- RIGHT: User Icon -->
+            <div class="flex items-center">
+                <button id="user-menu-toggle"
+                    class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+                    <span class="material-symbols-outlined text-archive-secondary">person</span>
+                </button>
+            </div>
+        </div>
+        <!-- /BUILD:INJECTED -->
+    </header>
 
     <script>
         // =====================================================================
@@ -218,10 +408,21 @@
         const PDF_URL = `/api/download/${encodeURIComponent(FILE_NAME)}`;
         let pdfDoc = null;
 
-        // All supported document types (from DocType enum in document_classifier.py)
+        // 4-Tier Vocabularies
+        const AGENCIES = ['FBI', 'CIA', 'DPD', 'WC', 'HSCA', 'NARA', 'SS', 'UNKNOWN'];
+        const CLASSES = ['REPORT', 'CABLE', 'MEMO', 'CORRESPONDENCE', 'EXHIBIT', 'TESTIMONY', 'DEPOSITION', 'AFFIDAVIT', 'TRAVEL', 'OTHER'];
+        const FORMATS = ['FD-302', 'AIRTEL', 'TELETYPE', 'RIF', 'CABLE', 'MEMO', 'LETTER', 'ENVELOPE', 'PASSPORT', 'VISA', 'OTHER'];
+        const CONTENT_TYPES = [
+            'WITNESS_INTERVIEW', 'FORENSIC_ANALYSIS', 'BALLISTICS', 'SURVEILLANCE',
+            'INVESTIGATIVE_SUMM', 'AUTOPSY_REPORT', 'SECURITY_CLEARANCE',
+            'POLYGRAPH_EXAM', 'TIPS_AND_LEADS', 'ADMINISTRATIVE',
+            'CORRESPONDENCE', 'SEARCH_WARRANT'
+        ];
+
+        // All legacy doc types for backward compat
         const ALL_DOC_TYPES = [
             'BLANK', 'CHURCH_COMMITTEE', 'CIA_201', 'CIA_CABLE', 'COVER',
-            'DPD_REPORT', 'FBI_302', 'FBI_REPORT', 'HANDWRITTEN_NOTES',
+            'DPD_REPORT', 'FBI_302', 'FBI_REPORT', 'FBI_TELETYPE', 'HANDWRITTEN_NOTES',
             'HSCA_DOC', 'HSCA_REPORT', 'INDEX', 'LETTER', 'MEDICAL_RECORD',
             'MEMO', 'NARA_RIF', 'POLICE_REPORT', 'SENATE_REPORT',
             'TRAVEL_DOCUMENT', 'TOC', 'UNKNOWN', 'WC_AFFIDAVIT',
@@ -254,11 +455,15 @@
 
         async function renderPage(pageIndex, canvasId, scale = 1.5) {
             try {
-                if (!pdfDoc) { console.error('No PDF document loaded'); return; }
+                if (!pdfDoc) {
+                    console.warn(`Delaying render for page ${pageIndex}: PDF not ready`);
+                    return false;
+                }
                 const page = await pdfDoc.getPage(pageIndex + 1);
                 const viewport = page.getViewport({ scale });
                 const canvas = document.getElementById(canvasId);
-                if (!canvas) { console.error('Canvas not found:', canvasId); return; }
+                if (!canvas) return false;
+
                 const ctx = canvas.getContext('2d');
                 canvas.width = viewport.width;
                 canvas.height = viewport.height;
@@ -271,9 +476,24 @@
                 }
                 const loading = canvas.parentElement.querySelector('.canvas-loading');
                 if (loading) loading.remove();
+                return true;
             } catch (err) {
                 console.error('Failed to render page', pageIndex, err);
+                const canvas = document.getElementById(canvasId);
+                if (canvas) {
+                    const loading = canvas.parentElement.querySelector('.canvas-loading');
+                    if (loading) {
+                        loading.innerHTML = '<button onclick="retryRender(' + pageIndex + ')" class="text-[10px] underline">Retry</button>';
+                    }
+                }
+                return false;
             }
+        }
+
+        function retryRender(pageIndex) {
+            const loading = document.querySelector(`#canvas-${pageIndex}`).parentElement.querySelector('.canvas-loading');
+            if (loading) loading.textContent = 'Retrying...';
+            renderPage(pageIndex, `canvas-${pageIndex}`);
         }
 
         async function renderTextLayer(page, canvas, viewport, highlightTerms) {
@@ -325,17 +545,22 @@
             });
 
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach(async (entry) => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
                         const pageIndex = parseInt(el.dataset.pageIndex);
                         if (!renderedPages.has(pageIndex)) {
-                            renderedPages.add(pageIndex);
-                            renderPage(pageIndex, `canvas-${pageIndex}`);
+                            const success = await renderPage(pageIndex, `canvas-${pageIndex}`);
+                            if (success) {
+                                renderedPages.add(pageIndex);
+                            } else if (pdfDoc) {
+                                // If it failed but doc IS ready, it's a real error, mark it so we don't spam retries
+                                renderedPages.add(pageIndex);
+                            }
                         }
                     }
                 });
-            }, { rootMargin: '200px', threshold: 0.01 });
+            }, { rootMargin: '400px', threshold: 0.01 }); // Increased margin to 400px
 
             cards.forEach(card => observer.observe(card));
         }
@@ -385,74 +610,116 @@
         }
 
         function renderCard(pageData) {
-            const { page, page_index, doc_type, confidence, matched_patterns, all_scores } = pageData;
+            const { page, page_index, doc_type, agency, confidence, matched_patterns, all_scores } = pageData;
             const confPct = Math.round(confidence * 100);
             const highlightsJson = JSON.stringify(matched_patterns).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-            const highlightDisplay = matched_patterns.length > 0
-                ? matched_patterns.join(', ')
-                : '<em class="opacity-40">none</em>';
+
+            const isContinuation = matched_patterns.some(p => p.includes('CONTINUITY_FROM'));
+            const continuityClass = isContinuation ? 'border-l-4 border-l-blue-500/50' : '';
 
             return `
-            <div id="page-${page}" class="card border p-4 pending" data-page="${page}" data-page-index="${page_index}"
-                data-predicted="${doc_type}" data-confidence="${confidence}"
+            <div id="page-${page}" class="card border p-4 pending ${continuityClass}" data-page="${page}" data-page-index="${page_index}"
+                data-predicted="${doc_type}" data-agency="${agency || 'UNKNOWN'}" data-confidence="${confidence}"
                 data-highlights='${JSON.stringify(matched_patterns)}'>
                 <div class="flex gap-6">
-                    <!-- Left: PDF Page (rendered by PDF.js) -->
-                    <div class="flex-shrink-0 max-w-[350px]">
-                        <div class="canvas-container">
-                            <canvas id="canvas-${page_index}" class="pdf-canvas" onclick="showModalPage(${page_index})"></canvas>
+                    <!-- Left: PDF Page -->
+                    <div class="flex-shrink-0 max-w-[320px]">
+                        <div class="canvas-container shadow-lg">
+                            <canvas id="canvas-${page_index}" class="pdf-canvas rounded-sm" onclick="showModalPage(${page_index})"></canvas>
                             <div class="canvas-loading">Loading...</div>
+                            ${isContinuation ? '<div class="absolute top-0 right-0 bg-blue-600 text-[9px] px-1.5 py-0.5 font-bold tracking-tighter shadow-md">CONTINUITY</div>' : ''}
                         </div>
                     </div>
 
-                    <!-- Right: Classification Details -->
+                    <!-- Right: Classification and 4-Tier Feedback -->
                     <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <span class="font-bold text-lg" style="color: var(--primary);">Page ${page}</span>
-                                <span class="ml-2 ${confidenceColor(confidence)} text-sm">${confPct}%</span>
-                                <span id="status-${page}" class="ml-3 text-xs opacity-60"></span>
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center gap-3">
+                                <span class="font-bold text-xl" style="color: var(--primary);">Page ${page}</span>
+                                <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-xs ${confidenceColor(confidence)}">${confPct}% Match</span>
+                                <div id="verified-badge-${page}" class="hidden verified-badge text-xs">
+                                    <span class="material-symbols-outlined text-sm">verified</span> Verified
+                                </div>
+                            </div>
+                            <div id="status-text-${page}" class="text-xs opacity-60 italic"></div>
+                        </div>
+
+                        <!-- Current 4-Tier View -->
+                        <div class="grid grid-cols-2 gap-2 mb-4 p-3 bg-black/20 rounded border border-white/5">
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[9px] uppercase tracking-wider opacity-40">1. Agency</label>
+                                <span class="badge-tier badge-agency w-fit" id="view-agency-${page}">${agency || 'UNKNOWN'}</span>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[9px] uppercase tracking-wider opacity-40">2. Document Class</label>
+                                <span class="badge-tier badge-class w-fit" id="view-class-${page}">${doc_type}</span>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[9px] uppercase tracking-wider opacity-40">3. Format</label>
+                                <span class="badge-tier badge-format w-fit" id="view-format-${page}">PENDING</span>
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[9px] uppercase tracking-wider opacity-40">4. Content Tags</label>
+                                <div id="view-content-${page}" class="flex flex-wrap gap-1">
+                                    <span class="text-[10px] opacity-30 italic">Not set</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mb-2 text-xs opacity-50">
-                            <span>Predicted: <strong>${doc_type}</strong> | Alt: ${renderTopScores(all_scores, doc_type)}</span>
+                        <!-- 4-Tier Correction Form -->
+                        <div class="p-3 bg-archive-dark rounded-md border border-white/5 mb-4 shadow-inner">
+                            <div class="grid grid-cols-3 gap-3 mb-3">
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-[10px] opacity-60">Agency:</label>
+                                    <select id="select-agency-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded">
+                                        ${AGENCIES.map(a => `<option value="${a}" ${a === agency ? 'selected' : ''}>${a}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-[10px] opacity-60">Class:</label>
+                                    <select id="select-class-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded">
+                                        ${CLASSES.map(c => `<option value="${c}" ${c === 'REPORT' ? 'selected' : ''}>${c}</option>`).join('')}
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-[10px] opacity-60">Format:</label>
+                                    <select id="select-format-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded">
+                                        <option value="">-- Auto --</option>
+                                        ${FORMATS.map(f => `<option value="${f}">${f}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="text-[10px] opacity-60 block mb-1">Content Tags (Select many):</label>
+                                <div class="flex flex-wrap gap-1 p-2 bg-black/30 rounded border border-white/5 max-h-[80px] overflow-y-auto">
+                                    ${CONTENT_TYPES.map(ct => `
+                                        <label class="flex items-center gap-1 text-[10px] bg-white/5 hover:bg-white/10 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">
+                                            <input type="checkbox" name="content-${page}" value="${ct}" class="scale-75"> ${ct}
+                                        </label>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="flag-new-${page}" class="scale-90">
+                                    <label for="flag-new-${page}" class="text-[10px] text-yellow-500/80">Flag as New Document Type</label>
+                                </div>
+                                <button onclick="submit4Tier(${page})" class="bg-primary hover:bg-primary/80 text-archive-dark px-4 py-1.5 rounded font-bold text-xs transition-colors shadow-lg">
+                                    APPLY & VERIFY
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="mb-2 text-xs" style="color: var(--primary);">
-                            <span class="opacity-60">Highlight terms:</span> ${highlightDisplay}
-                        </div>
-
-                        <!-- One-Click Type Selection -->
-                        <div class="mb-3 p-2 type-grid" style="background: var(--archive-dark); border-radius: 4px;">
-                            <div class="text-xs opacity-60 mb-2">Top candidates (click to confirm):</div>
-                            <div class="flex flex-wrap gap-1 mb-2">
-                                ${buildTopButtons(page, all_scores, doc_type)}
+                        <!-- Technical Details -->
+                        <details class="mb-2">
+                            <summary class="text-[10px] opacity-30 cursor-pointer hover:opacity-100 transition-opacity">Show analysis fingerprints</summary>
+                            <div class="mt-2 p-2 bg-black/40 rounded border border-white/5 text-[10px] font-mono leading-relaxed">
+                                <div class="mb-2 text-primary font-bold">Matches:</div>
+                                <div class="pl-2 border-l border-primary/30">${matched_patterns.join('<br>')}</div>
                             </div>
-                            <div class="text-xs opacity-40 mt-2 mb-1">Other types:</div>
-                            <div class="flex flex-wrap gap-1">
-                                ${buildOtherButtons(page, all_scores)}
-                            </div>
-                        </div>
-
-                        <!-- Notes -->
-                        <div class="mb-3 p-2 overflow-hidden" style="background: var(--archive-dark); border-radius: 4px;">
-                            <div class="text-xs opacity-60 mb-2">Notes:</div>
-                            <div class="flex gap-2 min-w-0">
-                                <select id="note-preset-${page}" onchange="applyNotePreset(${page})" class="text-xs flex-shrink-0"
-                                    style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); max-width: 180px;">
-                                    <option value="">Select note...</option>
-                                    <option value="NEW_TYPE">New doc type</option>
-                                    <option value="NEW_PATTERN">Add pattern</option>
-                                    <option value="SCHEMA_UPDATE">Schema change</option>
-                                    <option value="OCR_QUALITY">Poor OCR</option>
-                                    <option value="AMBIGUOUS">Ambiguous</option>
-                                </select>
-                                <input type="text" id="note-text-${page}" placeholder="Custom note..." onchange="saveNote(${page})"
-                                    class="flex-1 min-w-0 text-xs"
-                                    style="background: var(--archive-dark); border: 1px solid rgba(212, 207, 199, 0.2); color: var(--archive-secondary); padding: 6px 10px; border-radius: 2px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);" />
-                            </div>
-                        </div>
+                        </details>
                     </div>
                 </div>
             </div>`;
@@ -566,6 +833,13 @@
                     </select>
                 </div>
                 <div>
+                    <label class="opacity-60 mr-2">Agency:</label>
+                    <select id="filter-agency" onchange="applyFilters()"
+                        style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.2); color: var(--archive-secondary); padding: 4px 8px;">
+                        <option value="">All Agencies</option>
+                    </select>
+                </div>
+                <div>
                     <label class="opacity-60 mr-2">Show:</label>
                     <select id="filter-status" onchange="applyFilters()"
                         style="background: var(--archive-dark); border: 1px solid rgba(255,255,255,0.2); color: var(--archive-secondary); padding: 4px 8px;">
@@ -635,53 +909,49 @@
             saveFeedback();
         }
 
-        function selectType(page, selectedType) {
+        function submit4Tier(page) {
             const el = document.getElementById(`page-${page}`);
             const predicted = el.dataset.predicted;
-            const isCorrect = (selectedType === predicted);
 
-            const textEl = el.querySelector('pre');
-            const textSample = textEl ? textEl.textContent.substring(0, 500) : '';
+            const agency = document.getElementById(`select-agency-${page}`).value;
+            const docClass = document.getElementById(`select-class-${page}`).value;
+            const format = document.getElementById(`select-format-${page}`).value;
+            const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
+            const isNew = document.getElementById(`flag-new-${page}`).checked;
 
-            const noteType = document.getElementById(`note-preset-${page}`).value || null;
-            const notes = document.getElementById(`note-text-${page}`).value || null;
+            const textSample = el.dataset.textSample || '';
 
-            feedback[page] = {
-                status: isCorrect ? "correct" : "incorrect",
+            const feedbackData = {
+                status: (doc_class === predicted) ? "correct" : "incorrect",
                 predictedType: predicted,
-                selectedType: selectedType,
-                noteType: noteType,
-                notes: notes
+                selectedType: docClass, // Backward compatibility
+                selectedAgency: agency,
+                selectedClass: docClass,
+                selectedFormat: format,
+                selectedContent: content,
+                newTypeFlag: isNew
             };
+
+            feedback[page] = feedbackData;
             saveFeedback();
-            applyFeedbackUI(page, feedback[page]);
+            applyFeedbackUI(page, feedbackData);
             updateStats();
 
-            // POST to server for training
+            // POST to server
             fetch(FEEDBACK_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     page: page,
                     source: SOURCE_NAME,
-                    predictedType: predicted,
-                    selectedType: selectedType,
-                    status: isCorrect ? "correct" : "incorrect",
-                    textSample: textSample,
-                    noteType: noteType,
-                    notes: notes
+                    ...feedbackData
                 })
             })
                 .then(res => res.json())
                 .then(data => {
-                    if (data.success) {
-                        console.log(`Feedback saved to server: ${data.totalEntries} total entries`);
-                        showToast(`Saved to training data (${data.summary.total} entries)`);
-                    }
+                    if (data.success) showToast(`Verified Page ${page}`);
                 })
-                .catch(err => {
-                    console.warn('Could not save to server (OCR server may not be running):', err);
-                });
+                .catch(err => console.warn('Server offline, saved locally only.'));
         }
 
         function showToast(message) {
@@ -696,33 +966,36 @@
             const el = document.getElementById(`page-${page}`);
             if (!el) return;
 
-            el.classList.remove("correct", "incorrect", "pending");
+            el.classList.remove("pending");
             el.classList.add(data.status);
 
-            const statusEl = document.getElementById(`status-${page}`);
-            if (data.status === "correct") {
-                statusEl.textContent = "✓ Correct";
-                statusEl.style.color = "#22c55e";
-            } else if (data.status === "incorrect") {
-                statusEl.textContent = `✗ Wrong → ${data.selectedType}`;
-                statusEl.style.color = "#ef4444";
+            const statusEl = document.getElementById(`status-text-${page}`);
+            statusEl.textContent = "✓ Verified";
+            statusEl.classList.add("text-green-500");
+
+            document.getElementById(`verified-badge-${page}`).classList.remove("hidden");
+
+            // Update View labels
+            document.getElementById(`view-agency-${page}`).textContent = data.selectedAgency;
+            document.getElementById(`view-class-${page}`).textContent = data.selectedClass;
+            document.getElementById(`view-format-${page}`).textContent = data.selectedFormat || 'GENERIC';
+
+            const contentContainer = document.getElementById(`view-content-${page}`);
+            if (data.selectedContent && data.selectedContent.length > 0) {
+                contentContainer.innerHTML = data.selectedContent.map(c => `<span class="content-tag">${c}</span>`).join('');
             } else {
-                statusEl.textContent = "";
+                contentContainer.innerHTML = '<span class="text-[10px] opacity-30 italic">none</span>';
             }
 
-            const buttons = el.querySelectorAll(".type-btn");
-            buttons.forEach(btn => {
-                btn.classList.remove("selected", "wrong");
-                if (data.selectedType && btn.dataset.type === data.selectedType) {
-                    btn.classList.add("selected");
-                    if (data.status === "incorrect") btn.classList.add("wrong");
-                }
-            });
+            // Sync form
+            document.getElementById(`select-agency-${page}`).value = data.selectedAgency;
+            document.getElementById(`select-class-${page}`).value = data.selectedClass;
+            document.getElementById(`select-format-${page}`).value = data.selectedFormat || "";
 
-            const notePreset = document.getElementById(`note-preset-${page}`);
-            const noteText = document.getElementById(`note-text-${page}`);
-            if (notePreset && data.noteType) notePreset.value = data.noteType;
-            if (noteText && data.notes) noteText.value = data.notes;
+            // Check content boxes
+            document.querySelectorAll(`input[name="content-${page}"]`).forEach(cb => {
+                cb.checked = (data.selectedContent || []).includes(cb.value);
+            });
         }
 
         function saveFeedback() {
@@ -741,10 +1014,35 @@
             document.getElementById("stat-correct").textContent = correct;
             document.getElementById("stat-incorrect").textContent = incorrect;
         }
+        function populateTypeFilter(pages) {
+            const types = [...new Set(pages.map(p => p.doc_type))].sort();
+            const agencies = [...new Set(pages.map(p => p.agency))].filter(Boolean).sort();
+
+            const typeSelect = document.getElementById('filter-type');
+            typeSelect.innerHTML = '<option value="">All Types</option>';
+            types.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t;
+                opt.textContent = t;
+                typeSelect.appendChild(opt);
+            });
+
+            const agencySelect = document.getElementById('filter-agency');
+            if (agencySelect) {
+                agencySelect.innerHTML = '<option value="">All Agencies</option>';
+                agencies.forEach(a => {
+                    const opt = document.createElement('option');
+                    opt.value = a;
+                    opt.textContent = a;
+                    agencySelect.appendChild(opt);
+                });
+            }
+        }
 
         // Filtering and sorting
         function applyFilters() {
             const typeFilter = document.getElementById("filter-type").value;
+            const agencyFilter = document.getElementById("filter-agency")?.value || "";
             const statusFilter = document.getElementById("filter-status").value;
             const sortOrder = document.getElementById("sort-order").value;
 
@@ -754,10 +1052,12 @@
             cards.forEach(card => {
                 const page = card.dataset.page;
                 const predicted = card.dataset.predicted;
+                const agency = card.dataset.agency;
                 const status = feedback[page]?.status || "pending";
 
                 let show = true;
                 if (typeFilter && predicted !== typeFilter) show = false;
+                if (agencyFilter && agency !== agencyFilter) show = false;
                 if (statusFilter && status !== statusFilter) show = false;
 
                 card.classList.toggle("hidden", !show);

@@ -8,22 +8,26 @@
  * - No need to manually include this script on every page
  */
 
+let menuInitialized = false;
+
 // Initialize when header component loads (modular component system)
 document.addEventListener('componentLoaded', (e) => {
-    if (e.detail.name === 'header') {
+    if (e.detail.name === 'header' && !menuInitialized) {
         initCollapsibleMenu();
     }
 });
 
-// Fallback: Initialize on DOMContentLoaded if header is already in DOM (static HTML)
+// Fallback: Initialize on DOMContentLoaded if header is already in DOM (pre-built)
 document.addEventListener('DOMContentLoaded', () => {
-    // Only init if header exists and componentLoaded hasn't fired yet
-    if (document.querySelector('.category-toggle')) {
+    if (!menuInitialized && document.querySelector('.category-toggle')) {
         initCollapsibleMenu();
     }
 });
 
 function initCollapsibleMenu() {
+    if (menuInitialized) return;
+    menuInitialized = true;
+
     // Handle category toggles
     const categoryToggles = document.querySelectorAll('.category-toggle');
     categoryToggles.forEach(toggle => {

@@ -32,6 +32,26 @@ To view the archive locally:
 2. Run: `python -m http.server 8000`
 3. Open your browser to: `http://localhost:8000`
 
+## Development
+
+### Build System
+
+Components (header, footer, nav) are pre-built into pages to eliminate loading flash.
+
+```bash
+# Build all pages (injects component HTML)
+python build.py
+
+# Clean (remove injected content for editing)
+python build.py --clean
+```
+
+**Workflow:**
+1. Run `python build.py --clean` before editing component files
+2. Make your changes to files in `components/`
+3. Run `python build.py` to re-inject into all pages
+4. Test locally
+
 ## Structure
 
 ```

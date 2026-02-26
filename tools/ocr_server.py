@@ -94,7 +94,7 @@ app = Flask(__name__,
             static_url_path="/static")
 
 # Configuration
-UPLOAD_FOLDER = os.path.join(PROJECT_ROOT, "processed")
+UPLOAD_FOLDER = os.path.join(NEW_UI_ROOT, "processed")
 MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
 ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif", "zip", "tar", "gz", "tgz", "bz2"}
 ARCHIVE_EXTENSIONS = {"zip", "tar", "gz", "tgz", "bz2"}
@@ -429,13 +429,15 @@ def _run_metadata_parser(file_info: dict, job: dict):
     if CLASSIFIER_AVAILABLE and ocr_text:
         try:
             classification = classify_document(ocr_text)
+            agency = get_agency(classification.doc_type)
             if "parsed_metadata" not in file_info:
                 file_info["parsed_metadata"] = {}
             file_info["parsed_metadata"]["classified_type"] = classification.doc_type.value
+            file_info["parsed_metadata"]["classification_agency"] = agency
             file_info["parsed_metadata"]["classification_confidence"] = round(classification.confidence, 3)
             file_info["parsed_metadata"]["classification_label"] = classification.confidence_label
             job["log"].append(
-                f"  → Classified: {classification.doc_type.value} "
+                f"  → Classified: {classification.doc_type.value} [{agency}] "
                 f"({round(classification.confidence * 100)}% {classification.confidence_label})"
             )
         except Exception as e:
@@ -972,18 +974,24 @@ def review_endpoint(filename):
 
         results = []
         doc = fitz.open(pdf_path)
+        prev_type = "UNKNOWN"
 
         for page_num in range(len(doc)):
             page = doc[page_num]
             text = page.get_text()
 
-            classification = classify_document(text)
+            classification = classify_document(text, prev_type=prev_type)
             all_scores = get_all_scores(text)
+            agency = get_agency(classification.doc_type)
+            
+            # Update state for next page
+            prev_type = classification.doc_type.value
 
             results.append({
                 "page":             page_num + 1,
                 "page_index":       page_num,
                 "doc_type":         classification.doc_type.value,
+                "agency":           agency,
                 "confidence":       round(classification.confidence, 4),
                 "matched_patterns": classification.matched_patterns[:5],
                 "all_scores":       {k: round(v, 4) for k, v in all_scores.items()},
@@ -1029,7 +1037,7 @@ def save_feedback(data: dict):
 @app.route("/api/feedback", methods=["POST"])
 def feedback_post():
     """
-    Save classification feedback for training.
+    Save classification feedback for training and schema discovery.
     
     Request body (JSON):
         {
@@ -1037,7 +1045,12 @@ def feedback_post():
             "source": "GPO-WARRENCOMMISSIONHEARINGS-1.pdf",
             "predictedType": "WC_TESTIMONY",
             "selectedType": "FBI_302",
+            "selectedAgency": "FBI",
+            "selectedClass": "REPORT",
+            "selectedFormat": "FD-302",
+            "selectedContent": ["INTERVIEW", "TESTIMONY"],
             "status": "incorrect",
+            "newTypeFlag": false,
             "textSample": "First 500 chars of OCR text..."
         }
     
@@ -1048,7 +1061,8 @@ def feedback_post():
     if not data:
         return jsonify({"error": "Missing JSON body"}), 400
     
-    required = ["page", "predictedType", "selectedType", "status"]
+    # We now permit partial feedback for the 4-tier model
+    required = ["page", "status"]
     missing = [f for f in required if f not in data]
     if missing:
         return jsonify({"error": f"Missing required fields: {missing}"}), 400
@@ -1091,6 +1105,12 @@ def feedback_post():
     
     # Save
     save_feedback(feedback)
+    
+    # SCHEMA DISCOVERY TRIGGER
+    # If the user flagged a new type, we log it specifically for the agent to find 
+    if data.get("newTypeFlag"):
+        print(f"[AGENTIC] New Document Type Detected: {data.get('selectedType')} in {source}")
+        # Note: In a full implementation, this could trigger an event or a separate log
     
     return jsonify({
         "success": True,
