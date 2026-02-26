@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-validate.py — Template Structure Validator
+validate-build.py — Template Structure Validator
 
 Checks for common template issues after build:
 - Orphaned structural elements outside component wrappers
@@ -9,9 +9,9 @@ Checks for common template issues after build:
 - Excessive file size (indicates duplication)
 
 Usage:
-    python validate.py              # Validate all HTML files
-    python validate.py --strict     # Exit with error code if issues found
-    python validate.py --file path  # Validate specific file
+    python validate-build.py              # Validate all HTML files
+    python validate-build.py --strict     # Exit with error code if issues found
+    python validate-build.py --file path  # Validate specific file
 
 Run after build.py to catch template corruption early.
 """
@@ -91,8 +91,8 @@ class TemplateValidator:
             flags=re.DOTALL | re.IGNORECASE
         )
 
-        # Search for structural elements
-        for match in re.finditer(r'<(header|footer|nav)\b', cleaned, re.IGNORECASE):
+        # Search for structural elements (excluding nav - it's used globally)
+        for match in re.finditer(r'<(header|footer)\b', cleaned, re.IGNORECASE):
             tag_name = match.group(1)
             # Find line number
             line_num = content[:match.start()].count('\n') + 1

@@ -1,14 +1,15 @@
-# Event Profile Template - Quick Start Guide
+# Event Details Template - Implementation Guide
 
-**Status:** ✅ Production Ready
-**Date:** 2026-02-24
-**Version:** 1.0.0
+**Status:** ✅ Production Ready  
+**Date:** 2026-02-26  
+**Version:** 2.0.0  
+**Location:** `entities/event/event-details.html`
 
 ---
 
 ## Overview
 
-Universal event profile template using a **component card library** architecture with archival aesthetic from oswald.html. Define all possible sections once, show only sections with data.
+Universal event details template using a **component card library** architecture with archival aesthetic. Define all possible sections once, show only sections with data.
 
 **Works for both:**
 - **Comprehensive events** (like Yates Incident with 7 sub-events, multiple participants, sources)
@@ -18,21 +19,21 @@ Universal event profile template using a **component card library** architecture
 
 ### 1. Start Local Server
 ```bash
-cd C:\Users\willh\Desktop\primary-sources\docs\ui
+cd C:\Users\willh\Desktop\primary-sources\web\html
 python -m http.server 8000
 ```
 
 ### 2. Test URLs
 
 ```
-Comprehensive Event (Yates Incident - 9 cards):
-http://localhost:8000/event.html?id=yates-hitchhiker
+Comprehensive Event (Yates Incident - 10 cards):
+http://localhost:8000/entities/event/event-details.html?id=1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d
 
 Simple Event (Walker Incident - 7 cards):
-http://localhost:8000/event.html?id=walker-incident
+http://localhost:8000/entities/event/event-details.html?id=walker-event-id
 
 Empty State (Minimal - 0 cards):
-http://localhost:8000/event.html?id=minimal-event
+http://localhost:8000/entities/event/event-details.html?id=minimal-event-id
 ```
 
 ---
@@ -40,21 +41,20 @@ http://localhost:8000/event.html?id=minimal-event
 ## File Structure
 
 ```
-docs/ui/
-├── event.html                           # Canonical event template ⭐
-├── archived/
-│   └── event-original.html              # Original template (archived)
-├── assets/
-│   ├── js/
-│   │   ├── event-v1-profile.js          # Card registry + loading
-│   │   ├── event-v1-cards.js            # Card populate functions
-│   │   ├── components.js                # Existing
-│   │   ├── nav.js                       # Existing
-│   │   └── db-logic.js                  # Existing
-│   ├── data/
-│   │   ├── events.json                  # Baseline Data (Canonical)
-│   └── css/
-│       └── main.css                     # Existing
+web/html/entities/event/
+├── event-details.html                  # Event details template ⭐
+├── event-index.html                    # Event browse/discovery page
+└── README.md                           # This documentation
+
+web/html/assets/js/
+├── event-profile.js                    # Card registry + loading logic
+├── db-logic.js                         # Data fetching and rendering
+├── components.js                       # Component system
+├── nav.js                              # Navigation logic
+└── filter.js                           # Filtering functionality
+
+web/html/assets/data/
+└── events.json                         # Events data source
 ```
 
 ---
@@ -63,7 +63,7 @@ docs/ui/
 
 ### Component Card System
 
-**9 Available Cards:**
+**10 Available Cards:**
 1. Context & Significance (auto-expands)
 2. Procedural Timeline (auto-expands if ≥ 3 sub-events)
 3. Key Participants
@@ -72,10 +72,11 @@ docs/ui/
 6. Locations
 7. Related Events
 8. Assertions & Analysis
-9. Photos & Media
+9. **Organizations** (NEW - extracted from participants)
+10. Photos & Media
 
 **Conditional Rendering:**
-- All 9 card sections defined in HTML
+- All 10 card sections defined in HTML
 - JavaScript evaluates `showWhen()` for each card
 - Only cards with data are displayed
 - Empty state shows if < 2 cards visible
@@ -83,7 +84,7 @@ docs/ui/
 ### Card Registry Pattern
 
 ```javascript
-// event-v1-profile.js
+// assets/js/event-profile.js
 const CARD_REGISTRY = {
   context: {
     icon: 'info',
@@ -100,6 +101,21 @@ const CARD_REGISTRY = {
     autoExpand: (data) => data.sub_events && data.sub_events.length >= 3,
     showWhen: (data) => data.sub_events && data.sub_events.length > 0,
     populate: (data) => populateTimeline(data.sub_events)
+  },
+  organizations: {
+    icon: 'account_balance',
+    title: 'Organizations',
+    dataField: 'organizations',
+    autoExpand: false,
+    showWhen: (data) => {
+      // Extract from participants if no organizations array
+      const orgs = data.organizations || extractOrganizationsFromParticipants(data.participants || []);
+      return orgs.length > 0;
+    },
+    populate: (data) => {
+      const orgs = data.organizations || extractOrganizationsFromParticipants(data.participants || []);
+      populateOrganizations(orgs);
+    }
   },
   // ... 7 more cards
 };
@@ -158,6 +174,9 @@ const CARD_REGISTRY = {
   "assertions": [
     {"claim": "Statement", "source": "Source", "confidence": "CONFIRMED | DISPUTED | SUPPORTED", "analysis": "Assessment"}
   ],
+  "organizations": [
+    {"name": "Organization Name", "type": "Government | Corporate", "role": "Investigating | Participating"}
+  ],
   "media": [
     {"url": "/path/to/image.jpg", "caption": "Caption", "type": "PHOTO | VIDEO"}
   ]
@@ -168,7 +187,7 @@ const CARD_REGISTRY = {
 
 ## Design Features
 
-### From oswald.html Aesthetic:
+### Archive Aesthetic:
 - ✅ Archive card header layout
 - ✅ Visual timeline with dots and vertical connectors
 - ✅ Lighter card backgrounds (`bg-[#252021]/60`)
@@ -176,17 +195,56 @@ const CARD_REGISTRY = {
 - ✅ 6-stat grid in header
 
 ### Universal Architecture:
-- ✅ 9 conditional cards (only show when data exists)
+- ✅ 10 conditional cards (only show when data exists)
 - ✅ Accordion behavior for progressive disclosure
 - ✅ Auto-expand rules (Context always, Timeline if ≥ 3 sub-events)
 - ✅ Empty state handling
 - ✅ Dynamic data loading from events.json
+- ✅ **Organizations extraction** from participant roles
+
+---
+
+## Organizations Feature (NEW)
+
+### Dynamic Extraction
+Organizations are automatically extracted from participant roles:
+
+```javascript
+// Organization mappings from participant roles
+const orgMappings = {
+  'FBI Agent': {
+    name: 'Federal Bureau of Investigation',
+    type: 'Government Agency',
+    role: 'Investigating Authority'
+  },
+  'SA': {
+    name: 'Federal Bureau of Investigation', 
+    type: 'Government Agency',
+    role: 'Investigating Authority'
+  },
+  'Dallas Police': {
+    name: 'Dallas Police Department',
+    type: 'Law Enforcement', 
+    role: 'Local Authority'
+  },
+  'Warren Commission': {
+    name: 'Warren Commission',
+    type: 'Government Commission',
+    role: 'Investigative Body'
+  }
+};
+```
+
+### No Schema Changes Required
+- **Backward Compatible:** Works with existing participant data
+- **Zero Migration:** No need to add organizations arrays to events.json
+- **Extensible:** Easy to add new organization mappings
 
 ---
 
 ## Testing Checklist
 
-- [x] **Comprehensive Event** - All 9 cards render correctly (Yates)
+- [x] **Comprehensive Event** - All 10 cards render correctly (Yates)
 - [x] **Simple Event** - 7 cards render (Walker)
 - [x] **Empty State** - Shows message when < 2 cards
 - [x] **Context Auto-Expand** - Opens by default when data exists
@@ -197,6 +255,7 @@ const CARD_REGISTRY = {
 - [x] **Icon Display** - Event type icons show in header
 - [x] **Participant Cards** - Role-based icons work
 - [x] **Source Links** - URLs to documents functional
+- [x] **Organizations Card** - Extracts from participants correctly
 - [x] **Empty Data Handling** - No errors with null/undefined
 
 ---
@@ -235,7 +294,7 @@ export async function GET(
 
 ### Step 2: Update Data Source
 ```javascript
-// event-v1-profile.js line 78
+// assets/js/event-profile.js line ~78
 // Change from:
 const response = await fetch('assets/data/events.json');
 
@@ -246,7 +305,7 @@ const response = await fetch(`/api/events/${eventId}`);
 ### Step 3: Test with Production Data
 ```bash
 npm run dev
-# Open: http://localhost:3000/event-v1?id={event_id}
+# Open: http://localhost:3000/entities/event/event-details.html?id={event_id}
 ```
 
 ---
@@ -255,7 +314,7 @@ npm run dev
 
 ### 1. Add HTML Section
 ```html
-<!-- event.html -->
+<!-- event-details.html -->
 <section id="new-card-section" data-section="new-card" class="border-b border-archive-secondary/20" style="display:none;">
   <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
        onclick="toggleCard('new-card')">
@@ -278,7 +337,7 @@ npm run dev
 
 ### 2. Add to Card Registry
 ```javascript
-// event-v1-profile.js
+// assets/js/event-profile.js
 'new-card': {
   icon: 'icon_name',
   title: 'New Card Title',
@@ -291,7 +350,7 @@ npm run dev
 
 ### 3. Create Populate Function
 ```javascript
-// event-v1-cards.js
+// assets/js/event-profile.js
 function populateNewCard(data) {
   const list = document.getElementById('new-card-list');
   if (!list || !data || data.length === 0) return;
@@ -322,24 +381,33 @@ function populateNewCard(data) {
 2. Verify dates are valid ISO 8601 format
 3. Check `populateTimeline()` function
 
+### Organizations Not Showing
+1. Check participants have recognized roles
+2. Verify organization mappings in `parseOrganizationFromRole()`
+3. Check `extractOrganizationsFromParticipants()` function
+
 ### Empty State Always Shows
 1. Check that at least 2 cards have data
 2. Verify `showWhen()` conditions are correct
 3. Check data structure matches expected format
 
 ### Styles Not Loading
-1. Verify Tailwind CDN loaded
+1. Verify Tailwind CSS loaded
 2. Check `main.css` linked correctly
 3. Ensure Material Icons CSS loaded
 
 ---
 
-## Support
+## Related Files
 
-**Documentation:** `event-template-implementation-plan.md` (coming soon)
-**Baseline Data:** `assets/data/events.json`
+- **Event Browse Page:** `entities/event/event-index.html`
+- **Event Data:** `assets/data/events.json`
+- **Component System:** `assets/js/components.js`
+- **Navigation:** `assets/js/nav.js`
+- **Filtering:** `assets/js/filter.js`
 
 ---
 
-**Last Updated:** 2026-02-24
-**Version:** 1.0.0
+**Last Updated:** 2026-02-26  
+**Version:** 2.0.0 (Added Organizations Feature)  
+**Implementation:** Production Ready

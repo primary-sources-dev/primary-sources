@@ -7,3 +7,8 @@ python build.py --clean
 
 Build/inject components:
 python build.py
+
+Validate templates (post-build check):
+python validate-build.py
+python validate-build.py --strict
+python validate-build.py --file path/to/file.html
