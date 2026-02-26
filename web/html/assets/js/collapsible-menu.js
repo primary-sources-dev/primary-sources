@@ -5,9 +5,11 @@
 
 let menuInitialized = false;
 
-// Initialize when header component loads
+// Initialize when components load
 document.addEventListener('componentLoaded', (e) => {
-    if (e.detail.name === 'header' && !menuInitialized) {
+    // We need both the header (which has the button) AND the mega-menu (which has the modal)
+    // to be loaded before we can reliably initialize logic.
+    if ((e.detail.name === 'header' || e.detail.name === 'mega-menu') && !menuInitialized) {
         initMegaMenu();
     }
 });
