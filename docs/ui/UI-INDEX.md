@@ -16,7 +16,7 @@ Welcome to the Primary Sources UI documentation. This index provides quick acces
 
 ### Structural Components
 - [**Header**](./components/HEADER.md) — Global navigation header with menu, search, branding, breadcrumbs.
-- [**Nav Menu**](./components/NAV-MENU.md) — Collapsible dropdown menu with categories and subcategories.
+- [**Mega Menu**](./components/MEGA-MENU.md) — Collapsible dropdown menu with categories and subcategories.
 - [**Footer**](./components/FOOTER.md) — Global footer with links and sitemap.
 - [**Bottom Nav**](./components/BOTTOM-NAV.md) — Mobile bottom navigation bar.
 - [**Facet Bar**](./components/FACET-BAR.md) — Filter controls for browse pages.
@@ -39,6 +39,7 @@ Welcome to the Primary Sources UI documentation. This index provides quick acces
 | Component | File | Purpose |
 |-----------|------|---------|
 | Header | `header.html` | Global nav: menu, search, branding, breadcrumbs, user icon |
+| Mega Menu | `mega-menu.html` | Collapsible dropdown menu with all site categories |
 | Footer | `footer.html` | Site footer with links |
 | Bottom Nav | `bottom-nav.html` | Mobile navigation bar |
 | Facet Bar | `facet-bar.html` | Filter controls for browse pages |

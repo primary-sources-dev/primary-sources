@@ -44,6 +44,7 @@ This document details the technical implementation of the Primary Sources UI, in
 components/
 ├── Layout.tsx              # Wraps all pages
 ├── Header.tsx              # From header.html
+├── MegaMenu.tsx            # From mega-menu.html (Collapsible component)
 ├── Footer.tsx              # From footer.html
 ├── BottomNav.tsx           # From bottom-nav.html
 ├── HeroGradient.tsx        # Gradient dark hero variant

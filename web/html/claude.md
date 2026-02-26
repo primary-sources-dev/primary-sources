@@ -33,6 +33,42 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
 
 ---
 
+## CRITICAL: EVENT STRUCTURE REQUIREMENTS
+
+### Parent Event with Nested Sub-Events
+**ALL Yates-related events MUST be nested under the parent event:**
+
+```json
+{
+  "id": "yates-hitchhiker",
+  "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+  "title": "The Ralph Leon Yates Incident",
+  "event_type": "SIGHTING",
+  "sub_events": [
+    {
+      "event_id": "unique-uuid-here",
+      "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "title": "Sub-Event Title",
+      ...
+    }
+  ],
+  "participants": [...],
+  "evidence": [...],
+  "sources": [...],
+  "locations": [...],
+  "related_events": [...],
+  "assertions": [...]
+}
+```
+
+### ⚠️ NEVER CREATE FLAT EVENT STRUCTURES
+- Events must NOT be at root level of events array
+- Each sub-event MUST have `parent_event_id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"`
+- All sub-events MUST be nested inside parent's `sub_events` array
+- See `assets/data/events.json` for correct structure
+
+---
+
 ## WORKFLOW (Ordered List)
 
 ### 1. Review Current Events
@@ -86,17 +122,23 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
    6. Cross-reference objects against `objects` array
 
 ### 5. Schema Validation
-   1. Check required fields present:
-      - `id`, `event_id`, `event_type`, `title`, `description`, `start_ts`, `time_precision`, `status`
-   2. Verify `event_type` in controlled vocabulary:
-      - INTERVIEW, REPORT_WRITTEN, TRANSFER, SHOT, SIGHTING, MEETING, etc.
-   3. Validate timestamp format (ISO 8601)
-   4. Confirm `time_precision` logic:
+   1. **VERIFY NESTED STRUCTURE**:
+      - Sub-event MUST be inside parent's `sub_events` array
+      - Sub-event MUST have `parent_event_id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"`
+      - NEVER place events at root level of events.json
+   2. Check required fields present:
+      - `event_id`, `event_type`, `title`, `description`, `start_ts`, `time_precision`
+      - Optional: `id`, `status`, `parent_event_id`, `icon`, `label`, `url`
+   3. Verify `event_type` in controlled vocabulary:
+      - INTERVIEW, REPORT_WRITTEN, TRANSFER, SHOT, SIGHTING, MEETING, PHONE_CALL, etc.
+   4. Validate timestamp format (ISO 8601)
+   5. Confirm `time_precision` logic:
       - UNKNOWN: both timestamps NULL
       - APPROX: start_ts NOT NULL, end_ts NULL
       - EXACT: start_ts NOT NULL, end_ts NULL or equal
       - RANGE: both NOT NULL
-   5. Check `icon` uses Material Symbols
+   6. Check `icon` uses Material Symbols
+   7. Verify `parent_event_id` matches parent event's `event_id`
 
 ### 6. Vocabulary Compliance
    1. Verify all referenced `person_id` exists in `people` array
