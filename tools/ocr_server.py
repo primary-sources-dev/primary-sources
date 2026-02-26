@@ -43,7 +43,7 @@ except ImportError:
     print("Warning: metadata_parser not available")
 
 try:
-    from document_classifier import classify_document, classify, get_all_scores
+    from document_classifier import classify_document, classify, get_all_scores, get_agency
     from zone_extractor import extract_document, extract
     CLASSIFIER_AVAILABLE = True
 except ImportError:
@@ -982,20 +982,18 @@ def review_endpoint(filename):
 
             classification = classify_document(text, prev_type=prev_type)
             all_scores = get_all_scores(text)
-            agency = get_agency(classification.doc_type)
             
             # Update state for next page
             prev_type = classification.doc_type.value
 
-            results.append({
+            page_result = classification.to_dict()
+            page_result.update({
                 "page":             page_num + 1,
                 "page_index":       page_num,
-                "doc_type":         classification.doc_type.value,
-                "agency":           agency,
-                "confidence":       round(classification.confidence, 4),
-                "matched_patterns": classification.matched_patterns[:5],
+                "text":             text[:2000], # Send first 2k chars for UI sample/display
                 "all_scores":       {k: round(v, 4) for k, v in all_scores.items()},
             })
+            results.append(page_result)
 
         doc.close()
 

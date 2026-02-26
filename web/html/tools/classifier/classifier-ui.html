@@ -234,166 +234,156 @@
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
     <!-- Global Header -->
     <header data-component="header"
-        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
-        <!-- BUILD:INJECTED -->
-        <div class="flex h-16 items-center justify-between px-4">
-            <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
-            <div class="flex items-center gap-3">
-                <!-- Nav Menu -->
-                <div class="relative group">
-                    <button id="menu-toggle"
-                        class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
-                        <span class="material-symbols-outlined text-archive-heading">menu</span>
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur component-loaded">
+<!-- BUILD:INJECTED -->
+<div class="flex h-16 items-center justify-between px-4">
+    <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
+    <div class="flex items-center gap-3">
+        <!-- Nav Menu -->
+        <div class="relative group">
+            <button id="menu-toggle"
+                class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined text-archive-heading">menu</span>
+            </button>
+
+            <!-- DROPDOWN MENU (COLLAPSIBLE CATEGORIES) -->
+            <div id="header-dropdown"
+                class="absolute left-0 top-full mt-1 w-64 bg-archive-dark border border-archive-secondary/20 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100]">
+
+                <!-- CATEGORY 1: Home & General -->
+                <div class="menu-category" data-category="home">
+                    <button class="category-toggle" data-target="home-items" aria-expanded="false"
+                        aria-controls="home-items">
+                        <span class="material-symbols-outlined">home</span>
+                        <span>Home & General</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
                     </button>
+                    <div id="home-items" class="category-items" role="region">
+                        <a href="../../index.html" class="menu-link">Home</a>
+                        <a href="../../pages/about.html" class="menu-link">About</a>
+                    </div>
+                </div>
 
-                    <!-- DROPDOWN MENU (COLLAPSIBLE CATEGORIES) -->
-                    <div id="header-dropdown"
-                        class="absolute left-0 top-full mt-1 w-64 bg-archive-dark border border-archive-secondary/20 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100]">
+                <!-- CATEGORY 2: Content & Info -->
+                <div class="menu-category" data-category="content">
+                    <button class="category-toggle" data-target="content-items" aria-expanded="false"
+                        aria-controls="content-items">
+                        <span class="material-symbols-outlined">article</span>
+                        <span>Content & Info</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="content-items" class="category-items" role="region">
+                        <a href="../../pages/blog.html" class="menu-link">Blog</a>
+                        <a href="../../pages/links.html" class="menu-link">Links</a>
+                        <a href="../../pages/features.html" class="menu-link">Vision & Roadmap</a>
+                    </div>
+                </div>
 
-                        <!-- CATEGORY 1: Home & General -->
-                        <div class="menu-category" data-category="home">
-                            <button class="category-toggle" data-target="home-items" aria-expanded="false"
-                                aria-controls="home-items">
-                                <span class="material-symbols-outlined">home</span>
-                                <span>Home & General</span>
+                <!-- CATEGORY 3: Browse Entities -->
+                <div class="menu-category" data-category="browse">
+                    <button class="category-toggle" data-target="browse-items" aria-expanded="false"
+                        aria-controls="browse-items">
+                        <span class="material-symbols-outlined">dataset</span>
+                        <span>Browse Entities</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="browse-items" class="category-items" role="region">
+                        <a href="../../entities/event/event-index.html" class="menu-link">Events</a>
+                        <a href="../../entities/person/person-index.html" class="menu-link">People</a>
+                        <a href="../../entities/organization/org-index.html" class="menu-link">Organizations</a>
+                        <a href="../../entities/place/place-index.html" class="menu-link">Places</a>
+                        <a href="../../entities/object/object-index.html" class="menu-link">Objects</a>
+                        <a href="../../entities/source/source-index.html" class="menu-link">Sources</a>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 4: Features -->
+                <div class="menu-category" data-category="features">
+                    <button class="category-toggle" data-target="features-items" aria-expanded="false"
+                        aria-controls="features-items">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                        <span>Features</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="features-items" class="category-items" role="region">
+                        <a href="../../exploration/otd.html?scope=Day&feature=true" class="menu-link">On This Day</a>
+                        <a href="../../exploration/random.html?feature=true" class="menu-link">Six Degrees</a>
+                        <a href="../../exploration/witness-atlas.html?feature=true" class="menu-link">Witness Atlas</a>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 5: Tools (with subcategories) -->
+                <div class="menu-category" data-category="tools">
+                    <button class="category-toggle" data-target="tools-items" aria-expanded="false"
+                        aria-controls="tools-items">
+                        <span class="material-symbols-outlined">construction</span>
+                        <span>Tools</span>
+                        <span class="chevron material-symbols-outlined">expand_more</span>
+                    </button>
+                    <div id="tools-items" class="category-items" role="region">
+
+                        <!-- SUBCATEGORY: OCR & Documents -->
+                        <div class="menu-subcategory">
+                            <button class="subcategory-toggle" data-target="tools-ocr-items" aria-expanded="false"
+                                aria-controls="tools-ocr-items">
+                                <span>OCR & Documents</span>
                                 <span class="chevron material-symbols-outlined">expand_more</span>
                             </button>
-                            <div id="home-items" class="category-items" role="region">
-                                <a href="../../index.html" class="menu-link">Home</a>
-                                <a href="../../pages/about.html" class="menu-link">About</a>
+                            <div id="tools-ocr-items" class="subcategory-items" role="region">
+                                <a href="../../tools/ocr/ocr-ui.html?feature=true" class="menu-link">OCR Tool</a>
+                                <a href="../../tools/analyzer/analyzer-details.html" class="menu-link">Document Analyzer</a>
+                                <a href="../../tools/classifier/classifier-ui.html" class="menu-link">Classifier Review</a>
                             </div>
                         </div>
 
-                        <!-- CATEGORY 2: Content & Info -->
-                        <div class="menu-category" data-category="content">
-                            <button class="category-toggle" data-target="content-items" aria-expanded="false"
-                                aria-controls="content-items">
-                                <span class="material-symbols-outlined">article</span>
-                                <span>Content & Info</span>
+                        <!-- SUBCATEGORY: Research & Data -->
+                        <div class="menu-subcategory">
+                            <button class="subcategory-toggle" data-target="tools-research-items" aria-expanded="false"
+                                aria-controls="tools-research-items">
+                                <span>Research & Data</span>
                                 <span class="chevron material-symbols-outlined">expand_more</span>
                             </button>
-                            <div id="content-items" class="category-items" role="region">
-                                <a href="../../pages/blog.html" class="menu-link">Blog</a>
-                                <a href="../../pages/links.html" class="menu-link">Links</a>
-                                <a href="../../pages/features.html" class="menu-link">Vision & Roadmap</a>
-                            </div>
-                        </div>
-
-                        <!-- CATEGORY 3: Browse Entities -->
-                        <div class="menu-category" data-category="browse">
-                            <button class="category-toggle" data-target="browse-items" aria-expanded="false"
-                                aria-controls="browse-items">
-                                <span class="material-symbols-outlined">dataset</span>
-                                <span>Browse Entities</span>
-                                <span class="chevron material-symbols-outlined">expand_more</span>
-                            </button>
-                            <div id="browse-items" class="category-items" role="region">
-                                <a href="../../entities/event/event-index.html" class="menu-link">Events</a>
-                                <a href="../../entities/person/person-index.html" class="menu-link">People</a>
-                                <a href="../../entities/organization/org-index.html" class="menu-link">Organizations</a>
-                                <a href="../../entities/place/place-index.html" class="menu-link">Places</a>
-                                <a href="../../entities/object/object-index.html" class="menu-link">Objects</a>
-                                <a href="../../entities/source/source-index.html" class="menu-link">Sources</a>
-                            </div>
-                        </div>
-
-                        <!-- CATEGORY 4: Features -->
-                        <div class="menu-category" data-category="features">
-                            <button class="category-toggle" data-target="features-items" aria-expanded="false"
-                                aria-controls="features-items">
-                                <span class="material-symbols-outlined">auto_awesome</span>
-                                <span>Features</span>
-                                <span class="chevron material-symbols-outlined">expand_more</span>
-                            </button>
-                            <div id="features-items" class="category-items" role="region">
-                                <a href="../../exploration/otd.html?scope=Day&feature=true" class="menu-link">On This
-                                    Day</a>
-                                <a href="../../exploration/random.html?feature=true" class="menu-link">Six Degrees</a>
-                                <a href="../../exploration/witness-atlas.html?feature=true" class="menu-link">Witness
-                                    Atlas</a>
-                            </div>
-                        </div>
-
-                        <!-- CATEGORY 5: Tools (with subcategories) -->
-                        <div class="menu-category" data-category="tools">
-                            <button class="category-toggle" data-target="tools-items" aria-expanded="false"
-                                aria-controls="tools-items">
-                                <span class="material-symbols-outlined">construction</span>
-                                <span>Tools</span>
-                                <span class="chevron material-symbols-outlined">expand_more</span>
-                            </button>
-                            <div id="tools-items" class="category-items" role="region">
-
-                                <!-- SUBCATEGORY: OCR & Documents -->
-                                <div class="menu-subcategory">
-                                    <button class="subcategory-toggle" data-target="tools-ocr-items"
-                                        aria-expanded="false" aria-controls="tools-ocr-items">
-                                        <span>OCR & Documents</span>
-                                        <span class="chevron material-symbols-outlined">expand_more</span>
-                                    </button>
-                                    <div id="tools-ocr-items" class="subcategory-items" role="region">
-                                        <a href="../../tools/ocr/ocr-ui.html?feature=true" class="menu-link">OCR
-                                            Tool</a>
-                                        <a href="../../tools/analyzer/analyzer-details.html" class="menu-link">Document
-                                            Analyzer</a>
-                                        <a href="../../tools/classifier/classifier-ui.html" class="menu-link">Classifier
-                                            Review</a>
-                                    </div>
-                                </div>
-
-                                <!-- SUBCATEGORY: Research & Data -->
-                                <div class="menu-subcategory">
-                                    <button class="subcategory-toggle" data-target="tools-research-items"
-                                        aria-expanded="false" aria-controls="tools-research-items">
-                                        <span>Research & Data</span>
-                                        <span class="chevron material-symbols-outlined">expand_more</span>
-                                    </button>
-                                    <div id="tools-research-items" class="subcategory-items" role="region">
-                                        <a href="../../tools/citation/citation-details.html" class="menu-link">Citation
-                                            Generator</a>
-                                        <a href="../../tools/matcher/matcher-details.html" class="menu-link">Entity
-                                            Matcher</a>
-                                        <a href="../../tools/research/research-details.html" class="menu-link">Research
-                                            Tools</a>
-                                    </div>
-                                </div>
-
+                            <div id="tools-research-items" class="subcategory-items" role="region">
+                                <a href="../../tools/citation/citation-details.html" class="menu-link">Citation Generator</a>
+                                <a href="../../tools/matcher/matcher-details.html" class="menu-link">Entity Matcher</a>
+                                <a href="../../tools/research/research-details.html" class="menu-link">Research Tools</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
 
-                <!-- Search -->
-                <a href="../../search.html"
-                    class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
-                    <span class="material-symbols-outlined">search</span>
-                </a>
-
-                <!-- Branding: Title -->
-                <a href="../../index.html" class="pl-4">
-                    <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary
-                        Sources:<span class="text-primary">JFK</span></span>
-                </a>
-
-                <!-- Breadcrumbs: Shows current section (hidden on homepage via nav.js) -->
-                <nav id="breadcrumb-nav" class="flex items-center gap-2 pl-3">
-                    <span class="material-symbols-outlined text-sm text-archive-secondary/30">chevron_right</span>
-                    <span id="breadcrumb-current"
-                        class="text-xs font-bold uppercase tracking-[0.15em] text-primary">Browse</span>
-                </nav>
-            </div>
-
-            <!-- RIGHT: User Icon -->
-            <div class="flex items-center">
-                <button id="user-menu-toggle"
-                    class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
-                    <span class="material-symbols-outlined text-archive-secondary">person</span>
-                </button>
             </div>
         </div>
-        <!-- /BUILD:INJECTED -->
-    </header>
+
+        <!-- Search -->
+        <a href="../../search.html"
+            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
+            <span class="material-symbols-outlined">search</span>
+        </a>
+
+        <!-- Branding: Title -->
+        <a href="../../index.html" class="pl-4">
+            <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary Sources:<span class="text-primary">JFK</span></span>
+        </a>
+
+        <!-- Breadcrumbs: Shows current section (hidden on homepage via nav.js) -->
+        <nav id="breadcrumb-nav" class="flex items-center gap-2 pl-3">
+            <span class="material-symbols-outlined text-sm text-archive-secondary/30">chevron_right</span>
+            <span id="breadcrumb-current" class="text-xs font-bold uppercase tracking-[0.15em] text-primary">Browse</span>
+        </nav>
+    </div>
+
+    <!-- RIGHT: User Icon -->
+    <div class="flex items-center">
+        <button id="user-menu-toggle"
+            class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 transition-colors">
+            <span class="material-symbols-outlined text-archive-secondary">person</span>
+        </button>
+    </div>
+</div>
+<!-- /BUILD:INJECTED -->
+</header>
 
     <script>
         // =====================================================================
@@ -531,6 +521,28 @@
         }
 
         const renderedPages = new Set();
+        const renderQueue = [];
+        let activeRenders = 0;
+        const MAX_CONCURRENT_RENDERS = 3;
+
+        async function processQueue() {
+            if (renderQueue.length === 0 || activeRenders >= MAX_CONCURRENT_RENDERS) return;
+
+            const task = renderQueue.shift();
+            activeRenders++;
+
+            try {
+                const success = await renderPage(task.pageIndex, task.canvasId);
+                if (success) {
+                    renderedPages.add(task.pageIndex);
+                } else {
+                    // Failures are handled inside renderPage (Retry button)
+                }
+            } finally {
+                activeRenders--;
+                processQueue();
+            }
+        }
 
         function setupLazyLoading() {
             const cards = document.querySelectorAll('[data-page-index]');
@@ -545,22 +557,17 @@
             });
 
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(async (entry) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
                         const pageIndex = parseInt(el.dataset.pageIndex);
-                        if (!renderedPages.has(pageIndex)) {
-                            const success = await renderPage(pageIndex, `canvas-${pageIndex}`);
-                            if (success) {
-                                renderedPages.add(pageIndex);
-                            } else if (pdfDoc) {
-                                // If it failed but doc IS ready, it's a real error, mark it so we don't spam retries
-                                renderedPages.add(pageIndex);
-                            }
+                        if (!renderedPages.has(pageIndex) && !renderQueue.some(t => t.pageIndex === pageIndex)) {
+                            renderQueue.push({ pageIndex, canvasId: `canvas-${pageIndex}` });
+                            processQueue();
                         }
                     }
                 });
-            }, { rootMargin: '400px', threshold: 0.01 }); // Increased margin to 400px
+            }, { rootMargin: '600px', threshold: 0.01 }); // Higher margin for smoother scrolling
 
             cards.forEach(card => observer.observe(card));
         }
@@ -613,6 +620,8 @@
             const { page, page_index, doc_type, agency, confidence, matched_patterns, all_scores } = pageData;
             const confPct = Math.round(confidence * 100);
             const highlightsJson = JSON.stringify(matched_patterns).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+            const textContent = pageData.text || '';
+            const textSample = textContent.substring(0, 1000).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
 
             const isContinuation = matched_patterns.some(p => p.includes('CONTINUITY_FROM'));
             const continuityClass = isContinuation ? 'border-l-4 border-l-blue-500/50' : '';
@@ -620,7 +629,7 @@
             return `
             <div id="page-${page}" class="card border p-4 pending ${continuityClass}" data-page="${page}" data-page-index="${page_index}"
                 data-predicted="${doc_type}" data-agency="${agency || 'UNKNOWN'}" data-confidence="${confidence}"
-                data-highlights='${JSON.stringify(matched_patterns)}'>
+                data-highlights='${highlightsJson}' data-text-sample="${textSample}">
                 <div class="flex gap-6">
                     <!-- Left: PDF Page -->
                     <div class="flex-shrink-0 max-w-[320px]">
@@ -1053,11 +1062,15 @@
                 const page = card.dataset.page;
                 const predicted = card.dataset.predicted;
                 const agency = card.dataset.agency;
-                const status = feedback[page]?.status || "pending";
+
+                const currentFeedback = feedback[page] || {};
+                const status = currentFeedback.status || "pending";
+                const currentAgency = currentFeedback.selectedAgency || agency;
+                const currentClass = currentFeedback.selectedClass || predicted;
 
                 let show = true;
-                if (typeFilter && predicted !== typeFilter) show = false;
-                if (agencyFilter && agency !== agencyFilter) show = false;
+                if (typeFilter && currentClass !== typeFilter) show = false;
+                if (agencyFilter && currentAgency !== agencyFilter) show = false;
                 if (statusFilter && status !== statusFilter) show = false;
 
                 card.classList.toggle("hidden", !show);

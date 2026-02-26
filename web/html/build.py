@@ -75,6 +75,23 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
         re.DOTALL
     )
     
+    def add_loaded_class(tag: str) -> str:
+        """Add component-loaded class to opening tag."""
+        if 'class="' in tag:
+            # Append to existing class attribute
+            return re.sub(r'class="([^"]*)"', r'class="\1 component-loaded"', tag)
+        else:
+            # Add class attribute before closing >
+            return tag[:-1] + ' class="component-loaded">'
+    
+    def remove_loaded_class(tag: str) -> str:
+        """Remove component-loaded class from opening tag."""
+        # Remove the class we added (with leading space)
+        tag = re.sub(r' component-loaded', '', tag)
+        # Clean up empty class attributes
+        tag = re.sub(r' class=""', '', tag)
+        return tag
+    
     def replacer(match):
         nonlocal found, injected
         found += 1
@@ -86,10 +103,11 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
         closing_tag = match.group(5)
         
         if clean:
-            # Remove injected content, leave empty
+            # Remove injected content and component-loaded class
             if INJECT_START in existing_content:
                 injected += 1
-                return f"{opening_tag}{closing_tag}"
+                cleaned_tag = remove_loaded_class(opening_tag)
+                return f"{cleaned_tag}{closing_tag}"
             return match.group(0)
         
         # Skip if already has injected content
@@ -104,8 +122,11 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
         # Adjust paths for file depth
         adjusted_html = adjust_paths(component_html, base_path)
         
+        # Add component-loaded class to prevent flash
+        modified_tag = add_loaded_class(opening_tag)
+        
         injected += 1
-        return f"{opening_tag}\n{INJECT_START}\n{adjusted_html}\n{INJECT_END}\n{closing_tag}"
+        return f"{modified_tag}\n{INJECT_START}\n{adjusted_html}\n{INJECT_END}\n{closing_tag}"
     
     new_content = pattern.sub(replacer, content)
     

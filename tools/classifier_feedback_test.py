@@ -17,7 +17,7 @@ def test_enhancements():
     result = classify_document(teletype_text)
     print(f"Test 1 (Teletype): {result.doc_type}")
     assert result.doc_type == DocType.FBI_TELETYPE
-    print(f"  → Agency: {get_agency(result.doc_type)}")
+    print(f"  -> Agency: {get_agency(result.doc_type)}")
     assert get_agency(result.doc_type) == "FBI"
 
     # 2. Test Continuity (FBI_302)

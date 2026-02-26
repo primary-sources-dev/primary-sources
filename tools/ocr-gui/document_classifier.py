@@ -79,13 +79,35 @@ class ClassificationResult:
     
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dictionary."""
+        mapping = TIER_MAPPING.get(self.doc_type, {"agency": "UNKNOWN", "class": "REPORT", "format": "GENERIC"})
         return {
             "doc_type": self.doc_type.value,
             "confidence": round(self.confidence, 3),
             "confidence_label": self.confidence_label,
             "matched_patterns": self.matched_patterns,
+            "agency": mapping.get("agency"),
+            "class": mapping.get("class"),
+            "format": mapping.get("format"),
         }
 
+
+# =============================================================================
+# 4-TIER MAPPING (Defaults for UI)
+# =============================================================================
+TIER_MAPPING = {
+    DocType.FBI_302:      {"agency": "FBI",  "class": "REPORT", "format": "FD-302"},
+    DocType.FBI_REPORT:   {"agency": "FBI",  "class": "REPORT", "format": "GENERIC"},
+    DocType.FBI_TELETYPE: {"agency": "FBI",  "class": "CABLE",  "format": "TELETYPE"},
+    DocType.CIA_CABLE:    {"agency": "CIA",  "class": "CABLE",  "format": "CABLE"},
+    DocType.CIA_201:      {"agency": "CIA",  "class": "REPORT", "format": "201_FILE"},
+    DocType.NARA_RIF:     {"agency": "NARA", "class": "REPORT", "format": "RIF"},
+    DocType.WC_EXHIBIT:   {"agency": "WC",   "class": "EXHIBIT", "format": "EXHIBIT"},
+    DocType.WC_TESTIMONY: {"agency": "WC",   "class": "TESTIMONY", "format": "TESTIMONY"},
+    DocType.WC_DEPOSITION:{"agency": "WC",   "class": "TESTIMONY", "format": "DEPOSITION"},
+    DocType.WC_AFFIDAVIT: {"agency": "WC",   "class": "AFFIDAVIT", "format": "AFFIDAVIT"},
+    DocType.DPD_REPORT:   {"agency": "DPD",  "class": "REPORT", "format": "GENERIC"},
+    DocType.POLICE_REPORT:{"agency": "DPD",  "class": "REPORT", "format": "GENERIC"},
+}
 
 # =============================================================================
 # FINGERPRINT REGISTRY

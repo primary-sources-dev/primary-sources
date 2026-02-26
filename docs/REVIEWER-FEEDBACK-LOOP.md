@@ -75,3 +75,16 @@ A primary goal of this loop is to handle **"Unknown Unknowns"**. The human revie
 
 ### Tracking Progress
 The system ensures that "what we didn't know we needed" becomes part of the permanent schema-tracking history.
+
+---
+
+## 7. Troubleshooting & Error Handling
+
+- **500 Internal Server Error**: 
+    - Most commonly caused by missing imports in `ocr_server.py` when extending the `document_classifier` functionality.
+    - **Fix**: Ensure that any new classification utility (e.g., `get_agency`) is added to the `try/except` import block at the top of `ocr_server.py`.
+    - **Validation**: Run `python tools/classifier_feedback_test.py` to verify all server-side dependencies are correctly exported and available.
+- **Empty Samples**: 
+    - If `textSample` is missing in the feedback, check if the OCR process completed successfully for that specific page.
+- **UI Render Failures**:
+    - If thumbnails appear blank, verify that the `renderQueue` in `classifier-ui.html` is processing and that the PDF.js worker is correctly initialized.

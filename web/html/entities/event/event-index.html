@@ -41,7 +41,7 @@
 
     <!-- MODULAR HEADER -->
     <header data-component="header"
-        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur">
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur component-loaded">
 <!-- BUILD:INJECTED -->
 <div class="flex h-16 items-center justify-between px-4">
     <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
@@ -194,7 +194,7 @@
 
     <section data-component="facet-bar" data-title="Events"
         data-filters='{"Type": ["All", "SIGHTING", "TRANSFER", "REPORT_WRITTEN", "INTERVIEW", "PHONE_CALL"]}'
-        class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20">
+        class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20 component-loaded">
 <!-- BUILD:INJECTED -->
 <div class="flex flex-col gap-4">
 
@@ -241,7 +241,7 @@
     </main>
 
     <!-- MODULAR FOOTER -->
-    <div data-component="footer">
+    <div data-component="footer" class="component-loaded component-loaded">
 <!-- BUILD:INJECTED -->
 <footer class="mt-20 border-t border-archive-secondary/10 bg-archive-dark px-6 py-12">
     <div class="mb-12">
@@ -272,10 +272,54 @@
 </footer>
 <!-- /BUILD:INJECTED -->
 </div>
+        <p class="max-w-xl text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
+            This archive presents primary source materials without editorial interpretation. All materials are
+            primary sources provided for the purpose of scholarly research, education, and public historical record.
+        </p>
+    </div>
+    <nav
+        class="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-y-4 text-[10px] font-bold uppercase tracking-widest text-archive-secondary">
+        <a class="hover:text-primary transition-colors" href="../../sitemap.html">Sitemap</a>
+        <a class="hover:text-primary transition-colors" href="#">Disclaimer</a>
+        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
+        <a class="hover:text-primary transition-colors" href="#">Contact Archive</a>
+    </nav>
+    <div class="border-t border-archive-secondary/5 pt-6">
+        <p class="text-[9px] text-archive-secondary opacity-40 uppercase tracking-widest">
+            © 2026 Primary Sources. All rights reserved. Managed by the Independent Historical Preservation
+            Group.
+        </p>
+    </div>
+</footer>
+<!-- /BUILD:INJECTED -->
+</div>
+        <p class="max-w-xl text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
+            This archive presents primary source materials without editorial interpretation. All materials are
+            primary sources provided for the purpose of scholarly research, education, and public historical record.
+        </p>
+    </div>
+    <nav
+        class="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-y-4 text-[10px] font-bold uppercase tracking-widest text-archive-secondary">
+        <a class="hover:text-primary transition-colors" href="../../sitemap.html">Sitemap</a>
+        <a class="hover:text-primary transition-colors" href="#">Disclaimer</a>
+        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
+        <a class="hover:text-primary transition-colors" href="#">Contact Archive</a>
+    </nav>
+    <div class="border-t border-archive-secondary/5 pt-6">
+        <p class="text-[9px] text-archive-secondary opacity-40 uppercase tracking-widest">
+            © 2026 Primary Sources. All rights reserved. Managed by the Independent Historical Preservation
+            Group.
+        </p>
+    </div>
+</footer>
+<!-- /BUILD:INJECTED -->
+</div>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="Events"
-        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4">
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4 component-loaded">
 <!-- BUILD:INJECTED -->
 <!-- 
   CRITICAL INSTRUCTION FOR AI AGENTS: 

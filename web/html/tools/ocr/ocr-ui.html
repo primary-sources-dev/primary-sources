@@ -37,8 +37,9 @@
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono">
-    <!-- Header -->
-    <div data-component="header">
+    <!-- MODULAR HEADER -->
+    <header data-component="header"
+        class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur component-loaded">
 <!-- BUILD:INJECTED -->
 <div class="flex h-16 items-center justify-between px-4">
     <!-- LEFT: Nav Menu + Search + Branding + Breadcrumbs (all inline) -->
@@ -187,7 +188,7 @@
     </div>
 </div>
 <!-- /BUILD:INJECTED -->
-</div>
+</header>
 
     <!-- Main Content -->
     <main class="max-w-3xl mx-auto p-6">
@@ -561,7 +562,7 @@
     <hr class="border-archive-secondary/20" />
 
     <!-- MODULAR FOOTER -->
-    <div data-component="footer">
+    <footer data-component="footer" class="component-loaded">
 <!-- BUILD:INJECTED -->
 <footer class="mt-20 border-t border-archive-secondary/10 bg-archive-dark px-6 py-12">
     <div class="mb-12">
@@ -591,11 +592,11 @@
     </div>
 </footer>
 <!-- /BUILD:INJECTED -->
-</div>
+</footer>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="Tools"
-        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4">
+        class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4 component-loaded">
 <!-- BUILD:INJECTED -->
 <!-- 
   CRITICAL INSTRUCTION FOR AI AGENTS: 
