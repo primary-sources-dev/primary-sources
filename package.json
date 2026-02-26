@@ -1,0 +1,30 @@
+{
+  "name": "primary-sources",
+  "version": "1.0.0",
+  "description": "**Primary Sources** is a subject-agnostic chronological engine designed to transform raw historical data and physical artifacts into a structured, relational network of metadata. It moves beyond simple \"search\" by enabling forensic research, immersive simulations, and narrative-driven exploration of historical events.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primary-sources-dev/primary-sources.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/primary-sources-dev/primary-sources/issues"
+  },
+  "homepage": "https://github.com/primary-sources-dev/primary-sources#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^4.2.1"
+  }
+}

@@ -1,14 +1,49 @@
+@import "tailwindcss";
+
+@source "../../**/*.html";
+@source "../js/**/*.js";
+
+@theme {
+    --color-primary: #B08B49;
+    --color-primary-light: #c9a15e;
+    --color-archive-bg: #2E282A;
+    --color-archive-surface: #252021;
+    --color-archive-secondary: #D4CFC7;
+    --color-archive-heading: #F0EDE0;
+    --color-archive-dark: #1A1718;
+
+    --font-oswald: "Oswald", sans-serif;
+    --font-mono: "Roboto Mono", monospace;
+}
+
 /**
  * main.css — Primary Sources Global Design System
- *
- * NOTE: This site uses the Tailwind CDN alongside these custom styles.
- * To avoid conflicts with Tailwind's own class names (e.g. text-primary),
- * we define all design tokens as CSS custom properties on :root, and apply
- * base styles directly to HTML elements rather than through competing utility classes.
- *
- * Tailwind utility classes ARE still used in HTML (bg-[#hex], border, flex, etc.)
- * but all theme-critical colors and fonts are controlled here via CSS variables.
+ * V4 Native Configuration (CSS-First)
  */
+
+/* ==============================
+   LOCAL FONTS
+   ============================== */
+@font-face {
+    font-family: 'Oswald';
+    src: url('../fonts/oswald.woff2') format('woff2');
+    font-weight: 400 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('../fonts/roboto-mono.woff2') format('woff2');
+    font-weight: 400 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    src: url('../fonts/material-symbols.woff2') format('woff2');
+    font-weight: 100 700;
+    font-display: swap;
+}
 
 /* ==============================
    DESIGN TOKENS
@@ -49,6 +84,21 @@ h4,
 }
 
 .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga';
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
@@ -145,6 +195,7 @@ hr {
 .group:hover .badge-wip {
     opacity: 1;
 }
+
 /* ==============================
    COLLAPSIBLE NAVIGATION MENU
    ============================== */

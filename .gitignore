@@ -10,3 +10,5 @@ warren-commission/
 *.log
 tmpclaude*
 __pycache__/
+node_modules/
+coderef/

@@ -5,36 +5,31 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Browse People — Primary Sources</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/main.css">
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#B08B49",
-                        "archive-bg": "#2E282A",
-                        "archive-secondary": "#D4CFC7",
-                        "archive-heading": "#F0EDE0",
-                        "archive-dark": "#1A1718",
-                    },
-                    fontFamily: {
-                        "display": ["Oswald", "sans-serif"],
-                        "mono": ["Roboto Mono", "monospace"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0", "lg": "0", "xl": "0", "full": "9999px"
-                    },
-                },
-            },
+
+    <!-- CRITICAL CSS: Prevent white flash and basic layout -->
+    <style>
+        :root {
+            --primary: #B08B49;
+            --archive-bg: #2E282A;
+            --archive-secondary: #D4CFC7;
         }
-    </script>
+
+        html,
+        body {
+            background-color: var(--archive-bg) !important;
+            color: var(--archive-secondary);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hide components until JS loads */
+        [data-component]:not(.component-loaded) {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="../../assets/css/tailwind-prod.css">
+    
     <script src="../../assets/js/components.js" defer></script>
     <script src="../../assets/js/collapsible-menu.js" defer></script>
     <script src="../../assets/js/nav.js" defer></script>
