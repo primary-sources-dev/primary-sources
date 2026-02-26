@@ -85,6 +85,22 @@ const CARD_REGISTRY = {
     autoExpand: false,
     showWhen: (data) => data.media && data.media.length > 0,
     populate: (data) => populateMedia(data.media)
+  },
+
+  organizations: {
+    icon: 'account_balance',
+    title: 'Organizations',
+    dataField: 'organizations',
+    autoExpand: false,
+    showWhen: (data) => {
+      // Extract from participants if no organizations array
+      const orgs = data.organizations || extractOrganizationsFromParticipants(data.participants || []);
+      return orgs.length > 0;
+    },
+    populate: (data) => {
+      const orgs = data.organizations || extractOrganizationsFromParticipants(data.participants || []);
+      populateOrganizations(orgs);
+    }
   }
 
 };
@@ -400,6 +416,90 @@ function calculateDuration(startDate, endDate) {
   } else {
     return 'Less than 1 minute';
   }
+}
+
+// Simple organization extraction from participants
+function extractOrganizationsFromParticipants(participants) {
+  if (!participants || participants.length === 0) return [];
+  
+  const orgMap = {};
+  
+  participants.forEach(participant => {
+    const orgInfo = parseOrganizationFromRole(participant.role, participant.name);
+    if (orgInfo && !orgMap[orgInfo.name]) {
+      orgMap[orgInfo.name] = {
+        name: orgInfo.name,
+        type: orgInfo.type,
+        role: orgInfo.role
+      };
+    }
+  });
+  
+  return Object.values(orgMap);
+}
+
+function parseOrganizationFromRole(role, participantName) {
+  // Organization mapping from participant roles
+  const orgMappings = {
+    'FBI Agent': {
+      name: 'Federal Bureau of Investigation',
+      type: 'Government Agency',
+      role: 'Investigating Authority'
+    },
+    'SA': {
+      name: 'Federal Bureau of Investigation', 
+      type: 'Government Agency',
+      role: 'Investigating Authority'
+    },
+    'Dallas Police': {
+      name: 'Dallas Police Department',
+      type: 'Law Enforcement', 
+      role: 'Local Authority'
+    },
+    'Warren Commission': {
+      name: 'Warren Commission',
+      type: 'Government Commission',
+      role: 'Investigative Body'
+    }
+  };
+  
+  // Check for exact matches first
+  if (orgMappings[role]) {
+    return orgMappings[role];
+  }
+  
+  // Check for partial matches
+  for (const [key, org] of Object.entries(orgMappings)) {
+    if (role.includes(key) || key.includes(role)) {
+      return org;
+    }
+  }
+  
+  return null;
+}
+
+function populateOrganizations(organizations) {
+  const container = document.getElementById('organizations-list');
+  
+  if (!organizations || organizations.length === 0) {
+    container.innerHTML = '<p class="text-xs text-archive-secondary/60">No organizations identified</p>';
+    return;
+  }
+  
+  const orgCards = organizations.map(org => `
+    <div class="bg-archive-bg border border-archive-secondary/20 p-4 flex items-center gap-4 hover:border-primary/30 transition-colors">
+      <div class="flex-shrink-0 w-12 h-12 border border-archive-secondary/10 bg-archive-dark flex items-center justify-center">
+        <span class="material-symbols-outlined text-archive-secondary/60">account_balance</span>
+      </div>
+      <div class="flex-1">
+        <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">${org.name}</h3>
+        <p class="text-xs text-archive-secondary/80">${org.type}</p>
+        <p class="text-xs text-primary mt-1">${org.role}</p>
+      </div>
+    </div>
+  `).join('');
+  
+  container.innerHTML = orgCards;
 }
 
 // Initialize on page load

@@ -537,7 +537,32 @@
             </div>
         </section>
 
-        <!-- Card 9: Photos & Media -->
+        <!-- Card 9: Organizations -->
+        <section id="organizations-section" data-section="organizations" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('organizations')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">account_balance</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Organizations</h2>
+                    <span id="organizations-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="organizations-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="organizations-content" class="px-6 py-8" style="display:none;">
+                <div id="organizations-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Organization cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 10: Photos & Media -->
         <section id="media-section" data-section="media" class="border-b border-archive-secondary/20"
             style="display:none;">
             <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"

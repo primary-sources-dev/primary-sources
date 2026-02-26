@@ -179,10 +179,10 @@ hr {
    SKELETON LOADING STATES
    ============================== */
 .skeleton-card {
-    background: linear-gradient(90deg, 
-        rgba(212, 207, 199, 0.1) 25%, 
-        rgba(212, 207, 199, 0.2) 50%, 
-        rgba(212, 207, 199, 0.1) 75%);
+    background: linear-gradient(90deg,
+            rgba(212, 207, 199, 0.1) 25%,
+            rgba(212, 207, 199, 0.2) 50%,
+            rgba(212, 207, 199, 0.1) 75%);
     background-size: 200% 100%;
     animation: skeleton-shimmer 1.5s infinite;
     border-radius: 4px;
@@ -190,8 +190,13 @@ hr {
 }
 
 @keyframes skeleton-shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 .skeleton-card-small {
@@ -449,7 +454,7 @@ hr {
 /* Close Card Styling */
 .close-card {
     height: 100%;
-    min-height: 120px;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
