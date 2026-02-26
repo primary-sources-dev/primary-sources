@@ -57,9 +57,9 @@
     --archive-heading: #F0EDE0;
     --archive-dark: #1A1718;
 
-    /* LAYOUT HEIGHTS */
-    --header-height: 64px;
-    --navbar-height: 64px;
+    /* LAYOUT HEIGHTS (Managed dynamically by nav.js) */
+    --header-height: 0px;
+    --navbar-height: 0px;
 }
 
 /* ==============================

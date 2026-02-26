@@ -6,6 +6,7 @@ yates/
 church-committee/
 hsca/
 warren-commission/
+archived/
 *.pdf
 *.log
 tmpclaude*

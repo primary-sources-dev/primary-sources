@@ -1,8 +1,0 @@
-PRIMARY SOURCES - START
-
-cd C:\Users\willh\Desktop\primary-sources\tools
-python ocr_server.py
-
-Open: http://localhost:5000
-
-Stop: Ctrl+C

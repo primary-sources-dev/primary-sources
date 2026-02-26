@@ -35,11 +35,11 @@ document.addEventListener("componentLoaded", (e) => {
 
     const breadcrumbNav = document.getElementById('breadcrumb-nav');
     const breadcrumb = document.getElementById('breadcrumb-current');
-    
+
     // Detect homepage by path or title
     const path = window.location.pathname;
     const isHomepage = path === '/' || path.endsWith('/index.html') || path === '/index.html';
-    
+
     if (isHomepage && breadcrumbNav) {
         breadcrumbNav.style.display = 'none';
     } else if (breadcrumb) {
@@ -49,3 +49,36 @@ document.addEventListener("componentLoaded", (e) => {
         breadcrumb.textContent = title;
     }
 });
+
+/**
+ * Layout Observer: Dynamic Height Detection
+ * Measures real-world height of Header and Navbar to eliminate hardcoded CSS guesses.
+ * Updates CSS variables --header-height and --navbar-height on :root.
+ */
+const updateLayoutHeights = () => {
+    const header = document.querySelector('header');
+    const navbar = document.querySelector('nav[data-component="bottom-nav"]');
+
+    if (header) {
+        document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    }
+    if (navbar) {
+        document.documentElement.style.setProperty('--navbar-height', `${navbar.offsetHeight}px`);
+    }
+};
+
+// Use ResizeObserver for high-precision tracking (handles font scaling/zoom)
+const layoutObserver = new ResizeObserver(() => {
+    updateLayoutHeights();
+});
+
+document.addEventListener("componentLoaded", (e) => {
+    if (e.detail.name === 'header' || e.detail.name === 'bottom-nav') {
+        const el = e.detail.element;
+        layoutObserver.observe(el);
+        updateLayoutHeights();
+    }
+});
+
+// Initial run to catch pre-built or fast-loading elements
+window.addEventListener('load', updateLayoutHeights);
