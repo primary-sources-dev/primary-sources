@@ -79,9 +79,13 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.main-content {
+main {
     flex: 1;
     padding-bottom: var(--navbar-height);
+}
+
+footer {
+    margin-top: auto;
 }
 
 h1,
