@@ -58,81 +58,184 @@
             <!-- MEGA MENU CONTAINER -->
             <div id="header-dropdown" class="mega-menu-container">
 
-                <!-- COLUMN 1: HOME (Own) -->
-                <div class="mega-menu-column">
-                    <div class="mega-menu-title">
-                        <span class="material-symbols-outlined">home</span>
-                        <span>Home</span>
+                <!-- CARD 1: HOME & GENERAL -->
+                <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                        <span class="material-symbols-outlined text-primary">home</span>
+                        <h3 class="text-xs font-bold text-archive-heading uppercase tracking-wider">Home & General</h3>
                     </div>
-                    <div class="mega-menu-links">
-                        <a href="../../index.html" class="mega-menu-link">Front Page</a>
-                        <a href="../../search.html" class="mega-menu-link">Global Search</a>
-                        <div class="mt-4 p-4 border border-primary/20 bg-primary/5">
-                            <p class="text-[9px] uppercase tracking-widest text-primary font-bold mb-1">Quick Start</p>
-                            <p class="text-[10px] text-archive-secondary/60 italic leading-snug">Begin your research by
-                                searching the master index.</p>
-                        </div>
-                    </div>
+                    <ul class="space-y-2 text-[11px] uppercase tracking-wide">
+                        <li><a href="index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Home
+                            </a></li>
+                        <li><a href="search.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Search
+                            </a></li>
+                    </ul>
                 </div>
 
-                <!-- COLUMN 2: GENERAL / ABOUT / FEATURES (Combined) -->
-                <div class="mega-menu-column">
-                    <div class="mega-menu-title">
-                        <span class="material-symbols-outlined">info</span>
-                        <span>Project Info</span>
+                <!-- CARD 2: BROWSE ENTITIES -->
+                <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                        <span class="material-symbols-outlined text-primary">dataset</span>
+                        <h3 class="text-xs font-bold text-archive-heading uppercase tracking-wider">Browse Entities</h3>
                     </div>
-                    <div class="mega-menu-links">
-                        <a href="../../pages/about.html" class="mega-menu-link">About Project</a>
-                        <a href="../../pages/features.html" class="mega-menu-link">Roadmap & Features</a>
-                        <a href="../../pages/blog.html" class="mega-menu-link">Research Blog</a>
-                        <a href="../../pages/links.html" class="mega-menu-link">Portal Links</a>
-                    </div>
+                    <ul class="space-y-2 text-[11px] uppercase tracking-wide">
+                        <li><a href="entities/event/event-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Events
+                            </a></li>
+                        <li><a href="entities/person/person-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>People
+                            </a></li>
+                        <li><a href="entities/organization/org-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span
+                                    class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Organizations
+                            </a></li>
+                        <li><a href="entities/place/place-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Places
+                            </a></li>
+                        <li><a href="entities/object/object-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Objects
+                            </a></li>
+                        <li><a href="entities/source/source-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Sources
+                            </a></li>
+                    </ul>
                 </div>
 
-                <!-- COLUMN 3: BROWSE ENTITIES -->
-                <div class="mega-menu-column">
-                    <div class="mega-menu-title">
-                        <span class="material-symbols-outlined">dataset</span>
-                        <span>Browse Entities</span>
+                <!-- CARD 3: DISCOVERY -->
+                <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                        <span class="material-symbols-outlined text-primary">auto_awesome</span>
+                        <h3 class="text-xs font-bold text-archive-heading uppercase tracking-wider">Discovery</h3>
                     </div>
-                    <div class="mega-menu-links">
-                        <a href="../../entities/event/event-index.html" class="mega-menu-link">Events Index</a>
-                        <a href="../../entities/person/person-index.html" class="mega-menu-link">People & Witnesses</a>
-                        <a href="../../entities/organization/org-index.html" class="mega-menu-link">Organizations</a>
-                        <a href="../../entities/place/place-index.html" class="mega-menu-link">Geographic Places</a>
-                        <a href="../../entities/object/object-index.html" class="mega-menu-link">Physical Objects</a>
-                        <a href="../../entities/source/source-index.html" class="mega-menu-link">Source Archive</a>
-                    </div>
+                    <ul class="space-y-2 text-[11px] uppercase tracking-wide">
+                        <li><a href="exploration/otd.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>On This Day
+                            </a></li>
+                        <li><a href="exploration/random.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Six Degrees
+                            </a></li>
+                        <li><a href="exploration/witness-atlas.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Witness
+                                Atlas
+                            </a></li>
+                    </ul>
                 </div>
 
-                <!-- COLUMN 4: TOOLS & ANALYSIS (Combined) -->
-                <div class="mega-menu-column">
-                    <div class="mega-menu-title">
-                        <span class="material-symbols-outlined">construction</span>
-                        <span>Research Tools</span>
+                <!-- CARD 4: RESEARCH TOOLS -->
+                <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                        <span class="material-symbols-outlined text-primary">construction</span>
+                        <h3 class="text-xs font-bold text-archive-heading uppercase tracking-wider">Research Tools</h3>
                     </div>
-                    <div class="mega-menu-links">
-                        <div class="grid grid-cols-1 gap-x-4">
-                            <a href="../../tools/ocr/ocr-ui.html?feature=true" class="mega-menu-link">OCR Engine</a>
-                            <a href="../../tools/analyzer/analyzer-details.html" class="mega-menu-link">Document Analyzer</a>
-                            <a href="../../tools/classifier/classifier-ui.html" class="mega-menu-link">Classifier Review</a>
-                            <a href="../../tools/citation/citation-details.html" class="mega-menu-link">Citation
-                                Generator</a>
-                            <a href="../../tools/matcher/matcher-details.html" class="mega-menu-link">Entity Matcher</a>
-                            <a href="../../tools/research/research-details.html" class="mega-menu-link">Advanced Research</a>
-                            <div class="my-2 border-t border-primary/10"></div>
-                            <a href="../../exploration/otd.html?scope=Day&feature=true" class="mega-menu-link">On This
-                                Day</a>
-                            <a href="../../exploration/witness-atlas.html?feature=true" class="mega-menu-link">Witness
-                                Atlas</a>
-                            <a href="../../exploration/random.html?feature=true" class="mega-menu-link">Six Degrees
-                                (Beta)</a>
-                        </div>
+                    <ul class="space-y-2 text-[11px] uppercase tracking-wide">
+                        <li><a href="tools/tools-index.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>All Tools
+                            </a></li>
+                        <li><a href="tools/ocr/ocr-ui.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>OCR Scanner
+                            </a></li>
+                        <li><a href="tools/pdf-viewer/pdf-viewer-ui.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>PDF Viewer
+                            </a></li>
+                        <li><a href="tools/classifier/classifier-ui.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Document
+                                Classifier
+                            </a></li>
+                        <li><a href="tools/citation/citation-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Citation
+                                Generator
+                            </a></li>
+                        <li><a href="tools/matcher/matcher-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Entity
+                                Matcher
+                            </a></li>
+                        <li><a href="tools/analyzer/analyzer-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Document
+                                Analyzer
+                            </a></li>
+                        <li><a href="tools/research/research-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Research
+                                Tools
+                            </a></li>
+                    </ul>
+                </div>
+
+                <!-- CARD 5: ABOUT & INFO -->
+                <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                        <span class="material-symbols-outlined text-primary">info</span>
+                        <h3 class="text-xs font-bold text-archive-heading uppercase tracking-wider">About & Info</h3>
                     </div>
+                    <ul class="space-y-2 text-[11px] uppercase tracking-wide">
+                        <li><a href="pages/about.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>About this
+                                Project
+                            </a></li>
+                        <li><a href="pages/features.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Roadmap and
+                                Features
+                            </a></li>
+                        <li><a href="pages/blog.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Dev Blog
+                            </a></li>
+                        <li><a href="pages/links.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Portal
+                                Links
+                            </a></li>
+                    </ul>
+                </div>
+
+                <!-- CARD 6: TOOL DOCUMENTATION -->
+                <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
+                        <span class="material-symbols-outlined text-primary">description</span>
+                        <h3 class="text-xs font-bold text-archive-heading uppercase tracking-wider">Tool Documentation
+                        </h3>
+                    </div>
+                    <ul class="space-y-2 text-[11px] uppercase tracking-wide">
+                        <li><a href="tools/ocr/ocr-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>OCR
+                                Documentation
+                            </a></li>
+                        <li><a href="tools/pdf-viewer/pdf-viewer-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>PDF Viewer
+                                Docs
+                            </a></li>
+                        <li><a href="tools/classifier/classifier-details.html"
+                                class="hover:text-primary transition-colors flex items-center gap-2">
+                                <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Classifier
+                                Docs
+                            </a></li>
+                    </ul>
                 </div>
 
                 <!-- MEGA MENU FOOTER -->
-                <div class="mega-menu-footer">
+                <div class="mega-menu-footer col-span-2">
                     <div class="mega-menu-status">
                         System Online — All Nodes Responsive
                     </div>
@@ -145,13 +248,13 @@
         </div>
 
         <!-- Search -->
-        <a href="../../search.html"
+        <a href="search.html"
             class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
             <span class="material-symbols-outlined">search</span>
         </a>
 
         <!-- Branding: Title -->
-        <a href="../../index.html" class="pl-4">
+        <a href="index.html" class="pl-4">
             <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary
                 Sources:<span class="text-primary">JFK</span></span>
         </a>
@@ -534,8 +637,28 @@
 </footer>
 <!-- /BUILD:INJECTED -->
 </div>
-
-
+        <p class="max-w-xl text-[10px] leading-relaxed text-archive-secondary uppercase opacity-60">
+            This archive presents primary source materials without editorial interpretation. All materials are
+            primary sources provided for the purpose of scholarly research, education, and public historical record.
+        </p>
+    </div>
+    <nav
+        class="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-y-4 text-[10px] font-bold uppercase tracking-widest text-archive-secondary">
+        <a class="hover:text-primary transition-colors" href="../../sitemap.html">Sitemap</a>
+        <a class="hover:text-primary transition-colors" href="#">Disclaimer</a>
+        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
+        <a class="hover:text-primary transition-colors" href="#">Contact Archive</a>
+    </nav>
+    <div class="border-t border-archive-secondary/5 pt-6">
+        <p class="text-[9px] text-archive-secondary opacity-40 uppercase tracking-widest">
+            © 2026 Primary Sources. All rights reserved. Managed by the Independent Historical Preservation
+            Group.
+        </p>
+    </div>
+</footer>
+<!-- /BUILD:INJECTED -->
+</div>
 
     <!-- MODULAR BOTTOM NAV -->
     <nav data-component="bottom-nav" data-active="Events"

@@ -13,30 +13,42 @@ SCRIPT_DIR = Path(__file__).parent
 EXCLUDE_DIRS = {"components", "assets", "node_modules", ".git"}
 
 def clean_orphaned_footers(html_file: Path) -> bool:
-    """Remove orphaned footer content between first </div> after footer and bottom nav."""
+    """Remove orphaned footer content - everything after first footer until bottom nav."""
     content = html_file.read_text(encoding="utf-8")
 
-    # Pattern: Footer wrapper closing tag, followed by orphaned content, until bottom nav
-    # We want to keep: </div>\n\n    <!-- MODULAR BOTTOM NAV -->
-    # We want to remove everything between them
-    pattern = re.compile(
-        r'(<!-- /BUILD:INJECTED -->\n</div>)'  # End of proper footer
-        r'(.*?)'                                 # Orphaned content (to remove)
-        r'(\n\s*<!-- MODULAR BOTTOM NAV -->)',  # Start of bottom nav
-        re.DOTALL
-    )
+    # Find the first proper footer closing
+    footer_marker = '<!-- MODULAR FOOTER -->'
+    bottom_nav_marker = '<!-- MODULAR BOTTOM NAV -->'
 
-    def replacer(match):
-        proper_footer_end = match.group(1)
-        bottom_nav_start = match.group(3)
-        # Keep proper footer end and bottom nav start, add clean spacing
-        return proper_footer_end + '\n' + bottom_nav_start
+    footer_start = content.find(footer_marker)
+    bottom_nav_start = content.find(bottom_nav_marker, footer_start if footer_start >= 0 else 0)
 
-    new_content = pattern.sub(replacer, content)
+    if footer_start == -1 or bottom_nav_start == -1:
+        return False
 
-    if new_content != content:
+    # Find the first /BUILD:INJECTED after footer marker
+    build_end_marker = '<!-- /BUILD:INJECTED -->'
+    first_build_end = content.find(build_end_marker, footer_start)
+
+    if first_build_end == -1:
+        return False
+
+    # Find the </div> right after /BUILD:INJECTED
+    div_close = content.find('</div>', first_build_end)
+    if div_close == -1:
+        return False
+
+    div_close_end = div_close + len('</div>')
+
+    # Check if there's orphaned content between div close and bottom nav
+    between = content[div_close_end:bottom_nav_start].strip()
+
+    if between and '</footer>' in between:  # Has orphaned footer content
+        # Replace everything between with just clean spacing
+        new_content = content[:div_close_end] + '\n\n    ' + content[bottom_nav_start:]
         html_file.write_text(new_content, encoding="utf-8")
         return True
+
     return False
 
 def find_html_files() -> list[Path]:
