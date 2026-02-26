@@ -12,18 +12,20 @@ function convertPdfUrl(url) {
     // Extract file path and parameters
     const [filePath, params] = url.split('#');
 
-    // Build pdf-viewer.html URL
-    let viewerUrl = `/ocr/pdf-viewer.html?file=${encodeURIComponent(filePath)}`;
+    // Build pdf-viewer-ui.html URL
+    let viewerUrl = `/tools/pdf-viewer/pdf-viewer-ui.html?file=${encodeURIComponent(filePath)}`;
 
-    // Extract page number if present (from #page=X or &page=X)
+    // Extract page number and search term if present
     if (params) {
       const pageMatch = params.match(/page=(\d+)/);
       if (pageMatch) {
         viewerUrl += `&page=${pageMatch[1]}`;
       }
 
-      // Note: search parameter not supported by current pdf-viewer.html
-      // but could be added later
+      const searchMatch = params.match(/search=([^&]+)/);
+      if (searchMatch) {
+        viewerUrl += `&search=${searchMatch[1]}`;
+      }
     }
 
     return viewerUrl;

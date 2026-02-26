@@ -187,6 +187,23 @@ async function renderEventDetail() {
     }
 }
 
+// ==============================
+// SKELETON LOADING FUNCTIONS
+// ==============================
+function generateSkeletonCards(count = 6, size = 'medium') {
+    return Array(count).fill('').map(() => `
+        <div class="skeleton-card skeleton-card-${size}"></div>
+    `).join('');
+}
+
+function injectSkeleton(container) {
+    const count = container.classList.contains('md:grid-cols-2') ? 6 : 4;
+    const size = container.getAttribute('data-data-source') === 'events' ? 'large' : 'medium';
+    
+    container.innerHTML = generateSkeletonCards(count, size);
+    container.classList.add('skeleton-loading');
+}
+
 function renderEntities(container) {
     const dataSource = container.getAttribute("data-data-source");
     const filterValue = container.getAttribute("data-filter");
@@ -217,6 +234,7 @@ function renderEntities(container) {
                 filteredData = data.filter(item => !item.parent_event_id);
             }
 
+            container.classList.remove('skeleton-loading');
             container.innerHTML = filteredData.map(item => buildCard(item)).join('');
 
             // Dispatch event so filter.js knows to apply initial sort/filters
@@ -333,11 +351,21 @@ document.addEventListener("DOMContentLoaded", () => {
         renderEventDetail();
     }
 
+    // Inject skeletons immediately for all data containers
     document.querySelectorAll("[data-data-source]").forEach(el => {
         if (!el.closest("[data-component]")) {
-            renderEntities(el);
+            injectSkeleton(el);
         }
     });
+    
+    // Then load real data after brief delay
+    setTimeout(() => {
+        document.querySelectorAll("[data-data-source]").forEach(el => {
+            if (!el.closest("[data-component]")) {
+                renderEntities(el);
+            }
+        });
+    }, 100);
 
     document.querySelectorAll("[data-otd-page]").forEach(el => {
         renderOTDPage(el);
@@ -351,8 +379,25 @@ document.addEventListener("DOMContentLoaded", () => {
 // Handle [data-data-source] inside dynamically loaded components
 document.addEventListener("componentLoaded", (e) => {
     const el = e.detail.element;
-    el.querySelectorAll("[data-data-source]").forEach(container => renderEntities(container));
-    if (el.hasAttribute("data-data-source")) renderEntities(el);
+    
+    // Handle data sources in components
+    el.querySelectorAll("[data-data-source]").forEach(container => {
+        injectSkeleton(container);
+    });
+    
+    if (el.hasAttribute("data-data-source")) {
+        injectSkeleton(el);
+    }
+    
+    // Load real data after brief delay
+    setTimeout(() => {
+        el.querySelectorAll("[data-data-source]").forEach(container => {
+            renderEntities(container);
+        });
+        if (el.hasAttribute("data-data-source")) {
+            renderEntities(el);
+        }
+    }, 100);
 });
 
 function buildOTDCard(item) {

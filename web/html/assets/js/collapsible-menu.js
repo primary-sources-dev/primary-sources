@@ -55,12 +55,23 @@ function initMegaMenu() {
         }
     });
 
-    // Close Card Action (Bottom Right)
+    // Close Card Action (Top Right)
     if (closeContainer) {
         closeContainer.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             closeMenuAction();
+        });
+    }
+
+    // Home Card Action (Top Left)
+    const homeContainer = document.getElementById('home-container');
+    if (homeContainer) {
+        homeContainer.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMenuAction();
+            window.location.href = '/index.html';
         });
     }
 

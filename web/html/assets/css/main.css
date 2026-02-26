@@ -176,6 +176,37 @@ hr {
 }
 
 /* ==============================
+   SKELETON LOADING STATES
+   ============================== */
+.skeleton-card {
+    background: linear-gradient(90deg, 
+        rgba(212, 207, 199, 0.1) 25%, 
+        rgba(212, 207, 199, 0.2) 50%, 
+        rgba(212, 207, 199, 0.1) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 207, 199, 0.1);
+}
+
+@keyframes skeleton-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton-card-small {
+    height: 120px;
+}
+
+.skeleton-card-medium {
+    height: 160px;
+}
+
+.skeleton-card-large {
+    height: 200px;
+}
+
+/* ==============================
    BADGE COMPONENT
    ============================== */
 .badge {

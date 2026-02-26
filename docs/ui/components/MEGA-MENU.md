@@ -9,8 +9,16 @@ A comprehensive, high-density navigation component designed for the Primary Sour
 </div>
 ```
 
-## Functional Containers (New Ordered Sequence)
-The menu is organized into six cards, sequence-optimized for the research workflow:
+## Action Cards (Dedicated Header Row)
+The top row of the menu consists of two high-priority action cards using the distinctive `.close-card` dashed styling:
+
+| ID Reference | Title | Intent |
+| :--- | :--- | :--- |
+| `#home-container` | **Return Home** | Immediate navigation back to the archive root (`index.html`). |
+| `#close-container` | **Close Navigation** | Closes the menu modal and returns to the current page. |
+
+## Functional Containers (Ordered Sequence)
+Beneath the action row, the menu is organized into six functional cards:
 
 | # | ID Reference | Title | Primary Function |
 | :--- | :--- | :--- | :--- |
@@ -31,7 +39,7 @@ The component utilizes a native CSS Grid system defined in `main.css`:
 ## Visual Standards
 - **Glassmorphism**: 30px backdrop blur with a semi-transparent dark charcoal background.
 - **Micro-Animations**: Material Symbols hover effects with primary gold accents (`#B08B49`).
-- **Interaction**: Bottom-right "Close Navigation" card featuring a distinct dashed border for clear action signifier.
+- **Interaction**: Top-level action cards feature a dashed border and centered alignment to distinguish them from content categories.
 
 ## Technical Maintenance
 - **File**: `web/html/components/mega-menu.html`
@@ -39,4 +47,4 @@ The component utilizes a native CSS Grid system defined in `main.css`:
 - **Rebuild Requirement**: Run `python build.py` after any structural changes to propagate updates site-wide.
 
 ---
-*Last Verified: 2026-02-26 | Grid V4.1*
+*Last Verified: 2026-02-26 | Grid V4.2 (Action Header Update)*
