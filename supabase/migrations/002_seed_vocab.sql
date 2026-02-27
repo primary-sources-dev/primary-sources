@@ -30,6 +30,14 @@ insert into v_event_hierarchy (code, label) values
   ('CATEGORY_3', 'Documentation & Reports')
 on conflict (code) do nothing;
 
+-- 1.3. Witness hierarchy
+insert into v_witness_hierarchy values
+  ('PRIMARY_WITNESS', 'Primary Witness - Directly experienced the event'),
+  ('SECONDARY_WITNESS', 'Secondary Witness - Learned about the event from others'),
+  ('INVESTIGATOR', 'Investigator - Official investigation role'),
+  ('EXPERT', 'Expert - Specialist analysis role')
+on conflict (code) do nothing;
+
 -- 2. Participant roles
 insert into v_role_type (code, label) values
   ('WITNESS',         'Individual who personally observed the event'),
