@@ -269,7 +269,15 @@ function renderEntities(container) {
             // Event hierarchy filtering (for facet bar)
             if (dataSource === 'events' && filterKey === 'Event Hierarchy') {
                 if (filterValue && filterValue !== 'All') {
-                    filteredData = filteredData.filter(item => item.event_hierarchy === filterValue);
+                    // Handle comma-separated values for multiple categories
+                    if (filterValue.includes(',')) {
+                        const categories = filterValue.split(',').map(cat => cat.trim());
+                        filteredData = filteredData.filter(item => 
+                            categories.includes(item.event_hierarchy)
+                        );
+                    } else {
+                        filteredData = filteredData.filter(item => item.event_hierarchy === filterValue);
+                    }
                 }
             }
 
