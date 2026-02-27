@@ -49,27 +49,19 @@ class WitnessUI {
      * @returns {string} HTML string
      */
     static renderWitnessCard(witness) {
-        const hierarchyIcon = this.getHierarchyIcon(witness.witness_hierarchy);
-        const credibilityColor = this.getCredibilityColor(witness.credibility);
-        
         return `
             <div class="witness-card border border-archive-secondary/20 bg-[#252021]/60 p-3 mb-2">
                 <div class="flex items-start gap-3">
-                    <span class="material-symbols-outlined text-primary text-sm">${hierarchyIcon}</span>
                     <div class="flex-1">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="font-bold text-archive-heading">${witness.name}</span>
+                            ${witness.agency ? `<span class="text-xs text-archive-secondary/60 ml-2">${witness.agency}</span>` : ''}
                             <span class="text-xs px-2 py-1 rounded bg-primary/20 text-primary">
                                 ${witness.event_specific_role}
                             </span>
                         </div>
                         <div class="text-xs text-archive-secondary/60 mb-1">
                             ${witness.description}
-                        </div>
-                        <div class="flex items-center gap-2 text-xs">
-                            <span class="text-archive-secondary/40">Credibility:</span>
-                            <span class="${credibilityColor}">${witness.credibility}</span>
-                            ${witness.agency ? `<span class="text-archive-secondary/40">• ${witness.agency}</span>` : ''}
                         </div>
                     </div>
                 </div>
@@ -108,18 +100,22 @@ class WitnessUI {
     }
     
     /**
-     * Get icon for witness hierarchy
+     * Get hierarchy icon for witness
      * @param {string} hierarchy - Witness hierarchy code
-     * @returns {string} Icon name
+     * @returns {string} Material icon name
      */
     static getHierarchyIcon(hierarchy) {
-        const icons = {
+        const iconMap = {
+            'INVESTIGATOR': 'badge',
+            'EYE_WITNESS': 'visibility',
+            'ALIBI_WITNESS': 'person_check',
+            'CHARACTER_WITNESS': 'person_pin',
+            'LAY_WITNESS': 'person',
+            'EXPERT': 'psychology',
             'PRIMARY_WITNESS': 'person',
-            'SECONDARY_WITNESS': 'person_outline',
-            'INVESTIGATOR': 'search',
-            'EXPERT': 'psychology'
+            'SECONDARY_WITNESS': 'person_outline'
         };
-        return icons[hierarchy] || 'person';
+        return iconMap[hierarchy] || 'person';
     }
     
     /**

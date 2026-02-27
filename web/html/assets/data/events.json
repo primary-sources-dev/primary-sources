@@ -5,11 +5,11 @@
     "event_type": "SIGHTING",
     "event_level": "PRIMARY",
     "event_hierarchy": "CATEGORY_2",
-    "icon": "person_pin",
-    "label": "Nov 20 €¢ 21, 1963 · Dallas, TX",
-    "title": "The Ralph Leon Yates Incident",
+    "icon": "visibility",
+    "label": "11/20/63 · Dallas, TX",
+    "title": "The Ralph Yates Incident",
     "location": "Dallas, TX",
-    "description": "Ralph Leon Yates reported picking up a hitchhiker on Nov 20, but FBI alibi checks suggest event likely occurred on Nov 21. Both dates are preserved here for analysis of potential Oswald movements.",
+    "description": "Ralph Leon Yates reported picking up a hitchhiker, but FBI alibi checks suggest event likely occurred on a different date. Both dates are preserved here for analysis of potential Oswald movements.",
     "context": "The Ralph Yates incident represents one of most compelling witness accounts of a possible Oswald sighting before JFK assassination. Yates, a refrigeration mechanic, reported picking up a hitchhiker matching Oswald's description who carried a package and discussed shooting President from a window. The FBI conducted extensive interviews but ultimately determined discrepancies in Yates' timeline. Yates later experienced a mental health crisis and was hospitalized. The case remains disputed among researchers.",
     "featured": true,
     "is_conflict": true,
@@ -26,30 +26,74 @@
         "contact_info": {
           "phone": "unknown",
           "address": "Dallas, TX"
-        }
+        },
+        "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
       },
       {
         "name": "J.O. Smith",
         "role": "SECONDARY_WITNESS",
-        "witness_hierarchy": "SECONDARY_WITNESS", 
+        "witness_hierarchy": "SECONDARY_WITNESS",
         "event_specific_role": "Family Witness",
         "description": "Yates' uncle who accompanied him to FBI office",
-        "relationship_to_primary": "Uncle of Ralph Yates"
+        "relationship_to_primary": "Uncle of Ralph Yates",
+        "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
       },
       {
         "name": "SA Arthur Carter",
         "role": "INVESTIGATOR",
         "witness_hierarchy": "INVESTIGATOR",
-        "event_specific_role": "Lead Investigator",
+        "event_specific_role": "Investigator",
         "description": "FBI Special Agent conducting Yates interviews",
-        "agency": "FBI Dallas Office"
+        "agency": "FBI Dallas Office",
+        "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
       },
       {
         "name": "SA C. Ray Hall",
         "role": "INVESTIGATOR",
         "witness_hierarchy": "INVESTIGATOR",
-        "event_specific_role": "Co-Investigator",
+        "event_specific_role": "Investigator",
         "description": "FBI Special Agent assisting with Yates interviews",
+        "agency": "FBI Dallas Office",
+        "event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"
+      },
+      {
+        "name": "Dempsey Jones",
+        "role": "SECONDARY_WITNESS",
+        "witness_hierarchy": "SECONDARY_WITNESS",
+        "event_specific_role": "Witness",
+        "description": "Co-worker of Ralph Yates at Texas Butchers Supply Company for 9.5 years. Route 4, Box 376, Dallas TX, phone Diamond 8-1051. Corroborated that Yates told him about the hitchhiker BEFORE the assassination. Described Yates as 'a big talker who always talks about a lot of foolishness.'",
+        "agency": "Texas Butchers Supply Co."
+      },
+      {
+        "name": "J.R. Gilpin",
+        "role": "SECONDARY_WITNESS",
+        "witness_hierarchy": "SECONDARY_WITNESS",
+        "event_specific_role": "Witness",
+        "description": "Partner at Texas Butchers Supply Company. Verified service call records (Shop Bill No. 8760, Invoice No. 36919) confirming Yates was dispatched to Irving on November 21, 1963. Recalled giving Yates the order around 10:30 AM.",
+        "agency": "Texas Butchers Supply Co."
+      },
+      {
+        "name": "Thomas Ayres",
+        "role": "SECONDARY_WITNESS",
+        "witness_hierarchy": "SECONDARY_WITNESS",
+        "event_specific_role": "Witness",
+        "description": "Employee at Charlie's Ranch Meat Market, 249 Wynnewood Village, Dallas TX. On duty November 20-21, 1963. Could not recall giving a check to a TBSC employee. Reviewed check stubs with negative results.",
+        "agency": "Charlie's Ranch Meat Market"
+      },
+      {
+        "name": "Donald Mask",
+        "role": "SECONDARY_WITNESS",
+        "witness_hierarchy": "SECONDARY_WITNESS",
+        "event_specific_role": "Witness",
+        "description": "Employee at Charlie's Ranch Meat Market, 249 Wynnewood Village, Dallas TX. On duty November 21, 1963. Could not recall giving a check to a TBSC employee.",
+        "agency": "Charlie's Ranch Meat Market"
+      },
+      {
+        "name": "John T. Kesler",
+        "role": "INVESTIGATOR",
+        "witness_hierarchy": "INVESTIGATOR",
+        "event_specific_role": "Investigator",
+        "description": "FBI Special Agent who conducted re-interview of Ralph Yates on January 3, 1964, regarding discrepancies in his service call timeline. Also interviewed Thomas Ayres and Donald Mask at Charlie's Ranch Meat Market.",
         "agency": "FBI Dallas Office"
       }
     ],
@@ -62,7 +106,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "build",
-        "label": "Nov 21, 1963 \u00c2\u00b7 Irving, TX",
+        "label": "21/11/1963 · Irving, TX",
         "title": "Park-It Market Service Call (Verified)",
         "description": "Ralph Yates performed a verified refrigeration service call at Park-It Market Drive-In Grocery, 2320 Shady Grove Road, Irving TX. He was dispatched around 10:30 AM, called in after 11:30 AM, and returned to TBSC around 12:30-1:00 PM. The compressor was out of oil. Documented by Shop Bill No. 8760, Invoice No. 36919 ($12.00 for 2-hour call).",
         "start_ts": "1963-11-21T10:30:00Z",
@@ -78,7 +122,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "campaign",
-        "label": "Nov 26, 1963",
+        "label": "26/11/1963",
         "title": "First Yates Report",
         "description": "Ralph Leon Yates voluntarily contacts the Dallas FBI office to report picking up a hitchhiker he believes was Lee Harvey Oswald carrying a package of 'curtain rods'.",
         "start_ts": "1963-11-26T00:00:00Z",
@@ -92,7 +136,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "assignment_ind",
-        "label": "Nov 27, 1963",
+        "label": "27/11/1963",
         "title": "Formal FBI Interview",
         "description": "Yates appears at the FBI office with his uncle, J.O. Smith. He details the hitchhiker's questions about shooting the President from a window. Agents Arthur Carter and C. Ray Hall conduct the interview.",
         "start_ts": "1963-11-27T00:00:00Z",
@@ -134,7 +178,7 @@
         "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
         "event_type": "INTERVIEW",
         "icon": "history_edu",
-        "label": "Dec 10, 1963",
+        "label": "10/12/1963",
         "title": "Signed Statement & Photo ID",
         "description": "Yates provides a sworn affidavit to SA C. Ray Hall. He positively identifies a photo of Oswald. He adds details about the hitchhiker showing him a picture of a man with a rifle.",
         "start_ts": "1963-12-10T00:00:00Z",
@@ -146,7 +190,7 @@
         "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
         "event_type": "INTERVIEW",
         "icon": "search",
-        "label": "Jan 3, 1964",
+        "label": "03/01/1964",
         "title": "Alibi Verification Check",
         "description": "FBI Agents re-interview Yates regarding discrepancies in his service call timeline. They confront him with the lack of a check stub from Charlie's Meat Market.",
         "start_ts": "1964-01-03T00:00:00Z",
@@ -190,7 +234,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "graphic_eq",
-        "label": "Jan 4, 1964",
+        "label": "04/01/1964",
         "title": "Polygraph Examination",
         "description": "Yates submits to a polygraph test administered by the FBI. The results are recorded as 'inconclusive' with no significant deception indicated.",
         "start_ts": "1964-01-04T00:00:00Z",
@@ -204,7 +248,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "phone_in_talk",
-        "label": "Jan 8, 1964",
+        "label": "08/01/1964",
         "title": "Distressed Phone Call",
         "description": "Yates calls SA C. Ray Hall late at night, crying and emotionally upset. He returns the next morning (Jan 9) to discuss his family's history of mental illness.",
         "start_ts": "1964-01-08T23:00:00Z",
@@ -218,7 +262,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "local_hospital",
-        "label": "Jan 15, 1964",
+        "label": "15/01/1964",
         "title": "Final Appearance & Hospitalization",
         "description": "Yates appears with his wife, carrying pills he claims his doctors are using to kill him. Following this visit, he is admitted to Woodlawn Hospital for psychiatric observation.",
         "start_ts": "1964-01-15T00:00:00Z",
@@ -378,7 +422,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "search",
-        "label": "April 11-30, 1963",
+        "label": "11/04-30/04/1963",
         "title": "Initial investigation",
         "description": "Police conduct investigation but fail to identify shooter",
         "start_ts": "1963-04-11T00:00:00Z",
@@ -391,7 +435,7 @@
         "event_level": "SECONDARY",
         "event_hierarchy": "CATEGORY_3",
         "icon": "fact_check",
-        "label": "Dec 1963",
+        "label": "01/12/1963",
         "title": "Marina Oswald revelation",
         "description": "Marina tells FBI that Oswald confessed to shooting at Walker",
         "start_ts": "1963-12-01T00:00:00Z",
@@ -489,7 +533,7 @@
     "event_level": "PRIMARY",
     "event_hierarchy": "CATEGORY_1",
     "icon": "gps_fixed",
-    "label": "Nov 22, 1963 · Dallas, TX",
+    "label": "11/22/63 · Dallas, TX",
     "title": "JFK Assassination",
     "location": "Dealey Plaza, Dallas, TX",
     "description": "President John F. Kennedy assassinated in Dealey Plaza by Lee Harvey Oswald",
@@ -506,7 +550,7 @@
       },
       {
         "name": "Lee Harvey Oswald",
-        "role": "Perpetrator", 
+        "role": "Perpetrator",
         "description": "Accused assassin"
       },
       {
@@ -537,7 +581,7 @@
     "event_level": "PRIMARY",
     "event_hierarchy": "CATEGORY_1",
     "icon": "gps_fixed",
-    "label": "Nov 22, 1963 · Oak Cliff, Dallas, TX",
+    "label": "11/22/63 · Oak Cliff, Dallas, TX",
     "title": "Officer Tippit Murder",
     "location": "10th & Patton Streets, Oak Cliff, Dallas, TX",
     "description": "Lee Harvey Oswald murders Dallas Police Officer J.D. Tippit during manhunt",
@@ -575,7 +619,7 @@
     "event_level": "PRIMARY",
     "event_hierarchy": "CATEGORY_1",
     "icon": "gps_fixed",
-    "label": "Nov 24, 1963 · Dallas, TX",
+    "label": "11/24/63 · Dallas, TX",
     "title": "Oswald Murder",
     "location": "Dallas Police Headquarters, Dallas, TX",
     "description": "Jack Ruby murders Lee Harvey Oswald in Dallas Police Headquarters basement",
@@ -603,6 +647,40 @@
         "description": "Live television broadcast of shooting"
       }
     ],
+    "sources": [],
+    "assertions": []
+  },
+  {
+    "id": "sylvia-odio-incident",
+    "event_id": "f1e2d3c4-b5a6-4f7e-8d9c-0a1b2c3d4e5f",
+    "event_type": "SIGHTING",
+    "event_hierarchy": "CATEGORY_2",
+    "event_level": "SECONDARY",
+    "icon": "visibility",
+    "label": "09/25/63 · Dallas, TX",
+    "title": "The Sylvia Odio Incident",
+    "display_name": "The Sylvia Odio Incident",
+    "location": "Dallas, TX",
+    "description": "Three men claiming to be Cuban revolutionaries visited Sylvia Odio's residence, asking for her. One was identified as Lee Harvey Oswald.",
+    "context": "Sylvia Odio reported that three men claiming to be from JURE (an anti-Castro organization) visited her Dallas home. Annie Odio answered the door and the men asked for Sylvia. One was identified as 'Leon Oswald' (Lee Harvey Oswald), accompanied by Angelo and Leopoldo. This incident is significant as it places Oswald in Dallas with anti-Castro contacts before the JFK assassination.",
+    "featured": true,
+    "start_ts": "1963-09-25T00:00:00Z",
+    "time_precision": "APPROX",
+    "witnesses": [
+      {
+        "name": "Sylvia Odio",
+        "witness_hierarchy": "EYE_WITNESS",
+        "role": "Eyewitness",
+        "description": "Dallas resident who reported the visit from three men claiming to be Cuban revolutionaries."
+      },
+      {
+        "name": "Annie Odio",
+        "witness_hierarchy": "EYE_WITNESS",
+        "role": "Eyewitness",
+        "description": "Sylvia Odio's daughter who answered the door when the three men arrived."
+      }
+    ],
+    "sub_events": [],
     "sources": [],
     "assertions": []
   }
