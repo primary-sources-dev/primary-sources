@@ -570,5 +570,17 @@
         "year": "1964"
       }
     ]
+  },
+  {
+    "id": "jure",
+    "org_id": "e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b",
+    "name": "JURE",
+    "display_name": "JURE",
+    "org_type": "GROUP",
+    "description": "Anti-Castro organization that the three men claimed to represent during their visit to Sylvia Odio.",
+    "role": "Claimed affiliation",
+    "tags": [
+      "The Sylvia Odio Incident"
+    ]
   }
 ]

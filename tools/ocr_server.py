@@ -155,15 +155,7 @@ def serve_js():
     return send_from_directory(UI_DIR, "ocr-gui.js")
 
 
-@app.route("/<path:filename>")
-def serve_ui_files(filename):
-    """Serve HTML files and other resources from main web/html/ directory."""
-    # Security check: only serve .html, .css, .js files from UI root or subdirs
-    if filename.endswith(('.html', '.css', '.js', '.png', '.jpg', '.svg', '.json')):
-        return send_from_directory(NEW_UI_ROOT, filename)
-
-    # For other paths, return 404
-    return jsonify({"error": "Not found"}), 404
+# API ROUTES FOLLOW...
 
 
 # ============================================================================
@@ -1133,6 +1125,53 @@ def feedback_get():
     return jsonify(feedback)
 
 
+@app.route("/api/history", methods=["GET"])
+def get_history():
+    """
+    Return a list of all previously processed documents.
+    Scans the processed/ folder for PDFs and matching sidecars.
+    """
+    if not os.path.exists(UPLOAD_FOLDER):
+        return jsonify({"files": []})
+
+    files = []
+    # Scan processed/ folder
+    for entry in os.scandir(UPLOAD_FOLDER):
+        if entry.is_file() and entry.name.lower().endswith(".pdf"):
+            filename = entry.name
+            base_name = filename.replace(".pdf", "")
+            
+            # Check for sidecar files to determine status
+            has_txt = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.txt"))
+            has_ocr_json = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.ocr.json"))
+            
+            # For history, we consider it "completed" if it's there
+            # (In a more robust system, we'd check job logs or a database)
+            
+            files.append({
+                "name": filename,
+                "status": "completed",
+                "size": entry.stat().st_size,
+                "type": "OCR_RESULT" if "_searchable" in filename else "UPLOAD"
+            })
+            
+    # Also check processed/uploads/ for original/skipped files
+    uploads_dir = os.path.join(UPLOAD_FOLDER, "uploads")
+    if os.path.exists(uploads_dir):
+        for entry in os.scandir(uploads_dir):
+            if entry.is_file() and entry.name.lower().endswith(".pdf"):
+                # Avoid duplicates if they exist in both places
+                if not any(f["name"] == entry.name for f in files):
+                    files.append({
+                        "name": entry.name,
+                        "status": "completed",
+                        "size": entry.stat().st_size,
+                        "type": "ORIGINAL_PDF"
+                    })
+
+    return jsonify({"files": files})
+
+
 @app.route("/api/feedback/corrections", methods=["GET"])
 def feedback_corrections():
     """
@@ -1173,6 +1212,21 @@ def feedback_corrections():
         "corrections": list(corrections.values()),
         "total_incorrect": sum(c["count"] for c in corrections.values())
     })
+
+
+# ============================================================================
+# CATCH-ALL ROUTE (MUST BE LAST)
+# ============================================================================
+
+@app.route("/<path:filename>")
+def serve_ui_files(filename):
+    """Serve HTML files and other resources from main web/html/ directory."""
+    # Security check: only serve .html, .css, .js files from UI root or subdirs
+    if filename.endswith(('.html', '.css', '.js', '.png', '.jpg', '.svg', '.json')):
+        return send_from_directory(NEW_UI_ROOT, filename)
+
+    # For other paths, return 404
+    return jsonify({"error": "Not found"}), 404
 
 
 # ============================================================================

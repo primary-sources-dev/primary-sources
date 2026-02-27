@@ -7,8 +7,13 @@
  * 
  * Required: main.css must be loaded before this file for CSS variables.
  * 
- * Last updated: 2026-02-24
+ * Last updated: 2026-02-27
  * ============================================================================ */
+
+/* Force scrollbar to prevent layout shifts on tab switch */
+html {
+    overflow-y: scroll;
+}
 
 /* ============================================================================
  * Tabs
@@ -38,8 +43,20 @@
     color: var(--archive-heading);
 }
 
+.repo-tabs {
+    width: 100%;
+}
+
+main {
+    width: 100%;
+}
+
+
 .tab-content {
     display: none;
+    min-height: 60vh;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .tab-content.active {
@@ -247,7 +264,7 @@ input[type="radio"]+div {
     min-width: 0;
 }
 
-.queue-item > .flex-1 {
+.queue-item>.flex-1 {
     min-width: 0;
     overflow: hidden;
 }

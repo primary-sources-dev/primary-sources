@@ -1,0 +1,122 @@
+[
+  {
+    "title": "FBI Report on Ralph Yates",
+    "type": "GOVERNMENT DOCUMENT",
+    "year": "1963-1964",
+    "author": "FBI Dallas Office",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf"
+  },
+  {
+    "title": "Warren Commission Exhibit",
+    "type": "GOVERNMENT DOCUMENT",
+    "year": "1964",
+    "author": "Warren Commission",
+    "archive": "NARA"
+  },
+  {
+    "title": "Yates Signed Affidavit",
+    "type": "AFFIDAVIT",
+    "date": "Dec 10, 1963",
+    "author": "Ralph Leon Yates",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf#page=14"
+  },
+  {
+    "title": "First Yates Report — FBI 302 Initial Contact",
+    "type": "FBI 302",
+    "date": "Nov 26, 1963",
+    "author": "FBI Dallas Office",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf#page=1"
+  },
+  {
+    "title": "Formal FBI Interview Report — Carter & Hall",
+    "type": "FBI 302",
+    "date": "Nov 27, 1963",
+    "author": "SA Arthur Carter, SA C. Ray Hall",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf#page=8"
+  },
+  {
+    "title": "Dempsey Jones FBI Interview Report",
+    "type": "FBI 302",
+    "date": "Nov 27, 1963",
+    "author": "SA Arthur E. Carter",
+    "archive": "NARA",
+    "notes": "Co-worker corroborated Yates told him about hitchhiker BEFORE assassination"
+  },
+  {
+    "title": "J.R. Gilpin FBI Interview Report",
+    "type": "FBI 302",
+    "date": "Nov 27, 1963",
+    "author": "FBI Dallas Office",
+    "archive": "NARA",
+    "notes": "TBSC partner located Shop Bill No. 8760 and Invoice No. 36919"
+  },
+  {
+    "title": "Alibi Verification Report — Yates Re-Interview",
+    "type": "FBI 302",
+    "date": "Jan 3, 1964",
+    "author": "FBI Dallas Office",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf#page=22",
+    "notes": "Re-interview regarding Charlie's Meat Market check stub discrepancies"
+  },
+  {
+    "title": "Thomas Ayres FBI Interview Report",
+    "type": "FBI 302",
+    "date": "Jan 3, 1964",
+    "author": "SA John T. Kesler",
+    "archive": "NARA",
+    "notes": "Charlie's Ranch Meat Market employee, could not recall giving check to TBSC"
+  },
+  {
+    "title": "Donald Mask FBI Interview Report",
+    "type": "FBI 302",
+    "date": "Jan 3, 1964",
+    "author": "SA John T. Kesler",
+    "archive": "NARA",
+    "notes": "Charlie's Ranch Meat Market employee, could not recall giving check to TBSC"
+  },
+  {
+    "title": "FBI Polygraph Examination Report",
+    "type": "FORENSIC REPORT",
+    "date": "Jan 4, 1964",
+    "author": "FBI Dallas Office",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf#page=13",
+    "notes": "Results recorded as 'inconclusive' with no significant deception indicated"
+  },
+  {
+    "title": "Distressed Phone Call Report",
+    "type": "FBI 302",
+    "date": "Jan 8, 1964",
+    "author": "SA C. Ray Hall",
+    "archive": "NARA",
+    "url": "/assets/documents/yates-searchable.pdf#page=33",
+    "notes": "Yates called late at night, crying and emotionally upset"
+  },
+  {
+    "title": "Shop Bill No. 8760",
+    "type": "BUSINESS RECORD",
+    "date": "Nov 21, 1963",
+    "author": "Texas Butchers Supply Co.",
+    "notes": "Work order documenting Yates dispatch to Park-It Market, Irving TX"
+  },
+  {
+    "title": "Invoice No. 36919",
+    "type": "BUSINESS RECORD",
+    "date": "Nov 21, 1963",
+    "author": "Texas Butchers Supply Co.",
+    "notes": "$12.00 for 2-hour refrigeration service call at Park-It Market"
+  },
+  {
+    "title": "Woodlawn Hospital Admission Record",
+    "type": "MEDICAL RECORD",
+    "date": "Jan 15, 1964",
+    "author": "Woodlawn Hospital",
+    "url": "/assets/documents/yates-searchable.pdf#page=42",
+    "notes": "Psychiatric observation following Yates' final FBI visit"
+  }
+]

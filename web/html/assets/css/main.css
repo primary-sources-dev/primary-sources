@@ -504,7 +504,7 @@ hr {
 }
 
 .close-card span {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 1.8vw, 1.75rem);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -512,30 +512,33 @@ hr {
 }
 
 .category-title {
-    font-size: clamp(18px, 1.8vw, 24px) !important;
+    font-size: clamp(20px, 2vw, 28px) !important;
     line-height: 1.1;
     letter-spacing: 0.05em;
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 1rem !important;
 }
 
 /* Category Item Scaling */
 .mega-menu-main > div {
     display: flex;
     flex-direction: column;
-    padding: 1rem !important;
+    padding: 1.25rem !important;
 }
 
 .mega-menu-main ul {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    gap: 0.35rem;
+    justify-content: flex-start; /* Removed space-evenly to group items */
+    gap: 0.6rem; /* Natural gap for density */
+    margin-top: 0.5rem;
 }
 
 .mega-menu-main li a {
-    font-size: clamp(12px, 1.1vw, 15px);
+    font-size: clamp(14px, 1.2vw, 17px);
+    font-weight: 500; /* Added weight for legibility */
 }
+
 
 
 
@@ -611,12 +614,13 @@ hr {
     }
 
     .category-title {
-        font-size: 14px !important;
+        font-size: 16px !important;
     }
 
     .mega-menu-main li a {
-        font-size: 9px;
+        font-size: 13px;
     }
+
 
     .social-grid {
         gap: 0.5rem;

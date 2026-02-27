@@ -1,0 +1,158 @@
+[
+  {
+    "person_id": "3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8",
+    "display_name": "Lee Harvey Oswald",
+    "given_name": "Lee",
+    "family_name": "Oswald"
+  },
+  {
+    "person_id": "8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+    "display_name": "Yates, Ralph Leon",
+    "given_name": "Ralph Leon",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "a0b1c2d3-e4f5-4678-a9b0-c1d2e3f4a5b6",
+    "display_name": "Yates, Mark A.",
+    "given_name": "Mark A.",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "a2b3c4d5-e6f7-4890-a1b2-c3d4e5f6a7b8",
+    "display_name": "Smith, J.O.",
+    "given_name": "J.O.",
+    "family_name": "Smith"
+  },
+  {
+    "person_id": "a4b5c6d7-e8f9-4012-a3b4-c5d6e7f8a9b0",
+    "display_name": "Bogard, Albert Guy",
+    "given_name": "Albert Guy",
+    "family_name": "Bogard"
+  },
+  {
+    "person_id": "a8b9c0d1-e2f3-4456-a7b8-c9d0e1f2a3b4",
+    "display_name": "White, Maurice J.",
+    "given_name": "Maurice J.",
+    "family_name": "White"
+  },
+  {
+    "person_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
+    "display_name": "Jones, Dempsey",
+    "given_name": "Dempsey",
+    "family_name": "Jones"
+  },
+  {
+    "person_id": "b5c6d7e8-f9a0-4123-b4c5-d6e7f8a9b0c1",
+    "display_name": "Bernice (last name unknown)",
+    "given_name": "Bernice",
+    "family_name": null
+  },
+  {
+    "person_id": "b9c0d1e2-f3a4-4567-b8c9-d0e1f2a3b4c5",
+    "display_name": "Kesler, John T.",
+    "given_name": "John T.",
+    "family_name": "Kesler"
+  },
+  {
+    "person_id": "c0d1e2f3-a4b5-4678-c9d0-e1f2a3b4c5d6",
+    "display_name": "Ruby, Jack",
+    "given_name": "Jack",
+    "family_name": "Ruby"
+  },
+  {
+    "person_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+    "display_name": "Gilpin, J.R.",
+    "given_name": "J.R.",
+    "family_name": "Gilpin"
+  },
+  {
+    "person_id": "c6d7e8f9-a0b1-4234-c5d6-e7f8a9b0c1d2",
+    "display_name": "Yates, Jacquelyn Marie",
+    "given_name": "Jacquelyn Marie",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
+    "display_name": "Stevenson, Adlai",
+    "given_name": "Adlai",
+    "family_name": "Stevenson"
+  },
+  {
+    "person_id": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+    "display_name": "Yates, Dorothy",
+    "given_name": "Dorothy",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "d5e6f7a8-b9c0-4123-d4e5-f6a7b8c9d0e1",
+    "display_name": "Owens, Sam",
+    "given_name": "Sam",
+    "family_name": "Owens"
+  },
+  {
+    "person_id": "d7e8f9a0-b1c2-4345-d6e7-f8a9b0c1d2e3",
+    "display_name": "Yates, Lorrie Jo",
+    "given_name": "Lorrie Jo",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "e2f3a4b5-c6d7-4890-e1f2-a3b4c5d6e7f8",
+    "display_name": "Ayres, Thomas",
+    "given_name": "Thomas",
+    "family_name": "Ayres"
+  },
+  {
+    "person_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
+    "display_name": "Hall, C. Ray",
+    "given_name": "C. Ray",
+    "family_name": "Hall"
+  },
+  {
+    "person_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
+    "display_name": "Yates, Elizabeth Ann",
+    "given_name": "Elizabeth Ann",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "f3a4b5c6-d7e8-4901-f2a3-b4c5d6e7f8a9",
+    "display_name": "Mask, Donald",
+    "given_name": "Donald",
+    "family_name": "Mask"
+  },
+  {
+    "person_id": "f7a8b9c0-d1e2-4345-f6a7-b8c9d0e1f2a3",
+    "display_name": "Carter, Arthur E.",
+    "given_name": "Arthur E.",
+    "family_name": "Carter"
+  },
+  {
+    "person_id": "f9a0b1c2-d3e4-4567-f8a9-b0c1d2e3f4a5",
+    "display_name": "Yates, Ralph Leon Jr.",
+    "given_name": "Ralph Leon Jr.",
+    "family_name": "Yates"
+  },
+  {
+    "person_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+    "display_name": "Sylvia Odio",
+    "given_name": "Sylvia",
+    "family_name": "Odio"
+  },
+  {
+    "person_id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+    "display_name": "Annie Odio",
+    "given_name": "Annie",
+    "family_name": "Odio"
+  },
+  {
+    "person_id": "c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f",
+    "display_name": "Leopoldo Odio",
+    "given_name": "Leopoldo",
+    "family_name": "Odio"
+  },
+  {
+    "person_id": "d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a",
+    "display_name": "Angelo",
+    "given_name": "Angelo",
+    "family_name": null
+  }
+]

@@ -5,6 +5,7 @@
 
 // State
 let currentJob = null;
+let persistentFiles = []; // Previously processed files from server
 let queuedFiles = [];
 
 // DOM Elements
@@ -68,6 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     fetchConfig();
     setupTabNavigation();
+
+    // Check for existing job in local storage
+    const savedJobId = localStorage.getItem('ocr_current_job_id');
+    if (savedJobId) {
+        currentJob = { id: savedJobId, status: 'processing', files: [] };
+        pollJobProgress();
+    }
+
+    fetchScanHistory(); // Re-hydrate the Review tab from server
 });
 
 function setupEventListeners() {
@@ -169,6 +179,11 @@ function switchTab(tabName) {
     tabContents.forEach(content => {
         content.classList.toggle('active', content.id === `tab-content-${tabName}`);
     });
+
+    // Handle tab-specific initialization
+    if (tabName === 'review') {
+        renderReviewGrid();
+    }
 }
 
 // ============================================================================
@@ -251,6 +266,11 @@ function renderQueue() {
         const isCompleted = status === 'completed';
         const isProcessing = status === 'processing';
         const parsedMetadata = jobFile ? jobFile.parsed_metadata : null;
+
+        // Auto-refresh review grid if something just completed
+        if (isCompleted && !document.getElementById('tab-content-review').classList.contains('hidden')) {
+            renderReviewGrid();
+        }
 
         return `
         <div class="queue-item ${status}">
@@ -618,6 +638,7 @@ async function startProcessing() {
         }
 
         currentJob = await response.json();
+        localStorage.setItem('ocr_current_job_id', currentJob.id);
         logSuccess(`Job created: ${currentJob.id}`);
         logMessage(`Processing ${currentJob.files.length} file(s)...`);
 
@@ -695,15 +716,20 @@ function pollJobProgress() {
             // Continue polling if still processing
             if (job.status === 'processing' || job.status === 'queued') {
                 setTimeout(pollJobProgress, 500);
-            } else if (job.status === 'completed') {
-                btnStart.disabled = false;
-                btnCancel.disabled = true;
-                logSuccess('Processing completed!');
-                renderQueue();
-            } else if (job.status === 'failed') {
-                btnStart.disabled = false;
-                btnCancel.disabled = true;
-                logError('Processing failed');
+            } else {
+                // Done or failed, clear local storage
+                localStorage.removeItem('ocr_current_job_id');
+
+                if (job.status === 'completed') {
+                    btnStart.disabled = false;
+                    btnCancel.disabled = true;
+                    logSuccess('Processing completed!');
+                    renderQueue();
+                } else if (job.status === 'failed') {
+                    btnStart.disabled = false;
+                    btnCancel.disabled = true;
+                    logError('Processing failed');
+                }
             }
         })
         .catch(error => {
@@ -721,6 +747,7 @@ async function cancelProcessing() {
 
         if (response.ok) {
             logMessage('Processing cancelled');
+            localStorage.removeItem('ocr_current_job_id');
             btnStart.disabled = false;
             btnCancel.disabled = true;
         }
@@ -850,3 +877,87 @@ function updateStats() {
     document.getElementById('stat-confidence').textContent = `${avgConf}%`;
     document.getElementById('stat-success').textContent = succeeded;
 }
+
+// ============================================================================
+// REVIEW GALLERY
+// ============================================================================
+
+function renderReviewGrid() {
+    const grid = document.getElementById('review-grid');
+    if (!grid) return;
+
+    // Merge session files with persistent history
+    const sessionFiles = currentJob ? currentJob.files.filter(f => f.status === 'completed') : [];
+
+    // Combine and deduplicate by name
+    const allFiles = [...sessionFiles];
+    persistentFiles.forEach(pf => {
+        if (!allFiles.find(sf => sf.name === pf.name)) {
+            allFiles.push(pf);
+        }
+    });
+
+    if (allFiles.length === 0) {
+        grid.innerHTML = `
+            <div class="col-span-full py-12 text-center opacity-40">
+                <span class="material-symbols-outlined text-4xl mb-2">folder_open</span>
+                <p class="text-sm">No processed documents found.</p>
+                <p class="text-[10px] uppercase tracking-widest mt-1">Start a scan to populate the gallery</p>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = allFiles.map(file => {
+        const docType = file.type || (file.name.includes('_searchable') ? 'OCR_RESULT' : 'DOCUMENT');
+
+        return `
+            <div class="border border-archive-secondary/20 bg-archive-dark/40 p-4 hover:border-primary/40 transition-all group">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="w-10 h-12 bg-archive-surface border border-archive-secondary/10 flex items-center justify-center text-primary/40 group-hover:text-primary group-hover:border-primary/20 transition-all">
+                        <span class="material-symbols-outlined text-2xl">description</span>
+                    </div>
+                    <span class="text-[8px] px-1.5 py-0.5 border border-primary/20 text-primary/60 uppercase font-bold tracking-widest">
+                        ${docType.replace('_', ' ')}
+                    </span>
+                </div>
+                <h4 class="text-[11px] font-bold text-archive-heading truncate mb-1" title="${file.name}">
+                    ${file.name}
+                </h4>
+                <div class="text-[9px] text-archive-secondary opacity-60 mb-3">
+                    ${formatFileSize(file.size)}
+                </div>
+                <div class="flex gap-2 border-t border-archive-secondary/10 pt-3">
+                    <a href="../pdf-viewer/pdf-viewer-ui.html?file=/api/download/${encodeURIComponent(file.name)}&mode=workbench&feature=true" target="_blank"
+                       class="flex-1 text-center py-1 border border-primary/20 text-[9px] font-bold uppercase tracking-widest hover:bg-primary hover:text-archive-bg transition-all">
+                       Workbench
+                    </a>
+                    <a href="../classifier/classifier-ui.html?file=/api/download/${encodeURIComponent(file.name)}" target="_blank"
+                       class="flex-1 text-center py-1 border border-emerald-500/20 text-[9px] font-bold uppercase font-bold tracking-widest text-emerald-400 hover:bg-emerald-500 hover:text-archive-bg transition-all">
+                       Review
+                    </a>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+async function fetchScanHistory() {
+    try {
+        const response = await fetch('/api/history');
+        if (response.ok) {
+            const data = await response.json();
+            persistentFiles = data.files || [];
+            console.log(`Re-hydrated ${persistentFiles.length} files from history`);
+
+            // If we are currently on the review tab, refresh it
+            const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+            if (activeTab === 'review') {
+                renderReviewGrid();
+            }
+        }
+    } catch (err) {
+        console.warn("Could not fetch scan history:", err);
+    }
+}
+

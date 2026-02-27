@@ -29,6 +29,47 @@ const basePath = window.basePath;
 function buildCard(item) {
     const featured = !!item.featured;
 
+    // Set icon based on event type
+    let icon = item.icon;
+    if (!icon && item.event_type) {
+        if (item.event_type === 'SIGHTING') {
+            icon = 'visibility';  // Eye icon for sightings
+        } else if (item.event_type === 'SHOT') {
+            icon = 'gps_fixed';   // Bullseye icon for shots
+        } else {
+            icon = 'description'; // Default icon
+        }
+    }
+
+    // Format date from start_ts to MM/DD/YY and extract city, state from location
+    let formattedDate = item.label; // fallback to existing label
+    if (item.start_ts) {
+        const date = new Date(item.start_ts);
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = String(date.getFullYear()).slice(-2);
+        
+        // Extract only city, state from location (remove street addresses, etc.)
+        let cityState = '';
+        if (item.location) {
+            // Look for pattern like "Dallas, TX" or "Oak Cliff, Dallas, TX"
+            const cityStateMatch = item.location.match(/([^,]+,\s*[A-Z]{2})$/);
+            if (cityStateMatch) {
+                cityState = cityStateMatch[1];
+            } else {
+                // Fallback: take last two parts of location
+                const parts = item.location.split(',').map(p => p.trim());
+                if (parts.length >= 2) {
+                    cityState = parts.slice(-2).join(', ');
+                } else {
+                    cityState = item.location;
+                }
+            }
+        }
+        
+        formattedDate = `${month}/${day}/${year} · ${cityState}`;
+    }
+
     // Add witness information to search index
     const witnessInfo = item.witnesses ? item.witnesses.map(w => 
       `${w.name} ${w.role} ${w.event_specific_role}`
@@ -107,37 +148,15 @@ function buildCard(item) {
         onmouseout="this.style.borderColor='${featured ? 'rgba(176,139,73,0.4)' : 'rgba(212,207,199,0.1)'}'">
 
         <div style="flex-shrink:0;width:${featured ? '5.5rem' : '4.5rem'};height:${featured ? '6rem' : '5.5rem'};border:1px solid rgba(212,207,199,0.1);background:#2e282a;display:flex;align-items:center;justify-content:center;">
-            <span class="material-symbols-outlined" style="font-size:${featured ? '3rem' : '2.5rem'};color:var(--primary)">${item.icon || 'description'}</span>
+            <span class="material-symbols-outlined" style="font-size:${featured ? '3rem' : '2.5rem'};color:var(--primary)">${icon}</span>
         </div>
 
         <div style="display:flex;flex-direction:column;height:100%;padding:0.25rem 0;min-width:0;">
             <div style="display:flex;align-items:center;margin-bottom:4px;">
-                <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--primary);letter-spacing:0.1em;">${item.label || ''}</span>
+                <span style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--primary);letter-spacing:0.1em;">${formattedDate}</span>
             </div>
             <h4 style="font-family:\'Oswald\',sans-serif;font-size:${featured ? '1.15rem' : '1rem'};font-weight:700;text-transform:uppercase;color:var(--archive-heading);line-height:1.25;margin:0">${item.display_name || item.title || item.name || ''}</h4>
             <p style="font-size:0.72rem;color:rgba(212,207,199,0.75);margin-top:8px;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">${item.description || item.notes || item.body || ''}</p>
-            
-            <!-- Witness Information -->
-            ${item.witnesses && item.witnesses.length > 0 ? `
-                <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(212,207,199,0.1);">
-                    <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">
-                        <span class="material-symbols-outlined" style="font-size:12px;color:var(--primary)">groups</span>
-                        <span style="font-size:9px;text-transform:uppercase;color:var(--primary);letter-spacing:0.05em;">${item.witnesses.length} Witnesses</span>
-                    </div>
-                    <div style="display:flex;flex-wrap:wrap;gap:4px;">
-                        ${item.witnesses.slice(0, 3).map(w => `
-                            <span style="font-size:8px;padding:2px 6px;background:rgba(176,139,73,0.2);color:var(--primary);border-radius:2px;text-transform:uppercase;">
-                                ${w.witness_hierarchy === 'PRIMARY_WITNESS' ? 'Primary' : w.witness_hierarchy === 'INVESTIGATOR' ? 'Investigator' : 'Witness'}
-                            </span>
-                        `).join('')}
-                        ${item.witnesses.length > 3 ? `
-                            <span style="font-size:8px;padding:2px 6px;background:rgba(212,207,199,0.2);color:rgba(212,207,199,0.6);border-radius:2px;">
-                                +${item.witnesses.length - 3}
-                            </span>
-                        ` : ''}
-                    </div>
-                </div>
-            ` : ''}
         </div>
     </a>`;
 }
@@ -237,13 +256,10 @@ function injectSkeleton(container) {
 }
 
 function renderEntities(container) {
-    console.log('DEBUG: renderEntities called for container:', container);
     const dataSource = container.getAttribute("data-data-source");
     const filterValue = container.getAttribute("data-filter-value");  // Fixed: was data-filter
     const filterKey = container.getAttribute("data-filter-key") || "org_type";
     const filterMode = container.getAttribute("data-filter-mode") || "include";
-    
-    console.log('DEBUG: dataSource=', dataSource, 'filterKey=', filterKey, 'filterValue=', filterValue);
 
     if (!dataSource) return;
 
@@ -257,7 +273,6 @@ function renderEntities(container) {
 
             // Apply generic filter if present
             if (filterValue) {
-                console.log('DEBUG: filterKey=', filterKey, 'filterValue=', filterValue);
                 if (filterMode === 'exclude') {
                     filteredData = data.filter(item => item[filterKey] !== filterValue);
                 } else {
@@ -273,14 +288,19 @@ function renderEntities(container) {
                         'source_type': 'source_type'
                     };
                     const propertyName = propertyMap[filterKey] || filterKey;
-                    console.log('DEBUG: propertyName=', propertyName);
-                    console.log('DEBUG: data before filter=', data.length);
-                    filteredData = data.filter(item => {
-                        const matches = item[propertyName] === filterValue;
-                        console.log('DEBUG: item', item.title, 'has', propertyName, '=', item[propertyName], 'matches?', matches);
-                        return matches;
-                    });
-                    console.log('DEBUG: data after filter=', filteredData.length);
+                    
+                    // Map Event Hierarchy display values to actual data values
+                    let actualFilterValue = filterValue;
+                    if (filterKey === 'Event Hierarchy') {
+                        const hierarchyMap = {
+                            'All Events': 'All',
+                            'Main Events': 'CATEGORY_1',
+                            'Key Events': 'CATEGORY_2'
+                        };
+                        actualFilterValue = hierarchyMap[filterValue] || filterValue;
+                    }
+                    
+                    filteredData = data.filter(item => item[propertyName] === actualFilterValue);
                 }
             }
 
