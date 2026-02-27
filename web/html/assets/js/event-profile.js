@@ -33,6 +33,15 @@ const CARD_REGISTRY = {
     populate: (data) => populateParticipants(data.participants)
   },
 
+  witnesses: {
+    icon: 'person',
+    title: 'Witnesses',
+    dataField: 'witnesses',
+    autoExpand: false,
+    showWhen: (data) => data.witnesses && data.witnesses.length > 0,
+    populate: (data) => populateWitnesses(data.witnesses)
+  },
+
   evidence: {
     icon: 'inventory_2',
     title: 'Material Evidence',
@@ -416,6 +425,96 @@ function calculateDuration(startDate, endDate) {
   } else {
     return 'Less than 1 minute';
   }
+}
+
+// Populate participants
+function populateParticipants(participants) {
+  const container = document.getElementById('participants-list');
+  
+  if (!participants || participants.length === 0) {
+    container.innerHTML = '<p class="text-xs text-archive-secondary/60">No participants identified</p>';
+    return;
+  }
+  
+  const participantCards = participants.map(participant => `
+    <div class="bg-archive-bg border border-archive-secondary/20 p-4 flex items-center gap-4 hover:border-primary/30 transition-colors">
+      <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+        <span class="material-symbols-outlined text-primary">person</span>
+      </div>
+      <div class="flex-1">
+        <h4 class="text-sm font-bold text-archive-heading">${participant.name}</h4>
+        <p class="text-xs text-archive-secondary/60">${participant.role}</p>
+        ${participant.description ? `<p class="text-xs text-archive-secondary/40 mt-1">${participant.description}</p>` : ''}
+      </div>
+    </div>
+  `).join('');
+  
+  container.innerHTML = participantCards;
+}
+
+// Populate witnesses
+function populateWitnesses(witnesses) {
+  const container = document.getElementById('witnesses-list');
+  
+  if (!witnesses || witnesses.length === 0) {
+    container.innerHTML = '<p class="text-xs text-archive-secondary/60">No witnesses identified</p>';
+    return;
+  }
+  
+  const witnessCards = witnesses.map(witness => {
+    const hierarchyIcon = getWitnessHierarchyIcon(witness.witness_hierarchy);
+    const credibilityColor = getCredibilityColor(witness.credibility);
+    
+    return `
+    <div class="bg-archive-bg border border-archive-secondary/20 p-4 hover:border-primary/30 transition-colors">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary">${hierarchyIcon}</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-2">
+            <h4 class="text-sm font-bold text-archive-heading">${witness.name}</h4>
+            <span class="text-xs px-2 py-1 rounded bg-primary/20 text-primary">
+              ${witness.event_specific_role}
+            </span>
+            <span class="text-xs px-2 py-1 rounded ${credibilityColor}">
+              ${witness.credibility || 'UNKNOWN'}
+            </span>
+          </div>
+          <p class="text-xs text-archive-secondary/60 mb-1">${witness.description || ''}</p>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="text-archive-secondary/40">Hierarchy:</span>
+            <span class="text-primary">${witness.witness_hierarchy}</span>
+            ${witness.agency ? `<span class="text-archive-secondary/40">• ${witness.agency}</span>` : ''}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  }).join('');
+  
+  container.innerHTML = witnessCards;
+}
+
+// Helper function to get witness hierarchy icon
+function getWitnessHierarchyIcon(hierarchy) {
+  const icons = {
+    'PRIMARY_WITNESS': 'person',
+    'SECONDARY_WITNESS': 'person_outline',
+    'INVESTIGATOR': 'search',
+    'EXPERT': 'psychology'
+  };
+  return icons[hierarchy] || 'person';
+}
+
+// Helper function to get credibility color
+function getCredibilityColor(credibility) {
+  const colors = {
+    'CONFIRMED': 'text-green-400',
+    'DISPUTED': 'text-yellow-400',
+    'UNKNOWN': 'text-archive-secondary/60'
+  };
+  return colors[credibility] || 'text-archive-secondary/60';
 }
 
 // Simple organization extraction from participants
