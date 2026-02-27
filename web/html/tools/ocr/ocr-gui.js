@@ -32,39 +32,32 @@ const HELP_TEXT = `
 PRIMARY SOURCES — OCR TOOL
 ==========================
 
-This tool converts scanned PDF documents, archival images (.jpg, .png, .tiff, .webp), and batch archives (.zip, .tar) into searchable text.
+This tool converts scanned PDF documents, archival images, and batch archives (.zip, .tar) into searchable machine-readable text.
 
 QUICK START
 -----------
-1. Click "Browse" or drag files onto the drop zone.
-2. Archives (.zip, .tar, .tgz, .bz2) will be automatically unrolled and all images/PDFs inside added to the queue.
-3. Choose your output settings and click "Start OCR".
+1. Add Files: Drag-and-drop PDFs/Images onto the drop zone. Archives will be automatically unrolled.
+2. Configure: Select WSL backend for best archival quality and choose output formats (PDF, TXT, MD, HTML).
+3. Process: Click "Start OCR". Monitor progress in the real-time Queue.
+4. Extract: Use the "Workbench" for manual verification and "Review" for classification audit.
+
+FEATURES
+--------
+• Deep Extraction: Logical document segmentation and speaker identification.
+• Entity Linking: Real-time fuzzy matching for People/Places/Orgs.
+• Archival HTML: Reconstructs original document layout for in-browser research.
+• Image Preprocessing: Automatic Deskew and Noise Removal (Clean).
 
 BACKENDS
 --------
-• WSL (ocrmypdf): Higher quality, creates searchable PDFs.
-  Requires WSL with ocrmypdf installed.
-  
-• Python (pytesseract): Windows-native, outputs plain text.
-  Faster setup, no WSL required.
+• WSL (ocrmypdf): High-quality, creates searchable PDFs with text layers.
+• Python (pytesseract): Windows-native extraction, fast but restricted to plain text.
 
-BATCH PROCESSING
+OUTPUT DIRECTORY
 ----------------
-You can upload a single .zip or .tar containing hundreds of documents. The tool will parse the archive and process each file individually, maintaining the logical order found within.
-
-OPTIONS
--------
-• Deskew: Straightens crooked scanned pages
-• Clean: Removes noise/specks from old photocopies
-• Force OCR: Re-processes files that already have text layers
-
-OUTPUT
-------
-• Searchable PDF: Original document with invisible text layer
-• Plain Text: Raw extracted text with page markers
-• Markdown (.md): Structured text preserving archival metadata
-
-Files are saved to the output directory shown in Settings.
+Files are saved to:
+\${outputDirInput.value}
+(Double-click the path in Settings to copy to clipboard)
 `;
 
 // ============================================================================
