@@ -486,6 +486,12 @@ hr {
     color: var(--archive-heading);
 }
 
+.category-title {
+    font-size: 24px !important;
+    line-height: 1;
+    letter-spacing: 0.05em;
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .mega-menu-container {
