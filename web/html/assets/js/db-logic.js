@@ -2,6 +2,10 @@
  * db-logic.js — Generic entity card renderer
  */
 
+// Import helper modules
+// Note: These will be loaded as separate script tags in HTML
+// Global functions will be available when this script runs
+
 // Centralized path resolution
 const getBasePath = () => {
     const scripts = document.getElementsByTagName('script');
@@ -25,6 +29,11 @@ const basePath = window.basePath;
 function buildCard(item) {
     const featured = !!item.featured;
 
+    // Add witness information to search index
+    const witnessInfo = item.witnesses ? item.witnesses.map(w => 
+      `${w.name} ${w.role} ${w.event_specific_role}`
+    ).join(' ') : '';
+    
     const searchIndex = [
         item.label,
         item.title,
@@ -32,6 +41,7 @@ function buildCard(item) {
         item.description,
         item.notes,
         item.body,
+        witnessInfo,
         ...(item.tags || [])
     ].filter(Boolean).join(' ').toLowerCase();
 
@@ -252,6 +262,17 @@ function renderEntities(container) {
             if (dataSource === 'events' && filterKey === 'Type') {
                 if (filterValue && filterValue !== 'All') {
                     filteredData = filteredData.filter(item => item.event_type === filterValue);
+                }
+            }
+
+            // Witness hierarchy filtering (for facet bar)
+            if (dataSource === 'events' && filterKey === 'Witness Hierarchy') {
+                if (filterValue && filterValue !== 'All') {
+                    // Map display value to database code
+                    const actualValue = mapFilterValue ? mapFilterValue(filterKey, filterValue) : filterValue;
+                    filteredData = filteredData.filter(item => 
+                        item.witnesses && item.witnesses.some(w => w.witness_hierarchy === actualValue)
+                    );
                 }
             }
 
