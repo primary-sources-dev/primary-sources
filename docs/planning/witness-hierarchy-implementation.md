@@ -427,6 +427,14 @@ const witnessValidation = {
 5. **Enhanced filtering** - multiple filter dimensions
 6. **Data integrity** - validation rules and constraints
 7. **Architecture clarity** - single source abstraction layer
+8. **Scalability & Liquid Lists** - ensure UI components are architected for variable list lengths
+
+## **📂 UI Scalability (Future-Proofing)**
+
+While immediate vertical constraints are not required, the implementation must follow these extensibility principles:
+- **Container Isolation**: Witness info blocks must be decoupled from the core card layout so they can expand vertically without breaking the card's structural integrity.
+- **Hook for Overflow Logic**: The `addWitnessInfo` function (Phase 4.1) will be built with a pre-defined threshold variable (`WITNESS_DISPLAY_LIMIT`).
+- **Liquid List Pattern**: Data structures will support paged or "Show More" interaction patterns natively in the abstraction layer, allowing for future UX polish if lists become exceptionally long.
 
 ## **🎯 Success Metrics**
 
