@@ -116,6 +116,28 @@ function buildCard(item) {
             </div>
             <h4 style="font-family:\'Oswald\',sans-serif;font-size:${featured ? '1.15rem' : '1rem'};font-weight:700;text-transform:uppercase;color:var(--archive-heading);line-height:1.25;margin:0">${item.display_name || item.title || item.name || ''}</h4>
             <p style="font-size:0.72rem;color:rgba(212,207,199,0.75);margin-top:8px;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical">${item.description || item.notes || item.body || ''}</p>
+            
+            <!-- Witness Information -->
+            ${item.witnesses && item.witnesses.length > 0 ? `
+                <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(212,207,199,0.1);">
+                    <div style="display:flex;align-items:center;gap:4px;margin-bottom:4px;">
+                        <span class="material-symbols-outlined" style="font-size:12px;color:var(--primary)">groups</span>
+                        <span style="font-size:9px;text-transform:uppercase;color:var(--primary);letter-spacing:0.05em;">${item.witnesses.length} Witnesses</span>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                        ${item.witnesses.slice(0, 3).map(w => `
+                            <span style="font-size:8px;padding:2px 6px;background:rgba(176,139,73,0.2);color:var(--primary);border-radius:2px;text-transform:uppercase;">
+                                ${w.witness_hierarchy === 'PRIMARY_WITNESS' ? 'Primary' : w.witness_hierarchy === 'INVESTIGATOR' ? 'Investigator' : 'Witness'}
+                            </span>
+                        `).join('')}
+                        ${item.witnesses.length > 3 ? `
+                            <span style="font-size:8px;padding:2px 6px;background:rgba(212,207,199,0.2);color:rgba(212,207,199,0.6);border-radius:2px;">
+                                +${item.witnesses.length - 3}
+                            </span>
+                        ` : ''}
+                    </div>
+                </div>
+            ` : ''}
         </div>
     </a>`;
 }
