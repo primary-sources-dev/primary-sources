@@ -23,6 +23,13 @@ insert into v_event_level (code, label) values
   ('SECONDARY', 'Secondary Event - Documentation about primary events')
 on conflict (code) do nothing;
 
+-- 1.2. Event hierarchy
+insert into v_event_hierarchy (code, label) values
+  ('CATEGORY_1', 'Main Political Violence Events'),
+  ('CATEGORY_2', 'Direct Investigations'),
+  ('CATEGORY_3', 'Documentation & Reports')
+on conflict (code) do nothing;
+
 -- 2. Participant roles
 insert into v_role_type (code, label) values
   ('WITNESS',         'Individual who personally observed the event'),
