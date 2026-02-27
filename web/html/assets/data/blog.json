@@ -1,5 +1,175 @@
 [
   {
+    "slug": "assertion-based-tracking-launch",
+    "title": "Introducing Assertion Based Tracking: The Core Methodology",
+    "excerpt": "How we're replacing 'facts' with source-traced assertions to enable contradiction detection, confidence scoring, and full evidentiary traceability in historical research.",
+    "category": "Development",
+    "date": "2026-02-26",
+    "author": "Engineering Team",
+    "featured": true,
+    "hero_image": "",
+    "tags": ["assertion-tracking", "methodology", "architecture", "core-feature"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Core Feature Announcement",
+        "content": "This post introduces the foundational methodology that powers the entire Primary Sources platform. Everything we build—entity profiles, event timelines, document analysis—is built on assertion-based tracking."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Traditional Historical Databases"
+      },
+      {
+        "type": "text",
+        "content": "Most historical archives and databases store information as immutable facts. Wikipedia says \"Lee Harvey Oswald shot President Kennedy.\" Traditional databases record \"Event: Assassination, Date: 1963-11-22, Perpetrator: Oswald.\" But history isn't that simple."
+      },
+      {
+        "type": "text",
+        "content": "What happens when the Warren Commission concludes one thing but the House Select Committee on Assassinations concludes another? What happens when Agent Kesler's FBI report says Ralph Yates picked up a hitchhiker on November 20th, but Yates told police it was November 21st? In traditional systems, one version wins, the other is lost, and researchers lose access to the full evidentiary record."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Assertion-Based Solution"
+      },
+      {
+        "type": "text",
+        "content": "Assertion Based Tracking solves this by storing claims (assertions) instead of facts. Every statement in the database is explicitly linked to its source document, page number, and context. When contradictions exist, both assertions are preserved with confidence scores and support markers."
+      },
+      {
+        "type": "quote",
+        "content": "We don't store truth. We store evidence. The difference is everything.",
+        "author": "Design Philosophy"
+      },
+      {
+        "type": "text",
+        "content": "This methodology transforms unstructured archival documents into a queryable knowledge graph where every claim can be traced to its source, conflicting accounts are explicitly marked, and researchers can instantly see the full evidentiary chain."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works: Six-Step Workflow"
+      },
+      {
+        "type": "text",
+        "content": "The assertion tracking system processes documents through a structured pipeline:"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Document Upload → OCR — Archival documents processed through OCR pipeline, classified by type (FBI 302, CIA cable, testimony)",
+          "Entity Extraction — Named entity recognition identifies people, places, organizations, objects, and events",
+          "Assertion Creation — Claims extracted as subject-predicate-object triples: 'Yates (subject) PICKED_UP (predicate) Hitchhiker (object)'",
+          "Source Linking — Each assertion linked to exact source excerpt (document ID, page number, paragraph, timestamp)",
+          "Conflict Detection — System compares assertions about same subject-predicate pair, flags contradictions with confidence scores",
+          "Review & Export — Researchers query assertions, review contradictions, trace evidence chains, export citations"
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Automatic Contradiction Detection",
+        "content": "When the system finds multiple assertions about the same subject-predicate-object relationship with different values or timestamps, it automatically flags them for researcher review. No more hunting through footnotes to find conflicting accounts."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Technical Architecture"
+      },
+      {
+        "type": "text",
+        "content": "At the core is a subject-predicate-object model inspired by semantic web standards and adapted for historiographic rigor. Each assertion follows this structure:"
+      },
+      {
+        "type": "callout",
+        "variant": "success",
+        "title": "Assertion Schema",
+        "content": "subject_type + subject_id → predicate → object_type + object_id\n\nExample: person:ralph-yates → PICKED_UP → person:hitchhiker\n\nEach assertion includes: confidence score (CONFIRMED, SUPPORTED, DISPUTED, UNLIKELY), timestamp with precision level (UNKNOWN, APPROX, EXACT, RANGE), and source excerpts array linking to specific document pages."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Real-World Example: The Yates Incident"
+      },
+      {
+        "type": "text",
+        "content": "On November 20 or 21, 1963 (depending on which document you read), Dallas resident Ralph Leon Yates picked up a hitchhiker who made disturbing comments about shooting the President. This single event generates multiple conflicting assertions:"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "FBI Agent Kesler's report: \"Yates stated he picked up hitchhiker on November 20, 1963\" (SUPPORTED)",
+          "Dallas Police interview: \"Yates told officers the incident occurred on November 21, 1963\" (SUPPORTED)",
+          "Yates later testimony: \"It was sometime around Thanksgiving, maybe the 20th or 21st\" (APPROX)",
+          "Warren Commission conclusion: \"No evidence hitchhiker was Oswald\" (DISPUTED by later HSCA findings)"
+        ]
+      },
+      {
+        "type": "text",
+        "content": "In a traditional database, one date would be selected and the others discarded. In our assertion-based system, all three claims are preserved with their source citations, confidence scores, and the contradiction is explicitly marked. Researchers can see the full evidence and make their own determinations."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Six Core Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Source Traceability — Every assertion links to exact source excerpt with document page and timestamp",
+          "Contradiction Detection — System automatically identifies conflicting assertions about the same subject",
+          "Entity Consolidation — Multiple mentions of same entity consolidated to single record with fuzzy matching",
+          "Confidence Scoring — Assertions rated based on source credibility and corroboration",
+          "Time Precision Modeling — Timestamps tagged UNKNOWN, APPROX, EXACT, or RANGE to prevent false precision",
+          "Controlled Vocabulary — Event types, predicates, roles use standardized codes for consistent querying"
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Current Status and Next Steps"
+      },
+      {
+        "type": "text",
+        "content": "The assertion tracking methodology is currently implemented as a JSON-based prototype with nested data structures. This allows us to validate the conceptual model and test the UI components before migrating to the production database."
+      },
+      {
+        "type": "callout",
+        "variant": "warning",
+        "title": "In Development",
+        "content": "The feature is currently in prototype phase. Database schema is complete (PostgreSQL/Supabase with 27 tables), but the query interface and API integration are still in development. Follow the blog for updates on production launch."
+      },
+      {
+        "type": "text",
+        "content": "Next phases include database integration with Supabase/PostgreSQL (27-table schema already designed), query builder interface for researchers, bulk assertion import tools, and citation export functionality."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Why This Matters"
+      },
+      {
+        "type": "text",
+        "content": "Assertion Based Tracking isn't just a technical feature—it's a fundamental shift in how we approach historical evidence. By preserving conflicting accounts with full source traceability, we enable researchers to see the complete evidentiary record, not just the version that won out."
+      },
+      {
+        "type": "quote",
+        "content": "History is messy. Evidence conflicts. Witnesses contradict each other. Our system embraces that complexity instead of hiding it.",
+        "author": "Research Philosophy"
+      },
+      {
+        "type": "text",
+        "content": "This methodology forms the foundation for every feature we build. Entity profiles show assertions about each person. Event timelines display conflicting accounts side-by-side. Document pages link directly to the assertions they support. It all starts here."
+      }
+    ],
+    "related": ["mission-statement", "design-philosophy", "component-library-explained"]
+  },
+  {
     "slug": "mission-statement",
     "title": "Our Mission: Preserving History Through Digital Archives",
     "excerpt": "Why we're building a comprehensive digital archive of primary source documents and what makes this project different.",
