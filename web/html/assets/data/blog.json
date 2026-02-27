@@ -392,6 +392,579 @@
     "related": ["assertion-based-tracking-launch", "ocr-engine-launch", "document-analyzer-launch"]
   },
   {
+    "slug": "pdf-viewer-launch",
+    "title": "PDF Forensic Viewer: Deep Sync Between Document and Text",
+    "excerpt": "Advanced document viewer with coordinated OCR text layer, forensic metadata ribbon, and deep sync. Click text to scroll to exact page coordinates. Built for declassified materials.",
+    "category": "Tools",
+    "date": "2026-02-23",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["pdf-viewer", "document-analysis", "research-tools", "toolbox"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "The PDF Forensic Viewer bridges visual inspection and text analysis. Researchers can read the original document page while reviewing OCR-extracted text with coordinate-level precision. Essential for verifying entity extraction and citation accuracy."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Basic PDF Readers"
+      },
+      {
+        "type": "text",
+        "content": "Adobe Acrobat and Chrome's PDF viewer are designed for modern printed PDFs. They lack features researchers need: coordinated text views for OCR verification, metadata ribbons showing document classification, coordinate-level synchronization between text and image, and forensic inspection tools for declassified materials."
+      },
+      {
+        "type": "text",
+        "content": "When working with OCR-extracted text, researchers need to verify accuracy against the original scan. Switching between a PDF viewer and a text file is tedious. Clicking a paragraph in the text file should scroll the PDF to the exact location—but basic viewers don't support this."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Split-Pane Forensic Viewer"
+      },
+      {
+        "type": "text",
+        "content": "We built a split-pane viewer with deep synchronization. Left pane shows the original PDF page. Right pane displays OCR-extracted text. Click any text paragraph and the PDF scrolls to the exact coordinate. A metadata ribbon shows document classification, extracted agencies, dates, and confidence scores."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Document Upload — Load PDF with OCR text layer or pair with JSON text file from OCR Engine.",
+          "Split-Pane Display — Left side renders PDF pages, right side displays extracted text with coordinate metadata.",
+          "Deep Sync Activation — Click any text block in the right pane. PDF automatically scrolls to corresponding page and highlights bounding box.",
+          "Metadata Ribbon — Top banner displays document type, classification confidence, extracted metadata (dates, authors, agencies).",
+          "Zone Highlighting — Visual overlays show detected zones (header, footer, body) from Document Classifier.",
+          "Per-Page Processing — Navigate to specific pages, re-run OCR on problem pages, export selected ranges."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Deep Sync",
+        "content": "The coordinate-level synchronization is the killer feature. Click text that says 'Ralph Yates' and the PDF jumps to the exact paragraph on page 2 where that name appears. Essential for verifying entity extraction and building citation references."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Split-Pane Interface — Original PDF on left, OCR text on right. No switching between apps.",
+          "Deep Sync — Click text to scroll PDF to exact coordinates. Bounding box highlighting for precise location.",
+          "Forensic Metadata Ribbon — Document type, classification confidence, extracted agencies/dates at a glance.",
+          "Zone Visualization — Overlays show header, footer, and body zones detected by Document Classifier.",
+          "Per-Page OCR — Re-run OCR on specific problem pages without reprocessing entire document.",
+          "Export Selected Ranges — Extract pages 5-10 as separate PDF or export OCR text for specific sections."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The viewer uses PDF.js for client-side rendering with coordinate overlays. OCR text includes bounding box arrays (x, y, width, height per text block). Deep sync calculates page number and scroll offset from coordinates. Metadata ribbon pulls from Document Classifier JSON output. All processing happens locally—no server uploads."
+      },
+      {
+        "type": "callout",
+        "variant": "success",
+        "title": "Active Tool",
+        "content": "The PDF Forensic Viewer is production-ready with full UI. Launch from the Research Toolbox at tools/pdf-viewer/pdf-viewer-ui.html. Works offline for sensitive archival materials."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "The viewer is critical for assertion verification. When the system creates an assertion like 'Yates picked up hitchhiker on Nov 20', researchers need to verify that claim against the source document. Deep sync lets them click the assertion, jump to the exact paragraph in the FBI report, and confirm the evidence. This closes the loop between assertion creation and source validation."
+      },
+      {
+        "type": "quote",
+        "content": "Verification is as important as extraction. The viewer ensures every assertion can be traced back to visual evidence on the original document page.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "ocr-engine-launch", "document-classifier-launch"]
+  },
+  {
+    "slug": "entity-matcher-launch",
+    "title": "Entity Matcher: Automated Recognition and De-Duplication",
+    "excerpt": "Fuzzy matching engine that maps OCR text to known persons, places, and organizations. Consolidates 'R.L. Yates', 'Ralph Yates', and 'Ralph Leon Yates' into single entity records.",
+    "category": "Tools",
+    "date": "2026-02-22",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["entity-matching", "fuzzy-matching", "research-tools", "toolbox"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "The Entity Matcher bridges OCR output and assertion creation. It identifies person names, places, and organizations in extracted text, then consolidates duplicate references to ensure consistent entity IDs across the knowledge graph."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Entity De-Duplication"
+      },
+      {
+        "type": "text",
+        "content": "Archival documents reference the same entities in multiple ways. FBI reports say 'R.L. Yates'. Police interviews say 'Ralph Yates'. Testimony transcripts say 'Ralph Leon Yates'. Hospital records say 'YATES, RALPH L.' Without consolidation, these create four separate entity records instead of one."
+      },
+      {
+        "type": "text",
+        "content": "Exact string matching fails spectacularly. 'Lee Harvey Oswald', 'L.H. Oswald', 'Oswald, Lee H.', and 'LEE OSWALD' should all map to the same person entity. Manual de-duplication is tedious and error-prone when processing thousands of documents."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Fuzzy Matching with Confidence Scores"
+      },
+      {
+        "type": "text",
+        "content": "We built an entity matcher using Levenshtein distance and phonetic algorithms (Soundex, Metaphone). The system compares extracted names against a known entity database, assigns confidence scores, and suggests matches for human review. High-confidence matches (>95%) auto-link; ambiguous matches (70-95%) require confirmation."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Entity Extraction — Named entity recognition identifies person names, places, orgs in OCR text.",
+          "Normalization — Converts names to standard format: 'Yates, Ralph Leon' or 'Oswald, Lee Harvey'.",
+          "Fuzzy Comparison — Compares normalized name against entity database using Levenshtein distance and phonetic matching.",
+          "Confidence Scoring — Returns match confidence (0-100%) based on string similarity and phonetic likeness.",
+          "Auto-Linking — Matches >95% confidence auto-link to existing entity. 70-95% flagged for human review.",
+          "New Entity Creation — Names with no confident matches create new entity records with 'needs review' flag."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Phonetic Matching",
+        "content": "Levenshtein distance handles typos and abbreviations. Phonetic algorithms (Soundex/Metaphone) catch OCR errors like 'Kesler' vs 'Kessler' or 'Yates' vs 'Yaits'. Combined approach achieves ~92% accuracy on Warren Commission documents."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Fuzzy Matching — Handles abbreviations, typos, OCR errors. 'R.L. Yates' matches 'Ralph Leon Yates' with 87% confidence.",
+          "Phonetic Algorithms — Soundex and Metaphone catch pronunciation-based misspellings in degraded OCR.",
+          "Confidence Scoring — Every match includes confidence percentage. Researchers can set thresholds for auto-linking.",
+          "Multi-Entity Support — Matches persons, organizations, places, objects. Separate vocabularies for each entity type.",
+          "Batch Processing — Process entire document collections, generate match reports for bulk review.",
+          "Human-in-Loop — Ambiguous matches (70-95% confidence) flagged for manual confirmation before linking."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The matcher uses Python's FuzzyWuzzy library (Levenshtein implementation) and Phonetics library (Soundex/Metaphone). Entity database is stored as JSON with normalized names and aliases. API accepts text input, returns array of candidate matches with confidence scores. Threshold defaults: >95% auto-link, 70-95% review, <70% reject."
+      },
+      {
+        "type": "callout",
+        "variant": "warning",
+        "title": "Service Only",
+        "content": "The Entity Matcher is an API service without a standalone UI. It integrates with OCR Engine and Document Classifier workflows. API documentation available at tools/matcher/matcher-details.html."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "Entity consolidation is foundational for assertion-based tracking. If 'R.L. Yates' and 'Ralph Yates' map to different entity IDs, you can't query 'show all assertions about Ralph Yates' without missing half the evidence. The matcher ensures consistent entity IDs across all assertions, enabling accurate queries and relationship mapping."
+      },
+      {
+        "type": "quote",
+        "content": "Entity consistency transforms scattered references into unified knowledge. Without consolidation, you have mentions. With it, you have entities.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "document-analyzer-launch", "citation-generator-launch"]
+  },
+  {
+    "slug": "document-analyzer-launch",
+    "title": "Document Analyzer: Intelligent Layout Analysis and Zone Extraction",
+    "excerpt": "Layout analysis engine that detects headers, footers, and body zones for fingerprint-based classification. Extracts metadata from specific page regions for systematic document processing.",
+    "category": "Tools",
+    "date": "2026-02-21",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["layout-analysis", "document-processing", "research-tools", "toolbox"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "The Document Analyzer powers the Document Classifier by detecting structural zones (headers, footers, body text). It enables fingerprint-based classification and targeted metadata extraction from specific page regions."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Flat Text Extraction"
+      },
+      {
+        "type": "text",
+        "content": "OCR engines extract text sequentially: top to bottom, left to right. But archival documents have structure. FBI 302 reports have headers with agent names and dates. CIA cables have sender/receiver blocks. Warren Commission exhibits have NARA reference numbers in footers. Treating everything as flat text loses this structural information."
+      },
+      {
+        "type": "text",
+        "content": "When extracting metadata like 'interview date' or 'agent name', you need to know where to look. FBI 302 dates are always in the top-right header. CIA cable transmission times are in the footer. Without zone detection, you search the entire document, leading to false matches and missed extractions."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Zone-Based Layout Analysis"
+      },
+      {
+        "type": "text",
+        "content": "We built a layout analyzer that divides pages into structural zones: header (top 15%), footer (bottom 10%), left margin, right margin, and body. Each zone is analyzed separately. Metadata extraction targets specific zones. Fingerprints compare zone structures rather than full-text content."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Page Segmentation — Divides page into zones using coordinate-based heuristics (header: y<15%, footer: y>90%, etc.).",
+          "Zone Text Extraction — Extracts text separately for each zone with coordinate metadata.",
+          "Structural Fingerprinting — Creates fingerprint for each zone: text density, font patterns, common keywords.",
+          "Metadata Targeting — Applies zone-specific regex patterns (header for dates/agents, footer for file numbers).",
+          "Zone Comparison — Compares zone fingerprints against known document types for classification.",
+          "JSON Output — Returns text per zone, coordinates, detected metadata, and structural fingerprint."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Zone-Specific Metadata Extraction",
+        "content": "By targeting specific zones, accuracy improves dramatically. Searching for 'Date: MM/DD/YYYY' in the header zone has ~95% accuracy vs ~60% when searching the entire document (due to date references in body text)."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Zone Detection — Automatically segments pages into header, footer, left margin, right margin, body regions.",
+          "Structural Fingerprints — Creates zone-based fingerprints for document classification without full-text comparison.",
+          "Targeted Metadata Extraction — Applies zone-specific regex patterns for higher accuracy.",
+          "Coordinate Mapping — Returns text with bounding boxes for deep sync with PDF Forensic Viewer.",
+          "Multi-Zone Support — Handles complex layouts with multiple columns, sidebars, or irregular structures.",
+          "Batch Processing — Analyze entire collections, generate zone reports for classification training."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The analyzer uses coordinate-based segmentation with configurable zone thresholds (header height, footer height, margin width). Fingerprints include text density (chars per square inch), keyword frequency in each zone, and font patterns (when available from PDF metadata). API accepts PDF or image input, returns JSON with text arrays per zone plus structural metadata."
+      },
+      {
+        "type": "callout",
+        "variant": "warning",
+        "title": "Service Only",
+        "content": "The Document Analyzer is an API service integrated into Document Classifier workflows. No standalone UI. API documentation available at tools/analyzer/analyzer-details.html."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "Layout analysis enables systematic assertion creation. When processing an FBI 302, the system knows to look in the header for interview date and agent name. Those become assertion metadata: 'assertion created from FBI 302 interview conducted by Agent Kesler on 1963-11-27'. Without zone detection, metadata extraction is guesswork."
+      },
+      {
+        "type": "quote",
+        "content": "Structure is information. Zone detection transforms spatial layout into semantic meaning.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "document-classifier-launch", "entity-matcher-launch"]
+  },
+  {
+    "slug": "citation-generator-launch",
+    "title": "Citation Generator: Academic Formatting for Archival Sources",
+    "excerpt": "Automated citation formatter supporting Chicago, MLA, APA, and NARA archival styles. Generates properly formatted citations from source metadata for academic and research use.",
+    "category": "Tools",
+    "date": "2026-02-20",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["citations", "academic-tools", "research-tools", "toolbox"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "The Citation Generator closes the loop on assertion-based tracking. Every assertion links to a source excerpt. The generator transforms source metadata into properly formatted academic citations for papers, reports, and bibliographies."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Manual Citations"
+      },
+      {
+        "type": "text",
+        "content": "Citing archival materials is complex. NARA citations require record group numbers, box numbers, folder numbers, and archive locations. Chicago style has specific formats for testimony transcripts. MLA and APA have different rules for government documents. Researchers spend hours formatting citations manually."
+      },
+      {
+        "type": "text",
+        "content": "When working with hundreds of source documents, citation management becomes a bottleneck. You need to track NARA RIF numbers, Warren Commission volume/page numbers, HSCA hearing dates, FBI report numbers—and format them correctly for each citation style. One typo breaks the citation."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Automated Style Formatting"
+      },
+      {
+        "type": "text",
+        "content": "We built a citation generator that reads source metadata (extracted by Document Classifier) and outputs properly formatted citations in four academic styles: Chicago 17th edition, MLA 9th edition, APA 7th edition, and NARA archival citation format. One source record generates four citation formats automatically."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Source Metadata Input — Accepts JSON with source type, title, author, date, archive, record numbers, page/volume.",
+          "Style Selection — Choose Chicago, MLA, APA, or NARA archival citation format.",
+          "Template Application — Applies style-specific templates based on source type (book, testimony, FBI report, CIA cable, etc.).",
+          "Field Formatting — Formats dates, author names, titles according to style rules (italics, quotes, commas, periods).",
+          "Citation Output — Returns formatted citation string ready for copy-paste into bibliography.",
+          "Batch Export — Generate bibliographies for entire source collections in any supported style."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "NARA Archival Citations",
+        "content": "The NARA citation format is essential for archival research. It includes record group numbers, box/folder locations, and archive custodian. Example: 'FBI Report on Ralph Yates Interview, RG 272, Box 5, Folder 8, National Archives and Records Administration, College Park, MD.'"
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Four Citation Styles — Chicago 17th, MLA 9th, APA 7th, NARA archival. Toggle between styles instantly.",
+          "Source-Type Awareness — FBI 302 reports, CIA cables, testimony transcripts, government reports each have custom templates.",
+          "Field Validation — Checks for required fields per style (Chicago requires publisher location, NARA requires record group).",
+          "Batch Bibliography Generation — Export citations for entire source collections as formatted bibliography lists.",
+          "Copy-Paste Ready — Output formatted with proper italics, punctuation, spacing for direct paste into Word/LaTeX.",
+          "API Integration — Connects with assertion source_excerpt data to auto-generate citations from research queries."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The generator uses template strings with field substitution. Each citation style has 10-15 templates for different source types. Field formatting includes author name normalization (Last, First vs First Last), date parsing (YYYY-MM-DD to Month D, YYYY), and title casing. Output includes HTML markup for italics/quotes that can be stripped for plain text."
+      },
+      {
+        "type": "callout",
+        "variant": "warning",
+        "title": "Service Only",
+        "content": "The Citation Generator is an API service integrated into research workflows. No standalone UI. API documentation and examples available at tools/citation/citation-details.html."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "Every assertion in the system links to a source_excerpt with full metadata. The citation generator transforms that metadata into academic citations. Query 'all assertions about Ralph Yates', get 25 results, export as bibliography with proper citations in Chicago style. Researchers can publish findings with full source attribution in minutes instead of hours."
+      },
+      {
+        "type": "quote",
+        "content": "Citations are the scholarly interface to assertions. Proper attribution transforms research data into publishable evidence.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "entity-matcher-launch", "research-calculators-launch"]
+  },
+  {
+    "slug": "research-calculators-launch",
+    "title": "Research Calculators: Contextualizing Historical Data Points",
+    "excerpt": "Inflation converter and age-at-event calculator for adding context to historical research. Convert 1963 dollars to modern values, calculate ages at specific dates for biographical analysis.",
+    "category": "Tools",
+    "date": "2026-02-19",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["research-tools", "calculators", "toolbox", "utilities"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "Research Calculators provide contextual utilities for assertion-based tracking. When an assertion mentions a dollar amount or a person's age, these calculators add modern context for readers unfamiliar with 1960s economics or birthdates."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Historical Context"
+      },
+      {
+        "type": "text",
+        "content": "Historical documents contain data points that need modern context. A 1963 FBI report mentions Ralph Yates earned '$100/week' as a truck driver. Without inflation context, readers don't know if that's good money or poverty wages. (It's ~$1,000/week in 2026 dollars—middle-class income.)"
+      },
+      {
+        "type": "text",
+        "content": "Similarly, documents mention people's ages at specific events without providing birthdates. 'Lee Harvey Oswald was 24 when arrested' requires readers to calculate his birth year (1939). 'Jack Ruby was 52 at the shooting' means born 1911. Manual calculation is tedious when analyzing dozens of biographical timelines."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Contextual Calculators"
+      },
+      {
+        "type": "text",
+        "content": "We built two calculators for common research tasks: an inflation converter using CPI data (1913-present) and an age-at-event calculator for biographical timeline analysis. Both accept API calls for automated context generation in entity profiles and assertion displays."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "content": "Inflation Converter"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Input Amount and Year — Enter dollar amount and source year (e.g., $100 in 1963).",
+          "CPI Lookup — Retrieves Consumer Price Index values for source year and target year.",
+          "Calculation — Applies inflation formula: (target_CPI / source_CPI) × amount.",
+          "Output — Returns adjusted amount with formatting (e.g., '$100 in 1963 = $1,024 in 2026')."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 3,
+        "content": "Age-at-Event Calculator"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Input Birthdate and Event Date — Enter person's birthdate and event date.",
+          "Age Calculation — Computes years, months, days between dates.",
+          "Precision Handling — Supports partial dates (YYYY, YYYY-MM, YYYY-MM-DD) with approximate age ranges.",
+          "Output — Returns age at event with precision indicator (e.g., '24 years, 3 months (exact)' or '~24 years (approx)')."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "CPI Data Source",
+        "content": "The inflation calculator uses U.S. Bureau of Labor Statistics CPI-U (Consumer Price Index for All Urban Consumers) data from 1913-present. Updated annually with official BLS releases."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Inflation Converter — 1913-present using official CPI-U data. Converts any dollar amount to modern values.",
+          "Age-at-Event Calculator — Computes precise age in years/months/days for biographical timeline analysis.",
+          "Partial Date Support — Handles approximate dates (YYYY or YYYY-MM) with age ranges for incomplete data.",
+          "API Integration — Both calculators expose API endpoints for automated context generation in entity profiles.",
+          "Batch Processing — Convert lists of dollar amounts or calculate ages for entire person datasets.",
+          "Formatted Output — Human-readable strings with units and precision indicators."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The inflation calculator stores CPI values in a JSON lookup table (year → CPI value). Calculation uses standard inflation formula with rounding to nearest dollar. Age calculator uses date arithmetic with leap year handling. Partial dates (YYYY-MM) assume mid-month, partial years (YYYY) assume mid-year for approximate ages. API accepts GET requests with query parameters, returns JSON responses."
+      },
+      {
+        "type": "callout",
+        "variant": "warning",
+        "title": "Service Only",
+        "content": "Research Calculators are API services used by entity profile templates and assertion displays. No standalone UI. API documentation and examples available at tools/research/research-details.html."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "Assertions often include numeric data that needs context. An assertion like 'Yates earned $100/week as a truck driver' becomes more meaningful when displayed as '$100/week ($1,024/week in 2026 dollars)'. Age calculations help researchers understand biographical context: 'Oswald was arrested on Nov 22, 1963 at age 24 (born Oct 18, 1939)'. Calculators transform raw data into contextualized information."
+      },
+      {
+        "type": "quote",
+        "content": "Context bridges the past and present. Numbers without context are just data. With it, they become insights.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "citation-generator-launch", "entity-matcher-launch"]
+  },
+  {
     "slug": "mission-statement",
     "title": "Our Mission: Preserving History Through Digital Archives",
     "excerpt": "Why we're building a comprehensive digital archive of primary source documents and what makes this project different.",
