@@ -135,24 +135,28 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
    2. Check required fields present:
       - `event_id`, `parent_event_id`, `event_type`, `event_level`, `event_hierarchy`, `title`, `description`, `start_ts`, `time_precision`
       - Optional: `id`, `status`, `icon`, `label`, `url`
-   3. Verify `event_type` in controlled vocabulary:
+   3. **NEW: Witness Hierarchy Validation**:
+      - `witnesses` array with required fields: `name`, `role`, `witness_hierarchy`, `event_specific_role`
+      - `witness_hierarchy` must be in: PRIMARY_WITNESS, SECONDARY_WITNESS, INVESTIGATOR, EXPERT
+      - `credibility` field optional but recommended: CONFIRMED, DISPUTED, UNKNOWN
+   4. Verify `event_type` in controlled vocabulary:
       - PRIMARY: SIGHTING, SHOT, TRANSFER, PHONE_CALL, EMPLOYMENT
       - SECONDARY: INTERVIEW, REPORT_WRITTEN, MEETING, PHONE_CALL
-   4. Verify `event_level` in controlled vocabulary:
+   5. Verify `event_level` in controlled vocabulary:
       - PRIMARY: What actually happened
       - SECONDARY: Documentation about primary events
-   5. Verify `event_hierarchy` in controlled vocabulary:
+   6. Verify `event_hierarchy` in controlled vocabulary:
       - CATEGORY_1: Main Political Violence Events (Walker, JFK, Tippit, Oswald)
       - CATEGORY_2: Direct Investigations and Witness Events
       - CATEGORY_3: Documentation, Reports, and Interviews
-   6. Validate timestamp format (ISO 8601)
-   7. Confirm `time_precision` logic:
+   7. Validate timestamp format (ISO 8601)
+   8. Confirm `time_precision` logic:
       - UNKNOWN: both timestamps NULL
       - APPROX: start_ts NOT NULL, end_ts NULL
       - EXACT: start_ts NOT NULL, end_ts NULL or equal
       - RANGE: both NOT NULL
-   8. Check `icon` uses Material Symbols
-   9. Verify `parent_event_id` matches parent event's `event_id`
+   9. Check `icon` uses Material Symbols
+   10. Verify `parent_event_id` matches parent event's `event_id`
 
 ### 6. Vocabulary Compliance
    1. Verify all referenced `person_id` exists in `people` array
@@ -286,6 +290,81 @@ Based on CLAUDE.md context, missing events likely include:
 - Complete parent-child relationships documented
 - Entity page generated for each event
 - event-index.html updated
+
+---
+
+## WITNESS HIERARCHY SYSTEM ✅
+
+### Overview
+The witness hierarchy system provides a deterministic, event-specific categorization of all individuals involved in events, replacing the legacy `participants` array with a structured `witnesses` array.
+
+### Hierarchy Levels
+
+1. **PRIMARY_WITNESS**: Directly experienced the event
+   - Example: Ralph Yates (reporting witness to hitchhiker sighting)
+   - Criteria: First-hand observation or direct involvement
+
+2. **SECONDARY_WITNESS**: Learned about the event from others
+   - Example: J.O. Smith (Yates' uncle, heard about sighting)
+   - Criteria: Information received second-hand
+
+3. **INVESTIGATOR**: Official investigation role
+   - Example: SA Arthur Carter, SA C. Ray Hall (FBI investigators)
+   - Criteria: Law enforcement, official inquiry capacity
+
+4. **EXPERT**: Specialist analysis role
+   - Example: Medical examiner, ballistics expert
+   - Criteria: Technical or specialized expertise
+
+### Schema Structure
+
+```json
+{
+  "witnesses": [
+    {
+      "name": "string (required)",
+      "role": "string (required)",
+      "witness_hierarchy": "PRIMARY_WITNESS|SECONDARY_WITNESS|INVESTIGATOR|EXPERT (required)",
+      "event_specific_role": "string (required)",
+      "description": "string (optional)",
+      "credibility": "CONFIRMED|DISPUTED|UNKNOWN (optional)",
+      "contact_info": {
+        "phone": "string",
+        "address": "string"
+      },
+      "relationship_to_primary": "string",
+      "agency": "string"
+    }
+  ]
+}
+```
+
+### Migration Rules
+
+1. **Role Mapping**:
+   - "FBI Agent" → "INVESTIGATOR" + "Lead Investigator"
+   - "Witness" → "PRIMARY_WITNESS" + "Reporting Witness"
+   - "Relative" → "SECONDARY_WITNESS" + "Family Witness"
+   - "Family" → "SECONDARY_WITNESS" + "Family Witness"
+
+2. **Data Validation**:
+   - All witnesses must have required fields
+   - Hierarchy must be from controlled vocabulary
+   - Credibility defaults to "UNKNOWN" if not specified
+
+3. **Backward Compatibility**:
+   - Legacy `participants` array maintained as empty array
+   - Migration functions handle conversion automatically
+
+### UI Integration
+
+1. **Event Cards**: Display witness count and hierarchy badges
+2. **Filtering**: Filter by witness hierarchy in facet bar
+3. **Search**: Witness names included in search indexing
+4. **Toggle**: "Show All Witnesses" for events with many witnesses
+
+**Status:** ✅ COMPLETED (2026-02-26)
+**Files:** 009_witness_hierarchy.sql, 010_witnesses_array.sql, 011_witness_validation.sql, 012_witness_data_migration.sql, witness-logic.js, data-abstraction.js, validation.js, filter-mapping.js, witness-ui.js
 
 ---
 
