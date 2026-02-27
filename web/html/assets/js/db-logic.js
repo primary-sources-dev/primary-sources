@@ -54,7 +54,7 @@ function buildCard(item) {
         if (item.label.includes('Residence')) dynamicTags.push('residence');
     }
 
-    const filterTags = [...dynamicTags, item.event_level].filter(Boolean).join('|').toLowerCase();
+    const filterTags = [...dynamicTags, item.event_level, item.event_hierarchy].filter(Boolean).join('|').toLowerCase();
 
     // Determine the link: handle all entity types based on their ID fields
     let itemLink = item.url || item.link;
@@ -232,6 +232,13 @@ function renderEntities(container) {
             // Legacy event filtering
             if (dataSource === 'events' && !filterValue) {
                 filteredData = data.filter(item => !item.parent_event_id);
+            }
+
+            // Event hierarchy filtering (for facet bar)
+            if (dataSource === 'events' && filterKey === 'Event Hierarchy') {
+                if (filterValue && filterValue !== 'All') {
+                    filteredData = filteredData.filter(item => item.event_hierarchy === filterValue);
+                }
             }
 
             // Event level filtering (for facet bar)

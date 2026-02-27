@@ -133,19 +133,26 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
       - Sub-event MUST have `parent_event_id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"`
       - NEVER place events at root level of events.json
    2. Check required fields present:
-      - `event_id`, `parent_event_id`, `event_type`, `event_level`, `title`, `description`, `start_ts`, `time_precision`
+      - `event_id`, `parent_event_id`, `event_type`, `event_level`, `event_hierarchy`, `title`, `description`, `start_ts`, `time_precision`
       - Optional: `id`, `status`, `icon`, `label`, `url`
    3. Verify `event_type` in controlled vocabulary:
       - PRIMARY: SIGHTING, SHOT, TRANSFER, PHONE_CALL, EMPLOYMENT
       - SECONDARY: INTERVIEW, REPORT_WRITTEN, MEETING, PHONE_CALL
-   4. Validate timestamp format (ISO 8601)
-   5. Confirm `time_precision` logic:
+   4. Verify `event_level` in controlled vocabulary:
+      - PRIMARY: What actually happened
+      - SECONDARY: Documentation about primary events
+   5. Verify `event_hierarchy` in controlled vocabulary:
+      - CATEGORY_1: Main Political Violence Events (Walker, JFK, Tippit, Oswald)
+      - CATEGORY_2: Direct Investigations and Witness Events
+      - CATEGORY_3: Documentation, Reports, and Interviews
+   6. Validate timestamp format (ISO 8601)
+   7. Confirm `time_precision` logic:
       - UNKNOWN: both timestamps NULL
       - APPROX: start_ts NOT NULL, end_ts NULL
       - EXACT: start_ts NOT NULL, end_ts NULL or equal
       - RANGE: both NOT NULL
-   6. Check `icon` uses Material Symbols
-   7. Verify `parent_event_id` matches parent event's `event_id`
+   8. Check `icon` uses Material Symbols
+   9. Verify `parent_event_id` matches parent event's `event_id`
 
 ### 6. Vocabulary Compliance
    1. Verify all referenced `person_id` exists in `people` array
