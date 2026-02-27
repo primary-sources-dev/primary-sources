@@ -12,7 +12,15 @@ insert into v_event_type (code, label) values
   ('TRANSFER',       'Movement of a person or object between custody or location'),
   ('INTERVIEW',      'Formal or informal questioning session'),
   ('REPORT_WRITTEN', 'Act of an official documenting an event or investigation'),
-  ('PHONE_CALL',     'Telephonic communication between two or more parties')
+  ('PHONE_CALL',     'Telephonic communication between two or more parties'),
+  ('EMPLOYMENT',     'Work relationship or employment event'),
+  ('MEETING',        'Gathering or conference between parties')
+on conflict (code) do nothing;
+
+-- 1.1. Event levels
+insert into v_event_level (code, label) values
+  ('PRIMARY',   'Primary Event - What actually happened'),
+  ('SECONDARY', 'Secondary Event - Documentation about primary events')
 on conflict (code) do nothing;
 
 -- 2. Participant roles

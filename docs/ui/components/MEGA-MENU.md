@@ -14,15 +14,15 @@ The top row of the menu consists of two high-priority action cards using the dis
 
 | ID Reference | Title | Intent |
 | :--- | :--- | :--- |
-| `#home-container` | **Return Home** | Immediate navigation back to the archive root (`index.html`). |
-| `#close-container` | **Close Navigation** | Closes the menu modal and returns to the current page. |
+| `#home-container` | **HOME** | Immediate navigation back to the archive root (`index.html`). |
+| `#close-container` | **CLOSE** | Closes the menu modal and returns to the current page. |
 
 ## Functional Containers (Ordered Sequence)
 Beneath the action row, the menu is organized into six functional cards:
 
 | # | ID Reference | Title | Primary Function |
 | :--- | :--- | :--- | :--- |
-| **1** | `#nav-1` | **Home & General** | Dashboard shortcuts and global archive search. |
+| **1** | `#nav-1` | **Home & General** | Dashboard shortcuts, global archive search, and **Assertion Based Tracking** (core methodology). |
 | **2** | `#nav-2` | **About & Info** | Project mission, dev blog, and sitemaps. |
 | **3** | `#nav-3` | **Browse Entities** | Core indices (People, Events, Orgs, Places, etc.). |
 | **4** | `#nav-4` | **Research Tools** | Workspace applications (OCR, PDF, Matcher, etc.). |

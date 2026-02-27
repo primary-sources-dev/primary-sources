@@ -94,13 +94,13 @@
     <!-- CARD: HOME ACTION -->
     <div id="home-container" class="close-card">
         <span class="material-symbols-outlined">home</span>
-        <span>Return Home</span>
+        <span>HOME</span>
     </div>
 
     <!-- CARD: CLOSE ACTION -->
     <div id="close-container" class="close-card">
         <span class="material-symbols-outlined">close</span>
-        <span>Close Navigation</span>
+        <span>CLOSE</span>
     </div>
 
     <!-- CARD 1: HOME & GENERAL -->
@@ -115,6 +115,11 @@
                 </a></li>
             <li><a href="../search.html" class="hover:text-primary transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Search
+                </a></li>
+            <li><a href="../tools/assertion-tracker/assertion-tracker-details.html"
+                    class="hover:text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Assertion Based
+                    Tracking
                 </a></li>
         </ul>
     </div>
@@ -302,6 +307,36 @@
     <!-- TOOLS GRID -->
     <main class="max-w-6xl mx-auto px-6 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- ASSERTION BASED TRACKING -->
+            <div
+                class="border border-archive-secondary/20 bg-archive-dark/40 flex flex-col group hover:border-primary/50 transition-colors">
+                <div class="h-40 bg-zinc-900 overflow-hidden relative border-b border-archive-secondary/10">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span
+                            class="material-symbols-outlined text-6xl text-primary/20 group-hover:text-primary/40 transition-colors">fact_check</span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <span
+                            class="text-[8px] font-bold uppercase tracking-widest bg-amber-500 text-black px-2 py-0.5 border border-amber-500/30">Core
+                            Feature</span>
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-archive-heading uppercase font-display mb-2">Assertion Based Tracking
+                    </h3>
+                    <p class="text-xs text-archive-secondary/70 leading-relaxed mb-6 flex-1">
+                        The platform's core methodology for identifying, consolidating, and organizing historical
+                        information with full source traceability and contradiction detection.
+                    </p>
+                    <div class="flex gap-2">
+                        <a href="assertion-tracker/assertion-tracker-details.html"
+                            class="flex-1 py-2 text-center text-[10px] font-bold uppercase tracking-widest border border-primary/40 text-primary hover:bg-primary hover:text-archive-dark transition-all">Learn
+                            More</a>
+                    </div>
+                </div>
+            </div>
 
             <!-- OCR TOOL -->
             <div

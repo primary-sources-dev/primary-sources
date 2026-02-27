@@ -99,6 +99,7 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
    1. Read classified page text
    2. Identify event data:
       - `event_type` (INTERVIEW, REPORT_WRITTEN, TRANSFER, etc.)
+      - `event_level` (PRIMARY, SECONDARY)
       - `title` (brief description)
       - `description` (detailed narrative)
       - `start_ts` / `end_ts` (ISO 8601 format)
@@ -111,6 +112,7 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
         "event_id": "unique-uuid-here",
         "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
         "event_type": "INTERVIEW",
+        "event_level": "SECONDARY",
         "icon": "assignment_ind",
         "label": "Nov 27, 1963 · Dallas, TX",
         "title": "Event Title",
@@ -131,10 +133,11 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
       - Sub-event MUST have `parent_event_id: "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d"`
       - NEVER place events at root level of events.json
    2. Check required fields present:
-      - `event_id`, `event_type`, `title`, `description`, `start_ts`, `time_precision`
-      - Optional: `id`, `status`, `parent_event_id`, `icon`, `label`, `url`
+      - `event_id`, `parent_event_id`, `event_type`, `event_level`, `title`, `description`, `start_ts`, `time_precision`
+      - Optional: `id`, `status`, `icon`, `label`, `url`
    3. Verify `event_type` in controlled vocabulary:
-      - INTERVIEW, REPORT_WRITTEN, TRANSFER, SHOT, SIGHTING, MEETING, PHONE_CALL, etc.
+      - PRIMARY: SIGHTING, SHOT, TRANSFER, PHONE_CALL, EMPLOYMENT
+      - SECONDARY: INTERVIEW, REPORT_WRITTEN, MEETING, PHONE_CALL
    4. Validate timestamp format (ISO 8601)
    5. Confirm `time_precision` logic:
       - UNKNOWN: both timestamps NULL
@@ -209,6 +212,7 @@ Continue reviewing and expanding the Yates events dataset through iterative revi
   "event_id": "required-unique-uuid",
   "parent_event_id": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
   "event_type": "required-from-vocab",
+  "event_level": "PRIMARY|SECONDARY",
   "title": "required-concise-title",
   "description": "required-detailed-narrative",
   "start_ts": "required-if-known",

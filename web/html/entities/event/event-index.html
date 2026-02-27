@@ -94,13 +94,13 @@
     <!-- CARD: HOME ACTION -->
     <div id="home-container" class="close-card">
         <span class="material-symbols-outlined">home</span>
-        <span>Return Home</span>
+        <span>HOME</span>
     </div>
 
     <!-- CARD: CLOSE ACTION -->
     <div id="close-container" class="close-card">
         <span class="material-symbols-outlined">close</span>
-        <span>Close Navigation</span>
+        <span>CLOSE</span>
     </div>
 
     <!-- CARD 1: HOME & GENERAL -->
@@ -115,6 +115,11 @@
                 </a></li>
             <li><a href="../../search.html" class="hover:text-primary transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Search
+                </a></li>
+            <li><a href="../../tools/assertion-tracker/assertion-tracker-details.html"
+                    class="hover:text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Assertion Based
+                    Tracking
                 </a></li>
         </ul>
     </div>
@@ -275,7 +280,7 @@
 </div>
 
     <section data-component="facet-bar" data-title="Events"
-        data-filters='{"Type": ["All", "SIGHTING", "TRANSFER", "REPORT_WRITTEN", "INTERVIEW", "PHONE_CALL"]}'
+        data-filters='{"Event Level": ["All", "PRIMARY", "SECONDARY"], "Type": ["All", "SIGHTING", "SHOT", "TRANSFER", "REPORT_WRITTEN", "INTERVIEW", "PHONE_CALL"]}'
         class="bg-archive-dark px-6 py-8 border-b border-archive-secondary/20 component-loaded" data-prebuilt="true">
 <!-- BUILD:INJECTED -->
 <div class="flex flex-col gap-4">
@@ -303,14 +308,14 @@
     <!-- RESULT FEED -->
     <main class="p-6">
         <div class="mb-8 border-l-4 border-primary pl-4 uppercase">
-            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Historical
-                Timeline</h2>
-            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Foundational sequence of
+            <h2 class="text-3xl font-bold text-archive-heading tracking-widest uppercase font-display">Browse
+                Events</h2>
+            <p class="text-[10px] text-archive-secondary/60 uppercase tracking-[0.2em] mt-1">Explore the Primary Source:JFK archive of
                 documented events</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-data-source="events"
-            data-default-title="Historical Timeline">
+            data-default-title="Browse Events">
             <!-- Dynamic Event Cards will be injected here by components.js or db-logic.js -->
         </div>
 
