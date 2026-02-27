@@ -237,10 +237,13 @@ function injectSkeleton(container) {
 }
 
 function renderEntities(container) {
+    console.log('DEBUG: renderEntities called for container:', container);
     const dataSource = container.getAttribute("data-data-source");
-    const filterValue = container.getAttribute("data-filter");
+    const filterValue = container.getAttribute("data-filter-value");  // Fixed: was data-filter
     const filterKey = container.getAttribute("data-filter-key") || "org_type";
     const filterMode = container.getAttribute("data-filter-mode") || "include";
+    
+    console.log('DEBUG: dataSource=', dataSource, 'filterKey=', filterKey, 'filterValue=', filterValue);
 
     if (!dataSource) return;
 
@@ -254,10 +257,30 @@ function renderEntities(container) {
 
             // Apply generic filter if present
             if (filterValue) {
+                console.log('DEBUG: filterKey=', filterKey, 'filterValue=', filterValue);
                 if (filterMode === 'exclude') {
                     filteredData = data.filter(item => item[filterKey] !== filterValue);
                 } else {
-                    filteredData = data.filter(item => item[filterKey] === filterValue);
+                    // Map filterKey to actual property name
+                    const propertyMap = {
+                        'Event Hierarchy': 'event_hierarchy',
+                        'Event Level': 'event_level',
+                        'Type': 'event_type',
+                        'org_type': 'org_type',
+                        'person_type': 'person_type',
+                        'place_type': 'place_type',
+                        'object_type': 'object_type',
+                        'source_type': 'source_type'
+                    };
+                    const propertyName = propertyMap[filterKey] || filterKey;
+                    console.log('DEBUG: propertyName=', propertyName);
+                    console.log('DEBUG: data before filter=', data.length);
+                    filteredData = data.filter(item => {
+                        const matches = item[propertyName] === filterValue;
+                        console.log('DEBUG: item', item.title, 'has', propertyName, '=', item[propertyName], 'matches?', matches);
+                        return matches;
+                    });
+                    console.log('DEBUG: data after filter=', filteredData.length);
                 }
             }
 
@@ -414,17 +437,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Inject skeletons immediately for all data containers
     document.querySelectorAll("[data-data-source]").forEach(el => {
-        if (!el.closest("[data-component]")) {
-            injectSkeleton(el);
-        }
+        injectSkeleton(el);
     });
     
     // Then load real data after brief delay
     setTimeout(() => {
         document.querySelectorAll("[data-data-source]").forEach(el => {
-            if (!el.closest("[data-component]")) {
-                renderEntities(el);
-            }
+            renderEntities(el);
         });
     }, 100);
 

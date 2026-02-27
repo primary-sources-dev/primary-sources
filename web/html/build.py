@@ -73,11 +73,7 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
     )
     
     def add_loaded_class(tag: str) -> str:
-        """Add component-loaded class and prebuilt marker to opening tag."""
-        # Add data-prebuilt="true"
-        if 'data-prebuilt' not in tag:
-            tag = tag[:-1] + ' data-prebuilt="true">'
-            
+        """Add component-loaded class to opening tag."""
         if 'class="' in tag:
             # Append to existing class attribute
             return re.sub(r'class="([^"]*)"', r'class="\1 component-loaded"', tag)
@@ -86,7 +82,7 @@ def inject_components(html_file: Path, clean: bool = False) -> tuple[int, int]:
             return tag[:-1] + ' class="component-loaded">'
     
     def remove_loaded_class(tag: str) -> str:
-        """Remove component-loaded class and prebuilt marker from opening tag."""
+        """Remove component-loaded class from opening tag."""
         # Remove the class we added
         tag = re.sub(r' component-loaded', '', tag)
         # Remove prebuilt marker

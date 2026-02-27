@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assertion Based Tracking — Primary Sources</title>
-    <meta name="description"
-        content="The core methodology for identifying, consolidating, organizing, and reviewing massive amounts of historical information into concentrated, source-traced entities with full traceability and contradiction detection." />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Event Detail — Primary Sources</title>
 
     <!-- CRITICAL CSS: Prevent white flash and basic layout -->
     <style>
@@ -32,10 +30,18 @@
     </style>
     <link rel="stylesheet" href="../../assets/css/tailwind-prod.css">
     <link rel="stylesheet" href="../../assets/css/main.css">
-
+    
     <script src="../../assets/js/components.js" defer></script>
     <script src="../../assets/js/collapsible-menu.js" defer></script>
     <script src="../../assets/js/nav.js" defer></script>
+    <script src="../../assets/js/witness-logic.js" defer></script>
+    <script src="../../assets/js/data-abstraction.js" defer></script>
+    <script src="../../assets/js/validation.js" defer></script>
+    <script src="../../assets/js/filter-mapping.js" defer></script>
+    <script src="../../assets/js/witness-ui.js" defer></script>
+    <script src="../../assets/js/db-logic.js" defer></script>
+    <script src="../../assets/js/event-profile.js" defer></script>
+    <script src="../../assets/js/event-cards.js" defer></script>
 </head>
 
 <body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
@@ -330,334 +336,360 @@
 <!-- /BUILD:INJECTED -->
 </div>
 
-    <!-- HERO -->
-    <section class="relative w-full overflow-hidden bg-archive-dark py-12">
-        <div
-            class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none">
-        </div>
-        <div
-            class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-archive-bg to-transparent pointer-events-none">
-        </div>
+    <!-- EVENT HEADER (Archive Card Layout) -->
+    <section class="bg-archive-dark px-6 py-6 border-b border-archive-secondary/20">
+        <div class="flex gap-5 items-start max-w-7xl mx-auto">
+            <!-- Event Icon -->
+            <div id="event-icon-box"
+                class="flex-shrink-0 w-24 h-28 border border-archive-secondary/10 bg-archive-dark flex items-center justify-center">
+                <span id="event-icon"
+                    class="material-symbols-outlined text-archive-secondary/30 text-6xl">calendar_month</span>
+            </div>
 
-        <div class="relative z-10 px-6 flex flex-col items-center text-center">
-            <span class="text-[10px] font-bold uppercase text-amber-400 tracking-widest mb-4 flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">fact_check</span>
-                Core Methodology · In Development
-            </span>
-            <h1 class="mb-4 text-4xl font-bold leading-tight text-archive-heading sm:text-5xl uppercase font-display">
-                Assertion Based Tracking
-            </h1>
-            <p class="mb-6 max-w-2xl text-sm text-archive-secondary/80">
-                The research platform's core methodology for identifying, consolidating, organizing, and reviewing massive amounts of historical information into concentrated, source-traced entities with full traceability and contradiction detection.
-            </p>
-            <div class="flex flex-wrap justify-center gap-2">
-                <span
-                    class="text-[9px] font-bold uppercase tracking-widest bg-primary/20 text-primary px-3 py-1.5 border border-primary/30">
-                    Source Traceability
-                </span>
-                <span
-                    class="text-[9px] font-bold uppercase tracking-widest bg-primary/20 text-primary px-3 py-1.5 border border-primary/30">
-                    Contradiction Detection
-                </span>
-                <span
-                    class="text-[9px] font-bold uppercase tracking-widest bg-primary/20 text-primary px-3 py-1.5 border border-primary/30">
-                    Entity Consolidation
-                </span>
-                <span
-                    class="text-[9px] font-bold uppercase tracking-widest bg-primary/20 text-primary px-3 py-1.5 border border-primary/30">
-                    Confidence Scoring
-                </span>
+            <!-- Event Identity Block -->
+            <div class="flex flex-col gap-2 flex-1">
+                <span id="event-type-badge" class="text-[10px] font-bold uppercase text-primary tracking-widest">Event
+                    Record</span>
+                <h1 id="event-title"
+                    class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
+                    LOADING...
+                </h1>
+
+                <!-- Event Metadata Badges -->
+                <div id="event-metadata" class="flex flex-wrap gap-2">
+                    <span id="event-date-badge"
+                        class="text-[10px] border border-primary/40 text-primary px-2 py-1 uppercase tracking-widest">
+                        LOADING DATE...
+                    </span>
+                    <span id="event-location-badge"
+                        class="text-[10px] border border-archive-secondary/20 text-archive-secondary px-2 py-1 uppercase tracking-widest"
+                        style="display:none;">
+                        LOCATION
+                    </span>
+                </div>
+
+                <!-- Event Description -->
+                <p id="event-description"
+                    class="mt-2 text-xs text-archive-secondary/80 leading-relaxed max-w-3xl italic">
+                    Loading event details...
+                </p>
+
+                <!-- 6-Stat Grid -->
+                <div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-archive-secondary">
+                    <span><span class="text-primary uppercase text-[10px] tracking-wider">Date</span>&nbsp; <span
+                            id="stat-date">UNKNOWN</span></span>
+                    <span id="stat-duration-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Duration</span>&nbsp; <span
+                            id="stat-duration">—</span></span>
+                    <span id="stat-type-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Type</span>&nbsp; <span
+                            id="stat-type">UNKNOWN</span></span>
+                    <span id="stat-participants-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Participants</span>&nbsp; <span
+                            id="stat-participants">0</span></span>
+                    <span id="stat-location-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Location</span>&nbsp; <span
+                            id="stat-location">UNKNOWN</span></span>
+                    <span><span class="text-primary uppercase text-[10px] tracking-wider">Sources</span>&nbsp; <span
+                            id="stat-sources">0</span></span>
+                </div>
             </div>
         </div>
     </section>
 
-    <hr class="border-archive-secondary/20" />
+    <!-- CARD LIBRARY (10 sections) -->
+    <div id="cards-container" class="w-full">
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-4xl mx-auto px-6 py-10">
-
-        <!-- WHAT IT DOES -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                What It Does
-            </h2>
-            <div class="prose prose-invert max-w-none text-archive-secondary/90 text-sm leading-relaxed space-y-4">
-                <p>
-                    The Assertion Based Tracking system represents a fundamental shift from traditional historical databases. Instead of storing "facts," the platform records <strong>claims</strong> (assertions) with full traceability to their original sources. Each assertion is linked to a specific source excerpt (page number, timestamp, context), enabling researchers to instantly verify evidence and identify contradictions.
-                </p>
-                <p>
-                    When processing archival documents, the system automatically extracts entities (people, places, events, objects), consolidates duplicate references, and maps assertions to existing knowledge. If Agent Kesler testified "Yates picked up hitchhiker on Nov 20" but Yates told police "Nov 21," both assertions are preserved with their source excerpts, confidence scores, and contradiction markers.
-                </p>
-                <p>
-                    This methodology transforms unstructured historical documents into a queryable knowledge graph where every claim can be traced to its source, conflicting accounts are explicitly marked, and researchers can instantly see the full evidentiary chain.
-                </p>
+        <!-- Card 1: Context/Background -->
+        <section id="context-section" data-section="context" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('context')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">info</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Context & Significance</h2>
+                </div>
+                <span id="context-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
             </div>
-        </section>
-
-        <!-- WHY IT MATTERS -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                Why It Matters
-            </h2>
-            <div class="bg-archive-dark/30 border border-archive-secondary/20 p-6">
-                <div class="space-y-4 text-sm text-archive-secondary/90">
-                    <div class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-red-400 text-base mt-0.5">close</span>
-                        <div>
-                            <p class="font-bold text-archive-heading mb-1">Traditional Approach</p>
-                            <p class="text-xs text-archive-secondary/70">Wikipedia stores "Lee Harvey Oswald shot President Kennedy" as a fact. Conflicting accounts are buried in talk pages or lost entirely.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-emerald-400 text-base mt-0.5">check_circle</span>
-                        <div>
-                            <p class="font-bold text-archive-heading mb-1">Assertion-Based Approach</p>
-                            <p class="text-xs text-archive-secondary/70">System records: "Warren Commission concluded Oswald shot Kennedy (Warren Report Vol 1, p.19)" AND "HSCA concluded conspiracy probable (HSCA Final Report, p.1)" - both assertions visible, both sourced, contradiction explicit.</p>
-                        </div>
-                    </div>
+            <div id="context-content" class="px-6 py-8" style="display:none;">
+                <div class="max-w-6xl mx-auto">
+                    <p id="context-text" class="text-sm text-archive-secondary/80 leading-relaxed"></p>
                 </div>
             </div>
         </section>
 
-        <!-- HOW IT WORKS -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                How It Works
-            </h2>
-            <div class="bg-archive-dark/30 border border-archive-secondary/20 p-6">
-                <div class="flex flex-col gap-4">
-                    <!-- Step 1 -->
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/20 border border-primary/30 text-primary font-bold text-xs">1</div>
-                        <div class="flex-1">
-                            <p class="font-bold text-archive-heading text-sm mb-1">Document Upload → OCR</p>
-                            <p class="text-xs text-archive-secondary/70">Archival documents processed through OCR pipeline, classified by type (FBI 302, CIA cable, testimony, etc.)</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/20 border border-primary/30 text-primary font-bold text-xs">2</div>
-                        <div class="flex-1">
-                            <p class="font-bold text-archive-heading text-sm mb-1">Entity Extraction</p>
-                            <p class="text-xs text-archive-secondary/70">Named entity recognition identifies people, places, organizations, objects, and events mentioned in text</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/20 border border-primary/30 text-primary font-bold text-xs">3</div>
-                        <div class="flex-1">
-                            <p class="font-bold text-archive-heading text-sm mb-1">Assertion Creation</p>
-                            <p class="text-xs text-archive-secondary/70">Claims extracted as subject-predicate-object triples: "Yates (subject) PICKED_UP (predicate) Hitchhiker (object)"</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/20 border border-primary/30 text-primary font-bold text-xs">4</div>
-                        <div class="flex-1">
-                            <p class="font-bold text-archive-heading text-sm mb-1">Source Linking</p>
-                            <p class="text-xs text-archive-secondary/70">Each assertion linked to exact source excerpt (document ID, page number, paragraph, timestamp)</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 5 -->
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/20 border border-primary/30 text-primary font-bold text-xs">5</div>
-                        <div class="flex-1">
-                            <p class="font-bold text-archive-heading text-sm mb-1">Conflict Detection</p>
-                            <p class="text-xs text-archive-secondary/70">System compares assertions about same subject-predicate pair, flags contradictions with confidence scores</p>
-                        </div>
-                    </div>
-
-                    <!-- Step 6 -->
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary/20 border border-primary/30 text-primary font-bold text-xs">6</div>
-                        <div class="flex-1">
-                            <p class="font-bold text-archive-heading text-sm mb-1">Review & Export</p>
-                            <p class="text-xs text-archive-secondary/70">Researchers query assertions, review contradictions, trace evidence chains, export citations</p>
-                        </div>
-                    </div>
+        <!-- Card 2: Timeline/Sub-events -->
+        <section id="timeline-section" data-section="timeline" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('timeline')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">timeline</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Procedural Timeline</h2>
+                    <span id="timeline-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="timeline-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="timeline-content" class="px-6 py-8" style="display:none;">
+                <div id="timeline-list" class="max-w-6xl mx-auto">
+                    <!-- Timeline items injected here -->
                 </div>
             </div>
         </section>
 
-        <!-- CORE FEATURES -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                Core Features
-            </h2>
-            <div class="grid gap-4">
-                <!-- Feature 1 -->
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">link</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Source Traceability</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">Every assertion links to exact source excerpt. Click any claim to see document page, paragraph, and timestamp.</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">100% Traceable</span>
+        <!-- Card 3: Participants -->
+        <section id="participants-section" data-section="participants" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('participants')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">groups</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Key Participants</h2>
+                    <span id="participants-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
                 </div>
-
-                <!-- Feature 2 -->
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">compare_arrows</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Contradiction Detection</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">System automatically identifies conflicting assertions about the same subject. "Nov 20" vs "Nov 21" flagged instantly.</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">Automatic</span>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">merge</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Entity Consolidation</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">Multiple mentions of same entity (R.L. Yates, Ralph Yates, Ralph Leon Yates) consolidated to single record.</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">Fuzzy Matching</span>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">verified</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Confidence Scoring</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">Assertions rated CONFIRMED, SUPPORTED, DISPUTED, or UNLIKELY based on source credibility and corroboration.</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">Evidence-Based</span>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">schedule</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Time Precision Modeling</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">Timestamps tagged UNKNOWN, APPROX, EXACT, or RANGE to prevent false precision. "November 1963" ≠ "Nov 22, 1963 at 12:30"</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">Historiographic</span>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">category</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Controlled Vocabulary</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">Event types, predicates, roles use standardized codes (INTERVIEW, SHOT, TESTIFIED_THAT) for consistent querying.</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">Semantic Consistency</span>
+                <span id="participants-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="participants-content" class="px-6 py-8" style="display:none;">
+                <div id="participants-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Participant cards injected here -->
                 </div>
             </div>
         </section>
 
-        <!-- THE ASSERTION MODEL -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                The Assertion Model
-            </h2>
-            <div class="bg-archive-dark/50 border border-archive-secondary/20 p-5">
-                <p class="text-xs text-archive-secondary/80 mb-4">Assertions follow subject-predicate-object structure with source traceability:</p>
-                <pre class="text-[11px] font-mono text-archive-secondary/90 overflow-x-auto"><code>{
-  "assertion_id": "uuid-12345",
-  "subject_type": "person",
-  "subject_id": "ralph-yates-uuid",
-  "predicate": "PICKED_UP",
-  "object_type": "person",
-  "object_id": "hitchhiker-uuid",
-  "assertion_type": "ACTION",
-  "confidence": "SUPPORTED",
-  "timestamp": "1963-11-20T00:00:00Z",
-  "time_precision": "APPROX",
-  "source_excerpts": [
-    {
-      "source_id": "fbi-302-kesler-uuid",
-      "page": 2,
-      "excerpt": "Yates stated he picked up a hitchhiker...",
-      "support_type": "SUPPORTS"
-    }
-  ]
-}</code></pre>
+        <!-- Card 3.5: Witnesses -->
+        <section id="witnesses-section" data-section="witnesses" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('witnesses')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">person</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Witnesses</h2>
+                    <span id="witnesses-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="witnesses-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
             </div>
-        </section>
-
-        <!-- EXAMPLE USE CASES -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                Example Use Cases
-            </h2>
-            <div class="space-y-4">
-                <div class="bg-archive-dark/30 border border-archive-secondary/20 p-4">
-                    <p class="font-bold text-archive-heading text-sm mb-2">Query: "What are all conflicting accounts of when Yates picked up the hitchhiker?"</p>
-                    <p class="text-xs text-archive-secondary/70">→ Returns 3 assertions: FBI report says Nov 20, police interview says Nov 21, Yates testimony says "around Thanksgiving" - all with sources.</p>
-                </div>
-                <div class="bg-archive-dark/30 border border-archive-secondary/20 p-4">
-                    <p class="font-bold text-archive-heading text-sm mb-2">Query: "Show me every event Ruby participated in where Oswald was also present"</p>
-                    <p class="text-xs text-archive-secondary/70">→ Cross-references event_participant table, returns events with both entities, sorted chronologically.</p>
-                </div>
-                <div class="bg-archive-dark/30 border border-archive-secondary/20 p-4">
-                    <p class="font-bold text-archive-heading text-sm mb-2">Query: "Which assertions about the Grassy Knoll shooter are contradicted by official sources?"</p>
-                    <p class="text-xs text-archive-secondary/70">→ Filters assertions with support_type=CONTRADICTS from Warren Commission/FBI sources.</p>
+            <div id="witnesses-content" class="px-6 py-8" style="display:none;">
+                <div id="witnesses-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Witness cards injected here -->
                 </div>
             </div>
         </section>
 
-        <!-- DATA ARCHITECTURE -->
-        <section class="mb-12">
-            <h2
-                class="text-xl font-bold text-archive-heading uppercase tracking-wider border-l-4 border-primary pl-4 mb-6">
-                Data Architecture
-            </h2>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">folder</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Current (Prototype)</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">JSON-based schema with nested structures for events, assertions, source excerpts.</p>
-                    <div class="mt-3 space-y-1">
-                        <code class="text-[10px] text-primary block">assets/data/events.json</code>
-                        <code class="text-[10px] text-primary block">assets/data/people.json</code>
-                        <code class="text-[10px] text-primary block">assets/data/sources.json</code>
-                    </div>
+        <!-- Card 4: Material Evidence -->
+        <section id="evidence-section" data-section="evidence" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('evidence')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">inventory_2</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Material Evidence</h2>
+                    <span id="evidence-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
                 </div>
-                <div class="border border-archive-secondary/20 bg-archive-dark/30 p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="material-symbols-outlined text-primary">cloud</span>
-                        <h3 class="font-bold text-archive-heading text-sm uppercase">Future (Production)</h3>
-                    </div>
-                    <p class="text-xs text-archive-secondary/70 mb-2">PostgreSQL via Supabase with 27 normalized tables, polymorphic FK enforcement, full-text search.</p>
-                    <div class="mt-3">
-                        <span class="text-[9px] bg-amber-500/20 text-amber-400 px-2 py-1">Next.js + Supabase</span>
-                    </div>
+                <span id="evidence-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="evidence-content" class="px-6 py-8" style="display:none;">
+                <div id="evidence-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Evidence cards injected here -->
                 </div>
             </div>
         </section>
 
-        <!-- STATUS -->
-        <section class="border border-amber-500/30 bg-amber-500/5 p-6">
-            <div class="flex items-center gap-3 mb-3">
-                <span class="material-symbols-outlined text-amber-400">construction</span>
-                <span class="font-bold text-amber-400 uppercase tracking-wider text-sm">Status: In Development</span>
+        <!-- Card 5: Primary Sources -->
+        <section id="sources-section" data-section="sources" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('sources')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">description</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Primary Sources</h2>
+                    <span id="sources-count-badge"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="sources-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
             </div>
-            <p class="text-xs text-archive-secondary/80 mb-3">
-                The assertion-based tracking system is currently in prototype phase. Core schema and data models are complete and validated with the Yates incident case study. Next.js + Supabase migration underway to enable full query interface, contradiction detection UI, and public API.
+            <div id="sources-content" class="px-6 py-8" style="display:none;">
+                <div id="sources-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Source cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 6: Locations -->
+        <section id="locations-section" data-section="locations" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('locations')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">place</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Locations</h2>
+                    <span id="locations-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="locations-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="locations-content" class="px-6 py-8" style="display:none;">
+                <div id="locations-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Location cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 7: Related Events -->
+        <section id="related-events-section" data-section="related-events" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('related-events')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">link</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Related Events</h2>
+                    <span id="related-events-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="related-events-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="related-events-content" class="px-6 py-8" style="display:none;">
+                <div id="related-events-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Related event cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 8: Assertions & Analysis -->
+        <section id="assertions-section" data-section="assertions" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('assertions')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">fact_check</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Assertions & Analysis</h2>
+                    <span id="assertions-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="assertions-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="assertions-content" class="px-6 py-8" style="display:none;">
+                <div id="assertions-list" class="max-w-6xl mx-auto flex flex-col gap-3">
+                    <!-- Assertion cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 9: Organizations -->
+        <section id="organizations-section" data-section="organizations" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('organizations')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">account_balance</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Organizations</h2>
+                    <span id="organizations-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="organizations-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="organizations-content" class="px-6 py-8" style="display:none;">
+                <div id="organizations-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Organization cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 10: Photos & Media -->
+        <section id="media-section" data-section="media" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('media')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">image</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Photos & Media</h2>
+                    <span id="media-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="media-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="media-content" class="px-6 py-8 bg-archive-bg/30" style="display:none;">
+                <div id="media-gallery" class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Media items injected here -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- EMPTY STATE -->
+    <section id="empty-state" class="py-20 px-6 text-center border-b border-archive-secondary/20" style="display:none;">
+        <div class="max-w-2xl mx-auto">
+            <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">event_busy</span>
+            <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">Limited Data Available</p>
+            <p class="text-sm text-archive-secondary/60 mb-6">
+                This event has minimal archival records. If you have additional information about this incident,
+                please consider contributing to the archive.
             </p>
-            <div class="text-xs text-archive-secondary/70">
-                <p class="mb-1"><strong class="text-archive-heading">✓ Complete:</strong> Database schema, assertion model, entity consolidation, time precision modeling</p>
-                <p><strong class="text-archive-heading">→ In Progress:</strong> Query interface, contradiction detection UI, confidence scoring algorithms, citation export</p>
-            </div>
-        </section>
-
-    </main>
-
-    <hr class="border-archive-secondary/20" />
+            <a href="event-index.html"
+                class="inline-flex items-center gap-2 text-xs text-primary hover:underline uppercase tracking-widest">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                Back to Events
+            </a>
+        </div>
+    </section>
 
     <!-- MODULAR FOOTER -->
     <div data-component="footer" class="component-loaded component-loaded">
@@ -693,7 +725,7 @@
 </div>
 
 <!-- MODULAR BOTTOM NAV -->
-    <nav data-component="bottom-nav" data-active="Home"
+    <nav data-component="bottom-nav" data-active="Events"
         class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4 component-loaded">
 <!-- BUILD:INJECTED -->
 <!-- 

@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Six Degrees — Primary Sources</title>
+    <title>Place Profile — Primary Sources</title>
+    <meta name="description"
+        content="Location profile from the Primary Sources digital archive of JFK assassination records." />
 
     <!-- CRITICAL CSS: Prevent white flash and basic layout -->
     <style>
@@ -28,15 +30,19 @@
             visibility: hidden;
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/tailwind-prod.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/tailwind-prod.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
     
-    <script src="../assets/js/components.js" defer></script>
-    <script src="../assets/js/collapsible-menu.js" defer></script>
-    <script src="../assets/js/nav.js" defer></script>
+    <script src="../../assets/js/components.js" defer></script>
+    <script src="../../assets/js/collapsible-menu.js" defer></script>
+    <script src="../../assets/js/nav.js" defer></script>
+    <script src="../../assets/js/db-logic.js" defer></script>
+    <script src="../../assets/js/place-profile.js" defer></script>
+    <script src="../../assets/js/place-cards.js" defer></script>
 </head>
 
-<body class="bg-archive-bg text-archive-secondary font-mono min-h-screen flex flex-col">
+<body class="bg-archive-bg text-archive-secondary font-mono transition-colors duration-300">
+
     <!-- MODULAR HEADER -->
     <header data-component="header"
         class="sticky top-0 z-50 w-full border-b border-archive-secondary/20 bg-archive-bg/95 backdrop-blur component-loaded">
@@ -53,13 +59,13 @@
         </div>
 
         <!-- Search -->
-        <a href="../search.html"
+        <a href="../../search.html"
             class="flex h-10 w-10 items-center justify-center border border-archive-secondary/20 hover:bg-primary/10 text-archive-secondary transition-colors">
             <span class="material-symbols-outlined">search</span>
         </a>
 
         <!-- Branding: Title -->
-        <a href="../index.html" class="pl-4">
+        <a href="../../index.html" class="pl-4">
             <span class="text-xl font-bold tracking-[0.2em] text-archive-heading uppercase font-display">Primary
                 Sources:<span class="text-primary">JFK</span></span>
         </a>
@@ -111,13 +117,13 @@
                 <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Home & General</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../index.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                <li><a href="../../index.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Home
                     </a></li>
-                <li><a href="../search.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                <li><a href="../../search.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Search
                     </a></li>
-                <li><a href="../tools/assertion-tracker/assertion-tracker-details.html"
+                <li><a href="../../tools/assertion-tracker/assertion-tracker-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Assertion Based
                         Tracking
@@ -132,18 +138,18 @@
                 <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">About & Info</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../pages/about.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                <li><a href="../../pages/about.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>About this
                         Project
                     </a></li>
-                <li><a href="../pages/features.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                <li><a href="../../pages/features.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Roadmap and
                         Features
                     </a></li>
-                <li><a href="../pages/blog.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                <li><a href="../../pages/blog.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Dev Blog
                     </a></li>
-                <li><a href="../pages/links.html" class="hover:text-primary transition-colors flex items-center gap-2">
+                <li><a href="../../pages/links.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Portal
                         Links
                     </a></li>
@@ -157,27 +163,27 @@
                 <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Browse Entities</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../entities/event/event-index.html"
+                <li><a href="../../entities/event/event-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Events
                     </a></li>
-                <li><a href="../entities/person/person-index.html"
+                <li><a href="../../entities/person/person-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>People
                     </a></li>
-                <li><a href="../entities/organization/org-index.html"
+                <li><a href="../../entities/organization/org-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Organizations
                     </a></li>
-                <li><a href="../entities/place/place-index.html"
+                <li><a href="../../entities/place/place-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Places
                     </a></li>
-                <li><a href="../entities/object/object-index.html"
+                <li><a href="../../entities/object/object-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Objects
                     </a></li>
-                <li><a href="../entities/source/source-index.html"
+                <li><a href="../../entities/source/source-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Sources
                     </a></li>
@@ -191,39 +197,39 @@
                 <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Research Tools</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../tools/tools-index.html"
+                <li><a href="../../tools/tools-index.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>All Tools
                     </a></li>
-                <li><a href="../tools/ocr/ocr-ui.html"
+                <li><a href="../../tools/ocr/ocr-ui.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>OCR Scanner
                     </a></li>
-                <li><a href="../tools/pdf-viewer/pdf-viewer-ui.html"
+                <li><a href="../../tools/pdf-viewer/pdf-viewer-ui.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>PDF Viewer
                     </a></li>
-                <li><a href="../tools/classifier/classifier-ui.html"
+                <li><a href="../../tools/classifier/classifier-ui.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Document
                         Classifier
                     </a></li>
-                <li><a href="../tools/citation/citation-details.html"
+                <li><a href="../../tools/citation/citation-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Citation
                         Generator
                     </a></li>
-                <li><a href="../tools/matcher/matcher-details.html"
+                <li><a href="../../tools/matcher/matcher-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Entity
                         Matcher
                     </a></li>
-                <li><a href="../tools/analyzer/analyzer-details.html"
+                <li><a href="../../tools/analyzer/analyzer-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Document
                         Analyzer
                     </a></li>
-                <li><a href="../tools/research/research-details.html"
+                <li><a href="../../tools/research/research-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Research
                         Tools
@@ -238,15 +244,15 @@
                 <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Discovery</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../exploration/otd.html"
+                <li><a href="../../exploration/otd.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>On This Day
                     </a></li>
-                <li><a href="../exploration/random.html"
+                <li><a href="../../exploration/random.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Six Degrees
                     </a></li>
-                <li><a href="../exploration/witness-atlas.html"
+                <li><a href="../../exploration/witness-atlas.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Witness
                         Atlas
@@ -262,17 +268,17 @@
                 </h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../tools/ocr/ocr-details.html"
+                <li><a href="../../tools/ocr/ocr-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>OCR
                         Documentation
                     </a></li>
-                <li><a href="../tools/pdf-viewer/pdf-viewer-details.html"
+                <li><a href="../../tools/pdf-viewer/pdf-viewer-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>PDF Viewer
                         Docs
                     </a></li>
-                <li><a href="../tools/classifier/classifier-details.html"
+                <li><a href="../../tools/classifier/classifier-details.html"
                         class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Classifier
                         Docs
@@ -327,145 +333,250 @@
 <!-- /BUILD:INJECTED -->
 </div>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col items-center justify-center p-6 py-20">
-        <!-- Badge -->
-        <div class="mb-8 text-center">
-            <span class="badge badge-large">
-                Six Degrees of History — Coming Soon
-            </span>
-        </div>
-
-        <!-- Animated Network Icon -->
-        <div class="mb-8 relative">
-            <div
-                class="flex h-24 w-24 items-center justify-center bg-primary/10 text-primary border-2 border-primary/40 rounded-full animate-pulse">
-                <span class="material-symbols-outlined text-5xl">hub</span>
+    <!-- PLACE HEADER (Archive Card Layout) -->
+    <section class="bg-archive-dark px-6 py-6 border-b border-archive-secondary/20">
+        <div class="flex gap-5 items-start max-w-7xl mx-auto">
+            <!-- Icon Box -->
+            <div id="place-icon-box"
+                class="flex-shrink-0 w-24 h-28 border border-archive-secondary/10 bg-archive-dark flex items-center justify-center">
+                <span id="place-icon" class="material-symbols-outlined text-archive-secondary/30 text-6xl">place</span>
             </div>
-            <!-- Floating nodes decoration -->
-            <div class="absolute -top-2 -right-2 h-4 w-4 bg-primary/40 rounded-full animate-bounce"></div>
-            <div class="absolute -bottom-4 -left-6 h-3 w-3 bg-primary/20 rounded-full animate-bounce"
-                style="animation-delay: 0.5s"></div>
+
+            <!-- Identity Block -->
+            <div class="flex flex-col gap-2 flex-1">
+                <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Location Record</span>
+                <h1 id="place-name"
+                    class="text-3xl font-bold leading-tight text-archive-heading uppercase font-display">
+                    LOADING...
+                </h1>
+
+                <!-- Type Badge -->
+                <div id="place-type-badge-wrapper" style="display:none;">
+                    <span id="place-type-badge"
+                        class="inline-block text-[10px] px-2 py-1 bg-primary/20 text-primary uppercase tracking-widest">
+                    </span>
+                </div>
+
+                <!-- 6-Stat Grid -->
+                <div class="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-archive-secondary">
+                    <span id="stat-type-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Type</span>&nbsp; <span
+                            id="stat-type">UNKNOWN</span></span>
+                    <span id="stat-address-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Address</span>&nbsp; <span
+                            id="stat-address">UNKNOWN</span></span>
+                    <span id="stat-city-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">City</span>&nbsp; <span
+                            id="stat-city">UNKNOWN</span></span>
+                    <span id="stat-state-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">State</span>&nbsp; <span
+                            id="stat-state">UNKNOWN</span></span>
+                    <span id="stat-coordinates-wrapper" style="display:none;"><span
+                            class="text-primary uppercase text-[10px] tracking-wider">Coordinates</span>&nbsp; <span
+                            id="stat-coordinates">—</span></span>
+                    <span><span class="text-primary uppercase text-[10px] tracking-wider">Sources</span>&nbsp; <span
+                            id="stat-sources">0</span></span>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Title -->
-        <h2
-            class="text-4xl md:text-5xl font-bold text-archive-heading uppercase tracking-widest font-display mb-4 text-center">
-            Six Degrees
-        </h2>
+    <!-- CARD LIBRARY (7 sections) -->
+    <div id="cards-container" class="w-full">
 
-        <!-- Subtitle -->
-        <p class="text-lg text-archive-secondary/80 text-center max-w-2xl mb-12 font-serif italic">
-            There are no isolated events in the archive. Discover the hidden threads connecting the most disparate
-            entities in our knowledge graph through a wild, relational jump engine.
+        <!-- Card 1: Overview/Description -->
+        <section id="overview-section" data-section="overview" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('overview')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">info</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Overview</h2>
+                </div>
+                <span id="overview-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="overview-content" class="px-6 py-8" style="display:none;">
+                <div class="max-w-6xl mx-auto">
+                    <p id="overview-text" class="text-sm text-archive-secondary/80 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 2: Events -->
+        <section id="events-section" data-section="events" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('events')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">event</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Events at This Location</h2>
+                    <span id="events-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="events-chevron" class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="events-content" class="px-6 py-8" style="display:none;">
+                <div id="events-list" class="max-w-6xl mx-auto flex flex-col gap-3">
+                    <!-- Event cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 3: Parent/Child Locations -->
+        <section id="hierarchy-section" data-section="hierarchy" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('hierarchy')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">account_tree</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Location Hierarchy</h2>
+                </div>
+                <span id="hierarchy-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="hierarchy-content" class="px-6 py-8" style="display:none;">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Parent location -->
+                    <div id="parent-location-wrapper" style="display:none;" class="mb-6">
+                        <h3 class="text-xs uppercase tracking-widest text-primary mb-3">Parent Location</h3>
+                        <div id="parent-location" class="flex flex-col gap-2">
+                            <!-- Parent card injected here -->
+                        </div>
+                    </div>
+                    <!-- Child locations -->
+                    <div id="child-locations-wrapper" style="display:none;">
+                        <h3 class="text-xs uppercase tracking-widest text-primary mb-3">Child Locations</h3>
+                        <div id="child-locations" class="flex flex-col gap-2">
+                            <!-- Child cards injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 4: Related Places -->
+        <section id="related-places-section" data-section="related-places" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('related-places')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">pin_drop</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Related Places</h2>
+                    <span id="related-places-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="related-places-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="related-places-content" class="px-6 py-8" style="display:none;">
+                <div id="related-places-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Related place cards injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 5: Notable Features -->
+        <section id="features-section" data-section="features" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('features')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">architecture</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Notable Features</h2>
+                    <span id="features-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="features-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="features-content" class="px-6 py-8" style="display:none;">
+                <div id="features-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Feature items injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 6: Identifiers -->
+        <section id="identifiers-section" data-section="identifiers" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('identifiers')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">badge</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Identifiers</h2>
+                    <span id="identifiers-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="identifiers-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="identifiers-content" class="px-6 py-8" style="display:none;">
+                <div id="identifiers-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Identifier items injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 7: Sources -->
+        <section id="sources-section" data-section="sources" class="border-b border-archive-secondary/20"
+            style="display:none;">
+            <div class="px-6 py-6 bg-archive-dark border-b border-archive-secondary/20 flex items-center justify-between cursor-pointer hover:bg-archive-dark/80 transition-colors"
+                onclick="toggleCard('sources')">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary text-xl">description</span>
+                    <h2
+                        class="text-xl font-bold text-archive-heading uppercase font-display tracking-widest border-l-4 border-primary pl-4">
+                        Primary Sources</h2>
+                    <span id="sources-count"
+                        class="text-xs bg-primary/20 text-primary px-3 py-1 uppercase tracking-widest">(0)</span>
+                </div>
+                <span id="sources-chevron"
+                    class="material-symbols-outlined text-archive-secondary transition-transform">
+                    expand_more
+                </span>
+            </div>
+            <div id="sources-content" class="px-6 py-8" style="display:none;">
+                <div id="sources-list" class="max-w-6xl mx-auto flex flex-col gap-2">
+                    <!-- Source cards injected here -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Empty State (if no cards visible) -->
+    <div id="empty-state" class="py-20 text-center" style="display:none;">
+        <span class="material-symbols-outlined text-6xl text-archive-secondary/20 mb-4 block">place</span>
+        <p class="text-xs uppercase tracking-[0.3em] text-archive-secondary/40 mb-2">No Data Available</p>
+        <p class="text-sm text-archive-secondary/60">
+            This location record has limited information.
         </p>
-
-        <!-- Dynamic Connection Example (Aesthetically focused) -->
-        <div
-            class="w-full max-w-4xl mb-16 border border-archive-secondary/10 bg-archive-dark/40 p-1 bg-[radial-gradient(circle_at_center,_rgba(176,139,73,0.05)_0%,_transparent_70%)]">
-            <div class="border border-archive-secondary/10 p-8">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 relative">
-                    <!-- Target A -->
-                    <div class="flex flex-col items-center gap-3 z-10">
-                        <div
-                            class="h-16 w-16 border border-primary/40 flex items-center justify-center bg-archive-surface">
-                            <span class="material-symbols-outlined text-primary">person</span>
-                        </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-archive-heading">Target
-                            A</span>
-                    </div>
-
-                    <!-- Connection Path -->
-                    <div class="flex-1 flex items-center justify-center gap-2 opacity-30">
-                        <div
-                            class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary to-transparent hidden md:block">
-                        </div>
-                        <div class="material-symbols-outlined animate-spin" style="animation-duration: 10s">cyclone
-                        </div>
-                        <div
-                            class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary to-transparent hidden md:block">
-                        </div>
-                    </div>
-
-                    <!-- Target B -->
-                    <div class="flex flex-col items-center gap-3 z-10">
-                        <div
-                            class="h-16 w-16 border border-primary/40 flex items-center justify-center bg-archive-surface">
-                            <span class="material-symbols-outlined text-primary">location_on</span>
-                        </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-archive-heading">Target
-                            B</span>
-                    </div>
-                </div>
-
-                <div class="mt-8 text-center">
-                    <p class="text-[10px] text-archive-secondary/40 uppercase tracking-[0.3em]">Mapping Shortest Path
-                        via Relational Bridges...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Concept Grid -->
-        <div class="grid md:grid-cols-3 gap-6 max-w-5xl w-full mb-16">
-            <!-- Feature 1 -->
-            <div
-                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary">insights</span>
-                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Path Discovery</h3>
-                </div>
-                <p class="text-xs leading-relaxed text-archive-secondary/70">
-                    Input any two persons, organizations, or documents and let the engine calculate the relational
-                    bridges that connect them.
-                </p>
-                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
-                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Logic: Graph Traversal</span>
-                </div>
-            </div>
-
-            <!-- Feature 2 -->
-            <div
-                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary">shuffle</span>
-                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Serendipity Mode</h3>
-                </div>
-                <p class="text-xs leading-relaxed text-archive-secondary/70">
-                    Let the system pick two random entities and show you how they are linked through a chain of unlikely
-                    historical events.
-                </p>
-                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
-                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Logic: Weighted Randomizer</span>
-                </div>
-            </div>
-
-            <!-- Feature 3 -->
-            <div
-                class="border border-archive-secondary/20 bg-archive-surface/60 p-6 flex flex-col gap-4 group hover:border-primary transition-colors">
-                <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-primary">share</span>
-                    <h3 class="text-sm font-bold text-archive-heading uppercase tracking-wider">Degree Mapping</h3>
-                </div>
-                <p class="text-xs leading-relaxed text-archive-secondary/70">
-                    Visualize the "distance" between nodes in the historical knowledge graph—from direct contact to
-                    obscure third-party references.
-                </p>
-                <div class="mt-auto pt-4 border-t border-archive-secondary/10">
-                    <span class="text-[9px] uppercase tracking-widest text-primary/60">Logic: Node distance BFS</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="text-center">
-            <a href="../index.html"
-                class="inline-flex items-center gap-2 bg-primary text-archive-bg px-8 py-3 font-bold uppercase tracking-wider hover:brightness-110 transition-all shadow-lg active:scale-95">
-                Return to Dashboard
-            </a>
-        </div>
-    </main>
-
-    <hr class="border-archive-secondary/20" />
+    </div>
 
     <!-- MODULAR FOOTER -->
     <div data-component="footer" class="component-loaded component-loaded">
@@ -484,7 +595,7 @@
     </div>
     <nav
         class="mb-8 grid grid-cols-2 sm:grid-cols-5 gap-y-4 text-[10px] font-bold uppercase tracking-widest text-archive-secondary">
-        <a class="hover:text-primary transition-colors" href="../sitemap.html">Sitemap</a>
+        <a class="hover:text-primary transition-colors" href="../../sitemap.html">Sitemap</a>
         <a class="hover:text-primary transition-colors" href="#">Disclaimer</a>
         <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
         <a class="hover:text-primary transition-colors" href="#">Terms of Use</a>
@@ -501,7 +612,7 @@
 </div>
 
 <!-- MODULAR BOTTOM NAV -->
-    <nav data-component="bottom-nav" data-active="Home"
+    <nav data-component="bottom-nav" data-active="Places"
         class="fixed bottom-0 z-50 w-full border-t border-archive-secondary/20 bg-archive-bg px-6 py-4 component-loaded">
 <!-- BUILD:INJECTED -->
 <!-- 
@@ -510,31 +621,31 @@
   THIS IS THE MASTER GLOBAL NAVIGATION COMPONENT.
 -->
 <div class="grid grid-cols-5 w-full">
-    <a href="../index.html"
+    <a href="../../index.html"
         class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
         style="color:rgba(212,207,199,0.4)">
         <span class="material-symbols-outlined" style="font-size:1.5rem">home</span>
         <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">Home</span>
     </a>
-    <a href="../entities/person/person-index.html"
+    <a href="../../entities/person/person-index.html"
         class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
         style="color:rgba(212,207,199,0.4)">
         <span class="material-symbols-outlined" style="font-size:1.5rem">groups</span>
         <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">People</span>
     </a>
-    <a href="../entities/event/event-index.html"
+    <a href="../../entities/event/event-index.html"
         class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
         style="color:rgba(212,207,199,0.4)">
         <span class="material-symbols-outlined" style="font-size:1.5rem">event</span>
         <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">Events</span>
     </a>
-    <a href="../pages/about.html"
+    <a href="../../pages/about.html"
         class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
         style="color:rgba(212,207,199,0.4)">
         <span class="material-symbols-outlined" style="font-size:1.5rem">info</span>
         <span style="font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em">About</span>
     </a>
-    <a href="../pages/links.html"
+    <a href="../../pages/links.html"
         class="flex flex-col items-center justify-center gap-1 py-1 hover:text-primary transition-colors"
         style="color:rgba(212,207,199,0.4)">
         <span class="material-symbols-outlined" style="font-size:1.5rem">link</span>
