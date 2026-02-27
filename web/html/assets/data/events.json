@@ -6,22 +6,61 @@
     "event_level": "PRIMARY",
     "event_hierarchy": "CATEGORY_2",
     "icon": "person_pin",
-    "label": "Nov 20 \u00e2\u20ac\u201c 21, 1963 \u00c2\u00b7 Dallas, TX",
+    "label": "Nov 20 €¢ 21, 1963 · Dallas, TX",
     "title": "The Ralph Leon Yates Incident",
     "location": "Dallas, TX",
-    "description": "Ralph Leon Yates reported picking up a hitchhiker on Nov 20, but FBI alibi checks suggest the event likely occurred on Nov 21. Both dates are preserved here for analysis of potential Oswald movements.",
-    "context": "The Ralph Yates incident represents one of the most compelling witness accounts of a possible Oswald sighting before the JFK assassination. Yates, a refrigeration mechanic, reported picking up a hitchhiker matching Oswald's description who carried a package and discussed shooting the President from a window. The FBI conducted extensive interviews but ultimately determined discrepancies in Yates' timeline. Yates later experienced a mental health crisis and was hospitalized. The case remains disputed among researchers.",
+    "description": "Ralph Leon Yates reported picking up a hitchhiker on Nov 20, but FBI alibi checks suggest event likely occurred on Nov 21. Both dates are preserved here for analysis of potential Oswald movements.",
+    "context": "The Ralph Yates incident represents one of most compelling witness accounts of a possible Oswald sighting before JFK assassination. Yates, a refrigeration mechanic, reported picking up a hitchhiker matching Oswald's description who carried a package and discussed shooting President from a window. The FBI conducted extensive interviews but ultimately determined discrepancies in Yates' timeline. Yates later experienced a mental health crisis and was hospitalized. The case remains disputed among researchers.",
     "featured": true,
     "is_conflict": true,
     "start_ts": "1963-11-20T10:30:00Z",
     "time_precision": "APPROX",
+    "witnesses": [
+      {
+        "name": "Ralph Leon Yates",
+        "role": "PRIMARY_WITNESS",
+        "witness_hierarchy": "PRIMARY_WITNESS",
+        "event_specific_role": "Reporting Witness",
+        "description": "Refrigeration mechanic who reported hitchhiker sighting",
+        "credibility": "DISPUTED",
+        "contact_info": {
+          "phone": "unknown",
+          "address": "Dallas, TX"
+        }
+      },
+      {
+        "name": "J.O. Smith",
+        "role": "SECONDARY_WITNESS",
+        "witness_hierarchy": "SECONDARY_WITNESS", 
+        "event_specific_role": "Family Witness",
+        "description": "Yates' uncle who accompanied him to FBI office",
+        "relationship_to_primary": "Uncle of Ralph Yates"
+      },
+      {
+        "name": "SA Arthur Carter",
+        "role": "INVESTIGATOR",
+        "witness_hierarchy": "INVESTIGATOR",
+        "event_specific_role": "Lead Investigator",
+        "description": "FBI Special Agent conducting Yates interviews",
+        "agency": "FBI Dallas Office"
+      },
+      {
+        "name": "SA C. Ray Hall",
+        "role": "INVESTIGATOR",
+        "witness_hierarchy": "INVESTIGATOR",
+        "event_specific_role": "Co-Investigator",
+        "description": "FBI Special Agent assisting with Yates interviews",
+        "agency": "FBI Dallas Office"
+      }
+    ],
+    "participants": [],
     "sub_events": [
       {
         "id": "park-it-market-service-call",
         "event_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
         "event_type": "TRANSFER",
-        "event_level": "PRIMARY",
-        "event_hierarchy": "CATEGORY_2",
+        "event_level": "SECONDARY",
+        "event_hierarchy": "CATEGORY_3",
         "icon": "build",
         "label": "Nov 21, 1963 \u00c2\u00b7 Irving, TX",
         "title": "Park-It Market Service Call (Verified)",
@@ -185,33 +224,6 @@
         "start_ts": "1964-01-15T00:00:00Z",
         "time_precision": "EXACT",
         "url": "/assets/documents/yates-searchable.pdf#page=42&search=\"Woodlawn\""
-      }
-    ],
-    "participants": [
-      {
-        "name": "Ralph Leon Yates",
-        "role": "Witness",
-        "description": "Refrigeration mechanic who reported the hitchhiker sighting"
-      },
-      {
-        "name": "SA Arthur Carter",
-        "role": "FBI Agent",
-        "description": "Conducted initial interviews with Yates"
-      },
-      {
-        "name": "SA C. Ray Hall",
-        "role": "FBI Agent",
-        "description": "Lead investigator on Yates case"
-      },
-      {
-        "name": "J.O. Smith",
-        "role": "Relative",
-        "description": "Yates' uncle who accompanied him to FBI office"
-      },
-      {
-        "name": "Dorothy Yates",
-        "role": "Family",
-        "description": "Yates' wife, present at final interview"
       }
     ],
     "evidence": [
