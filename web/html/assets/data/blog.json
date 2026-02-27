@@ -3,7 +3,7 @@
     "slug": "assertion-based-tracking-launch",
     "title": "Introducing Assertion Based Tracking: The Core Methodology",
     "excerpt": "How we're replacing 'facts' with source-traced assertions to enable contradiction detection, confidence scoring, and full evidentiary traceability in historical research.",
-    "category": "Development",
+    "category": "Tools",
     "date": "2026-02-26",
     "author": "Engineering Team",
     "featured": true,
@@ -167,7 +167,229 @@
         "content": "This methodology forms the foundation for every feature we build. Entity profiles show assertions about each person. Event timelines display conflicting accounts side-by-side. Document pages link directly to the assertions they support. It all starts here."
       }
     ],
-    "related": ["mission-statement", "design-philosophy", "component-library-explained"]
+    "related": ["ocr-engine-launch", "document-classifier-launch", "pdf-viewer-launch"]
+  },
+  {
+    "slug": "ocr-engine-launch",
+    "title": "OCR Engine: High-Precision Text Extraction for Archival Records",
+    "excerpt": "How we built an OCR pipeline optimized for typewritten archival documents with surgical page splitting, batch processing, and local-first architecture.",
+    "category": "Tools",
+    "date": "2026-02-25",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["ocr", "document-processing", "research-tools", "toolbox"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "The OCR Engine is the first step in the assertion-based tracking pipeline. It transforms scanned archival documents into searchable text that feeds entity extraction and assertion creation."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Traditional OCR"
+      },
+      {
+        "type": "text",
+        "content": "Archival documents from the 1960s present unique challenges: typewritten text with carbon copies, degraded scans with compression artifacts, mixed layouts with handwritten annotations, and multi-page reports that need surgical splitting for targeted analysis."
+      },
+      {
+        "type": "text",
+        "content": "Generic OCR tools like Adobe Acrobat or Google Cloud Vision are optimized for modern printed text, not historical typewritten documents. They struggle with faded carbon copies, misalign text blocks when pages have stamps or annotations, and lack the surgical page-splitting features researchers need."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Optimized OCR Pipeline"
+      },
+      {
+        "type": "text",
+        "content": "We built an OCR engine specifically tuned for 1960s typewritten documents using Tesseract OCR with custom preprocessing. The system handles batch processing, supports surgical page splitting, and runs entirely locally for sensitive archival materials."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Document Upload — Supports PDF, JPEG, PNG, TIFF, WEBP formats. Drag-and-drop or batch upload via ZIP archives.",
+          "Preprocessing — Image enhancement with contrast adjustment, noise reduction, and deskewing for misaligned scans.",
+          "Tesseract OCR — Runs locally with optimized settings for typewritten text recognition. No cloud services, no data exposure.",
+          "Text Extraction — Outputs plain text with coordinate mapping for deep sync with original document pages.",
+          "Page Splitting — Surgical extraction of specific pages or ranges for targeted processing without reprocessing entire PDFs.",
+          "Export — JSON output with text, confidence scores, and bounding box coordinates for downstream tools."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "Batch Processing",
+        "content": "Upload entire ZIP archives of scanned documents. The engine processes them sequentially, generates individual text files, and packages results for download. Process hundreds of pages overnight without manual intervention."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Local Processing — Tesseract runs on your machine. Sensitive archival materials never leave your system.",
+          "Surgical Page Splitting — Extract pages 1-5, 10-12, or specific ranges without reprocessing entire documents.",
+          "Batch Upload — ZIP archive support for processing dozens or hundreds of documents at once.",
+          "Coordinate Mapping — Text extraction includes bounding box coordinates for deep sync with original pages.",
+          "Multi-Format Support — PDF, JPEG, PNG, TIFF, WEBP, HEIC. Works with archival scans and modern mobile photos.",
+          "Progress Tracking — Real-time progress bar shows page-by-page processing status for long-running jobs."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The OCR engine uses Tesseract 4.x with custom training data for 1960s typewritten fonts. Preprocessing pipeline includes OpenCV-based image enhancement, deskewing algorithms for rotated scans, and adaptive thresholding for degraded carbon copies. Output format is JSON with text, confidence scores, and coordinate arrays."
+      },
+      {
+        "type": "callout",
+        "variant": "success",
+        "title": "Active Tool",
+        "content": "The OCR Engine is production-ready with a full web UI. Launch from the Research Toolbox at tools/ocr/ocr-ui.html. Supports real-time processing and batch jobs."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "OCR is the entry point for assertion-based tracking. Scanned FBI reports, CIA cables, and testimony transcripts become searchable text. That text feeds the Document Classifier for categorization, then Entity Matcher for person/place/org recognition, and finally Assertion Creation for subject-predicate-object triples. Without OCR, archival documents remain locked in image format."
+      },
+      {
+        "type": "quote",
+        "content": "OCR transforms historical artifacts into queryable data. It's the bridge from physical archives to digital knowledge graphs.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "document-classifier-launch", "pdf-viewer-launch"]
+  },
+  {
+    "slug": "document-classifier-launch",
+    "title": "Document Classifier: Intelligent Categorization for Archival Research",
+    "excerpt": "Automated document classification with 4-tier taxonomy, fuzzy fingerprinting, and metadata extraction. Organizes FBI reports, CIA cables, and testimony transcripts for systematic analysis.",
+    "category": "Tools",
+    "date": "2026-02-24",
+    "author": "Engineering Team",
+    "featured": false,
+    "hero_image": "",
+    "tags": ["classification", "document-analysis", "research-tools", "toolbox"],
+    "content": [
+      {
+        "type": "callout",
+        "variant": "info",
+        "title": "Part of the Research Toolbox",
+        "content": "The Document Classifier sits between OCR and entity extraction. It categorizes documents by type (FBI 302, CIA cable, testimony), extracts metadata (dates, authors, agencies), and prepares structured data for assertion creation."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Problem with Manual Classification"
+      },
+      {
+        "type": "text",
+        "content": "Archival collections contain thousands of documents across dozens of types: FBI 302 interview reports, CIA cables, Warren Commission testimony, HSCA hearing transcripts, agency memos, NARA reference sheets. Manually categorizing each document is time-consuming and inconsistent."
+      },
+      {
+        "type": "text",
+        "content": "Traditional keyword-based classification fails on degraded OCR text. When 'FBI' becomes 'FBl' or '302' becomes '3O2', simple string matching breaks down. Researchers waste hours manually sorting documents that could be automatically classified."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "The Solution: Fuzzy Fingerprinting"
+      },
+      {
+        "type": "text",
+        "content": "We built a classification system using fuzzy fingerprinting with Levenshtein distance. Instead of exact keyword matches, the system looks for structural patterns: header layouts, footer formats, text zones. It handles garbled OCR by measuring string similarity rather than requiring perfect matches."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "How It Works"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Document Upload — Load PDF with OCR text layer or run OCR first if needed.",
+          "Zone Detection — Identifies header, footer, and body zones using layout analysis.",
+          "Fingerprint Extraction — Extracts structural patterns from each zone (header format, footer placement, text density).",
+          "Fuzzy Matching — Compares extracted fingerprints against known document types using Levenshtein distance.",
+          "Metadata Extraction — Pulls agency codes, dates, authors, file numbers from recognized headers/footers.",
+          "Classification Output — Returns document type, confidence score, and extracted metadata in JSON format."
+        ]
+      },
+      {
+        "type": "callout",
+        "variant": "tip",
+        "title": "78.2% Classification Rate",
+        "content": "Validated across Warren Commission, HSCA, Church Committee, and CIA 201 collections. The fuzzy fingerprinting approach achieves ~2.3x improvement over exact keyword matching on degraded scans."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Key Features"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "20 Document Types — FBI 302, CIA Cable, Warren Commission Exhibit, HSCA Testimony, Church Committee Report, NARA Reference, and 14 more.",
+          "Fuzzy Fingerprinting — Levenshtein distance handles garbled OCR. 'FBl' still matches 'FBI', '3O2' matches '302'.",
+          "Zone-Specific Parsing — Extracts metadata from headers, footers, and body zones separately for higher accuracy.",
+          "Multi-Collection Support — Trained on Warren Commission, HSCA, Church Committee, CIA 201 files.",
+          "Confidence Scoring — Returns match confidence (0-100%) so researchers can review low-confidence classifications.",
+          "Batch Processing — Classify entire document collections overnight with automated metadata extraction."
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Technical Details"
+      },
+      {
+        "type": "text",
+        "content": "The classifier uses a fingerprint database of structural patterns compiled from manually reviewed exemplars. Each document type has 3-5 fingerprint variants to handle layout variations. Zone detection uses heuristic rules for common header/footer patterns (top 15% of page, bottom 10% of page). Levenshtein threshold is set at 80% similarity for fuzzy matching."
+      },
+      {
+        "type": "callout",
+        "variant": "success",
+        "title": "Active Tool",
+        "content": "The Document Classifier is production-ready with a full review UI. Launch from the Research Toolbox at tools/classifier/classifier-ui.html. Supports real-time classification and manual override for edge cases."
+      },
+      {
+        "type": "heading",
+        "level": 2,
+        "content": "Connection to Assertion Based Tracking"
+      },
+      {
+        "type": "text",
+        "content": "Classification is critical for assertion creation. Knowing a document is an 'FBI 302 Interview' tells the system to look for interview date, agent name, witness name, and testimony statements. A 'CIA Cable' has sender/receiver agencies and transmission dates. Document type drives entity extraction patterns and assertion templates."
+      },
+      {
+        "type": "quote",
+        "content": "Classification transforms unstructured documents into structured inputs. It's the organizing principle that makes bulk assertion creation possible.",
+        "author": "Research Philosophy"
+      }
+    ],
+    "related": ["assertion-based-tracking-launch", "ocr-engine-launch", "document-analyzer-launch"]
   },
   {
     "slug": "mission-statement",
