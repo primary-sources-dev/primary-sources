@@ -287,17 +287,6 @@ function renderEntities(container) {
                 }
             }
 
-            // Witness hierarchy filtering (for facet bar)
-            if (dataSource === 'events' && filterKey === 'Witness Hierarchy') {
-                if (filterValue && filterValue !== 'All') {
-                    // Map display value to database code
-                    const actualValue = mapFilterValue ? mapFilterValue(filterKey, filterValue) : filterValue;
-                    filteredData = filteredData.filter(item => 
-                        item.witnesses && item.witnesses.some(w => w.witness_hierarchy === actualValue)
-                    );
-                }
-            }
-
             container.classList.remove('skeleton-loading');
             container.innerHTML = filteredData.map(item => buildCard(item)).join('');
 
