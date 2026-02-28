@@ -29,7 +29,36 @@ All 6 steps implemented and verified. Export tab is live with entity detection, 
 
 ---
 
-## Phase 2: Document Workbench Consolidation
+## Phase 2: Document Workbench Consolidation — COMPLETE
+
+### Implementation Summary
+
+All steps implemented across 6 commits:
+
+| Step | Description | Commit | Status |
+| ---- | ----------- | ------ | ------ |
+| Pre-step | Library version audit (PDF.js, Tailwind, components.js) | — | DONE |
+| 2.1 | Extract classifier JS into class-based `workbench.js` (1197 lines) | `9af839d` | DONE |
+| 2.2 | Build workbench shell (`workbench.html` + `workbench.css`) | `61ccbde` | DONE |
+| 2.3 | Build SOURCE tab (file grid from `/api/history`, search/sort) | `488946f` | DONE |
+| 2.4 | Wire CLASSIFY, ENTITIES, EXPORT tabs with progressive unlock | `488946f` | DONE |
+| 2.5 | Backward compat (feature-flagged redirect, 35 nav links updated) | `d906339` | DONE |
+
+### Files Created
+
+| File | Lines | Purpose |
+| ---- | ----- | ------- |
+| `web/html/tools/workbench/workbench.html` | ~630 | 4-tab workbench shell |
+| `web/html/tools/workbench/workbench.css` | ~446 | All workbench styles |
+| `web/html/assets/js/workbench.js` | ~1550 | Class-based JS module (5 classes) |
+
+### Architecture
+
+- **5 JS classes:** `DocumentWorkbench` (controller), `SourceTab`, `ClassifyTab`, `EntitiesTab`, `ExportTab`
+- **Dual-mode:** Detects workbench (4-tab) vs classifier (2-tab) via DOM presence of `#tab-source`
+- **Progressive unlock:** SOURCE → CLASSIFY (file loaded) → ENTITIES (pages reviewed) → EXPORT (entities approved)
+- **localStorage migration:** One-time migration from `classifier_*` to `workbench_*` keys
+- **Feature-flagged redirect:** `classifier-ui.html?file=X` → `workbench.html?file=X&tab=classify`
 
 ### Problem
 
