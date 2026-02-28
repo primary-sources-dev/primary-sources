@@ -265,15 +265,15 @@ class ClassifyTab {
 
                 <!-- Right: Analysis Panel -->
                 <div class="classification-panel">
-                    <div class="flex justify-between items-center mb-1">
-                        <div class="flex items-center gap-3">
+                    <div class="flex flex-wrap justify-between items-center gap-y-2 mb-1">
+                        <div class="flex flex-wrap items-center gap-2 pr-2">
                             <span class="font-bold text-xl" style="color: var(--primary);">Page ${page}</span>
-                            <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-xs ${this.confidenceColor(confidence)}">${confPct}% Match</span>
-                            <div id="verified-badge-${page}" class="hidden verified-badge text-xs">
+                            <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-[10px] ${this.confidenceColor(confidence)} whitespace-nowrap">${confPct}% Match</span>
+                            <div id="verified-badge-${page}" class="hidden verified-badge text-[10px] whitespace-nowrap">
                                 <span class="material-symbols-outlined text-sm">verified</span> Verified
                             </div>
                         </div>
-                        <div id="status-text-${page}" class="text-xs opacity-60 italic"></div>
+                        <div id="status-text-${page}" class="text-[10px] opacity-60 italic whitespace-nowrap"></div>
                         <details class="ms-auto text-right">
                             <summary class="text-[9px] opacity-30 cursor-pointer hover:opacity-100 transition-opacity">Fingerprints</summary>
                             <div class="mt-2 p-2 bg-black/40 rounded border border-white/5 text-[10px] font-mono leading-relaxed text-left">
@@ -283,30 +283,23 @@ class ClassifyTab {
                         </details>
                     </div>
 
-                    <!-- Summary View -->
-                    <div class="grid grid-cols-2 gap-2 p-3 bg-black/20 rounded border border-white/5 shadow-inner">
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[9px] uppercase tracking-wider opacity-40">1. Agency</label>
-                            <span class="badge-tier badge-agency w-fit" id="view-agency-${page}">${agency || 'UNKNOWN'}</span>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[9px] uppercase tracking-wider opacity-40">2. Document Class</label>
-                            <span class="badge-tier badge-class w-fit" id="view-class-${page}">${doc_type}</span>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[9px] uppercase tracking-wider opacity-40">3. Format</label>
-                            <span class="badge-tier badge-format w-fit" id="view-format-${page}">PENDING</span>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[9px] uppercase tracking-wider opacity-40">4. Content Tags</label>
-                            <div id="view-content-${page}" class="flex flex-wrap gap-1">
-                                <span class="text-[10px] opacity-30 italic">Not set</span>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Correction Form -->
                     <div class="p-4 bg-archive-dark rounded-md border border-white/5 shadow-md space-y-4">
+                        <!-- Summary Header -->
+                        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 pb-4 border-b border-white/5 text-[10px] font-bold uppercase tracking-widest leading-none">
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-40">Agency:</span>
+                                <span class="badge-tier badge-agency" id="view-agency-${page}">${agency || 'UNKNOWN'}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-40">Class:</span>
+                                <span class="badge-tier badge-class" id="view-class-${page}">${doc_type}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-40">Format:</span>
+                                <span class="badge-tier badge-format" id="view-format-${page}">PENDING</span>
+                            </div>
+                        </div>
                         ${this.renderHybridSelector(page, 'agency', 'Agency', AGENCIES, agency)}
                         ${this.renderHybridSelector(page, 'class', 'Class', CLASSES, doc_type)}
                         ${this.renderHybridSelector(page, 'format', 'Format', FORMATS, 'PENDING')}
@@ -323,7 +316,7 @@ class ClassifyTab {
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-white/5">
                             <div class="flex flex-col gap-2">
                                 <label class="text-[10px] opacity-60 uppercase font-bold tracking-widest">Reviewer Note:</label>
                                 <select id="note-preset-${page}" class="workbench-select" data-action="note-preset" data-page="${page}">
@@ -1742,6 +1735,11 @@ class DocumentWorkbench {
         // Set up event delegation
         this.bindEvents();
 
+        // ── Header tab injection (workbench mode) ──────────────────
+        if (this.isWorkbenchMode) {
+            this.injectHeaderTabs();
+        }
+
         if (this.isWorkbenchMode) {
             // Initialize INPUT tab (drop zone, config fetch, job restore)
             if (this.inputTab) this.inputTab.init();
@@ -1832,6 +1830,7 @@ class DocumentWorkbench {
                 case 'select-file':
                     if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename);
                     break;
+                // (reserved)
                 // Classify tab — pagination
                 case 'page-prev':
                     self.classifyTab.goToPage(self.classifyTab.currentPage - 1);
@@ -1947,6 +1946,70 @@ class DocumentWorkbench {
         });
     }
 
+    // ── Header tab injection ─────────────────────────────────────
+    injectHeaderTabs() {
+        const header = document.querySelector('header[data-component="header"]');
+        if (!header) return;
+
+        const leftGroup = header.querySelector('.flex.items-center.gap-3');
+        if (!leftGroup) return;
+
+        // Elements to fade out: search icon and branding title
+        const searchLink = leftGroup.querySelector('a[href*="search"]');
+        const brandingLink = leftGroup.querySelector('a.pl-4');
+        const breadcrumb = leftGroup.querySelector('#breadcrumb-nav');
+
+        // Fade out then remove search, branding, and breadcrumb
+        [searchLink, brandingLink, breadcrumb].forEach(el => {
+            if (el) {
+                el.style.transition = 'opacity 0.2s ease';
+                el.style.opacity = '0';
+                el.style.pointerEvents = 'none';
+                // Remove from flow after fade completes (eliminates ghost gap-3 spacing)
+                setTimeout(() => { el.style.display = 'none'; }, 220);
+            }
+        });
+
+        // Create tab container
+        const tabContainer = document.createElement('div');
+        tabContainer.className = 'header-tabs';
+        tabContainer.style.opacity = '0';
+        tabContainer.style.transition = 'opacity 0.3s ease 0.15s';
+
+        const tabs = [
+            { name: 'input', icon: 'upload_file', label: 'Input' },
+            { name: 'source', icon: 'folder_open', label: 'Source' },
+            { name: 'classify', icon: 'rate_review', label: 'Classify', locked: true },
+            { name: 'entities', icon: 'person_search', label: 'Entities', locked: true },
+            { name: 'export', icon: 'file_export', label: 'Export', locked: true }
+        ];
+
+        const self = this;
+        tabs.forEach(tab => {
+            const btn = document.createElement('button');
+            btn.className = 'header-tab-btn' + (tab.name === 'input' ? ' active' : '') + (tab.locked ? ' disabled' : '');
+            btn.setAttribute('data-tab', tab.name);
+            btn.textContent = tab.label;
+            btn.addEventListener('click', () => self.switchTab(tab.name));
+            tabContainer.appendChild(btn);
+        });
+
+        // Insert tabs as direct child of outer header wrapper (between left and right groups)
+        // This lets justify-between center them between menu and user icon
+        const headerWrapper = header.querySelector('.flex.h-16');
+        if (headerWrapper) {
+            const rightGroup = headerWrapper.lastElementChild;
+            headerWrapper.insertBefore(tabContainer, rightGroup);
+        } else {
+            leftGroup.appendChild(tabContainer);
+        }
+
+        // Trigger fade in
+        requestAnimationFrame(() => {
+            tabContainer.style.opacity = '1';
+        });
+    }
+
     // ── Progressive unlock ──────────────────────────────────────
     getUnlockState() {
         const hasFile = !!this.FILE_NAME && !!this.classificationData;
@@ -1961,7 +2024,7 @@ class DocumentWorkbench {
             input: true,
             source: true,
             classify: hasFile,
-            entities: hasFile && hasReviewed,
+            entities: hasFile,
             export: hasFile && hasApproved
         };
     }
@@ -2017,7 +2080,7 @@ class DocumentWorkbench {
             }
         }
 
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-btn, .header-tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         const tabBtn = document.querySelector(`[data-tab="${tabName}"]`);
         if (tabBtn) tabBtn.classList.add('active');
@@ -2048,9 +2111,9 @@ class DocumentWorkbench {
         this.detectedEntities = null;
         this.detectedCandidates = null;
 
-        // Clear rendered content
+        // Clear rendered content and show loading spinner
         const cardsContainer = document.getElementById('cards-container');
-        if (cardsContainer) cardsContainer.innerHTML = '';
+        if (cardsContainer) cardsContainer.innerHTML = '<div class="text-center py-12 opacity-60"><span class="loading-spinner"></span> Loading classifications\u2026</div>';
         const entityResults = document.getElementById('entity-results');
         if (entityResults) entityResults.classList.add('hidden');
         const entityLoading = document.getElementById('entity-loading');
@@ -2070,7 +2133,7 @@ class DocumentWorkbench {
         // Switch to CLASSIFY immediately so user sees the loading spinner
         // Bypass switchTab() which would block on unlock check (classificationData is null)
         if (this.isWorkbenchMode) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn, .header-tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
             const classifyBtn = document.querySelector('[data-tab="classify"]');
             if (classifyBtn) { classifyBtn.classList.add('active'); classifyBtn.classList.remove('disabled'); }
@@ -2081,6 +2144,22 @@ class DocumentWorkbench {
             if (classifyLocked) classifyLocked.classList.add('hidden');
             if (classifyContent) classifyContent.classList.remove('hidden');
         }
+
+        // Reset stats and pagination immediately so user sees fresh state
+        document.getElementById('stat-total').textContent = '\u2014';
+        document.getElementById('stat-reviewed').textContent = '0';
+        document.getElementById('stat-correct').textContent = '0';
+        document.getElementById('stat-incorrect').textContent = '0';
+        document.getElementById('file-info').textContent = `${filename} \u2022 Loading\u2026`;
+        this.classifyTab.currentPage = 1;
+        this.classifyTab.filteredPages = [];
+        this.classifyTab.updatePagination();
+        const filterType = document.getElementById('filter-type');
+        const filterAgency = document.getElementById('filter-agency');
+        const filterStatus = document.getElementById('filter-status');
+        if (filterType) filterType.innerHTML = '<option value="">All Types</option>';
+        if (filterAgency) filterAgency.innerHTML = '<option value="">All Agencies</option>';
+        if (filterStatus) filterStatus.value = '';
 
         // Load classification data
         await this.loadClassificationData();

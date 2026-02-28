@@ -2,12 +2,93 @@
    workbench.css — Document Workbench styles
    ===================================================================== */
 
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(176, 139, 73, 0.3);
+    border-top-color: var(--primary, #b08b49);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 /* Tab System */
 .tab-bar {
     display: flex;
+    align-items: center;
     gap: 0;
     border-bottom: 2px solid rgba(176, 139, 73, 0.3);
     margin-bottom: 24px;
+}
+
+/* Header-injected tabs */
+.header-tabs {
+    display: flex;
+    align-items: stretch;          /* stretch so children fill header height */
+    gap: 0;
+    height: 64px;                  /* match h-16 header */
+}
+
+.header-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 1.25rem;            /* match branding text-xl (20px) */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;         /* match branding tracking-[0.2em] */
+    font-family: 'Oswald', sans-serif;  /* match branding font-display */
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--archive-secondary);
+    opacity: 0.45;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.header-tab-btn:hover {
+    opacity: 0.8;
+    background: rgba(176, 139, 73, 0.05);
+}
+
+.header-tab-btn.active {
+    opacity: 1;
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.header-tab-btn.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Responsive: tighter tabs on narrower viewports */
+@media (max-width: 768px) {
+    .header-tab-btn {
+        padding: 0 12px;
+        font-size: 0.875rem;
+        letter-spacing: 0.1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-tab-btn {
+        padding: 0 8px;
+        font-size: 0.75rem;
+    }
 }
 
 .tab-btn {
@@ -44,16 +125,7 @@
     pointer-events: none;
 }
 
-.tab-btn .tab-lock-icon {
-    display: none;
-    font-size: 12px;
-    margin-left: 4px;
-    vertical-align: middle;
-}
-
-.tab-btn.disabled .tab-lock-icon {
-    display: inline;
-}
+/* Lock icons removed — greyed-out disabled state is sufficient */
 
 .tab-panel {
     display: none;
@@ -645,11 +717,12 @@ pre {
 /* Card Layout Split */
 .card-layout {
     display: flex;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* Allow wrapping when container is narrow */
     gap: 24px;
     align-items: flex-start;
-    width: 100% !important;
+    width: 100%;
 }
 
 /* Hybrid Selectors (Chips + Dropdown) */
@@ -657,16 +730,36 @@ pre {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    flex: 1 0 440px;
-    /* Force minimum width but allow growth */
+    flex: 1 1 400px;
+    /* Allow shrinking */
+    min-width: 0;
     padding-left: 24px;
     border-left: 1px solid rgba(176, 139, 73, 0.2);
 }
 
+/* Response: Stack panels when width < 850px */
+@media (max-width: 849px) {
+    .classification-panel {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(176, 139, 73, 0.2);
+        padding-top: 24px;
+        flex-basis: 100%;
+    }
+}
+
+@media (min-width: 850px) {
+    .card-layout {
+        flex-wrap: nowrap;
+    }
+}
+
 .hybrid-selector-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap: nowrap;
+    /* Force one line */
+    gap: 6px;
+    /* Slightly tighter gap */
     align-items: center;
     width: 100%;
 }
@@ -677,7 +770,8 @@ pre {
     font-weight: bold;
     letter-spacing: 0.1em;
     opacity: 0.5;
-    width: 80px;
+    width: 65px;
+    /* More compact label */
     flex-shrink: 0;
 }
 
@@ -722,11 +816,10 @@ pre {
 }
 
 .hybrid-select-more {
-    flex: 1 1 100px;
-    /* Allow growth */
-    min-width: 100px;
+    flex: 1 1 60px;
+    /* Allow shrinking to as narrow as 60px */
+    min-width: 0;
     max-width: none;
-    /* Let it fill the row as requested before */
     height: 28px;
     padding: 0 8px;
     font-size: 11px;
