@@ -182,6 +182,33 @@ class ClassifyTab {
     }
 
     // ── Card rendering ──────────────────────────────────────────
+    // ── Card rendering (Components) ─────────────────────────────
+    renderHybridSelector(page, tierType, title, options, selected) {
+        const top3 = options.slice(0, 3);
+        const others = options.slice(3);
+
+        return `
+            <div class="hybrid-selector-container" id="container-${tierType}-${page}">
+                <label class="hybrid-label">${title}:</label>
+                ${top3.map(opt => `
+                    <button class="hybrid-chip ${opt === selected ? 'active' : ''}" 
+                            data-action="select-hybrid-chip" 
+                            data-tier="${tierType}" 
+                            data-value="${opt}" 
+                            data-page="${page}">${opt}</button>
+                `).join('')}
+                <select class="hybrid-select-more" 
+                        id="select-${tierType}-${page}"
+                        data-action="select-hybrid-dropdown" 
+                        data-tier="${tierType}" 
+                        data-page="${page}">
+                    <option value="">More...</option>
+                    ${others.map(opt => `<option value="${opt}" ${opt === selected ? 'selected' : ''}>${opt}</option>`).join('')}
+                </select>
+            </div>
+        `;
+    }
+
     confidenceColor(conf) {
         if (conf >= 0.7) return 'text-green-400';
         if (conf >= 0.4) return 'text-yellow-400';
@@ -236,9 +263,9 @@ class ClassifyTab {
                     </div>
                 </div>
 
-                <!-- Right: Classification and 4-Tier Feedback -->
-                <div class="flex-1 min-w-0">
-                    <div class="flex justify-between items-start mb-3">
+                <!-- Right: Analysis Panel -->
+                <div class="classification-panel">
+                    <div class="flex justify-between items-center mb-1">
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-xl" style="color: var(--primary);">Page ${page}</span>
                             <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-xs ${this.confidenceColor(confidence)}">${confPct}% Match</span>
@@ -247,10 +274,17 @@ class ClassifyTab {
                             </div>
                         </div>
                         <div id="status-text-${page}" class="text-xs opacity-60 italic"></div>
+                        <details class="ms-auto text-right">
+                            <summary class="text-[9px] opacity-30 cursor-pointer hover:opacity-100 transition-opacity">Fingerprints</summary>
+                            <div class="mt-2 p-2 bg-black/40 rounded border border-white/5 text-[10px] font-mono leading-relaxed text-left">
+                                <div class="mb-1 text-primary font-bold">Matches:</div>
+                                <div class="pl-2 border-l border-primary/30">${matched_patterns.join('<br>')}</div>
+                            </div>
+                        </details>
                     </div>
 
-                    <!-- Mirror Logic (Summary View) -->
-                    <div class="grid grid-cols-2 gap-2 mb-4 p-3 bg-black/20 rounded border border-white/5">
+                    <!-- Summary View -->
+                    <div class="grid grid-cols-2 gap-2 p-3 bg-black/20 rounded border border-white/5 shadow-inner">
                         <div class="flex flex-col gap-1">
                             <label class="text-[9px] uppercase tracking-wider opacity-40">1. Agency</label>
                             <span class="badge-tier badge-agency w-fit" id="view-agency-${page}">${agency || 'UNKNOWN'}</span>
@@ -271,72 +305,48 @@ class ClassifyTab {
                         </div>
                     </div>
 
-                    <!-- 4-Tier Correction Form -->
-                    <div class="p-3 bg-archive-dark rounded-md border border-white/5 mb-4 shadow-inner">
-                        <div class="grid grid-cols-3 gap-3 mb-3">
-                            <div class="flex flex-col gap-1">
-                                <label class="text-[10px] opacity-60">Agency:</label>
-                                <select id="select-agency-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded">
-                                    ${AGENCIES.map(a => `<option value="${a}" ${a === agency ? 'selected' : ''}>${a}</option>`).join('')}
-                                </select>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <label class="text-[10px] opacity-60">Class:</label>
-                                <select id="select-class-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded">
-                                    ${CLASSES.map(c => `<option value="${c}" ${c === 'REPORT' ? 'selected' : ''}>${c}</option>`).join('')}
-                                </select>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <label class="text-[10px] opacity-60">Format:</label>
-                                <select id="select-format-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded">
-                                    <option value="">-- Auto --</option>
-                                    ${FORMATS.map(f => `<option value="${f}">${f}</option>`).join('')}
-                                </select>
-                            </div>
-                        </div>
+                    <!-- Correction Form -->
+                    <div class="p-4 bg-archive-dark rounded-md border border-white/5 shadow-md space-y-4">
+                        ${this.renderHybridSelector(page, 'agency', 'Agency', AGENCIES, agency)}
+                        ${this.renderHybridSelector(page, 'class', 'Class', CLASSES, doc_type)}
+                        ${this.renderHybridSelector(page, 'format', 'Format', FORMATS, 'PENDING')}
 
-                        <!-- Tier 4: Content Tags -->
-                        <div class="mb-3">
-                            <label class="text-[10px] opacity-60 block mb-1">Content Tags (Select many):</label>
-                            <div class="flex flex-wrap gap-1 p-2 bg-black/30 rounded border border-white/5 max-h-[80px] overflow-y-auto">
-                                ${CONTENT_TYPES.map(ct => `
-                                    <label class="flex items-center gap-1 text-[10px] bg-white/5 hover:bg-white/10 px-2 py-0.5 rounded cursor-pointer whitespace-nowrap">
-                                        <input type="checkbox" name="content-${page}" value="${ct}" class="scale-75"> ${ct}
+                        <div class="pt-1">
+                            <label class="text-[10px] opacity-60 block mb-2 font-bold uppercase tracking-widest">Content Tags:</label>
+                            <div class="flex flex-wrap gap-1.5 p-2 bg-black/30 rounded border border-white/10 max-h-[100px] overflow-y-auto">
+                                ${CONTENT_TYPES.map(tag => `
+                                    <label class="flex items-center gap-2 px-2 py-1 bg-white/5 rounded border border-white/5 hover:border-primary/40 cursor-pointer text-[10px] leading-none">
+                                        <input type="checkbox" name="content-${page}" value="${tag}" class="scale-90">
+                                        ${tag.replace(/_/g, ' ')}
                                     </label>
                                 `).join('')}
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="text-[10px] opacity-60 block mb-1">Reviewer Note (Optional):</label>
-                            <div class="grid grid-cols-1 gap-2">
-                                <select id="note-preset-${page}" class="bg-black/40 border border-white/10 text-[11px] p-1 rounded" data-action="note-preset" data-page="${page}">
-                                    <option value="">-- Select preset --</option>
+                        <div class="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[10px] opacity-60 uppercase font-bold tracking-widest">Reviewer Note:</label>
+                                <select id="note-preset-${page}" class="workbench-select" data-action="note-preset" data-page="${page}">
+                                    <option value="">-- Choose Preset --</option>
                                     ${Object.entries(NOTE_PRESETS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
                                 </select>
-                                <textarea id="note-text-${page}" rows="2" placeholder="Add review context, ambiguity notes, or follow-up items..." class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-y" data-action="note-input" data-page="${page}"></textarea>
+                                <textarea id="note-text-${page}" rows="2" 
+                                    class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
+                                    placeholder="Context notes..."></textarea>
                             </div>
-                        </div>
-
-                        <div class="flex items-center justify-between mt-4">
-                            <div class="flex items-center gap-2">
-                                <input type="checkbox" id="flag-new-${page}" class="scale-90">
-                                <label for="flag-new-${page}" class="text-[10px] text-yellow-500/80">Flag as New Document Type</label>
+                            <div class="flex flex-col justify-between items-stretch">
+                                <div class="flex items-center gap-2 mb-2 bg-black/20 p-2 rounded border border-white/5">
+                                    <input type="checkbox" id="flag-new-${page}" class="scale-110">
+                                    <label for="flag-new-${page}" class="text-[10px] opacity-80 cursor-pointer leading-tight">Flag as New Document Type</label>
+                                </div>
+                                <button class="w-full grow py-3 bg-primary text-archive-dark font-bold rounded shadow-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2" 
+                                        data-action="submit-4tier" data-page="${page}">
+                                    <span class="material-symbols-outlined text-sm font-bold">check_circle</span>
+                                    APPLY & VERIFY
+                                </button>
                             </div>
-                            <button class="bg-primary hover:bg-primary/80 text-archive-dark px-4 py-1.5 rounded font-bold text-xs transition-colors shadow-lg" data-action="submit-4tier" data-page="${page}">
-                                APPLY & VERIFY
-                            </button>
                         </div>
                     </div>
-
-                    <!-- Technical Details -->
-                    <details class="mb-2">
-                        <summary class="text-[10px] opacity-30 cursor-pointer hover:opacity-100 transition-opacity">Show analysis fingerprints</summary>
-                        <div class="mt-2 p-2 bg-black/40 rounded border border-white/5 text-[10px] font-mono leading-relaxed">
-                            <div class="mb-2 text-primary font-bold">Matches:</div>
-                            <div class="pl-2 border-l border-primary/30">${matched_patterns.join('<br>')}</div>
-                        </div>
-                    </details>
                 </div>
             </div>
         </div>`;
@@ -379,13 +389,55 @@ class ClassifyTab {
         this.wb.saveFeedback();
     }
 
+    selectTierValue(page, tierType, value) {
+        if (!value) return;
+
+        // Update chips in that specific container
+        const container = document.getElementById(`container-${tierType}-${page}`);
+        if (container) {
+            container.querySelectorAll('.hybrid-chip').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.value === value);
+            });
+        }
+
+        // Update select value (reset if it's one of the chips)
+        const select = document.getElementById(`select-${tierType}-${page}`);
+        if (select) {
+            const options = Array.from(select.options).map(o => o.value);
+            select.value = options.includes(value) ? value : "";
+        }
+
+        // Update summary view badge
+        const badgeId = `view-${tierType}-${page}`;
+        const badge = document.getElementById(badgeId);
+        if (badge) badge.textContent = value;
+
+        // Save to feedback
+        if (!this.wb.feedback[page]) this.wb.feedback[page] = { status: 'pending' };
+
+        if (tierType === 'agency') this.wb.feedback[page].selectedAgency = value;
+        if (tierType === 'class') this.wb.feedback[page].selectedClass = value;
+        if (tierType === 'format') this.wb.feedback[page].selectedFormat = value;
+
+        this.wb.saveFeedback();
+    }
+
     submit4Tier(page) {
         const el = document.getElementById(`page-${page}`);
         const predicted = el.dataset.predicted;
 
-        const agency = document.getElementById(`select-agency-${page}`).value;
-        const docClass = document.getElementById(`select-class-${page}`).value;
-        const format = document.getElementById(`select-format-${page}`).value;
+        // Get values from our hybrid components
+        const getVal = (tier) => {
+            const activeChip = el.querySelector(`.hybrid-chip.active[data-tier="${tier}"]`);
+            if (activeChip) return activeChip.dataset.value;
+            const select = document.getElementById(`select-${tier}-${page}`);
+            return select ? select.value : null;
+        };
+
+        const agency = getVal('agency') || "UNKNOWN";
+        const docClass = getVal('class') || "REPORT";
+        const format = getVal('format') || "GENERIC";
+
         const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
         const isNew = document.getElementById(`flag-new-${page}`).checked;
         const textSample = el.dataset.textSample || '';
@@ -464,15 +516,9 @@ class ClassifyTab {
         }
 
         // Sync form
-        if (data.selectedAgency) {
-            document.getElementById(`select-agency-${page}`).value = data.selectedAgency;
-        }
-        if (data.selectedClass) {
-            document.getElementById(`select-class-${page}`).value = data.selectedClass;
-        }
-        if (Object.prototype.hasOwnProperty.call(data, "selectedFormat")) {
-            document.getElementById(`select-format-${page}`).value = data.selectedFormat || "";
-        }
+        if (data.selectedAgency) this.selectTierValue(page, 'agency', data.selectedAgency);
+        if (data.selectedClass) this.selectTierValue(page, 'class', data.selectedClass);
+        if (data.selectedFormat) this.selectTierValue(page, 'format', data.selectedFormat);
 
         // Check content boxes
         document.querySelectorAll(`input[name="content-${page}"]`).forEach(cb => {
@@ -812,11 +858,11 @@ class ExportTab {
         const el = document.getElementById('export-status');
         el.classList.remove('hidden');
         el.style.borderColor = type === 'error' ? 'rgba(239, 68, 68, 0.4)' :
-                               type === 'warning' ? 'rgba(234, 179, 8, 0.4)' :
-                               'rgba(34, 197, 94, 0.4)';
+            type === 'warning' ? 'rgba(234, 179, 8, 0.4)' :
+                'rgba(34, 197, 94, 0.4)';
         el.style.background = type === 'error' ? 'rgba(239, 68, 68, 0.08)' :
-                              type === 'warning' ? 'rgba(234, 179, 8, 0.08)' :
-                              'rgba(34, 197, 94, 0.08)';
+            type === 'warning' ? 'rgba(234, 179, 8, 0.08)' :
+                'rgba(34, 197, 94, 0.08)';
         el.textContent = message;
         setTimeout(() => el.classList.add('hidden'), 5000);
     }
@@ -841,8 +887,8 @@ class ExportTab {
         if (reviewed.length === 0) return;
 
         const agencies = reviewed.map(p => p.selectedAgency).filter(Boolean);
-        const classes  = reviewed.map(p => p.selectedClass).filter(Boolean);
-        const formats  = reviewed.map(p => p.selectedFormat).filter(Boolean);
+        const classes = reviewed.map(p => p.selectedClass).filter(Boolean);
+        const formats = reviewed.map(p => p.selectedFormat).filter(Boolean);
 
         const agVal = this.frequency(agencies);
         const clVal = this.frequency(classes);
@@ -1418,7 +1464,7 @@ class InputTab {
 
     logMessage(msg) { this.logEntries.push({ msg, type: 'info' }); }
     logSuccess(msg) { this.logEntries.push({ msg, type: 'success' }); }
-    logError(msg)   { this.logEntries.push({ msg, type: 'error' }); }
+    logError(msg) { this.logEntries.push({ msg, type: 'error' }); }
 
     // --- Utilities ---
 
@@ -1612,6 +1658,9 @@ class SourceTab {
     }
 
     selectFile(filename) {
+        if (this.wb.FILE_NAME && this.wb.FILE_NAME !== filename) {
+            if (!confirm(`Set "${filename}" as working document?\n\nThis will replace the current file.`)) return;
+        }
         this.wb.loadFile(filename);
     }
 }
@@ -1800,6 +1849,9 @@ class DocumentWorkbench {
                 case 'select-type':
                     // Handled within renderCard's own logic
                     break;
+                case 'select-hybrid-chip':
+                    self.classifyTab.selectTierValue(parseInt(page), target.dataset.tier, target.dataset.value);
+                    break;
                 case 'export-feedback':
                     self.classifyTab.exportFeedback();
                     break;
@@ -1841,6 +1893,10 @@ class DocumentWorkbench {
             }
             if (target.dataset.action === 'filter') {
                 self.classifyTab.applyFilters();
+            }
+            if (target.dataset.action === 'select-hybrid-dropdown') {
+                const val = target.value;
+                if (val) self.classifyTab.selectTierValue(parseInt(target.dataset.page), target.dataset.tier, val);
             }
         });
 
@@ -2010,7 +2066,22 @@ class DocumentWorkbench {
         // Update title
         document.title = `Document Workbench: ${this.FILE_NAME}`;
 
-        // Load classification data, then advance to appropriate tab
+        // Switch to CLASSIFY immediately so user sees the loading spinner
+        // Bypass switchTab() which would block on unlock check (classificationData is null)
+        if (this.isWorkbenchMode) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            const classifyBtn = document.querySelector('[data-tab="classify"]');
+            if (classifyBtn) { classifyBtn.classList.add('active'); classifyBtn.classList.remove('disabled'); }
+            const classifyPanel = document.getElementById('tab-classify');
+            if (classifyPanel) classifyPanel.classList.add('active');
+            const classifyLocked = document.getElementById('classify-locked');
+            const classifyContent = document.getElementById('classify-content');
+            if (classifyLocked) classifyLocked.classList.add('hidden');
+            if (classifyContent) classifyContent.classList.remove('hidden');
+        }
+
+        // Load classification data
         await this.loadClassificationData();
 
         // Update tab states after loading
