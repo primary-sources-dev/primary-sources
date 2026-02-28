@@ -639,6 +639,25 @@ pre {
     border-color: #ef4444;
 }
 
+/* Card Layout Split */
+.card-layout {
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 1000px) {
+    .card-layout {
+        flex-direction: column;
+    }
+
+    .classification-panel {
+        padding-left: 0 !important;
+        padding-top: 16px;
+        border-left: none !important;
+        border-top: 1px solid rgba(176, 139, 73, 0.15);
+    }
+}
+
 /* Hybrid Selectors (Chips + Dropdown) */
 .classification-panel {
     display: flex;
@@ -652,8 +671,8 @@ pre {
 
 .hybrid-selector-container {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
     align-items: center;
     width: 100%;
 }
@@ -664,8 +683,23 @@ pre {
     font-weight: bold;
     letter-spacing: 0.1em;
     opacity: 0.5;
-    width: 70px;
+    width: 80px;
     flex-shrink: 0;
+}
+
+/* If panel is narrow, allow labels to stack */
+@media (max-width: 1200px) {
+    .hybrid-selector-container {
+        flex-direction: row;
+        /* Stay inline as long as possible */
+    }
+
+    .hybrid-label {
+        width: 100%;
+        /* Force labels on top when card gets narrow */
+        margin-bottom: -4px;
+        opacity: 0.3;
+    }
 }
 
 .hybrid-chip {
@@ -695,9 +729,11 @@ pre {
 }
 
 .hybrid-select-more {
-    flex-grow: 1;
-    /* Force remaining space capture */
-    min-width: 120px;
+    flex: 1 1 100px;
+    /* Allow growth */
+    min-width: 100px;
+    max-width: none;
+    /* Let it fill the row as requested before */
     height: 28px;
     padding: 0 8px;
     font-size: 11px;

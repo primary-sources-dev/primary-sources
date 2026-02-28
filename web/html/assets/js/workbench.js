@@ -253,7 +253,7 @@ class ClassifyTab {
         <div id="page-${page}" class="card border p-4 pending ${continuityClass}" data-page="${page}" data-page-index="${page_index}"
             data-predicted="${doc_type}" data-agency="${agency || 'UNKNOWN'}" data-confidence="${confidence}"
             data-highlights='${highlightsJson}' data-text-sample="${textSample}">
-            <div class="flex gap-6">
+            <div class="card-layout">
                 <!-- Left: PDF Page -->
                 <div class="flex-shrink-0 max-w-[320px]">
                     <div class="canvas-container shadow-lg">
@@ -2055,6 +2055,36 @@ class DocumentWorkbench {
         if (entityResults) entityResults.classList.add('hidden');
         const entityLoading = document.getElementById('entity-loading');
         if (entityLoading) entityLoading.classList.add('hidden');
+
+        // Reset summary stats immediately
+        document.getElementById('stat-total').textContent = '\u2014';
+        document.getElementById('stat-reviewed').textContent = '0';
+        document.getElementById('stat-correct').textContent = '0';
+        document.getElementById('stat-incorrect').textContent = '0';
+
+        // Reset pagination
+        this.classifyTab.currentPage = 1;
+        this.classifyTab.filteredPages = [];
+        this.classifyTab.updatePagination();
+
+        // Reset file-info
+        document.getElementById('file-info').textContent = `${filename} \u2022 Loading\u2026`;
+
+        // Clear lazy loading observer
+        if (this.classifyTab.observer) {
+            this.classifyTab.observer.disconnect();
+            this.classifyTab.observer = null;
+        }
+        this.classifyTab.renderedPages.clear();
+        this.classifyTab.renderQueue = [];
+
+        // Reset filter dropdowns
+        const filterType = document.getElementById('filter-type');
+        const filterAgency = document.getElementById('filter-agency');
+        const filterStatus = document.getElementById('filter-status');
+        if (filterType) filterType.innerHTML = '<option value="">All Types</option>';
+        if (filterAgency) filterAgency.innerHTML = '<option value="">All Agencies</option>';
+        if (filterStatus) filterStatus.value = '';
 
         // Set new file
         this.setFile(filename);
