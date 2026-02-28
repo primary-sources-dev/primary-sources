@@ -255,7 +255,7 @@ class ClassifyTab {
             data-highlights='${highlightsJson}' data-text-sample="${textSample}">
             <div class="card-layout">
                 <!-- Left: PDF Page -->
-                <div class="flex-shrink-0 max-w-[360px] w-full">
+                <div class="flex-shrink-0" style="flex: 0 0 360px; max-width: 360px; width: 360px;">
                     <div class="canvas-container shadow-lg">
                         <canvas id="canvas-${page_index}" class="pdf-canvas rounded-sm" data-page-index="${page_index}" data-action="show-modal"></canvas>
                         <div class="canvas-loading">Loading...</div>

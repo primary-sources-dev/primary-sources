@@ -458,7 +458,10 @@ pre {
 .card {
     background-color: var(--archive-surface);
     border-color: rgba(176, 139, 73, 0.3);
-    overflow: hidden;
+    width: 100% !important;
+    /* Force card to fill container */
+    margin-bottom: 24px;
+    display: block !important;
 }
 
 .card.hidden {
@@ -642,20 +645,22 @@ pre {
 /* Card Layout Split */
 .card-layout {
     display: flex;
-    gap: 20px;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 24px;
     align-items: flex-start;
+    width: 100% !important;
 }
 
 /* Hybrid Selectors (Chips + Dropdown) */
 .classification-panel {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    min-width: 420px;
-    /* Ensure space for the side-by-side hybrid selectors */
-    padding-left: 20px;
-    border-left: 1px solid rgba(176, 139, 73, 0.15);
+    gap: 16px;
+    flex: 1 0 440px;
+    /* Force minimum width but allow growth */
+    padding-left: 24px;
+    border-left: 1px solid rgba(176, 139, 73, 0.2);
 }
 
 .hybrid-selector-container {
