@@ -954,19 +954,153 @@ class ExportTab {
 }
 
 // =====================================================================
+// SourceTab — File grid from /api/history (workbench mode only)
+// =====================================================================
+class SourceTab {
+    constructor(workbench) {
+        this.wb = workbench;
+        this.files = [];
+        this.filteredFiles = [];
+    }
+
+    async loadHistory() {
+        const countEl = document.getElementById('source-count');
+        const gridEl = document.getElementById('source-grid');
+        const emptyEl = document.getElementById('source-empty');
+
+        try {
+            const res = await fetch('/api/history');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            this.files = data.files || [];
+
+            if (this.files.length === 0) {
+                gridEl.innerHTML = '';
+                emptyEl.classList.remove('hidden');
+                countEl.textContent = '0 documents';
+                return;
+            }
+
+            emptyEl.classList.add('hidden');
+
+            // Enrich files with localStorage review status
+            this.files.forEach(f => {
+                const fbKey = `workbench_feedback_${f.name}`;
+                const clKey = `classifier_feedback_${f.name}`;
+                const stored = localStorage.getItem(fbKey) || localStorage.getItem(clKey);
+                if (stored) {
+                    try {
+                        const fb = JSON.parse(stored);
+                        const reviewed = Object.values(fb).filter(v => v.status === 'correct' || v.status === 'incorrect').length;
+                        f._reviewCount = reviewed;
+                    } catch { f._reviewCount = 0; }
+                } else {
+                    f._reviewCount = 0;
+                }
+            });
+
+            this.filteredFiles = [...this.files];
+            this.applySort();
+            this.renderGrid();
+            countEl.textContent = `${this.files.length} document${this.files.length !== 1 ? 's' : ''}`;
+        } catch (err) {
+            console.error('Failed to load history:', err);
+            countEl.textContent = 'Failed to load documents.';
+        }
+    }
+
+    applySort() {
+        const sortEl = document.getElementById('source-sort');
+        const sort = sortEl ? sortEl.value : 'name-asc';
+
+        this.filteredFiles.sort((a, b) => {
+            switch (sort) {
+                case 'name-asc': return a.name.localeCompare(b.name);
+                case 'name-desc': return b.name.localeCompare(a.name);
+                case 'status': return (b._reviewCount || 0) - (a._reviewCount || 0);
+                default: return a.name.localeCompare(b.name);
+            }
+        });
+    }
+
+    applySearch() {
+        const query = (document.getElementById('source-search')?.value || '').toLowerCase().trim();
+        if (!query) {
+            this.filteredFiles = [...this.files];
+        } else {
+            this.filteredFiles = this.files.filter(f => f.name.toLowerCase().includes(query));
+        }
+        this.applySort();
+        this.renderGrid();
+
+        const countEl = document.getElementById('source-count');
+        const emptyEl = document.getElementById('source-empty');
+        if (this.filteredFiles.length === 0 && query) {
+            countEl.textContent = `No matches for "${query}"`;
+            emptyEl.classList.add('hidden');
+        } else {
+            countEl.textContent = `${this.filteredFiles.length} document${this.filteredFiles.length !== 1 ? 's' : ''}`;
+            emptyEl.classList.toggle('hidden', this.filteredFiles.length > 0);
+        }
+    }
+
+    renderGrid() {
+        const gridEl = document.getElementById('source-grid');
+
+        gridEl.innerHTML = this.filteredFiles.map(f => {
+            const isActive = this.wb.FILE_NAME === f.name;
+            const activeClass = isActive ? ' active' : '';
+            const sizeMB = f.size ? (f.size / (1024 * 1024)).toFixed(1) + ' MB' : '';
+            const reviewCount = f._reviewCount || 0;
+
+            let statusClass, statusLabel;
+            if (reviewCount === 0) {
+                statusClass = 'unreviewed'; statusLabel = 'Unreviewed';
+            } else {
+                statusClass = 'in-progress'; statusLabel = `${reviewCount} reviewed`;
+            }
+
+            return `
+            <div class="source-card${activeClass}" data-action="select-file" data-filename="${f.name}">
+                <div class="filename">${f.name}</div>
+                <div class="meta">
+                    <span class="status-badge ${statusClass}">${statusLabel}</span>
+                    ${sizeMB ? `<span>${sizeMB}</span>` : ''}
+                    <span>${f.type || ''}</span>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    selectFile(filename) {
+        this.wb.loadFile(filename);
+    }
+}
+
+// =====================================================================
 // DocumentWorkbench — Main controller
 // =====================================================================
 class DocumentWorkbench {
     constructor(config) {
         this.config = config || {};
 
+        // Detect mode: workbench (4-tab) vs classifier (2-tab)
+        this.isWorkbenchMode = !!document.getElementById('tab-source');
+
         // Parse URL params
         const params = new URLSearchParams(window.location.search);
-        const rawFile = params.get('file') || 'yates-searchable.pdf';
-        this.PDF_URL = (rawFile.startsWith('/') || rawFile.startsWith('http'))
-            ? rawFile
-            : `/api/download/${encodeURIComponent(rawFile)}`;
-        this.FILE_NAME = rawFile.includes('/') ? rawFile.split('/').pop() : rawFile;
+        const rawFile = params.get('file') || '';
+        this.requestedTab = params.get('tab') || '';
+
+        // File state (may be empty in workbench mode until selection)
+        this.FILE_NAME = '';
+        this.PDF_URL = '';
+        if (rawFile) {
+            this.setFile(rawFile);
+        } else if (!this.isWorkbenchMode) {
+            // Classifier fallback: default to yates-searchable.pdf
+            this.setFile('yates-searchable.pdf');
+        }
 
         // State
         this.pdfDoc = null;
@@ -976,30 +1110,85 @@ class DocumentWorkbench {
         this.detectedEntities = null;
         this.detectedCandidates = null;
 
-        // localStorage keys
-        this.STORAGE_KEY = `classifier_feedback_${this.FILE_NAME}`;
-        this.EXPORT_STORAGE_KEY = `classifier_export_${this.FILE_NAME}`;
+        // localStorage keys (set by setFile)
+        this.STORAGE_KEY = '';
+        this.EXPORT_STORAGE_KEY = '';
 
         // Tab controllers
         this.classifyTab = new ClassifyTab(this);
         this.entitiesTab = new EntitiesTab(this);
         this.exportTab = new ExportTab(this);
+        this.sourceTab = this.isWorkbenchMode ? new SourceTab(this) : null;
+    }
+
+    setFile(rawFile) {
+        this.PDF_URL = (rawFile.startsWith('/') || rawFile.startsWith('http'))
+            ? rawFile
+            : `/api/download/${encodeURIComponent(rawFile)}`;
+        this.FILE_NAME = rawFile.includes('/') ? rawFile.split('/').pop() : rawFile;
+
+        // Workbench uses migrated keys; classifier keeps legacy keys for backward compat
+        const prefix = this.isWorkbenchMode ? 'workbench' : 'classifier';
+        this.STORAGE_KEY = `${prefix}_feedback_${this.FILE_NAME}`;
+        this.EXPORT_STORAGE_KEY = `${prefix}_export_${this.FILE_NAME}`;
     }
 
     init() {
-        // Restore persisted state
-        this.feedback = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
-        this.entityApprovals = JSON.parse(localStorage.getItem(this.EXPORT_STORAGE_KEY) || '{}');
+        // Run localStorage key migration (workbench mode)
+        if (this.isWorkbenchMode) {
+            this.migrateLocalStorageKeys();
+        }
+
+        // Restore persisted state if file is set
+        if (this.FILE_NAME) {
+            this.feedback = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
+            this.entityApprovals = JSON.parse(localStorage.getItem(this.EXPORT_STORAGE_KEY) || '{}');
+        }
 
         // PDF.js worker
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
 
         // Set up event delegation
         this.bindEvents();
 
-        // Load data
-        document.title = `Classification Review: ${this.FILE_NAME}`;
-        this.loadClassificationData();
+        if (this.isWorkbenchMode) {
+            // Workbench mode: load file grid, handle deep-link
+            this.sourceTab.loadHistory().then(() => {
+                if (this.FILE_NAME) {
+                    // Deep-link: file specified in URL → load it
+                    this.loadFile(this.FILE_NAME, true);
+                }
+            });
+        } else {
+            // Classifier mode: load file directly (2-tab)
+            document.title = `Classification Review: ${this.FILE_NAME}`;
+            this.loadClassificationData();
+        }
+    }
+
+    // ── localStorage migration (classifier → workbench keys) ────
+    migrateLocalStorageKeys() {
+        const migrated = localStorage.getItem('workbench_migration_v1');
+        if (migrated) return;
+
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('classifier_feedback_')) {
+                const file = key.replace('classifier_feedback_', '');
+                if (!localStorage.getItem(`workbench_feedback_${file}`)) {
+                    localStorage.setItem(`workbench_feedback_${file}`, localStorage.getItem(key));
+                }
+            }
+            if (key.startsWith('classifier_export_')) {
+                const file = key.replace('classifier_export_', '');
+                if (!localStorage.getItem(`workbench_export_${file}`)) {
+                    localStorage.setItem(`workbench_export_${file}`, localStorage.getItem(key));
+                }
+            }
+        }
+        localStorage.setItem('workbench_migration_v1', Date.now().toString());
     }
 
     // ── Event delegation (replaces all inline onclick) ──────────
@@ -1009,6 +1198,7 @@ class DocumentWorkbench {
         // Tab buttons
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
+                if (btn.classList.contains('disabled')) return;
                 const tab = btn.dataset.tab;
                 self.switchTab(tab);
             });
@@ -1024,11 +1214,19 @@ class DocumentWorkbench {
             const idx = target.dataset.idx !== undefined ? parseInt(target.dataset.idx) : null;
 
             switch (action) {
+                // Source tab
+                case 'select-file':
+                    if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename);
+                    break;
+                // Classify tab
                 case 'submit-4tier':
                     self.classifyTab.submit4Tier(parseInt(page));
                     break;
                 case 'show-modal':
                     self.classifyTab.showModalPage(parseInt(target.dataset.pageIndex));
+                    break;
+                case 'select-type':
+                    // Handled within renderCard's own logic
                     break;
                 case 'export-feedback':
                     self.classifyTab.exportFeedback();
@@ -1036,6 +1234,7 @@ class DocumentWorkbench {
                 case 'clear-feedback':
                     self.classifyTab.clearFeedback();
                     break;
+                // Entities tab
                 case 'detect-entities':
                     self.entitiesTab.detectEntities();
                     break;
@@ -1051,6 +1250,7 @@ class DocumentWorkbench {
                 case 'reject-candidate':
                     self.entitiesTab.rejectCandidate(idx);
                     break;
+                // Export tab
                 case 'export-source-record':
                     self.exportTab.exportSourceRecord();
                     break;
@@ -1086,6 +1286,21 @@ class DocumentWorkbench {
             if (el) el.addEventListener('change', () => self.classifyTab.applyFilters());
         });
 
+        // Source tab search/sort (workbench mode only)
+        if (this.isWorkbenchMode) {
+            const searchEl = document.getElementById('source-search');
+            if (searchEl) {
+                searchEl.addEventListener('input', () => self.sourceTab.applySearch());
+            }
+            const sortEl = document.getElementById('source-sort');
+            if (sortEl) {
+                sortEl.addEventListener('change', () => {
+                    self.sourceTab.applySort();
+                    self.sourceTab.renderGrid();
+                });
+            }
+        }
+
         // Modal dismiss
         document.getElementById('imageModal')?.addEventListener('click', () => {
             self.classifyTab.hideModal();
@@ -1096,21 +1311,145 @@ class DocumentWorkbench {
         });
     }
 
+    // ── Progressive unlock ──────────────────────────────────────
+    getUnlockState() {
+        const hasFile = !!this.FILE_NAME && !!this.classificationData;
+        const reviewedCount = Object.values(this.feedback).filter(
+            v => v.status === 'correct' || v.status === 'incorrect'
+        ).length;
+        const hasReviewed = reviewedCount > 0;
+        const approvedCount = Object.values(this.entityApprovals).filter(v => v === 'approved').length;
+        const hasApproved = approvedCount > 0;
+
+        return {
+            source: true,
+            classify: hasFile,
+            entities: hasFile && hasReviewed,
+            export: hasFile && hasApproved
+        };
+    }
+
+    updateTabStates() {
+        if (!this.isWorkbenchMode) return;
+
+        const unlock = this.getUnlockState();
+
+        ['classify', 'entities', 'export'].forEach(tab => {
+            const btn = document.querySelector(`[data-tab="${tab}"]`);
+            if (!btn) return;
+
+            if (unlock[tab]) {
+                btn.classList.remove('disabled');
+            } else {
+                btn.classList.add('disabled');
+            }
+
+            // Toggle locked message vs content
+            const locked = document.getElementById(`${tab}-locked`);
+            const content = document.getElementById(`${tab}-content`);
+            if (locked && content) {
+                if (unlock[tab]) {
+                    locked.classList.add('hidden');
+                    content.classList.remove('hidden');
+                } else {
+                    locked.classList.remove('hidden');
+                    content.classList.add('hidden');
+                }
+            }
+        });
+    }
+
     // ── Tab switching ───────────────────────────────────────────
     switchTab(tabName) {
+        // In workbench mode, check if tab is unlocked
+        if (this.isWorkbenchMode) {
+            const unlock = this.getUnlockState();
+            if (!unlock[tabName]) {
+                // Fall back to highest unlocked tab
+                const fallback = ['export', 'entities', 'classify', 'source']
+                    .find(t => unlock[t]) || 'source';
+                if (fallback !== tabName) {
+                    const reasons = {
+                        classify: 'Select a document first',
+                        entities: 'Review pages in Classify tab',
+                        export: 'Approve entities first'
+                    };
+                    this.showToast(`${tabName.charAt(0).toUpperCase() + tabName.slice(1)} requires: ${reasons[tabName] || 'prerequisites'}`);
+                    tabName = fallback;
+                }
+            }
+        }
+
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         const tabBtn = document.querySelector(`[data-tab="${tabName}"]`);
         if (tabBtn) tabBtn.classList.add('active');
         const panel = document.getElementById(`tab-${tabName}`);
         if (panel) panel.classList.add('active');
+
+        // Populate export preview when switching to export
         if (tabName === 'export') this.exportTab.populateSourceRecordPreview();
+
+        // Update URL (workbench mode)
+        if (this.isWorkbenchMode) {
+            const url = new URL(window.location);
+            if (this.FILE_NAME) url.searchParams.set('file', this.FILE_NAME);
+            url.searchParams.set('tab', tabName);
+            history.replaceState(null, '', url);
+        }
+    }
+
+    // ── File loading (workbench multi-file support) ─────────────
+    async loadFile(filename, isDeepLink = false) {
+        // Destroy previous PDF to prevent memory leaks
+        this.destroy();
+
+        // Reset downstream state
+        this.classificationData = null;
+        this.feedback = {};
+        this.entityApprovals = {};
+        this.detectedEntities = null;
+        this.detectedCandidates = null;
+
+        // Clear rendered content
+        const cardsContainer = document.getElementById('cards-container');
+        if (cardsContainer) cardsContainer.innerHTML = '';
+        const entityResults = document.getElementById('entity-results');
+        if (entityResults) entityResults.classList.add('hidden');
+        const entityLoading = document.getElementById('entity-loading');
+        if (entityLoading) entityLoading.classList.add('hidden');
+
+        // Set new file
+        this.setFile(filename);
+
+        // Restore persisted state for this file
+        this.feedback = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
+        this.entityApprovals = JSON.parse(localStorage.getItem(this.EXPORT_STORAGE_KEY) || '{}');
+
+        // Update title
+        document.title = `Document Workbench: ${this.FILE_NAME}`;
+
+        // Load classification data, then advance to appropriate tab
+        await this.loadClassificationData();
+
+        // Update tab states after loading
+        this.updateTabStates();
+
+        // Re-render source grid to show active file
+        if (this.sourceTab) this.sourceTab.renderGrid();
+
+        // Navigate to requested or default tab
+        if (isDeepLink && this.requestedTab) {
+            this.switchTab(this.requestedTab);
+        } else {
+            this.switchTab('classify');
+        }
     }
 
     // ── Data loading ────────────────────────────────────────────
     async loadClassificationData() {
         const statusEl = document.getElementById('load-status');
-        statusEl.innerHTML = '<span class="loading-spinner"></span> Classifying pages\u2026';
+        if (statusEl) statusEl.innerHTML = '<span class="loading-spinner"></span> Classifying pages\u2026';
 
         try {
             const res = await fetch(`/api/review/${encodeURIComponent(this.FILE_NAME)}`);
@@ -1128,7 +1467,7 @@ class DocumentWorkbench {
 
             this.classifyTab.populateTypeFilter(this.classificationData.pages);
             this.classifyTab.renderCards(this.classificationData.pages);
-            statusEl.textContent = '';
+            if (statusEl) statusEl.textContent = '';
 
             this.loadPDF();
 
@@ -1138,9 +1477,12 @@ class DocumentWorkbench {
             }
             this.classifyTab.updateStats();
 
+            // Update progressive unlock
+            if (this.isWorkbenchMode) this.updateTabStates();
+
         } catch (err) {
             console.error('Failed to load classification data:', err);
-            statusEl.innerHTML = `<span class="text-red-400">\u26A0 ${err.message}</span>`;
+            if (statusEl) statusEl.innerHTML = `<span class="text-red-400">\u26A0 ${err.message}</span>`;
         }
     }
 
@@ -1163,19 +1505,25 @@ class DocumentWorkbench {
     // ── Persistence ─────────────────────────────────────────────
     saveFeedback() {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.feedback));
+        // Update progressive unlock after feedback changes
+        if (this.isWorkbenchMode) this.updateTabStates();
     }
 
     saveEntityApprovals() {
         localStorage.setItem(this.EXPORT_STORAGE_KEY, JSON.stringify(this.entityApprovals));
+        // Update progressive unlock after approval changes
+        if (this.isWorkbenchMode) this.updateTabStates();
     }
 
     // ── Toast ───────────────────────────────────────────────────
     showToast(message) {
+        const existing = document.querySelector('.workbench-toast');
+        if (existing) existing.remove();
         const toast = document.createElement('div');
+        toast.className = 'workbench-toast';
         toast.textContent = message;
-        toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--primary);color:var(--archive-dark);padding:8px 16px;border-radius:4px;font-size:12px;z-index:9999;';
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2000);
+        setTimeout(() => toast.remove(), 3000);
     }
 
     // ── Cleanup ─────────────────────────────────────────────────
@@ -1186,7 +1534,11 @@ class DocumentWorkbench {
         }
         if (this.classifyTab.observer) {
             this.classifyTab.observer.disconnect();
+            this.classifyTab.observer = null;
         }
+        this.classifyTab.renderedPages.clear();
+        this.classifyTab.renderQueue = [];
+        this.classifyTab.activeRenders = 0;
     }
 }
 
