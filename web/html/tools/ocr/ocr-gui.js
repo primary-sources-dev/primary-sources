@@ -303,9 +303,9 @@ function renderQueue() {
                                    title="View in Browser">
                                     <span class="material-symbols-outlined text-sm">visibility</span> View
                                 </a>
-                                <a href="../classifier/classifier-ui.html?file=${encodeURIComponent(file.name)}" target="_blank"
+                                <a href="../workbench/workbench.html?file=${encodeURIComponent(file.name)}&tab=classify" target="_blank"
                                    class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/40 px-3 py-1.5 hover:bg-emerald-500 hover:text-archive-bg transition-all flex items-center gap-1"
-                                   title="Review Classification">
+                                   title="Review in Document Workbench">
                                     <span class="material-symbols-outlined text-sm">fact_check</span> Review
                                 </a>
                                 <button onclick="downloadTxt('${file.name}')" 
@@ -932,7 +932,7 @@ function renderReviewGrid() {
                        class="flex-1 text-center py-1 border border-primary/20 text-[9px] font-bold uppercase tracking-widest hover:bg-primary hover:text-archive-bg transition-all">
                        Workbench
                     </a>
-                    <a href="../classifier/classifier-ui.html?file=/api/download/${encodeURIComponent(file.name)}" target="_blank"
+                    <a href="../workbench/workbench.html?file=/api/download/${encodeURIComponent(file.name)}&tab=classify" target="_blank"
                        class="flex-1 text-center py-1 border border-emerald-500/20 text-[9px] font-bold uppercase font-bold tracking-widest text-emerald-400 hover:bg-emerald-500 hover:text-archive-bg transition-all">
                        Review
                     </a>

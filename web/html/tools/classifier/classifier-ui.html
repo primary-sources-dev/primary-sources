@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classification Review</title>
 
+    <!-- Feature-flagged redirect to Document Workbench -->
+    <script>
+        const WORKBENCH_REDIRECT = localStorage.getItem('workbench_redirect') !== 'false';
+        if (WORKBENCH_REDIRECT && window.location.search.includes('file=')) {
+            const params = new URLSearchParams(window.location.search);
+            window.location.replace(`../workbench/workbench.html?file=${params.get('file')}&tab=classify`);
+        }
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <!-- CRITICAL CSS: Prevent white flash and basic layout -->
