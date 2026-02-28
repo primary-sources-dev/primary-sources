@@ -8,11 +8,20 @@ Supabase project configuration and database migrations for the Primary Sources r
 supabase/
 └── migrations/
     ├── 001_initial_schema.sql        # Full DDL: all tables, indexes, and triggers
-    ├── 002_seed_vocab.sql            # Seed data: all 15 controlled vocabulary tables
+    ├── 002_seed_vocab.sql            # Seed data: all 18 controlled vocabulary tables
     ├── 003_predicate_registry.sql    # v_predicate table + FK constraint on assertion.predicate
     ├── 004_integrity_fixes.sql       # Integrity enforcement: polymorphic FKs, CHECK constraints, deletion protection
     ├── 005_age_at_event.sql          # Age-at-Event Badge: age_at_event() function + view
-    └── 006_fix_view_column.sql       # Fix: view column name (role → role_type)
+    ├── 006_fix_view_column.sql       # Fix: view column name (role → role_type)
+    ├── 007_event_level.sql           # v_event_level vocab table + event.event_level column
+    ├── 008_event_hierarchy.sql       # v_event_hierarchy vocab table
+    ├── 009_witness_hierarchy.sql     # v_witness_hierarchy vocab table
+    ├── 010_witnesses_array.sql       # Witnesses array support
+    ├── 011_witness_validation.sql    # Witness validation triggers
+    ├── 012_witness_data_migration.sql # Witness data migration from legacy format
+    ├── 013_witness_types.sql         # Additional witness type codes
+    ├── 014_person_names_schema.sql   # Person name schema enhancements
+    └── 015_classifier_vocab.sql      # Classifier UI vocab alignment (v_source_type + v_doc_format expansion)
 ```
 
 ## Running the Migrations
@@ -27,8 +36,17 @@ supabase/
 6. Paste and run `004_integrity_fixes.sql`
 7. Paste and run `005_age_at_event.sql`
 8. Paste and run `006_fix_view_column.sql`
+9. Paste and run `007_event_level.sql`
+10. Paste and run `008_event_hierarchy.sql`
+11. Paste and run `009_witness_hierarchy.sql`
+12. Paste and run `010_witnesses_array.sql`
+13. Paste and run `011_witness_validation.sql`
+14. Paste and run `012_witness_data_migration.sql`
+15. Paste and run `013_witness_types.sql`
+16. Paste and run `014_person_names_schema.sql`
+17. Paste and run `015_classifier_vocab.sql`
 
-> **Important:** Run migrations in numerical order (001 → 006). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
+> **Important:** Run migrations in numerical order (001 → 015). Migration 004 must be applied **before** inserting any production data to ensure all integrity constraints are active.
 
 ### Option B — Supabase CLI
 
@@ -52,6 +70,15 @@ psql -U postgres -d postgres -f supabase/migrations/003_predicate_registry.sql
 psql -U postgres -d postgres -f supabase/migrations/004_integrity_fixes.sql
 psql -U postgres -d postgres -f supabase/migrations/005_age_at_event.sql
 psql -U postgres -d postgres -f supabase/migrations/006_fix_view_column.sql
+psql -U postgres -d postgres -f supabase/migrations/007_event_level.sql
+psql -U postgres -d postgres -f supabase/migrations/008_event_hierarchy.sql
+psql -U postgres -d postgres -f supabase/migrations/009_witness_hierarchy.sql
+psql -U postgres -d postgres -f supabase/migrations/010_witnesses_array.sql
+psql -U postgres -d postgres -f supabase/migrations/011_witness_validation.sql
+psql -U postgres -d postgres -f supabase/migrations/012_witness_data_migration.sql
+psql -U postgres -d postgres -f supabase/migrations/013_witness_types.sql
+psql -U postgres -d postgres -f supabase/migrations/014_person_names_schema.sql
+psql -U postgres -d postgres -f supabase/migrations/015_classifier_vocab.sql
 ```
 
 ## Schema Overview
@@ -84,7 +111,7 @@ To maintain 4NF standards, the `event` table does not contain a `parent_id` or `
 
 ## Adding New Migrations
 
-Name each new file sequentially: `006_...sql`, `007_...sql`, etc. Never modify a migration that has already been applied to a live database — add a new one instead.
+Name each new file sequentially: `016_...sql`, `017_...sql`, etc. Never modify a migration that has already been applied to a live database — add a new one instead.
 
 ## Utility Functions
 
