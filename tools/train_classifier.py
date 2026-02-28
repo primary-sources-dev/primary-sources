@@ -9,9 +9,6 @@ Reads classification feedback from data/classifier-feedback.json and:
 5. Can auto-apply fingerprint pattern additions to document_classifier.py (with backup)
 6. Can export SQL migration fragments for new vocab codes discovered through review
 
-# NOTE: This script relies on the 'textSample' field (first 1000 chars of OCR) 
-# provided by the Classifier UI to perform n-gram frequency analysis.
-
 Usage:
     python tools/train_classifier.py                # Show full 4-tier analysis
     python tools/train_classifier.py --suggest      # Suggest new fingerprint patterns

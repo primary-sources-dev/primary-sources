@@ -76,11 +76,17 @@ DATA_DIR = Path(NEW_UI_ROOT) / "assets" / "data"
 linker = EntityLinker(DATA_DIR) if LINKER_AVAILABLE else None
 
 try:
-    from entity_matcher import EntityMatcher, find_entities, generate_entities_json
+    from entity_matcher import EntityMatcher, EntityIndex, find_entities, generate_entities_json
     ENTITY_MATCHER_AVAILABLE = True
-    # Initialize matcher with sample data
+    # Initialize matcher with real entity data from JSON files
     _entity_matcher = EntityMatcher()
-    _entity_matcher.load_sample_data()
+    _entity_data_dir = str(DATA_DIR)
+    _loaded = _entity_matcher.load_from_entity_files(_entity_data_dir)
+    if _loaded == 0:
+        print("Warning: No entities loaded from JSON files, falling back to sample data")
+        _entity_matcher.load_sample_data()
+    else:
+        print(f"Entity matcher loaded {_loaded} entities from JSON files")
 except ImportError:
     ENTITY_MATCHER_AVAILABLE = False
     _entity_matcher = None
@@ -897,6 +903,112 @@ def entities_index_endpoint():
             "orgs": len(_entity_matcher.index.orgs),
         }
     })
+
+
+# ============================================================================
+# ENTITY EXPORT ENDPOINT
+# ============================================================================
+
+@app.route("/api/entities/export", methods=["POST"])
+def entities_export_endpoint():
+    """
+    Write a new entity record to a JSON data file.
+    Creates .bak backup before writing. Checks duplicates by ID and name.
+    """
+    ALLOWED_FILES = {
+        "sources.json", "people.json", "organizations.json",
+        "places.json", "objects.json", "events.json"
+    }
+
+    ID_FIELDS = {
+        "sources.json": "source_id",
+        "people.json": "person_id",
+        "organizations.json": "org_id",
+        "places.json": "place_id",
+        "objects.json": "object_id",
+        "events.json": "event_id",
+    }
+
+    NAME_FIELDS = {
+        "sources.json": "name",
+        "people.json": "display_name",
+        "organizations.json": "name",
+        "places.json": "name",
+        "objects.json": "name",
+        "events.json": "title",
+    }
+
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Missing JSON body"}), 400
+
+    target_file = data.get("target_file")
+    record = data.get("record")
+
+    if not target_file or target_file not in ALLOWED_FILES:
+        return jsonify({"error": f"Invalid target_file. Must be one of: {sorted(ALLOWED_FILES)}"}), 400
+
+    if not record or not isinstance(record, dict):
+        return jsonify({"error": "Missing or invalid 'record' field"}), 400
+
+    file_path = os.path.join(str(DATA_DIR), target_file)
+    backup_path = file_path + ".bak"
+
+    try:
+        # Load existing data
+        existing = []
+        if os.path.exists(file_path):
+            with open(file_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+
+        # Duplicate check by ID or name
+        id_field = ID_FIELDS.get(target_file)
+        name_field = NAME_FIELDS.get(target_file)
+
+        record_id = record.get(id_field) if id_field else None
+        record_name = record.get(name_field, "").lower() if name_field else ""
+
+        for item in existing:
+            if record_id and item.get(id_field) == record_id:
+                return jsonify({
+                    "success": True,
+                    "file": target_file,
+                    "action": "duplicate_skipped",
+                    "reason": f"Record with {id_field}={record_id} already exists"
+                })
+            if record_name and item.get(name_field, "").lower() == record_name:
+                return jsonify({
+                    "success": True,
+                    "file": target_file,
+                    "action": "duplicate_skipped",
+                    "reason": f"Record with {name_field}='{record.get(name_field)}' already exists"
+                })
+
+        # Create backup
+        if os.path.exists(file_path):
+            import shutil
+            shutil.copy2(file_path, backup_path)
+
+        # Append and write
+        existing.append(record)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(existing, f, indent=2, ensure_ascii=False)
+
+        # Reload entity matcher index if entity data files were updated
+        if target_file in ("people.json", "places.json", "organizations.json"):
+            if ENTITY_MATCHER_AVAILABLE and _entity_matcher:
+                _entity_matcher.index = EntityIndex()
+                _entity_matcher.load_from_entity_files(str(DATA_DIR))
+
+        return jsonify({
+            "success": True,
+            "file": target_file,
+            "action": "created",
+            "backup": os.path.basename(backup_path)
+        })
+
+    except Exception as e:
+        return jsonify({"error": f"Export failed: {str(e)}"}), 500
 
 
 # ============================================================================

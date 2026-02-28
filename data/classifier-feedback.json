@@ -230,11 +230,34 @@
       "noteType": null,
       "notes": null,
       "timestamp": "2026-02-26T00:47:55.333792"
+    },
+    {
+      "page": 9991,
+      "source": "test_document.pdf",
+      "status": "correct",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "selectedAgency": "FBI",
+      "selectedClass": "REPORT",
+      "selectedFormat": "FD-302",
+      "selectedContent": [
+        "INTERVIEW"
+      ],
+      "newTypeFlag": false,
+      "textSample": "Test OCR text sample for validation.",
+      "timestamp": "2026-02-27T19:23:25.314716"
+    },
+    {
+      "page": 777,
+      "source": "dedupe_test.pdf",
+      "status": "incorrect",
+      "selectedClass": "MEMO",
+      "timestamp": "2026-02-27T19:23:27.226063"
     }
   ],
   "summary": {
-    "total": 21,
-    "correct": 13,
-    "incorrect": 8
+    "total": 23,
+    "correct": 14,
+    "incorrect": 9
   }
 }

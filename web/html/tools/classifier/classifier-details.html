@@ -110,13 +110,10 @@
         <!-- CARD 1: HOME & GENERAL -->
         <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
             <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
-                <span class="material-symbols-outlined text-primary">home</span>
-                <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Home & General</h3>
+                <span class="material-symbols-outlined text-primary text-sm leading-none">home</span>
+                <h3 class="category-title font-bold text-sm text-archive-heading uppercase tracking-wider leading-none">General</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
-                <li><a href="../../index.html" class="hover:text-primary transition-colors flex items-center gap-2">
-                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Home
-                    </a></li>
                 <li><a href="../../search.html" class="hover:text-primary transition-colors flex items-center gap-2">
                         <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Search
                     </a></li>
@@ -126,7 +123,7 @@
                         Tracking
                     </a></li>
                 <li><a href="../../pages/blog.html" class="hover:text-primary transition-colors flex items-center gap-2">
-                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Dev Blog
+                        <span class="material-symbols-outlined text-xs opacity-40">arrow_right</span>Developers Blog
                     </a></li>
             </ul>
         </div>
@@ -134,8 +131,8 @@
         <!-- CARD 2: ABOUT & INFO -->
         <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
             <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
-                <span class="material-symbols-outlined text-primary">info</span>
-                <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">About & Info</h3>
+                <span class="material-symbols-outlined text-primary text-sm leading-none">info</span>
+                <h3 class="category-title font-bold text-sm text-archive-heading uppercase tracking-wider leading-none">About & Info</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
                 <li><a href="../../pages/about.html" class="hover:text-primary transition-colors flex items-center gap-2">
@@ -156,8 +153,8 @@
         <!-- CARD 3: BROWSE ENTITIES -->
         <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
             <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
-                <span class="material-symbols-outlined text-primary">dataset</span>
-                <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Browse Entities</h3>
+                <span class="material-symbols-outlined text-primary text-sm leading-none">dataset</span>
+                <h3 class="category-title font-bold text-sm text-archive-heading uppercase tracking-wider leading-none">Browse Entities</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
                 <li><a href="../../entities/event/event-index.html"
@@ -190,8 +187,8 @@
         <!-- CARD 4: RESEARCH TOOLS -->
         <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
             <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
-                <span class="material-symbols-outlined text-primary">construction</span>
-                <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Research Tools</h3>
+                <span class="material-symbols-outlined text-primary text-sm leading-none">construction</span>
+                <h3 class="category-title font-bold text-sm text-archive-heading uppercase tracking-wider leading-none">Research Tools</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
                 <li><a href="../../tools/tools-index.html"
@@ -237,8 +234,8 @@
         <!-- CARD 5: DISCOVERY -->
         <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
             <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
-                <span class="material-symbols-outlined text-primary">auto_awesome</span>
-                <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Discovery</h3>
+                <span class="material-symbols-outlined text-primary text-sm leading-none">auto_awesome</span>
+                <h3 class="category-title font-bold text-sm text-archive-heading uppercase tracking-wider leading-none">Discovery</h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
                 <li><a href="../../exploration/otd.html"
@@ -260,8 +257,8 @@
         <!-- CARD 6: TOOL DOCUMENTATION -->
         <div class="border border-archive-secondary/20 bg-[#252021]/60 p-5">
             <div class="flex items-center gap-3 mb-4 pb-3 border-b border-archive-secondary/10">
-                <span class="material-symbols-outlined text-primary">description</span>
-                <h3 class="category-title font-bold text-archive-heading uppercase tracking-wider">Tool Documentation
+                <span class="material-symbols-outlined text-primary text-sm leading-none">description</span>
+                <h3 class="category-title font-bold text-sm text-archive-heading uppercase tracking-wider leading-none">Tool Documentation
                 </h3>
             </div>
             <ul class="space-y-2 text-[11px] uppercase tracking-wide">
@@ -368,6 +365,10 @@
                     class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
                     Metadata Extraction
                 </span>
+                <span
+                    class="text-[9px] font-bold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 px-3 py-1.5 border border-emerald-500/30">
+                    Entity Export
+                </span>
             </div>
             <a href="classifier-ui.html"
                 class="inline-flex h-12 items-center justify-center bg-emerald-600 px-8 text-sm font-bold text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all">
@@ -454,6 +455,29 @@
                             new document type. Results saved for retraining datasets.</p>
                     </div>
                 </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div
+                        class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">upload_file</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">Entity Export Pipeline</h3>
+                        <p class="text-xs text-archive-secondary/70">Export reviewed documents as source records with
+                            linked entities. Detect people, places, and organizations from OCR text
+                            and write directly to entity JSON files with backup safety.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 border border-archive-secondary/20 bg-archive-dark/30 p-4">
+                    <div
+                        class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary/10 text-primary border border-primary/20">
+                        <span class="material-symbols-outlined text-lg">tab</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-archive-heading text-sm uppercase mb-1">Two-Tab Workflow</h3>
+                        <p class="text-xs text-archive-secondary/70">Review tab for page-level classification feedback.
+                            Export tab for document-level entity detection, approval, and JSON export.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -498,6 +522,17 @@
                     <p class="text-sm text-archive-secondary/80 mb-2">
                         Each click automatically POSTs feedback to the OCR server, which saves it to
                         <code class="text-primary">data/classifier-feedback.json</code> for classifier improvement.
+                    </p>
+                </div>
+                <div class="border-l-2 border-primary/30 pl-4">
+                    <h4 class="text-sm font-bold text-archive-heading uppercase tracking-wide mb-1">
+                        <span class="text-primary">5.</span> Export Entities
+                    </h4>
+                    <p class="text-sm text-archive-secondary/80 mb-2">
+                        Switch to the Export tab to aggregate page-level feedback into a source record.
+                        Run entity detection to match people, places, and organizations from OCR text.
+                        Approve or reject matches, then export the source record and new entities
+                        directly to the project's JSON data files.
                     </p>
                 </div>
             </div>
@@ -601,7 +636,7 @@
                     </div>
                     <p class="text-xs text-archive-secondary/70 mb-2">Cross-references OCR text against research
                         database. Links mentions to known people and places.</p>
-                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">22 People · 16 Places</span>
+                    <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1">26 People · 16 Places · 38 Orgs</span>
                 </div>
             </div>
         </section>
@@ -692,6 +727,18 @@
                         </p>
                     </div>
                 </div>
+                <div class="flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-primary text-xl">hub</span>
+                    <div>
+                        <h4 class="text-sm font-bold text-archive-heading">Entity API Endpoints</h4>
+                        <p class="text-xs text-archive-secondary/70">
+                            <code class="text-primary">POST /api/entities</code> — Detect entities in OCR text<br>
+                            <code class="text-primary">GET /api/entities/index</code> — Entity index metadata<br>
+                            <code class="text-primary">POST /api/entities/export</code> — Write records to entity JSON
+                            files
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -721,7 +768,7 @@
                     </li>
                     <li class="flex gap-2">
                         <span class="text-primary font-bold">Phase 4:</span>
-                        <span>Database Commit (planned)</span>
+                        <span>Entity Export (Export tab — source records + entity detection + JSON write-back)</span>
                     </li>
                 </ul>
             </div>
@@ -734,9 +781,10 @@
                 <span class="font-bold text-emerald-400 uppercase tracking-wider text-sm">Status: Live</span>
             </div>
             <p class="text-xs text-archive-secondary/80 mb-3">
-                The Classification Review Tool is fully operational with integrated training loop.
-                Supports 28 document types with PDF.js rendering, metadata extraction, entity linking, and
-                server-side feedback collection.
+                The Classification Review Tool is fully operational with integrated training loop and
+                entity export pipeline. Two-tab interface supports page-level classification review and
+                document-level entity export. Supports 28 document types with PDF.js rendering, metadata
+                extraction, entity linking, and server-side feedback collection.
             </p>
             <div class="flex flex-wrap gap-2 text-[9px]">
                 <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
@@ -750,6 +798,14 @@
                 <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
                     <span class="text-archive-secondary/60">Training:</span>
                     <span class="text-primary">train_classifier.py</span>
+                </span>
+                <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
+                    <span class="text-archive-secondary/60">Entity Data:</span>
+                    <span class="text-primary">assets/data/*.json</span>
+                </span>
+                <span class="bg-archive-dark/50 px-2 py-1 border border-archive-secondary/20">
+                    <span class="text-archive-secondary/60">Export API:</span>
+                    <span class="text-primary">/api/entities/export</span>
                 </span>
             </div>
         </section>

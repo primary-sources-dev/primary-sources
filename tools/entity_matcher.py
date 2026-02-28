@@ -239,7 +239,69 @@ class EntityMatcher:
         
         self.index.loaded_at = datetime.now().isoformat()
         return self.index.total_count()
-    
+
+    def load_from_entity_files(self, data_dir: str) -> int:
+        """
+        Load entities from the project's entity JSON files.
+
+        Reads:
+          - people.json        → persons + nested aliases
+          - places.json        → places
+          - organizations.json → orgs
+
+        Args:
+            data_dir: Path to web/html/assets/data/ directory
+
+        Returns:
+            Number of entities loaded.
+        """
+        import os
+
+        # Load people + aliases
+        people_path = os.path.join(data_dir, "people.json")
+        if os.path.exists(people_path):
+            with open(people_path, "r", encoding="utf-8") as f:
+                people = json.load(f)
+            for p in people:
+                display = p.get("display_name", "")
+                pid = p.get("person_id") or p.get("id") or "unknown"
+                if display:
+                    self.index.persons[display.lower()] = {
+                        "id": pid, "display_name": display
+                    }
+                # Index aliases from nested aliases array
+                for alias in p.get("aliases", []):
+                    alias_name = alias.get("alias_name") or alias.get("alias_value", "")
+                    if alias_name:
+                        self.index.aliases[alias_name.lower()] = {
+                            "person_id": pid, "display_name": display
+                        }
+
+        # Load places
+        places_path = os.path.join(data_dir, "places.json")
+        if os.path.exists(places_path):
+            with open(places_path, "r", encoding="utf-8") as f:
+                places = json.load(f)
+            for p in places:
+                name = p.get("name", "")
+                pid = p.get("place_id") or p.get("id") or "unknown"
+                if name:
+                    self.index.places[name.lower()] = {"id": pid, "name": name}
+
+        # Load organizations
+        orgs_path = os.path.join(data_dir, "organizations.json")
+        if os.path.exists(orgs_path):
+            with open(orgs_path, "r", encoding="utf-8") as f:
+                orgs = json.load(f)
+            for o in orgs:
+                name = o.get("name", "")
+                oid = o.get("org_id") or o.get("id") or "unknown"
+                if name:
+                    self.index.orgs[name.lower()] = {"id": oid, "name": name}
+
+        self.index.loaded_at = datetime.now().isoformat()
+        return self.index.total_count()
+
     # =========================================================================
     # MATCHING METHODS
     # =========================================================================
