@@ -747,19 +747,6 @@ class EntitiesTab {
                 return { index: p.index, tags: activeTags };
             };
 
-            // Collect all unique tags for the document context summary (Predicted + Feedback)
-            const docTags = new Set();
-            pageOffsets.forEach(p => {
-                const fb = this.wb.feedback[p.index];
-                if (fb) {
-                    if (fb.selectedContent) fb.selectedContent.forEach(t => docTags.add(t));
-                    if (fb.selectedAgency) docTags.add(fb.selectedAgency);
-                    if (fb.selectedType) docTags.add(fb.selectedType);
-                } else if (p.tags) {
-                    p.tags.forEach(t => docTags.add(t));
-                }
-            });
-
             // Enhance entities with page info (using updated findPage)
             this.wb.detectedEntities = (data.entities || []).map(e => {
                 const pInfo = findPage(e.start_pos);
@@ -771,22 +758,15 @@ class EntitiesTab {
                 return { ...c, page: pInfo.index, tags: pInfo.tags };
             });
 
-            // Update inline summary bar
+            // Summary header is intentionally metrics-only. Do not add context tags here.
             const s = data.summary || {};
             const matchesEl = document.getElementById('entity-matches-total');
             const breakdownEl = document.getElementById('entity-matches-breakdown');
             const candidatesEl = document.getElementById('entity-candidates-total');
-            const tagsEl = document.getElementById('entity-summary-tags');
 
             if (matchesEl) matchesEl.textContent = `${s.matched || 0}`;
             if (breakdownEl) breakdownEl.textContent = `(${s.persons || 0}P/${s.places || 0}L/${s.orgs || 0}O)`;
             if (candidatesEl) candidatesEl.textContent = `${s.candidates || 0}`;
-
-            if (tagsEl) {
-                tagsEl.innerHTML = Array.from(docTags).map(t =>
-                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10" style="color: var(--primary);">${t}</span>`
-                ).join('') || '<span class="opacity-20 italic text-[10px]">No tags</span>';
-            }
 
             this.renderEntitiesDashboard();
 
@@ -1776,6 +1756,33 @@ class SourceTab {
 // DocumentWorkbench — Main controller
 // =====================================================================
 class DocumentWorkbench {
+    renderWorkbenchHeader(tabName) {
+        const titles = {
+            input: "INPUT",
+            source: "SOURCE",
+            classify: "CLASSIFY",
+            entities: "ENTITIES",
+            export: "EXPORT"
+        };
+        const title = titles[tabName] || "WORKBENCH";
+
+        return `
+            <div class="workbench-header flex items-center justify-between py-4 border-b border-primary/20 mb-6 bg-archive-bg/95 backdrop-blur z-20">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-xl font-bold text-archive-heading tracking-tight underline decoration-primary/10 decoration-2 underline-offset-8">${title}</h1>
+                </div>
+
+                <!-- Header Component Placeholder (Matches/Candidates style) -->
+                <div class="flex items-center gap-3 px-3 py-2 rounded border border-white/10 bg-black/20">
+                    <span class="text-[10px] opacity-60 font-bold whitespace-nowrap uppercase tracking-widest">Workbench Context</span>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-xl font-bold text-archive-heading opacity-50">---</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
     constructor(config) {
         this.config = config || {};
 
@@ -1873,6 +1880,10 @@ class DocumentWorkbench {
             document.title = `Classification Review: ${this.FILE_NAME}`;
             this.loadClassificationData();
         }
+
+        // Initial header render
+        const initialTab = this.requestedTab || (this.isWorkbenchMode ? 'input' : 'classify');
+        this.switchTab(initialTab);
     }
 
     // ── localStorage migration (classifier → workbench keys) ────
@@ -2216,6 +2227,12 @@ class DocumentWorkbench {
             if (this.FILE_NAME) url.searchParams.set('file', this.FILE_NAME);
             url.searchParams.set('tab', tabName);
             history.replaceState(null, '', url);
+        }
+
+        // Update Dynamic Header
+        const headerEl = document.getElementById('workbench-active-header');
+        if (headerEl) {
+            headerEl.innerHTML = this.renderWorkbenchHeader(tabName);
         }
     }
 
