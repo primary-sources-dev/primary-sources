@@ -371,20 +371,28 @@ primary-sources/
 
 ---
 
-## 7. Quality Control
+---
+
+## 7. Quality Control & Verification
+
+After OCR processing, use the **Document Workbench** to verify accuracy and extract entities:
 
 ### Spot-Check Procedure
 
-After OCR processing, verify accuracy on a sample of pages:
+1.  **Open the searchable PDF** in a PDF reader.
+2.  **Select text** (Ctrl+A or drag) on 3-5 random pages.
+3.  **Compare** selected text to visible scan.
+4.  **Check for common OCR errors**: `rn` vs `m`, `l` vs `1`, etc.
 
-1. **Open the searchable PDF** in a PDF reader
-2. **Select text** (Ctrl+A or drag) on 3-5 random pages
-3. **Compare** selected text to visible scan
-4. **Check for common OCR errors:**
-   - `rn` misread as `m`
-   - `l` misread as `1` or `I`
-   - Names with unusual spelling (e.g., "Oswald" → "Oswa1d")
-   - Dates with digit errors
+### Entities Dashboard (Verification)
+
+The Entities tab in the Document Workbench provides a high-level research index:
+
+1.  **Summary Bar**: Aggregates Registry Matches (known entities) and NER Candidates (unverified mentions).
+2.  **Context Tags**: Displays classification tags from the document to provide thematic context.
+3.  **Unified Grid**: Grouped view of all entities with confidence scores and detection methods.
+4.  **Deep-Linking**: Clicking a **"Pg #"** badge instantly switches to the **Classify** tab and scrolls the corresponding page into view with a visual highlight.
+5.  **Filtering**: Dynamic filtering by entity type, approval status, and document tags.
 
 ### Quality Ratings
 
@@ -396,16 +404,7 @@ After OCR processing, verify accuracy on a sample of pages:
 
 ### Known Problem Documents
 
-Track documents that require special handling:
-
-```markdown
-## OCR Problem Log
-
-| Document | Issue | Resolution |
-|----------|-------|------------|
-| church_book_III.pdf | Heavy redactions cause garbled text | Manual review required for redacted sections |
-| HSCA-Vol-16.pdf | Faded typewriter text | Re-run with --oversample 400 |
-```
+Track documents that require special handling in the project's internal issue tracker.
 
 ---
 

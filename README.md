@@ -82,7 +82,9 @@ python ocr-server.py
 - **Dual OCR Backend**: WSL/OCRmyPDF (high-quality searchable PDFs) + Python/Tesseract (Windows-native text extraction)
 - **Document Classification**: Automatic detection of 20+ archival document types (FBI 302, Warren Commission exhibits, CIA cables, NARA RIF, HSCA docs, police reports, medical records)
 - **Metadata Extraction**: Forensic parsing of 90+ extraction patterns (RIF numbers, FBI file numbers, agents, dates, document numbers, classification markings)
-- **Entity Linking**: Cross-references extracted text with existing People and Places databases using regex + fuzzy matching (88% confidence threshold)
+- **Entities Dashboard**: Unified, filterable grid for matched entities and NER candidates with summary analytics
+- **Page-Level Mapping**: Automatic cross-referencing of detected entities with document pages using character offsets
+- **Deep-Linking**: Direct navigation from entity "Pg #" badges to specific pages in the Classify tab with visual highlighting
 - **Zone-Based Extraction**: Type-specific field extraction with header/body/footer awareness (FBI 302 footer-aware, testimony Q&A segmentation, CIA cable numbered blocks)
 - **Output Formats**: Searchable PDF, Markdown (.md), TXT, HTML, JSON metadata
 - **Citation Generation**: Automatic citations in Chicago, APA, MLA, NARA formats

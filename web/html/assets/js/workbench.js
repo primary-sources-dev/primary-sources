@@ -703,12 +703,25 @@ class EntitiesTab {
         loading.classList.remove('hidden');
         results.classList.add('hidden');
 
-        // Concatenate all page text
+        // Concatenate all page text and track offsets
         let combinedText = '';
+        const pageOffsets = [];
+        const docTags = new Set();
+        let currentOffset = 0;
+
         if (this.wb.classificationData && this.wb.classificationData.pages) {
-            for (const page of this.wb.classificationData.pages) {
-                if (page.text) combinedText += page.text + '\n\n';
-            }
+            this.wb.classificationData.pages.forEach((page, idx) => {
+                const text = (page.text || '') + '\n\n';
+                pageOffsets.push({
+                    start: currentOffset,
+                    end: currentOffset + text.length,
+                    index: idx + 1,
+                    tags: page.tags || []
+                });
+                combinedText += text;
+                currentOffset += text.length;
+                (page.tags || []).forEach(t => docTags.add(t));
+            });
         }
 
         if (!combinedText.trim()) {
@@ -733,20 +746,54 @@ class EntitiesTab {
             if (!res.ok) throw new Error(`API error: ${res.status}`);
 
             const data = await res.json();
-            this.wb.detectedEntities = data.entities || [];
-            this.wb.detectedCandidates = data.new_candidates || [];
 
+            // Helper to find page for a character position
+            const findPage = (pos) => {
+                const p = pageOffsets.find(o => pos >= o.start && pos < o.end);
+                return p ? { index: p.index, tags: p.tags } : { index: 1, tags: [] };
+            };
+
+            // Enhance entities with page info
+            this.wb.detectedEntities = (data.entities || []).map(e => {
+                const pInfo = findPage(e.start_pos);
+                return { ...e, page: pInfo.index, tags: pInfo.tags };
+            });
+
+            this.wb.detectedCandidates = (data.new_candidates || []).map(c => {
+                const pInfo = findPage(c.start_pos);
+                return { ...c, page: pInfo.index, tags: pInfo.tags };
+            });
+
+            // Update Summary with Tags
             const s = data.summary || {};
+            const tagHtml = Array.from(docTags).map(t =>
+                `<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10" style="color: var(--primary);">${t}</span>`
+            ).join('');
+
             document.getElementById('entity-summary').innerHTML = `
-                <div><span class="opacity-60">Matched:</span> <span class="font-bold">${s.matched || 0}</span></div>
-                <div><span class="opacity-60">Persons:</span> ${s.persons || 0}</div>
-                <div><span class="opacity-60">Places:</span> ${s.places || 0}</div>
-                <div><span class="opacity-60">Orgs:</span> ${s.orgs || 0}</div>
-                <div><span class="opacity-60">Candidates:</span> ${s.candidates || 0}</div>
+                <div class="flex-1 grid grid-cols-3 gap-4">
+                    <div class="border-r border-white/5">
+                        <div class="text-[10px] opacity-40 uppercase mb-1">Registry Matches</div>
+                        <div class="flex gap-4 items-baseline">
+                            <span class="text-2xl font-bold">${s.matched || 0}</span>
+                            <span class="text-xs opacity-60">P: ${s.persons || 0} | L: ${s.places || 0} | O: ${s.orgs || 0}</span>
+                        </div>
+                    </div>
+                    <div class="border-r border-white/5">
+                        <div class="text-[10px] opacity-40 uppercase mb-1">NER Candidates</div>
+                        <div class="flex gap-4 items-baseline">
+                            <span class="text-2xl font-bold" style="color: var(--secondary);">${s.candidates || 0}</span>
+                            <span class="text-xs opacity-60">Unverified mentions</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-[10px] opacity-40 uppercase mb-1">Document Context</div>
+                        <div class="flex flex-wrap gap-1">${tagHtml || '<span class="opacity-20 italic">No tags</span>'}</div>
+                    </div>
+                </div>
             `;
 
-            this.renderMatchedEntities(this.wb.detectedEntities);
-            this.renderCandidateEntities(this.wb.detectedCandidates);
+            this.renderEntitiesDashboard();
 
             loading.classList.add('hidden');
             results.classList.remove('hidden');
@@ -761,75 +808,147 @@ class EntitiesTab {
         btn.innerHTML = '<span class="material-symbols-outlined text-sm align-middle mr-1">search</span> Detect Entities';
     }
 
-    renderMatchedEntities(entities) {
-        const tbody = document.getElementById('matched-entities-body');
-        if (!entities.length) {
-            tbody.innerHTML = '<tr><td colspan="5" class="text-center opacity-40 py-4">No entities matched</td></tr>';
+    renderEntitiesDashboard() {
+        const tbody = document.getElementById('entities-dashboard-body');
+        const filterType = document.getElementById('entity-filter-type')?.value || 'all';
+        const filterStatus = document.getElementById('entity-filter-status')?.value || 'all';
+        const filterTag = document.getElementById('entity-filter-tag')?.value || 'all';
+        const searchQuery = (document.getElementById('entity-search')?.value || '').toLowerCase().trim();
+
+        if (!this.wb.detectedEntities && !this.wb.detectedCandidates) return;
+
+        // Combine all items into one list for the dashboard
+        const allItems = [
+            ...(this.wb.detectedEntities || []).map((e, i) => ({ ...e, _id: `matched-${i}`, _category: 'matched' })),
+            ...(this.wb.detectedCandidates || []).map((c, i) => ({ ...c, _id: `candidate-${i}`, _category: 'candidate', display_name: c.text }))
+        ];
+
+        // Update Tag Filter Options (Dynamic based on detected items)
+        this.updateFilterTags(allItems);
+
+        // Apply filters
+        const filtered = allItems.filter(item => {
+            const matchesType = filterType === 'all' || item.entity_type === filterType;
+
+            const approval = this.wb.entityApprovals[item._id] || 'pending';
+            let matchesStatus = true;
+            if (filterStatus === 'matched') matchesStatus = item._category === 'matched';
+            else if (filterStatus === 'candidate') matchesStatus = item._category === 'candidate';
+            else if (filterStatus !== 'all') matchesStatus = approval === filterStatus;
+
+            const matchesTag = filterTag === 'all' || (item.tags && item.tags.includes(filterTag));
+            const matchesSearch = !searchQuery || item.display_name.toLowerCase().includes(searchQuery);
+
+            return matchesType && matchesStatus && matchesTag && matchesSearch;
+        });
+
+        if (!filtered.length) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center py-12 opacity-30">No entities match your filters</td></tr>';
             return;
         }
-        tbody.innerHTML = entities.map((e, i) => {
-            const approval = this.wb.entityApprovals[`matched-${i}`] || 'pending';
+
+        tbody.innerHTML = filtered.map(item => {
+            const approval = this.wb.entityApprovals[item._id] || 'pending';
             const rowClass = approval === 'rejected' ? 'rejected' : approval === 'approved' ? 'approved' : '';
-            const typeClass = `badge-entity-${e.entity_type}`;
+            const typeClass = `badge-entity-${item.entity_type}`;
+            const isCandidate = item._category === 'candidate';
+
             return `
-            <tr class="${rowClass}" id="entity-row-${i}">
-                <td class="font-bold">${e.display_name}</td>
-                <td><span class="badge-entity-type ${typeClass}">${e.entity_type}</span></td>
-                <td>${Math.round(e.confidence * 100)}%</td>
-                <td class="text-xs opacity-60">${e.method}</td>
+            <tr class="${rowClass}">
+                <td>
+                    <div class="font-bold">${item.display_name}</div>
+                    <div class="text-[10px] opacity-40 flex gap-2">
+                        <span>${item.method || 'ner'}</span>
+                        ${item.tags ? item.tags.map(t => `<span class="text-primary/60">#${t}</span>`).join(' ') : ''}
+                    </div>
+                </td>
+                <td><span class="badge-entity-type ${typeClass}">${item.entity_type}</span></td>
+                <td><div class="text-xs">${Math.round(item.confidence * 100)}%</div></td>
+                <td>
+                    <button data-action="jump-to-page" data-page="${item.page}" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-[10px] font-bold">
+                        Pg ${item.page}
+                    </button>
+                </td>
                 <td class="whitespace-nowrap">
-                    <button data-action="approve-entity" data-idx="${i}" class="text-[10px] px-2 py-1 ${approval === 'approved' ? 'text-green-400 font-bold' : 'opacity-40 hover:opacity-100'}">Approve</button>
-                    <button data-action="reject-entity" data-idx="${i}" class="text-[10px] px-2 py-1 ${approval === 'rejected' ? 'text-red-400 font-bold' : 'opacity-40 hover:opacity-100'}">Reject</button>
+                    <button data-action="${isCandidate ? 'approve-candidate' : 'approve-entity'}" 
+                            data-idx="${item._id.split('-')[1]}" 
+                            class="text-[10px] px-2 py-1 ${approval === 'approved' ? 'text-green-400 font-bold' : 'opacity-40 hover:opacity-100'}">
+                        ${isCandidate ? 'Add as New' : 'Approve'}
+                    </button>
+                    <button data-action="${isCandidate ? 'reject-candidate' : 'reject-entity'}" 
+                            data-idx="${item._id.split('-')[1]}" 
+                            class="text-[10px] px-2 py-1 ${approval === 'rejected' ? 'text-red-400 font-bold' : 'opacity-40 hover:opacity-100'}">
+                        ${isCandidate ? 'Skip' : 'Reject'}
+                    </button>
                 </td>
             </tr>`;
         }).join('');
     }
 
-    renderCandidateEntities(candidates) {
-        const section = document.getElementById('candidates-section');
-        const tbody = document.getElementById('candidate-entities-body');
-        if (!candidates.length) { section.classList.add('hidden'); return; }
-        section.classList.remove('hidden');
-        tbody.innerHTML = candidates.map((c, i) => {
-            const approval = this.wb.entityApprovals[`candidate-${i}`] || 'pending';
-            const rowClass = approval === 'rejected' ? 'rejected' : approval === 'approved' ? 'approved' : '';
-            return `
-            <tr class="${rowClass}" id="candidate-row-${i}">
-                <td class="font-bold">${c.text}</td>
-                <td><span class="badge-entity-type badge-entity-person">${c.entity_type}</span></td>
-                <td>${Math.round(c.confidence * 100)}%</td>
-                <td class="whitespace-nowrap">
-                    <button data-action="approve-candidate" data-idx="${i}" class="text-[10px] px-2 py-1 ${approval === 'approved' ? 'text-green-400 font-bold' : 'opacity-40 hover:opacity-100'}">Add as New</button>
-                    <button data-action="reject-candidate" data-idx="${i}" class="text-[10px] px-2 py-1 ${approval === 'rejected' ? 'text-red-400 font-bold' : 'opacity-40 hover:opacity-100'}">Skip</button>
-                </td>
-            </tr>`;
-        }).join('');
+    updateFilterTags(allItems) {
+        const select = document.getElementById('entity-filter-tag');
+        if (!select) return;
+        const currentVal = select.value;
+        const tags = new Set();
+        allItems.forEach(item => { if (item.tags) item.tags.forEach(t => tags.add(t)); });
+
+        let html = '<option value="all">All Tags</option>';
+        Array.from(tags).sort().forEach(t => {
+            html += `<option value="${t}" ${t === currentVal ? 'selected' : ''}>${t}</option>`;
+        });
+
+        // Only update if changed to avoid losing focus
+        if (select.innerHTML !== html) select.innerHTML = html;
+    }
+
+    initFilters() {
+        const self = this;
+        ['entity-filter-type', 'entity-filter-status', 'entity-filter-tag'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', () => self.renderEntitiesDashboard());
+        });
+        document.getElementById('entity-search')?.addEventListener('input', () => self.renderEntitiesDashboard());
+    }
+
+    jumpToPage(pageIdx) {
+        // 1. Switch tab
+        this.wb.switchTab('classify');
+
+        // 2. Wait for DOM and scroll
+        setTimeout(() => {
+            const card = document.querySelector(`[data-page="${pageIdx}"]`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.classList.add('highlight-flash');
+                setTimeout(() => card.classList.remove('highlight-flash'), 2000);
+            }
+        }, 300);
     }
 
     approveEntity(idx) {
         this.wb.entityApprovals[`matched-${idx}`] = 'approved';
         this.wb.saveEntityApprovals();
-        if (this.wb.detectedEntities) this.renderMatchedEntities(this.wb.detectedEntities);
+        this.renderEntitiesDashboard();
     }
 
     rejectEntity(idx) {
         this.wb.entityApprovals[`matched-${idx}`] = 'rejected';
         this.wb.saveEntityApprovals();
-        if (this.wb.detectedEntities) this.renderMatchedEntities(this.wb.detectedEntities);
+        this.renderEntitiesDashboard();
     }
 
     approveCandidate(idx) {
         this.wb.entityApprovals[`candidate-${idx}`] = 'approved';
         this.wb.saveEntityApprovals();
-        if (this.wb.detectedCandidates) this.renderCandidateEntities(this.wb.detectedCandidates);
+        this.renderEntitiesDashboard();
     }
 
     rejectCandidate(idx) {
         this.wb.entityApprovals[`candidate-${idx}`] = 'rejected';
         this.wb.saveEntityApprovals();
-        if (this.wb.detectedCandidates) this.renderCandidateEntities(this.wb.detectedCandidates);
+        this.renderEntitiesDashboard();
     }
 }
+
 
 // =====================================================================
 // ExportTab — Source record preview + JSON export
@@ -1744,6 +1863,9 @@ class DocumentWorkbench {
             // Initialize INPUT tab (drop zone, config fetch, job restore)
             if (this.inputTab) this.inputTab.init();
 
+            // Initialize ENTITIES tab filters
+            if (this.entitiesTab) this.entitiesTab.initFilters();
+
             // Workbench mode: load file grid, handle deep-link
             this.sourceTab.loadHistory().then(() => {
                 if (this.FILE_NAME) {
@@ -1860,6 +1982,9 @@ class DocumentWorkbench {
                 // Entities tab
                 case 'detect-entities':
                     self.entitiesTab.detectEntities();
+                    break;
+                case 'jump-to-page':
+                    self.entitiesTab.jumpToPage(parseInt(target.dataset.page));
                     break;
                 case 'approve-entity':
                     self.entitiesTab.approveEntity(idx);

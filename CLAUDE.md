@@ -210,6 +210,13 @@ Located in `docs/ui/assets/data/`:
 - Deep sync (click text to scroll source to exact coordinate)
 - Per-page surgical processing
 
+**Document Workbench** (`web/html/tools/workbench/`):
+- 5-tab workflow: Input → Source → Classify → Entities → Export
+- Progressive unlock chain: INPUT/SOURCE always available; CLASSIFY requires loaded file; ENTITIES requires reviewed pages; EXPORT requires approved entities
+- **Header-integrated tabs**: On workbench page load, JS injects workflow tabs into the global header (replacing search icon, branding, and breadcrumb with a fade transition). Tabs are centered between menu toggle and user icon. Styles in `workbench.css` (`.header-tabs`, `.header-tab-btn`), injection logic in `workbench.js` (`injectHeaderTabs()`)
+- Loading spinner and stats reset on file switch to prevent stale data display
+- Key files: `workbench.html`, `workbench.css`, `assets/js/workbench.js`
+
 **Server:** Flask app on port 5000 (`python tools/ocr_server.py`)
 
 See `docs/ui/ocr/plans/document-classifier-reference.md` for technical documentation.

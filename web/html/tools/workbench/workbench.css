@@ -1018,4 +1018,4 @@ pre {
 
 .export-btn-secondary:hover {
     border-color: var(--primary) !important;
-}
+}@keyframes highlight-flash { 0% { background-color: rgba(176, 139, 73, 0.3); outline: 2px solid #b08b49; } 100% { background-color: transparent; outline: 2px solid transparent; } } .highlight-flash { animation: highlight-flash 2s ease-out; border-radius: 4px; } .workbench-select { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 4px 8px; font-size: 11px; color: white; outline: none; cursor: pointer; } .workbench-select:focus { border-color: rgba(176, 139, 73, 0.5); } .entity-table tr.approved { background: rgba(34, 197, 94, 0.05); } .entity-table tr.rejected { opacity: 0.4; text-decoration: line-through; }

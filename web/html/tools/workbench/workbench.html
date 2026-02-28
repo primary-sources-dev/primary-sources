@@ -701,44 +701,66 @@
 
                         <!-- Entity Results (hidden until detection runs) -->
                         <div id="entity-results" class="hidden">
-                            <div id="entity-summary"
-                                class="flex gap-4 mb-4 text-sm p-3 bg-black/20 rounded border border-white/5"></div>
+                            <div id="entity-summary" class="mb-6 p-4 bg-black/30 rounded border border-white/5"></div>
 
-                            <!-- Matched Entities Table -->
-                            <div class="mb-4">
-                                <h3 class="text-sm font-bold mb-2 opacity-80">Matched Entities</h3>
-                                <div class="overflow-x-auto">
-                                    <table class="entity-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Entity</th>
-                                                <th>Type</th>
-                                                <th>Confidence</th>
-                                                <th>Method</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="matched-entities-body"></tbody>
-                                    </table>
+                            <!-- Dashboard Filters -->
+                            <div
+                                class="flex flex-wrap gap-4 mb-4 items-end bg-black/20 p-3 rounded border border-white/5">
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-[10px] opacity-40 uppercase tracking-tighter">Type</label>
+                                    <select id="entity-filter-type" class="workbench-select w-32">
+                                        <option value="all">All Types</option>
+                                        <option value="person">Persons</option>
+                                        <option value="place">Places</option>
+                                        <option value="org">Organizations</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-[10px] opacity-40 uppercase tracking-tighter">Status</label>
+                                    <select id="entity-filter-status" class="workbench-select w-32">
+                                        <option value="all">All Status</option>
+                                        <option value="matched">Matched</option>
+                                        <option value="candidate">Candidates</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="text-[10px] opacity-40 uppercase tracking-tighter">Context Tag</label>
+                                    <select id="entity-filter-tag" class="workbench-select w-40">
+                                        <option value="all">All Tags</option>
+                                    </select>
+                                </div>
+                                <div class="flex-1"></div>
+                                <div class="relative w-64">
+                                    <span
+                                        class="material-symbols-outlined absolute left-2 top-1.5 text-sm opacity-40">search</span>
+                                    <input type="text" id="entity-search" placeholder="Search entities..."
+                                        class="w-full bg-black/40 border border-white/10 rounded pl-8 pr-3 py-1.5 text-sm focus:border-primary/50 outline-none">
                                 </div>
                             </div>
 
-                            <!-- New Candidates Table -->
-                            <div id="candidates-section" class="hidden">
-                                <h3 class="text-sm font-bold mb-2 opacity-80">New Candidates</h3>
-                                <div class="overflow-x-auto">
-                                    <table class="entity-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Detected Text</th>
-                                                <th>Suggested Type</th>
-                                                <th>Confidence</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="candidate-entities-body"></tbody>
-                                    </table>
-                                </div>
+                            <!-- Unified Entity Grid -->
+                            <div class="overflow-x-auto min-h-[300px]">
+                                <table class="entity-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="w-1/3">Entity Name</th>
+                                            <th>Type</th>
+                                            <th>Confidence</th>
+                                            <th>Page</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="entities-dashboard-body">
+                                        <tr>
+                                            <td colspan="5" class="text-center py-12 opacity-30">
+                                                <div class="material-symbols-outlined text-4xl mb-2">analytics</div>
+                                                <p>Run detection to populate dashboard</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

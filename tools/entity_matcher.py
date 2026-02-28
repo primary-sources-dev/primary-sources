@@ -71,7 +71,7 @@ class EntityMatcher:
     def __init__(self):
         self.index = EntityIndex()
         self._name_pattern = re.compile(
-            r'\b([A-Z][a-z]+(?:\s+[A-Z]\.?\s*)?(?:\s+[A-Z][a-z]+)+)\b'
+            r'\b(?:[A-Z][a-z]+|[A-Z]{2,})(?:\s+[A-Z]\.?\s*)?(?:\s+(?:[A-Z][a-z]+|[A-Z]{2,}))+\b'
         )
     
     # =========================================================================
@@ -269,6 +269,14 @@ class EntityMatcher:
                     self.index.persons[display.lower()] = {
                         "id": pid, "display_name": display
                     }
+                    # Also index "First Last" if "Last, First"
+                    if "," in display:
+                        parts = [p.strip() for p in display.split(",")]
+                        if len(parts) == 2:
+                            flipped = f"{parts[1]} {parts[0]}"
+                            self.index.persons[flipped.lower()] = {
+                                "id": pid, "display_name": display
+                            }
                 # Index aliases from nested aliases array
                 for alias in p.get("aliases", []):
                     alias_name = alias.get("alias_name") or alias.get("alias_value", "")
@@ -426,9 +434,17 @@ class EntityMatcher:
             if any(p in known_positions for p in range(start, end)):
                 continue
             
-            name = match.group(1)
+            name = match.group(0)
             # Skip very short names (likely false positives)
             if len(name) < 5:
+                continue
+            
+            # Additional heuristic: Skip all-caps words if they appear to be acronyms
+            if name.isupper() and len(name.split()) == 1:
+                continue
+                
+            # Filter out common archival noise
+            if name.upper() in ["FEDERAL BUREAU", "INVESTIGATION", "DATE OF", "DALLAS TEXAS"]:
                 continue
             
             candidates.append(EntityMatch(
