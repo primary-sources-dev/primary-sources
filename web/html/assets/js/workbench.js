@@ -954,6 +954,509 @@ class ExportTab {
 }
 
 // =====================================================================
+// InputTab — OCR scanning with kanban pipeline layout
+// =====================================================================
+class InputTab {
+    constructor(workbench) {
+        this.wb = workbench;
+        this.queuedFiles = [];      // Array of {file, name, size, status, progress, current_msg, parsed_metadata}
+        this.currentJob = null;     // Active job {id, status, files[], log[]}
+        this.pollTimer = null;      // setTimeout reference
+        this.logEntries = [];       // Array of {msg, type} for inline log
+        this.outputDir = './processed';
+        this.ALLOWED_EXTS = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2'];
+    }
+
+    // --- Initialization ---
+
+    async init() {
+        this.setupDropZone();
+        // Fetch server config
+        try {
+            const res = await fetch('/api/config');
+            if (res.ok) {
+                const cfg = await res.json();
+                this.outputDir = cfg.output_dir || './processed';
+            }
+        } catch { /* use default */ }
+        // Resume in-progress job from localStorage
+        const savedJobId = localStorage.getItem('ocr_current_job_id');
+        if (savedJobId) {
+            this.currentJob = { id: savedJobId, status: 'processing', files: [] };
+            this.updateButtons(true);
+            this.pollJob();
+        }
+    }
+
+    setupDropZone() {
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        if (!dropZone || !fileInput) return;
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            this.addFiles(e.dataTransfer.files);
+        });
+        fileInput.addEventListener('change', (e) => {
+            this.addFiles(e.target.files);
+            fileInput.value = '';
+        });
+        // Keyboard shortcut: Ctrl+O
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'o') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+    }
+
+    // --- Queue Management ---
+
+    addFiles(fileList) {
+        const files = Array.from(fileList);
+        let added = 0;
+        for (const f of files) {
+            const ext = '.' + f.name.split('.').pop().toLowerCase();
+            if (!this.ALLOWED_EXTS.includes(ext)) {
+                this.logError(`Skipped ${f.name}: unsupported format`);
+                continue;
+            }
+            if (this.queuedFiles.some(q => q.name === f.name)) {
+                this.logError(`Skipped ${f.name}: already in queue`);
+                continue;
+            }
+            this.queuedFiles.push({
+                file: f,
+                name: f.name,
+                size: f.size,
+                status: 'queued',
+                progress: 0,
+                current_msg: '',
+                parsed_metadata: null
+            });
+            added++;
+        }
+        if (added > 0) {
+            this.updateFileCount();
+            this.renderKanban();
+        }
+    }
+
+    removeFile(idx) {
+        if (idx >= 0 && idx < this.queuedFiles.length && this.queuedFiles[idx].status === 'queued') {
+            this.queuedFiles.splice(idx, 1);
+            this.updateFileCount();
+            this.renderKanban();
+        }
+    }
+
+    clearCompleted() {
+        this.queuedFiles = this.queuedFiles.filter(f => f.status !== 'completed');
+        this.updateFileCount();
+        this.renderKanban();
+        this.updateStats();
+    }
+
+    clearAll() {
+        if (this.currentJob && this.currentJob.status === 'processing') {
+            this.wb.showToast('Cannot clear while processing');
+            return;
+        }
+        this.queuedFiles = [];
+        this.currentJob = null;
+        this.logEntries = [];
+        this.updateFileCount();
+        this.renderKanban();
+        this.updateStats();
+    }
+
+    updateFileCount() {
+        const el = document.getElementById('input-file-count');
+        if (!el) return;
+        const queued = this.queuedFiles.filter(f => f.status === 'queued').length;
+        const total = this.queuedFiles.length;
+        if (total === 0) el.textContent = 'No files queued';
+        else if (queued === total) el.textContent = `${total} file${total !== 1 ? 's' : ''} queued`;
+        else el.textContent = `${total} file${total !== 1 ? 's' : ''} (${queued} queued)`;
+    }
+
+    // --- Settings ---
+
+    getSettings() {
+        return {
+            backend: (document.querySelector('input[name="backend"]:checked') || {}).value || 'wsl',
+            output_pdf: document.getElementById('output-pdf')?.checked ?? true,
+            output_txt: document.getElementById('output-txt')?.checked ?? false,
+            output_md: document.getElementById('output-md')?.checked ?? true,
+            output_html: document.getElementById('output-html')?.checked ?? true,
+            deskew: document.getElementById('option-deskew')?.checked ?? true,
+            clean: document.getElementById('option-clean')?.checked ?? true,
+            force_ocr: document.getElementById('option-force')?.checked ?? false
+        };
+    }
+
+    // --- Processing Lifecycle ---
+
+    async startProcessing() {
+        const queued = this.queuedFiles.filter(f => f.status === 'queued');
+        if (queued.length === 0) {
+            this.wb.showToast('No files to process');
+            return;
+        }
+
+        const settings = this.getSettings();
+        const formData = new FormData();
+        for (const qf of queued) {
+            formData.append('files', qf.file);
+        }
+        formData.append('backend', settings.backend);
+        formData.append('output_pdf', settings.output_pdf);
+        formData.append('output_txt', settings.output_txt);
+        formData.append('output_md', settings.output_md);
+        formData.append('output_html', settings.output_html);
+        formData.append('deskew', settings.deskew);
+        formData.append('clean', settings.clean);
+        formData.append('force_ocr', settings.force_ocr);
+
+        this.logEntries = [];
+        this.logMessage(`Creating job for ${queued.length} file(s)...`);
+
+        try {
+            const res = await fetch('/api/jobs', { method: 'POST', body: formData });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const job = await res.json();
+            this.currentJob = job;
+            localStorage.setItem('ocr_current_job_id', job.id);
+
+            // Start the job
+            const startRes = await fetch(`/api/jobs/${job.id}/start`, { method: 'POST' });
+            if (!startRes.ok) throw new Error(`Start failed: HTTP ${startRes.status}`);
+
+            this.logSuccess(`Job ${job.id} started`);
+            this.updateButtons(true);
+            this.pollJob();
+        } catch (err) {
+            this.logError(`Failed to start: ${err.message}`);
+            this.updateButtons(false);
+        }
+    }
+
+    async pollJob() {
+        if (!this.currentJob) return;
+        try {
+            const res = await fetch(`/api/jobs/${this.currentJob.id}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const job = await res.json();
+
+            // Map server file statuses back to our queue
+            if (job.files) {
+                for (const serverFile of job.files) {
+                    const local = this.queuedFiles.find(q => q.name === serverFile.name);
+                    if (!local) continue;
+
+                    if (serverFile.status === 'completed') {
+                        local.status = 'completed';
+                        local.progress = 100;
+                        local.parsed_metadata = serverFile.parsed_metadata || null;
+                        local.current_msg = '';
+                    } else if (serverFile.status === 'processing') {
+                        local.status = 'processing';
+                        local.progress = serverFile.progress || 0;
+                        local.current_msg = serverFile.current_msg || 'Processing...';
+                    } else if (serverFile.status === 'failed') {
+                        local.status = 'failed';
+                        local.progress = 0;
+                        local.current_msg = serverFile.error || 'Failed';
+                    }
+                }
+            }
+
+            // Append new log entries
+            if (job.log && Array.isArray(job.log)) {
+                const newEntries = job.log.slice(this.logEntries.length);
+                for (const msg of newEntries) {
+                    if (typeof msg === 'string') {
+                        if (msg.includes('✓') || msg.toLowerCase().includes('completed')) {
+                            this.logSuccess(msg);
+                        } else if (msg.includes('✗') || msg.toLowerCase().includes('error')) {
+                            this.logError(msg);
+                        } else {
+                            this.logMessage(msg);
+                        }
+                    }
+                }
+            }
+
+            this.currentJob = job;
+            this.renderKanban();
+            this.updateStats();
+
+            // Continue polling or finalize
+            if (job.status === 'processing' || job.status === 'queued') {
+                this.pollTimer = setTimeout(() => this.pollJob(), 500);
+            } else {
+                // Job finished
+                localStorage.removeItem('ocr_current_job_id');
+                this.updateButtons(false);
+                if (job.status === 'completed') {
+                    this.logSuccess('All files processed successfully');
+                } else {
+                    this.logError(`Job ended with status: ${job.status}`);
+                }
+                // Refresh SOURCE tab so new files appear
+                if (this.wb.sourceTab) {
+                    this.wb.sourceTab.loadHistory();
+                }
+            }
+        } catch (err) {
+            this.logError(`Poll error: ${err.message}`);
+            // Retry after a longer delay on error
+            this.pollTimer = setTimeout(() => this.pollJob(), 2000);
+        }
+    }
+
+    async cancelProcessing() {
+        if (!this.currentJob) return;
+        try {
+            await fetch(`/api/jobs/${this.currentJob.id}/cancel`, { method: 'POST' });
+            this.logMessage('Job cancelled');
+        } catch (err) {
+            this.logError(`Cancel failed: ${err.message}`);
+        }
+        clearTimeout(this.pollTimer);
+        this.pollTimer = null;
+        localStorage.removeItem('ocr_current_job_id');
+        this.updateButtons(false);
+        this.renderKanban();
+    }
+
+    updateButtons(processing) {
+        const startBtn = document.querySelector('[data-action="input-start"]');
+        const cancelBtn = document.querySelector('[data-action="input-cancel"]');
+        if (startBtn) startBtn.disabled = processing;
+        if (cancelBtn) cancelBtn.disabled = !processing;
+    }
+
+    // --- Kanban Rendering ---
+
+    renderKanban() {
+        const queuedEl = document.getElementById('kanban-queued');
+        const processingEl = document.getElementById('kanban-processing');
+        const completeEl = document.getElementById('kanban-complete');
+        if (!queuedEl || !processingEl || !completeEl) return;
+
+        const queued = [];
+        const processing = [];
+        const completed = [];
+
+        this.queuedFiles.forEach((f, i) => {
+            if (f.status === 'completed') completed.push({ f, i });
+            else if (f.status === 'processing') processing.push({ f, i });
+            else queued.push({ f, i }); // queued or failed
+        });
+
+        // QUEUED column
+        queuedEl.innerHTML = queued.length === 0
+            ? '<div class="kanban-empty">No files queued</div>'
+            : queued.map(({ f, i }) => this.renderQueuedCard(f, i)).join('');
+
+        // PROCESSING column
+        if (processing.length === 0) {
+            processingEl.innerHTML = '<div class="kanban-empty">Idle</div>';
+        } else {
+            processingEl.innerHTML = processing.map(({ f }) => this.renderProcessingCard(f)).join('')
+                + this.renderLog();
+        }
+
+        // COMPLETE column
+        completeEl.innerHTML = completed.length === 0
+            ? '<div class="kanban-empty">No completed files</div>'
+            : completed.map(({ f, i }) => this.renderCompleteCard(f, i)).join('');
+    }
+
+    renderQueuedCard(file, idx) {
+        return `<div class="kanban-card">
+            <div class="filename">${this.escapeHtml(file.name)}</div>
+            <div class="meta">${this.formatFileSize(file.size)} · Waiting...</div>
+            <div class="kanban-card-actions">
+                <button data-action="input-remove" data-idx="${idx}">Remove</button>
+            </div>
+        </div>`;
+    }
+
+    renderProcessingCard(file) {
+        return `<div class="kanban-card">
+            <div class="filename">${this.escapeHtml(file.name)}</div>
+            <div class="kanban-progress">
+                <div class="kanban-progress-bar" style="width: ${file.progress}%"></div>
+            </div>
+            <div class="meta">${file.progress}% · ${this.escapeHtml(file.current_msg || 'Processing...')}</div>
+        </div>`;
+    }
+
+    renderCompleteCard(file, idx) {
+        const pm = file.parsed_metadata || {};
+        let badge = '';
+        if (pm.classified_type || pm.doc_type) {
+            const type = pm.classified_type || pm.doc_type || '';
+            const conf = pm.classification_confidence || pm.confidence || 0;
+            const confPct = typeof conf === 'number' ? Math.round(conf * (conf < 1 ? 100 : 1)) : conf;
+            const level = confPct >= 80 ? 'high' : (confPct >= 50 ? 'medium' : 'low');
+            badge = `<span class="classification-badge ${level}">${this.escapeHtml(type)} ${confPct}%</span>`;
+        }
+
+        let metadata = '';
+        const fields = [];
+        if (pm.agency) fields.push(['Agency', pm.agency]);
+        if (pm.date_iso || pm.date) fields.push(['Date', pm.date_iso || (pm.date && pm.date.value) || '']);
+        if (pm.rif_number) fields.push(['RIF', pm.rif_number]);
+        if (pm.author) fields.push(['Author', pm.author]);
+
+        if (fields.length > 0) {
+            metadata = `<div class="kanban-metadata">${fields.map(([label, value]) =>
+                `<div class="meta-row"><span class="meta-label">${label}</span><span class="meta-value">${this.escapeHtml(String(value))}</span></div>`
+            ).join('')}</div>`;
+        }
+
+        return `<div class="kanban-card">
+            <div class="filename">${this.escapeHtml(file.name)}</div>
+            ${badge}
+            ${metadata}
+            <div class="kanban-card-actions">
+                <button data-action="input-copy-metadata" data-idx="${idx}" title="Copy metadata">
+                    <span class="material-symbols-outlined" style="font-size:12px;">content_copy</span>
+                </button>
+                <button data-action="input-reparse" data-idx="${idx}" title="Re-parse metadata">
+                    <span class="material-symbols-outlined" style="font-size:12px;">refresh</span>
+                </button>
+            </div>
+        </div>`;
+    }
+
+    renderLog() {
+        if (this.logEntries.length === 0) return '';
+        const recent = this.logEntries.slice(-10);
+        return `<div class="kanban-log">${recent.map(e => {
+            const cls = e.type === 'success' ? ' class="log-success"' : (e.type === 'error' ? ' class="log-error"' : '');
+            return `<p${cls}>> ${this.escapeHtml(e.msg)}</p>`;
+        }).join('')}</div>`;
+    }
+
+    // --- Stats ---
+
+    updateStats() {
+        const totalEl = document.getElementById('input-stat-total');
+        const successEl = document.getElementById('input-stat-success');
+        const confEl = document.getElementById('input-stat-confidence');
+        if (!totalEl) return;
+
+        const total = this.queuedFiles.length;
+        const succeeded = this.queuedFiles.filter(f => f.status === 'completed').length;
+
+        let avgConf = '--';
+        const confs = this.queuedFiles
+            .filter(f => f.parsed_metadata && (f.parsed_metadata.classification_confidence || f.parsed_metadata.confidence))
+            .map(f => {
+                const c = f.parsed_metadata.classification_confidence || f.parsed_metadata.confidence || 0;
+                return typeof c === 'number' ? (c < 1 ? c * 100 : c) : 0;
+            });
+        if (confs.length > 0) {
+            avgConf = Math.round(confs.reduce((a, b) => a + b, 0) / confs.length) + '%';
+        }
+
+        totalEl.textContent = total;
+        successEl.textContent = succeeded;
+        confEl.textContent = avgConf;
+    }
+
+    // --- Logging ---
+
+    logMessage(msg) { this.logEntries.push({ msg, type: 'info' }); }
+    logSuccess(msg) { this.logEntries.push({ msg, type: 'success' }); }
+    logError(msg)   { this.logEntries.push({ msg, type: 'error' }); }
+
+    // --- Utilities ---
+
+    formatFileSize(bytes) {
+        if (!bytes || bytes === 0) return '0 B';
+        const units = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(1024));
+        return (bytes / Math.pow(1024, i)).toFixed(i > 0 ? 1 : 0) + ' ' + units[i];
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // --- Metadata Actions ---
+
+    async copyMetadata(fileIdx) {
+        const file = this.queuedFiles[fileIdx];
+        if (!file || !file.parsed_metadata) {
+            this.wb.showToast('No metadata to copy');
+            return;
+        }
+        const pm = file.parsed_metadata;
+        const lines = [];
+        if (pm.rif_number) lines.push(`RIF: ${pm.rif_number}`);
+        if (pm.agency) lines.push(`Agency: ${pm.agency}`);
+        if (pm.date_iso) lines.push(`Date: ${pm.date_iso}`);
+        if (pm.author) lines.push(`Author: ${pm.author}`);
+        if (pm.classified_type || pm.doc_type) lines.push(`Type: ${pm.classified_type || pm.doc_type}`);
+
+        if (lines.length === 0) {
+            this.wb.showToast('No metadata fields found');
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(lines.join('\n'));
+            this.wb.showToast('Metadata copied');
+        } catch {
+            this.wb.showToast('Copy failed');
+        }
+    }
+
+    async reparseHeader(fileIdx) {
+        const file = this.queuedFiles[fileIdx];
+        if (!file) return;
+
+        const baseName = file.name.replace(/\.[^.]+$/, '');
+        try {
+            // Fetch the text output
+            const textRes = await fetch(`/api/download/${encodeURIComponent(baseName)}.txt`);
+            if (!textRes.ok) throw new Error(`No text output found`);
+            const text = await textRes.text();
+
+            // Re-parse
+            const parseRes = await fetch('/api/parse-metadata', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            if (!parseRes.ok) throw new Error(`Parse failed`);
+            const parsed = await parseRes.json();
+
+            file.parsed_metadata = { ...file.parsed_metadata, ...parsed };
+            this.renderKanban();
+            this.wb.showToast('Metadata re-parsed');
+        } catch (err) {
+            this.wb.showToast(`Re-parse failed: ${err.message}`);
+        }
+    }
+}
+
+// =====================================================================
 // SourceTab — File grid from /api/history (workbench mode only)
 // =====================================================================
 class SourceTab {
@@ -1119,6 +1622,7 @@ class DocumentWorkbench {
         this.entitiesTab = new EntitiesTab(this);
         this.exportTab = new ExportTab(this);
         this.sourceTab = this.isWorkbenchMode ? new SourceTab(this) : null;
+        this.inputTab = this.isWorkbenchMode ? new InputTab(this) : null;
     }
 
     setFile(rawFile) {
@@ -1154,6 +1658,9 @@ class DocumentWorkbench {
         this.bindEvents();
 
         if (this.isWorkbenchMode) {
+            // Initialize INPUT tab (drop zone, config fetch, job restore)
+            if (this.inputTab) this.inputTab.init();
+
             // Workbench mode: load file grid, handle deep-link
             this.sourceTab.loadHistory().then(() => {
                 if (this.FILE_NAME) {
@@ -1214,6 +1721,28 @@ class DocumentWorkbench {
             const idx = target.dataset.idx !== undefined ? parseInt(target.dataset.idx) : null;
 
             switch (action) {
+                // Input tab
+                case 'input-start':
+                    if (self.inputTab) self.inputTab.startProcessing();
+                    break;
+                case 'input-cancel':
+                    if (self.inputTab) self.inputTab.cancelProcessing();
+                    break;
+                case 'input-remove':
+                    if (self.inputTab && idx !== null) self.inputTab.removeFile(idx);
+                    break;
+                case 'input-clear-completed':
+                    if (self.inputTab) self.inputTab.clearCompleted();
+                    break;
+                case 'input-clear-all':
+                    if (self.inputTab) self.inputTab.clearAll();
+                    break;
+                case 'input-copy-metadata':
+                    if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx);
+                    break;
+                case 'input-reparse':
+                    if (self.inputTab && idx !== null) self.inputTab.reparseHeader(idx);
+                    break;
                 // Source tab
                 case 'select-file':
                     if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename);
@@ -1322,6 +1851,7 @@ class DocumentWorkbench {
         const hasApproved = approvedCount > 0;
 
         return {
+            input: true,
             source: true,
             classify: hasFile,
             entities: hasFile && hasReviewed,
@@ -1366,8 +1896,8 @@ class DocumentWorkbench {
             const unlock = this.getUnlockState();
             if (!unlock[tabName]) {
                 // Fall back to highest unlocked tab
-                const fallback = ['export', 'entities', 'classify', 'source']
-                    .find(t => unlock[t]) || 'source';
+                const fallback = ['export', 'entities', 'classify', 'source', 'input']
+                    .find(t => unlock[t]) || 'input';
                 if (fallback !== tabName) {
                     const reasons = {
                         classify: 'Select a document first',

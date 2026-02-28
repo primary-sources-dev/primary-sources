@@ -262,14 +262,18 @@
                     <span class="material-symbols-outlined text-primary align-middle mr-2">workspaces</span>
                     Document Workbench
                 </h1>
-                <p id="file-info" class="text-sm opacity-60">Select a document from the SOURCE tab to begin.</p>
+                <p id="file-info" class="text-sm opacity-60">Drop files in the INPUT tab or select from SOURCE to begin.</p>
             </div>
 
             <!-- ============================================================ -->
-            <!-- 4-Tab Bar with Progressive Unlock                           -->
+            <!-- 5-Tab Bar with Progressive Unlock                           -->
             <!-- ============================================================ -->
             <div class="tab-bar">
-                <button class="tab-btn active" data-tab="source">
+                <button class="tab-btn active" data-tab="input">
+                    <span class="material-symbols-outlined text-sm align-middle mr-1">upload_file</span>
+                    Input
+                </button>
+                <button class="tab-btn" data-tab="source">
                     <span class="material-symbols-outlined text-sm align-middle mr-1">folder_open</span>
                     Source
                 </button>
@@ -284,16 +288,145 @@
                     <span class="tab-lock-icon material-symbols-outlined">lock</span>
                 </button>
                 <button class="tab-btn disabled" data-tab="export">
-                    <span class="material-symbols-outlined text-sm align-middle mr-1">upload_file</span>
+                    <span class="material-symbols-outlined text-sm align-middle mr-1">file_export</span>
                     Export
                     <span class="tab-lock-icon material-symbols-outlined">lock</span>
                 </button>
             </div>
 
             <!-- ============================================================ -->
+            <!-- TAB PANEL: Input (OCR scanning with kanban pipeline)        -->
+            <!-- ============================================================ -->
+            <div id="tab-input" class="tab-panel active">
+
+                <!-- A. Intake Container: drop zone + settings + action buttons -->
+                <div class="intake-container">
+                    <div class="intake-grid">
+                        <!-- Left: Drop Zone -->
+                        <div id="drop-zone" class="intake-dropzone">
+                            <span class="material-symbols-outlined" style="font-size:48px; opacity:0.3;">cloud_upload</span>
+                            <p class="text-sm mt-2" style="color: var(--archive-secondary);">Drop files here or click to browse</p>
+                            <p class="text-[10px] opacity-40 mt-1">PDF · JPG · PNG · TIFF · WEBP · HEIC · ZIP</p>
+                            <input id="file-input" type="file"
+                                accept=".pdf,.jpg,.jpeg,.png,.tiff,.webp,.heic,.heif,.zip,.tar,.gz,.tgz,.bz2"
+                                multiple hidden>
+                        </div>
+
+                        <!-- Right: Settings Panel -->
+                        <div class="intake-settings">
+                            <div class="mb-3">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">Backend</label>
+                                <div class="flex gap-4">
+                                    <label class="flex items-center gap-2 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="radio" name="backend" value="wsl" checked class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        WSL (ocrmypdf)
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="radio" name="backend" value="python" class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        Python
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">Preprocessing</label>
+                                <div class="flex gap-3 flex-wrap">
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="option-deskew" checked class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        Deskew
+                                    </label>
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="option-clean" checked class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        Clean
+                                    </label>
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="option-force" class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        Force OCR
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">Output Formats</label>
+                                <div class="flex gap-3 flex-wrap">
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="output-pdf" checked class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        PDF
+                                    </label>
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="output-txt" class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        TXT
+                                    </label>
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="output-md" checked class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        MD
+                                    </label>
+                                    <label class="flex items-center gap-1 text-xs cursor-pointer" style="color: var(--archive-secondary);">
+                                        <input type="checkbox" id="output-html" checked class="hidden peer">
+                                        <div class="w-3 h-3 border border-primary peer-checked:bg-primary"></div>
+                                        HTML
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer strip: file count left, action buttons right -->
+                    <div class="intake-footer">
+                        <span id="input-file-count" class="text-xs opacity-40">No files queued</span>
+                        <div class="flex gap-3">
+                            <button class="export-btn export-btn-secondary text-xs" data-action="input-cancel" disabled>
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">close</span>
+                                Cancel
+                            </button>
+                            <button class="export-btn export-btn-primary text-xs" data-action="input-start">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">play_arrow</span>
+                                Start OCR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B. Kanban Pipeline: 3 separate columns, same component -->
+                <div class="kanban-grid">
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">Queued</div>
+                        <div id="kanban-queued" class="kanban-column-body">
+                            <div class="kanban-empty">No files queued</div>
+                        </div>
+                    </div>
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">Processing</div>
+                        <div id="kanban-processing" class="kanban-column-body">
+                            <div class="kanban-empty">Idle</div>
+                        </div>
+                    </div>
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">Complete</div>
+                        <div id="kanban-complete" class="kanban-column-body">
+                            <div class="kanban-empty">No completed files</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C. Stats Bar -->
+                <div id="input-stats" class="input-stats">
+                    <span><span class="opacity-60">Total:</span> <span id="input-stat-total">0</span></span>
+                    <span><span class="opacity-60">Succeeded:</span> <span id="input-stat-success">0</span></span>
+                    <span><span class="opacity-60">Avg Confidence:</span> <span id="input-stat-confidence">--</span></span>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
             <!-- TAB PANEL: Source (file grid from /api/history)              -->
             <!-- ============================================================ -->
-            <div id="tab-source" class="tab-panel active">
+            <div id="tab-source" class="tab-panel">
 
                 <!-- Source toolbar -->
                 <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
