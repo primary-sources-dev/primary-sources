@@ -41,6 +41,11 @@ class ClassifyTab {
         this.activeRenders = 0;
         this.MAX_CONCURRENT_RENDERS = 3;
         this.observer = null;
+
+        // Pagination
+        this.currentPage = 1;
+        this.itemsPerPage = 10;
+        this.filteredPages = [];
     }
 
     // ── PDF rendering ───────────────────────────────────────────
@@ -338,8 +343,21 @@ class ClassifyTab {
     }
 
     renderCards(pages) {
+        this.filteredPages = pages;
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        const end = Math.min(start + this.itemsPerPage, pages.length);
+        const slice = pages.slice(start, end);
+
         const container = document.getElementById('cards-container');
-        container.innerHTML = pages.map(p => this.renderCard(p)).join('');
+        container.innerHTML = slice.map(p => this.renderCard(p)).join('');
+
+        // Re-apply saved feedback to visible cards
+        for (const p of slice) {
+            const fb = this.wb.feedback[p.page];
+            if (fb) this.applyFeedbackUI(p.page, fb);
+        }
+
+        this.updatePagination();
     }
 
     // ── Feedback engine ─────────────────────────────────────────
@@ -469,16 +487,43 @@ class ClassifyTab {
     }
 
     updateStats() {
-        const visible = document.querySelectorAll("[data-page]:not(.hidden)").length;
-        const total = document.querySelectorAll("[data-page]").length;
+        const allPages = this.wb.classificationData ? this.wb.classificationData.pages.length : 0;
+        const filtered = this.filteredPages.length;
         const reviewed = Object.values(this.wb.feedback).filter(f => f.status === "correct" || f.status === "incorrect").length;
         const correct = Object.values(this.wb.feedback).filter(f => f.status === "correct").length;
         const incorrect = Object.values(this.wb.feedback).filter(f => f.status === "incorrect").length;
 
-        document.getElementById("stat-total").textContent = visible < total ? `${visible}/${total}` : total;
+        document.getElementById("stat-total").textContent = filtered < allPages ? `${filtered}/${allPages}` : allPages;
         document.getElementById("stat-reviewed").textContent = reviewed;
         document.getElementById("stat-correct").textContent = correct;
         document.getElementById("stat-incorrect").textContent = incorrect;
+    }
+
+    updatePagination() {
+        const total = this.filteredPages.length;
+        const totalPages = Math.max(1, Math.ceil(total / this.itemsPerPage));
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        const end = Math.min(start + this.itemsPerPage, total);
+
+        const prevBtn = document.getElementById('page-prev');
+        const nextBtn = document.getElementById('page-next');
+        const pageInput = document.getElementById('page-input');
+        const pageTotal = document.getElementById('page-total');
+        const pageRange = document.getElementById('page-range');
+
+        if (prevBtn) prevBtn.disabled = this.currentPage <= 1;
+        if (nextBtn) nextBtn.disabled = this.currentPage >= totalPages;
+        if (pageInput) { pageInput.value = this.currentPage; pageInput.max = totalPages; }
+        if (pageTotal) pageTotal.textContent = `of ${totalPages}`;
+        if (pageRange) pageRange.textContent = total > 0
+            ? `Showing ${start + 1}\u2013${end} of ${total}`
+            : 'No results';
+    }
+
+    goToPage(page) {
+        const totalPages = Math.max(1, Math.ceil(this.filteredPages.length / this.itemsPerPage));
+        this.currentPage = Math.max(1, Math.min(page, totalPages));
+        this.renderCards(this.filteredPages);
     }
 
     populateTypeFilter(pages) {
@@ -507,49 +552,40 @@ class ClassifyTab {
     }
 
     applyFilters() {
+        if (!this.wb.classificationData) return;
+
         const typeFilter = document.getElementById("filter-type").value;
         const agencyFilter = document.getElementById("filter-agency")?.value || "";
         const statusFilter = document.getElementById("filter-status").value;
         const sortOrder = document.getElementById("sort-order").value;
 
-        const container = document.getElementById("cards-container");
-        const cards = Array.from(document.querySelectorAll("[data-page]"));
+        // Filter from full dataset (array-based, not DOM)
+        let filtered = this.wb.classificationData.pages.filter(p => {
+            const fb = this.wb.feedback[p.page] || {};
+            const status = fb.status || "pending";
+            const agency = fb.selectedAgency || p.agency;
+            const docType = fb.selectedClass || p.doc_type;
 
-        cards.forEach(card => {
-            const page = card.dataset.page;
-            const predicted = card.dataset.predicted;
-            const agency = card.dataset.agency;
-
-            const currentFeedback = this.wb.feedback[page] || {};
-            const status = currentFeedback.status || "pending";
-            const currentAgency = currentFeedback.selectedAgency || agency;
-            const currentClass = currentFeedback.selectedClass || predicted;
-
-            let show = true;
-            if (typeFilter && currentClass !== typeFilter) show = false;
-            if (agencyFilter && currentAgency !== agencyFilter) show = false;
-            if (statusFilter && status !== statusFilter) show = false;
-
-            card.classList.toggle("hidden", !show);
+            if (typeFilter && docType !== typeFilter) return false;
+            if (agencyFilter && agency !== agencyFilter) return false;
+            if (statusFilter && status !== statusFilter) return false;
+            return true;
         });
 
-        const visibleCards = cards.filter(c => !c.classList.contains("hidden"));
-        visibleCards.sort((a, b) => {
-            const pageA = parseInt(a.dataset.page);
-            const pageB = parseInt(b.dataset.page);
-            const confA = parseFloat(a.dataset.confidence);
-            const confB = parseFloat(b.dataset.confidence);
-
+        // Sort
+        filtered.sort((a, b) => {
             switch (sortOrder) {
-                case "page-asc": return pageA - pageB;
-                case "page-desc": return pageB - pageA;
-                case "conf-asc": return confA - confB;
-                case "conf-desc": return confB - confA;
+                case "page-asc": return a.page - b.page;
+                case "page-desc": return b.page - a.page;
+                case "conf-asc": return a.confidence - b.confidence;
+                case "conf-desc": return b.confidence - a.confidence;
                 default: return 0;
             }
         });
 
-        visibleCards.forEach(card => container.appendChild(card));
+        // Reset to page 1 and render
+        this.currentPage = 1;
+        this.renderCards(filtered);
         this.updateStats();
     }
 
@@ -1747,6 +1783,13 @@ class DocumentWorkbench {
                 case 'select-file':
                     if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename);
                     break;
+                // Classify tab — pagination
+                case 'page-prev':
+                    self.classifyTab.goToPage(self.classifyTab.currentPage - 1);
+                    break;
+                case 'page-next':
+                    self.classifyTab.goToPage(self.classifyTab.currentPage + 1);
+                    break;
                 // Classify tab
                 case 'submit-4tier':
                     self.classifyTab.submit4Tier(parseInt(page));
@@ -1814,6 +1857,14 @@ class DocumentWorkbench {
             const el = document.getElementById(id);
             if (el) el.addEventListener('change', () => self.classifyTab.applyFilters());
         });
+
+        // Pagination page input
+        const pageInput = document.getElementById('page-input');
+        if (pageInput) {
+            pageInput.addEventListener('change', () => {
+                self.classifyTab.goToPage(parseInt(pageInput.value) || 1);
+            });
+        }
 
         // Source tab search/sort (workbench mode only)
         if (this.isWorkbenchMode) {

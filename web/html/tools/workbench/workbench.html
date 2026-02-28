@@ -489,6 +489,22 @@
                             <div class="text-red-400"><span>Incorrect:</span> <span id="stat-incorrect">0</span></div>
                         </div>
 
+                        <!-- Pagination nav -->
+                        <div class="pagination-nav mb-4">
+                            <div class="pagination-controls">
+                                <button id="page-prev" data-action="page-prev" disabled>
+                                    <span class="material-symbols-outlined" style="font-size:16px">chevron_left</span> Prev
+                                </button>
+                                <span class="opacity-60" style="font-size:12px">Page</span>
+                                <input type="number" id="page-input" value="1" min="1" max="1">
+                                <span id="page-total" class="opacity-60" style="font-size:12px">of 1</span>
+                                <button id="page-next" data-action="page-next" disabled>
+                                    Next <span class="material-symbols-outlined" style="font-size:16px">chevron_right</span>
+                                </button>
+                            </div>
+                            <span id="page-range" class="page-range">Showing 0–0 of 0</span>
+                        </div>
+
                         <!-- Filters -->
                         <div class="flex flex-wrap gap-4 mb-4 text-sm">
                             <div>

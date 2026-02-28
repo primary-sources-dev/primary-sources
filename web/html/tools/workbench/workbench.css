@@ -431,6 +431,69 @@ pre {
     display: none;
 }
 
+/* ── Pagination nav ─────────────────────────────── */
+.pagination-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination-nav button {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination-nav button:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.pagination-nav button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.pagination-nav input[type="number"] {
+    width: 50px;
+    padding: 3px 6px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--archive-secondary);
+    background: var(--archive-dark);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    -moz-appearance: textfield;
+}
+
+.pagination-nav input[type="number"]::-webkit-outer-spin-button,
+.pagination-nav input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pagination-nav .page-range {
+    font-size: 11px;
+    opacity: 0.5;
+}
+
 .pdf-canvas {
     max-height: 500px;
     width: auto;
