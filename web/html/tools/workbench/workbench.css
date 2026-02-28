@@ -917,14 +917,6 @@ pre {
     border-radius: 2px;
 }
 
-.verified-badge {
-    color: #22c55e;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
 /* Export tab */
 .export-card {
     background-color: var(--archive-surface);

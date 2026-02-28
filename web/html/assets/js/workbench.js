@@ -269,9 +269,6 @@ class ClassifyTab {
                         <div class="flex flex-wrap items-center gap-2 pr-2">
                             <span class="font-bold text-xl" style="color: var(--primary);">Page ${page}</span>
                             <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-[10px] ${this.confidenceColor(confidence)} whitespace-nowrap">${confPct}% Match</span>
-                            <div id="verified-badge-${page}" class="hidden verified-badge text-[10px] whitespace-nowrap">
-                                <span class="material-symbols-outlined text-sm">verified</span> Verified
-                            </div>
                         </div>
                         <div id="status-text-${page}" class="text-[10px] opacity-60 italic whitespace-nowrap"></div>
                         <details class="ms-auto text-right">
@@ -464,7 +461,7 @@ class ClassifyTab {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.success) this.wb.showToast(`Verified Page ${page}`);
+                if (data.success) this.wb.showToast(`Saved review for Page ${page}`);
             })
             .catch(err => console.warn('Server offline, saved locally only.'));
     }
@@ -478,16 +475,12 @@ class ClassifyTab {
         el.classList.add(status);
 
         const statusEl = document.getElementById(`status-text-${page}`);
-        const badgeEl = document.getElementById(`verified-badge-${page}`);
-
         if (status === "correct" || status === "incorrect") {
-            statusEl.textContent = "\u2713 Verified";
+            statusEl.textContent = "\u2713 Reviewed";
             statusEl.classList.add("text-green-500");
-            badgeEl.classList.remove("hidden");
         } else {
             statusEl.textContent = data?.notes ? "Note saved" : "";
             statusEl.classList.remove("text-green-500");
-            badgeEl.classList.add("hidden");
         }
 
         // Update View labels
@@ -706,7 +699,6 @@ class EntitiesTab {
         // Concatenate all page text and track offsets
         let combinedText = '';
         const pageOffsets = [];
-        const docTags = new Set();
         let currentOffset = 0;
 
         if (this.wb.classificationData && this.wb.classificationData.pages) {
@@ -720,7 +712,6 @@ class EntitiesTab {
                 });
                 combinedText += text;
                 currentOffset += text.length;
-                (page.tags || []).forEach(t => docTags.add(t));
             });
         }
 
@@ -750,10 +741,26 @@ class EntitiesTab {
             // Helper to find page for a character position
             const findPage = (pos) => {
                 const p = pageOffsets.find(o => pos >= o.start && pos < o.end);
-                return p ? { index: p.index, tags: p.tags } : { index: 1, tags: [] };
+                if (!p) return { index: 1, tags: [] };
+                const fb = this.wb.feedback[p.index];
+                const activeTags = fb && fb.selectedContent ? fb.selectedContent : (p.tags || []);
+                return { index: p.index, tags: activeTags };
             };
 
-            // Enhance entities with page info
+            // Collect all unique tags for the document context summary (Predicted + Feedback)
+            const docTags = new Set();
+            pageOffsets.forEach(p => {
+                const fb = this.wb.feedback[p.index];
+                if (fb) {
+                    if (fb.selectedContent) fb.selectedContent.forEach(t => docTags.add(t));
+                    if (fb.selectedAgency) docTags.add(fb.selectedAgency);
+                    if (fb.selectedType) docTags.add(fb.selectedType);
+                } else if (p.tags) {
+                    p.tags.forEach(t => docTags.add(t));
+                }
+            });
+
+            // Enhance entities with page info (using updated findPage)
             this.wb.detectedEntities = (data.entities || []).map(e => {
                 const pInfo = findPage(e.start_pos);
                 return { ...e, page: pInfo.index, tags: pInfo.tags };
@@ -764,34 +771,22 @@ class EntitiesTab {
                 return { ...c, page: pInfo.index, tags: pInfo.tags };
             });
 
-            // Update Summary with Tags
+            // Update inline summary bar
             const s = data.summary || {};
-            const tagHtml = Array.from(docTags).map(t =>
-                `<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10" style="color: var(--primary);">${t}</span>`
-            ).join('');
+            const matchesEl = document.getElementById('entity-matches-total');
+            const breakdownEl = document.getElementById('entity-matches-breakdown');
+            const candidatesEl = document.getElementById('entity-candidates-total');
+            const tagsEl = document.getElementById('entity-summary-tags');
 
-            document.getElementById('entity-summary').innerHTML = `
-                <div class="flex-1 grid grid-cols-3 gap-4">
-                    <div class="border-r border-white/5">
-                        <div class="text-[10px] opacity-40 uppercase mb-1">Registry Matches</div>
-                        <div class="flex gap-4 items-baseline">
-                            <span class="text-2xl font-bold">${s.matched || 0}</span>
-                            <span class="text-xs opacity-60">P: ${s.persons || 0} | L: ${s.places || 0} | O: ${s.orgs || 0}</span>
-                        </div>
-                    </div>
-                    <div class="border-r border-white/5">
-                        <div class="text-[10px] opacity-40 uppercase mb-1">NER Candidates</div>
-                        <div class="flex gap-4 items-baseline">
-                            <span class="text-2xl font-bold" style="color: var(--secondary);">${s.candidates || 0}</span>
-                            <span class="text-xs opacity-60">Unverified mentions</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-[10px] opacity-40 uppercase mb-1">Document Context</div>
-                        <div class="flex flex-wrap gap-1">${tagHtml || '<span class="opacity-20 italic">No tags</span>'}</div>
-                    </div>
-                </div>
-            `;
+            if (matchesEl) matchesEl.textContent = `${s.matched || 0}`;
+            if (breakdownEl) breakdownEl.textContent = `(${s.persons || 0}P/${s.places || 0}L/${s.orgs || 0}O)`;
+            if (candidatesEl) candidatesEl.textContent = `${s.candidates || 0}`;
+
+            if (tagsEl) {
+                tagsEl.innerHTML = Array.from(docTags).map(t =>
+                    `<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10" style="color: var(--primary);">${t}</span>`
+                ).join('') || '<span class="opacity-20 italic text-[10px]">No tags</span>';
+            }
 
             this.renderEntitiesDashboard();
 
@@ -858,7 +853,7 @@ class EntitiesTab {
                 <td>
                     <div class="font-bold">${item.display_name}</div>
                     <div class="text-[10px] opacity-40 flex gap-2">
-                        <span>${item.method || 'ner'}</span>
+                        <span>${item.method === 'ner' ? 'candidate' : (item.method || 'matched')}</span>
                         ${item.tags ? item.tags.map(t => `<span class="text-primary/60">#${t}</span>`).join(' ') : ''}
                     </div>
                 </td>

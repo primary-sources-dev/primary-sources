@@ -680,19 +680,39 @@
 
                     <!-- Entity Detection -->
                     <div class="export-card">
-                        <div class="flex justify-between items-center mb-3">
-                            <h2 class="text-lg font-bold" style="color: var(--primary);">
-                                <span class="material-symbols-outlined text-sm align-middle mr-1">person_search</span>
-                                Entity Detection
-                            </h2>
+                        <div id="entity-summary"
+                            class="mb-4 p-3 bg-black/30 rounded border border-white/5 flex flex-wrap items-center gap-x-8 gap-y-3">
+                            <div class="flex items-center gap-3 pr-8 border-r border-white/10 last:border-0">
+                                <span
+                                    class="text-[10px] opacity-40 uppercase font-bold tracking-widest whitespace-nowrap">Registry
+                                    Matches</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="entity-matches-total"
+                                        class="text-xl font-bold text-archive-heading">0</span>
+                                    <span id="entity-matches-breakdown"
+                                        class="text-[10px] opacity-60 font-mono">(0P/0L/0O)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 pr-8 border-r border-white/10 last:border-0">
+                                <span
+                                    class="text-[10px] opacity-40 uppercase font-bold tracking-widest whitespace-nowrap">Candidates</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="entity-candidates-total" class="text-xl font-bold text-secondary">0</span>
+                                    <span class="text-[10px] opacity-40 italic">unverified</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 flex-1 min-w-[200px]">
+                                <span
+                                    class="text-[10px] opacity-40 uppercase font-bold tracking-widest whitespace-nowrap">Document
+                                    Context</span>
+                                <div id="entity-summary-tags" class="flex flex-wrap gap-1.5"></div>
+                            </div>
                             <button id="detect-entities-btn" data-action="detect-entities"
                                 class="export-btn export-btn-primary">
                                 <span class="material-symbols-outlined text-sm align-middle mr-1">search</span>
                                 Detect Entities
                             </button>
                         </div>
-                        <p class="text-xs opacity-40 mb-4">Scans all page text against the entity database. Click button
-                            to start.</p>
 
                         <!-- Loading State -->
                         <div id="entity-loading" class="hidden text-center py-6 text-sm opacity-60">
@@ -701,8 +721,6 @@
 
                         <!-- Entity Results (hidden until detection runs) -->
                         <div id="entity-results" class="hidden">
-                            <div id="entity-summary" class="mb-6 p-4 bg-black/30 rounded border border-white/5"></div>
-
                             <!-- Dashboard Filters -->
                             <div
                                 class="flex flex-wrap gap-4 mb-4 items-end bg-black/20 p-3 rounded border border-white/5">
