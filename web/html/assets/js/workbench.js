@@ -255,7 +255,7 @@ class ClassifyTab {
             data-highlights='${highlightsJson}' data-text-sample="${textSample}">
             <div class="card-layout">
                 <!-- Left: PDF Page -->
-                <div class="flex-shrink-0 max-w-[320px]">
+                <div class="flex-shrink-0 max-w-[360px] w-full">
                     <div class="canvas-container shadow-lg">
                         <canvas id="canvas-${page_index}" class="pdf-canvas rounded-sm" data-page-index="${page_index}" data-action="show-modal"></canvas>
                         <div class="canvas-loading">Loading...</div>
@@ -2056,35 +2056,6 @@ class DocumentWorkbench {
         const entityLoading = document.getElementById('entity-loading');
         if (entityLoading) entityLoading.classList.add('hidden');
 
-        // Reset summary stats immediately
-        document.getElementById('stat-total').textContent = '\u2014';
-        document.getElementById('stat-reviewed').textContent = '0';
-        document.getElementById('stat-correct').textContent = '0';
-        document.getElementById('stat-incorrect').textContent = '0';
-
-        // Reset pagination
-        this.classifyTab.currentPage = 1;
-        this.classifyTab.filteredPages = [];
-        this.classifyTab.updatePagination();
-
-        // Reset file-info
-        document.getElementById('file-info').textContent = `${filename} \u2022 Loading\u2026`;
-
-        // Clear lazy loading observer
-        if (this.classifyTab.observer) {
-            this.classifyTab.observer.disconnect();
-            this.classifyTab.observer = null;
-        }
-        this.classifyTab.renderedPages.clear();
-        this.classifyTab.renderQueue = [];
-
-        // Reset filter dropdowns
-        const filterType = document.getElementById('filter-type');
-        const filterAgency = document.getElementById('filter-agency');
-        const filterStatus = document.getElementById('filter-status');
-        if (filterType) filterType.innerHTML = '<option value="">All Types</option>';
-        if (filterAgency) filterAgency.innerHTML = '<option value="">All Agencies</option>';
-        if (filterStatus) filterStatus.value = '';
 
         // Set new file
         this.setFile(filename);
