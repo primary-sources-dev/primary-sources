@@ -127,6 +127,7 @@ Since the database uses polymorphic references (where one ID might point to a Pe
   - `APPROX` → `start_ts` must be NOT NULL, `end_ts` must be NULL (use RANGE for bounded spans)
   - `EXACT` → `start_ts` must be NOT NULL, `end_ts` must be NULL or equal to `start_ts`
   - `RANGE` → both `start_ts` and `end_ts` must be NOT NULL
+* **Schema-level default/non-null**: `event.time_precision` defaults to `UNKNOWN` and is `NOT NULL` (migration `016_integrity_post015_hardening.sql`) so precision is always explicit.
 
 #### Entity Deletion Protection
 
@@ -138,6 +139,19 @@ To maintain referential integrity across polymorphic relationships, deletion tri
 * **`prevent_object_deletion()`**: Blocks deletion if referenced in `event_object`, `assertion`, or `entity_identifier`
 * **`prevent_event_deletion()`**: Blocks deletion if referenced in `event_relation` (both directions), `assertion.context_event_id`, `assertion` (as subject/object), or `entity_identifier`
 * **`prevent_source_deletion()`**: Blocks deletion if any `source_excerpt` is linked to `assertion_support` (protects evidentiary chain) or if referenced in `entity_identifier`
+* **`prevent_source_excerpt_deletion()`**: Blocks deletion of `source_excerpt` rows that are linked in `assertion_support` (migration `016_integrity_post015_hardening.sql`).
+
+#### Provenance FK Delete Policy
+
+Nullable provenance links (`assertion_id`) in relationship/split tables are explicitly `ON DELETE SET NULL` to preserve rows while removing only the optional assertion pointer when an assertion is deleted. This applies to:
+
+* `event_participant.assertion_id`
+* `event_place.assertion_id`
+* `event_object.assertion_id`
+* `event_relation.assertion_id`
+* `person_alias.assertion_id`
+* `entity_identifier.assertion_id`
+* `person_relation.assertion_id`
 
 ### 5.3 CHECK Constraints
 
