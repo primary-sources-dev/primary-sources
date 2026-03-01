@@ -265,23 +265,15 @@ class ClassifyTab {
 
                 <!-- Right: Analysis Panel -->
                 <div class="classification-panel">
-                    <div class="flex flex-wrap justify-between items-center gap-y-2 mb-1">
-                        <div class="flex flex-wrap items-center gap-2 pr-2">
-                            <span class="font-bold text-xl" style="color: var(--primary);">Page ${page}</span>
-                            <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-[10px] ${this.confidenceColor(confidence)} whitespace-nowrap">${confPct}% Match</span>
-                        </div>
-                        <div id="status-text-${page}" class="text-[10px] opacity-60 italic whitespace-nowrap"></div>
-                        <details class="ms-auto text-right">
-                            <summary class="text-[9px] opacity-30 cursor-pointer hover:opacity-100 transition-opacity">Fingerprints</summary>
-                            <div class="mt-2 p-2 bg-black/40 rounded border border-white/5 text-[10px] font-mono leading-relaxed text-left">
-                                <div class="mb-1 text-primary font-bold">Matches:</div>
-                                <div class="pl-2 border-l border-primary/30">${matched_patterns.join('<br>')}</div>
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Correction Form -->
                     <div class="p-4 bg-archive-dark rounded-md border border-white/5 shadow-md space-y-4">
+                        <!-- Page ID + Confidence -->
+                        <div class="flex flex-wrap justify-between items-center gap-y-2 pb-3 border-b border-white/5">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="font-bold text-xl" style="color: var(--primary);">Page ${page}</span>
+                                <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-[10px] ${this.confidenceColor(confidence)} whitespace-nowrap">${confPct}% Match</span>
+                            </div>
+                            <div id="status-text-${page}" class="text-[10px] opacity-60 italic whitespace-nowrap"></div>
+                        </div>
                         <!-- Summary Header -->
                         <div class="flex flex-wrap items-center gap-x-5 gap-y-2 pb-4 border-b border-white/5 text-[10px] font-bold uppercase tracking-widest leading-none">
                             <div class="flex items-center gap-2">
@@ -320,7 +312,7 @@ class ClassifyTab {
                                     <option value="">-- Choose Preset --</option>
                                     ${Object.entries(NOTE_PRESETS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
                                 </select>
-                                <textarea id="note-text-${page}" rows="2" 
+                                <textarea id="note-text-${page}" rows="2"
                                     class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
                                     placeholder="Context notes..."></textarea>
                             </div>
@@ -329,13 +321,22 @@ class ClassifyTab {
                                     <input type="checkbox" id="flag-new-${page}" class="scale-110">
                                     <label for="flag-new-${page}" class="text-[10px] opacity-80 cursor-pointer leading-tight">Flag as New Document Type</label>
                                 </div>
-                                <button class="w-full grow py-3 bg-primary text-archive-dark font-bold rounded shadow-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2" 
+                                <button class="w-full grow py-3 bg-primary text-archive-dark font-bold rounded shadow-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                                         data-action="submit-4tier" data-page="${page}">
                                     <span class="material-symbols-outlined text-sm font-bold">check_circle</span>
                                     APPLY & VERIFY
                                 </button>
                             </div>
                         </div>
+
+                        <!-- Fingerprints (diagnostic detail) -->
+                        <details class="pt-3 border-t border-white/5">
+                            <summary class="text-[9px] opacity-30 cursor-pointer hover:opacity-100 transition-opacity">Fingerprints</summary>
+                            <div class="mt-2 p-2 bg-black/40 rounded border border-white/5 text-[10px] font-mono leading-relaxed text-left">
+                                <div class="mb-1 text-primary font-bold">Matches:</div>
+                                <div class="pl-2 border-l border-primary/30">${matched_patterns.join('<br>')}</div>
+                            </div>
+                        </details>
                     </div>
                 </div>
             </div>
