@@ -1769,18 +1769,23 @@ class DocumentWorkbench {
         const title = titles[tabName] || "WORKBENCH";
 
         return `
-            <div class="workbench-header flex items-center justify-between py-4 border-b border-primary/20 mb-6 bg-archive-bg/95 backdrop-blur z-20">
-                <div class="flex items-center gap-4">
-                    <h1 class="text-xl font-bold text-archive-heading tracking-tight underline decoration-primary/10 decoration-2 underline-offset-8">${title}</h1>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <!-- Header Component Placeholder (Matches/Candidates style) -->
-                    <div class="flex items-center gap-3 px-3 py-2 rounded border border-white/10 bg-black/20">
-                        <span class="text-[10px] opacity-60 font-bold whitespace-nowrap uppercase tracking-widest">Workbench Context</span>
-                        <div class="flex items-baseline gap-2">
-                            <span class="text-xl font-bold text-archive-heading opacity-50">---</span>
+            <div class="workbench-header bg-archive-dark px-6 py-4 border-b border-archive-secondary/20 mb-6">
+                <div class="flex items-center justify-between">
+                    <!-- Left: Title + Filter -->
+                    <div class="flex items-center gap-4">
+                        <h1 class="text-xl font-bold text-archive-heading uppercase tracking-[0.2em] font-display">${title}</h1>
+                        <div class="relative">
+                            <select id="workbench-filter" class="appearance-none bg-archive-bg border border-archive-secondary/20 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-archive-heading focus:border-primary focus:ring-0 outline-none transition-colors cursor-pointer pr-8">
+                                <option value="all">All</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-primary pointer-events-none text-base">expand_more</span>
                         </div>
+                    </div>
+
+                    <!-- Right: Workbench Context -->
+                    <div class="flex items-center gap-3 px-3 py-2 border border-archive-secondary/20 bg-archive-bg">
+                        <span class="text-[10px] opacity-60 font-bold whitespace-nowrap uppercase tracking-[0.2em]">Workbench Context</span>
+                        <span class="text-xl font-bold text-archive-heading opacity-50">---</span>
                     </div>
                 </div>
             </div>
