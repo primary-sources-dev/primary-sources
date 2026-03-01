@@ -1,0 +1,85 @@
+{
+  "plan": "StandardFacetBar — Per-Tab Page Header",
+  "status": "pending",
+  "scope": "New component. No modifications to tabbed header or existing facet-bar.",
+
+  "architecture": {
+    "description": "Single-row bar injected below the tabbed header, above page content. Replaces renderWorkbenchHeader() output.",
+    "layout": "TABBED HEADER (do not modify) → STANDARD FACET BAR (this plan) → PAGE CONTENT (existing)",
+    "ascii": [
+      "┌─────────────────────────────────────────────────────────────────┐",
+      "│ [≡]  INPUT  SOURCE  CLASSIFY  ENTITIES  EXPORT  (existing)    │",
+      "├─────────────────────────────────────────────────────────────────┤",
+      "│ CLASSIFY  [Filter ▾]                  WORKBENCH CONTEXT  ---   │",
+      "├─────────────────────────────────────────────────────────────────┤",
+      "│ Page content (cards, forms, tables)                            │",
+      "└─────────────────────────────────────────────────────────────────┘"
+    ]
+  },
+
+  "components": {
+    "left_group": {
+      "layout": "flex items-center gap-4",
+      "children": [
+        {
+          "element": "h1",
+          "content": "Dynamic title — INPUT | SOURCE | CLASSIFY | ENTITIES | EXPORT",
+          "source": "renderWorkbenchHeader() titles map (line 1761-1767)",
+          "style": "Oswald, bold, text-xl, uppercase"
+        },
+        {
+          "element": "select or dropdown button",
+          "content": "Filter — dummy logic, wired for future use",
+          "style": "bg-black/20 border border-white/10 text-[10px] uppercase tracking-widest (match facet-bar)"
+        }
+      ]
+    },
+    "right_group": {
+      "layout": "flex items-center gap-4, pushed right via justify-between",
+      "children": [
+        {
+          "element": "div",
+          "content": "WORKBENCH CONTEXT — dummy placeholder, wired for future use",
+          "style": "px-3 py-2 rounded border border-white/10 bg-black/20 text-[10px] uppercase tracking-widest"
+        }
+      ]
+    }
+  },
+
+  "styling": {
+    "bar": "flex items-center justify-between py-4 border-b border-primary/20 mb-6 bg-archive-bg/95 backdrop-blur z-20",
+    "inherit_from": "Current renderWorkbenchHeader() (line 1771) + existing facet-bar theme",
+    "typography": "Oswald for title, Roboto Mono for data values",
+    "theme": "Dark archive — bg-black/20, border-white/10, opacity layers"
+  },
+
+  "changes": [
+    {
+      "id": 1,
+      "action": "modify",
+      "file": "web/html/assets/js/workbench.js",
+      "method": "renderWorkbenchHeader()",
+      "lines": "1760-1787",
+      "description": "Add dropdown element to left group after h1 title. No other structural changes."
+    }
+  ],
+
+  "do_not_modify": [
+    "injectHeaderTabs()",
+    ".header-tabs / .header-tab-btn styles",
+    "Tabbed header <header> element",
+    "Existing facet-bar component (web/html/components/facet-bar)",
+    "filter.js logic used in browse pages"
+  ],
+
+  "naming": "StandardFacetBar — use this name everywhere. Not SharedFacetBar.",
+
+  "verification": [
+    "Bar renders below tabbed header on all 5 tabs",
+    "Title updates dynamically on tab switch (INPUT, SOURCE, CLASSIFY, ENTITIES, EXPORT)",
+    "Dropdown and Context component render inline, single row, no stacking",
+    "Left group left-aligned, right group right-aligned via justify-between",
+    "Styles match dark archive theme (borders, opacity, typography)",
+    "Tabbed header completely unaffected"
+  ]
+}

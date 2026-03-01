@@ -1,0 +1,47 @@
+{
+  "plan": "Classify Container Restructure",
+  "file": "web/html/assets/js/workbench.js",
+  "method": "renderCard()",
+  "lines": "242-343",
+  "status": "pending",
+  "changes": [
+    {
+      "id": 1,
+      "action": "delete",
+      "description": "Remove outer header row (lines 268-281)",
+      "target": "flex-wrap div containing Page, badge, status-text, Fingerprints"
+    },
+    {
+      "id": 2,
+      "action": "insert",
+      "description": "Add Page + confidence badge + status text as first row inside dark container",
+      "target": "Top of div.p-4.bg-archive-dark (line 284), before Summary Header",
+      "html": "flex row: Page N (bold, primary) | X% Match badge | status-text span, with pb-3 border-b border-white/5 separator"
+    },
+    {
+      "id": 3,
+      "action": "move",
+      "description": "Move Fingerprints details element to bottom of dark container",
+      "target": "Last child inside div.p-4.bg-archive-dark, after the notes/apply grid",
+      "html": "details with pt-3 border-t border-white/5 separator above it"
+    }
+  ],
+  "result": {
+    "outer_header": "deleted",
+    "dark_container_order": [
+      "Page + badge + status (new top row)",
+      "Agency / Class / Format badges",
+      "Hybrid selectors (agency, class, format)",
+      "Content Tags checkboxes",
+      "Reviewer Note + Flag + Apply button",
+      "Fingerprints collapsible (moved to bottom)"
+    ]
+  },
+  "no_touch": [
+    "renderHybridSelector()",
+    "applyFeedbackUI()",
+    "confidenceColor()",
+    "switchTab()",
+    "workbench.css"
+  ]
+}
