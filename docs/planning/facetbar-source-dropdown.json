@@ -1,0 +1,63 @@
+{
+  "plan": "Wire source file selection into StandardFacetBar dropdown on Classify tab",
+  "status": "pending",
+  "file": "web/html/assets/js/workbench.js",
+
+  "context": {
+    "dropdown_element": "#workbench-filter select at line 1778",
+    "source_data": "this.sourceTab.files[] from /api/history",
+    "active_file": "this.FILE_NAME",
+    "load_trigger": "this.loadFile(filename)"
+  },
+
+  "sizing": {
+    "trigger": {
+      "width": "min-w-[200px] max-w-[280px]",
+      "overflow": "text-ellipsis overflow-hidden whitespace-nowrap",
+      "rationale": "Fixed width prevents layout shift when file names vary. Truncates long names in the bar."
+    },
+    "panel": {
+      "type": "native <select> for now",
+      "behavior": "Browser auto-sizes option list to widest entry",
+      "future": "Swap to custom dropdown panel if 20+ files or long names become an issue"
+    }
+  },
+
+  "changes": [
+    {
+      "id": 1,
+      "action": "modify",
+      "method": "renderWorkbenchHeader()",
+      "description": "When tabName is 'classify' or 'entities', populate dropdown options from this.sourceTab.files[]. Set selected to this.FILE_NAME. On other tabs, keep generic 'All' option.",
+      "detail": "Build options string: files.map(f => `<option value=\"${f.name}\" ${f.name === this.FILE_NAME ? 'selected' : ''}>${f.name}</option>`). Add a disabled placeholder option '-- Select Source --' when no file is active."
+    },
+    {
+      "id": 2,
+      "action": "modify",
+      "method": "renderWorkbenchHeader()",
+      "description": "Add min-w-[200px] max-w-[280px] and text truncation classes to the select element for fixed trigger sizing."
+    },
+    {
+      "id": 3,
+      "action": "modify",
+      "method": "switchTab()",
+      "description": "After header re-renders (line 2046), bind change listener on #workbench-filter. On change, call this.loadFile(select.value). Only bind when on classify/entities tabs.",
+      "detail": "const filter = document.getElementById('workbench-filter'); if (filter && ['classify','entities'].includes(tabName)) { filter.onchange = (e) => { if (e.target.value) this.loadFile(e.target.value); }; }"
+    }
+  ],
+
+  "label_behavior": {
+    "input_tab": "Dropdown hidden or shows 'All'",
+    "source_tab": "Dropdown hidden or shows 'All'",
+    "classify_tab": "Dropdown shows source files, selected = active file",
+    "entities_tab": "Dropdown shows source files, selected = active file",
+    "export_tab": "Dropdown shows source files, selected = active file (read-only context)"
+  },
+
+  "do_not_modify": [
+    "SourceTab class",
+    "loadFile() internals",
+    "injectHeaderTabs()",
+    "Existing facet-bar or filter.js"
+  ]
+}
