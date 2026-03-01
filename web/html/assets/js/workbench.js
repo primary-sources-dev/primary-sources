@@ -476,30 +476,37 @@ class ClassifyTab {
         el.classList.add(status);
 
         const statusEl = document.getElementById(`status-text-${page}`);
-        if (status === "correct" || status === "incorrect") {
-            statusEl.textContent = "\u2713 Reviewed";
-            statusEl.classList.add("text-green-500");
-        } else {
-            statusEl.textContent = data?.notes ? "Note saved" : "";
-            statusEl.classList.remove("text-green-500");
+        if (statusEl) {
+            if (status === "correct" || status === "incorrect") {
+                statusEl.textContent = "\u2713 Reviewed";
+                statusEl.classList.add("text-green-500");
+            } else {
+                statusEl.textContent = data?.notes ? "Note saved" : "";
+                statusEl.classList.remove("text-green-500");
+            }
         }
 
         // Update View labels
-        if (data.selectedAgency) {
-            document.getElementById(`view-agency-${page}`).textContent = data.selectedAgency;
+        const agencyEl = document.getElementById(`view-agency-${page}`);
+        if (data.selectedAgency && agencyEl) {
+            agencyEl.textContent = data.selectedAgency;
         }
-        if (data.selectedClass) {
-            document.getElementById(`view-class-${page}`).textContent = data.selectedClass;
+        const classEl = document.getElementById(`view-class-${page}`);
+        if (data.selectedClass && classEl) {
+            classEl.textContent = data.selectedClass;
         }
-        if (Object.prototype.hasOwnProperty.call(data, "selectedFormat")) {
-            document.getElementById(`view-format-${page}`).textContent = data.selectedFormat || 'GENERIC';
+        const formatEl = document.getElementById(`view-format-${page}`);
+        if (Object.prototype.hasOwnProperty.call(data, "selectedFormat") && formatEl) {
+            formatEl.textContent = data.selectedFormat || 'GENERIC';
         }
 
         const contentContainer = document.getElementById(`view-content-${page}`);
-        if (Array.isArray(data.selectedContent) && data.selectedContent.length > 0) {
-            contentContainer.innerHTML = data.selectedContent.map(c => `<span class="content-tag">${c}</span>`).join('');
-        } else if (Object.prototype.hasOwnProperty.call(data, "selectedContent")) {
-            contentContainer.innerHTML = '<span class="text-[10px] opacity-30 italic">none</span>';
+        if (contentContainer) {
+            if (Array.isArray(data.selectedContent) && data.selectedContent.length > 0) {
+                contentContainer.innerHTML = data.selectedContent.map(c => `<span class="content-tag">${c}</span>`).join('');
+            } else if (Object.prototype.hasOwnProperty.call(data, "selectedContent")) {
+                contentContainer.innerHTML = '<span class="text-[10px] opacity-30 italic">none</span>';
+            }
         }
 
         // Sync form
@@ -1768,6 +1775,15 @@ class DocumentWorkbench {
         };
         const title = titles[tabName] || "WORKBENCH";
 
+        // Build dropdown options — source files on classify, generic on other tabs
+        let filterOptions = '<option value="all">All</option>';
+        if (tabName === 'classify' && this.sourceTab && this.sourceTab.files.length > 0) {
+            filterOptions = '<option value="" disabled' + (!this.FILE_NAME ? ' selected' : '') + '>-- Select Source --</option>';
+            filterOptions += this.sourceTab.files.map(f =>
+                `<option value="${f.name}"${f.name === this.FILE_NAME ? ' selected' : ''}>${f.name}</option>`
+            ).join('');
+        }
+
         return `
             <div class="workbench-header bg-archive-dark px-6 py-4 border-b border-archive-secondary/20 mb-6">
                 <div class="flex items-center justify-between">
@@ -1775,8 +1791,8 @@ class DocumentWorkbench {
                     <div class="flex items-center gap-4">
                         <h1 class="text-xl font-bold text-archive-heading uppercase tracking-[0.2em] font-display">${title}</h1>
                         <div class="relative">
-                            <select id="workbench-filter" class="appearance-none bg-archive-bg border border-archive-secondary/20 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-archive-heading focus:border-primary focus:ring-0 outline-none transition-colors cursor-pointer pr-8">
-                                <option value="all">All</option>
+                            <select id="workbench-filter" class="appearance-none bg-archive-bg border border-archive-secondary/20 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-archive-heading focus:border-primary focus:ring-0 outline-none transition-colors cursor-pointer pr-8 min-w-[200px] max-w-[280px] truncate">
+                                ${filterOptions}
                             </select>
                             <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-primary pointer-events-none text-base">expand_more</span>
                         </div>
@@ -2044,6 +2060,12 @@ class DocumentWorkbench {
         }
         const headerEl = document.getElementById('workbench-active-header');
         if (headerEl) headerEl.innerHTML = this.renderWorkbenchHeader(tabName);
+
+        // Bind source dropdown on classify tab
+        if (tabName === 'classify') {
+            const filter = document.getElementById('workbench-filter');
+            if (filter) filter.onchange = (e) => { if (e.target.value) this.loadFile(e.target.value); };
+        }
     }
 
     async loadFile(filename, isDeepLink = false) {
