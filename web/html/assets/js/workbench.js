@@ -1755,6 +1755,7 @@ class SourceTab {
 // =====================================================================
 // DocumentWorkbench — Main controller
 // =====================================================================
+
 class DocumentWorkbench {
     renderWorkbenchHeader(tabName) {
         const titles = {
@@ -1772,11 +1773,13 @@ class DocumentWorkbench {
                     <h1 class="text-xl font-bold text-archive-heading tracking-tight underline decoration-primary/10 decoration-2 underline-offset-8">${title}</h1>
                 </div>
 
-                <!-- Header Component Placeholder (Matches/Candidates style) -->
-                <div class="flex items-center gap-3 px-3 py-2 rounded border border-white/10 bg-black/20">
-                    <span class="text-[10px] opacity-60 font-bold whitespace-nowrap uppercase tracking-widest">Workbench Context</span>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-xl font-bold text-archive-heading opacity-50">---</span>
+                <div class="flex items-center gap-4">
+                    <!-- Header Component Placeholder (Matches/Candidates style) -->
+                    <div class="flex items-center gap-3 px-3 py-2 rounded border border-white/10 bg-black/20">
+                        <span class="text-[10px] opacity-60 font-bold whitespace-nowrap uppercase tracking-widest">Workbench Context</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-xl font-bold text-archive-heading opacity-50">---</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1785,38 +1788,25 @@ class DocumentWorkbench {
 
     constructor(config) {
         this.config = config || {};
-
-        // Detect mode: workbench (4-tab) vs classifier (2-tab)
         this.isWorkbenchMode = !!document.getElementById('tab-source');
-
-        // Parse URL params
         const params = new URLSearchParams(window.location.search);
         const rawFile = params.get('file') || '';
         this.requestedTab = params.get('tab') || '';
-
-        // File state (may be empty in workbench mode until selection)
         this.FILE_NAME = '';
         this.PDF_URL = '';
         if (rawFile) {
             this.setFile(rawFile);
         } else if (!this.isWorkbenchMode) {
-            // Classifier fallback: default to yates-searchable.pdf
             this.setFile('yates-searchable.pdf');
         }
-
-        // State
         this.pdfDoc = null;
         this.classificationData = null;
         this.feedback = {};
         this.entityApprovals = {};
         this.detectedEntities = null;
         this.detectedCandidates = null;
-
-        // localStorage keys (set by setFile)
         this.STORAGE_KEY = '';
         this.EXPORT_STORAGE_KEY = '';
-
-        // Tab controllers
         this.classifyTab = new ClassifyTab(this);
         this.entitiesTab = new EntitiesTab(this);
         this.exportTab = new ExportTab(this);
@@ -1829,77 +1819,50 @@ class DocumentWorkbench {
             ? rawFile
             : `/api/download/${encodeURIComponent(rawFile)}`;
         this.FILE_NAME = rawFile.includes('/') ? rawFile.split('/').pop() : rawFile;
-
-        // Workbench uses migrated keys; classifier keeps legacy keys for backward compat
         const prefix = this.isWorkbenchMode ? 'workbench' : 'classifier';
         this.STORAGE_KEY = `${prefix}_feedback_${this.FILE_NAME}`;
         this.EXPORT_STORAGE_KEY = `${prefix}_export_${this.FILE_NAME}`;
     }
 
     init() {
-        // Run localStorage key migration (workbench mode)
-        if (this.isWorkbenchMode) {
-            this.migrateLocalStorageKeys();
-        }
-
-        // Restore persisted state if file is set
+        if (this.isWorkbenchMode) this.migrateLocalStorageKeys();
         if (this.FILE_NAME) {
             this.feedback = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
             this.entityApprovals = JSON.parse(localStorage.getItem(this.EXPORT_STORAGE_KEY) || '{}');
         }
-
-        // PDF.js worker
         if (typeof pdfjsLib !== 'undefined') {
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         }
-
-        // Set up event delegation
         this.bindEvents();
-
-        // ── Header tab injection (workbench mode) ──────────────────
+        if (this.isWorkbenchMode) this.injectHeaderTabs();
         if (this.isWorkbenchMode) {
-            this.injectHeaderTabs();
-        }
-
-        if (this.isWorkbenchMode) {
-            // Initialize INPUT tab (drop zone, config fetch, job restore)
             if (this.inputTab) this.inputTab.init();
-
-            // Initialize ENTITIES tab filters
             if (this.entitiesTab) this.entitiesTab.initFilters();
-
-            // Workbench mode: load file grid, handle deep-link
-            this.sourceTab.loadHistory().then(() => {
-                if (this.FILE_NAME) {
-                    // Deep-link: file specified in URL → load it
-                    this.loadFile(this.FILE_NAME, true);
-                }
-            });
+            if (this.sourceTab) {
+                this.sourceTab.loadHistory().then(() => {
+                    if (this.FILE_NAME) this.loadFile(this.FILE_NAME, true);
+                });
+            }
         } else {
-            // Classifier mode: load file directly (2-tab)
             document.title = `Classification Review: ${this.FILE_NAME}`;
             this.loadClassificationData();
         }
-
-        // Initial header render
         const initialTab = this.requestedTab || (this.isWorkbenchMode ? 'input' : 'classify');
         this.switchTab(initialTab);
     }
 
-    // ── localStorage migration (classifier → workbench keys) ────
     migrateLocalStorageKeys() {
         const migrated = localStorage.getItem('workbench_migration_v1');
         if (migrated) return;
-
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            if (key.startsWith('classifier_feedback_')) {
+            if (key && key.startsWith('classifier_feedback_')) {
                 const file = key.replace('classifier_feedback_', '');
                 if (!localStorage.getItem(`workbench_feedback_${file}`)) {
                     localStorage.setItem(`workbench_feedback_${file}`, localStorage.getItem(key));
                 }
             }
-            if (key.startsWith('classifier_export_')) {
+            if (key && key.startsWith('classifier_export_')) {
                 const file = key.replace('classifier_export_', '');
                 if (!localStorage.getItem(`workbench_export_${file}`)) {
                     localStorage.setItem(`workbench_export_${file}`, localStorage.getItem(key));
@@ -1909,224 +1872,112 @@ class DocumentWorkbench {
         localStorage.setItem('workbench_migration_v1', Date.now().toString());
     }
 
-    // ── Event delegation (replaces all inline onclick) ──────────
     bindEvents() {
         const self = this;
-
-        // Tab buttons
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (btn.classList.contains('disabled')) return;
-                const tab = btn.dataset.tab;
-                self.switchTab(tab);
+                self.switchTab(btn.dataset.tab);
             });
         });
-
-        // Delegated click events on the main content area
         document.addEventListener('click', (e) => {
             const target = e.target.closest('[data-action]');
             if (!target) return;
-
             const action = target.dataset.action;
             const page = target.dataset.page;
             const idx = target.dataset.idx !== undefined ? parseInt(target.dataset.idx) : null;
-
             switch (action) {
-                // Input tab
-                case 'input-start':
-                    if (self.inputTab) self.inputTab.startProcessing();
-                    break;
-                case 'input-cancel':
-                    if (self.inputTab) self.inputTab.cancelProcessing();
-                    break;
-                case 'input-remove':
-                    if (self.inputTab && idx !== null) self.inputTab.removeFile(idx);
-                    break;
-                case 'input-clear-completed':
-                    if (self.inputTab) self.inputTab.clearCompleted();
-                    break;
-                case 'input-clear-all':
-                    if (self.inputTab) self.inputTab.clearAll();
-                    break;
-                case 'input-copy-metadata':
-                    if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx);
-                    break;
-                case 'input-reparse':
-                    if (self.inputTab && idx !== null) self.inputTab.reparseHeader(idx);
-                    break;
-                // Source tab
-                case 'select-file':
-                    if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename);
-                    break;
-                // (reserved)
-                // Classify tab — pagination
-                case 'page-prev':
-                    self.classifyTab.goToPage(self.classifyTab.currentPage - 1);
-                    break;
-                case 'page-next':
-                    self.classifyTab.goToPage(self.classifyTab.currentPage + 1);
-                    break;
-                // Classify tab
-                case 'submit-4tier':
-                    self.classifyTab.submit4Tier(parseInt(page));
-                    break;
-                case 'show-modal':
-                    self.classifyTab.showModalPage(parseInt(target.dataset.pageIndex));
-                    break;
-                case 'select-type':
-                    // Handled within renderCard's own logic
-                    break;
-                case 'select-hybrid-chip':
-                    self.classifyTab.selectTierValue(parseInt(page), target.dataset.tier, target.dataset.value);
-                    break;
-                case 'export-feedback':
-                    self.classifyTab.exportFeedback();
-                    break;
-                case 'clear-feedback':
-                    self.classifyTab.clearFeedback();
-                    break;
-                // Entities tab
-                case 'detect-entities':
-                    self.entitiesTab.detectEntities();
-                    break;
-                case 'jump-to-page':
-                    self.entitiesTab.jumpToPage(parseInt(target.dataset.page));
-                    break;
-                case 'approve-entity':
-                    self.entitiesTab.approveEntity(idx);
-                    break;
-                case 'reject-entity':
-                    self.entitiesTab.rejectEntity(idx);
-                    break;
-                case 'approve-candidate':
-                    self.entitiesTab.approveCandidate(idx);
-                    break;
-                case 'reject-candidate':
-                    self.entitiesTab.rejectCandidate(idx);
-                    break;
-                // Export tab
-                case 'export-source-record':
-                    self.exportTab.exportSourceRecord();
-                    break;
-                case 'export-new-entities':
-                    self.exportTab.exportNewEntities();
-                    break;
+                case 'input-start': if (self.inputTab) self.inputTab.startProcessing(); break;
+                case 'input-cancel': if (self.inputTab) self.inputTab.cancelProcessing(); break;
+                case 'input-remove': if (self.inputTab && idx !== null) self.inputTab.removeFile(idx); break;
+                case 'input-clear-completed': if (self.inputTab) self.inputTab.clearCompleted(); break;
+                case 'input-clear-all': if (self.inputTab) self.inputTab.clearAll(); break;
+                case 'input-copy-metadata': if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx); break;
+                case 'input-reparse': if (self.inputTab && idx !== null) self.inputTab.reparseHeader(idx); break;
+                case 'select-file': if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename); break;
+                case 'page-prev': self.classifyTab.goToPage(self.classifyTab.currentPage - 1); break;
+                case 'page-next': self.classifyTab.goToPage(self.classifyTab.currentPage + 1); break;
+                case 'submit-4tier': self.classifyTab.submit4Tier(parseInt(page)); break;
+                case 'show-modal': self.classifyTab.showModalPage(parseInt(target.dataset.pageIndex)); break;
+                case 'select-hybrid-chip': self.classifyTab.selectTierValue(parseInt(page), target.dataset.tier, target.dataset.value); break;
+                case 'export-feedback': self.classifyTab.exportFeedback(); break;
+                case 'clear-feedback': self.classifyTab.clearFeedback(); break;
+                case 'detect-entities': self.entitiesTab.detectEntities(); break;
+                case 'jump-to-page': self.entitiesTab.jumpToPage(parseInt(target.dataset.page)); break;
+                case 'approve-entity': self.entitiesTab.approveEntity(idx); break;
+                case 'reject-entity': self.entitiesTab.rejectEntity(idx); break;
+                case 'approve-candidate': self.entitiesTab.approveCandidate(idx); break;
+                case 'reject-candidate': self.entitiesTab.rejectCandidate(idx); break;
+                case 'export-source-record': self.exportTab.exportSourceRecord(); break;
+                case 'export-new-entities': self.exportTab.exportNewEntities(); break;
             }
         });
-
-        // Delegated change/input events for note presets and text
         document.addEventListener('change', (e) => {
             const target = e.target.closest('[data-action]');
             if (!target) return;
-            if (target.dataset.action === 'note-preset') {
-                self.classifyTab.applyNotePreset(parseInt(target.dataset.page));
-            }
-            if (target.dataset.action === 'filter') {
-                self.classifyTab.applyFilters();
-            }
+            if (target.dataset.action === 'note-preset') self.classifyTab.applyNotePreset(parseInt(target.dataset.page));
+            if (target.dataset.action === 'filter') self.classifyTab.applyFilters();
             if (target.dataset.action === 'select-hybrid-dropdown') {
                 const val = target.value;
                 if (val) self.classifyTab.selectTierValue(parseInt(target.dataset.page), target.dataset.tier, val);
             }
         });
-
         document.addEventListener('input', (e) => {
             const target = e.target.closest('[data-action]');
             if (!target) return;
-            if (target.dataset.action === 'note-input') {
-                self.classifyTab.saveNote(parseInt(target.dataset.page));
-            }
+            if (target.dataset.action === 'note-input') self.classifyTab.saveNote(parseInt(target.dataset.page));
         });
-
-        // Filter selects
         ['filter-type', 'filter-agency', 'filter-status', 'sort-order'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('change', () => self.classifyTab.applyFilters());
         });
-
-        // Pagination page input
         const pageInput = document.getElementById('page-input');
-        if (pageInput) {
-            pageInput.addEventListener('change', () => {
-                self.classifyTab.goToPage(parseInt(pageInput.value) || 1);
-            });
-        }
-
-        // Source tab search/sort (workbench mode only)
+        if (pageInput) pageInput.addEventListener('change', () => self.classifyTab.goToPage(parseInt(pageInput.value) || 1));
         if (this.isWorkbenchMode) {
             const searchEl = document.getElementById('source-search');
-            if (searchEl) {
-                searchEl.addEventListener('input', () => self.sourceTab.applySearch());
-            }
+            if (searchEl) searchEl.addEventListener('input', () => self.sourceTab.applySearch());
             const sortEl = document.getElementById('source-sort');
-            if (sortEl) {
-                sortEl.addEventListener('change', () => {
-                    self.sourceTab.applySort();
-                    self.sourceTab.renderGrid();
-                });
-            }
+            if (sortEl) sortEl.addEventListener('change', () => { if (self.sourceTab) { self.sourceTab.applySort(); self.sourceTab.renderGrid(); } });
         }
-
-        // Modal dismiss
-        document.getElementById('imageModal')?.addEventListener('click', () => {
-            self.classifyTab.hideModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') self.classifyTab.hideModal();
-        });
+        document.getElementById('imageModal')?.addEventListener('click', () => self.classifyTab.hideModal());
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') self.classifyTab.hideModal(); });
     }
 
-    // ── Header tab injection ─────────────────────────────────────
     injectHeaderTabs() {
         const header = document.querySelector('header[data-component="header"]');
         if (!header) return;
-
         const leftGroup = header.querySelector('.flex.items-center.gap-3');
         if (!leftGroup) return;
-
-        // Elements to fade out: search icon and branding title
         const searchLink = leftGroup.querySelector('a[href*="search"]');
         const brandingLink = leftGroup.querySelector('a.pl-4');
         const breadcrumb = leftGroup.querySelector('#breadcrumb-nav');
-
-        // Fade out then remove search, branding, and breadcrumb
         [searchLink, brandingLink, breadcrumb].forEach(el => {
             if (el) {
                 el.style.transition = 'opacity 0.2s ease';
                 el.style.opacity = '0';
                 el.style.pointerEvents = 'none';
-                // Remove from flow after fade completes (eliminates ghost gap-3 spacing)
                 setTimeout(() => { el.style.display = 'none'; }, 220);
             }
         });
-
-        // Create tab container
         const tabContainer = document.createElement('div');
         tabContainer.className = 'header-tabs';
         tabContainer.style.opacity = '0';
         tabContainer.style.transition = 'opacity 0.3s ease 0.15s';
-
         const tabs = [
-            { name: 'input', icon: 'upload_file', label: 'Input' },
-            { name: 'source', icon: 'folder_open', label: 'Source' },
-            { name: 'classify', icon: 'rate_review', label: 'Classify', locked: true },
-            { name: 'entities', icon: 'person_search', label: 'Entities', locked: true },
-            { name: 'export', icon: 'file_export', label: 'Export', locked: true }
+            { name: 'input', label: 'Input' },
+            { name: 'source', label: 'Source' },
+            { name: 'classify', label: 'Classify', locked: true },
+            { name: 'entities', label: 'Entities', locked: true },
+            { name: 'export', label: 'Export', locked: true }
         ];
-
-        const self = this;
         tabs.forEach(tab => {
             const btn = document.createElement('button');
             btn.className = 'header-tab-btn' + (tab.name === 'input' ? ' active' : '') + (tab.locked ? ' disabled' : '');
             btn.setAttribute('data-tab', tab.name);
             btn.textContent = tab.label;
-            btn.addEventListener('click', () => self.switchTab(tab.name));
+            btn.addEventListener('click', () => this.switchTab(tab.name));
             tabContainer.appendChild(btn);
         });
-
-        // Insert tabs as direct child of outer header wrapper (between left and right groups)
-        // This lets justify-between center them between menu and user icon
         const headerWrapper = header.querySelector('.flex.h-16');
         if (headerWrapper) {
             const rightGroup = headerWrapper.lastElementChild;
@@ -2134,284 +1985,138 @@ class DocumentWorkbench {
         } else {
             leftGroup.appendChild(tabContainer);
         }
-
-        // Trigger fade in
-        requestAnimationFrame(() => {
-            tabContainer.style.opacity = '1';
-        });
+        requestAnimationFrame(() => tabContainer.style.opacity = '1');
     }
 
-    // ── Progressive unlock ──────────────────────────────────────
     getUnlockState() {
         const hasFile = !!this.FILE_NAME && !!this.classificationData;
-        const reviewedCount = Object.values(this.feedback).filter(
-            v => v.status === 'correct' || v.status === 'incorrect'
-        ).length;
-        const hasReviewed = reviewedCount > 0;
         const approvedCount = Object.values(this.entityApprovals).filter(v => v === 'approved').length;
         const hasApproved = approvedCount > 0;
-
-        return {
-            input: true,
-            source: true,
-            classify: hasFile,
-            entities: hasFile,
-            export: hasFile && hasApproved
-        };
+        return { input: true, source: true, classify: hasFile, entities: hasFile, export: hasFile && hasApproved };
     }
 
     updateTabStates() {
         if (!this.isWorkbenchMode) return;
-
         const unlock = this.getUnlockState();
-
         ['classify', 'entities', 'export'].forEach(tab => {
             const btn = document.querySelector(`[data-tab="${tab}"]`);
             if (!btn) return;
-
-            if (unlock[tab]) {
-                btn.classList.remove('disabled');
-            } else {
-                btn.classList.add('disabled');
-            }
-
-            // Toggle locked message vs content
+            unlock[tab] ? btn.classList.remove('disabled') : btn.classList.add('disabled');
             const locked = document.getElementById(`${tab}-locked`);
             const content = document.getElementById(`${tab}-content`);
             if (locked && content) {
-                if (unlock[tab]) {
-                    locked.classList.add('hidden');
-                    content.classList.remove('hidden');
-                } else {
-                    locked.classList.remove('hidden');
-                    content.classList.add('hidden');
-                }
+                if (unlock[tab]) { locked.classList.add('hidden'); content.classList.remove('hidden'); }
+                else { locked.classList.remove('hidden'); content.classList.add('hidden'); }
             }
         });
     }
 
-    // ── Tab switching ───────────────────────────────────────────
     switchTab(tabName) {
-        // In workbench mode, check if tab is unlocked
         if (this.isWorkbenchMode) {
             const unlock = this.getUnlockState();
             if (!unlock[tabName]) {
-                // Fall back to highest unlocked tab
-                const fallback = ['export', 'entities', 'classify', 'source', 'input']
-                    .find(t => unlock[t]) || 'input';
+                const fallback = ['export', 'entities', 'classify', 'source', 'input'].find(t => unlock[t]) || 'input';
                 if (fallback !== tabName) {
-                    const reasons = {
-                        classify: 'Select a document first',
-                        entities: 'Review pages in Classify tab',
-                        export: 'Approve entities first'
-                    };
+                    const reasons = { classify: 'Select a document first', entities: 'Review pages in Classify tab', export: 'Approve entities first' };
                     this.showToast(`${tabName.charAt(0).toUpperCase() + tabName.slice(1)} requires: ${reasons[tabName] || 'prerequisites'}`);
                     tabName = fallback;
                 }
             }
         }
-
         document.querySelectorAll('.tab-btn, .header-tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         const tabBtn = document.querySelector(`[data-tab="${tabName}"]`);
         if (tabBtn) tabBtn.classList.add('active');
         const panel = document.getElementById(`tab-${tabName}`);
         if (panel) panel.classList.add('active');
-
-        // Populate export preview when switching to export
         if (tabName === 'export') this.exportTab.populateSourceRecordPreview();
-
-        // Update URL (workbench mode)
         if (this.isWorkbenchMode) {
             const url = new URL(window.location);
             if (this.FILE_NAME) url.searchParams.set('file', this.FILE_NAME);
             url.searchParams.set('tab', tabName);
             history.replaceState(null, '', url);
         }
-
-        // Update Dynamic Header
         const headerEl = document.getElementById('workbench-active-header');
-        if (headerEl) {
-            headerEl.innerHTML = this.renderWorkbenchHeader(tabName);
-        }
+        if (headerEl) headerEl.innerHTML = this.renderWorkbenchHeader(tabName);
     }
 
-    // ── File loading (workbench multi-file support) ─────────────
     async loadFile(filename, isDeepLink = false) {
-        // Destroy previous PDF to prevent memory leaks
         this.destroy();
-
-        // Reset downstream state
-        this.classificationData = null;
-        this.feedback = {};
-        this.entityApprovals = {};
-        this.detectedEntities = null;
-        this.detectedCandidates = null;
-
-        // Clear rendered content and show loading spinner
+        this.classificationData = null; this.feedback = {}; this.entityApprovals = {}; this.detectedEntities = null; this.detectedCandidates = null;
         const cardsContainer = document.getElementById('cards-container');
-        if (cardsContainer) cardsContainer.innerHTML = '<div class="text-center py-12 opacity-60"><span class="loading-spinner"></span> Loading classifications\u2026</div>';
-        const entityResults = document.getElementById('entity-results');
-        if (entityResults) entityResults.classList.add('hidden');
-        const entityLoading = document.getElementById('entity-loading');
-        if (entityLoading) entityLoading.classList.add('hidden');
-
-
-        // Set new file
+        if (cardsContainer) cardsContainer.innerHTML = '<div class="text-center py-12 opacity-60"><span class="loading-spinner"></span> Loading classifications…</div>';
+        const entityResults = document.getElementById('entity-results'); if (entityResults) entityResults.classList.add('hidden');
+        const entityLoading = document.getElementById('entity-loading'); if (entityLoading) entityLoading.classList.add('hidden');
         this.setFile(filename);
-
-        // Restore persisted state for this file
         this.feedback = JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '{}');
         this.entityApprovals = JSON.parse(localStorage.getItem(this.EXPORT_STORAGE_KEY) || '{}');
-
-        // Update title
         document.title = `Document Workbench: ${this.FILE_NAME}`;
-
-        // Switch to CLASSIFY immediately so user sees the loading spinner
-        // Bypass switchTab() which would block on unlock check (classificationData is null)
         if (this.isWorkbenchMode) {
             document.querySelectorAll('.tab-btn, .header-tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
             const classifyBtn = document.querySelector('[data-tab="classify"]');
             if (classifyBtn) { classifyBtn.classList.add('active'); classifyBtn.classList.remove('disabled'); }
-            const classifyPanel = document.getElementById('tab-classify');
-            if (classifyPanel) classifyPanel.classList.add('active');
+            const classifyPanel = document.getElementById('tab-classify'); if (classifyPanel) classifyPanel.classList.add('active');
             const classifyLocked = document.getElementById('classify-locked');
             const classifyContent = document.getElementById('classify-content');
-            if (classifyLocked) classifyLocked.classList.add('hidden');
-            if (classifyContent) classifyContent.classList.remove('hidden');
+            if (classifyLocked) classifyLocked.classList.add('hidden'); if (classifyContent) classifyContent.classList.remove('hidden');
         }
-
-        // Reset stats and pagination immediately so user sees fresh state
-        document.getElementById('stat-total').textContent = '\u2014';
-        document.getElementById('stat-reviewed').textContent = '0';
-        document.getElementById('stat-correct').textContent = '0';
-        document.getElementById('stat-incorrect').textContent = '0';
-        document.getElementById('file-info').textContent = `${filename} \u2022 Loading\u2026`;
-        this.classifyTab.currentPage = 1;
-        this.classifyTab.filteredPages = [];
-        this.classifyTab.updatePagination();
-        const filterType = document.getElementById('filter-type');
-        const filterAgency = document.getElementById('filter-agency');
-        const filterStatus = document.getElementById('filter-status');
-        if (filterType) filterType.innerHTML = '<option value="">All Types</option>';
-        if (filterAgency) filterAgency.innerHTML = '<option value="">All Agencies</option>';
-        if (filterStatus) filterStatus.value = '';
-
-        // Load classification data
+        document.getElementById('stat-total').textContent = '—';
+        document.getElementById('file-info').textContent = `${filename} • Loading…`;
+        this.classifyTab.currentPage = 1; this.classifyTab.filteredPages = []; this.classifyTab.updatePagination();
         await this.loadClassificationData();
-
-        // Update tab states after loading
         this.updateTabStates();
-
-        // Re-render source grid to show active file
         if (this.sourceTab) this.sourceTab.renderGrid();
-
-        // Navigate to requested or default tab
-        if (isDeepLink && this.requestedTab) {
-            this.switchTab(this.requestedTab);
-        } else {
-            this.switchTab('classify');
-        }
+        isDeepLink && this.requestedTab ? this.switchTab(this.requestedTab) : this.switchTab('classify');
     }
 
-    // ── Data loading ────────────────────────────────────────────
     async loadClassificationData() {
         const statusEl = document.getElementById('load-status');
-        if (statusEl) statusEl.innerHTML = '<span class="loading-spinner"></span> Classifying pages\u2026';
-
+        if (statusEl) statusEl.innerHTML = '<span class="loading-spinner"></span> Classifying pages…';
         try {
             const res = await fetch(`/api/review/${encodeURIComponent(this.FILE_NAME)}`);
-            if (!res.ok) {
-                const err = await res.json().catch(() => ({ error: res.statusText }));
-                throw new Error(err.error || `HTTP ${res.status}`);
-            }
-
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             this.classificationData = await res.json();
-            console.log('Classification data loaded:', this.classificationData.total_pages, 'pages');
-
-            document.getElementById('file-info').textContent =
-                `${this.classificationData.filename} \u2022 ${this.classificationData.total_pages} pages \u2022 ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`;
+            document.getElementById('file-info').textContent = `${this.classificationData.filename} • ${this.classificationData.total_pages} pages • ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`;
             document.getElementById('stat-total').textContent = this.classificationData.total_pages;
-
             this.classifyTab.populateTypeFilter(this.classificationData.pages);
             this.classifyTab.renderCards(this.classificationData.pages);
             if (statusEl) statusEl.textContent = '';
-
             this.loadPDF();
-
-            // Apply saved feedback
-            for (const [page, data] of Object.entries(this.feedback)) {
-                this.classifyTab.applyFeedbackUI(page, data);
-            }
+            for (const [page, data] of Object.entries(this.feedback)) this.classifyTab.applyFeedbackUI(page, data);
             this.classifyTab.updateStats();
-
-            // Update progressive unlock
             if (this.isWorkbenchMode) this.updateTabStates();
-
         } catch (err) {
             console.error('Failed to load classification data:', err);
-            if (statusEl) statusEl.innerHTML = `<span class="text-red-400">\u26A0 ${err.message}</span>`;
+            if (statusEl) statusEl.innerHTML = `<span class="text-red-400">⚠ ${err.message}</span>`;
         }
     }
 
     async loadPDF() {
         try {
-            console.log('Loading PDF from:', this.PDF_URL);
             const loadingTask = pdfjsLib.getDocument(this.PDF_URL);
             this.pdfDoc = await loadingTask.promise;
-            console.log('PDF loaded successfully:', this.pdfDoc.numPages, 'pages');
             this.classifyTab.setupLazyLoading();
         } catch (err) {
             console.error('Failed to load PDF:', err);
-            document.querySelectorAll('.canvas-loading').forEach(el => {
-                el.textContent = 'PDF load failed';
-                el.style.color = 'red';
-            });
+            document.querySelectorAll('.canvas-loading').forEach(el => { el.textContent = 'PDF load failed'; el.style.color = 'red'; });
         }
     }
 
-    // ── Persistence ─────────────────────────────────────────────
-    saveFeedback() {
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.feedback));
-        // Update progressive unlock after feedback changes
-        if (this.isWorkbenchMode) this.updateTabStates();
-    }
-
-    saveEntityApprovals() {
-        localStorage.setItem(this.EXPORT_STORAGE_KEY, JSON.stringify(this.entityApprovals));
-        // Update progressive unlock after approval changes
-        if (this.isWorkbenchMode) this.updateTabStates();
-    }
-
-    // ── Toast ───────────────────────────────────────────────────
+    saveFeedback() { localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.feedback)); if (this.isWorkbenchMode) this.updateTabStates(); }
+    saveEntityApprovals() { localStorage.setItem(this.EXPORT_STORAGE_KEY, JSON.stringify(this.entityApprovals)); if (this.isWorkbenchMode) this.updateTabStates(); }
     showToast(message) {
-        const existing = document.querySelector('.workbench-toast');
-        if (existing) existing.remove();
-        const toast = document.createElement('div');
-        toast.className = 'workbench-toast';
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        const existing = document.querySelector('.workbench-toast'); if (existing) existing.remove();
+        const toast = document.createElement('div'); toast.className = 'workbench-toast'; toast.textContent = message;
+        document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000);
     }
-
-    // ── Cleanup ─────────────────────────────────────────────────
     destroy() {
-        if (this.pdfDoc) {
-            this.pdfDoc.destroy();
-            this.pdfDoc = null;
-        }
-        if (this.classifyTab.observer) {
-            this.classifyTab.observer.disconnect();
-            this.classifyTab.observer = null;
-        }
-        this.classifyTab.renderedPages.clear();
-        this.classifyTab.renderQueue = [];
-        this.classifyTab.activeRenders = 0;
+        if (this.pdfDoc) { this.pdfDoc.destroy(); this.pdfDoc = null; }
+        if (this.classifyTab.observer) { this.classifyTab.observer.disconnect(); this.classifyTab.observer = null; }
+        this.classifyTab.renderedPages.clear(); this.classifyTab.renderQueue = []; this.classifyTab.activeRenders = 0;
     }
 }
 
-// ── Auto-init on DOMContentLoaded ───────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     window.workbench = new DocumentWorkbench();
     window.workbench.init();
