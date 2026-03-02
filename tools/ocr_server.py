@@ -1871,9 +1871,22 @@ def _is_known_video_site(url):
     return any(p in host for p in patterns)
 
 
+def _http_request_with_ssl_fallback(method, url, **kwargs):
+    """Retry once with verify=False on SSL certificate-chain failures."""
+    import requests as _requests
+    import urllib3 as _urllib3
+
+    headers = kwargs.pop("headers", {}) or {}
+    headers.setdefault("User-Agent", "Mozilla/5.0 PrimarySources/1.0")
+    try:
+        return _requests.request(method, url, headers=headers, **kwargs)
+    except _requests.exceptions.SSLError:
+        _urllib3.disable_warnings(_urllib3.exceptions.InsecureRequestWarning)
+        return _requests.request(method, url, headers=headers, verify=False, **kwargs)
+
+
 def _detect_url_type(url):
     """Auto-detect URL content type. Returns 'html', 'audio', 'video', 'document', 'image', 'ytdlp', or 'unknown'."""
-    import requests as _requests
     from urllib.parse import urlparse
 
     # Check known video sites first (they return HTML but we want yt-dlp)
@@ -1882,8 +1895,9 @@ def _detect_url_type(url):
 
     # HEAD request to sniff Content-Type
     try:
-        resp = _requests.head(url, timeout=10, allow_redirects=True,
-                              headers={"User-Agent": "Mozilla/5.0 PrimarySources/1.0"})
+        resp = _http_request_with_ssl_fallback(
+            "HEAD", url, timeout=10, allow_redirects=True
+        )
         ct = resp.headers.get("Content-Type", "").lower().split(";")[0].strip()
 
         if ct.startswith("text/html") or ct.startswith("application/xhtml"):
@@ -1918,11 +1932,10 @@ def _detect_url_type(url):
 
 def _scrape_html(url):
     """Scrape a web page and save as .txt + .ocr.json. Returns response dict."""
-    import requests as _requests
     from bs4 import BeautifulSoup
     import re as _re
 
-    resp = _requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0 PrimarySources/1.0"})
+    resp = _http_request_with_ssl_fallback("GET", url, timeout=30)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
     for tag in soup(["script", "style", "nav", "footer", "header"]):
@@ -1946,15 +1959,13 @@ def _scrape_html(url):
 
 def _download_direct(url):
     """Download a direct file (PDF, image, audio, video) and save to uploads/. Returns response dict."""
-    import requests as _requests
     import re as _re
     from urllib.parse import urlparse
 
     upload_dir = os.path.join(UPLOAD_FOLDER, "uploads")
     os.makedirs(upload_dir, exist_ok=True)
 
-    resp = _requests.get(url, timeout=60, stream=True,
-                         headers={"User-Agent": "Mozilla/5.0 PrimarySources/1.0"})
+    resp = _http_request_with_ssl_fallback("GET", url, timeout=60, stream=True)
     resp.raise_for_status()
     ct = resp.headers.get("Content-Type", "").lower().split(";")[0].strip()
 
@@ -2003,15 +2014,37 @@ def _download_ytdlp(url):
         "extractor_args": {"youtube": {"player_client": ["web"]}},
         "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
     }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+    except Exception:
+        fallback_opts = {
+            "format": "best",
+            "outtmpl": output_template,
+            "quiet": True,
+            "no_warnings": True,
+            "cookiesfrombrowser": ("edge",),
+            "extractor_args": {"youtube": {"player_client": ["web"]}},
+            "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+        }
+        with yt_dlp.YoutubeDL(fallback_opts) as ydl:
+            ydl.download([url])
 
     mp3_path = os.path.join(upload_dir, f"{safe_title}.mp3")
-    if not os.path.exists(mp3_path):
-        raise FileNotFoundError("Download completed but output file not found")
+    if os.path.exists(mp3_path):
+        return {"success": True, "type": "ytdlp", "title": title,
+                "file": {"name": f"{safe_title}.mp3", "size": os.path.getsize(mp3_path), "content_type": "audio/mpeg"}}
 
+    import mimetypes as _mimetypes
+    candidates = [f for f in os.listdir(upload_dir) if f.startswith(safe_title) and not f.endswith((".part", ".ytdl"))]
+    if not candidates:
+        raise FileNotFoundError("Download completed but output file not found")
+    candidates.sort(key=lambda n: os.path.getmtime(os.path.join(upload_dir, n)), reverse=True)
+    picked = candidates[0]
+    picked_path = os.path.join(upload_dir, picked)
+    guessed_ct = _mimetypes.guess_type(picked)[0] or "application/octet-stream"
     return {"success": True, "type": "ytdlp", "title": title,
-            "file": {"name": f"{safe_title}.mp3", "size": os.path.getsize(mp3_path), "content_type": "audio/mpeg"}}
+            "file": {"name": picked, "size": os.path.getsize(picked_path), "content_type": guessed_ct}}
 
 
 @app.route("/api/ingest-url", methods=["POST"])
@@ -2035,7 +2068,14 @@ def ingest_url():
         if detected == "ytdlp":
             if not YTDLP_AVAILABLE:
                 return jsonify({"error": "yt-dlp not installed. Run: pip install yt-dlp"}), 503
-            return jsonify(_download_ytdlp(url))
+            try:
+                return jsonify(_download_ytdlp(url))
+            except Exception as ytdlp_err:
+                # Fallback keeps URL ingest usable even when platform format rules change.
+                try:
+                    return jsonify(_scrape_html(url))
+                except Exception:
+                    return jsonify({"error": str(ytdlp_err)}), 500
 
         if detected == "html":
             return jsonify(_scrape_html(url))
