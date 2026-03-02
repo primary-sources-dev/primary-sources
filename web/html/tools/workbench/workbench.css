@@ -651,6 +651,11 @@
     border-color: #ef4444 !important;
 }
 
+.skipped {
+    background-color: rgba(245, 158, 11, 0.12) !important;
+    border-color: #f59e0b !important;
+}
+
 .pending {
     background-color: var(--archive-surface) !important;
     border-color: rgba(176, 139, 73, 0.4) !important;

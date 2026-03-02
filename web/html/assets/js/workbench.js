@@ -44,7 +44,8 @@ class ClassifyTab {
 
         // Pagination
         this.currentPage = 1;
-        this.itemsPerPage = 10;
+        // One-card review flow: show a single page card at a time.
+        this.itemsPerPage = 1;
         this.filteredPages = [];
     }
 
@@ -326,10 +327,15 @@ class ClassifyTab {
                                     <input type="checkbox" id="flag-new-${page}" class="scale-110">
                                     <label for="flag-new-${page}" class="text-[10px] opacity-80 cursor-pointer leading-tight">Flag as New Document Type</label>
                                 </div>
-                                <button class="w-full grow py-3 bg-primary text-archive-dark font-bold rounded shadow-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                <button class="w-full py-3 bg-primary text-archive-dark font-bold rounded shadow-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                                         data-action="submit-4tier" data-page="${page}">
                                     <span class="material-symbols-outlined text-sm font-bold">check_circle</span>
-                                    APPLY & VERIFY
+                                    APPLY & SAVE
+                                </button>
+                                <button class="w-full py-3 bg-black/40 border border-white/15 text-archive-heading font-bold rounded hover:border-primary/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                        data-action="skip-4tier" data-page="${page}">
+                                    <span class="material-symbols-outlined text-sm font-bold">redo</span>
+                                    SKIP
                                 </button>
                             </div>
                         </div>
@@ -496,6 +502,8 @@ class ClassifyTab {
         const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
         const isNew = document.getElementById(`flag-new-${page}`).checked;
         const textSample = el.dataset.textSample || '';
+        const noteType = document.getElementById(`note-preset-${page}`)?.value || null;
+        const notes = document.getElementById(`note-text-${page}`)?.value || null;
 
         const feedbackData = {
             status: (!hasExplicitClass || docClass === predictedClass) ? "correct" : "incorrect",
@@ -506,6 +514,8 @@ class ClassifyTab {
             selectedFormat: format,
             selectedContent: content,
             newTypeFlag: isNew,
+            noteType: noteType,
+            notes: notes,
             textSample: textSample
         };
 
@@ -513,6 +523,7 @@ class ClassifyTab {
         this.wb.saveFeedback();
         this.applyFeedbackUI(page, feedbackData);
         this.updateStats();
+        this.autoAdvanceAfterReview();
 
         // POST to server
         fetch('/api/feedback', {
@@ -531,12 +542,82 @@ class ClassifyTab {
             .catch(err => console.warn('Server offline, saved locally only.'));
     }
 
+    skip4Tier(page) {
+        const el = document.getElementById(`page-${page}`);
+        const predicted = el.dataset.predicted;
+
+        const noteType = document.getElementById(`note-preset-${page}`)?.value || null;
+        const notesRaw = document.getElementById(`note-text-${page}`)?.value || '';
+        const notes = notesRaw.trim();
+        if (!notes) {
+            this.wb.showToast(`Add a review note before skipping Page ${page}`);
+            document.getElementById(`note-text-${page}`)?.focus();
+            return;
+        }
+
+        const getVal = (tier) => {
+            const activeChip = el.querySelector(`.hybrid-chip.active[data-tier="${tier}"]`);
+            if (activeChip) return activeChip.dataset.value;
+            const select = document.getElementById(`select-${tier}-${page}`);
+            return select ? select.value : null;
+        };
+
+        const selectedClassRaw = getVal('class');
+        const selectedAgencyRaw = getVal('agency');
+        const selectedFormatRaw = getVal('format');
+        const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
+        const isNew = document.getElementById(`flag-new-${page}`).checked;
+        const textSample = el.dataset.textSample || '';
+
+        const feedbackData = {
+            status: "skipped",
+            predictedType: predicted,
+            selectedType: selectedClassRaw || null,
+            selectedAgency: selectedAgencyRaw || null,
+            selectedClass: selectedClassRaw || null,
+            selectedFormat: selectedFormatRaw || null,
+            selectedContent: content,
+            newTypeFlag: isNew,
+            noteType: noteType,
+            notes: notes,
+            textSample: textSample
+        };
+
+        this.wb.feedback[page] = feedbackData;
+        this.wb.saveFeedback();
+        this.applyFeedbackUI(page, feedbackData);
+        this.updateStats();
+        this.autoAdvanceAfterReview();
+
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                page: page,
+                source: this.wb.FILE_NAME,
+                ...feedbackData
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) this.wb.showToast(`Skipped Page ${page}`);
+            })
+            .catch(err => console.warn('Server offline, saved locally only.'));
+    }
+
+    autoAdvanceAfterReview() {
+        const totalPages = Math.max(1, Math.ceil(this.filteredPages.length / this.itemsPerPage));
+        if (this.currentPage < totalPages) {
+            this.goToPage(this.currentPage + 1);
+        }
+    }
+
     applyFeedbackUI(page, data) {
         const el = document.getElementById(`page-${page}`);
         if (!el) return;
 
         const status = data?.status || "pending";
-        el.classList.remove("pending", "correct", "incorrect");
+        el.classList.remove("pending", "correct", "incorrect", "skipped");
         el.classList.add(status);
 
         const statusEl = document.getElementById(`status-text-${page}`);
@@ -544,9 +625,15 @@ class ClassifyTab {
             if (status === "correct" || status === "incorrect") {
                 statusEl.textContent = "\u2713 Reviewed";
                 statusEl.classList.add("text-green-500");
+                statusEl.classList.remove("text-yellow-400");
+            } else if (status === "skipped") {
+                statusEl.textContent = "\u21B7 Skipped";
+                statusEl.classList.add("text-yellow-400");
+                statusEl.classList.remove("text-green-500");
             } else {
                 statusEl.textContent = data?.notes ? "Note saved" : "";
                 statusEl.classList.remove("text-green-500");
+                statusEl.classList.remove("text-yellow-400");
             }
         }
 
@@ -594,7 +681,9 @@ class ClassifyTab {
     updateStats() {
         const allPages = this.wb.classificationData ? this.wb.classificationData.pages.length : 0;
         const filtered = this.filteredPages.length;
-        const reviewed = Object.values(this.wb.feedback).filter(f => f.status === "correct" || f.status === "incorrect").length;
+        const reviewed = Object.values(this.wb.feedback).filter(f =>
+            f.status === "correct" || f.status === "incorrect" || f.status === "skipped"
+        ).length;
         const correct = Object.values(this.wb.feedback).filter(f => f.status === "correct").length;
         const incorrect = Object.values(this.wb.feedback).filter(f => f.status === "incorrect").length;
 
@@ -736,6 +825,7 @@ class ClassifyTab {
         const reviewedPages = exportPages.filter(p => p.review_status !== 'pending');
         const correct = reviewedPages.filter(p => p.review_status === 'correct').length;
         const incorrect = reviewedPages.filter(p => p.review_status === 'incorrect').length;
+        const skipped = reviewedPages.filter(p => p.review_status === 'skipped').length;
         const data = {
             schema_version: 'workbench-feedback-v2',
             exportedAt: new Date().toISOString(),
@@ -744,7 +834,8 @@ class ClassifyTab {
                 total_pages: exportPages.length,
                 reviewed_pages: reviewedPages.length,
                 correct_pages: correct,
-                incorrect_pages: incorrect
+                incorrect_pages: incorrect,
+                skipped_pages: skipped
             },
             pages: exportPages,
             reviewed_pages_only: reviewedPages,
@@ -763,7 +854,7 @@ class ClassifyTab {
             this.wb.feedback = {};
             localStorage.removeItem(this.wb.STORAGE_KEY);
             document.querySelectorAll("[data-page]").forEach(el => {
-                el.classList.remove("correct", "incorrect");
+                el.classList.remove("correct", "incorrect", "skipped");
                 el.classList.add("pending");
                 el.querySelectorAll(".type-btn").forEach(btn => btn.classList.remove("selected", "wrong"));
             });
@@ -2020,6 +2111,7 @@ class DocumentWorkbench {
                 case 'page-prev': self.classifyTab.goToPage(self.classifyTab.currentPage - 1); break;
                 case 'page-next': self.classifyTab.goToPage(self.classifyTab.currentPage + 1); break;
                 case 'submit-4tier': self.classifyTab.submit4Tier(parseInt(page)); break;
+                case 'skip-4tier': self.classifyTab.skip4Tier(parseInt(page)); break;
                 case 'show-modal': self.classifyTab.showModalPage(parseInt(target.dataset.pageIndex)); break;
                 case 'select-hybrid-chip': self.classifyTab.selectTierValue(parseInt(page), target.dataset.tier, target.dataset.value); break;
                 case 'export-feedback': self.classifyTab.exportFeedback(); break;
@@ -2229,7 +2321,7 @@ class DocumentWorkbench {
 
         for (const [page, data] of Object.entries(this.feedback)) {
             if (!data || typeof data !== 'object') continue;
-            if (data.status === 'pending') continue;
+            if (data.status === 'pending' || data.status === 'skipped') continue;
 
             const pageData = pageMap.get(String(page));
             if (!pageData) continue;
@@ -2291,3 +2383,4 @@ document.addEventListener('DOMContentLoaded', () => {
     window.workbench = new DocumentWorkbench();
     window.workbench.init();
 });
+
