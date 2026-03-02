@@ -246,6 +246,10 @@ class ClassifyTab {
     }
 
     renderCard(pageData) {
+        // Route media segments to segment-specific card renderer
+        if (pageData.media_type) {
+            return this.renderSegmentCard(pageData);
+        }
         const { page, page_index, doc_type, agency, confidence, matched_patterns, all_scores } = pageData;
         const confPct = Math.round(confidence * 100);
         const highlightsJson = JSON.stringify(matched_patterns).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
@@ -382,6 +386,118 @@ class ClassifyTab {
         this.updatePagination();
     }
 
+    // ── Segment card for media transcripts ────────────────────────
+    renderSegmentCard(pageData) {
+        const { page, page_index, doc_type, agency, confidence, matched_patterns, all_scores } = pageData;
+        const confPct = Math.round(confidence * 100);
+        const highlightsJson = JSON.stringify(matched_patterns || []).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        const textContent = pageData.text || '';
+        const textSample = textContent.substring(0, 1000).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        const startTime = this.formatTime(pageData.segment_start || 0);
+        const endTime = this.formatTime(pageData.segment_end || 0);
+        const mediaIcon = pageData.media_type === 'video' ? 'videocam' : 'mic';
+
+        return `
+        <div id="page-${page}" class="card border p-4 pending" data-page="${page}" data-page-index="${page_index}"
+            data-predicted="${doc_type}" data-agency="${agency || 'UNKNOWN'}" data-confidence="${confidence}"
+            data-highlights='${highlightsJson}' data-text-sample="${textSample}">
+            <div class="card-layout">
+                <!-- Left: Transcript Segment Preview -->
+                <div class="flex-shrink-0" style="flex: 0 0 360px; max-width: 360px; width: 360px;">
+                    <div class="segment-preview">
+                        <div class="segment-header">
+                            <span class="material-symbols-outlined text-primary">${mediaIcon}</span>
+                            <span class="segment-time">${startTime} → ${endTime}</span>
+                            <span class="media-badge">${(pageData.media_type || 'audio').toUpperCase()}</span>
+                        </div>
+                        <div class="segment-text">${textContent}</div>
+                    </div>
+                </div>
+
+                <!-- Right: Analysis Panel -->
+                <div class="classification-panel">
+                    <div class="p-4 bg-archive-dark rounded-md border border-white/5 shadow-md space-y-4">
+                        <!-- Segment ID + Confidence -->
+                        <div class="flex flex-wrap justify-between items-center gap-y-2 pb-3 border-b border-white/5">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="font-bold text-xl" style="color: var(--primary);">Seg ${page}</span>
+                                <span class="px-2 py-0.5 rounded bg-black/30 border border-white/10 text-[10px] ${this.confidenceColor(confidence)} whitespace-nowrap">${confPct}% Match</span>
+                            </div>
+                            <div id="status-text-${page}" class="text-[10px] opacity-60 italic whitespace-nowrap"></div>
+                        </div>
+                        <!-- Summary Header -->
+                        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 pb-4 border-b border-white/5 text-[10px] font-bold uppercase tracking-widest leading-none">
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-40">Agency:</span>
+                                <span class="badge-tier badge-agency" id="view-agency-${page}" data-default="${agency || 'UNKNOWN'}">${agency || 'UNKNOWN'}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-40">Class:</span>
+                                <span class="badge-tier badge-class" id="view-class-${page}" data-default="${doc_type}">${doc_type}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="opacity-40">Format:</span>
+                                <span class="badge-tier badge-format" id="view-format-${page}" data-default="PENDING">PENDING</span>
+                            </div>
+                        </div>
+                        ${this.renderHybridSelector(page, 'agency', 'Agency', AGENCIES, agency)}
+                        ${this.renderHybridSelector(page, 'class', 'Class', CLASSES, doc_type)}
+                        ${this.renderHybridSelector(page, 'format', 'Format', FORMATS, 'PENDING')}
+
+                        <div class="pt-1">
+                            <label class="text-[10px] opacity-60 block mb-2 font-bold uppercase tracking-widest">Content Tags:</label>
+                            <div class="flex flex-wrap gap-1.5 p-2 bg-black/30 rounded border border-white/10 max-h-[100px] overflow-y-auto">
+                                ${CONTENT_TYPES.map(tag => `
+                                    <label class="flex items-center gap-2 px-2 py-1 bg-white/5 rounded border border-white/5 hover:border-primary/40 cursor-pointer text-[10px] leading-none">
+                                        <input type="checkbox" name="content-${page}" value="${tag}" class="scale-90">
+                                        ${tag.replace(/_/g, ' ')}
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-white/5">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-[10px] opacity-60 uppercase font-bold tracking-widest">Reviewer Note:</label>
+                                <select id="note-preset-${page}" class="workbench-select" data-action="note-preset" data-page="${page}">
+                                    <option value="">-- Choose Preset --</option>
+                                    ${Object.entries(NOTE_PRESETS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
+                                </select>
+                                <textarea id="note-text-${page}" rows="2"
+                                    class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
+                                    placeholder="Context notes..."></textarea>
+                            </div>
+                            <div class="flex flex-col justify-between items-stretch">
+                                <div class="flex items-center gap-2 mb-2 bg-black/20 p-2 rounded border border-white/5">
+                                    <input type="checkbox" id="flag-new-${page}" class="scale-110">
+                                    <label for="flag-new-${page}" class="text-[10px] opacity-80 cursor-pointer leading-tight">Flag as New Document Type</label>
+                                </div>
+                                <button class="w-full py-3 bg-primary text-archive-dark font-bold rounded shadow-lg hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                        data-action="submit-4tier" data-page="${page}">
+                                    <span class="material-symbols-outlined text-sm font-bold">check_circle</span>
+                                    APPLY & SAVE
+                                </button>
+                                <button class="w-full py-3 bg-black/40 border border-white/15 text-archive-heading font-bold rounded hover:border-primary/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                        data-action="skip-4tier" data-page="${page}">
+                                    <span class="material-symbols-outlined text-sm font-bold">redo</span>
+                                    SKIP
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    formatTime(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        if (h > 0) return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
     // ── Feedback engine ─────────────────────────────────────────
     mapDocTypeToClass(docType) {
         const value = String(docType || '').toUpperCase();
@@ -397,6 +513,19 @@ class ClassifyTab {
         if (value.includes('REPORT') || value.includes('302') || value.includes('STATEMENT') || value.includes('RIF')) return 'REPORT';
         if (value === 'UNKNOWN' || value === 'BLANK' || value === 'INDEX' || value === 'TOC' || value === 'COVER') return 'OTHER';
         return 'OTHER';
+    }
+
+    statusToDisposition(status) {
+        const s = String(status || '').toLowerCase();
+        if (s === 'correct') return 'verified_approved';
+        if (s === 'incorrect') return 'verified_not_approved';
+        if (s === 'skipped') return 'needs_followup';
+        return 'pending';
+    }
+
+    getReasonCode(page) {
+        const preset = document.getElementById(`note-preset-${page}`)?.value || '';
+        return preset || null;
     }
 
     applyNotePreset(page) {
@@ -504,9 +633,18 @@ class ClassifyTab {
         const textSample = el.dataset.textSample || '';
         const noteType = document.getElementById(`note-preset-${page}`)?.value || null;
         const notes = document.getElementById(`note-text-${page}`)?.value || null;
+        const reasonCode = this.getReasonCode(page);
+        const status = (!hasExplicitClass || docClass === predictedClass) ? "correct" : "incorrect";
+        if (status === "incorrect" && !reasonCode) {
+            this.wb.showToast(`Select a reason preset before saving Page ${page} as not approved`);
+            document.getElementById(`note-preset-${page}`)?.focus();
+            return;
+        }
 
         const feedbackData = {
-            status: (!hasExplicitClass || docClass === predictedClass) ? "correct" : "incorrect",
+            status: status,
+            disposition: this.statusToDisposition(status),
+            reason_code: status === "incorrect" ? reasonCode : null,
             predictedType: predicted,
             selectedType: docClass,
             selectedAgency: agency,
@@ -549,9 +687,15 @@ class ClassifyTab {
         const noteType = document.getElementById(`note-preset-${page}`)?.value || null;
         const notesRaw = document.getElementById(`note-text-${page}`)?.value || '';
         const notes = notesRaw.trim();
+        const reasonCode = this.getReasonCode(page);
         if (!notes) {
             this.wb.showToast(`Add a review note before skipping Page ${page}`);
             document.getElementById(`note-text-${page}`)?.focus();
+            return;
+        }
+        if (!reasonCode) {
+            this.wb.showToast(`Select a reason preset before skipping Page ${page}`);
+            document.getElementById(`note-preset-${page}`)?.focus();
             return;
         }
 
@@ -571,6 +715,8 @@ class ClassifyTab {
 
         const feedbackData = {
             status: "skipped",
+            disposition: this.statusToDisposition("skipped"),
+            reason_code: reasonCode,
             predictedType: predicted,
             selectedType: selectedClassRaw || null,
             selectedAgency: selectedAgencyRaw || null,
@@ -674,7 +820,7 @@ class ClassifyTab {
         // Sync reviewer notes
         const notePresetEl = document.getElementById(`note-preset-${page}`);
         const noteTextEl = document.getElementById(`note-text-${page}`);
-        if (notePresetEl) notePresetEl.value = data.noteType || "";
+        if (notePresetEl) notePresetEl.value = data.noteType || data.reason_code || "";
         if (noteTextEl) noteTextEl.value = data.notes || "";
     }
 
@@ -797,11 +943,13 @@ class ClassifyTab {
                 const selectedFormat = fb.selectedFormat || null;
                 const selectedContent = Array.isArray(fb.selectedContent) ? fb.selectedContent : [];
                 const reviewStatus = fb.status || 'pending';
+                const disposition = fb.disposition || this.statusToDisposition(reviewStatus);
 
                 return {
                     page: pageNum,
                     page_index: p.page_index,
                     review_status: reviewStatus,
+                    disposition: disposition,
                     prediction: {
                         type: predictedType,
                         class: predictedClass,
@@ -815,12 +963,19 @@ class ClassifyTab {
                         selected_format: selectedFormat,
                         selected_content: selectedContent,
                         note_type: fb.noteType || null,
+                        reason_code: fb.reason_code || fb.noteType || null,
                         notes: fb.notes || null,
                         new_type_flag: !!fb.newTypeFlag
                     }
                 };
             })
             .sort((a, b) => a.page - b.page);
+
+        const unresolvedPages = exportPages.filter(p => p.review_status === 'pending').map(p => p.page);
+        if (unresolvedPages.length > 0) {
+            this.wb.showToast(`Review all pages before export (${unresolvedPages.length} pending)`);
+            return;
+        }
 
         const reviewedPages = exportPages.filter(p => p.review_status !== 'pending');
         const correct = reviewedPages.filter(p => p.review_status === 'correct').length;
@@ -1337,7 +1492,10 @@ class InputTab {
         this.pollTimer = null;      // setTimeout reference
         this.logEntries = [];       // Array of {msg, type} for inline log
         this.outputDir = './processed';
-        this.ALLOWED_EXTS = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2'];
+        this.AUDIO_EXTS = ['.mp3', '.wav', '.m4a', '.flac', '.ogg', '.wma'];
+        this.VIDEO_EXTS = ['.mp4', '.webm', '.mov', '.mkv', '.avi'];
+        this.MEDIA_EXTS = [...this.AUDIO_EXTS, ...this.VIDEO_EXTS];
+        this.ALLOWED_EXTS = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2', ...this.MEDIA_EXTS];
     }
 
     // --- Initialization ---
@@ -1350,6 +1508,12 @@ class InputTab {
             if (res.ok) {
                 const cfg = await res.json();
                 this.outputDir = cfg.output_dir || './processed';
+                this.whisperAvailable = cfg.whisper_available || false;
+                // Show/hide whisper settings panel
+                const whisperPanel = document.getElementById('whisper-settings');
+                if (whisperPanel) {
+                    whisperPanel.style.display = this.whisperAvailable ? '' : 'none';
+                }
             }
         } catch { /* use default */ }
         // Resume in-progress job from localStorage
@@ -1473,7 +1637,9 @@ class InputTab {
             output_html: document.getElementById('output-html')?.checked ?? true,
             deskew: document.getElementById('option-deskew')?.checked ?? true,
             clean: document.getElementById('option-clean')?.checked ?? true,
-            force_ocr: document.getElementById('option-force')?.checked ?? false
+            force_ocr: document.getElementById('option-force')?.checked ?? false,
+            whisper_model: document.getElementById('whisper-model')?.value || 'base',
+            whisper_language: document.getElementById('whisper-language')?.value || '',
         };
     }
 
@@ -1499,6 +1665,8 @@ class InputTab {
         formData.append('deskew', settings.deskew);
         formData.append('clean', settings.clean);
         formData.append('force_ocr', settings.force_ocr);
+        formData.append('whisper_model', settings.whisper_model);
+        formData.append('whisper_language', settings.whisper_language);
 
         this.logEntries = [];
         this.logMessage(`Creating job for ${queued.length} file(s)...`);
@@ -1657,9 +1825,14 @@ class InputTab {
     }
 
     renderQueuedCard(file, idx) {
+        const ext = '.' + file.name.split('.').pop().toLowerCase();
+        const isMedia = this.MEDIA_EXTS.includes(ext);
+        const isVideo = this.VIDEO_EXTS.includes(ext);
+        const icon = isMedia ? (isVideo ? 'videocam' : 'mic') : 'description';
+        const badge = isMedia ? `<span class="media-badge">${isVideo ? 'VIDEO' : 'AUDIO'}</span> ` : '';
         return `<div class="kanban-card">
-            <div class="filename">${this.escapeHtml(file.name)}</div>
-            <div class="meta">${this.formatFileSize(file.size)} · Waiting...</div>
+            <div class="filename"><span class="material-symbols-outlined text-xs opacity-40">${icon}</span> ${this.escapeHtml(file.name)}</div>
+            <div class="meta">${badge}${this.formatFileSize(file.size)} · Waiting...</div>
             <div class="kanban-card-actions">
                 <button data-action="input-remove" data-idx="${idx}">Remove</button>
             </div>
@@ -1936,11 +2109,19 @@ class SourceTab {
                 statusClass = 'in-progress'; statusLabel = `${reviewCount} reviewed`;
             }
 
+            const fileExt = '.' + (f.name.split('.').pop() || '').toLowerCase();
+            const mediaExts = ['.mp3','.wav','.m4a','.flac','.ogg','.wma','.mp4','.webm','.mov','.mkv','.avi'];
+            const isMediaFile = mediaExts.includes(fileExt);
+            const typeBadge = f.type === 'TRANSCRIPT' ? '<span class="media-badge">TRANSCRIPT</span>'
+                : isMediaFile ? '<span class="media-badge">MEDIA</span>'
+                : '';
+
             return `
             <div class="source-card${activeClass}" data-action="select-file" data-filename="${f.name}">
                 <div class="filename">${f.name}</div>
                 <div class="meta">
                     <span class="status-badge ${statusClass}">${statusLabel}</span>
+                    ${typeBadge}
                     ${sizeMB ? `<span>${sizeMB}</span>` : ''}
                     <span>${f.type || ''}</span>
                 </div>
@@ -2297,13 +2478,20 @@ class DocumentWorkbench {
             const res = await fetch(`/api/review/${encodeURIComponent(this.FILE_NAME)}`);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             this.classificationData = await res.json();
-            document.getElementById('file-info').textContent = `${this.classificationData.filename} • ${this.classificationData.total_pages} pages • ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`;
+            const pageLabel = this.classificationData.media_type ? 'segments' : 'pages';
+            const durationInfo = this.classificationData.duration ? ` • ${this.classifyTab.formatTime(this.classificationData.duration)}` : '';
+            document.getElementById('file-info').textContent = `${this.classificationData.filename} • ${this.classificationData.total_pages} ${pageLabel}${durationInfo} • ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`;
             document.getElementById('stat-total').textContent = this.classificationData.total_pages;
             this.classifyTab.populateTypeFilter(this.classificationData.pages);
             this.reconcileFeedbackStatuses();
             this.classifyTab.renderCards(this.classificationData.pages);
+            this.classifyTab.applyFilters();
             if (statusEl) statusEl.textContent = '';
-            this.loadPDF();
+            // Only load PDF renderer for PDF files, skip for media transcripts
+            const isMediaTranscript = this.classificationData.media_type;
+            if (!isMediaTranscript) {
+                this.loadPDF();
+            }
             for (const [page, data] of Object.entries(this.feedback)) this.classifyTab.applyFeedbackUI(page, data);
             this.classifyTab.updateStats();
             if (this.isWorkbenchMode) this.updateTabStates();

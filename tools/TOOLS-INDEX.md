@@ -18,6 +18,7 @@ This document serves as the master index for all specialized Python utilities, O
 | Tool | Description |
 |------|-------------|
 | [**train_classifier.py**](file:///C:/Users/willh/Desktop/primary-sources/tools/train_classifier.py) | Analyzes feedback data to suggest and train classifier pattern improvements. |
+| [**convert_workbench_feedback_v2.py**](file:///C:/Users/willh/Desktop/primary-sources/tools/convert_workbench_feedback_v2.py) | Converts Workbench `_v2` feedback exports into legacy `classifier-feedback.json` (`entries[]`) for `train_classifier.py`. |
 | [**test_classifier.py**](file:///C:/Users/willh/Desktop/primary-sources/tools/test_classifier.py) | Validation script for checking document classification accuracy. |
 | [**classifier_test_html.py**](file:///C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py) | **DEPRECATED** — Historical tool for generating visual classification reports. |
 | [**discover_patterns.py**](file:///C:/Users/willh/Desktop/primary-sources/tools/discover_patterns.py) | Auto-discovers new textual fingerprints from documents marked as "UNKNOWN". |

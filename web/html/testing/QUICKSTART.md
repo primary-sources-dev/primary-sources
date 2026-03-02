@@ -39,11 +39,12 @@ pytest test_classifier_api.py
 
 ## 🖥️ 4. Manual UI Verification
 To verify the visual components, open your browser to:
-[http://localhost:5000/tools/classifier/classifier-ui.html?file=ralphleonyatesdocumentsfull_searchable.pdf](http://localhost:5000/tools/classifier/classifier-ui.html?file=ralphleonyatesdocumentsfull_searchable.pdf)
+[http://localhost:5000/tools/workbench/workbench.html?file=ralphleonyatesdocumentsfull_searchable.pdf&tab=classify](http://localhost:5000/tools/workbench/workbench.html?file=ralphleonyatesdocumentsfull_searchable.pdf&tab=classify)
 
 ### Verification Checklist:
 1. **Scrolling**: Do pages render as you scroll?
 2. **Highlights**: Do you see yellow highlights on key agency names?
-3. **Save**: Click "Apply & Verify" on a page. Does it get a **Green Badge**?
-4. **Reload**: Refresh the page. Does the **Green Badge** stay there? (Checks LocalStorage)
-5. **Log**: Check `data/classifier-feedback.json` on your computer. Does it have the new record with the `textSample`? (Checks Server Storage)
+3. **Save**: Click "APPLY & SAVE" on a page. Does it auto-advance to the next card?
+4. **Skip**: Click "SKIP" without notes (should block). Add note + reason preset and retry (should save and auto-advance).
+5. **Reload**: Refresh the page. Does saved review state persist? (Checks LocalStorage)
+6. **Log**: Check `data/classifier-feedback.json` on your computer. Does it have the new record with the `textSample`? (Checks Server Storage)

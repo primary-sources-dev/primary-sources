@@ -40,6 +40,32 @@ class TestClassifierAPI:
         data = response.json()
         assert data["success"] is True
 
+    def test_post_feedback_skipped_requires_reason(self):
+        """Verify skipped/non-approved requires reason_code or noteType."""
+        payload = {
+            "page": 9992,
+            "source": "test_document.pdf",
+            "status": "skipped",
+            "notes": "Need follow-up review"
+        }
+        response = requests.post(FEEDBACK_API, json=payload)
+        assert response.status_code == 400
+        assert "reason_code" in response.json().get("error", "")
+
+    def test_post_feedback_skipped_with_reason(self):
+        """Verify skipped status is accepted when reason is provided."""
+        payload = {
+            "page": 9993,
+            "source": "test_document.pdf",
+            "status": "skipped",
+            "reason_code": "AMBIGUOUS_DOC_TYPE",
+            "notes": "Mixed language on page."
+        }
+        response = requests.post(FEEDBACK_API, json=payload)
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+
     def test_get_feedback_all(self):
         """Verify that all feedback entries can be retrieved and contain our test record."""
         response = requests.get(FEEDBACK_API)
@@ -77,8 +103,8 @@ class TestClassifierAPI:
             pages = data["pages"]
             assert isinstance(pages, list)
             if len(pages) > 0:
-                # Actual keys in the per-page object are e.g. 'class', 'agency', 'confidence'
-                assert "class" in pages[0]
+                # Per-page payload supports classifier fields (doc_type + confidence baseline)
+                assert "doc_type" in pages[0]
                 assert "confidence" in pages[0]
         else:
             # If the file doesn't exist yet, we expect a 404 or similar
@@ -94,7 +120,13 @@ class TestClassifierAPI:
         requests.post(FEEDBACK_API, json=p1)
         
         # 2. Post updated feedback (incorrect)
-        p2 = {"page": page, "source": source, "status": "incorrect", "selectedClass": "MEMO"}
+        p2 = {
+            "page": page,
+            "source": source,
+            "status": "incorrect",
+            "selectedClass": "MEMO",
+            "reason_code": "AMBIGUOUS_DOC_TYPE"
+        }
         requests.post(FEEDBACK_API, json=p2)
         
         # 3. Verify only one record exists for this source/page in the latest list
@@ -103,6 +135,13 @@ class TestClassifierAPI:
         assert len(entries) == 1
         assert entries[0]["status"] == "incorrect"
         assert entries[0]["selectedClass"] == "MEMO"
+
+    def test_feedback_get_includes_skipped_summary_key(self):
+        """Verify summary now includes skipped bucket for current workflow."""
+        response = requests.get(FEEDBACK_API)
+        assert response.status_code == 200
+        summary = response.json().get("summary", {})
+        assert "skipped" in summary
 
 if __name__ == "__main__":
     pytest.main([__file__])

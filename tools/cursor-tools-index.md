@@ -62,6 +62,7 @@ Desktop and backend components for OCR processing.
 | `test_classifier.py` | Additional classifier tests |
 | `classifier_test_html.py` | **DEPRECATED** - Generates HTML classification reports. Replaced by dynamic `classifier-ui.html` |
 | `train_classifier.py` | Analyzes feedback data to suggest classifier pattern improvements |
+| `convert_workbench_feedback_v2.py` | Converts Workbench `_v2` exports to legacy `classifier-feedback.json` (`entries[]`) for `train_classifier.py` |
 
 ### Collection-Specific Tests
 

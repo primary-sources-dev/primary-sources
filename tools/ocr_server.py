@@ -36,6 +36,16 @@ except ImportError:
     print("Warning: ocr_worker not available, using placeholder processing")
 
 try:
+    from transcription_worker import TranscriptionWorker, WHISPER_AVAILABLE, MEDIA_EXTENSIONS, AUDIO_EXTENSIONS, VIDEO_EXTENSIONS, WHISPER_MODELS
+except ImportError:
+    WHISPER_AVAILABLE = False
+    MEDIA_EXTENSIONS = set()
+    AUDIO_EXTENSIONS = set()
+    VIDEO_EXTENSIONS = set()
+    WHISPER_MODELS = []
+    print("Warning: transcription_worker not available")
+
+try:
     from metadata_parser import MetadataParser, parse_metadata
     PARSER_AVAILABLE = True
 except ImportError:
@@ -102,7 +112,10 @@ app = Flask(__name__,
 # Configuration
 UPLOAD_FOLDER = os.path.join(NEW_UI_ROOT, "processed")
 MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
-ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif", "zip", "tar", "gz", "tgz", "bz2"}
+AUDIO_EXTS = {"mp3", "wav", "m4a", "flac", "ogg", "wma"}
+VIDEO_EXTS = {"mp4", "webm", "mov", "mkv", "avi"}
+MEDIA_EXTS = AUDIO_EXTS | VIDEO_EXTS
+ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif", "zip", "tar", "gz", "tgz", "bz2"} | MEDIA_EXTS
 ARCHIVE_EXTENSIONS = {"zip", "tar", "gz", "tgz", "bz2"}
 IMAGE_PDF_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif"}
 
@@ -124,7 +137,19 @@ def is_archive(filename):
 
 def is_processrable(filename):
     ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
-    return ext in IMAGE_PDF_EXTENSIONS
+    return ext in IMAGE_PDF_EXTENSIONS or ext in MEDIA_EXTS
+
+def is_media(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in MEDIA_EXTS
+
+def is_audio(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in AUDIO_EXTS
+
+def is_video(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in VIDEO_EXTS
 
 
 # ============================================================================
@@ -176,6 +201,8 @@ def get_config():
         "backends": ["wsl", "python"],
         "default_backend": "wsl",
         "ocr_available": OCR_AVAILABLE,
+        "whisper_available": WHISPER_AVAILABLE,
+        "whisper_models": WHISPER_MODELS if WHISPER_AVAILABLE else [],
     })
 
 
@@ -194,7 +221,9 @@ def create_job():
     deskew = request.form.get("deskew", "true") == "true"
     clean = request.form.get("clean", "true") == "true"
     force_ocr = request.form.get("force_ocr", "false") == "true"
-    
+    whisper_model = request.form.get("whisper_model", "base")
+    whisper_language = request.form.get("whisper_language", "") or None
+
     if not files:
         return jsonify({"error": "No files provided"}), 400
     
@@ -278,6 +307,8 @@ def create_job():
             "deskew": deskew,
             "clean": clean,
             "force_ocr": force_ocr,
+            "whisper_model": whisper_model,
+            "whisper_language": whisper_language,
         },
     }
     
@@ -324,8 +355,40 @@ def process_job_worker(job_id):
             job["log"].append(f"Processing: {file_info['name']}")
             job["progress"] = int((i / total_files) * 100)
             
-            if OCR_AVAILABLE:
-                # Real OCR processing
+            def on_progress(pct, msg):
+                job["log"].append(msg)
+                file_info["progress"] = pct
+                file_info["current_msg"] = msg
+                job["progress"] = int((i / total_files) * 100 + (pct / total_files))
+
+            def on_complete(success, msg):
+                if success:
+                    file_info["status"] = "completed"
+                    file_info["progress"] = 100
+                    job["log"].append(f"✓ {file_info['name']} completed")
+                else:
+                    file_info["status"] = "failed"
+                    file_info["progress"] = 0
+                    job["log"].append(f"✗ {file_info['name']} failed: {msg}")
+
+            if is_media(file_info["name"]) and WHISPER_AVAILABLE:
+                # Transcription processing for audio/video
+                worker = TranscriptionWorker(
+                    model_size=job["options"].get("whisper_model", "base"),
+                    language=job["options"].get("whisper_language"),
+                    output_dir=UPLOAD_FOLDER,
+                    output_txt=True,
+                    output_vtt=True,
+                    output_json=True,
+                )
+                worker.process_file(file_info["path"], on_progress, on_complete)
+
+                # Auto-run metadata parser on completed transcripts
+                if file_info["status"] == "completed" and PARSER_AVAILABLE:
+                    _run_metadata_parser(file_info, job)
+
+            elif OCR_AVAILABLE:
+                # Real OCR processing for PDFs/images
                 worker = OCRWorker(
                     backend=job["backend"],
                     output_dir=UPLOAD_FOLDER,
@@ -338,25 +401,8 @@ def process_job_worker(job_id):
                     clean=job["options"]["clean"],
                     force_ocr=job["options"]["force_ocr"],
                 )
-                
-                def on_progress(pct, msg):
-                    job["log"].append(msg)
-                    file_info["progress"] = pct
-                    file_info["current_msg"] = msg # New: store detailed step
-                    job["progress"] = int((i / total_files) * 100 + (pct / total_files))
-                
-                def on_complete(success, msg):
-                    if success:
-                        file_info["status"] = "completed"
-                        file_info["progress"] = 100
-                        job["log"].append(f"✓ {file_info['name']} completed")
-                    else:
-                        file_info["status"] = "failed"
-                        file_info["progress"] = 0
-                        job["log"].append(f"✗ {file_info['name']} failed: {msg}")
-                
                 worker.process_file(file_info["path"], on_progress, on_complete)
-                
+
                 # Auto-run metadata parser on completed files
                 if file_info["status"] == "completed" and PARSER_AVAILABLE:
                     _run_metadata_parser(file_info, job)
@@ -1018,13 +1064,14 @@ def entities_export_endpoint():
 @app.route("/api/review/<filename>", methods=["GET"])
 def review_endpoint(filename):
     """
-    Return per-page classification data for a processed PDF.
+    Return per-page/segment classification data for a processed PDF or media file.
 
-    Used by classifier-ui.html to render a dynamic review UI.
+    Used by workbench to render a dynamic review UI.
+    For media files, reads .transcript.json and classifies each segment.
 
     URL params:
-        filename: Name of the PDF file in the processed/ directory
-                  (e.g. "yates-searchable.pdf")
+        filename: Name of the file in the processed/ directory
+                  (e.g. "yates-searchable.pdf" or "interview.mp3")
 
     Response:
         {
@@ -1071,8 +1118,64 @@ def review_endpoint(filename):
     else:
         return jsonify({"error": f"File not found: {safe_name} (checked processed/, processed/uploads/, and _searchable variants)"}), 404
 
+    # Check if this is a media file with a transcript
+    ext = os.path.splitext(safe_name)[1].lower()
+    if ext in {f".{e}" for e in MEDIA_EXTS}:
+        base_name = os.path.splitext(safe_name)[0]
+        transcript_path = os.path.join(UPLOAD_FOLDER, f"{base_name}.transcript.json")
+        if not os.path.exists(transcript_path):
+            return jsonify({"error": f"Transcript not found for {safe_name}. Process the file first."}), 404
+
+        try:
+            with open(transcript_path, "r", encoding="utf-8") as f:
+                transcript = json.load(f)
+
+            segments = transcript.get("segments", [])
+            results = []
+            prev_type = "UNKNOWN"
+
+            for seg in segments:
+                text = seg.get("text", "").strip()
+                if not text:
+                    continue
+
+                if CLASSIFIER_AVAILABLE:
+                    classification = classify_document(text, prev_type=prev_type)
+                    all_scores = get_all_scores(text)
+                    prev_type = classification.doc_type.value
+                    page_result = classification.to_dict()
+                    page_result["all_scores"] = {k: round(v, 4) for k, v in all_scores.items()}
+                else:
+                    page_result = {
+                        "doc_type": "TRANSCRIPT",
+                        "confidence": 1.0,
+                        "matched_patterns": ["AUDIO_TRANSCRIPT"],
+                        "agency": "UNKNOWN",
+                        "all_scores": {"TRANSCRIPT": 1.0},
+                    }
+
+                page_result.update({
+                    "page": seg.get("id", 0) + 1,
+                    "page_index": seg.get("id", 0),
+                    "text": text[:2000],
+                    "segment_start": seg.get("start", 0),
+                    "segment_end": seg.get("end", 0),
+                    "media_type": transcript.get("media_type", "audio"),
+                })
+                results.append(page_result)
+
+            return jsonify({
+                "filename": safe_name,
+                "total_pages": len(results),
+                "media_type": transcript.get("media_type", "audio"),
+                "duration": transcript.get("duration", 0),
+                "pages": results,
+            })
+        except Exception as e:
+            return jsonify({"error": f"Transcript review error: {str(e)}"}), 500
+
     if not safe_name.lower().endswith(".pdf"):
-        return jsonify({"error": "Only PDF files are supported for review"}), 400
+        return jsonify({"error": "Only PDF and media files are supported for review"}), 400
 
     try:
         import fitz  # PyMuPDF — already used by the OCR stack
@@ -1087,7 +1190,7 @@ def review_endpoint(filename):
 
             classification = classify_document(text, prev_type=prev_type)
             all_scores = get_all_scores(text)
-            
+
             # Update state for next page
             prev_type = classification.doc_type.value
 
@@ -1119,16 +1222,57 @@ def review_endpoint(filename):
 # ============================================================================
 
 FEEDBACK_FILE = os.path.join(PROJECT_ROOT, "data", "classifier-feedback.json")
+LEGACY_STATUS_TO_DISPOSITION = {
+    "correct": "verified_approved",
+    "incorrect": "verified_not_approved",
+    "skipped": "needs_followup",
+    "pending": "pending",
+}
+DISPOSITION_TO_LEGACY_STATUS = {
+    "verified_approved": "correct",
+    "verified_not_approved": "incorrect",
+    "needs_followup": "skipped",
+    "pending": "pending",
+}
+
+
+def normalize_feedback_status(value: str) -> str:
+    """Accept canonical disposition or legacy status; persist legacy status for compatibility."""
+    raw = str(value or "").strip().lower()
+    if raw in LEGACY_STATUS_TO_DISPOSITION:
+        return raw
+    return DISPOSITION_TO_LEGACY_STATUS.get(raw, raw)
+
+
+def status_to_disposition(status: str) -> str:
+    return LEGACY_STATUS_TO_DISPOSITION.get(status, status)
+
+
+def compute_feedback_summary(entries: list) -> dict:
+    """Compute summary counts from entries to avoid drift."""
+    summary = {"total": len(entries), "correct": 0, "incorrect": 0, "skipped": 0, "pending": 0}
+    for entry in entries:
+        status = entry.get("status")
+        if status in summary:
+            summary[status] += 1
+    return summary
 
 def load_feedback() -> dict:
     """Load existing feedback from file."""
     if os.path.exists(FEEDBACK_FILE):
         try:
             with open(FEEDBACK_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+                entries = data.get("entries", [])
+                # Backfill canonical disposition field for newer consumers.
+                for entry in entries:
+                    if "disposition" not in entry:
+                        entry["disposition"] = status_to_disposition(entry.get("status"))
+                data["summary"] = compute_feedback_summary(entries)
+                return data
         except:
             pass
-    return {"entries": [], "summary": {"total": 0, "correct": 0, "incorrect": 0}}
+    return {"entries": [], "summary": {"total": 0, "correct": 0, "incorrect": 0, "skipped": 0, "pending": 0}}
 
 def save_feedback(data: dict):
     """Save feedback to file."""
@@ -1170,6 +1314,20 @@ def feedback_post():
     if missing:
         return jsonify({"error": f"Missing required fields: {missing}"}), 400
     
+    # Normalize status/disposition contract
+    normalized_status = normalize_feedback_status(data.get("status"))
+    if normalized_status not in {"correct", "incorrect", "pending", "skipped"}:
+        return jsonify({"error": f"Invalid status/disposition: {data.get('status')}"}), 400
+    data["status"] = normalized_status
+    data["disposition"] = status_to_disposition(normalized_status)
+
+    # Require explicit reason for non-approved outcomes
+    if normalized_status in {"incorrect", "skipped"}:
+        reason_code = (data.get("reason_code") or data.get("noteType") or "").strip()
+        if not reason_code:
+            return jsonify({"error": "reason_code (or noteType) required for non-approved outcomes"}), 400
+        data["reason_code"] = reason_code
+
     # Load existing feedback
     feedback = load_feedback()
     
@@ -1188,23 +1346,13 @@ def feedback_post():
     
     if existing_idx is not None:
         # Update existing entry
-        old_status = feedback["entries"][existing_idx].get("status")
         feedback["entries"][existing_idx] = data
-        # Update summary
-        if old_status == "correct":
-            feedback["summary"]["correct"] -= 1
-        elif old_status == "incorrect":
-            feedback["summary"]["incorrect"] -= 1
     else:
         # Add new entry
         feedback["entries"].append(data)
-        feedback["summary"]["total"] += 1
-    
-    # Update summary counts
-    if data["status"] == "correct":
-        feedback["summary"]["correct"] += 1
-    elif data["status"] == "incorrect":
-        feedback["summary"]["incorrect"] += 1
+
+    # Recompute summary counts
+    feedback["summary"] = compute_feedback_summary(feedback["entries"])
     
     # Save
     save_feedback(feedback)
@@ -1247,38 +1395,54 @@ def get_history():
         return jsonify({"files": []})
 
     files = []
+    media_ext_set = {f".{e}" for e in MEDIA_EXTS}
+
     # Scan processed/ folder
     for entry in os.scandir(UPLOAD_FOLDER):
-        if entry.is_file() and entry.name.lower().endswith(".pdf"):
-            filename = entry.name
-            base_name = filename.replace(".pdf", "")
-            
-            # Check for sidecar files to determine status
-            has_txt = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.txt"))
-            has_ocr_json = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.ocr.json"))
-            
-            # For history, we consider it "completed" if it's there
-            # (In a more robust system, we'd check job logs or a database)
-            
+        if not entry.is_file():
+            continue
+        filename = entry.name
+        ext = os.path.splitext(filename)[1].lower()
+
+        if ext == ".pdf":
             files.append({
                 "name": filename,
                 "status": "completed",
                 "size": entry.stat().st_size,
                 "type": "OCR_RESULT" if "_searchable" in filename else "UPLOAD"
             })
-            
+        elif ext in media_ext_set:
+            base_name = os.path.splitext(filename)[0]
+            has_transcript = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.transcript.json"))
+            files.append({
+                "name": filename,
+                "status": "completed" if has_transcript else "pending",
+                "size": entry.stat().st_size,
+                "type": "TRANSCRIPT" if has_transcript else "MEDIA_UPLOAD"
+            })
+
     # Also check processed/uploads/ for original/skipped files
     uploads_dir = os.path.join(UPLOAD_FOLDER, "uploads")
     if os.path.exists(uploads_dir):
         for entry in os.scandir(uploads_dir):
-            if entry.is_file() and entry.name.lower().endswith(".pdf"):
-                # Avoid duplicates if they exist in both places
-                if not any(f["name"] == entry.name for f in files):
+            if not entry.is_file():
+                continue
+            filename = entry.name
+            ext = os.path.splitext(filename)[1].lower()
+            if not any(f["name"] == filename for f in files):
+                if ext == ".pdf":
                     files.append({
-                        "name": entry.name,
+                        "name": filename,
                         "status": "completed",
                         "size": entry.stat().st_size,
                         "type": "ORIGINAL_PDF"
+                    })
+                elif ext in media_ext_set:
+                    files.append({
+                        "name": filename,
+                        "status": "completed",
+                        "size": entry.stat().st_size,
+                        "type": "MEDIA_UPLOAD"
                     })
 
     return jsonify({"files": files})
@@ -1298,26 +1462,32 @@ def feedback_corrections():
     """
     feedback = load_feedback()
     
-    # Group corrections by predicted->selected type pairs
+    # Group non-approved outcomes by predicted->selected type pairs
     corrections = {}
     for entry in feedback["entries"]:
-        if entry.get("status") != "incorrect":
+        if entry.get("status") not in {"incorrect", "skipped"}:
             continue
         
-        key = f"{entry['predictedType']}->{entry['selectedType']}"
+        key = f"{entry.get('predictedType', 'UNKNOWN')}->{entry.get('selectedType') or entry.get('selectedClass') or 'UNKNOWN'}"
         if key not in corrections:
             corrections[key] = {
-                "predictedType": entry["predictedType"],
-                "selectedType": entry["selectedType"],
+                "predictedType": entry.get("predictedType"),
+                "selectedType": entry.get("selectedType") or entry.get("selectedClass"),
                 "count": 0,
-                "samples": []
+                "samples": [],
+                "statuses": {"incorrect": 0, "skipped": 0},
             }
         corrections[key]["count"] += 1
+        st = entry.get("status")
+        if st in corrections[key]["statuses"]:
+            corrections[key]["statuses"][st] += 1
         if len(corrections[key]["samples"]) < 5:  # Keep up to 5 samples
             corrections[key]["samples"].append({
                 "page": entry.get("page"),
                 "source": entry.get("source"),
-                "textSample": entry.get("textSample", "")[:200]
+                "textSample": entry.get("textSample", "")[:200],
+                "status": entry.get("status"),
+                "reason_code": entry.get("reason_code"),
             })
     
     return jsonify({

@@ -10,21 +10,22 @@ This reference documents the current implementation of the classifier review too
 
 ## 2. Current UI + Code Locations
 
-- **UI**: [classifier-ui.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/classifier/classifier-ui.html)
+- **Primary UI**: [workbench.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/workbench/workbench.html)
+- **Legacy UI (redirects by default)**: [classifier-ui.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/classifier/classifier-ui.html)
 - **Tool Detail Page**: [classifier-details.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/classifier/classifier-details.html)
 - **API Server**: [ocr_server.py](file:///C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py)
 - **Persistent Feedback File**: [classifier-feedback.json](file:///C:/Users/willh/Desktop/primary-sources/data/classifier-feedback.json)
 
 ## 3. Data Flow
 
-### Review Tab
+### Review Tab (Workbench)
 
-1. User opens `classifier-ui.html?file=<pdf-or-name>`.
+1. User opens `workbench.html?file=<pdf-or-name>&tab=classify`.
 2. UI resolves the PDF URL:
    - Uses `file` directly when it starts with `/api/` or `http`.
    - Otherwise maps to `/api/download/<file>`.
 3. UI requests page classifications from `GET /api/review/<filename>`.
-4. Reviewer applies 4-tier selections and clicks `APPLY & VERIFY`.
+4. Reviewer applies 4-tier selections and clicks `APPLY & SAVE`, or `SKIP` with a note + reason preset.
 5. UI saves local state to `localStorage` and posts feedback to `POST /api/feedback`.
 
 ### Export Tab
@@ -69,7 +70,7 @@ This reference documents the current implementation of the classifier review too
 
 ### Export Tab (Entity Export Pipeline)
 
-- **Tab system**: Two-tab UI — Review (page-level classification) and Export (document-level entity export).
+- **Tab system**: Workbench tabs (`INPUT`, `SOURCE`, `CLASSIFY`, `ENTITIES`, `EXPORT`).
 - **Source Record Preview**: Aggregates page-level feedback into a single source record. Auto-computes most-frequent agency, class, format, and union of content tags.
 - **Entity Detection**: Calls `POST /api/entities` with concatenated page text. Displays matched entities (people, places, orgs) in a review table with confidence scores and match method.
 - **New Candidates**: Shows proper nouns not found in the entity index as potential new entities.
@@ -87,9 +88,10 @@ Returns per-page classification payload for a PDF in `web/html/processed` (or `p
 
 ### `POST /api/feedback`
 
-Stores one page-level feedback record. Required fields are currently `page` and `status`; UI also sends:
+Stores one page-level feedback record. Required fields are `page` and `status` (or canonical disposition alias). UI also sends:
 
-- `source`, `predictedType`, `selectedType`, `selectedAgency`, `selectedClass`, `selectedFormat`, `selectedContent`, `newTypeFlag`, `textSample`.
+- `source`, `predictedType`, `selectedType`, `selectedAgency`, `selectedClass`, `selectedFormat`, `selectedContent`, `newTypeFlag`, `textSample`, `noteType`, `notes`, `reason_code`.
+- For non-approved outcomes (`incorrect`/`skipped`), server requires `reason_code` (or `noteType`).
 
 ### `GET /api/feedback`
 
@@ -113,22 +115,24 @@ Writes a new entity record to one of 6 JSON data files. Request: `{ target_file,
 
 ## 6. Persistence Model
 
-- **Local (Review)**: `localStorage` key `classifier_feedback_<filename>` — page-level review state.
-- **Local (Export)**: `localStorage` key `classifier_export_<filename>` — entity approval state (approve/reject per entity).
+- **Local (Review)**: `localStorage` key `workbench_feedback_<filename>` (legacy `classifier_feedback_<filename>` migrated on first load).
+- **Local (Export)**: `localStorage` key `workbench_export_<filename>` (legacy `classifier_export_<filename>` migrated on first load).
 - **Server (Feedback)**: [classifier-feedback.json](file:///C:/Users/willh/Desktop/primary-sources/data/classifier-feedback.json) — de-duplicates by `source + page`, updates summary counters.
 - **Server (Entity Data)**: JSON files in `web/html/assets/data/` — `sources.json`, `people.json`, `organizations.json`, `places.json`, `objects.json`, `events.json`. The `/api/entities/export` endpoint appends records with `.bak` backup and duplicate detection.
+- **Workbench Export Artifact**: `_v2` JSON (`schema_version: workbench-feedback-v2`) with `pages[]` and `reviewed_pages_only`.
 
 ## 7. Notes on Current Behavior
 
-- The UI computes `textSample` (first 1000 characters) and includes it in the posted JSON body.
-- Correct/incorrect status is determined by comparing selected class to predicted legacy type string.
-- The tool still carries legacy doc-type compatibility alongside the 4-tier review model.
+- The UI computes `textSample` and includes it in the posted JSON body.
+- Workbench supports `pending`, `correct`, `incorrect`, and `skipped`.
+- Server stores legacy-compatible status values and also backfills canonical `disposition`.
 
 ## 8. Directory & File Path Map
 
 | Component | Absolute Link |
 | :--- | :--- |
-| **Main UI** | [classifier-ui.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/classifier/classifier-ui.html) |
+| **Main UI** | [workbench.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/workbench/workbench.html) |
+| **Legacy UI** | [classifier-ui.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/classifier/classifier-ui.html) |
 | **Docs Detail** | [classifier-details.html](file:///C:/Users/willh/Desktop/primary-sources/web/html/tools/classifier/classifier-details.html) |
 | **Backend API** | [ocr_server.py](file:///C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py) |
 | **Entity Matcher** | [entity_matcher.py](file:///C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py) |
@@ -154,3 +158,6 @@ The training engine closes the loop by turning human corrections into machine ru
 
 - [train_classifier.py](file:///C:/Users/willh/Desktop/primary-sources/tools/train_classifier.py) : View current accuracy stats and top error clusters.
 - `python tools/train_classifier.py --suggest` : Generate a list of new patterns based on your recent audits.
+- For Workbench `_v2` exports, run:
+  - `python tools/convert_workbench_feedback_v2.py --input "C:/Users/willh/Downloads/classifier_feedback_*_v2.json" --output data/classifier-feedback.json`
+  - Then run `python tools/train_classifier.py --suggest`.

@@ -51,6 +51,22 @@ KNOWN_CONTENT_TYPES = {
     'CORRESPONDENCE', 'SEARCH_WARRANT', 'INTERVIEW',
 }
 
+DISPOSITION_TO_STATUS = {
+    'verified_approved': 'correct',
+    'verified_not_approved': 'incorrect',
+    'needs_followup': 'skipped',
+    'pending': 'pending',
+}
+
+
+def normalize_status(entry: dict) -> str:
+    """Normalize legacy status/canonical disposition into legacy status labels."""
+    status = str(entry.get("status", "")).strip().lower()
+    if status in {"correct", "incorrect", "pending", "skipped"}:
+        return status
+    disposition = str(entry.get("disposition", "")).strip().lower()
+    return DISPOSITION_TO_STATUS.get(disposition, "pending")
+
 
 def load_feedback() -> dict:
     """Load feedback from JSON file."""
@@ -89,7 +105,7 @@ def analyze_corrections(feedback: dict) -> dict:
     for entry in entries:
         predicted = entry.get("predictedType", "UNKNOWN")
         selected = entry.get("selectedType") or entry.get("selectedClass") or "UNKNOWN"
-        status = entry.get("status", "")
+        status = normalize_status(entry)
 
         if status == "correct":
             confirmations[predicted] += 1
@@ -122,6 +138,8 @@ def analyze_corrections(feedback: dict) -> dict:
         "total_entries": len(entries),
         "total_correct": sum(confirmations.values()),
         "total_incorrect": sum(len(v) for v in corrections.values()),
+        "total_skipped": sum(1 for e in entries if normalize_status(e) == "skipped"),
+        "total_pending": sum(1 for e in entries if normalize_status(e) == "pending"),
         "agency_counts": dict(agency_counts),
         "format_counts": dict(format_counts),
         "content_counts": dict(content_counts),
@@ -157,7 +175,7 @@ def extract_flagged_items(feedback: dict) -> dict:
             })
 
         # Reviewer notes by preset type
-        note_type = entry.get("noteType")
+        note_type = entry.get("noteType") or entry.get("reason_code")
         notes_text = entry.get("notes")
         if note_type or notes_text:
             note_record = {
@@ -457,6 +475,8 @@ def print_analysis(analysis: dict):
     print(f"\nTotal entries: {total}")
     print(f"  Correct:   {analysis['total_correct']} ({analysis['total_correct']/max(1,total):.0%})")
     print(f"  Incorrect: {analysis['total_incorrect']} ({analysis['total_incorrect']/max(1,total):.0%})")
+    print(f"  Skipped:   {analysis['total_skipped']} ({analysis['total_skipped']/max(1,total):.0%})")
+    print(f"  Pending:   {analysis['total_pending']} ({analysis['total_pending']/max(1,total):.0%})")
 
     # Tier 1: Agency breakdown
     if analysis["agency_counts"]:
