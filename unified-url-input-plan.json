@@ -1,0 +1,88 @@
+{
+  "plan": "Unified URL Input + Input Mode Wiring",
+  "created": "2026-03-02",
+  "status": "approved",
+  "context": "The Input tab has three mode buttons (Upload / Paste / URL) but only Upload works. The Paste and URL panels exist in HTML but have no JS wiring. The URL fetch button calls a yt-dlp-only endpoint and hardcodes audio/mpeg. Goal: ONE URL input that auto-detects any URL type and handles it correctly.",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Backend: Unified /api/ingest-url endpoint",
+      "file": "tools/ocr_server.py",
+      "status": "pending",
+      "details": [
+        "Replace existing /api/ingest-url (line 1862) with smart auto-detecting endpoint",
+        "Add _detect_url_type() helper: HEAD request → Content-Type check",
+        "Add _is_known_video_site() helper for YouTube/Vimeo/etc pattern matching",
+        "Detection order: HEAD → HTML+video site=yt-dlp → HTML=scrape → audio/video/PDF/image=direct download → unknown=try yt-dlp then scrape",
+        "Unified response: { success, type: scraped|downloaded|ytdlp, title, basename, pages, chars, file: {name, size, content_type} }",
+        "Keep old /api/download endpoint intact for backward compat"
+      ]
+    },
+    {
+      "step": 2,
+      "title": "Frontend: Rewrite downloadUrl()",
+      "file": "web/html/assets/js/workbench.js",
+      "status": "pending",
+      "details": [
+        "Replace lines 2196-2248 to call /api/ingest-url instead of /api/download",
+        "Branch on data.type: scraped → queue as completed + refresh source tab; downloaded/ytdlp → fetch blob, queue as queued",
+        "Add _guessMimeType(filename) helper for correct MIME types",
+        "Reset error color on new attempts"
+      ]
+    },
+    {
+      "step": 3,
+      "title": "Frontend: Wire input mode switching",
+      "file": "web/html/assets/js/workbench.js",
+      "status": "pending",
+      "details": [
+        "Add switchInputMode(mode) method to InputTab — toggles data-input-panel visibility and button active state",
+        "In bindEvents() (line 2936): add handler for [data-input-mode] clicks before the [data-action] handler",
+        "Remove init() logic (lines 2117-2121) that conditionally hides URL panel based on ytdlpAvailable"
+      ]
+    },
+    {
+      "step": 4,
+      "title": "Frontend: Wire paste submission",
+      "file": "web/html/assets/js/workbench.js",
+      "status": "pending",
+      "details": [
+        "Add submitPaste() method to InputTab — calls existing POST /api/paste, creates synthetic file in queue as completed, refreshes source tab",
+        "In bindEvents() switch: add case 'paste-submit'"
+      ]
+    },
+    {
+      "step": 5,
+      "title": "Frontend: Fix action mismatch + expand ALLOWED_EXTS",
+      "file": "web/html/assets/js/workbench.js",
+      "status": "pending",
+      "details": [
+        "Change case 'url-download' (line 2946) → case 'url-ingest' to match HTML data-action",
+        "Expand ALLOWED_EXTS (line 2097) to include .txt, .md, .rtf, .csv, .vtt, .srt, .docx, .doc, .eml, .mbox"
+      ]
+    },
+    {
+      "step": 6,
+      "title": "HTML: Update placeholder and status text",
+      "file": "web/html/tools/workbench/workbench.html",
+      "status": "pending",
+      "details": [
+        "Line 424: placeholder → 'Paste any URL — YouTube, web page, PDF, image, audio...'",
+        "Line 431: status → 'Auto-detects: web pages, YouTube, audio/video, PDFs, images'"
+      ]
+    }
+  ],
+  "files_modified": [
+    "tools/ocr_server.py",
+    "web/html/assets/js/workbench.js",
+    "web/html/tools/workbench/workbench.html"
+  ],
+  "verification": [
+    "Start server: cd tools && python ocr_server.py",
+    "Open workbench, click Paste → type text → Submit → should appear in queue as completed",
+    "Click URL → paste a YouTube link → Fetch → should download MP3 and queue it",
+    "Click URL → paste a web article URL → Fetch → should scrape text and show as completed",
+    "Click URL → paste a direct PDF link → Fetch → should download and queue for OCR",
+    "Upload tab still works normally for drag-and-drop"
+  ]
+}
