@@ -138,7 +138,12 @@ MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
 AUDIO_EXTS = {"mp3", "wav", "m4a", "flac", "ogg", "wma"}
 VIDEO_EXTS = {"mp4", "webm", "mov", "mkv", "avi"}
 MEDIA_EXTS = AUDIO_EXTS | VIDEO_EXTS
-ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif", "zip", "tar", "gz", "tgz", "bz2"} | MEDIA_EXTS
+TEXT_EXTS = {"txt", "md", "rtf", "csv"}
+SUBTITLE_EXTS = {"vtt", "srt"}
+DOCX_EXTS = {"docx", "doc"}
+EMAIL_EXTS = {"eml", "mbox"}
+PASSTHROUGH_EXTS = TEXT_EXTS | SUBTITLE_EXTS | DOCX_EXTS | EMAIL_EXTS
+ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif", "zip", "tar", "gz", "tgz", "bz2"} | MEDIA_EXTS | PASSTHROUGH_EXTS
 ARCHIVE_EXTENSIONS = {"zip", "tar", "gz", "tgz", "bz2"}
 IMAGE_PDF_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "tiff", "webp", "heic", "heif"}
 
@@ -161,6 +166,58 @@ def is_archive(filename):
 def is_processrable(filename):
     ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
     return ext in IMAGE_PDF_EXTENSIONS or ext in MEDIA_EXTS
+
+def is_text_file(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in TEXT_EXTS
+
+def is_subtitle(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in SUBTITLE_EXTS
+
+def is_docx(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in DOCX_EXTS
+
+def is_email_file(filename):
+    ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
+    return ext in EMAIL_EXTS
+
+
+def _parse_subtitles(raw, ext):
+    """Parse VTT or SRT subtitle text into Whisper-compatible segments."""
+    import re
+    segments = []
+    if ext == "vtt":
+        # Strip WebVTT header
+        raw = re.sub(r"^WEBVTT.*?\n\n", "", raw, flags=re.DOTALL)
+    # Split into cue blocks (works for both VTT and SRT)
+    blocks = re.split(r"\n\n+", raw.strip())
+    ts_pattern = re.compile(r"(\d{1,2}:?\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{1,2}:?\d{2}:\d{2}[.,]\d{3})")
+    for block in blocks:
+        lines = block.strip().split("\n")
+        ts_match = None
+        text_lines = []
+        for line in lines:
+            m = ts_pattern.search(line)
+            if m:
+                ts_match = m
+            elif ts_match and line.strip() and not line.strip().isdigit():
+                text_lines.append(re.sub(r"<[^>]+>", "", line.strip()))
+        if ts_match and text_lines:
+            def _ts_to_sec(ts):
+                ts = ts.replace(",", ".")
+                parts = ts.split(":")
+                if len(parts) == 3:
+                    return float(parts[0]) * 3600 + float(parts[1]) * 60 + float(parts[2])
+                return float(parts[0]) * 60 + float(parts[1])
+            segments.append({
+                "start": _ts_to_sec(ts_match.group(1)),
+                "end": _ts_to_sec(ts_match.group(2)),
+                "text": " ".join(text_lines),
+            })
+    return segments
+
 
 def is_media(filename):
     ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
@@ -488,7 +545,125 @@ def process_job_worker(job_id):
                     file_info["progress"] = 0
                     job["log"].append(f"✗ {file_info['name']} failed: {msg}")
 
-            if is_media(file_info["name"]) and WHISPER_AVAILABLE:
+            if is_text_file(file_info["name"]):
+                # Plain text passthrough — no OCR needed
+                on_progress(10, "Reading text file...")
+                try:
+                    with open(file_info["path"], "r", encoding="utf-8", errors="replace") as f:
+                        text = f.read()
+                    basename = os.path.splitext(os.path.basename(file_info["name"]))[0]
+                    # Write .txt
+                    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+                    with open(txt_path, "w", encoding="utf-8") as f:
+                        f.write(text)
+                    on_progress(50, "Generating sidecar...")
+                    # Write .ocr.json sidecar (single page)
+                    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+                    ocr_json = {"pages": [{"page": i + 1, "text": p} for i, p in enumerate(paragraphs)] or [{"page": 1, "text": text}]}
+                    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+                    import json as _json
+                    with open(json_path, "w", encoding="utf-8") as f:
+                        _json.dump(ocr_json, f, indent=2)
+                    on_progress(100, "Text file imported")
+                    on_complete(True, "Text imported")
+                except Exception as e:
+                    on_complete(False, str(e))
+
+            elif is_subtitle(file_info["name"]):
+                # VTT/SRT subtitle import — convert to transcript format
+                on_progress(10, "Parsing subtitle file...")
+                try:
+                    with open(file_info["path"], "r", encoding="utf-8", errors="replace") as f:
+                        raw = f.read()
+                    basename = os.path.splitext(os.path.basename(file_info["name"]))[0]
+                    ext = file_info["name"].rsplit(".", 1)[1].lower()
+                    segments = _parse_subtitles(raw, ext)
+                    full_text = " ".join(seg["text"] for seg in segments)
+                    on_progress(50, "Writing transcript...")
+                    # Write .txt
+                    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+                    with open(txt_path, "w", encoding="utf-8") as f:
+                        f.write(full_text)
+                    # Write .transcript.json (same shape as Whisper)
+                    import json as _json
+                    tj = {"text": full_text, "segments": segments}
+                    tj_path = os.path.join(UPLOAD_FOLDER, basename + ".transcript.json")
+                    with open(tj_path, "w", encoding="utf-8") as f:
+                        _json.dump(tj, f, indent=2)
+                    # Write .ocr.json sidecar
+                    ocr_json = {"pages": [{"page": i + 1, "text": seg["text"]} for i, seg in enumerate(segments)]}
+                    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+                    with open(json_path, "w", encoding="utf-8") as f:
+                        _json.dump(ocr_json, f, indent=2)
+                    on_progress(100, "Subtitle imported")
+                    on_complete(True, f"Imported {len(segments)} segments")
+                except Exception as e:
+                    on_complete(False, str(e))
+
+            elif is_docx(file_info["name"]):
+                # Word document import
+                on_progress(10, "Extracting document text...")
+                try:
+                    from docx import Document as DocxDocument
+                    doc = DocxDocument(file_info["path"])
+                    paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
+                    full_text = "\n\n".join(paragraphs)
+                    basename = os.path.splitext(os.path.basename(file_info["name"]))[0]
+                    on_progress(50, "Writing output...")
+                    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+                    with open(txt_path, "w", encoding="utf-8") as f:
+                        f.write(full_text)
+                    import json as _json
+                    ocr_json = {"pages": [{"page": i + 1, "text": p} for i, p in enumerate(paragraphs)]}
+                    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+                    with open(json_path, "w", encoding="utf-8") as f:
+                        _json.dump(ocr_json, f, indent=2)
+                    on_progress(100, "Document imported")
+                    on_complete(True, f"Imported {len(paragraphs)} paragraphs")
+                except ImportError:
+                    on_complete(False, "python-docx not installed. Run: pip install python-docx")
+                except Exception as e:
+                    on_complete(False, str(e))
+
+            elif is_email_file(file_info["name"]):
+                # Email (.eml/.mbox) import
+                on_progress(10, "Parsing email...")
+                try:
+                    import email
+                    from email import policy
+                    with open(file_info["path"], "rb") as f:
+                        msg = email.message_from_binary_file(f, policy=policy.default)
+                    subject = msg.get("Subject", "(no subject)")
+                    from_addr = msg.get("From", "")
+                    to_addr = msg.get("To", "")
+                    date = msg.get("Date", "")
+                    body = msg.get_body(preferencelist=("plain", "html"))
+                    body_text = body.get_content() if body else ""
+                    if body and body.get_content_type() == "text/html":
+                        import re
+                        body_text = re.sub(r"<[^>]+>", " ", body_text)
+                        body_text = re.sub(r"\s+", " ", body_text).strip()
+                    header_block = f"From: {from_addr}\nTo: {to_addr}\nDate: {date}\nSubject: {subject}\n\n"
+                    full_text = header_block + body_text
+                    basename = os.path.splitext(os.path.basename(file_info["name"]))[0]
+                    on_progress(50, "Writing output...")
+                    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+                    with open(txt_path, "w", encoding="utf-8") as f:
+                        f.write(full_text)
+                    import json as _json
+                    ocr_json = {"pages": [
+                        {"page": 1, "text": header_block.strip(), "label": "Header"},
+                        {"page": 2, "text": body_text, "label": "Body"}
+                    ]}
+                    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+                    with open(json_path, "w", encoding="utf-8") as f:
+                        _json.dump(ocr_json, f, indent=2)
+                    on_progress(100, "Email imported")
+                    on_complete(True, f"Imported: {subject}")
+                except Exception as e:
+                    on_complete(False, str(e))
+
+            elif is_media(file_info["name"]) and WHISPER_AVAILABLE:
                 # Transcription processing for audio/video
                 worker = TranscriptionWorker(
                     model_size=job["options"].get("whisper_model", "base"),
@@ -1657,6 +1832,236 @@ def feedback_corrections():
 
 
 # ============================================================================
+# PASTE / URL INGEST ENDPOINTS
+# ============================================================================
+
+@app.route("/api/paste", methods=["POST"])
+def paste_input():
+    """Accept pasted text and create processed files from it."""
+    data = request.get_json() or {}
+    text = (data.get("text") or "").strip()
+    title = (data.get("title") or "pasted-text").strip()
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+    # Sanitize title for filename
+    import re as _re
+    basename = _re.sub(r"[^a-zA-Z0-9_-]", "", title.replace(" ", "-")).lower() or "pasted-text"
+    # Write .txt
+    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+    with open(txt_path, "w", encoding="utf-8") as f:
+        f.write(text)
+    # Write .ocr.json sidecar
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    ocr_json = {"pages": [{"page": i + 1, "text": p} for i, p in enumerate(paragraphs)] or [{"page": 1, "text": text}]}
+    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(ocr_json, f, indent=2)
+    return jsonify({"ok": True, "basename": basename, "pages": len(ocr_json["pages"]), "chars": len(text)})
+
+
+def _is_known_video_site(url):
+    """Check if URL matches known yt-dlp-compatible sites."""
+    from urllib.parse import urlparse
+    host = urlparse(url).netloc.lower()
+    patterns = [
+        "youtube.com", "youtu.be", "vimeo.com", "dailymotion.com",
+        "soundcloud.com", "bandcamp.com", "twitter.com", "x.com",
+        "twitch.tv", "rumble.com", "bitchute.com", "odysee.com",
+    ]
+    return any(p in host for p in patterns)
+
+
+def _detect_url_type(url):
+    """Auto-detect URL content type. Returns 'html', 'audio', 'video', 'document', 'image', 'ytdlp', or 'unknown'."""
+    import requests as _requests
+    from urllib.parse import urlparse
+
+    # Check known video sites first (they return HTML but we want yt-dlp)
+    if _is_known_video_site(url):
+        return "ytdlp"
+
+    # HEAD request to sniff Content-Type
+    try:
+        resp = _requests.head(url, timeout=10, allow_redirects=True,
+                              headers={"User-Agent": "Mozilla/5.0 PrimarySources/1.0"})
+        ct = resp.headers.get("Content-Type", "").lower().split(";")[0].strip()
+
+        if ct.startswith("text/html") or ct.startswith("application/xhtml"):
+            return "html"
+        if ct.startswith("audio/"):
+            return "audio"
+        if ct.startswith("video/"):
+            return "video"
+        if ct == "application/pdf":
+            return "document"
+        if ct.startswith("image/"):
+            return "image"
+        # Opaque binary — guess from URL extension
+        if ct in ("application/octet-stream", "binary/octet-stream", ""):
+            path = urlparse(url).path.lower()
+            audio_exts = (".mp3", ".wav", ".m4a", ".flac", ".ogg", ".wma")
+            video_exts = (".mp4", ".webm", ".mov", ".mkv", ".avi")
+            image_exts = (".jpg", ".jpeg", ".png", ".tiff", ".webp", ".heic")
+            if path.endswith(".pdf"):
+                return "document"
+            if any(path.endswith(e) for e in audio_exts):
+                return "audio"
+            if any(path.endswith(e) for e in video_exts):
+                return "video"
+            if any(path.endswith(e) for e in image_exts):
+                return "image"
+    except Exception:
+        pass
+
+    return "unknown"
+
+
+def _scrape_html(url):
+    """Scrape a web page and save as .txt + .ocr.json. Returns response dict."""
+    import requests as _requests
+    from bs4 import BeautifulSoup
+    import re as _re
+
+    resp = _requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0 PrimarySources/1.0"})
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+    for tag in soup(["script", "style", "nav", "footer", "header"]):
+        tag.decompose()
+    title = soup.title.string.strip() if soup.title and soup.title.string else "web-page"
+    text = soup.get_text(separator="\n", strip=True)
+    if not text.strip():
+        raise ValueError("No text content extracted from URL")
+    basename = _re.sub(r"[^a-zA-Z0-9_-]", "", title.replace(" ", "-")).lower()[:80] or "web-page"
+    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+    with open(txt_path, "w", encoding="utf-8") as f:
+        f.write(text)
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    ocr_json = {"pages": [{"page": i + 1, "text": p} for i, p in enumerate(paragraphs)] or [{"page": 1, "text": text}]}
+    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(ocr_json, f, indent=2)
+    return {"success": True, "type": "scraped", "title": title, "basename": basename,
+            "pages": len(ocr_json["pages"]), "chars": len(text)}
+
+
+def _download_direct(url):
+    """Download a direct file (PDF, image, audio, video) and save to uploads/. Returns response dict."""
+    import requests as _requests
+    import re as _re
+    from urllib.parse import urlparse
+
+    upload_dir = os.path.join(UPLOAD_FOLDER, "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+
+    resp = _requests.get(url, timeout=60, stream=True,
+                         headers={"User-Agent": "Mozilla/5.0 PrimarySources/1.0"})
+    resp.raise_for_status()
+    ct = resp.headers.get("Content-Type", "").lower().split(";")[0].strip()
+
+    # Derive filename from URL path or Content-Disposition
+    filename = None
+    cd = resp.headers.get("Content-Disposition", "")
+    if "filename=" in cd:
+        filename = cd.split("filename=")[-1].strip('" ')
+    if not filename:
+        filename = os.path.basename(urlparse(url).path) or "download"
+    filename = _re.sub(r"[^a-zA-Z0-9._-]", "_", filename)[:100]
+
+    file_path = os.path.join(upload_dir, filename)
+    size = 0
+    with open(file_path, "wb") as f:
+        for chunk in resp.iter_content(chunk_size=8192):
+            f.write(chunk)
+            size += len(chunk)
+
+    return {"success": True, "type": "downloaded", "title": filename,
+            "file": {"name": filename, "size": size, "content_type": ct}}
+
+
+def _download_ytdlp(url):
+    """Download audio via yt-dlp. Returns response dict."""
+    import re as _re
+
+    upload_dir = os.path.join(UPLOAD_FOLDER, "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+
+    with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True,
+                            "cookiesfrombrowser": ("edge",),
+                            "extractor_args": {"youtube": {"player_client": ["web"]}}}) as ydl:
+        info = ydl.extract_info(url, download=False)
+        title = info.get("title", "download")
+
+    safe_title = "".join(c if c.isalnum() or c in " -_" else "_" for c in title).strip()[:80] or "download"
+    output_template = os.path.join(upload_dir, f"{safe_title}.%(ext)s")
+
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "outtmpl": output_template,
+        "postprocessors": [{"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "192"}],
+        "quiet": True, "no_warnings": True,
+        "cookiesfrombrowser": ("edge",),
+        "extractor_args": {"youtube": {"player_client": ["web"]}},
+        "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
+
+    mp3_path = os.path.join(upload_dir, f"{safe_title}.mp3")
+    if not os.path.exists(mp3_path):
+        raise FileNotFoundError("Download completed but output file not found")
+
+    return {"success": True, "type": "ytdlp", "title": title,
+            "file": {"name": f"{safe_title}.mp3", "size": os.path.getsize(mp3_path), "content_type": "audio/mpeg"}}
+
+
+@app.route("/api/ingest-url", methods=["POST"])
+def ingest_url():
+    """Unified URL ingestion. Auto-detects content type and routes accordingly.
+
+    Request JSON: { "url": "https://..." }
+    Response:     { "success": true, "type": "scraped|downloaded|ytdlp", "title": "...", ... }
+    """
+    data = request.get_json() or {}
+    url = (data.get("url") or "").strip()
+    if not url:
+        return jsonify({"error": "No URL provided"}), 400
+    if not url.startswith(("http://", "https://")):
+        return jsonify({"error": "Invalid URL. Paste a link starting with http:// or https://"}), 400
+
+    try:
+        detected = _detect_url_type(url)
+        print(f"[ingest-url] {url} → detected as: {detected}")
+
+        if detected == "ytdlp":
+            if not YTDLP_AVAILABLE:
+                return jsonify({"error": "yt-dlp not installed. Run: pip install yt-dlp"}), 503
+            return jsonify(_download_ytdlp(url))
+
+        if detected == "html":
+            return jsonify(_scrape_html(url))
+
+        if detected in ("audio", "video", "document", "image"):
+            return jsonify(_download_direct(url))
+
+        # Unknown — try yt-dlp first, then scrape
+        if YTDLP_AVAILABLE:
+            try:
+                return jsonify(_download_ytdlp(url))
+            except Exception:
+                pass
+        try:
+            return jsonify(_scrape_html(url))
+        except Exception:
+            pass
+        return jsonify(_download_direct(url))
+
+    except ImportError:
+        return jsonify({"error": "Required packages missing. Run: pip install beautifulsoup4 requests"}), 503
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ============================================================================
 # TTS ENDPOINTS (Kokoro Text-to-Speech)
 # ============================================================================
 
@@ -1825,11 +2230,47 @@ def tts_from_file():
                 download_name=f"{safe_base}.{audio_format}"
             )
 
-        # Long text: paragraph chunking for safer synthesis
-        paragraphs = [p.strip() for p in re.split(r"\n{2,}", text) if p.strip()]
-        if not paragraphs:
-            paragraphs = [text]
-        items = [{"id": str(i + 1), "text": p, "label": f"Part-{i + 1:03d}"} for i, p in enumerate(paragraphs)]
+        # Long text: bounded chunking for safer synthesis
+        def build_tts_chunks(raw_text: str, max_chars: int = 1200):
+            # Sentence-aware split first, then hard wrap if needed.
+            sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", raw_text) if s.strip()]
+            chunks = []
+            current = []
+            current_len = 0
+            for sent in sentences:
+                if len(sent) > max_chars:
+                    if current:
+                        chunks.append(" ".join(current).strip())
+                        current = []
+                        current_len = 0
+                    for i in range(0, len(sent), max_chars):
+                        part = sent[i:i + max_chars].strip()
+                        if part:
+                            chunks.append(part)
+                    continue
+                if current_len + len(sent) + 1 > max_chars and current:
+                    chunks.append(" ".join(current).strip())
+                    current = [sent]
+                    current_len = len(sent)
+                else:
+                    current.append(sent)
+                    current_len += len(sent) + 1
+            if current:
+                chunks.append(" ".join(current).strip())
+            if not chunks:
+                chunks = [raw_text[i:i + max_chars].strip() for i in range(0, len(raw_text), max_chars)]
+            # Skip degenerate chunks (e.g., OCR noise with no letters/numbers)
+            cleaned = []
+            for c in chunks:
+                if len(re.findall(r"[A-Za-z0-9]", c)) < 20:
+                    continue
+                cleaned.append(c)
+            return cleaned
+
+        chunks = build_tts_chunks(text, max_chars=1200)
+        if not chunks:
+            return jsonify({"error": "No synthesizeable text chunks after normalization"}), 400
+        items = [{"id": str(i + 1), "text": c, "label": f"Part-{i + 1:03d}"} for i, c in enumerate(chunks)]
         zip_buf = worker.synthesize_batch(items, voice=voice, speed=speed, format=audio_format)
         return send_file(
             zip_buf,

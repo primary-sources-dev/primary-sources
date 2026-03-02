@@ -6,6 +6,7 @@
 - These are related, but they are different pipelines.
 - Update: Added page-scoped entity selectors (person/location/organization/address), batched auto-detection, address extraction + normalization, `ADDRESS_PARSE_ISSUE` notes, and export tracking into feedback + entity JSON integration.
 - Live-stream path: ingest stream/screen recording, isolate audio, run rolling Whisper transcription, detect entities per timed chunk, then review/export through the same feedback loop.
+- TTS path: Export tab can generate Kokoro AI voice audio directly from processed `.txt/.md/.html/.transcript.json` text sources (not raw PDF binary).
 
 ## Pipeline A: Classifier Feedback Dataset
 1. Open Workbench and review pages in `CLASSIFY`.
