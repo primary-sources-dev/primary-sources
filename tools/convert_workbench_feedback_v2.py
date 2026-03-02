@@ -107,6 +107,7 @@ def convert_page(source: str, page_obj: Dict[str, Any], exported_at: str) -> Dic
         "selectedClass": selected_class,
         "selectedFormat": reviewer.get("selected_format"),
         "selectedContent": reviewer.get("selected_content") or [],
+        "selectedEntities": reviewer.get("selected_entities") or {},
         "newTypeFlag": bool(reviewer.get("new_type_flag")),
         "noteType": reviewer.get("note_type"),
         "notes": reviewer.get("notes"),

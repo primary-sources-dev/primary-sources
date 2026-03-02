@@ -102,12 +102,17 @@ def analyze_corrections(feedback: dict) -> dict:
     # Cross-tier: agency + class combinations
     agency_class_pairs = defaultdict(int)
     reason_counts = defaultdict(int)
+    address_entity_links = 0
+    address_parse_issues = 0
 
     for entry in entries:
         predicted = entry.get("predictedType", "UNKNOWN")
         selected = entry.get("selectedType") or entry.get("selectedClass") or "UNKNOWN"
         status = normalize_status(entry)
         reason_code = (entry.get("reason_code") or entry.get("noteType") or "").strip().upper()
+        selected_entities = entry.get("selectedEntities") or {}
+        if isinstance(selected_entities, dict):
+            address_entity_links += len(selected_entities.get("address", []) or [])
 
         if status == "correct":
             confirmations[predicted] += 1
@@ -115,6 +120,8 @@ def analyze_corrections(feedback: dict) -> dict:
             corrections[(predicted, selected)].append(entry)
         if status in {"incorrect", "skipped"} and reason_code:
             reason_counts[reason_code] += 1
+        if reason_code == "ADDRESS_PARSE_ISSUE":
+            address_parse_issues += 1
 
         # Tier 1: Agency
         agency = entry.get("selectedAgency")
@@ -149,6 +156,8 @@ def analyze_corrections(feedback: dict) -> dict:
         "content_counts": dict(content_counts),
         "agency_class_pairs": dict(agency_class_pairs),
         "reason_counts": dict(reason_counts),
+        "address_entity_links": address_entity_links,
+        "address_parse_issues": address_parse_issues,
     }
 
 
@@ -165,6 +174,7 @@ def extract_flagged_items(feedback: dict) -> dict:
     new_pattern_notes = []
     other_notes = []
     custom_reason_notes = []
+    address_parse_notes = []
 
     for entry in entries:
         page = entry.get("page", "?")
@@ -200,6 +210,8 @@ def extract_flagged_items(feedback: dict) -> dict:
                 other_notes.append(note_record)
             if note_type in {"OTHER", "OTHER_CUSTOM"} and (reason_detail or notes_text):
                 custom_reason_notes.append(note_record)
+            if note_type == "ADDRESS_PARSE_ISSUE":
+                address_parse_notes.append(note_record)
 
     return {
         "new_type_flags": new_type_flags,
@@ -207,6 +219,7 @@ def extract_flagged_items(feedback: dict) -> dict:
         "new_pattern_notes": new_pattern_notes,
         "other_notes": other_notes,
         "custom_reason_notes": custom_reason_notes,
+        "address_parse_notes": address_parse_notes,
     }
 
 
@@ -530,6 +543,9 @@ def print_analysis(analysis: dict):
         print("\n--- Non-Approved Reason Codes ---")
         for reason, count in sorted(analysis["reason_counts"].items(), key=lambda x: -x[1]):
             print(f"  {reason}: {count}")
+    print(f"\nAddress entity links selected: {analysis.get('address_entity_links', 0)}")
+    if analysis.get("address_parse_issues", 0):
+        print(f"Address parse issues flagged: {analysis.get('address_parse_issues', 0)}")
 
 
 def print_flagged_items(flagged: dict):
@@ -571,6 +587,14 @@ def print_flagged_items(flagged: dict):
         print("=" * 60)
         for note in flagged["custom_reason_notes"]:
             detail = note.get("reason_detail") or note.get("notes") or "(no detail)"
+            print(f"  Page {note['page']} ({note['source']}): {detail}")
+
+    if flagged.get("address_parse_notes"):
+        print("\n" + "=" * 60)
+        print("ACTIONABLE: ADDRESS_PARSE_ISSUE Notes")
+        print("=" * 60)
+        for note in flagged["address_parse_notes"]:
+            detail = note.get("notes") or note.get("reason_detail") or "(no detail)"
             print(f"  Page {note['page']} ({note['source']}): {detail}")
 
     if not any(flagged.values()):

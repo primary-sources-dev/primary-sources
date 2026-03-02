@@ -26,6 +26,7 @@ const NOTE_PRESETS = {
     'NEW_PATTERN': 'Add pattern to classifier',
     'SCHEMA_UPDATE': 'Schema change needed',
     'OCR_QUALITY': 'Poor OCR / illegible',
+    'ADDRESS_PARSE_ISSUE': 'Address extraction/parse issue',
     'AMBIGUOUS': 'Ambiguous classification',
     'PDF_RENDER_ISSUE': 'PDF render/canvas display issue',
     'OTHER_CUSTOM': 'Other (custom reason)'
@@ -196,6 +197,7 @@ class ClassifyTab {
         if (v === 'person') return 'person';
         if (v === 'place' || v === 'location') return 'location';
         if (v === 'org' || v === 'organization') return 'organization';
+        if (v === 'address') return 'address';
         return null;
     }
 
@@ -217,9 +219,9 @@ class ClassifyTab {
     ensureSelectedEntitiesShape(page) {
         if (!this.wb.feedback[page]) this.wb.feedback[page] = { status: 'pending' };
         if (!this.wb.feedback[page].selectedEntities || typeof this.wb.feedback[page].selectedEntities !== 'object') {
-            this.wb.feedback[page].selectedEntities = { person: [], location: [], organization: [] };
+            this.wb.feedback[page].selectedEntities = { person: [], location: [], organization: [], address: [] };
         }
-        ['person', 'location', 'organization'].forEach(t => {
+        ['person', 'location', 'organization', 'address'].forEach(t => {
             if (!Array.isArray(this.wb.feedback[page].selectedEntities[t])) this.wb.feedback[page].selectedEntities[t] = [];
         });
     }
@@ -292,6 +294,7 @@ class ClassifyTab {
                         <option value="person" ${activeType === 'person' ? 'selected' : ''}>Person</option>
                         <option value="location" ${activeType === 'location' ? 'selected' : ''}>Location</option>
                         <option value="organization" ${activeType === 'organization' ? 'selected' : ''}>Organization</option>
+                        <option value="address" ${activeType === 'address' ? 'selected' : ''}>Address</option>
                     </select>
                 </div>
                 <div class="mt-2 p-2 bg-black/20 rounded border border-white/10 max-h-[96px] overflow-y-auto">
@@ -795,7 +798,7 @@ class ClassifyTab {
         const reasonCode = this.getReasonCode(page);
         const reasonDetail = this.getReasonDetail(page);
         this.ensureSelectedEntitiesShape(page);
-        const currentEntitySelections = this.wb.feedback[page]?.selectedEntities || { person: [], location: [], organization: [] };
+        const currentEntitySelections = this.wb.feedback[page]?.selectedEntities || { person: [], location: [], organization: [], address: [] };
         const currentEntityType = this.wb.feedback[page]?.entityAssistType || 'person';
         const status = (!hasExplicitClass || docClass === predictedClass) ? "correct" : "incorrect";
         if (status === "incorrect" && !reasonCode) {
@@ -861,7 +864,7 @@ class ClassifyTab {
         const reasonCode = this.getReasonCode(page);
         const reasonDetail = this.getReasonDetail(page);
         this.ensureSelectedEntitiesShape(page);
-        const currentEntitySelections = this.wb.feedback[page]?.selectedEntities || { person: [], location: [], organization: [] };
+        const currentEntitySelections = this.wb.feedback[page]?.selectedEntities || { person: [], location: [], organization: [], address: [] };
         const currentEntityType = this.wb.feedback[page]?.entityAssistType || 'person';
         if (!notes) {
             this.wb.showToast(`Add a review note before skipping Page ${page}`);
@@ -1258,6 +1261,47 @@ class EntitiesTab {
         this.wb = workbench;
     }
 
+    normalizeAddressLabel(raw) {
+        let s = String(raw || '').replace(/\s+/g, ' ').trim();
+        if (!s) return s;
+        const replacements = [
+            [/\bSTREET\b/gi, 'St'],
+            [/\bAVENUE\b/gi, 'Ave'],
+            [/\bROAD\b/gi, 'Rd'],
+            [/\bBOULEVARD\b/gi, 'Blvd'],
+            [/\bDRIVE\b/gi, 'Dr'],
+            [/\bLANE\b/gi, 'Ln'],
+            [/\bHIGHWAY\b/gi, 'Hwy'],
+            [/\bEXPRESSWAY\b/gi, 'Expy'],
+            [/\bCOURT\b/gi, 'Ct'],
+            [/\bPLACE\b/gi, 'Pl'],
+        ];
+        replacements.forEach(([pat, rep]) => { s = s.replace(pat, rep); });
+        return s;
+    }
+
+    extractAddressCandidates(batchText, pageOffsets) {
+        const out = [];
+        const pattern = /\b\d{1,5}\s+[A-Za-z0-9.\-']+(?:\s+[A-Za-z0-9.\-']+){0,5}\s(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Highway|Hwy|Expressway|Expy|Court|Ct|Place|Pl)\b(?:,\s*[A-Za-z .]+)?(?:,\s*[A-Z]{2})?(?:\s+\d{5})?/gi;
+        let match;
+        while ((match = pattern.exec(batchText)) !== null) {
+            const start = match.index;
+            const raw = match[0];
+            const pageMeta = pageOffsets.find(o => start >= o.start && start < o.end) || pageOffsets[0];
+            out.push({
+                display_name: this.normalizeAddressLabel(raw),
+                text: raw,
+                entity_type: 'address',
+                confidence: 0.86,
+                method: 'regex_address',
+                start_pos: start,
+                page: pageMeta ? pageMeta.index : 1,
+                tags: pageMeta ? pageMeta.tags || [] : []
+            });
+        }
+        return out;
+    }
+
     dedupeEntities(items, kind = 'matched') {
         const seen = new Set();
         const out = [];
@@ -1353,6 +1397,9 @@ class EntitiesTab {
                     const pInfo = findPage(c.start_pos);
                     return { ...c, page: pInfo.index, tags: pInfo.tags };
                 }));
+
+                const addressCandidates = this.extractAddressCandidates(batchText, pageOffsets);
+                combinedCandidates = combinedCandidates.concat(addressCandidates);
             }
 
             this.wb.detectedEntities = this.dedupeEntities(combinedEntities, 'matched');
@@ -1364,7 +1411,8 @@ class EntitiesTab {
                 candidates: this.wb.detectedCandidates.length,
                 persons: this.wb.detectedEntities.filter(e => e.entity_type === 'person').length,
                 places: this.wb.detectedEntities.filter(e => e.entity_type === 'place').length,
-                orgs: this.wb.detectedEntities.filter(e => e.entity_type === 'org').length
+                orgs: this.wb.detectedEntities.filter(e => e.entity_type === 'org').length,
+                addresses: this.wb.detectedCandidates.filter(e => e.entity_type === 'address').length
             };
             const matchesEl = document.getElementById('entity-matches-total');
             const breakdownEl = document.getElementById('entity-matches-breakdown');
@@ -1692,6 +1740,14 @@ class ExportTab {
                     record.places.push({ name: name, relevance: 'Mentioned' });
                 }
             });
+            (selected.address || []).forEach(e => {
+                const name = e.label || e.display_name || '';
+                const key = name.toLowerCase();
+                if (key && !seenPlaces.has(key)) {
+                    seenPlaces.add(key);
+                    record.places.push({ name: name, relevance: 'Mentioned', place_type: 'ADDRESS' });
+                }
+            });
         });
 
         try {
@@ -1756,6 +1812,15 @@ class ExportTab {
                     name: c.text,
                     org_type: 'UNKNOWN',
                     notes: `Auto-detected from ${this.wb.FILE_NAME}`
+                };
+            } else if (c.entity_type === 'address') {
+                targetFile = 'places.json';
+                const normalizedAddress = this.wb.entitiesTab.normalizeAddressLabel(c.text || c.display_name || '');
+                record = {
+                    place_id: crypto.randomUUID(),
+                    name: normalizedAddress || c.text,
+                    place_type: 'ADDRESS',
+                    notes: `Auto-detected address from ${this.wb.FILE_NAME}`
                 };
             } else { continue; }
 

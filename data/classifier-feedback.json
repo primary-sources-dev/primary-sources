@@ -15,9 +15,90 @@
       "selectedContent": [],
       "newTypeFlag": false,
       "noteType": null,
-      "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "notes": "missed yates address to attach to bio",
+      "textSample": "r \nC \n= \n= womb! \n~ \n\u201d \ny*. \nFD~302 (Rev, 93-59) \nFEDERAL BUREAU OF INVESTIGATION os \ni \n| \n\u2019 \n7 \n1 \nt \nDate \n11/27/63 | \n8 \nRALPH LEON YATES, \n13564 Brookgreen, Dallas, \nTexas, \nvoluntarily appeared at the Dallas FBI Office, accompanied by his \nuncle, Mr. \nJ. \n0. SMITH, \n13770 Sprucewood, Dallas, Texas, and fur- \nnished the following information: \n) \nYATES stated that he'is employed as a refrigeration \nservice-man for the Texas Butcher Supply Company, Dallas, Texas, \nand in connection with this employment was driving \na pickup \ntruck on \nRB. \nL. Thornton Expressway at approximately 10:30 AM, \n, \non either November 20 or 21, \n1963. \nHe stated he noticed a man \nmy \nhitchhiking at approximately the Beckley Street entrance to the \ni \nR. \nL. Thornton Expressway, \nand he had stopped and pickieg up this \n4 \nman, \n* \nYATES said after seeing photographs and television \npictures of LEE HARVEY OSWALD, \nhe is of the opinion that this man \nwas identical with OSWALD. \n; \n: \nHe continued that when t",
+      "entityAssistType": "organization",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "matched-1",
+            "type": "person",
+            "label": "Yates, Ralph Leon",
+            "confidence": 1,
+            "entity_id": "8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "matched-5",
+            "type": "person",
+            "label": "Lee Harvey Oswald",
+            "confidence": 1,
+            "entity_id": "3f4a5b6c-7d8e-49f0-a1b2-c3d4e5f6a7b8",
+            "detected_type": "person",
+            "source": "matched"
+          }
+        ],
+        "location": [
+          {
+            "id": "matched-2",
+            "type": "location",
+            "label": "Dallas FBI Office",
+            "confidence": 1,
+            "entity_id": "b9c0d1e2-f3a4-4567-b8c9-d0e1f2a3b4c5",
+            "detected_type": "place",
+            "source": "matched"
+          },
+          {
+            "id": "matched-3",
+            "type": "location",
+            "label": "Dallas, Texas",
+            "confidence": 1,
+            "entity_id": "2e3f4a5b-6c7d-48e9-f0a1-b2c3d4e5f6a7",
+            "detected_type": "place",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-1",
+            "type": "location",
+            "label": "Thornton Expressway",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "organization": [
+          {
+            "id": "matched-0",
+            "type": "organization",
+            "label": "Federal Bureau of Investigation",
+            "confidence": 1,
+            "entity_id": "fbi",
+            "detected_type": "org",
+            "source": "matched"
+          },
+          {
+            "id": "matched-6",
+            "type": "organization",
+            "label": "Carousel Club",
+            "confidence": 1,
+            "entity_id": "c2d3e4f5-a6b7-4890-c1d2-e3f4a5b6c7d8",
+            "detected_type": "org",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-0",
+            "type": "organization",
+            "label": "Texas Butcher Supply Company",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ]
+      },
+      "timestamp": "2026-03-02T06:35:51.472035"
     },
     {
       "page": 2,
@@ -30,7 +111,7 @@
       "selectedType": "REPORT",
       "selectedAgency": "FBI",
       "selectedClass": "REPORT",
-      "selectedFormat": "GENERIC",
+      "selectedFormat": "FD-302",
       "selectedContent": [
         "WITNESS_INTERVIEW",
         "INVESTIGATIVE_SUMM",
@@ -38,9 +119,15 @@
       ],
       "newTypeFlag": false,
       "noteType": null,
-      "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "notes": "produced nonsense result. places and org show as persons. this: \nEEO RE EP TT Pree\n(candidate)????",
+      "textSample": "pay: \nVapreneset \nem: OR \ngt \nEEO \nRE \nEP \nTT Pree ~ age $c5~ ma\u00bb \nhae \naie eomanel \n2 \nDL 89-43 \nDL 44-1639 \nYATES atated the man then asked YATES if he thought \na \nperson could assassinate the President. \nYATES replied that he \nguessed such a thing could be possible. \nThe man then asked YATES \nif it could be done from the. top of \na building or out of a window, \nhigh up, \nand YATES said he guessed this was possible if one had \na good rifle with a scope and was a good abot. \nYATES advised about this time the man pulled out \na \npicture which sitved \na man with a rifle and asked YATES if he thought \nthe President could be killed with \na gun like that one. \nYATES \nsaid he was driving and did not look at the picture but indicated \nto the man that he guessed so, \nYATES said that the man then asked if he knew the \nPresident's route for the parade in Dallas and YATES replied that \nhe did not know the route but that \nit had been in the paper. \nHe \nsaid the man then said that he had misunderst",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:25:18.452927"
     },
     {
       "page": 3,
@@ -58,8 +145,14 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "3 \nBL 89-43 \nDL 44-1639 \nYATES stated that the man he thought was identical \nwith LEE HARVEY OSWALD whom he had picked up was a white \nmale, approximately 5'9\u201d tall, slender, with dark eyebrows \nand hair. \nHe could furnish no additional identifying data. \nYATES stated he is married and has five children \nand that he would appreciate not receiving any type publicity \nfrom the fact he was furnishing this information. \n49 \n",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:25:27.122919"
     },
     {
       "page": 4,
@@ -76,9 +169,72 @@
       "selectedContent": [],
       "newTypeFlag": false,
       "noteType": null,
-      "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "notes": "this is an alias of yates.",
+      "textSample": "\u2018 \ntos \n| \nFD-902 (Rev, 3-3-59) \nFEDERAL BUREAU OF INVESTIGATION \n! \nDate Hovember 98, 1963 \nDEMPSEY JONES, Route 4, Box 376, Dallas, Texas, \ntelephone number Diamond &-1051, \nhas been employed by \nthe Texas Butchers Supply Company (TBSC) at 2038 Commerce \nStreet in Dallas, Texas, \nfor nine and one-half years. \nHe \nsaid he has known RALPH LEON YATES as a fellow employee \nfor a little over a year. \nHe said YATES is a big talker \nwho always talks about \na lot of foolishness. \nri \nJONES recalled that he and YATES were working \n4 \nip the shop on the second floor of the TBSC about 11:00 \n ~\u2014s,or 11:30 a.m., One morning, and YATES had returned fron \n\u2018@ call earlier that he had made at Irving and Oak Cliff \nbefore returning to TBSC. \n- \nJONES said YATES told him he had picked up a \nboy in Oak Cliff and taken this boy to Houston and Elm \nin Dallas. \nYATES said this boy had a package not de- \n\u2018scribed at that time, but after the death of the President, \nYATES described the package as a \u201clong pa",
+      "entityAssistType": "organization",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "matched-9",
+            "type": "person",
+            "label": "Jones, Dempsey",
+            "confidence": 1,
+            "entity_id": "b3c4d5e6-f7a8-4901-b2c3-d4e5f6a7b8c9",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-13",
+            "type": "person",
+            "label": "RALPH LEON YATES",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "location": [
+          {
+            "id": "matched-11",
+            "type": "location",
+            "label": "Oak Cliff",
+            "confidence": 1,
+            "entity_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+            "detected_type": "place",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-12",
+            "type": "location",
+            "label": "Commerce \nStreet",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "organization": [
+          {
+            "id": "matched-10",
+            "type": "organization",
+            "label": "Texas Butchers Supply Company",
+            "confidence": 1,
+            "entity_id": "texas-butchers-supply",
+            "detected_type": "org",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-10",
+            "type": "organization",
+            "label": "FEDERAL BUREAU OF INVESTIGATION",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ]
+      },
+      "timestamp": "2026-03-02T06:26:05.098940"
     },
     {
       "page": 5,
@@ -96,8 +252,14 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "cas \n2 \nBL 89-43 \nDL 44-1639 \nJONES said that the company officials should \nhave \na record of the tize that YATES made the call to \nIrving, Texas. \nAf / \n",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:26:07.618825"
     },
     {
       "page": 6,
@@ -114,16 +276,60 @@
       "selectedContent": [],
       "newTypeFlag": false,
       "noteType": null,
-      "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "notes": "need a way to classify addresses.",
+      "textSample": "wane \nURINE \n| \nBPR Crete nee. Ae Or a \nepi \now \n) \nC \nUV . \nS \n( \nd \nFD-302 (Rev. 3-3-59) \nFEDERAL BUREAU OF INVESTIGATION \nDote November 28, 1963 \ni \nJ. \nR. GILPIN, Partner, Texas Butchers Supply \nCompany (TBSC), 2038 Commerce Street, Dallas, advised \nthat RALPH YATES, one of his employees, came to him on \nNovember 26, \n1963, \nand asked him \nif \nit was possible to \nconfirm the date that he, \nMr. GILPIN, had ordered or called \nYATES to go to Irving, Texas, on a service call to the \nPark-It Market Drive-In Grocery, \nat 2320 Shady Grove Road \nat Story Road in Irving, Texas. \n- \n_ \n; \nMr. GILPIN said he located a record dated \nNovember 21, \n1963, Shop Bill No. 8760, Invoice No. 36919, \ndated November 21, \n1963, billed November 23, \n1963, \nto the \nArlington Food Stcres, Post Office Box 91, Arlington, \nTexas, telephone number AN 2-0597. \nThis bill was in the \namount of $12.00 which would indicate \nit was \na two hour \nservice call. \nHe said he recalled that he gave the order \nto RALPH YATES",
+      "entityAssistType": "organization",
+      "selectedEntities": {
+        "person": [],
+        "location": [
+          {
+            "id": "matched-12",
+            "type": "location",
+            "label": "Park-It Market Drive-In Grocery",
+            "confidence": 1,
+            "entity_id": "f5a6b7c8-d9e0-4123-f4a5-b6c7d8e9f0a1",
+            "detected_type": "org",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-21",
+            "type": "location",
+            "label": "Shady Grove Road",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "organization": [
+          {
+            "id": "candidate-17",
+            "type": "organization",
+            "label": "FEDERAL BUREAU OF INVESTIGATION \nDote November",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          },
+          {
+            "id": "candidate-18",
+            "type": "organization",
+            "label": "Texas Butchers Supply \nCompany",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ]
+      },
+      "timestamp": "2026-03-02T06:26:50.443711"
     },
     {
       "page": 7,
       "source": "ralphleonyatesdocumentsfull_searchable.pdf",
       "status": "correct",
       "disposition": "verified_approved",
-      "reason_code": "OTHER_CUSTOM",
+      "reason_code": null,
       "reason_detail": null,
       "predictedType": "BLANK",
       "selectedType": "OTHER",
@@ -135,7 +341,13 @@
       "noteType": "OTHER_CUSTOM",
       "notes": null,
       "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:26:51.954771"
     },
     {
       "page": 8,
@@ -153,8 +365,43 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "Daos \nFI Org Ma Maen itty ve \nrel \nb \ni \nCALS \n\u201cAry \nAAMT \n, \nC \nPD02 Reve355\u00a79) \nEDERAL BUREAU OF INVESTIGATION \n: \ni \ni\") \nDate December 14, 1963 \nFe] \n1 \nRALPH LEON YATES furnished the fcllowing statement; \n2 YR? on keke \n| \n\"Dallas, Texas \n_ \n* \noo \nDecember 10, 1963 \n2 \n\u201cI, RALPH LEON YATES, make the following statement \nwe \nvoluntarily to C. RAY HALL, who has identified himself \n. \n- \nte me as \na Special Agent cf the Federal Bureau cf \n8 \ninvestigation. \nNo threats or promises have been \n* \nmade to me to get me to make this statement. \nI \n9 \nhave been told that \nI do not have \nto make \na statement, \nthat \nI have \na right to talk with \na lawyer before \nmaking any statement, \nand that this statement may be \nused against me \nin \na csurt of Law. \n\"I was born at Dallas, Texas, on January 23, 1936, \na \nand went to the ninth grade in school, \nI am now \nworking as \na refrigeration service-man for the \n~S \nTexas Butcher Supply Co., \nat 2038 Commerce, \nin \n. \nDallas, Texas, and live at 135",
+      "entityAssistType": "organization",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "matched-14",
+            "type": "person",
+            "label": "Hall, C. Ray",
+            "confidence": 1,
+            "entity_id": "e6f7a8b9-c0d1-4234-e5f6-a7b8c9d0e1f2",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-34",
+            "type": "person",
+            "label": "RALPH LEON YATES",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "location": [],
+        "organization": [
+          {
+            "id": "candidate-43",
+            "type": "organization",
+            "label": "Carcusel Club Was",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ]
+      },
+      "timestamp": "2026-03-02T06:27:19.781814"
     },
     {
       "page": 9,
@@ -172,8 +419,33 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "om. \nai. \n\u2018 \nce \n4 \n2\u201c \nate \n\u20184 \n\u2018i \nSte \n. \nbeat, \nVAL \nAL \ny \n\u201d, \n\u201cty \nition? \nAG eg ORI BOG? \nUO GO BE ORONO \nGAG LDR \nRE OG GSPN \nERAN GOP DG OAL TANT \nOOM EDD \nDOOR \nORL \nFOUR \nGS OULD SOO \nVegan \nOf, \n\u201c \noot \na \ns \n? \n\u00a7 \n& ce \n2 \nDL 100-10461 \nCn ee \nPs \u201c0 et \na \nay \ns \n; \nThe man then said that JACK RUBENSTEIN was more \nPs \n| \ncommonly known as JACK RUBY, \nand RUBY ran the \ns \nCarousel Club. \nI then asked the'man if RUBY ran \n: \nJack's Branch Office Lounge on Industrial, \nand the \n7 \n7 \nman said that he didn't. \nJI told the man that \nI had \n. \net \n. \nserviced refrigerators in \na number of clubs, \nin the \n: \n\u2018 \npast, \nand had possibly been tc the Carousel Club, \nbut \n- \ndid not remember it. \n\"I mentioned to this man that. there was going to be \n* \n~ \na lot of excitement in Dallas soon, \nand this man \n* \nrs \nasked me what \nI meant. \nI told him that the President \na \nye \nwas coming to Dallas, \nbut \nI personally felt that the \n= \n\u00b0 \n3 \nPresident should not come \nto Dallas, \nbecause ",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "matched-17",
+            "type": "person",
+            "label": "Stevenson, Adlai",
+            "confidence": 1,
+            "entity_id": "d1e2f3a4-b5c6-4789-d0e1-f2a3b4c5d6e7",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-47",
+            "type": "person",
+            "label": "JACK RUBENSTEIN",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:27:24.203641"
     },
     {
       "page": 10,
@@ -191,8 +463,24 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "7 \naye \n4 \n4 \nsi \n\u2018\u201c \nyar \nl \n+ \nan \nNy \nj \nVM ovaptay pM \nEY Ung Maye agen Dna \npag tin hOF m \n\"WEAR EOE EDO AG SOE \nMPLLGOON \nGN \n4 \nten, \nOMIT E VIEL ALE EALEGE OG \nME OMG OO \nCrs eaT Ea, \n3 \nB \nDL 100~10461 \nThe man then said \nI misunderstood him, \nand \n: \nhe had asked me if \nI thought \nthe President would \n: \nchange his route. \nI told him that \nI doubted if \nhe would change the route, unless they might for \n; \nsafety reasons. \n: \n\"We were almost to downtown Dallas by thig time, \nard \nI told the man \nI was going \nem \nto Irving and asked \nhim where he was going. \nThis man said he was going \nto Houston Street, \nso \nI told him \nI would turn off \nthe expressway and let him off on Houston Street. \n* \nI turned-off at the Commerce Street exit and when \n- \nI got \nto Houston Street, \nturned lefs off of \nCommerce. \nI asked the man where he wanted off, \nand he said that anywhere along Houston Street \nwould be all right, \nso \nI let him off at the corner \nof Elm and Housten Streets when \nI Stop",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "candidate-56",
+            "type": "person",
+            "label": "DEMPSEY JONES",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:27:30.476936"
     },
     {
       "page": 11,
@@ -209,9 +497,97 @@
       "selectedContent": [],
       "newTypeFlag": false,
       "noteType": null,
-      "notes": "this is a combo of a report and subject statement",
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "notes": "this is a combo of a report and subject statement. need to add description to classifier",
+      "textSample": "7 \nee \n4 wt \nCD dT\" \n% \n| \ni \nAI/ | \n3 REPAIR \nAL PATA ALOT CARL \nLLC AMO \nLCL \nleat, \n. \nt \noy \n. \n4 \u201cen \n. \nOMSL AEG \nBONE EE GON \nss \nGOOLE EEE ENC ION pI Oa \nASANTE \nLSA \nhy ONO \nOMA \nGg Se PHONO MEN Nope \npe \n\u2018 \noF \nab \n1 \nSs \n4 \nme \n2 \nTT MEM \net etl \n| \nDL 100-10461 \n_ \n\"I have read this statement which is written on \nhan \nthis and one other page an. it is true to the best \na \nof my knowlage \na \n/3/ Relph L, Yates \na \n\"Witnessed: \nbs \nSE \n\"CG, Ray Hall, Special Agent, FBI, Dallas, Texas \nwe \nMaurice J. White, Special Agent, FBI, Dallas, Texas\" \no \nYATES was asked if he had ever been in \na hospital, \nan \nand he said that while he was in the \nU. \nS. Air Force, \nhe was \ni \na \ntreated by the doctors for \na \"nervous condition,\" but after \nF \nhe got out of the servide he learned that he had \na bad back, \na \nand thought this probably caused his \"nervous condition.\" \nHe said he had not been treated for any mental disorders. \nThe following description was obtained: \na \nbe \nName \nRALPH LE",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "matched-19",
+            "type": "person",
+            "label": "White, Maurice J.",
+            "confidence": 1,
+            "entity_id": "a8b9c0d1-e2f3-4456-a7b8-c9d0e1f2a3b4",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "matched-20",
+            "type": "person",
+            "label": "Yates, Ralph Leon",
+            "confidence": 1,
+            "entity_id": "8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "matched-21",
+            "type": "person",
+            "label": "Yates, Dorothy",
+            "confidence": 1,
+            "entity_id": "d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "matched-23",
+            "type": "person",
+            "label": "Yates, Lorrie Jo",
+            "confidence": 1,
+            "entity_id": "d7e8f9a0-b1c2-4345-d6e7-f8a9b0c1d2e3",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "matched-22",
+            "type": "person",
+            "label": "Yates, Jacquelyn Marie",
+            "confidence": 1,
+            "entity_id": "c6d7e8f9-a0b1-4234-c5d6-e7f8a9b0c1d2",
+            "detected_type": "person",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-67",
+            "type": "person",
+            "label": "Ray Hall",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          },
+          {
+            "id": "candidate-72",
+            "type": "person",
+            "label": "Hair \nBrown",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          },
+          {
+            "id": "candidate-73",
+            "type": "person",
+            "label": "Eyes \nBrown",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          },
+          {
+            "id": "candidate-74",
+            "type": "person",
+            "label": "Complexion \nRuddy",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:29:07.602525"
     },
     {
       "page": 12,
@@ -229,8 +605,24 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "Cp 205 \n*\u00b0 \n( \n& \n| \nbs \n| \nae \n. \nyak \nal \nnt \n,. \n-4y \n: \nWey \npt \n2 \nACA \nTAVALZ \nVK \nRy Nhe \nrE. \nBigs, ROU \nONAL LED OE OGL \nSS! \nGET a) DS AUDEN \nGOLI LEDS \nOLESEN an. \nUD \nMOG GO \nCOLEGIO I \nUTE \nOUE GAA \na \na 100-10461 \nRelatives \nELIZABETH ANN YATES, \nage \n3, \n. \n(continued) \nRALPH LEON YATES, Jr., age \n2; \nE \nMARK A, YATES, \nage 1, \nall reside \n13564 Brookgreen, Dallas, Texas; \nit \nBird Lane, Dalias, Texas, phone \noe \nFE 1-4024; \n: \nMother - Mrs. BERNICE (last name \nLs \nunknown), Elizabeth Street, \nDallas, Texas. \n. \nArrests \nClaimed arrested for tire theft, \n[. \nDel Ris, Texas, \nin 1954, \nand \nsentenced to thirty days in jail. \nu \nE>\n",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "matched-24",
+            "type": "person",
+            "label": "Yates, Elizabeth Ann",
+            "confidence": 1,
+            "entity_id": "e8f9a0b1-c2d3-4456-e7f8-a9b0c1d2e3f4",
+            "detected_type": "person",
+            "source": "matched"
+          }
+        ],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:29:18.646488"
     },
     {
       "page": 13,
@@ -246,17 +638,23 @@
       "selectedFormat": "GENERIC",
       "selectedContent": [],
       "newTypeFlag": false,
-      "noteType": null,
-      "notes": "renders over need to fix the render. this images overflow the canvas and render above the classfier card. they need to be cropped it appears there is whitespace. maybe add needs cropped \n",
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "noteType": "PDF_RENDER_ISSUE",
+      "notes": "PDF render/canvas display issue",
+      "textSample": "Consent to Interview with Polygraph \nKale \nleow Jars \nfreely and voluntarily to be interviewed by Special Agents of the \nFederal Bureau of Investigation, which I also know as the FBI, \nlee \nHarvey \nin connection with \nOSWALD \nI agree to the use of the Polygraph or so-called \"Lie Detector\" \nduring this interview or any part of it, and Iam willing to be \npresent at the time and place of interview for such time as nec- \nessary to complete the interview. No threats or promises of any \nkind have been made to me to obtain my consent to this interview, \nWitnesses: \nwon \nuw \n1 svarrannncn| \n",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:29:24.699729"
     },
     {
       "page": 14,
       "source": "ralphleonyatesdocumentsfull_searchable.pdf",
       "status": "correct",
       "disposition": "verified_approved",
-      "reason_code": "OTHER_CUSTOM",
+      "reason_code": null,
       "reason_detail": null,
       "predictedType": "FBI_302",
       "selectedType": "REPORT",
@@ -267,8 +665,14 @@
       "newTypeFlag": false,
       "noteType": "OTHER_CUSTOM",
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "1 ~ Belmont os \n> \n1 \n- Conrad . \nF \n* \nz, \n. \nx \n. \n1-2. 64: \nwe: \n{ \nYq \nge \n* \n: \nPLAIN TEXT \n_ \n*\u00b0 \nJ \n- Sullivan \u201c \u20182 TE. \n\u00b0 \nne \n, \n. \nx. \n1 \n- Hgrndon \n1 Eee \n| \nrndon \npe wr eg \n; \nTELCTYPE \n\u00a2 \nback? \n. Martindate \n: \n; \n; \n. \n| \ni \n~ Gheesling \n| J \nto sac DALLAS \n- \n| \nmas \n* \nFROA DIRECTOR, \nBI (105- #2585) ee \nca \n) \nPOD LEE HARVEY OSWALD, IS SRG \nREDL RLPORTS RUVEXBLR THIRTY, AND DECEMBER ThENTY-TIREE \nLAST CONCERNING INTERVIEKS OF RALPH LEON YATES AND investi\u201d oe A \n| \nGATIGN BASEL ON YATES! INFURNATLON. \noe \n\u2018: \nTHROUGH RELNTERVIEW OF YATES' EMPLOYER, J. R. GlrIN, \nJ \nAND INQUIRY AT CHARLIE JORDAN'S MEAT MARKET, IMMEDIATELY \n~~ \na \nESTABLISH WIUTELR \u2018OR NOT YATES HAD SERVICE CALL AT LATTER \na \nCOMPANY GN NOVEMBER THENTY OR TRUNTY-ONE LAST. \nTHEREAFTER, \n| \n\u201c \nREINTERVIEN YATES \u00a5ITH POLYGRAPH PROVIDED HE FURNISHES WRITTEN \nJs \nWAIVER OF CONSENT IN EFFORT TO DETERMING YATES\" VERACITY WITH \nXi\" \nRESPECT TO HIS ALLEGED\u2019 cosmesie\" ae ees \nIDENTL \nale UL \nSAP \npy yaTES aS SuBs",
+      "entityAssistType": "location",
+      "selectedEntities": {
+        "person": [],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:29:51.750299"
     },
     {
       "page": 15,
@@ -288,8 +692,33 @@
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "2 \n\u00b0 \n\u00b0 \n\u00ae \nad \n\u00b0 \n@-- \n\u201d. - ae \n: \n@ \n\u00b0 \natte: \n7 \n\u201c4 \nTELETPE T0 SAC DALLAS =. \neee \nEE RR \nste: \nRE: \nLEE HARVEY OSWALD \n92\u00b054 \n7. 2ST ee \noe \nat \nhy Secs \n: \na \n105-82555 \nSO \na \neas \nES \nOE CET \nee \n+ \noe \n*. i tz \n~ \nae \no \nGee ae \n-%, \n* \n% \n. \na ra s& 2, \nr \n\u00e9:? \n\u00ab Bie Ree Preys, \npte \n+> \n . \nNOTES \nYates, refrigeration serviceman voluntarily advised \n-. \nDL office on 11-26-63 that at bout 10:30 am on either 11/20 or \n.~- \n\u201ci \n21/63 he picked up hitch hiker outside DL and droped hin at \ncorner of Elia and Houston Sts. DALLAS. \nThis man \nbelieved by \n\" it\u00ab,~ Yates \nto be subject was carrying package wrapped in brown \n. \n\u00ab- = \u00ab> \n\u201c Seys \npaper which hitch \nhiker claimed contained curtain rods. \nDuring:....%. \n\u201cvide he inquired whether Yates thought President could be \n\u00a2-,- 07 \n*~ \n| \n\u00a5%+- \nassassinated from top of a building or from a window. Man +*..\u00b0\"\" \n. \npe \nexhibited picture which showed \na man with a rifle and he \u00b0:>.:---- \ninquired if Yates thought President could be kill",
+      "entityAssistType": "location",
+      "selectedEntities": {
+        "person": [],
+        "location": [
+          {
+            "id": "matched-29",
+            "type": "location",
+            "label": "Oak Cliff",
+            "confidence": 1,
+            "entity_id": "c4d5e6f7-a8b9-4012-c3d4-e5f6a7b8c9d0",
+            "detected_type": "place",
+            "source": "matched"
+          },
+          {
+            "id": "candidate-122",
+            "type": "location",
+            "label": "Houston Sts",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:30:01.188534"
     },
     {
       "page": 16,
@@ -306,9 +735,25 @@
       "selectedContent": [],
       "newTypeFlag": false,
       "noteType": null,
-      "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "notes": "special agent belongs tracked somewhere",
+      "textSample": "4 \n/ \n4 \nMe \n, \nU \ne \nCORI \n. EL \nUe? | er \nroth \nDMI \n1 a) \nMPAA \ni \nmifh \noy \nba \nwy \n\u00ab \noe \ni, \nasl \n: \nule \nellis \nEAE ONAN LUCA \nAEA \nWIEN ae ss \nFD-302 (Rev. 3-3-5 \n9) \nFEDERAL BUREAU OF INVESTIGATION \nDate January \n3, 1064 \ni \nRALPH LEON YATES, employee, \nTexas Butcher Supply \n| \nCompany (TBSC), 2038 Commerce Street, Dallas, Texas, was re- \n. \ni \ninterviewed at which time he stated on or about November 20 or \n21, 1963, his reason for going to Charlie's Meat Market in \nWynnewood Shopping Center was \nto pick up \na small check which \n\u00a9 \n$ \nwas payable \nto TBSC, \nHe stated he did not perform any maintenance \n. \nwork on the equipment at Charlie's Meat Market, and that upon \npicking up the aforementioned check, \nhe then proceeded to \nIrving, Texas as he has previously advised. \nYATES advised he could furnish no additional informa \ntion concerning this matter. \n13-64 \ny_ \nDallas, Texas \nrite $_DE 3100-10462 \nby Special Agent \n8 JOHN 7. KESLER \ni} ___ Date dictated _ 23-64 \nmvs \n\u00b0 \nThis",
+      "entityAssistType": "person",
+      "selectedEntities": {
+        "person": [
+          {
+            "id": "candidate-134",
+            "type": "person",
+            "label": "Special Agent",
+            "confidence": 0.7,
+            "entity_id": null,
+            "detected_type": "person",
+            "source": "candidate"
+          }
+        ],
+        "location": [],
+        "organization": []
+      },
+      "timestamp": "2026-03-02T06:30:28.887291"
     },
     {
       "page": 17,
