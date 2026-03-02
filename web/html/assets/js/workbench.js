@@ -199,6 +199,21 @@ class ClassifyTab {
         return null;
     }
 
+    inferEntityTypeFromLabel(label, fallbackType = 'person') {
+        const text = String(label || '').toLowerCase();
+        if (!text) return fallbackType;
+
+        // Organization cues
+        if (/(bureau|department|agency|office|committee|commission|company|corp|corporation|inc|llc|club|university|school|bank)\b/.test(text)) {
+            return 'organization';
+        }
+        // Location cues
+        if (/(street|st\.?|avenue|ave\.?|road|rd\.?|drive|dr\.?|lane|ln\.?|boulevard|blvd|highway|hwy|expressway|freeway|underpass|plaza|park|texas|dallas|houston)\b/.test(text)) {
+            return 'location';
+        }
+        return fallbackType;
+    }
+
     ensureSelectedEntitiesShape(page) {
         if (!this.wb.feedback[page]) this.wb.feedback[page] = { status: 'pending' };
         if (!this.wb.feedback[page].selectedEntities || typeof this.wb.feedback[page].selectedEntities !== 'object') {
@@ -212,7 +227,8 @@ class ClassifyTab {
     getDetectedEntitiesForPage(page) {
         const items = [];
         (this.wb.detectedEntities || []).forEach((e, i) => {
-            const mappedType = this.normalizeDetectedEntityType(e.entity_type);
+            const baseType = this.normalizeDetectedEntityType(e.entity_type);
+            const mappedType = baseType ? this.inferEntityTypeFromLabel(e.display_name || e.text, baseType) : null;
             if (!mappedType || Number(e.page) !== Number(page)) return;
             items.push({
                 id: `matched-${i}`,
@@ -225,7 +241,8 @@ class ClassifyTab {
             });
         });
         (this.wb.detectedCandidates || []).forEach((c, i) => {
-            const mappedType = this.normalizeDetectedEntityType(c.entity_type);
+            const baseType = this.normalizeDetectedEntityType(c.entity_type);
+            const mappedType = baseType ? this.inferEntityTypeFromLabel(c.display_name || c.text, baseType) : null;
             if (!mappedType || Number(c.page) !== Number(page)) return;
             items.push({
                 id: `candidate-${i}`,
@@ -275,10 +292,6 @@ class ClassifyTab {
                         <option value="person" ${activeType === 'person' ? 'selected' : ''}>Person</option>
                         <option value="location" ${activeType === 'location' ? 'selected' : ''}>Location</option>
                         <option value="organization" ${activeType === 'organization' ? 'selected' : ''}>Organization</option>
-                    </select>
-                    <select id="entity-list-${page}" class="workbench-select flex-1 min-w-[220px]" data-action="entity-list-select" data-page="${page}">
-                        <option value="">${options.length ? '-- Add from detected entities --' : 'No detected entities for this page/type'}</option>
-                        ${options.map(o => `<option value="${o.id}">${o.label}${o.source === 'candidate' ? ' (candidate)' : ''}</option>`).join('')}
                     </select>
                 </div>
                 <div class="mt-2 p-2 bg-black/20 rounded border border-white/10 max-h-[96px] overflow-y-auto">
@@ -434,6 +447,7 @@ class ClassifyTab {
                                         placeholder="Custom reason detail (required for Other)">
                                 </div>
                                 <textarea id="note-text-${page}" rows="2"
+                                    data-action="note-input" data-page="${page}"
                                     class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
                                     placeholder="Context notes..."></textarea>
                             </div>
@@ -581,6 +595,7 @@ class ClassifyTab {
                                         placeholder="Custom reason detail (required for Other)">
                                 </div>
                                 <textarea id="note-text-${page}" rows="2"
+                                    data-action="note-input" data-page="${page}"
                                     class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
                                     placeholder="Context notes..."></textarea>
                             </div>
@@ -1243,36 +1258,38 @@ class EntitiesTab {
         this.wb = workbench;
     }
 
-    async detectEntities() {
+    dedupeEntities(items, kind = 'matched') {
+        const seen = new Set();
+        const out = [];
+        for (const item of items) {
+            const name = (item.display_name || item.text || '').toLowerCase().trim();
+            const type = String(item.entity_type || '').toLowerCase().trim();
+            const page = String(item.page || '');
+            const key = `${kind}|${type}|${name}|${page}`;
+            if (!name || seen.has(key)) continue;
+            seen.add(key);
+            out.push(item);
+        }
+        return out;
+    }
+
+    async detectEntities(options = {}) {
+        const auto = !!options.auto;
         const btn = document.getElementById('detect-entities-btn');
         const loading = document.getElementById('entity-loading');
         const results = document.getElementById('entity-results');
 
         btn.disabled = true;
-        btn.textContent = 'Scanning...';
+        btn.textContent = auto ? 'Auto-scanning...' : 'Scanning...';
         loading.classList.remove('hidden');
         results.classList.add('hidden');
 
-        // Concatenate all page text and track offsets
-        let combinedText = '';
-        const pageOffsets = [];
-        let currentOffset = 0;
+        const allPages = (this.wb.classificationData && this.wb.classificationData.pages) ? this.wb.classificationData.pages : [];
+        const maxPages = Math.min(50, allPages.length);
+        const pagesToScan = allPages.slice(0, maxPages);
+        const batchSize = 10;
 
-        if (this.wb.classificationData && this.wb.classificationData.pages) {
-            this.wb.classificationData.pages.forEach((page, idx) => {
-                const text = (page.text || '') + '\n\n';
-                pageOffsets.push({
-                    start: currentOffset,
-                    end: currentOffset + text.length,
-                    index: idx + 1,
-                    tags: page.tags || []
-                });
-                combinedText += text;
-                currentOffset += text.length;
-            });
-        }
-
-        if (!combinedText.trim()) {
+        if (!pagesToScan.length) {
             loading.classList.add('hidden');
             btn.disabled = false;
             btn.innerHTML = '<span class="material-symbols-outlined text-sm align-middle mr-1">search</span> Detect Entities';
@@ -1281,42 +1298,74 @@ class EntitiesTab {
         }
 
         try {
-            const res = await fetch('/api/entities', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    text: combinedText,
-                    filename: this.wb.FILE_NAME,
-                    include_candidates: true
-                })
-            });
+            const totalBatches = Math.ceil(pagesToScan.length / batchSize);
+            let combinedEntities = [];
+            let combinedCandidates = [];
 
-            if (!res.ok) throw new Error(`API error: ${res.status}`);
+            for (let b = 0; b < totalBatches; b++) {
+                const start = b * batchSize;
+                const batchPages = pagesToScan.slice(start, start + batchSize);
+                loading.textContent = `Scanning entities batch ${b + 1}/${totalBatches}...`;
 
-            const data = await res.json();
+                let batchText = '';
+                const pageOffsets = [];
+                let currentOffset = 0;
+                batchPages.forEach((page, idx) => {
+                    const text = (page.text || '') + '\n\n';
+                    pageOffsets.push({
+                        start: currentOffset,
+                        end: currentOffset + text.length,
+                        index: page.page || (start + idx + 1),
+                        tags: page.tags || []
+                    });
+                    batchText += text;
+                    currentOffset += text.length;
+                });
 
-            // Helper to find page for a character position
-            const findPage = (pos) => {
-                const p = pageOffsets.find(o => pos >= o.start && pos < o.end);
-                if (!p) return { index: 1, tags: [] };
-                const fb = this.wb.feedback[p.index];
-                const activeTags = fb && fb.selectedContent ? fb.selectedContent : (p.tags || []);
-                return { index: p.index, tags: activeTags };
-            };
+                if (!batchText.trim()) continue;
 
-            // Enhance entities with page info (using updated findPage)
-            this.wb.detectedEntities = (data.entities || []).map(e => {
-                const pInfo = findPage(e.start_pos);
-                return { ...e, page: pInfo.index, tags: pInfo.tags };
-            });
+                const res = await fetch('/api/entities', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: batchText,
+                        filename: this.wb.FILE_NAME,
+                        include_candidates: true
+                    })
+                });
+                if (!res.ok) throw new Error(`API error: ${res.status}`);
+                const data = await res.json();
 
-            this.wb.detectedCandidates = (data.new_candidates || []).map(c => {
-                const pInfo = findPage(c.start_pos);
-                return { ...c, page: pInfo.index, tags: pInfo.tags };
-            });
+                const findPage = (pos) => {
+                    const p = pageOffsets.find(o => pos >= o.start && pos < o.end);
+                    if (!p) return { index: pageOffsets[0]?.index || 1, tags: [] };
+                    const fb = this.wb.feedback[p.index];
+                    const activeTags = fb && fb.selectedContent ? fb.selectedContent : (p.tags || []);
+                    return { index: p.index, tags: activeTags };
+                };
+
+                combinedEntities = combinedEntities.concat((data.entities || []).map(e => {
+                    const pInfo = findPage(e.start_pos);
+                    return { ...e, page: pInfo.index, tags: pInfo.tags };
+                }));
+
+                combinedCandidates = combinedCandidates.concat((data.new_candidates || []).map(c => {
+                    const pInfo = findPage(c.start_pos);
+                    return { ...c, page: pInfo.index, tags: pInfo.tags };
+                }));
+            }
+
+            this.wb.detectedEntities = this.dedupeEntities(combinedEntities, 'matched');
+            this.wb.detectedCandidates = this.dedupeEntities(combinedCandidates, 'candidate');
 
             // Summary header is intentionally metrics-only. Do not add context tags here.
-            const s = data.summary || {};
+            const s = {
+                matched: this.wb.detectedEntities.length,
+                candidates: this.wb.detectedCandidates.length,
+                persons: this.wb.detectedEntities.filter(e => e.entity_type === 'person').length,
+                places: this.wb.detectedEntities.filter(e => e.entity_type === 'place').length,
+                orgs: this.wb.detectedEntities.filter(e => e.entity_type === 'org').length
+            };
             const matchesEl = document.getElementById('entity-matches-total');
             const breakdownEl = document.getElementById('entity-matches-breakdown');
             const candidatesEl = document.getElementById('entity-candidates-total');
@@ -1331,12 +1380,15 @@ class EntitiesTab {
             }
 
             loading.classList.add('hidden');
+            loading.textContent = 'Scanning text for entities...';
             results.classList.remove('hidden');
+            if (auto) this.wb.showToast(`Auto-detected entities on first ${maxPages} pages`);
 
         } catch (err) {
             console.error('Entity detection failed:', err);
             this.wb.exportTab.showExportStatus(`Entity detection failed: ${err.message}. Is the server running?`, 'error');
             loading.classList.add('hidden');
+            loading.textContent = 'Scanning text for entities...';
         }
 
         btn.disabled = false;
@@ -1724,6 +1776,191 @@ class ExportTab {
             }
         }
         this.showExportStatus(`Exported ${exported} new entities (${skipped} duplicates skipped)`);
+    }
+
+    // ── TTS (Kokoro Audio Export) ────────────────────────────────
+
+    async initTTS() {
+        try {
+            const res = await fetch('/api/tts/config');
+            if (!res.ok) return;
+            const cfg = await res.json();
+            if (!cfg.available) return;
+
+            const panel = document.getElementById('audio-export-panel');
+            if (panel) panel.style.display = '';
+
+            // Populate voice dropdown
+            const sel = document.getElementById('tts-voice');
+            if (sel && cfg.voices) {
+                sel.innerHTML = cfg.voices.map(v =>
+                    `<option value="${v.id}">${v.label}</option>`
+                ).join('');
+            }
+        } catch (e) {
+            console.warn('TTS config check failed:', e);
+        }
+    }
+
+    getTTSSettings() {
+        return {
+            voice: document.getElementById('tts-voice')?.value || 'af_heart',
+            speed: parseFloat(document.getElementById('tts-speed')?.value || '1.0'),
+            format: document.getElementById('tts-format')?.value || 'wav',
+        };
+    }
+
+    setTTSStatus(msg, show = true) {
+        const el = document.getElementById('tts-status');
+        if (!el) return;
+        el.style.display = show ? '' : 'none';
+        el.textContent = msg;
+    }
+
+    async previewTTS() {
+        const settings = this.getTTSSettings();
+        // Grab first 200 chars of reviewed text
+        const text = this.getPreviewText();
+        if (!text) {
+            this.showExportStatus('No reviewed content to preview.', 'warning');
+            return;
+        }
+
+        this.setTTSStatus('Generating preview...');
+        try {
+            const res = await fetch('/api/tts/preview', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, ...settings })
+            });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.error || `HTTP ${res.status}`);
+            }
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const player = document.getElementById('tts-preview-player');
+            if (player) {
+                player.src = url;
+                player.style.display = '';
+                player.play();
+            }
+            this.setTTSStatus('Preview ready.');
+        } catch (e) {
+            this.setTTSStatus(`Preview failed: ${e.message}`);
+            this.showExportStatus(`TTS preview failed: ${e.message}`, 'error');
+        }
+    }
+
+    async generateAudio() {
+        const settings = this.getTTSSettings();
+        const items = this.buildNarrationItems();
+        if (!items.length) {
+            this.showExportStatus('No content selected for audio generation.', 'warning');
+            return;
+        }
+
+        this.setTTSStatus(`Generating ${items.length} audio file(s)... This may take a moment.`);
+        try {
+            const res = await fetch('/api/tts/batch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items, ...settings })
+            });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.error || `HTTP ${res.status}`);
+            }
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'audio-export.zip';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            this.setTTSStatus(`Downloaded ${items.length} audio file(s).`);
+            this.logExport(`Audio export: ${items.length} files generated.`);
+            this.showExportStatus(`Audio export complete — ${items.length} file(s) downloaded.`);
+        } catch (e) {
+            this.setTTSStatus(`Generation failed: ${e.message}`);
+            this.showExportStatus(`Audio generation failed: ${e.message}`, 'error');
+        }
+    }
+
+    getPreviewText() {
+        // Try source record name + notes, fall back to first page text
+        const name = document.getElementById('export-source-name')?.value || '';
+        const notes = document.getElementById('export-source-notes')?.value || '';
+        if (name || notes) return `${name}. ${notes}`.trim().slice(0, 200);
+
+        // Fall back to first reviewed page/segment text
+        const pages = this.wb.classificationData?.pages || [];
+        for (const p of pages) {
+            if (p.text?.trim()) return p.text.trim().slice(0, 200);
+        }
+        return '';
+    }
+
+    buildNarrationItems() {
+        const items = [];
+        const includeSource = document.getElementById('tts-include-source')?.checked;
+        const includeEntities = document.getElementById('tts-include-entities')?.checked;
+        const includeFullText = document.getElementById('tts-include-fulltext')?.checked;
+        const includePages = document.getElementById('tts-include-pages')?.checked;
+
+        // Source Record Summary
+        if (includeSource) {
+            const name = document.getElementById('export-source-name')?.value || 'Document';
+            const type = document.getElementById('export-source-type')?.value || '';
+            const agency = document.getElementById('export-agency')?.value || '';
+            const notes = document.getElementById('export-source-notes')?.value || '';
+            let text = `Source Record: ${name}.`;
+            if (type) text += ` Document type: ${type}.`;
+            if (agency) text += ` Origin agency: ${agency}.`;
+            if (notes) text += ` ${notes}`;
+            items.push({ id: 'source-record', text, label: 'Source Record' });
+        }
+
+        // Entity Summaries
+        if (includeEntities && this.wb.detectedEntities) {
+            const approved = [];
+            this.wb.detectedEntities.forEach((e, i) => {
+                if (this.wb.entityApprovals[`matched-${i}`] === 'approved') {
+                    approved.push(e);
+                }
+            });
+            if (approved.length > 0) {
+                const text = approved.map(e =>
+                    `${e.display_name}, ${e.entity_type}.`
+                ).join(' ');
+                items.push({ id: 'entity-summaries', text: `Detected entities: ${text}`, label: 'Entity Summaries' });
+            }
+        }
+
+        // Full Document Text
+        if (includeFullText) {
+            const pages = this.wb.classificationData?.pages || [];
+            const fullText = pages.map(p => p.text || '').join('\n').trim();
+            if (fullText) {
+                items.push({ id: 'full-document', text: fullText, label: 'Full Document' });
+            }
+        }
+
+        // Individual Pages/Segments
+        if (includePages) {
+            const pages = this.wb.classificationData?.pages || [];
+            pages.forEach((p, i) => {
+                const text = (p.text || '').trim();
+                if (text) {
+                    const label = p.media_type ? `Segment ${i + 1}` : `Page ${i + 1}`;
+                    items.push({ id: `page-${i + 1}`, text, label });
+                }
+            });
+        }
+
+        return items;
     }
 }
 
@@ -2612,6 +2849,8 @@ class DocumentWorkbench {
                 case 'reject-candidate': self.entitiesTab.rejectCandidate(idx); break;
                 case 'export-source-record': self.exportTab.exportSourceRecord(); break;
                 case 'export-new-entities': self.exportTab.exportNewEntities(); break;
+                case 'tts-preview': self.exportTab.previewTTS(); break;
+                case 'tts-generate': self.exportTab.generateAudio(); break;
             }
         });
         document.addEventListener('change', (e) => {
@@ -2625,13 +2864,6 @@ class DocumentWorkbench {
                 self.classifyTab.ensureSelectedEntitiesShape(page);
                 self.feedback[page].entityAssistType = target.value || 'person';
                 self.saveFeedback();
-                self.classifyTab.renderCards(self.classifyTab.filteredPages);
-            }
-            if (target.dataset.action === 'entity-list-select') {
-                const page = parseInt(target.dataset.page);
-                const type = document.getElementById(`entity-type-${page}`)?.value || 'person';
-                self.classifyTab.addSelectedEntity(page, type, target.value);
-                target.value = '';
                 self.classifyTab.renderCards(self.classifyTab.filteredPages);
             }
             if (target.dataset.action === 'entity-checkbox') {
@@ -2754,7 +2986,10 @@ class DocumentWorkbench {
         if (tabBtn) tabBtn.classList.add('active');
         const panel = document.getElementById(`tab-${tabName}`);
         if (panel) panel.classList.add('active');
-        if (tabName === 'export') this.exportTab.populateSourceRecordPreview();
+        if (tabName === 'export') {
+            this.exportTab.populateSourceRecordPreview();
+            this.exportTab.initTTS();
+        }
         if (this.isWorkbenchMode) {
             const url = new URL(window.location);
             if (this.FILE_NAME) url.searchParams.set('file', this.FILE_NAME);
@@ -2825,6 +3060,9 @@ class DocumentWorkbench {
             for (const [page, data] of Object.entries(this.feedback)) this.classifyTab.applyFeedbackUI(page, data);
             this.classifyTab.updateStats();
             if (this.isWorkbenchMode) this.updateTabStates();
+            if (this.isWorkbenchMode && !this.detectedEntities && !this.detectedCandidates && this.classificationData?.pages?.length) {
+                setTimeout(() => this.entitiesTab.detectEntities({ auto: true }), 250);
+            }
         } catch (err) {
             console.error('Failed to load classification data:', err);
             if (statusEl) statusEl.innerHTML = `<span class="text-red-400">⚠ ${err.message}</span>`;

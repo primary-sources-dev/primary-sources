@@ -927,6 +927,74 @@
                         <div id="export-log" class="mt-4 text-xs font-mono opacity-60 space-y-1"></div>
                     </div>
 
+                    <!-- Audio Export Control Panel (Kokoro TTS) -->
+                    <div id="audio-export-panel" class="export-card audio-export-panel" style="display:none;">
+                        <h2 class="text-lg font-bold mb-3" style="color: var(--primary);">
+                            <span class="material-symbols-outlined text-sm align-middle mr-1">volume_up</span>
+                            Audio Export
+                        </h2>
+                        <p class="text-xs opacity-60 mb-4">Generate narrated audio from your reviewed content using
+                            Kokoro TTS.</p>
+
+                        <!-- Voice / Speed / Format row -->
+                        <div class="flex flex-wrap gap-4 mb-4">
+                            <label class="flex flex-col gap-1 text-xs">
+                                <span class="opacity-60">Voice</span>
+                                <select id="tts-voice" class="workbench-select text-xs" style="min-width:180px;"></select>
+                            </label>
+                            <label class="flex flex-col gap-1 text-xs">
+                                <span class="opacity-60">Speed</span>
+                                <select id="tts-speed" class="workbench-select text-xs">
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1.0" selected>1.0x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                </select>
+                            </label>
+                            <label class="flex flex-col gap-1 text-xs">
+                                <span class="opacity-60">Format</span>
+                                <select id="tts-format" class="workbench-select text-xs">
+                                    <option value="wav">WAV</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <!-- Narration checkboxes -->
+                        <div class="mb-4">
+                            <span class="text-xs opacity-60 block mb-2">What to narrate:</span>
+                            <div class="flex flex-col gap-2 text-xs">
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" id="tts-include-source" checked> Source Record Summary
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" id="tts-include-entities" checked> Entity Summaries
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" id="tts-include-fulltext" checked> Full Document Text
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" id="tts-include-pages"> Individual Pages / Segments
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <button data-action="tts-preview" class="export-btn export-btn-secondary flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm">play_arrow</span> Preview
+                            </button>
+                            <button data-action="tts-generate" class="export-btn export-btn-primary flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm">download</span> Generate &amp; Download
+                            </button>
+                        </div>
+
+                        <!-- Preview audio player -->
+                        <audio id="tts-preview-player" class="tts-preview mt-3" controls style="display:none; width:100%;"></audio>
+
+                        <!-- Status -->
+                        <div id="tts-status" class="tts-status mt-3 text-xs opacity-60" style="display:none;"></div>
+                    </div>
+
                 </div><!-- /export-content -->
             </div><!-- /tab-export -->
 

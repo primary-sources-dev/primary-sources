@@ -95,6 +95,15 @@ except ImportError:
     LINKER_AVAILABLE = False
     print("Warning: entity_linker not available")
 
+# TTS worker (Kokoro)
+sys.path.insert(0, TOOLS_DIR)
+try:
+    from tts_worker import TTSWorker, KOKORO_AVAILABLE, VOICES as TTS_VOICES
+except ImportError:
+    KOKORO_AVAILABLE = False
+    TTS_VOICES = []
+    print("Warning: tts_worker not available")
+
 # Initialize global engines
 DATA_DIR = Path(NEW_UI_ROOT) / "assets" / "data"
 linker = EntityLinker(DATA_DIR) if LINKER_AVAILABLE else None
@@ -218,6 +227,8 @@ def get_config():
         "whisper_available": WHISPER_AVAILABLE,
         "whisper_models": WHISPER_MODELS if WHISPER_AVAILABLE else [],
         "ytdlp_available": YTDLP_AVAILABLE,
+        "tts_available": KOKORO_AVAILABLE,
+        "tts_voices": TTS_VOICES if KOKORO_AVAILABLE else [],
     })
 
 
@@ -1643,6 +1654,104 @@ def feedback_corrections():
         "corrections": list(corrections.values()),
         "total_incorrect": sum(c["count"] for c in corrections.values())
     })
+
+
+# ============================================================================
+# TTS ENDPOINTS (Kokoro Text-to-Speech)
+# ============================================================================
+
+@app.route("/api/tts/config", methods=["GET"])
+def tts_config():
+    """Return TTS availability and voice list."""
+    return jsonify({
+        "available": KOKORO_AVAILABLE,
+        "voices": TTS_VOICES if KOKORO_AVAILABLE else [],
+    })
+
+
+@app.route("/api/tts/preview", methods=["POST"])
+def tts_preview():
+    """Synthesize a short preview (<=200 chars) and return audio blob."""
+    if not KOKORO_AVAILABLE:
+        return jsonify({"error": "Kokoro TTS not installed"}), 503
+
+    data = request.get_json()
+    if not data or not data.get("text"):
+        return jsonify({"error": "No text provided"}), 400
+
+    text = data["text"][:200]
+    voice = data.get("voice", "af_heart")
+    speed = float(data.get("speed", 1.0))
+    fmt = data.get("format", "wav").lower()
+
+    # Determine lang from voice prefix
+    lang = "b" if voice.startswith("b") else "a"
+
+    try:
+        worker = TTSWorker(voice=voice, speed=speed, lang=lang)
+        buf = worker.synthesize_to_buffer(text, voice=voice, speed=speed, format=fmt)
+        mime = "audio/wav" if fmt == "wav" else "audio/mpeg"
+        from flask import Response
+        return Response(buf.read(), mimetype=mime)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/tts/synthesize", methods=["POST"])
+def tts_synthesize():
+    """Synthesize full text and return audio blob."""
+    if not KOKORO_AVAILABLE:
+        return jsonify({"error": "Kokoro TTS not installed"}), 503
+
+    data = request.get_json()
+    if not data or not data.get("text"):
+        return jsonify({"error": "No text provided"}), 400
+
+    text = data["text"]
+    voice = data.get("voice", "af_heart")
+    speed = float(data.get("speed", 1.0))
+    fmt = data.get("format", "wav").lower()
+
+    lang = "b" if voice.startswith("b") else "a"
+
+    try:
+        worker = TTSWorker(voice=voice, speed=speed, lang=lang)
+        buf = worker.synthesize_to_buffer(text, voice=voice, speed=speed, format=fmt)
+        mime = "audio/wav" if fmt == "wav" else "audio/mpeg"
+        from flask import Response
+        return Response(buf.read(), mimetype=mime)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/tts/batch", methods=["POST"])
+def tts_batch():
+    """Synthesize multiple items and return zip of audio files."""
+    if not KOKORO_AVAILABLE:
+        return jsonify({"error": "Kokoro TTS not installed"}), 503
+
+    data = request.get_json()
+    if not data or not data.get("items"):
+        return jsonify({"error": "No items provided"}), 400
+
+    items = data["items"]
+    voice = data.get("voice", "af_heart")
+    speed = float(data.get("speed", 1.0))
+    fmt = data.get("format", "wav").lower()
+
+    lang = "b" if voice.startswith("b") else "a"
+
+    try:
+        worker = TTSWorker(voice=voice, speed=speed, lang=lang)
+        zip_buf = worker.synthesize_batch(items, voice=voice, speed=speed, format=fmt)
+        from flask import Response
+        return Response(
+            zip_buf.read(),
+            mimetype="application/zip",
+            headers={"Content-Disposition": "attachment; filename=audio-export.zip"}
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # ============================================================================
