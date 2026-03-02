@@ -8,9 +8,10 @@
 ## Pipeline A: Classifier Feedback Dataset
 1. Open Workbench and review pages in `CLASSIFY`.
 2. Click `Export Feedback JSON`.
-3. This creates a file like: `classifier_feedback_<file>_v2.json`.
+3. This saves a file in-repo under: `data/feedback-exports/`
+   - Example: `classifier_feedback_<file>_v2_<timestamp>.json`
 4. Convert export(s) into training dataset format:
-   - `python tools/convert_workbench_feedback_v2.py --input "C:/Users/willh/Downloads/classifier_feedback_*_v2.json" --output data/classifier-feedback.json`
+   - `python tools/convert_workbench_feedback_v2.py --input "data/feedback-exports/classifier_feedback_*_v2_*.json" --output data/classifier-feedback.json`
 5. Train/analyze from that dataset:
    - `python tools/train_classifier.py --suggest`
 

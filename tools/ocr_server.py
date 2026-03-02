@@ -10,13 +10,20 @@ Then open: http://localhost:5000
 
 import os
 import json
+import re
 import threading
 import zipfile
 import tarfile
 import shutil
+from datetime import datetime
 from pathlib import Path
 from flask import Flask, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
+
+# Ensure ffmpeg is on PATH (winget install location)
+FFMPEG_DIR = os.path.expanduser(r"~\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0.1-full_build\bin")
+if os.path.isdir(FFMPEG_DIR) and FFMPEG_DIR not in os.environ.get("PATH", ""):
+    os.environ["PATH"] = FFMPEG_DIR + os.pathsep + os.environ.get("PATH", "")
 
 # Paths
 TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -44,6 +51,13 @@ except ImportError:
     VIDEO_EXTENSIONS = set()
     WHISPER_MODELS = []
     print("Warning: transcription_worker not available")
+
+try:
+    import yt_dlp
+    YTDLP_AVAILABLE = True
+except ImportError:
+    YTDLP_AVAILABLE = False
+    print("Warning: yt-dlp not available, YouTube downloads disabled")
 
 try:
     from metadata_parser import MetadataParser, parse_metadata
@@ -203,7 +217,99 @@ def get_config():
         "ocr_available": OCR_AVAILABLE,
         "whisper_available": WHISPER_AVAILABLE,
         "whisper_models": WHISPER_MODELS if WHISPER_AVAILABLE else [],
+        "ytdlp_available": YTDLP_AVAILABLE,
     })
+
+
+@app.route("/api/download", methods=["POST"])
+def download_url():
+    """
+    Download audio from a URL (YouTube, etc.) using yt-dlp.
+    Saves to processed/uploads/ as .mp3 and returns file info for queue injection.
+
+    Request JSON: { "url": "https://youtube.com/watch?v=..." }
+    Response:     { "success": true, "file": { "name": "...", "size": ..., "path": "..." } }
+    """
+    if not YTDLP_AVAILABLE:
+        return jsonify({"error": "yt-dlp not installed. Run: pip install yt-dlp"}), 503
+
+    data = request.get_json()
+    if not data or not data.get("url"):
+        return jsonify({"error": "No URL provided"}), 400
+
+    url = data["url"].strip()
+
+    # Basic URL validation
+    if not url.startswith(("http://", "https://")):
+        return jsonify({"error": "Invalid URL. Paste a link starting with https://"}), 400
+
+    upload_dir = os.path.join(app.config["UPLOAD_FOLDER"], "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+
+    try:
+        # First extract info to get the title
+        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "cookiesfrombrowser": ("edge",), "extractor_args": {"youtube": {"player_client": ["web"]}}}) as ydl:
+            info = ydl.extract_info(url, download=False)
+            title = info.get("title", "download")
+
+        # Sanitize title for filename
+        safe_title = "".join(c if c.isalnum() or c in " -_" else "_" for c in title).strip()[:80]
+        if not safe_title:
+            safe_title = "download"
+
+        output_template = os.path.join(upload_dir, f"{safe_title}.%(ext)s")
+
+        # Download audio only as mp3
+        ydl_opts = {
+            "format": "bestaudio/best",
+            "outtmpl": output_template,
+            "postprocessors": [{
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "192",
+            }],
+            "quiet": True,
+            "no_warnings": True,
+            "cookiesfrombrowser": ("edge",),
+            "extractor_args": {"youtube": {"player_client": ["web"]}},
+            "http_headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"},
+        }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+
+        # Find the downloaded file
+        mp3_path = os.path.join(upload_dir, f"{safe_title}.mp3")
+        if not os.path.exists(mp3_path):
+            return jsonify({"error": "Download completed but output file not found"}), 500
+
+        file_size = os.path.getsize(mp3_path)
+        filename = f"{safe_title}.mp3"
+
+        return jsonify({
+            "success": True,
+            "file": {
+                "name": filename,
+                "size": file_size,
+                "path": mp3_path,
+                "title": title,
+                "url": url,
+            }
+        })
+
+    except Exception as e:
+        return jsonify({"error": f"Download failed: {str(e)}"}), 500
+
+
+@app.route("/api/download/file/<filename>", methods=["GET"])
+def serve_downloaded_file(filename):
+    """Serve a downloaded file from processed/uploads/ for queue injection."""
+    safe_name = os.path.basename(filename)
+    upload_dir = os.path.join(app.config["UPLOAD_FOLDER"], "uploads")
+    file_path = os.path.join(upload_dir, safe_name)
+    if not os.path.exists(file_path):
+        return jsonify({"error": "File not found"}), 404
+    return send_from_directory(upload_dir, safe_name)
 
 
 @app.route("/api/jobs", methods=["POST"])
@@ -1222,6 +1328,7 @@ def review_endpoint(filename):
 # ============================================================================
 
 FEEDBACK_FILE = os.path.join(PROJECT_ROOT, "data", "classifier-feedback.json")
+FEEDBACK_EXPORT_DIR = os.path.join(PROJECT_ROOT, "data", "feedback-exports")
 LEGACY_STATUS_TO_DISPOSITION = {
     "correct": "verified_approved",
     "incorrect": "verified_not_approved",
@@ -1281,6 +1388,12 @@ def save_feedback(data: dict):
         json.dump(data, f, indent=2)
 
 
+def _safe_feedback_export_name(source_name: str) -> str:
+    base = os.path.splitext(source_name or "feedback")[0]
+    safe = re.sub(r"[^A-Za-z0-9._-]+", "_", base).strip("._-")
+    return safe or "feedback"
+
+
 @app.route("/api/feedback", methods=["POST"])
 def feedback_post():
     """
@@ -1323,16 +1436,20 @@ def feedback_post():
 
     # Require explicit reason for non-approved outcomes
     if normalized_status in {"incorrect", "skipped"}:
-        reason_code = (data.get("reason_code") or data.get("noteType") or "").strip()
+        raw_reason_code = (data.get("reason_code") or data.get("noteType") or "").strip()
+        reason_code = "OTHER" if raw_reason_code == "OTHER_CUSTOM" else raw_reason_code
         if not reason_code:
             return jsonify({"error": "reason_code (or noteType) required for non-approved outcomes"}), 400
         data["reason_code"] = reason_code
+        reason_detail = (data.get("reason_detail") or "").strip()
+        if reason_code == "OTHER" and not reason_detail and not (data.get("notes") or "").strip():
+            return jsonify({"error": "Custom reason detail (or notes) required when reason_code=OTHER"}), 400
+        data["reason_detail"] = reason_detail or None
 
     # Load existing feedback
     feedback = load_feedback()
     
     # Add timestamp
-    from datetime import datetime
     data["timestamp"] = datetime.now().isoformat()
     
     # Check for duplicate (same source + page)
@@ -1383,6 +1500,38 @@ def feedback_get():
     """
     feedback = load_feedback()
     return jsonify(feedback)
+
+
+@app.route("/api/feedback/export", methods=["POST"])
+def feedback_export_post():
+    """
+    Persist a Workbench feedback export artifact into data/feedback-exports/.
+    Keeps loop artifacts in-repo so agents can process a stable location.
+    """
+    payload = request.get_json()
+    if not payload or not isinstance(payload, dict):
+        return jsonify({"error": "Missing JSON body"}), 400
+
+    source = str(payload.get("source") or "feedback")
+    schema_version = str(payload.get("schema_version") or "")
+    if schema_version and schema_version != "workbench-feedback-v2":
+        return jsonify({"error": f"Unsupported schema_version: {schema_version}"}), 400
+
+    exported_at = str(payload.get("exportedAt") or datetime.now().isoformat())
+    stamp = re.sub(r"[^0-9]", "", exported_at)[:14] or datetime.now().strftime("%Y%m%d%H%M%S")
+    safe_base = _safe_feedback_export_name(source)
+    filename = f"classifier_feedback_{safe_base}_v2_{stamp}.json"
+
+    os.makedirs(FEEDBACK_EXPORT_DIR, exist_ok=True)
+    save_path = os.path.join(FEEDBACK_EXPORT_DIR, filename)
+    with open(save_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+
+    return jsonify({
+        "success": True,
+        "filename": filename,
+        "saved_path": os.path.relpath(save_path, PROJECT_ROOT).replace("\\", "/"),
+    })
 
 
 @app.route("/api/history", methods=["GET"])

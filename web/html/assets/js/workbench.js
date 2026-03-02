@@ -26,7 +26,9 @@ const NOTE_PRESETS = {
     'NEW_PATTERN': 'Add pattern to classifier',
     'SCHEMA_UPDATE': 'Schema change needed',
     'OCR_QUALITY': 'Poor OCR / illegible',
-    'AMBIGUOUS': 'Ambiguous classification'
+    'AMBIGUOUS': 'Ambiguous classification',
+    'PDF_RENDER_ISSUE': 'PDF render/canvas display issue',
+    'OTHER_CUSTOM': 'Other (custom reason)'
 };
 
 // =====================================================================
@@ -189,6 +191,109 @@ class ClassifyTab {
 
     // ── Card rendering ──────────────────────────────────────────
     // ── Card rendering (Components) ─────────────────────────────
+    normalizeDetectedEntityType(rawType) {
+        const v = String(rawType || '').toLowerCase();
+        if (v === 'person') return 'person';
+        if (v === 'place' || v === 'location') return 'location';
+        if (v === 'org' || v === 'organization') return 'organization';
+        return null;
+    }
+
+    ensureSelectedEntitiesShape(page) {
+        if (!this.wb.feedback[page]) this.wb.feedback[page] = { status: 'pending' };
+        if (!this.wb.feedback[page].selectedEntities || typeof this.wb.feedback[page].selectedEntities !== 'object') {
+            this.wb.feedback[page].selectedEntities = { person: [], location: [], organization: [] };
+        }
+        ['person', 'location', 'organization'].forEach(t => {
+            if (!Array.isArray(this.wb.feedback[page].selectedEntities[t])) this.wb.feedback[page].selectedEntities[t] = [];
+        });
+    }
+
+    getDetectedEntitiesForPage(page) {
+        const items = [];
+        (this.wb.detectedEntities || []).forEach((e, i) => {
+            const mappedType = this.normalizeDetectedEntityType(e.entity_type);
+            if (!mappedType || Number(e.page) !== Number(page)) return;
+            items.push({
+                id: `matched-${i}`,
+                type: mappedType,
+                label: e.display_name || e.text || 'Unknown',
+                confidence: e.confidence ?? null,
+                entity_id: e.entity_id || null,
+                detected_type: e.entity_type || null,
+                source: 'matched'
+            });
+        });
+        (this.wb.detectedCandidates || []).forEach((c, i) => {
+            const mappedType = this.normalizeDetectedEntityType(c.entity_type);
+            if (!mappedType || Number(c.page) !== Number(page)) return;
+            items.push({
+                id: `candidate-${i}`,
+                type: mappedType,
+                label: c.display_name || c.text || 'Unknown',
+                confidence: c.confidence ?? null,
+                entity_id: null,
+                detected_type: c.entity_type || null,
+                source: 'candidate'
+            });
+        });
+        return items;
+    }
+
+    addSelectedEntity(page, uiType, optionId) {
+        if (!optionId) return;
+        this.ensureSelectedEntitiesShape(page);
+        const options = this.getDetectedEntitiesForPage(page).filter(o => o.type === uiType);
+        const selected = options.find(o => o.id === optionId);
+        if (!selected) return;
+        const bucket = this.wb.feedback[page].selectedEntities[uiType];
+        if (!bucket.some(e => e.id === selected.id)) {
+            bucket.push(selected);
+            this.wb.saveFeedback();
+        }
+    }
+
+    removeSelectedEntity(page, uiType, optionId) {
+        this.ensureSelectedEntitiesShape(page);
+        const bucket = this.wb.feedback[page].selectedEntities[uiType];
+        this.wb.feedback[page].selectedEntities[uiType] = bucket.filter(e => e.id !== optionId);
+        this.wb.saveFeedback();
+    }
+
+    renderEntityAssist(page) {
+        this.ensureSelectedEntitiesShape(page);
+        const state = this.wb.feedback[page];
+        const activeType = state.entityAssistType || 'person';
+        const options = this.getDetectedEntitiesForPage(page).filter(o => o.type === activeType);
+        const selectedSet = new Set((state.selectedEntities[activeType] || []).map(e => e.id));
+
+        return `
+            <div class="pt-2 border-t border-white/5">
+                <label class="text-[10px] opacity-60 block mb-2 font-bold uppercase tracking-widest">Entities:</label>
+                <div class="flex flex-wrap items-center gap-2">
+                    <select id="entity-type-${page}" class="workbench-select min-w-[140px]" data-action="entity-type-change" data-page="${page}">
+                        <option value="person" ${activeType === 'person' ? 'selected' : ''}>Person</option>
+                        <option value="location" ${activeType === 'location' ? 'selected' : ''}>Location</option>
+                        <option value="organization" ${activeType === 'organization' ? 'selected' : ''}>Organization</option>
+                    </select>
+                    <select id="entity-list-${page}" class="workbench-select flex-1 min-w-[220px]" data-action="entity-list-select" data-page="${page}">
+                        <option value="">${options.length ? '-- Add from detected entities --' : 'No detected entities for this page/type'}</option>
+                        ${options.map(o => `<option value="${o.id}">${o.label}${o.source === 'candidate' ? ' (candidate)' : ''}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="mt-2 p-2 bg-black/20 rounded border border-white/10 max-h-[96px] overflow-y-auto">
+                    ${options.length ? options.map(o => `
+                        <label class="flex items-center gap-2 text-[10px] py-1">
+                            <input type="checkbox" data-action="entity-checkbox" data-page="${page}" data-entity-type="${activeType}" data-entity-id="${o.id}" ${selectedSet.has(o.id) ? 'checked' : ''}>
+                            <span>${o.label}</span>
+                            ${o.source === 'candidate' ? '<span class="opacity-50 italic">(candidate)</span>' : ''}
+                        </label>
+                    `).join('') : '<span class="text-[10px] opacity-40 italic">Run Detect Entities to populate this list.</span>'}
+                </div>
+            </div>
+        `;
+    }
+
     renderHybridSelector(page, tierType, title, options, selected) {
         const top3 = options.slice(0, 3);
         const others = options.slice(3);
@@ -302,6 +407,7 @@ class ClassifyTab {
                         ${this.renderHybridSelector(page, 'agency', 'Agency', AGENCIES, agency)}
                         ${this.renderHybridSelector(page, 'class', 'Class', CLASSES, doc_type)}
                         ${this.renderHybridSelector(page, 'format', 'Format', FORMATS, 'PENDING')}
+                        ${this.renderEntityAssist(page)}
 
                         <div class="pt-1">
                             <label class="text-[10px] opacity-60 block mb-2 font-bold uppercase tracking-widest">Content Tags:</label>
@@ -322,6 +428,11 @@ class ClassifyTab {
                                     <option value="">-- Choose Preset --</option>
                                     ${Object.entries(NOTE_PRESETS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
                                 </select>
+                                <div id="reason-detail-wrap-${page}" style="display:none;">
+                                    <input id="reason-detail-${page}" type="text" data-action="note-input" data-page="${page}"
+                                        class="bg-black/40 border border-white/10 text-[11px] p-2 rounded w-full"
+                                        placeholder="Custom reason detail (required for Other)">
+                                </div>
                                 <textarea id="note-text-${page}" rows="2"
                                     class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
                                     placeholder="Context notes..."></textarea>
@@ -443,6 +554,7 @@ class ClassifyTab {
                         ${this.renderHybridSelector(page, 'agency', 'Agency', AGENCIES, agency)}
                         ${this.renderHybridSelector(page, 'class', 'Class', CLASSES, doc_type)}
                         ${this.renderHybridSelector(page, 'format', 'Format', FORMATS, 'PENDING')}
+                        ${this.renderEntityAssist(page)}
 
                         <div class="pt-1">
                             <label class="text-[10px] opacity-60 block mb-2 font-bold uppercase tracking-widest">Content Tags:</label>
@@ -463,6 +575,11 @@ class ClassifyTab {
                                     <option value="">-- Choose Preset --</option>
                                     ${Object.entries(NOTE_PRESETS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}
                                 </select>
+                                <div id="reason-detail-wrap-${page}" style="display:none;">
+                                    <input id="reason-detail-${page}" type="text" data-action="note-input" data-page="${page}"
+                                        class="bg-black/40 border border-white/10 text-[11px] p-2 rounded w-full"
+                                        placeholder="Custom reason detail (required for Other)">
+                                </div>
                                 <textarea id="note-text-${page}" rows="2"
                                     class="bg-black/40 border border-white/10 text-[11px] p-2 rounded resize-none w-full h-[54px]"
                                     placeholder="Context notes..."></textarea>
@@ -515,6 +632,15 @@ class ClassifyTab {
         return 'OTHER';
     }
 
+    normalizeClassValue(rawValue, fallbackDocType = null) {
+        const value = String(rawValue || '').trim().toUpperCase();
+        if (!value) return null;
+        if (CLASSES.includes(value)) return value;
+        if (ALL_DOC_TYPES.includes(value)) return this.mapDocTypeToClass(value);
+        if (fallbackDocType) return this.mapDocTypeToClass(fallbackDocType);
+        return value;
+    }
+
     statusToDisposition(status) {
         const s = String(status || '').toLowerCase();
         if (s === 'correct') return 'verified_approved';
@@ -525,13 +651,29 @@ class ClassifyTab {
 
     getReasonCode(page) {
         const preset = document.getElementById(`note-preset-${page}`)?.value || '';
-        return preset || null;
+        if (!preset) return null;
+        return preset === 'OTHER_CUSTOM' ? 'OTHER' : preset;
+    }
+
+    getReasonDetail(page) {
+        const preset = document.getElementById(`note-preset-${page}`)?.value || '';
+        const detail = document.getElementById(`reason-detail-${page}`)?.value?.trim() || '';
+        if (preset === 'OTHER_CUSTOM') return detail || null;
+        return null;
+    }
+
+    toggleReasonDetail(page) {
+        const preset = document.getElementById(`note-preset-${page}`)?.value || '';
+        const wrapper = document.getElementById(`reason-detail-wrap-${page}`);
+        if (!wrapper) return;
+        wrapper.style.display = preset === 'OTHER_CUSTOM' ? '' : 'none';
     }
 
     applyNotePreset(page) {
         const preset = document.getElementById(`note-preset-${page}`).value;
         const textField = document.getElementById(`note-text-${page}`);
-        if (preset && NOTE_PRESETS[preset]) {
+        this.toggleReasonDetail(page);
+        if (preset && NOTE_PRESETS[preset] && preset !== 'OTHER_CUSTOM') {
             textField.value = NOTE_PRESETS[preset];
         }
         this.saveNote(page);
@@ -540,9 +682,12 @@ class ClassifyTab {
     saveNote(page) {
         const preset = document.getElementById(`note-preset-${page}`).value;
         const text = document.getElementById(`note-text-${page}`).value;
+        const reasonDetail = document.getElementById(`reason-detail-${page}`)?.value?.trim() || null;
         if (!this.wb.feedback[page]) this.wb.feedback[page] = { status: 'pending' };
         this.wb.feedback[page].noteType = preset || null;
         this.wb.feedback[page].notes = text || null;
+        this.wb.feedback[page].reason_code = preset === 'OTHER_CUSTOM' ? 'OTHER' : (preset || this.wb.feedback[page].reason_code || null);
+        this.wb.feedback[page].reason_detail = reasonDetail;
         this.wb.saveFeedback();
     }
 
@@ -624,8 +769,7 @@ class ClassifyTab {
         const agency = getVal('agency') || "UNKNOWN";
         const selectedClassRaw = getVal('class');
         const hasExplicitClass = selectedClassRaw !== null && selectedClassRaw !== '';
-        // Avoid false "incorrect" states when user verifies without explicitly choosing a class.
-        const docClass = hasExplicitClass ? selectedClassRaw : (predicted || "REPORT");
+        const docClass = this.normalizeClassValue(selectedClassRaw, predicted) || predictedClass;
         const format = getVal('format') || "GENERIC";
 
         const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
@@ -634,10 +778,19 @@ class ClassifyTab {
         const noteType = document.getElementById(`note-preset-${page}`)?.value || null;
         const notes = document.getElementById(`note-text-${page}`)?.value || null;
         const reasonCode = this.getReasonCode(page);
+        const reasonDetail = this.getReasonDetail(page);
+        this.ensureSelectedEntitiesShape(page);
+        const currentEntitySelections = this.wb.feedback[page]?.selectedEntities || { person: [], location: [], organization: [] };
+        const currentEntityType = this.wb.feedback[page]?.entityAssistType || 'person';
         const status = (!hasExplicitClass || docClass === predictedClass) ? "correct" : "incorrect";
         if (status === "incorrect" && !reasonCode) {
             this.wb.showToast(`Select a reason preset before saving Page ${page} as not approved`);
             document.getElementById(`note-preset-${page}`)?.focus();
+            return;
+        }
+        if (status === "incorrect" && reasonCode === "OTHER" && !reasonDetail) {
+            this.wb.showToast(`Add custom reason detail before saving Page ${page}`);
+            document.getElementById(`reason-detail-${page}`)?.focus();
             return;
         }
 
@@ -645,6 +798,7 @@ class ClassifyTab {
             status: status,
             disposition: this.statusToDisposition(status),
             reason_code: status === "incorrect" ? reasonCode : null,
+            reason_detail: status === "incorrect" ? reasonDetail : null,
             predictedType: predicted,
             selectedType: docClass,
             selectedAgency: agency,
@@ -654,7 +808,9 @@ class ClassifyTab {
             newTypeFlag: isNew,
             noteType: noteType,
             notes: notes,
-            textSample: textSample
+            textSample: textSample,
+            entityAssistType: currentEntityType,
+            selectedEntities: currentEntitySelections
         };
 
         this.wb.feedback[page] = feedbackData;
@@ -688,6 +844,10 @@ class ClassifyTab {
         const notesRaw = document.getElementById(`note-text-${page}`)?.value || '';
         const notes = notesRaw.trim();
         const reasonCode = this.getReasonCode(page);
+        const reasonDetail = this.getReasonDetail(page);
+        this.ensureSelectedEntitiesShape(page);
+        const currentEntitySelections = this.wb.feedback[page]?.selectedEntities || { person: [], location: [], organization: [] };
+        const currentEntityType = this.wb.feedback[page]?.entityAssistType || 'person';
         if (!notes) {
             this.wb.showToast(`Add a review note before skipping Page ${page}`);
             document.getElementById(`note-text-${page}`)?.focus();
@@ -696,6 +856,11 @@ class ClassifyTab {
         if (!reasonCode) {
             this.wb.showToast(`Select a reason preset before skipping Page ${page}`);
             document.getElementById(`note-preset-${page}`)?.focus();
+            return;
+        }
+        if (reasonCode === "OTHER" && !reasonDetail) {
+            this.wb.showToast(`Add custom reason detail before skipping Page ${page}`);
+            document.getElementById(`reason-detail-${page}`)?.focus();
             return;
         }
 
@@ -707,6 +872,7 @@ class ClassifyTab {
         };
 
         const selectedClassRaw = getVal('class');
+        const selectedClass = this.normalizeClassValue(selectedClassRaw, predicted);
         const selectedAgencyRaw = getVal('agency');
         const selectedFormatRaw = getVal('format');
         const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
@@ -717,16 +883,19 @@ class ClassifyTab {
             status: "skipped",
             disposition: this.statusToDisposition("skipped"),
             reason_code: reasonCode,
+            reason_detail: reasonDetail,
             predictedType: predicted,
-            selectedType: selectedClassRaw || null,
+            selectedType: selectedClass || null,
             selectedAgency: selectedAgencyRaw || null,
-            selectedClass: selectedClassRaw || null,
+            selectedClass: selectedClass || null,
             selectedFormat: selectedFormatRaw || null,
             selectedContent: content,
             newTypeFlag: isNew,
             noteType: noteType,
             notes: notes,
-            textSample: textSample
+            textSample: textSample,
+            entityAssistType: currentEntityType,
+            selectedEntities: currentEntitySelections
         };
 
         this.wb.feedback[page] = feedbackData;
@@ -789,8 +958,9 @@ class ClassifyTab {
             agencyEl.textContent = data.selectedAgency;
         }
         const classEl = document.getElementById(`view-class-${page}`);
-        if (data.selectedClass && classEl) {
-            classEl.textContent = data.selectedClass;
+        const normalizedSelectedClass = this.normalizeClassValue(data.selectedClass, data.predictedType);
+        if (normalizedSelectedClass && classEl) {
+            classEl.textContent = normalizedSelectedClass;
         }
         const formatEl = document.getElementById(`view-format-${page}`);
         if (Object.prototype.hasOwnProperty.call(data, "selectedFormat") && formatEl) {
@@ -809,7 +979,7 @@ class ClassifyTab {
         // Sync form
         // Force-set during restore so we don't trigger click-style toggle-off behavior.
         if (data.selectedAgency) this.selectTierValue(page, 'agency', data.selectedAgency, { forceSet: true });
-        if (data.selectedClass) this.selectTierValue(page, 'class', data.selectedClass, { forceSet: true });
+        if (normalizedSelectedClass) this.selectTierValue(page, 'class', normalizedSelectedClass, { forceSet: true });
         if (data.selectedFormat) this.selectTierValue(page, 'format', data.selectedFormat, { forceSet: true });
 
         // Check content boxes
@@ -820,7 +990,13 @@ class ClassifyTab {
         // Sync reviewer notes
         const notePresetEl = document.getElementById(`note-preset-${page}`);
         const noteTextEl = document.getElementById(`note-text-${page}`);
-        if (notePresetEl) notePresetEl.value = data.noteType || data.reason_code || "";
+        if (notePresetEl) {
+            const restoredPreset = data.noteType || (data.reason_code === 'OTHER' ? 'OTHER_CUSTOM' : data.reason_code) || "";
+            notePresetEl.value = restoredPreset;
+            this.toggleReasonDetail(page);
+        }
+        const reasonDetailEl = document.getElementById(`reason-detail-${page}`);
+        if (reasonDetailEl) reasonDetailEl.value = data.reason_detail || "";
         if (noteTextEl) noteTextEl.value = data.notes || "";
     }
 
@@ -929,7 +1105,7 @@ class ClassifyTab {
         this.updateStats();
     }
 
-    exportFeedback() {
+    async exportFeedback() {
         const pages = this.wb.classificationData?.pages || [];
         const feedbackByPage = this.wb.feedback || {};
         const exportPages = pages
@@ -938,10 +1114,11 @@ class ClassifyTab {
                 const fb = feedbackByPage[pageNum] || {};
                 const predictedType = p.doc_type || 'UNKNOWN';
                 const predictedClass = this.mapDocTypeToClass(predictedType);
-                const selectedClass = fb.selectedClass || null;
+                const selectedClass = this.normalizeClassValue(fb.selectedClass, predictedType);
                 const selectedAgency = fb.selectedAgency || null;
                 const selectedFormat = fb.selectedFormat || null;
                 const selectedContent = Array.isArray(fb.selectedContent) ? fb.selectedContent : [];
+                const selectedEntities = fb.selectedEntities || { person: [], location: [], organization: [] };
                 const reviewStatus = fb.status || 'pending';
                 const disposition = fb.disposition || this.statusToDisposition(reviewStatus);
 
@@ -962,8 +1139,10 @@ class ClassifyTab {
                         selected_agency: selectedAgency,
                         selected_format: selectedFormat,
                         selected_content: selectedContent,
+                        selected_entities: selectedEntities,
                         note_type: fb.noteType || null,
                         reason_code: fb.reason_code || fb.noteType || null,
+                        reason_detail: fb.reason_detail || null,
                         notes: fb.notes || null,
                         new_type_flag: !!fb.newTypeFlag
                     }
@@ -996,12 +1175,31 @@ class ClassifyTab {
             reviewed_pages_only: reviewedPages,
             entity_approvals: this.wb.entityApprovals || {}
         };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `classifier_feedback_${this.wb.FILE_NAME.replace('.pdf', '')}_v2.json`;
-        a.click();
+        const fallbackDownload = () => {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `classifier_feedback_${this.wb.FILE_NAME.replace(/\.[^/.]+$/, '')}_v2.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        try {
+            const res = await fetch('/api/feedback/export', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const out = await res.json();
+            if (!out.success) throw new Error(out.error || 'Save failed');
+            this.wb.showToast(`Saved feedback export: ${out.saved_path}`);
+        } catch (err) {
+            console.warn('Server export save failed, falling back to browser download', err);
+            fallbackDownload();
+            this.wb.showToast('Server save unavailable; downloaded export locally');
+        }
     }
 
     clearFeedback() {
@@ -1128,6 +1326,9 @@ class EntitiesTab {
             if (candidatesEl) candidatesEl.textContent = `${s.candidates || 0}`;
 
             this.renderEntitiesDashboard();
+            if (this.wb.classificationData) {
+                this.wb.classifyTab.renderCards(this.wb.classifyTab.filteredPages.length ? this.wb.classifyTab.filteredPages : this.wb.classificationData.pages);
+            }
 
             loading.classList.add('hidden');
             results.classList.remove('hidden');
@@ -1381,20 +1582,65 @@ class ExportTab {
             organizations: [],
             places: []
         };
+        const seenPeople = new Set();
+        const seenOrgs = new Set();
+        const seenPlaces = new Set();
 
         // Attach approved matched entities
         if (this.wb.detectedEntities) {
             this.wb.detectedEntities.forEach((e, i) => {
                 if (this.wb.entityApprovals[`matched-${i}`] === 'approved') {
-                    if (e.entity_type === 'person')
-                        record.people.push({ name: e.display_name, role: 'Mentioned' });
-                    else if (e.entity_type === 'org')
-                        record.organizations.push({ name: e.display_name, role: 'Mentioned' });
-                    else if (e.entity_type === 'place')
-                        record.places.push({ name: e.display_name, relevance: 'Mentioned' });
+                    if (e.entity_type === 'person') {
+                        const key = (e.display_name || '').toLowerCase();
+                        if (key && !seenPeople.has(key)) {
+                            seenPeople.add(key);
+                            record.people.push({ name: e.display_name, role: 'Mentioned' });
+                        }
+                    } else if (e.entity_type === 'org') {
+                        const key = (e.display_name || '').toLowerCase();
+                        if (key && !seenOrgs.has(key)) {
+                            seenOrgs.add(key);
+                            record.organizations.push({ name: e.display_name, role: 'Mentioned' });
+                        }
+                    } else if (e.entity_type === 'place') {
+                        const key = (e.display_name || '').toLowerCase();
+                        if (key && !seenPlaces.has(key)) {
+                            seenPlaces.add(key);
+                            record.places.push({ name: e.display_name, relevance: 'Mentioned' });
+                        }
+                    }
                 }
             });
         }
+
+        // Merge page-level entity selections from CLASSIFY feedback loop.
+        Object.values(this.wb.feedback || {}).forEach(fb => {
+            const selected = fb?.selectedEntities || {};
+            (selected.person || []).forEach(e => {
+                const name = e.label || e.display_name || '';
+                const key = name.toLowerCase();
+                if (key && !seenPeople.has(key)) {
+                    seenPeople.add(key);
+                    record.people.push({ name: name, role: 'Mentioned' });
+                }
+            });
+            (selected.organization || []).forEach(e => {
+                const name = e.label || e.display_name || '';
+                const key = name.toLowerCase();
+                if (key && !seenOrgs.has(key)) {
+                    seenOrgs.add(key);
+                    record.organizations.push({ name: name, role: 'Mentioned' });
+                }
+            });
+            (selected.location || []).forEach(e => {
+                const name = e.label || e.display_name || '';
+                const key = name.toLowerCase();
+                if (key && !seenPlaces.has(key)) {
+                    seenPlaces.add(key);
+                    record.places.push({ name: name, relevance: 'Mentioned' });
+                }
+            });
+        });
 
         try {
             const res = await fetch('/api/entities/export', {
@@ -1509,10 +1755,16 @@ class InputTab {
                 const cfg = await res.json();
                 this.outputDir = cfg.output_dir || './processed';
                 this.whisperAvailable = cfg.whisper_available || false;
+                this.ytdlpAvailable = cfg.ytdlp_available || false;
                 // Show/hide whisper settings panel
                 const whisperPanel = document.getElementById('whisper-settings');
                 if (whisperPanel) {
                     whisperPanel.style.display = this.whisperAvailable ? '' : 'none';
+                }
+                // Show/hide URL download panel
+                const urlPanel = document.getElementById('url-input-panel');
+                if (urlPanel) {
+                    urlPanel.style.display = this.ytdlpAvailable ? '' : 'none';
                 }
             }
         } catch { /* use default */ }
@@ -1585,6 +1837,60 @@ class InputTab {
         if (added > 0) {
             this.updateFileCount();
             this.renderKanban();
+        }
+    }
+
+    async downloadUrl() {
+        const urlInput = document.getElementById('url-input');
+        const statusEl = document.getElementById('url-status');
+        const btn = document.getElementById('url-download-btn');
+        if (!urlInput) return;
+
+        const url = urlInput.value.trim();
+        if (!url) {
+            if (statusEl) statusEl.textContent = 'Paste a URL first';
+            return;
+        }
+
+        if (btn) { btn.disabled = true; btn.textContent = 'Downloading...'; }
+        if (statusEl) { statusEl.textContent = 'Downloading audio... this may take a moment'; statusEl.style.opacity = '0.7'; }
+
+        try {
+            const res = await fetch('/api/download', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+            const data = await res.json();
+            if (!res.ok || !data.success) throw new Error(data.error || 'Download failed');
+
+            // Fetch the downloaded file as a Blob to inject into the queue
+            const fileRes = await fetch(`/api/download/file/${encodeURIComponent(data.file.name)}`);
+            if (!fileRes.ok) throw new Error('Could not retrieve downloaded file');
+            const blob = await fileRes.blob();
+            const file = new File([blob], data.file.name, { type: 'audio/mpeg' });
+
+            this.queuedFiles.push({
+                file: file,
+                name: data.file.name,
+                size: data.file.size,
+                status: 'queued',
+                progress: 0,
+                current_msg: '',
+                parsed_metadata: null
+            });
+            this.updateFileCount();
+            this.renderKanban();
+
+            const title = data.file.title || data.file.name;
+            if (statusEl) { statusEl.textContent = `Downloaded: ${title}`; statusEl.style.opacity = '0.7'; }
+            urlInput.value = '';
+            this.logSuccess(`Downloaded: ${title}`);
+        } catch (err) {
+            if (statusEl) { statusEl.textContent = `Error: ${err.message}`; statusEl.style.color = '#ef4444'; }
+            this.logError(`URL download failed: ${err.message}`);
+        } finally {
+            if (btn) { btn.disabled = false; btn.innerHTML = '<span class="material-symbols-outlined text-sm align-middle mr-1">download</span> Fetch'; }
         }
     }
 
@@ -2284,6 +2590,7 @@ class DocumentWorkbench {
                 case 'input-start': if (self.inputTab) self.inputTab.startProcessing(); break;
                 case 'input-cancel': if (self.inputTab) self.inputTab.cancelProcessing(); break;
                 case 'input-remove': if (self.inputTab && idx !== null) self.inputTab.removeFile(idx); break;
+                case 'url-download': if (self.inputTab) self.inputTab.downloadUrl(); break;
                 case 'input-clear-completed': if (self.inputTab) self.inputTab.clearCompleted(); break;
                 case 'input-clear-all': if (self.inputTab) self.inputTab.clearAll(); break;
                 case 'input-copy-metadata': if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx); break;
@@ -2312,6 +2619,29 @@ class DocumentWorkbench {
             if (!target) return;
             if (target.dataset.action === 'note-preset') self.classifyTab.applyNotePreset(parseInt(target.dataset.page));
             if (target.dataset.action === 'filter') self.classifyTab.applyFilters();
+            if (target.dataset.action === 'entity-type-change') {
+                const page = parseInt(target.dataset.page);
+                if (!self.feedback[page]) self.feedback[page] = { status: 'pending' };
+                self.classifyTab.ensureSelectedEntitiesShape(page);
+                self.feedback[page].entityAssistType = target.value || 'person';
+                self.saveFeedback();
+                self.classifyTab.renderCards(self.classifyTab.filteredPages);
+            }
+            if (target.dataset.action === 'entity-list-select') {
+                const page = parseInt(target.dataset.page);
+                const type = document.getElementById(`entity-type-${page}`)?.value || 'person';
+                self.classifyTab.addSelectedEntity(page, type, target.value);
+                target.value = '';
+                self.classifyTab.renderCards(self.classifyTab.filteredPages);
+            }
+            if (target.dataset.action === 'entity-checkbox') {
+                const page = parseInt(target.dataset.page);
+                const type = target.dataset.entityType;
+                const id = target.dataset.entityId;
+                if (target.checked) self.classifyTab.addSelectedEntity(page, type, id);
+                else self.classifyTab.removeSelectedEntity(page, type, id);
+                self.classifyTab.renderCards(self.classifyTab.filteredPages);
+            }
             if (target.dataset.action === 'select-hybrid-dropdown') {
                 const val = target.value;
                 if (val) self.classifyTab.selectTierValue(parseInt(target.dataset.page), target.dataset.tier, val);
@@ -2518,7 +2848,9 @@ class DocumentWorkbench {
             const predictedClass = this.classifyTab.mapDocTypeToClass(predictedType);
             const selectedRaw = (data.selectedClass || data.selectedType || '').toString().trim();
             const hasExplicitClass = selectedRaw.length > 0;
-            const selectedClass = hasExplicitClass ? selectedRaw.toUpperCase() : predictedClass;
+            const selectedClass = hasExplicitClass
+                ? (this.classifyTab.normalizeClassValue(selectedRaw, predictedType) || predictedClass)
+                : predictedClass;
             const recomputedStatus = (!hasExplicitClass || selectedClass === predictedClass) ? 'correct' : 'incorrect';
 
             if (data.status !== recomputedStatus) {
@@ -2529,11 +2861,11 @@ class DocumentWorkbench {
                 data.predictedType = predictedType;
                 changed = true;
             }
-            if (!data.selectedClass) {
+            if (!data.selectedClass || String(data.selectedClass).toUpperCase() !== selectedClass) {
                 data.selectedClass = selectedClass;
                 changed = true;
             }
-            if (!data.selectedType) {
+            if (!data.selectedType || String(data.selectedType).toUpperCase() !== selectedClass) {
                 data.selectedType = selectedClass;
                 changed = true;
             }

@@ -32,6 +32,11 @@ LEGACY_TO_DISPOSITION = {
     "pending": "pending",
 }
 
+CLASS_VALUES = {
+    "REPORT", "CABLE", "MEMO", "CORRESPONDENCE", "EXHIBIT",
+    "TESTIMONY", "DEPOSITION", "AFFIDAVIT", "TRAVEL", "OTHER",
+}
+
 
 def normalize_status(status: str) -> str:
     s = str(status or "").strip().lower()
@@ -47,9 +52,45 @@ def normalize_status(status: str) -> str:
     return disposition_to_status.get(s, "pending")
 
 
+def map_doc_type_to_class(doc_type: str) -> str:
+    value = str(doc_type or "").strip().upper()
+    if not value:
+        return "OTHER"
+    if "AFFIDAVIT" in value:
+        return "AFFIDAVIT"
+    if "DEPOSITION" in value:
+        return "DEPOSITION"
+    if "TESTIMONY" in value:
+        return "TESTIMONY"
+    if "EXHIBIT" in value:
+        return "EXHIBIT"
+    if any(t in value for t in ("TRAVEL", "PASSPORT", "VISA")):
+        return "TRAVEL"
+    if any(t in value for t in ("CABLE", "TELETYPE", "AIRTEL")):
+        return "CABLE"
+    if "MEMO" in value:
+        return "MEMO"
+    if "LETTER" in value or "CORRESPONDENCE" in value:
+        return "CORRESPONDENCE"
+    if any(t in value for t in ("REPORT", "302", "STATEMENT", "RIF")):
+        return "REPORT"
+    return "OTHER"
+
+
+def normalize_selected_class(selected_class: str, predicted_type: str) -> str:
+    value = str(selected_class or "").strip().upper()
+    if value in CLASS_VALUES:
+        return value
+    if value:
+        return map_doc_type_to_class(value)
+    return map_doc_type_to_class(predicted_type)
+
+
 def convert_page(source: str, page_obj: Dict[str, Any], exported_at: str) -> Dict[str, Any]:
     reviewer = page_obj.get("reviewer") or {}
     prediction = page_obj.get("prediction") or {}
+    predicted_type = prediction.get("type")
+    selected_class = normalize_selected_class(reviewer.get("selected_class"), predicted_type)
     status = normalize_status(page_obj.get("review_status") or page_obj.get("status"))
     disposition = page_obj.get("disposition") or LEGACY_TO_DISPOSITION.get(status, "pending")
 
@@ -59,10 +100,11 @@ def convert_page(source: str, page_obj: Dict[str, Any], exported_at: str) -> Dic
         "status": status,
         "disposition": disposition,
         "reason_code": reviewer.get("reason_code") or reviewer.get("note_type"),
-        "predictedType": prediction.get("type"),
-        "selectedType": reviewer.get("selected_class"),
+        "reason_detail": reviewer.get("reason_detail"),
+        "predictedType": predicted_type,
+        "selectedType": selected_class,
         "selectedAgency": reviewer.get("selected_agency"),
-        "selectedClass": reviewer.get("selected_class"),
+        "selectedClass": selected_class,
         "selectedFormat": reviewer.get("selected_format"),
         "selectedContent": reviewer.get("selected_content") or [],
         "newTypeFlag": bool(reviewer.get("new_type_flag")),
@@ -125,4 +167,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

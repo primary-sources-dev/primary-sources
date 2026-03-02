@@ -341,7 +341,7 @@
 <!-- /BUILD:INJECTED -->
 </div>
 
-        <div data-component="workbench-facet-bar" class="component-loaded">
+        <div data-component="workbench-facet-bar" class="component-loaded component-loaded">
 <!-- BUILD:INJECTED -->
 <section class="workbench-facet-shell">
     <div class="workbench-facet-inner">
@@ -378,6 +378,25 @@
                             <input id="file-input" type="file"
                                 accept=".pdf,.jpg,.jpeg,.png,.tiff,.webp,.heic,.heif,.zip,.tar,.gz,.tgz,.bz2,.mp3,.wav,.m4a,.flac,.ogg,.wma,.mp4,.webm,.mov,.mkv,.avi" multiple
                                 hidden>
+                        </div>
+
+                        <!-- URL Input (YouTube, etc.) -->
+                        <div id="url-input-panel" class="intake-url-bar" style="display:none;">
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">
+                                <span class="material-symbols-outlined text-xs align-middle">link</span>
+                                Download from URL
+                            </label>
+                            <div class="flex gap-2">
+                                <input id="url-input" type="url"
+                                    class="flex-1 bg-black/40 border border-white/10 text-xs p-2 rounded text-archive-secondary placeholder-white/20"
+                                    placeholder="Paste YouTube or audio/video URL...">
+                                <button id="url-download-btn" class="export-btn export-btn-primary text-xs px-4"
+                                    data-action="url-download">
+                                    <span class="material-symbols-outlined text-sm align-middle mr-1">download</span>
+                                    Fetch
+                                </button>
+                            </div>
+                            <p id="url-status" class="text-[9px] opacity-30 mt-1">Extracts audio as MP3 for transcription</p>
                         </div>
 
                         <!-- Right: Settings Panel -->

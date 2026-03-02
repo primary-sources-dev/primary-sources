@@ -159,5 +159,5 @@ The training engine closes the loop by turning human corrections into machine ru
 - [train_classifier.py](file:///C:/Users/willh/Desktop/primary-sources/tools/train_classifier.py) : View current accuracy stats and top error clusters.
 - `python tools/train_classifier.py --suggest` : Generate a list of new patterns based on your recent audits.
 - For Workbench `_v2` exports, run:
-  - `python tools/convert_workbench_feedback_v2.py --input "C:/Users/willh/Downloads/classifier_feedback_*_v2.json" --output data/classifier-feedback.json`
+  - `python tools/convert_workbench_feedback_v2.py --input "data/feedback-exports/classifier_feedback_*_v2_*.json" --output data/classifier-feedback.json`
   - Then run `python tools/train_classifier.py --suggest`.

@@ -47,6 +47,7 @@ cd tools && python ocr_server.py  # http://localhost:5000
 
 ## Key Paths
 
+- **Agent Loop Runbook:** `AGENT-LOOP-RUNBOOK.md` (handoff line: `Read: C:\Users\willh\Desktop\primary-sources\AGENT-LOOP-RUNBOOK.md`)
 - **Data:** `web/html/assets/data/*.json` (people, events, objects, organizations, places, sources)
 - **Entities:** `web/html/entities/{type}/` (index + details per type, 6 types)
 - **JS:** `web/html/assets/js/` (profile, cards, db-logic per entity type)

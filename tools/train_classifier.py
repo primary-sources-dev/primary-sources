@@ -101,16 +101,20 @@ def analyze_corrections(feedback: dict) -> dict:
 
     # Cross-tier: agency + class combinations
     agency_class_pairs = defaultdict(int)
+    reason_counts = defaultdict(int)
 
     for entry in entries:
         predicted = entry.get("predictedType", "UNKNOWN")
         selected = entry.get("selectedType") or entry.get("selectedClass") or "UNKNOWN"
         status = normalize_status(entry)
+        reason_code = (entry.get("reason_code") or entry.get("noteType") or "").strip().upper()
 
         if status == "correct":
             confirmations[predicted] += 1
         elif status == "incorrect":
             corrections[(predicted, selected)].append(entry)
+        if status in {"incorrect", "skipped"} and reason_code:
+            reason_counts[reason_code] += 1
 
         # Tier 1: Agency
         agency = entry.get("selectedAgency")
@@ -144,6 +148,7 @@ def analyze_corrections(feedback: dict) -> dict:
         "format_counts": dict(format_counts),
         "content_counts": dict(content_counts),
         "agency_class_pairs": dict(agency_class_pairs),
+        "reason_counts": dict(reason_counts),
     }
 
 
@@ -159,6 +164,7 @@ def extract_flagged_items(feedback: dict) -> dict:
     schema_update_notes = []
     new_pattern_notes = []
     other_notes = []
+    custom_reason_notes = []
 
     for entry in entries:
         page = entry.get("page", "?")
@@ -177,12 +183,14 @@ def extract_flagged_items(feedback: dict) -> dict:
         # Reviewer notes by preset type
         note_type = entry.get("noteType") or entry.get("reason_code")
         notes_text = entry.get("notes")
+        reason_detail = entry.get("reason_detail")
         if note_type or notes_text:
             note_record = {
                 "page": page,
                 "source": source,
                 "noteType": note_type,
                 "notes": notes_text,
+                "reason_detail": reason_detail,
             }
             if note_type == "SCHEMA_UPDATE":
                 schema_update_notes.append(note_record)
@@ -190,12 +198,15 @@ def extract_flagged_items(feedback: dict) -> dict:
                 new_pattern_notes.append(note_record)
             elif note_type:
                 other_notes.append(note_record)
+            if note_type in {"OTHER", "OTHER_CUSTOM"} and (reason_detail or notes_text):
+                custom_reason_notes.append(note_record)
 
     return {
         "new_type_flags": new_type_flags,
         "schema_update_notes": schema_update_notes,
         "new_pattern_notes": new_pattern_notes,
         "other_notes": other_notes,
+        "custom_reason_notes": custom_reason_notes,
     }
 
 
@@ -515,6 +526,11 @@ def print_analysis(analysis: dict):
         for (agency, cls), count in sorted(analysis["agency_class_pairs"].items(), key=lambda x: -x[1]):
             print(f"  {agency} / {cls}: {count}")
 
+    if analysis.get("reason_counts"):
+        print("\n--- Non-Approved Reason Codes ---")
+        for reason, count in sorted(analysis["reason_counts"].items(), key=lambda x: -x[1]):
+            print(f"  {reason}: {count}")
+
 
 def print_flagged_items(flagged: dict):
     """Print flagged items and actionable reviewer notes."""
@@ -548,6 +564,14 @@ def print_flagged_items(flagged: dict):
         for note in flagged["other_notes"]:
             label = note['noteType'] or 'FREETEXT'
             print(f"  [{label}] Page {note['page']} ({note['source']}): {note['notes']}")
+
+    if flagged.get("custom_reason_notes"):
+        print("\n" + "=" * 60)
+        print("ACTIONABLE: CUSTOM REASONS (OTHER)")
+        print("=" * 60)
+        for note in flagged["custom_reason_notes"]:
+            detail = note.get("reason_detail") or note.get("notes") or "(no detail)"
+            print(f"  Page {note['page']} ({note['source']}): {detail}")
 
     if not any(flagged.values()):
         print("\n[=] No flagged items or reviewer notes found.")
