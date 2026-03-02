@@ -1,0 +1,926 @@
+{
+  "totalCalls": 57,
+  "byType": {
+    "fetch": [
+      {
+        "path": "{id}assets/data/{id}.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+        "line": 266,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/blog.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\blog-post.js",
+        "line": 9,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/events.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+        "line": 176,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/events.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+        "line": 364,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/events.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\event-profile.js",
+        "line": 127,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/objects.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+        "line": 179,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/objects.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\object-profile.js",
+        "line": 92,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/organizations.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\organization-profile.js",
+        "line": 83,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/people.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+        "line": 177,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/people.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\person-profile.js",
+        "line": 129,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/places.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\place-profile.js",
+        "line": 83,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/sources.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+        "line": 178,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}assets/data/sources.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\source-profile.js",
+        "line": 101,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "{id}components/{id}.html",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\components.js",
+        "line": 47,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/config",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 768,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/config",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1146,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/config",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 796,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/download/{id}.txt",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1607,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/download/{id}{id}",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 532,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/download/{id}{id}",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 553,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/entities",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 728,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/entities/export",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1042,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/entities/export",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1107,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/feedback",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 454,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/history",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1645,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/history",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 947,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/jobs",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 610,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/jobs",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1304,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/jobs",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 631,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/jobs/{id}",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 646,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1326,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 668,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}/cancel",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 717,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}/cancel",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1400,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}/cancel",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 744,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}/start",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 627,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}/start",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1311,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/jobs/{id}/start",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 649,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/api/parse-metadata",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+        "line": 548,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/parse-metadata",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 1612,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/parse-metadata",
+        "method": "POST",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+        "line": 569,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/api/review/{id}",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+        "line": 2098,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/docs/ui/assets/data/{id}.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+        "line": 191,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/docs/ui/assets/data/blog.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\blog-post.js",
+        "line": 9,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/events.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+        "line": 118,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/events.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+        "line": 235,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "/docs/ui/assets/data/events.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\event-profile.js",
+        "line": 102,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/objects.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+        "line": 121,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/objects.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\object-profile.js",
+        "line": 92,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/organizations.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\organization-profile.js",
+        "line": 83,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/people.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+        "line": 119,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/people.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\person-profile.js",
+        "line": 129,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/places.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\place-profile.js",
+        "line": 83,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/sources.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+        "line": 120,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/assets/data/sources.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\source-profile.js",
+        "line": 101,
+        "callType": "fetch",
+        "confidence": 100
+      },
+      {
+        "path": "/docs/ui/components/{id}.html",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\components.js",
+        "line": 12,
+        "callType": "fetch",
+        "confidence": 80
+      },
+      {
+        "path": "assets/data/mock-person.json",
+        "method": "GET",
+        "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\person-profile-original.js",
+        "line": 128,
+        "callType": "fetch",
+        "confidence": 100
+      }
+    ]
+  },
+  "calls": [
+    {
+      "path": "{id}assets/data/{id}.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+      "line": 266,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/blog.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\blog-post.js",
+      "line": 9,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/events.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+      "line": 176,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/events.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+      "line": 364,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/events.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\event-profile.js",
+      "line": 127,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/objects.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+      "line": 179,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/objects.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\object-profile.js",
+      "line": 92,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/organizations.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\organization-profile.js",
+      "line": 83,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/people.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+      "line": 177,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/people.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\person-profile.js",
+      "line": 129,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/places.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\place-profile.js",
+      "line": 83,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/sources.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\db-logic.js",
+      "line": 178,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}assets/data/sources.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\source-profile.js",
+      "line": 101,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "{id}components/{id}.html",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\components.js",
+      "line": 47,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/config",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 768,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/config",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1146,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/config",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 796,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/download/{id}.txt",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1607,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/download/{id}{id}",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 532,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/download/{id}{id}",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 553,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/entities",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 728,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/entities/export",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1042,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/entities/export",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1107,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/feedback",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 454,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/history",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1645,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/history",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 947,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/jobs",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 610,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/jobs",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1304,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/jobs",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 631,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/jobs/{id}",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 646,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1326,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 668,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}/cancel",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 717,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}/cancel",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1400,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}/cancel",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 744,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}/start",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 627,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}/start",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1311,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/jobs/{id}/start",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 649,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/api/parse-metadata",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\ocr\\ocr-gui.js",
+      "line": 548,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/parse-metadata",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 1612,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/parse-metadata",
+      "method": "POST",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\tools\\ocr\\ocr-gui.js",
+      "line": 569,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/api/review/{id}",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\web\\html\\assets\\js\\workbench.js",
+      "line": 2098,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/docs/ui/assets/data/{id}.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+      "line": 191,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/docs/ui/assets/data/blog.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\blog-post.js",
+      "line": 9,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/events.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+      "line": 118,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/events.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+      "line": 235,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "/docs/ui/assets/data/events.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\event-profile.js",
+      "line": 102,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/objects.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+      "line": 121,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/objects.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\object-profile.js",
+      "line": 92,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/organizations.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\organization-profile.js",
+      "line": 83,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/people.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+      "line": 119,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/people.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\person-profile.js",
+      "line": 129,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/places.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\place-profile.js",
+      "line": 83,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/sources.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\db-logic.js",
+      "line": 120,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/assets/data/sources.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\source-profile.js",
+      "line": 101,
+      "callType": "fetch",
+      "confidence": 100
+    },
+    {
+      "path": "/docs/ui/components/{id}.html",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\assets\\js\\components.js",
+      "line": 12,
+      "callType": "fetch",
+      "confidence": 80
+    },
+    {
+      "path": "assets/data/mock-person.json",
+      "method": "GET",
+      "file": "C:\\Users\\willh\\Desktop\\primary-sources\\archived\\person-profile-original.js",
+      "line": 128,
+      "callType": "fetch",
+      "confidence": 100
+    }
+  ],
+  "metadata": {
+    "generatedAt": "2026-03-01T22:23:21.033Z",
+    "projectPath": "C:/Users/willh/Desktop/primary-sources",
+    "scanVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "places.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["place_id", "name"],
+    "properties": {
+      "place_id": { "$ref": "../common/common.schema.json#/$defs/idString" },
+      "name": { "type": "string", "minLength": 1 },
+      "display_name": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "place_type": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "description": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "notes": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "events": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "child_places": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "related_places": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "sources": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "tags": { "$ref": "../common/common.schema.json#/$defs/stringArray" }
+    }
+  }
+}
+

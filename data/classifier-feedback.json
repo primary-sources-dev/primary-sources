@@ -253,11 +253,25 @@
       "status": "incorrect",
       "selectedClass": "MEMO",
       "timestamp": "2026-02-27T19:23:27.226063"
+    },
+    {
+      "page": 1,
+      "source": "ralphleonyatesdocumentsfull_searchable.pdf",
+      "status": "correct",
+      "predictedType": "FBI_302",
+      "selectedType": "FBI_302",
+      "selectedAgency": "UNKNOWN",
+      "selectedClass": "FBI_302",
+      "selectedFormat": "GENERIC",
+      "selectedContent": [],
+      "newTypeFlag": false,
+      "textSample": "r \nC \n= \n= womb! \n~ \n\u201d \ny*. \nFD~302 (Rev, 93-59) \nFEDERAL BUREAU OF INVESTIGATION os \ni \n| \n\u2019 \n7 \n1 \nt \nDate \n11/27/63 | \n8 \nRALPH LEON YATES, \n13564 Brookgreen, Dallas, \nTexas, \nvoluntarily appeared at the Dallas FBI Office, accompanied by his \nuncle, Mr. \nJ. \n0. SMITH, \n13770 Sprucewood, Dallas, Texas, and fur- \nnished the following information: \n) \nYATES stated that he'is employed as a refrigeration \nservice-man for the Texas Butcher Supply Company, Dallas, Texas, \nand in connection with this employment was driving \na pickup \ntruck on \nRB. \nL. Thornton Expressway at approximately 10:30 AM, \n, \non either November 20 or 21, \n1963. \nHe stated he noticed a man \nmy \nhitchhiking at approximately the Beckley Street entrance to the \ni \nR. \nL. Thornton Expressway, \nand he had stopped and pickieg up this \n4 \nman, \n* \nYATES said after seeing photographs and television \npictures of LEE HARVEY OSWALD, \nhe is of the opinion that this man \nwas identical with OSWALD. \n; \n: \nHe continued that when t",
+      "timestamp": "2026-03-01T18:58:08.988284"
     }
   ],
   "summary": {
-    "total": 23,
-    "correct": 14,
+    "total": 24,
+    "correct": 15,
     "incorrect": 9
   }
 }

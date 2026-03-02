@@ -278,15 +278,15 @@ class ClassifyTab {
                         <div class="flex flex-wrap items-center gap-x-5 gap-y-2 pb-4 border-b border-white/5 text-[10px] font-bold uppercase tracking-widest leading-none">
                             <div class="flex items-center gap-2">
                                 <span class="opacity-40">Agency:</span>
-                                <span class="badge-tier badge-agency" id="view-agency-${page}">${agency || 'UNKNOWN'}</span>
+                                <span class="badge-tier badge-agency" id="view-agency-${page}" data-default="${agency || 'UNKNOWN'}">${agency || 'UNKNOWN'}</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="opacity-40">Class:</span>
-                                <span class="badge-tier badge-class" id="view-class-${page}">${doc_type}</span>
+                                <span class="badge-tier badge-class" id="view-class-${page}" data-default="${doc_type}">${doc_type}</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="opacity-40">Format:</span>
-                                <span class="badge-tier badge-format" id="view-format-${page}">PENDING</span>
+                                <span class="badge-tier badge-format" id="view-format-${page}" data-default="PENDING">PENDING</span>
                             </div>
                         </div>
                         ${this.renderHybridSelector(page, 'agency', 'Agency', AGENCIES, agency)}
@@ -362,6 +362,22 @@ class ClassifyTab {
     }
 
     // ── Feedback engine ─────────────────────────────────────────
+    mapDocTypeToClass(docType) {
+        const value = String(docType || '').toUpperCase();
+        if (!value) return 'OTHER';
+        if (value.includes('AFFIDAVIT')) return 'AFFIDAVIT';
+        if (value.includes('DEPOSITION')) return 'DEPOSITION';
+        if (value.includes('TESTIMONY')) return 'TESTIMONY';
+        if (value.includes('EXHIBIT')) return 'EXHIBIT';
+        if (value.includes('TRAVEL') || value.includes('PASSPORT') || value.includes('VISA')) return 'TRAVEL';
+        if (value.includes('CABLE') || value.includes('TELETYPE') || value.includes('AIRTEL')) return 'CABLE';
+        if (value.includes('MEMO')) return 'MEMO';
+        if (value.includes('LETTER') || value.includes('CORRESPONDENCE')) return 'CORRESPONDENCE';
+        if (value.includes('REPORT') || value.includes('302') || value.includes('STATEMENT') || value.includes('RIF')) return 'REPORT';
+        if (value === 'UNKNOWN' || value === 'BLANK' || value === 'INDEX' || value === 'TOC' || value === 'COVER') return 'OTHER';
+        return 'OTHER';
+    }
+
     applyNotePreset(page) {
         const preset = document.getElementById(`note-preset-${page}`).value;
         const textField = document.getElementById(`note-text-${page}`);
@@ -380,11 +396,43 @@ class ClassifyTab {
         this.wb.saveFeedback();
     }
 
-    selectTierValue(page, tierType, value) {
+    selectTierValue(page, tierType, value, options = {}) {
         if (!value) return;
+        const forceSet = !!options.forceSet;
+
+        const container = document.getElementById(`container-${tierType}-${page}`);
+        const select = document.getElementById(`select-${tierType}-${page}`);
+        const badgeId = `view-${tierType}-${page}`;
+        const badge = document.getElementById(badgeId);
+
+        // Toggle-off behavior: clicking an active chip unselects that tier.
+        let clickedChipActive = false;
+        if (container) {
+            container.querySelectorAll('.hybrid-chip').forEach(btn => {
+                if (btn.dataset.value === value && btn.classList.contains('active')) {
+                    clickedChipActive = true;
+                }
+            });
+        }
+
+        if (clickedChipActive && !forceSet) {
+            if (container) {
+                container.querySelectorAll('.hybrid-chip').forEach(btn => btn.classList.remove('active'));
+            }
+            if (select) select.value = "";
+            if (badge) badge.textContent = badge.dataset.default || (tierType === 'format' ? 'PENDING' : 'UNKNOWN');
+
+            const fb = this.wb.feedback[page];
+            if (fb) {
+                if (tierType === 'agency') delete fb.selectedAgency;
+                if (tierType === 'class') delete fb.selectedClass;
+                if (tierType === 'format') delete fb.selectedFormat;
+                this.wb.saveFeedback();
+            }
+            return;
+        }
 
         // Update chips in that specific container
-        const container = document.getElementById(`container-${tierType}-${page}`);
         if (container) {
             container.querySelectorAll('.hybrid-chip').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.value === value);
@@ -392,15 +440,12 @@ class ClassifyTab {
         }
 
         // Update select value (reset if it's one of the chips)
-        const select = document.getElementById(`select-${tierType}-${page}`);
         if (select) {
             const options = Array.from(select.options).map(o => o.value);
             select.value = options.includes(value) ? value : "";
         }
 
         // Update summary view badge
-        const badgeId = `view-${tierType}-${page}`;
-        const badge = document.getElementById(badgeId);
         if (badge) badge.textContent = value;
 
         // Save to feedback
@@ -416,6 +461,7 @@ class ClassifyTab {
     submit4Tier(page) {
         const el = document.getElementById(`page-${page}`);
         const predicted = el.dataset.predicted;
+        const predictedClass = this.mapDocTypeToClass(predicted);
 
         // Get values from our hybrid components
         const getVal = (tier) => {
@@ -426,7 +472,10 @@ class ClassifyTab {
         };
 
         const agency = getVal('agency') || "UNKNOWN";
-        const docClass = getVal('class') || "REPORT";
+        const selectedClassRaw = getVal('class');
+        const hasExplicitClass = selectedClassRaw !== null && selectedClassRaw !== '';
+        // Avoid false "incorrect" states when user verifies without explicitly choosing a class.
+        const docClass = hasExplicitClass ? selectedClassRaw : (predicted || "REPORT");
         const format = getVal('format') || "GENERIC";
 
         const content = Array.from(document.querySelectorAll(`input[name="content-${page}"]:checked`)).map(i => i.value);
@@ -434,7 +483,7 @@ class ClassifyTab {
         const textSample = el.dataset.textSample || '';
 
         const feedbackData = {
-            status: (docClass === predicted) ? "correct" : "incorrect",
+            status: (!hasExplicitClass || docClass === predictedClass) ? "correct" : "incorrect",
             predictedType: predicted,
             selectedType: docClass,
             selectedAgency: agency,
@@ -510,9 +559,10 @@ class ClassifyTab {
         }
 
         // Sync form
-        if (data.selectedAgency) this.selectTierValue(page, 'agency', data.selectedAgency);
-        if (data.selectedClass) this.selectTierValue(page, 'class', data.selectedClass);
-        if (data.selectedFormat) this.selectTierValue(page, 'format', data.selectedFormat);
+        // Force-set during restore so we don't trigger click-style toggle-off behavior.
+        if (data.selectedAgency) this.selectTierValue(page, 'agency', data.selectedAgency, { forceSet: true });
+        if (data.selectedClass) this.selectTierValue(page, 'class', data.selectedClass, { forceSet: true });
+        if (data.selectedFormat) this.selectTierValue(page, 'format', data.selectedFormat, { forceSet: true });
 
         // Check content boxes
         document.querySelectorAll(`input[name="content-${page}"]`).forEach(cb => {
@@ -630,26 +680,66 @@ class ClassifyTab {
     }
 
     exportFeedback() {
-        const exportData = {};
-        for (const [page, data] of Object.entries(this.wb.feedback)) {
-            exportData[page] = { ...data, page: parseInt(page) };
-        }
+        const pages = this.wb.classificationData?.pages || [];
+        const feedbackByPage = this.wb.feedback || {};
+        const exportPages = pages
+            .map(p => {
+                const pageNum = p.page;
+                const fb = feedbackByPage[pageNum] || {};
+                const predictedType = p.doc_type || 'UNKNOWN';
+                const predictedClass = this.mapDocTypeToClass(predictedType);
+                const selectedClass = fb.selectedClass || null;
+                const selectedAgency = fb.selectedAgency || null;
+                const selectedFormat = fb.selectedFormat || null;
+                const selectedContent = Array.isArray(fb.selectedContent) ? fb.selectedContent : [];
+                const reviewStatus = fb.status || 'pending';
+
+                return {
+                    page: pageNum,
+                    page_index: p.page_index,
+                    review_status: reviewStatus,
+                    prediction: {
+                        type: predictedType,
+                        class: predictedClass,
+                        agency: p.agency || 'UNKNOWN',
+                        confidence: p.confidence ?? null,
+                        matched_patterns: Array.isArray(p.matched_patterns) ? p.matched_patterns : []
+                    },
+                    reviewer: {
+                        selected_class: selectedClass,
+                        selected_agency: selectedAgency,
+                        selected_format: selectedFormat,
+                        selected_content: selectedContent,
+                        note_type: fb.noteType || null,
+                        notes: fb.notes || null,
+                        new_type_flag: !!fb.newTypeFlag
+                    }
+                };
+            })
+            .sort((a, b) => a.page - b.page);
+
+        const reviewedPages = exportPages.filter(p => p.review_status !== 'pending');
+        const correct = reviewedPages.filter(p => p.review_status === 'correct').length;
+        const incorrect = reviewedPages.filter(p => p.review_status === 'incorrect').length;
         const data = {
+            schema_version: 'workbench-feedback-v2',
             exportedAt: new Date().toISOString(),
             source: this.wb.FILE_NAME,
             summary: {
-                total: document.querySelectorAll("[data-page]").length,
-                reviewed: Object.values(this.wb.feedback).filter(f => f.status !== "pending").length,
-                correct: Object.values(this.wb.feedback).filter(f => f.status === "correct").length,
-                incorrect: Object.values(this.wb.feedback).filter(f => f.status === "incorrect").length,
+                total_pages: exportPages.length,
+                reviewed_pages: reviewedPages.length,
+                correct_pages: correct,
+                incorrect_pages: incorrect
             },
-            feedback: exportData,
+            pages: exportPages,
+            reviewed_pages_only: reviewedPages,
+            entity_approvals: this.wb.entityApprovals || {}
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `classifier_feedback_${this.wb.FILE_NAME.replace('.pdf', '')}.json`;
+        a.download = `classifier_feedback_${this.wb.FILE_NAME.replace('.pdf', '')}_v2.json`;
         a.click();
     }
 
@@ -2108,6 +2198,7 @@ class DocumentWorkbench {
             document.getElementById('file-info').textContent = `${this.classificationData.filename} • ${this.classificationData.total_pages} pages • ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`;
             document.getElementById('stat-total').textContent = this.classificationData.total_pages;
             this.classifyTab.populateTypeFilter(this.classificationData.pages);
+            this.reconcileFeedbackStatuses();
             this.classifyTab.renderCards(this.classificationData.pages);
             if (statusEl) statusEl.textContent = '';
             this.loadPDF();
@@ -2118,6 +2209,47 @@ class DocumentWorkbench {
             console.error('Failed to load classification data:', err);
             if (statusEl) statusEl.innerHTML = `<span class="text-red-400">⚠ ${err.message}</span>`;
         }
+    }
+
+    reconcileFeedbackStatuses() {
+        if (!this.classificationData?.pages || !this.feedback) return;
+
+        const pageMap = new Map(this.classificationData.pages.map(p => [String(p.page), p]));
+        let changed = false;
+
+        for (const [page, data] of Object.entries(this.feedback)) {
+            if (!data || typeof data !== 'object') continue;
+            if (data.status === 'pending') continue;
+
+            const pageData = pageMap.get(String(page));
+            if (!pageData) continue;
+
+            const predictedType = pageData.doc_type || data.predictedType || 'UNKNOWN';
+            const predictedClass = this.classifyTab.mapDocTypeToClass(predictedType);
+            const selectedRaw = (data.selectedClass || data.selectedType || '').toString().trim();
+            const hasExplicitClass = selectedRaw.length > 0;
+            const selectedClass = hasExplicitClass ? selectedRaw.toUpperCase() : predictedClass;
+            const recomputedStatus = (!hasExplicitClass || selectedClass === predictedClass) ? 'correct' : 'incorrect';
+
+            if (data.status !== recomputedStatus) {
+                data.status = recomputedStatus;
+                changed = true;
+            }
+            if (!data.predictedType) {
+                data.predictedType = predictedType;
+                changed = true;
+            }
+            if (!data.selectedClass) {
+                data.selectedClass = selectedClass;
+                changed = true;
+            }
+            if (!data.selectedType) {
+                data.selectedType = selectedClass;
+                changed = true;
+            }
+        }
+
+        if (changed) this.saveFeedback();
     }
 
     async loadPDF() {

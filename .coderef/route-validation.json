@@ -1,0 +1,156 @@
+{
+  "totalFrontendCalls": 57,
+  "totalServerRoutes": 27,
+  "matchedRoutes": 57,
+  "issues": [
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/cite",
+        "methods": [
+          "POST"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route POST /api/cite is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/classify",
+        "methods": [
+          "POST"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route POST /api/classify is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/entities/index",
+        "methods": [
+          "GET"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET /api/entities/index is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/extract",
+        "methods": [
+          "POST"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route POST /api/extract is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/feedback/corrections",
+        "methods": [
+          "GET"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET /api/feedback/corrections is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/inflate",
+        "methods": [
+          "POST"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route POST /api/inflate is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/inflate/multiplier",
+        "methods": [
+          "GET"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET /api/inflate/multiplier is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/api/output-dir",
+        "methods": [
+          "GET",
+          "POST"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET/POST /api/output-dir is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/components/<path:path>",
+        "methods": [
+          "GET"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET /components/<path:path> is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/ocr-components.css",
+        "methods": [
+          "GET"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET /ocr-components.css is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    },
+    {
+      "type": "unused_route",
+      "severity": "warning",
+      "serverRoute": {
+        "path": "/ocr-gui.js",
+        "methods": [
+          "GET"
+        ],
+        "framework": "flask"
+      },
+      "message": "Server route GET /ocr-gui.js is not called by any frontend code",
+      "suggestion": "Consider removing this route if it is truly unused, or verify frontend code is complete"
+    }
+  ],
+  "summary": {
+    "critical": 0,
+    "warnings": 11,
+    "info": 0
+  }
+}

@@ -1,0 +1,1523 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-02T01:31:48.245Z",
+  "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
+  "patterns": {
+    "handlers": [
+      {
+        "type": "handler",
+        "name": "on_progress",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 342
+      },
+      {
+        "type": "handler",
+        "name": "on_complete",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 348
+      },
+      {
+        "type": "handler",
+        "name": "handle_output_dir",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 492
+      },
+      {
+        "type": "handler",
+        "name": "handleFilesDrop",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 193
+      }
+    ],
+    "decorators": [],
+    "errorPatterns": [
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/blog-post.js",
+        "line": 247
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/blog-post.js",
+        "line": 34
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/components.js",
+        "line": 64
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/db-logic.js",
+        "line": 236
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/db-logic.js",
+        "line": 445
+      },
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 358
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 136
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter.js",
+        "line": 210
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter.js",
+        "line": 231
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter.js",
+        "line": 267
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/global-search.js",
+        "line": 28
+      },
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/object-profile.js",
+        "line": 221
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/object-profile.js",
+        "line": 101
+      },
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/organization-profile.js",
+        "line": 211
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/organization-profile.js",
+        "line": 92
+      },
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/person-profile.js",
+        "line": 431
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/person-profile.js",
+        "line": 139
+      },
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/place-profile.js",
+        "line": 212
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/place-profile.js",
+        "line": 92
+      },
+      {
+        "type": "error-handling",
+        "name": "showErrorState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/source-profile.js",
+        "line": 230
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/source-profile.js",
+        "line": 110
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 76
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 133
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 164
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 874
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1152
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1215
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1414
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1487
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1499
+      },
+      {
+        "type": "error-handling",
+        "name": "logError",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1652
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1720
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1776
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 2208
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 2260
+      },
+      {
+        "type": "error-handling",
+        "name": "logError",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 778
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 558
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 594
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 660
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 754
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 799
+      },
+      {
+        "type": "error-handling",
+        "name": "catch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 959
+      },
+      {
+        "type": "error-handling",
+        "name": "has_errors",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/validate-build.py",
+        "line": 250
+      }
+    ],
+    "testPatterns": [
+      {
+        "type": "test",
+        "name": "EntityLinker",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 12
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 18
+      },
+      {
+        "type": "test",
+        "name": "_load_json",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 31
+      },
+      {
+        "type": "test",
+        "name": "_build_people_patterns",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 41
+      },
+      {
+        "type": "test",
+        "name": "_build_places_patterns",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 83
+      },
+      {
+        "type": "test",
+        "name": "_build_master_names",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 102
+      },
+      {
+        "type": "test",
+        "name": "link_entities",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 127
+      },
+      {
+        "type": "test",
+        "name": "_fuzzy_search",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/entity_linker.py",
+        "line": 227
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/metadata_parser.py",
+        "line": 282
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_gui.py",
+        "line": 87
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_gui.py",
+        "line": 258
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_worker.py",
+        "line": 163
+      },
+      {
+        "type": "test",
+        "name": "test_collection",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/all_collections_summary.py",
+        "line": 35
+      },
+      {
+        "type": "test",
+        "name": "get_church_files",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/church_committee_test.py",
+        "line": 20
+      },
+      {
+        "type": "test",
+        "name": "test_file",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/church_committee_test.py",
+        "line": 28
+      },
+      {
+        "type": "test",
+        "name": "main",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/church_committee_test.py",
+        "line": 58
+      },
+      {
+        "type": "test",
+        "name": "CitationFormat",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 31
+      },
+      {
+        "type": "test",
+        "name": "SourceMetadata",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 40
+      },
+      {
+        "type": "test",
+        "name": "from_dict",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 55
+      },
+      {
+        "type": "test",
+        "name": "_format_date_chicago",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 93
+      },
+      {
+        "type": "test",
+        "name": "_format_date_mla",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 102
+      },
+      {
+        "type": "test",
+        "name": "_format_date_apa",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 111
+      },
+      {
+        "type": "test",
+        "name": "_extract_year",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 120
+      },
+      {
+        "type": "test",
+        "name": "_format_author_apa",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 127
+      },
+      {
+        "type": "test",
+        "name": "_format_nara_ref",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 147
+      },
+      {
+        "type": "test",
+        "name": "_generate_chicago",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 164
+      },
+      {
+        "type": "test",
+        "name": "_generate_mla",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 204
+      },
+      {
+        "type": "test",
+        "name": "_generate_apa",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 239
+      },
+      {
+        "type": "test",
+        "name": "_generate_nara",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 276
+      },
+      {
+        "type": "test",
+        "name": "generate_citation",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 306
+      },
+      {
+        "type": "test",
+        "name": "generate_all_citations",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 331
+      },
+      {
+        "type": "test",
+        "name": "dataclass",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 39
+      },
+      {
+        "type": "test",
+        "name": "classmethod",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/citation_generator.py",
+        "line": 54
+      },
+      {
+        "type": "test",
+        "name": "test_enhancements",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_feedback_test.py",
+        "line": 10
+      },
+      {
+        "type": "test",
+        "name": "extract_page_text",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test.py",
+        "line": 17
+      },
+      {
+        "type": "test",
+        "name": "test_pages",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test.py",
+        "line": 27
+      },
+      {
+        "type": "test",
+        "name": "print_results_table",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test.py",
+        "line": 80
+      },
+      {
+        "type": "test",
+        "name": "main",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test.py",
+        "line": 89
+      },
+      {
+        "type": "test",
+        "name": "extract_page_text",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py",
+        "line": 53
+      },
+      {
+        "type": "test",
+        "name": "test_pages",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py",
+        "line": 64
+      },
+      {
+        "type": "test",
+        "name": "generate_metadata_html",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py",
+        "line": 163
+      },
+      {
+        "type": "test",
+        "name": "generate_entities_html",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py",
+        "line": 190
+      },
+      {
+        "type": "test",
+        "name": "generate_html_report",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py",
+        "line": 214
+      },
+      {
+        "type": "test",
+        "name": "main",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/classifier_test_html.py",
+        "line": 957
+      },
+      {
+        "type": "test",
+        "name": "create_sample_pdf",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/create_test_pdf.py",
+        "line": 3
+      },
+      {
+        "type": "test",
+        "name": "EntityMatch",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 33
+      },
+      {
+        "type": "test",
+        "name": "EntityIndex",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 50
+      },
+      {
+        "type": "test",
+        "name": "EntityMatcher",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 62
+      },
+      {
+        "type": "test",
+        "name": "to_dict",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 45
+      },
+      {
+        "type": "test",
+        "name": "total_count",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 58
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 71
+      },
+      {
+        "type": "test",
+        "name": "load_from_json",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 81
+      },
+      {
+        "type": "test",
+        "name": "load_from_supabase",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 133
+      },
+      {
+        "type": "test",
+        "name": "load_sample_data",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 192
+      },
+      {
+        "type": "test",
+        "name": "load_from_entity_files",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 243
+      },
+      {
+        "type": "test",
+        "name": "find_matches",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 317
+      },
+      {
+        "type": "test",
+        "name": "_deduplicate_matches",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 400
+      },
+      {
+        "type": "test",
+        "name": "find_new_candidates",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 419
+      },
+      {
+        "type": "test",
+        "name": "generate_sidecar",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 468
+      },
+      {
+        "type": "test",
+        "name": "get_matcher",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 501
+      },
+      {
+        "type": "test",
+        "name": "find_entities",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 510
+      },
+      {
+        "type": "test",
+        "name": "generate_entities_json",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 521
+      },
+      {
+        "type": "test",
+        "name": "dataclass",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 32
+      },
+      {
+        "type": "test",
+        "name": "dataclass",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 49
+      },
+      {
+        "type": "test",
+        "name": "ensure_output_dir",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/full_pipeline_test.py",
+        "line": 23
+      },
+      {
+        "type": "test",
+        "name": "process_page",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/full_pipeline_test.py",
+        "line": 28
+      },
+      {
+        "type": "test",
+        "name": "main",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/full_pipeline_test.py",
+        "line": 64
+      },
+      {
+        "type": "test",
+        "name": "enrich_extraction_with_entities",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 503
+      },
+      {
+        "type": "test",
+        "name": "cite_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 667
+      },
+      {
+        "type": "test",
+        "name": "entities_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 826
+      },
+      {
+        "type": "test",
+        "name": "entities_index_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 882
+      },
+      {
+        "type": "test",
+        "name": "entities_export_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 913
+      },
+      {
+        "type": "test",
+        "name": "prove_it_works",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/prove_it_works.py",
+        "line": 14
+      },
+      {
+        "type": "test",
+        "name": "tag_yates_entities",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/tag_yates_entities.py",
+        "line": 11
+      },
+      {
+        "type": "test",
+        "name": "test_pdf",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/test_classifier.py",
+        "line": 14
+      },
+      {
+        "type": "test",
+        "name": "extract_flagged_items",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/train_classifier.py",
+        "line": 136
+      },
+      {
+        "type": "test",
+        "name": "print_flagged_items",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/train_classifier.py",
+        "line": 499
+      },
+      {
+        "type": "test",
+        "name": "get_wc_volumes",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/wc_volume_test.py",
+        "line": 20
+      },
+      {
+        "type": "test",
+        "name": "test_volume",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/wc_volume_test.py",
+        "line": 29
+      },
+      {
+        "type": "test",
+        "name": "main",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/wc_volume_test.py",
+        "line": 76
+      },
+      {
+        "type": "test",
+        "name": "main",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/yates_test.py",
+        "line": 20
+      },
+      {
+        "type": "test",
+        "name": "switch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/blog-post.js",
+        "line": 82
+      },
+      {
+        "type": "test",
+        "name": "initMegaMenu",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/collapsible-menu.js",
+        "line": 25
+      },
+      {
+        "type": "test",
+        "name": "getWitnessData",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/data-abstraction.js",
+        "line": 13
+      },
+      {
+        "type": "test",
+        "name": "normalizeWitnesses",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/data-abstraction.js",
+        "line": 53
+      },
+      {
+        "type": "test",
+        "name": "findPrimaryWitness",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/data-abstraction.js",
+        "line": 98
+      },
+      {
+        "type": "test",
+        "name": "determineWitnessHierarchy",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/data-abstraction.js",
+        "line": 127
+      },
+      {
+        "type": "test",
+        "name": "determineEventSpecificRole",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/data-abstraction.js",
+        "line": 151
+      },
+      {
+        "type": "test",
+        "name": "renderEntities",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/db-logic.js",
+        "line": 258
+      },
+      {
+        "type": "test",
+        "name": "renderRandomEntity",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/db-logic.js",
+        "line": 411
+      },
+      {
+        "type": "test",
+        "name": "populateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 282
+      },
+      {
+        "type": "test",
+        "name": "populateWitnesses",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 456
+      },
+      {
+        "type": "test",
+        "name": "getWitnessHierarchyIcon",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 490
+      },
+      {
+        "type": "test",
+        "name": "getCredibilityColor",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 501
+      },
+      {
+        "type": "test",
+        "name": "initializeFilters",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter.js",
+        "line": 205
+      },
+      {
+        "type": "test",
+        "name": "populateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/object-cards.js",
+        "line": 38
+      },
+      {
+        "type": "test",
+        "name": "populateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/organization-cards.js",
+        "line": 50
+      },
+      {
+        "type": "test",
+        "name": "populateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/person-profile.js",
+        "line": 334
+      },
+      {
+        "type": "test",
+        "name": "populateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/place-cards.js",
+        "line": 38
+      },
+      {
+        "type": "test",
+        "name": "populateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/source-cards.js",
+        "line": 50
+      },
+      {
+        "type": "test",
+        "name": "populateCitations",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/source-cards.js",
+        "line": 223
+      },
+      {
+        "type": "test",
+        "name": "determineWitnessHierarchy",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 12
+      },
+      {
+        "type": "test",
+        "name": "isDirectWitness",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 34
+      },
+      {
+        "type": "test",
+        "name": "isOfficialInvestigator",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 57
+      },
+      {
+        "type": "test",
+        "name": "hasSpecialExpertise",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 70
+      },
+      {
+        "type": "test",
+        "name": "getInformationSource",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 84
+      },
+      {
+        "type": "test",
+        "name": "determineEventSpecificRole",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 110
+      },
+      {
+        "type": "test",
+        "name": "if",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 88
+      },
+      {
+        "type": "test",
+        "name": "if",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 138
+      },
+      {
+        "type": "test",
+        "name": "WitnessUI",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 7
+      },
+      {
+        "type": "test",
+        "name": "renderWitnessList",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 15
+      },
+      {
+        "type": "test",
+        "name": "if",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 30
+      },
+      {
+        "type": "test",
+        "name": "renderWitnessCard",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 51
+      },
+      {
+        "type": "test",
+        "name": "toggleAllWitnesses",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 76
+      },
+      {
+        "type": "test",
+        "name": "if",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 85
+      },
+      {
+        "type": "test",
+        "name": "if",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 89
+      },
+      {
+        "type": "test",
+        "name": "getHierarchyIcon",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 107
+      },
+      {
+        "type": "test",
+        "name": "getCredibilityColor",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 126
+      },
+      {
+        "type": "test",
+        "name": "if",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 137
+      },
+      {
+        "type": "test",
+        "name": "EntitiesTab",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 782
+      },
+      {
+        "type": "test",
+        "name": "submit4Tier",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 461
+      },
+      {
+        "type": "test",
+        "name": "updateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 579
+      },
+      {
+        "type": "test",
+        "name": "switch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 667
+      },
+      {
+        "type": "test",
+        "name": "detectEntities",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 787
+      },
+      {
+        "type": "test",
+        "name": "renderEntitiesDashboard",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 884
+      },
+      {
+        "type": "test",
+        "name": "initFilters",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 977
+      },
+      {
+        "type": "test",
+        "name": "approveEntity",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1000
+      },
+      {
+        "type": "test",
+        "name": "rejectEntity",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1006
+      },
+      {
+        "type": "test",
+        "name": "exportNewEntities",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1158
+      },
+      {
+        "type": "test",
+        "name": "init",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1239
+      },
+      {
+        "type": "test",
+        "name": "updateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1623
+      },
+      {
+        "type": "test",
+        "name": "switch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1787
+      },
+      {
+        "type": "test",
+        "name": "init",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1939
+      },
+      {
+        "type": "test",
+        "name": "switch",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 2001
+      },
+      {
+        "type": "test",
+        "name": "switchTab",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 2126
+      },
+      {
+        "type": "test",
+        "name": "saveEntityApprovals",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 2267
+      },
+      {
+        "type": "test",
+        "name": "TestClassifierAPI",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 19
+      },
+      {
+        "type": "test",
+        "name": "is_server_running",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 11
+      },
+      {
+        "type": "test",
+        "name": "test_post_feedback_valid",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 22
+      },
+      {
+        "type": "test",
+        "name": "test_get_feedback_all",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 43
+      },
+      {
+        "type": "test",
+        "name": "test_post_feedback_missing_required",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 57
+      },
+      {
+        "type": "test",
+        "name": "test_get_review_data",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 67
+      },
+      {
+        "type": "test",
+        "name": "test_feedback_deduplication",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 87
+      },
+      {
+        "type": "test",
+        "name": "switchTab",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 172
+      },
+      {
+        "type": "test",
+        "name": "updateStats",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 851
+      },
+      {
+        "type": "test",
+        "name": "__init__",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/validate-build.py",
+        "line": 49
+      },
+      {
+        "type": "test",
+        "name": "test_matcher",
+        "file": "C:/Users/willh/Desktop/primary-sources/debug_entities.py",
+        "line": 10
+      }
+    ],
+    "apiEndpoints": [
+      {
+        "type": "api-endpoint",
+        "name": "get_agency",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/document_classifier.py",
+        "line": 794
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_all_scores",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/document_classifier.py",
+        "line": 1004
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_zone_config",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/document_classifier.py",
+        "line": 1198
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_filepaths",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_gui.py",
+        "line": 251
+      },
+      {
+        "type": "api-endpoint",
+        "name": "_open_output_folder",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_gui.py",
+        "line": 683
+      },
+      {
+        "type": "api-endpoint",
+        "name": "_browse_output_dir",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_gui.py",
+        "line": 818
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/zone_extractor.py",
+        "line": 75
+      },
+      {
+        "type": "api-endpoint",
+        "name": "validate_target",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/schema/validate_data.py",
+        "line": 50
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_church_files",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/church_committee_test.py",
+        "line": 20
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_matcher",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/entity_matcher.py",
+        "line": 501
+      },
+      {
+        "type": "api-endpoint",
+        "name": "ensure_output_dir",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/full_pipeline_test.py",
+        "line": 23
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_available_years",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/inflation.py",
+        "line": 76
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_cpi",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/inflation.py",
+        "line": 83
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_multiplier",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/inflation.py",
+        "line": 89
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_config",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 172
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_job",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 288
+      },
+      {
+        "type": "api-endpoint",
+        "name": "handle_output_dir",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 492
+      },
+      {
+        "type": "api-endpoint",
+        "name": "parse_metadata_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 546
+      },
+      {
+        "type": "api-endpoint",
+        "name": "classify_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 593
+      },
+      {
+        "type": "api-endpoint",
+        "name": "extract_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 629
+      },
+      {
+        "type": "api-endpoint",
+        "name": "cite_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 667
+      },
+      {
+        "type": "api-endpoint",
+        "name": "inflate_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 726
+      },
+      {
+        "type": "api-endpoint",
+        "name": "inflate_multiplier_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 785
+      },
+      {
+        "type": "api-endpoint",
+        "name": "entities_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 826
+      },
+      {
+        "type": "api-endpoint",
+        "name": "entities_index_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 882
+      },
+      {
+        "type": "api-endpoint",
+        "name": "entities_export_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 913
+      },
+      {
+        "type": "api-endpoint",
+        "name": "review_endpoint",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1019
+      },
+      {
+        "type": "api-endpoint",
+        "name": "feedback_post",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1141
+      },
+      {
+        "type": "api-endpoint",
+        "name": "feedback_get",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1226
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_history",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1241
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_wc_volumes",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/wc_volume_test.py",
+        "line": 20
+      },
+      {
+        "type": "api-endpoint",
+        "name": "loadBlogPost",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/blog-post.js",
+        "line": 7
+      },
+      {
+        "type": "api-endpoint",
+        "name": "populateRelatedPosts",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/blog-post.js",
+        "line": 201
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getBasePath",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/components.js",
+        "line": 36
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getWitnessData",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/data-abstraction.js",
+        "line": 13
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getBasePath",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/db-logic.js",
+        "line": 10
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getWitnessHierarchyIcon",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 490
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getCredibilityColor",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+        "line": 501
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getFilterOptions",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter-mapping.js",
+        "line": 40
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getFilterMetadata",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter-mapping.js",
+        "line": 79
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getInformationSource",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-logic.js",
+        "line": 84
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getHierarchyIcon",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 107
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getCredibilityColor",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/witness-ui.js",
+        "line": 126
+      },
+      {
+        "type": "api-endpoint",
+        "name": "InputTab",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1226
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getVal",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 467
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getSettings",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 1361
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getUnlockState",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 2103
+      },
+      {
+        "type": "api-endpoint",
+        "name": "TestClassifierAPI",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 19
+      },
+      {
+        "type": "api-endpoint",
+        "name": "test_post_feedback_valid",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 22
+      },
+      {
+        "type": "api-endpoint",
+        "name": "test_get_feedback_all",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 43
+      },
+      {
+        "type": "api-endpoint",
+        "name": "test_post_feedback_missing_required",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 57
+      },
+      {
+        "type": "api-endpoint",
+        "name": "test_get_review_data",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/testing/test_classifier_api.py",
+        "line": 67
+      },
+      {
+        "type": "api-endpoint",
+        "name": "changeOutputDir",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 805
+      },
+      {
+        "type": "api-endpoint",
+        "name": "openOutputFolder",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 811
+      },
+      {
+        "type": "api-endpoint",
+        "name": "copyOutputPath",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+        "line": 817
+      },
+      {
+        "type": "api-endpoint",
+        "name": "get_component_content",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/build.py",
+        "line": 31
+      }
+    ]
+  },
+  "statistics": {
+    "totalHandlers": 4,
+    "totalDecorators": 0,
+    "totalErrorPatterns": 43,
+    "totalTestPatterns": 147,
+    "totalApiEndpoints": 56
+  }
+}

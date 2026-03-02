@@ -1,0 +1,62 @@
+{
+  "version": "2.0.0",
+  "generatedAt": "2026-03-02T01:31:48.227Z",
+  "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
+  "statistics": {
+    "totalElements": 1157,
+    "totalFiles": 63,
+    "elementsByType": {
+      "class": 29,
+      "function": 574,
+      "component": 1,
+      "method": 540,
+      "constant": 13
+    },
+    "filesByExtension": {
+      ".py": 298,
+      ".js": 859
+    }
+  },
+  "topFiles": [
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementCount": 238
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",
+      "elementCount": 88
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+      "elementCount": 64
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/event-profile.js",
+      "elementCount": 58
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/db-logic.js",
+      "elementCount": 54
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/person-profile.js",
+      "elementCount": 52
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr-gui/ocr_gui.py",
+      "elementCount": 30
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/filter.js",
+      "elementCount": 30
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/source-cards.js",
+      "elementCount": 29
+    },
+    {
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/place-cards.js",
+      "elementCount": 28
+    }
+  ]
+}

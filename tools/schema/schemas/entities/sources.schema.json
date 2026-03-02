@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sources.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["source_id"],
+    "anyOf": [
+      { "required": ["name"] },
+      { "required": ["title"] }
+    ],
+    "properties": {
+      "source_id": { "$ref": "../common/common.schema.json#/$defs/idString" },
+      "name": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "title": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "display_name": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "source_type": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "description": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "notes": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "url": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "events": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "people": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "organizations": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "places": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "related_sources": { "$ref": "../common/common.schema.json#/$defs/objectArray" }
+    }
+  }
+}
+

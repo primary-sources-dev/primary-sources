@@ -1,0 +1,337 @@
+{
+  "totalRoutes": 27,
+  "byFramework": {
+    "flask": [
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 134,
+        "route": {
+          "path": "/",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1333,
+        "route": {
+          "path": "/<path:filename>",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 666,
+        "route": {
+          "path": "/api/cite",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 592,
+        "route": {
+          "path": "/api/classify",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 171,
+        "route": {
+          "path": "/api/config",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 460,
+        "route": {
+          "path": "/api/download/<filename>",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 825,
+        "route": {
+          "path": "/api/entities",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 912,
+        "route": {
+          "path": "/api/entities/export",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 881,
+        "route": {
+          "path": "/api/entities/index",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 628,
+        "route": {
+          "path": "/api/extract",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1140,
+        "route": {
+          "path": "/api/feedback",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1225,
+        "route": {
+          "path": "/api/feedback",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1287,
+        "route": {
+          "path": "/api/feedback/corrections",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1240,
+        "route": {
+          "path": "/api/history",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 725,
+        "route": {
+          "path": "/api/inflate",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 784,
+        "route": {
+          "path": "/api/inflate/multiplier",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 182,
+        "route": {
+          "path": "/api/jobs",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 287,
+        "route": {
+          "path": "/api/jobs/<job_id>",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 446,
+        "route": {
+          "path": "/api/jobs/<job_id>/cancel",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 295,
+        "route": {
+          "path": "/api/jobs/<job_id>/start",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 491,
+        "route": {
+          "path": "/api/output-dir",
+          "methods": [
+            "GET",
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 545,
+        "route": {
+          "path": "/api/parse-metadata",
+          "methods": [
+            "POST"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 1018,
+        "route": {
+          "path": "/api/review/<filename>",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 140,
+        "route": {
+          "path": "/assets/<path:path>",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 146,
+        "route": {
+          "path": "/components/<path:path>",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 152,
+        "route": {
+          "path": "/ocr-components.css",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      },
+      {
+        "name": "app",
+        "file": "C:/Users/willh/Desktop/primary-sources/tools/ocr_server.py",
+        "line": 158,
+        "route": {
+          "path": "/ocr-gui.js",
+          "methods": [
+            "GET"
+          ],
+          "framework": "flask"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "generatedAt": "2026-03-02T01:31:48.201Z",
+    "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
+    "scanVersion": "1.0.0"
+  }
+}

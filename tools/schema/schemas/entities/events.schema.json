@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "events.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["event_id", "title"],
+    "properties": {
+      "event_id": { "$ref": "../common/common.schema.json#/$defs/idString" },
+      "id": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "title": { "type": "string", "minLength": 1 },
+      "event_type": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "event_level": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "event_hierarchy": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "description": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "context": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "location": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "start_ts": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "time_precision": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "witnesses": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "participants": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "sources": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "sub_events": { "$ref": "../common/common.schema.json#/$defs/objectArray" }
+    }
+  }
+}
+

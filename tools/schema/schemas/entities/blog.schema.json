@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "blog.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["slug", "title"],
+    "properties": {
+      "slug": { "type": "string", "minLength": 1 },
+      "title": { "type": "string", "minLength": 1 },
+      "excerpt": { "type": ["string", "null"] },
+      "content": {
+        "type": ["string", "array", "null"],
+        "items": { "type": "object" }
+      },
+      "date": { "type": ["string", "null"] },
+      "author": { "type": ["string", "null"] },
+      "category": { "type": ["string", "null"] },
+      "hero_image": { "type": ["string", "null"] },
+      "featured": { "type": ["boolean", "null"] },
+      "tags": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "related": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    }
+  }
+}

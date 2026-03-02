@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "people.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["person_id", "display_name"],
+    "properties": {
+      "person_id": { "$ref": "../common/common.schema.json#/$defs/idString" },
+      "display_name": { "type": "string", "minLength": 1 },
+      "given_name": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "middle_name": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "family_name": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "label": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "notes": { "$ref": "../common/common.schema.json#/$defs/stringOrNull" },
+      "aliases": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "events": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "related_events": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "organizations": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "objects": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "sources": { "$ref": "../common/common.schema.json#/$defs/objectArray" },
+      "tags": { "$ref": "../common/common.schema.json#/$defs/stringArray" }
+    }
+  }
+}
+
