@@ -823,7 +823,7 @@
                 <!-- Locked message -->
                 <div class="tab-locked-message" id="export-locked">
                     <span class="material-symbols-outlined">lock</span>
-                    Approve at least one entity in the ENTITIES tab before exporting.
+                    Select a document in the SOURCE tab to begin export.
                 </div>
 
                 <!-- Export content (hidden until prerequisite met) -->
@@ -936,6 +936,17 @@
                         </h2>
                         <p class="text-xs opacity-60 mb-4">Generate narrated audio from your reviewed content using
                             Kokoro TTS.</p>
+
+                        <div class="flex items-center gap-2 mb-3 text-xs">
+                            <span class="opacity-60">Source</span>
+                            <select id="tts-source" class="workbench-select text-xs" style="min-width:220px;">
+                                <option value="workbench">Workbench Review (current)</option>
+                                <option value="txt">Processed TXT</option>
+                                <option value="md">Processed MD</option>
+                                <option value="html">Processed HTML</option>
+                                <option value="transcript">Transcript JSON</option>
+                            </select>
+                        </div>
 
                         <!-- Voice / Speed / Format row -->
                         <div class="flex flex-wrap gap-4 mb-4">

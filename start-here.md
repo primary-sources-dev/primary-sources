@@ -5,6 +5,7 @@
 - `Entity approvals/exports` update your entity/source JSON registries.
 - These are related, but they are different pipelines.
 - Update: Added page-scoped entity selectors (person/location/organization/address), batched auto-detection, address extraction + normalization, `ADDRESS_PARSE_ISSUE` notes, and export tracking into feedback + entity JSON integration.
+- Live-stream path: ingest stream/screen recording, isolate audio, run rolling Whisper transcription, detect entities per timed chunk, then review/export through the same feedback loop.
 
 ## Pipeline A: Classifier Feedback Dataset
 1. Open Workbench and review pages in `CLASSIFY`.

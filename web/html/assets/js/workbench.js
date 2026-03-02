@@ -1872,6 +1872,7 @@ class ExportTab {
             voice: document.getElementById('tts-voice')?.value || 'af_heart',
             speed: parseFloat(document.getElementById('tts-speed')?.value || '1.0'),
             format: document.getElementById('tts-format')?.value || 'wav',
+            source: document.getElementById('tts-source')?.value || 'workbench',
         };
     }
 
@@ -1882,22 +1883,56 @@ class ExportTab {
         el.textContent = msg;
     }
 
+    getTTSFileBaseName() {
+        const file = this.wb.FILE_NAME || '';
+        const noExt = file.replace(/\.[^/.]+$/, '');
+        return noExt.replace(/_searchable$/i, '');
+    }
+
+    downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    }
+
     async previewTTS() {
         const settings = this.getTTSSettings();
-        // Grab first 200 chars of reviewed text
-        const text = this.getPreviewText();
-        if (!text) {
-            this.showExportStatus('No reviewed content to preview.', 'warning');
-            return;
-        }
-
         this.setTTSStatus('Generating preview...');
         try {
-            const res = await fetch('/api/tts/preview', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, ...settings })
-            });
+            let res;
+            if (settings.source !== 'workbench') {
+                const filename = this.getTTSFileBaseName();
+                if (!filename) throw new Error('No file selected');
+                res = await fetch('/api/tts/from-file', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        filename,
+                        source: settings.source,
+                        voice: settings.voice,
+                        speed: settings.speed,
+                        format: settings.format,
+                        preview: true,
+                        max_chars: 200
+                    })
+                });
+            } else {
+                const text = this.getPreviewText();
+                if (!text) {
+                    this.showExportStatus('No reviewed content to preview.', 'warning');
+                    return;
+                }
+                res = await fetch('/api/tts/preview', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, ...settings })
+                });
+            }
             if (!res.ok) {
                 const err = await res.json().catch(() => ({}));
                 throw new Error(err.error || `HTTP ${res.status}`);
@@ -1919,35 +1954,51 @@ class ExportTab {
 
     async generateAudio() {
         const settings = this.getTTSSettings();
-        const items = this.buildNarrationItems();
-        if (!items.length) {
-            this.showExportStatus('No content selected for audio generation.', 'warning');
-            return;
-        }
-
-        this.setTTSStatus(`Generating ${items.length} audio file(s)... This may take a moment.`);
         try {
-            const res = await fetch('/api/tts/batch', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ items, ...settings })
-            });
+            let res;
+            if (settings.source !== 'workbench') {
+                const filename = this.getTTSFileBaseName();
+                if (!filename) throw new Error('No file selected');
+                this.setTTSStatus(`Generating audio from ${settings.source.toUpperCase()} source...`);
+                res = await fetch('/api/tts/from-file', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        filename,
+                        source: settings.source,
+                        voice: settings.voice,
+                        speed: settings.speed,
+                        format: settings.format
+                    })
+                });
+            } else {
+                const items = this.buildNarrationItems();
+                if (!items.length) {
+                    this.showExportStatus('No content selected for audio generation.', 'warning');
+                    return;
+                }
+                this.setTTSStatus(`Generating ${items.length} audio file(s)... This may take a moment.`);
+                res = await fetch('/api/tts/batch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items, ...settings })
+                });
+            }
             if (!res.ok) {
                 const err = await res.json().catch(() => ({}));
                 throw new Error(err.error || `HTTP ${res.status}`);
             }
             const blob = await res.blob();
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'audio-export.zip';
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            URL.revokeObjectURL(url);
-            this.setTTSStatus(`Downloaded ${items.length} audio file(s).`);
-            this.logExport(`Audio export: ${items.length} files generated.`);
-            this.showExportStatus(`Audio export complete — ${items.length} file(s) downloaded.`);
+            const cd = res.headers.get('content-disposition') || '';
+            const match = cd.match(/filename=\"?([^\";]+)\"?/i);
+            const fallback = settings.source === 'workbench'
+                ? 'audio-export.zip'
+                : `${this.getTTSFileBaseName()}-audio.${settings.format}`;
+            const downloadName = (match && match[1]) ? match[1] : fallback;
+            this.downloadBlob(blob, downloadName);
+            this.setTTSStatus(`Downloaded ${downloadName}.`);
+            this.logExport(`Audio export generated: ${downloadName}`);
+            this.showExportStatus(`Audio export complete — ${downloadName}`);
         } catch (e) {
             this.setTTSStatus(`Generation failed: ${e.message}`);
             this.showExportStatus(`Audio generation failed: ${e.message}`, 'error');
@@ -3012,9 +3063,7 @@ class DocumentWorkbench {
 
     getUnlockState() {
         const hasFile = !!this.FILE_NAME && !!this.classificationData;
-        const approvedCount = Object.values(this.entityApprovals).filter(v => v === 'approved').length;
-        const hasApproved = approvedCount > 0;
-        return { input: true, source: true, classify: hasFile, entities: hasFile, export: hasFile && hasApproved };
+        return { input: true, source: true, classify: hasFile, entities: hasFile, export: hasFile };
     }
 
     updateTabStates() {
@@ -3039,7 +3088,7 @@ class DocumentWorkbench {
             if (!unlock[tabName]) {
                 const fallback = ['export', 'entities', 'classify', 'source', 'input'].find(t => unlock[t]) || 'input';
                 if (fallback !== tabName) {
-                    const reasons = { classify: 'Select a document first', entities: 'Review pages in Classify tab', export: 'Approve entities first' };
+                    const reasons = { classify: 'Select a document first', entities: 'Select a document first', export: 'Select a document first' };
                     this.showToast(`${tabName.charAt(0).toUpperCase() + tabName.slice(1)} requires: ${reasons[tabName] || 'prerequisites'}`);
                     tabName = fallback;
                 }

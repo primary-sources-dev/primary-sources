@@ -17,7 +17,7 @@ import tarfile
 import shutil
 from datetime import datetime
 from pathlib import Path
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, send_file
 from werkzeug.utils import secure_filename
 
 # Ensure ffmpeg is on PATH (winget install location)
@@ -1749,6 +1749,93 @@ def tts_batch():
             zip_buf.read(),
             mimetype="application/zip",
             headers={"Content-Disposition": "attachment; filename=audio-export.zip"}
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/tts/from-file", methods=["POST"])
+def tts_from_file():
+    """Synthesize audio directly from processed txt/md/html/transcript sidecars."""
+    if not KOKORO_AVAILABLE:
+        return jsonify({"error": "Kokoro TTS not installed"}), 503
+
+    data = request.get_json() or {}
+    raw_name = str(data.get("filename", "")).strip()
+    source_format = str(data.get("source", "txt")).strip().lower()
+    voice = data.get("voice", "af_heart")
+    speed = float(data.get("speed", 1.0))
+    audio_format = str(data.get("format", "wav")).strip().lower()
+    preview = bool(data.get("preview", False))
+    max_chars = int(data.get("max_chars", 200))
+
+    if not raw_name:
+        return jsonify({"error": "filename is required"}), 400
+    if source_format not in {"txt", "md", "html", "transcript"}:
+        return jsonify({"error": f"Unsupported source: {source_format}"}), 400
+    if audio_format not in {"wav", "mp3"}:
+        return jsonify({"error": f"Unsupported format: {audio_format}"}), 400
+
+    safe_base = os.path.basename(raw_name).replace("_searchable", "")
+    safe_base = os.path.splitext(safe_base)[0]
+    if source_format == "transcript":
+        target_path = os.path.join(UPLOAD_FOLDER, f"{safe_base}.transcript.json")
+    else:
+        target_path = os.path.join(UPLOAD_FOLDER, f"{safe_base}.{source_format}")
+
+    if not os.path.isfile(target_path):
+        return jsonify({"error": f"Source file not found: {os.path.basename(target_path)}"}), 404
+
+    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
+        raw_text = f.read()
+
+    if source_format == "html":
+        text = re.sub(r"<[^>]+>", " ", raw_text)
+        text = re.sub(r"\s+", " ", text).strip()
+    elif source_format == "md":
+        text = re.sub(r"[#*_`~\[\]()>-]", " ", raw_text)
+        text = re.sub(r"\s+", " ", text).strip()
+    elif source_format == "transcript":
+        try:
+            payload = json.loads(raw_text)
+            text = " ".join((seg.get("text", "") or "").strip() for seg in payload.get("segments", []))
+            text = re.sub(r"\s+", " ", text).strip()
+        except Exception as e:
+            return jsonify({"error": f"Invalid transcript json: {str(e)}"}), 400
+    else:
+        text = raw_text.strip()
+
+    if not text:
+        return jsonify({"error": "No text content found in source file"}), 400
+
+    if preview:
+        text = text[:max(1, max_chars)]
+
+    lang = "b" if str(voice).startswith("b") else "a"
+    worker = TTSWorker(voice=voice, speed=speed, lang=lang)
+
+    try:
+        if preview or len(text) <= 5000:
+            buf = worker.synthesize_to_buffer(text, voice=voice, speed=speed, format=audio_format)
+            mime = "audio/mpeg" if audio_format == "mp3" else "audio/wav"
+            return send_file(
+                buf,
+                mimetype=mime,
+                as_attachment=not preview,
+                download_name=f"{safe_base}.{audio_format}"
+            )
+
+        # Long text: paragraph chunking for safer synthesis
+        paragraphs = [p.strip() for p in re.split(r"\n{2,}", text) if p.strip()]
+        if not paragraphs:
+            paragraphs = [text]
+        items = [{"id": str(i + 1), "text": p, "label": f"Part-{i + 1:03d}"} for i, p in enumerate(paragraphs)]
+        zip_buf = worker.synthesize_batch(items, voice=voice, speed=speed, format=audio_format)
+        return send_file(
+            zip_buf,
+            mimetype="application/zip",
+            as_attachment=True,
+            download_name=f"{safe_base}-audio.zip"
         )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
