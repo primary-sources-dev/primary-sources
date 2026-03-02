@@ -1,0 +1,6 @@
+This is a pipeline speech test.
+Leemette Jack Ruby in Dallas, Texas.
+The federal Bureau of Investigation
+and Dallas Police Department were mentioned.
+Carousel Club and Houston Street
+are also mentioned for entity detection.

@@ -1265,18 +1265,19 @@
       "status": "correct",
       "disposition": "verified_approved",
       "reason_code": null,
-      "reason_detail": null,
       "predictedType": "FBI_302",
-      "selectedType": "REPORT",
+      "selectedType": "FBI_302",
       "selectedAgency": "FBI",
-      "selectedClass": "REPORT",
+      "selectedClass": "FBI_302",
       "selectedFormat": "GENERIC",
-      "selectedContent": [],
+      "selectedContent": [
+        "INVESTIGATIVE_SUMM"
+      ],
       "newTypeFlag": false,
       "noteType": null,
       "notes": null,
-      "textSample": "",
-      "timestamp": "2026-03-02T10:48:43.258Z"
+      "textSample": "\u00bb \nb \nOW beg \nDL 100-10461 \nallegation that individual named STACY may have had something \nto do with telescopic aight \non assassination weapon, negative. \nFBI Laboratory examination of two books \nin Russian entitled \n\"Book of Useful Advice\" and \"Our Children\" did not reveal \nany indications they were used \nfor code or cipher purposes. \nExamination of blue jacket (previously identified by \nMARINA OSWALD as belonging to subject) reveals several \nbrown head hairs and head hair clippings \nin the debris \nremoved from such jacket. \nSuch hairs match in microscopic \ncharacteristics the previous submitted hair samples \nof \nOSWALD. \nNone of the textile fibers previously removed from \nassassination weapon could be associated with this jacket. \nNo gunpowder residuds present on-this jacket. \nAdditional \ninvestigation conducted concerning OSWALD's alleged effort \nto purchase car at Dallas, Texas on 11/9/63. \nRUTH PAINE \nstates OSWALD was at her residence on afternoon of 11/9/63 \nand \nin her opinion",
+      "timestamp": "2026-03-02T13:15:57.999956"
     }
   ],
   "summary": {

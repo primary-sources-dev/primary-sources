@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "filename": "pipeline_speech_test.wav",
+  "media_type": "audio",
+  "duration": 14.4,
+  "language": "en",
+  "model": "base",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 2.2,
+      "text": "This is a pipeline speech test.",
+      "confidence": 0.402
+    },
+    {
+      "id": 1,
+      "start": 2.2,
+      "end": 5.1,
+      "text": "Leemette Jack Ruby in Dallas, Texas.",
+      "confidence": 0.402
+    },
+    {
+      "id": 2,
+      "start": 5.1,
+      "end": 7.26,
+      "text": "The federal Bureau of Investigation",
+      "confidence": 0.402
+    },
+    {
+      "id": 3,
+      "start": 7.26,
+      "end": 9.8,
+      "text": "and Dallas Police Department were mentioned.",
+      "confidence": 0.402
+    },
+    {
+      "id": 4,
+      "start": 9.8,
+      "end": 12.0,
+      "text": "Carousel Club and Houston Street",
+      "confidence": 0.402
+    },
+    {
+      "id": 5,
+      "start": 12.0,
+      "end": 14.4,
+      "text": "are also mentioned for entity detection.",
+      "confidence": 0.402
+    }
+  ]
+}

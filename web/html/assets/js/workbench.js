@@ -2094,7 +2094,8 @@ class InputTab {
         this.AUDIO_EXTS = ['.mp3', '.wav', '.m4a', '.flac', '.ogg', '.wma'];
         this.VIDEO_EXTS = ['.mp4', '.webm', '.mov', '.mkv', '.avi'];
         this.MEDIA_EXTS = [...this.AUDIO_EXTS, ...this.VIDEO_EXTS];
-        this.ALLOWED_EXTS = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2', ...this.MEDIA_EXTS];
+        this.TEXT_EXTS = ['.txt', '.md', '.rtf', '.csv', '.vtt', '.srt', '.docx', '.doc', '.eml', '.mbox'];
+        this.ALLOWED_EXTS = ['.pdf', '.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif', '.zip', '.tar', '.gz', '.tgz', '.bz2', ...this.MEDIA_EXTS, ...this.TEXT_EXTS];
     }
 
     // --- Initialization ---
@@ -2114,11 +2115,7 @@ class InputTab {
                 if (whisperPanel) {
                     whisperPanel.style.display = this.whisperAvailable ? '' : 'none';
                 }
-                // Show/hide URL download panel
-                const urlPanel = document.getElementById('url-input-panel');
-                if (urlPanel) {
-                    urlPanel.style.display = this.ytdlpAvailable ? '' : 'none';
-                }
+                // URL panel visibility is controlled by input mode switching
             }
         } catch { /* use default */ }
         // Resume in-progress job from localStorage
@@ -2128,6 +2125,19 @@ class InputTab {
             this.updateButtons(true);
             this.pollJob();
         }
+    }
+
+    switchInputMode(mode) {
+        document.querySelectorAll('[data-input-panel]').forEach(panel => {
+            panel.style.display = panel.dataset.inputPanel === mode ? '' : 'none';
+        });
+        document.querySelectorAll('[data-input-mode]').forEach(btn => {
+            if (btn.dataset.inputMode === mode) {
+                btn.classList.add('active', 'export-btn-primary');
+            } else {
+                btn.classList.remove('active', 'export-btn-primary');
+            }
+        });
     }
 
     setupDropZone() {
@@ -2205,45 +2215,109 @@ class InputTab {
             return;
         }
 
-        if (btn) { btn.disabled = true; btn.textContent = 'Downloading...'; }
-        if (statusEl) { statusEl.textContent = 'Downloading audio... this may take a moment'; statusEl.style.opacity = '0.7'; }
+        if (btn) { btn.disabled = true; btn.textContent = 'Fetching...'; }
+        if (statusEl) { statusEl.textContent = 'Detecting content type...'; statusEl.style.opacity = '0.7'; statusEl.style.color = ''; }
 
         try {
-            const res = await fetch('/api/download', {
+            const res = await fetch('/api/ingest-url', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url })
             });
             const data = await res.json();
-            if (!res.ok || !data.success) throw new Error(data.error || 'Download failed');
+            if (!res.ok || !data.success) throw new Error(data.error || 'Fetch failed');
 
-            // Fetch the downloaded file as a Blob to inject into the queue
-            const fileRes = await fetch(`/api/download/file/${encodeURIComponent(data.file.name)}`);
-            if (!fileRes.ok) throw new Error('Could not retrieve downloaded file');
-            const blob = await fileRes.blob();
-            const file = new File([blob], data.file.name, { type: 'audio/mpeg' });
+            if (data.type === 'scraped') {
+                // Text was scraped — add to queue as completed
+                const blob = new Blob([''], { type: 'text/plain' });
+                const file = new File([blob], `${data.basename}.txt`, { type: 'text/plain' });
+                this.queuedFiles.push({
+                    file, name: `${data.basename}.txt`, size: data.chars || 0,
+                    status: 'completed', progress: 100, current_msg: '', parsed_metadata: null
+                });
+                this.updateFileCount();
+                this.renderKanban();
+                if (statusEl) statusEl.textContent = `Scraped: ${data.title} (${data.pages} pages, ${data.chars} chars)`;
+                this.logSuccess(`Scraped: ${data.title}`);
+                if (this.wb.sourceTab) this.wb.sourceTab.loadHistory();
+            } else {
+                // File was downloaded (downloaded or ytdlp) — fetch blob and queue for processing
+                if (statusEl) statusEl.textContent = `Downloaded ${data.file.name}, loading into queue...`;
+                const fileRes = await fetch(`/api/download/file/${encodeURIComponent(data.file.name)}`);
+                if (!fileRes.ok) throw new Error('Could not retrieve downloaded file');
+                const blob = await fileRes.blob();
+                const mimeType = data.file.content_type || this._guessMimeType(data.file.name);
+                const file = new File([blob], data.file.name, { type: mimeType });
+                this.queuedFiles.push({
+                    file, name: data.file.name, size: data.file.size,
+                    status: 'queued', progress: 0, current_msg: '', parsed_metadata: null
+                });
+                this.updateFileCount();
+                this.renderKanban();
+                if (statusEl) statusEl.textContent = `Downloaded: ${data.title || data.file.name}`;
+                this.logSuccess(`Downloaded: ${data.title || data.file.name}`);
+            }
+            urlInput.value = '';
+        } catch (err) {
+            if (statusEl) { statusEl.textContent = `Error: ${err.message}`; statusEl.style.color = '#ef4444'; }
+            this.logError(`URL fetch failed: ${err.message}`);
+        } finally {
+            if (btn) { btn.disabled = false; btn.innerHTML = '<span class="material-symbols-outlined text-sm align-middle mr-1">download</span> Fetch'; }
+        }
+    }
 
+    _guessMimeType(filename) {
+        const ext = (filename.split('.').pop() || '').toLowerCase();
+        const map = {
+            mp3: 'audio/mpeg', wav: 'audio/wav', m4a: 'audio/mp4', flac: 'audio/flac',
+            ogg: 'audio/ogg', wma: 'audio/x-ms-wma', mp4: 'video/mp4', webm: 'video/webm',
+            mov: 'video/quicktime', pdf: 'application/pdf', jpg: 'image/jpeg', jpeg: 'image/jpeg',
+            png: 'image/png', tiff: 'image/tiff', webp: 'image/webp', txt: 'text/plain',
+        };
+        return map[ext] || 'application/octet-stream';
+    }
+
+    async submitPaste() {
+        const titleInput = document.getElementById('paste-title');
+        const textArea = document.getElementById('paste-text');
+        const statusEl = document.getElementById('paste-status');
+        if (!textArea) return;
+
+        const text = textArea.value.trim();
+        const title = (titleInput?.value || '').trim() || 'pasted-text';
+        if (!text) {
+            if (statusEl) statusEl.textContent = 'Paste some text first';
+            return;
+        }
+
+        if (statusEl) { statusEl.textContent = 'Submitting...'; statusEl.style.opacity = '0.7'; }
+
+        try {
+            const res = await fetch('/api/paste', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, title })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Paste failed');
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const file = new File([blob], `${data.basename}.txt`, { type: 'text/plain' });
             this.queuedFiles.push({
-                file: file,
-                name: data.file.name,
-                size: data.file.size,
-                status: 'queued',
-                progress: 0,
-                current_msg: '',
-                parsed_metadata: null
+                file, name: `${data.basename}.txt`, size: blob.size,
+                status: 'completed', progress: 100, current_msg: '', parsed_metadata: null
             });
             this.updateFileCount();
             this.renderKanban();
 
-            const title = data.file.title || data.file.name;
-            if (statusEl) { statusEl.textContent = `Downloaded: ${title}`; statusEl.style.opacity = '0.7'; }
-            urlInput.value = '';
-            this.logSuccess(`Downloaded: ${title}`);
+            if (statusEl) { statusEl.textContent = `Created: ${data.basename}.txt (${data.pages} pages, ${data.chars} chars)`; }
+            textArea.value = '';
+            if (titleInput) titleInput.value = '';
+            this.logSuccess(`Pasted text saved: ${data.basename}.txt`);
+            if (this.wb.sourceTab) this.wb.sourceTab.loadHistory();
         } catch (err) {
             if (statusEl) { statusEl.textContent = `Error: ${err.message}`; statusEl.style.color = '#ef4444'; }
-            this.logError(`URL download failed: ${err.message}`);
-        } finally {
-            if (btn) { btn.disabled = false; btn.innerHTML = '<span class="material-symbols-outlined text-sm align-middle mr-1">download</span> Fetch'; }
+            this.logError(`Paste failed: ${err.message}`);
         }
     }
 
@@ -2934,6 +3008,12 @@ class DocumentWorkbench {
             });
         });
         document.addEventListener('click', (e) => {
+            // Input mode switching (Upload / Paste / URL)
+            const modeBtn = e.target.closest('[data-input-mode]');
+            if (modeBtn && self.inputTab) {
+                self.inputTab.switchInputMode(modeBtn.dataset.inputMode);
+                return;
+            }
             const target = e.target.closest('[data-action]');
             if (!target) return;
             const action = target.dataset.action;
@@ -2943,7 +3023,8 @@ class DocumentWorkbench {
                 case 'input-start': if (self.inputTab) self.inputTab.startProcessing(); break;
                 case 'input-cancel': if (self.inputTab) self.inputTab.cancelProcessing(); break;
                 case 'input-remove': if (self.inputTab && idx !== null) self.inputTab.removeFile(idx); break;
-                case 'url-download': if (self.inputTab) self.inputTab.downloadUrl(); break;
+                case 'url-ingest': if (self.inputTab) self.inputTab.downloadUrl(); break;
+                case 'paste-submit': if (self.inputTab) self.inputTab.submitPaste(); break;
                 case 'input-clear-completed': if (self.inputTab) self.inputTab.clearCompleted(); break;
                 case 'input-clear-all': if (self.inputTab) self.inputTab.clearAll(); break;
                 case 'input-copy-metadata': if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx); break;

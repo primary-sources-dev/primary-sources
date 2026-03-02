@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "filename": "test-audio.wav",
+  "media_type": "audio",
+  "duration": 0.0,
+  "language": "en",
+  "model": "tiny",
+  "segments": []
+}
