@@ -1989,9 +1989,100 @@ def _download_direct(url):
             "file": {"name": filename, "size": size, "content_type": ct}}
 
 
-def _download_ytdlp(url):
-    """Download audio via yt-dlp. Returns response dict."""
+def _extract_yt_transcript(url, lang="en"):
+    """Try to extract YouTube transcript via yt-dlp subtitles. Returns response dict or None."""
     import re as _re
+    import requests as _requests
+
+    ydl_opts = {"quiet": True, "no_warnings": True,
+                "cookiesfrombrowser": ("edge",),
+                "extractor_args": {"youtube": {"player_client": ["web"]}}}
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    title = info.get("title", "download")
+
+    # Prefer manual subtitles, fall back to auto-captions
+    subs = info.get("subtitles", {}).get(lang) or info.get("automatic_captions", {}).get(lang)
+    if not subs:
+        return None
+
+    # Find VTT format
+    vtt_url = None
+    for fmt in subs:
+        if fmt.get("ext") == "vtt":
+            vtt_url = fmt.get("url")
+            break
+    if not vtt_url:
+        return None
+
+    # Download VTT content
+    resp = _requests.get(vtt_url, timeout=30)
+    resp.raise_for_status()
+    vtt_text = resp.text
+
+    # Strip VTT to plain text: remove header, timestamps, positioning
+    lines = vtt_text.split("\n")
+    text_lines = []
+    for line in lines:
+        line = line.strip()
+        # Skip WEBVTT header, blank lines, timestamp lines, NOTE lines
+        if not line or line.startswith("WEBVTT") or line.startswith("NOTE"):
+            continue
+        if _re.match(r"^\d{2}:\d{2}[:\.]", line) or _re.match(r"^[\d]+$", line):
+            continue
+        if " --> " in line:
+            continue
+        # Strip inline tags like <c> </c> <00:00:00.000>
+        line = _re.sub(r"<[^>]+>", "", line)
+        if line:
+            text_lines.append(line)
+
+    # Deduplicate consecutive identical lines (common in auto-captions)
+    deduped = []
+    for line in text_lines:
+        if not deduped or line != deduped[-1]:
+            deduped.append(line)
+
+    text = "\n".join(deduped)
+    if not text.strip():
+        return None
+
+    # Determine caption source for status messaging
+    caption_source = "manual" if info.get("subtitles", {}).get(lang) else "auto-captions"
+
+    # Save as .txt + .ocr.json (same shape as web scrape)
+    basename = _re.sub(r"[^a-zA-Z0-9_-]", "", title.replace(" ", "-")).lower()[:80] or "yt-transcript"
+    txt_path = os.path.join(UPLOAD_FOLDER, basename + ".txt")
+    with open(txt_path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    ocr_json = {"pages": [{"page": i + 1, "text": p} for i, p in enumerate(paragraphs)] or [{"page": 1, "text": text}]}
+    json_path = os.path.join(UPLOAD_FOLDER, basename + ".ocr.json")
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(ocr_json, f, indent=2)
+
+    print(f"[yt-transcript] Extracted {caption_source} transcript: {title} ({len(text)} chars)")
+
+    return {"success": True, "type": "scraped", "source": "yt-transcript",
+            "caption_source": caption_source, "title": title, "basename": basename,
+            "pages": len(ocr_json["pages"]), "chars": len(text)}
+
+
+def _download_ytdlp(url):
+    """Download from YouTube/video sites. Tries transcript first, falls back to audio download."""
+    import re as _re
+
+    # Try transcript extraction first (instant, no audio download needed)
+    try:
+        result = _extract_yt_transcript(url)
+        if result:
+            return result
+        print(f"[yt-dlp] No transcript available, downloading audio...")
+    except Exception as e:
+        print(f"[yt-dlp] Transcript extraction failed ({e}), downloading audio...")
 
     upload_dir = os.path.join(UPLOAD_FOLDER, "uploads")
     os.makedirs(upload_dir, exist_ok=True)
