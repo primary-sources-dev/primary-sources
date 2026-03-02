@@ -153,6 +153,11 @@ class ClassifyTab {
     }
 
     setupLazyLoading() {
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+
         const cards = document.querySelectorAll('[data-page-index]');
         console.log('Found', cards.length, 'page cards, setting up lazy loading');
 
@@ -349,6 +354,14 @@ class ClassifyTab {
         const end = Math.min(start + this.itemsPerPage, pages.length);
         const slice = pages.slice(start, end);
 
+        // Cards are rebuilt each pagination/filter pass, so reset render bookkeeping.
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+        this.renderQueue = [];
+        this.renderedPages.clear();
+
         const container = document.getElementById('cards-container');
         container.innerHTML = slice.map(p => this.renderCard(p)).join('');
 
@@ -357,6 +370,8 @@ class ClassifyTab {
             const fb = this.wb.feedback[p.page];
             if (fb) this.applyFeedbackUI(p.page, fb);
         }
+
+        if (this.wb.pdfDoc) this.setupLazyLoading();
 
         this.updatePagination();
     }
