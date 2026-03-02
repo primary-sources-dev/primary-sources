@@ -463,7 +463,7 @@ hr {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: 1fr 1fr;
     gap: 1.25rem;
     padding: 1.5rem;
     overflow-y: auto;

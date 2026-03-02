@@ -1,26 +1,26 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-03-02T01:31:48.227Z",
+  "generatedAt": "2026-03-02T08:43:00.608Z",
   "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
   "statistics": {
-    "totalElements": 1157,
+    "totalElements": 1166,
     "totalFiles": 63,
     "elementsByType": {
       "class": 29,
-      "function": 574,
+      "function": 576,
       "component": 1,
-      "method": 540,
+      "method": 547,
       "constant": 13
     },
     "filesByExtension": {
       ".py": 298,
-      ".js": 859
+      ".js": 868
     }
   },
   "topFiles": [
     {
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementCount": 238
+      "elementCount": 247
     },
     {
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/tools/ocr/ocr-gui.js",

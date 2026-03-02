@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-03-02T01:31:48.245Z",
+  "generatedAt": "2026-03-02T08:43:00.620Z",
   "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
   "patterns": {
     "handlers": [
@@ -161,85 +161,85 @@
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 76
+        "line": 77
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 133
+        "line": 134
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 164
+        "line": 170
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 874
+        "line": 980
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1152
+        "line": 1258
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1215
+        "line": 1321
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1414
+        "line": 1520
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1487
+        "line": 1593
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1499
+        "line": 1605
       },
       {
         "type": "error-handling",
         "name": "logError",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1652
+        "line": 1758
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1720
+        "line": 1826
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1776
+        "line": 1882
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2208
+        "line": 2310
       },
       {
         "type": "error-handling",
         "name": "catch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2260
+        "line": 2362
       },
       {
         "type": "error-handling",
@@ -1009,103 +1009,103 @@
         "type": "test",
         "name": "EntitiesTab",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 782
+        "line": 888
       },
       {
         "type": "test",
         "name": "submit4Tier",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 461
+        "line": 482
       },
       {
         "type": "test",
         "name": "updateStats",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 579
+        "line": 681
       },
       {
         "type": "test",
         "name": "switch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 667
+        "line": 771
       },
       {
         "type": "test",
         "name": "detectEntities",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 787
+        "line": 893
       },
       {
         "type": "test",
         "name": "renderEntitiesDashboard",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 884
+        "line": 990
       },
       {
         "type": "test",
         "name": "initFilters",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 977
+        "line": 1083
       },
       {
         "type": "test",
         "name": "approveEntity",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1000
+        "line": 1106
       },
       {
         "type": "test",
         "name": "rejectEntity",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1006
+        "line": 1112
       },
       {
         "type": "test",
         "name": "exportNewEntities",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1158
+        "line": 1264
       },
       {
         "type": "test",
         "name": "init",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1239
+        "line": 1345
       },
       {
         "type": "test",
         "name": "updateStats",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1623
+        "line": 1729
       },
       {
         "type": "test",
         "name": "switch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1787
+        "line": 1893
       },
       {
         "type": "test",
         "name": "init",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1939
+        "line": 2040
       },
       {
         "type": "test",
         "name": "switch",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2001
+        "line": 2102
       },
       {
         "type": "test",
         "name": "switchTab",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2126
+        "line": 2228
       },
       {
         "type": "test",
         "name": "saveEntityApprovals",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2267
+        "line": 2369
       },
       {
         "type": "test",
@@ -1437,25 +1437,31 @@
         "type": "api-endpoint",
         "name": "InputTab",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1226
+        "line": 1332
       },
       {
         "type": "api-endpoint",
         "name": "getVal",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 467
+        "line": 488
+      },
+      {
+        "type": "api-endpoint",
+        "name": "getVal",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 558
       },
       {
         "type": "api-endpoint",
         "name": "getSettings",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1361
+        "line": 1467
       },
       {
         "type": "api-endpoint",
         "name": "getUnlockState",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2103
+        "line": 2205
       },
       {
         "type": "api-endpoint",
@@ -1518,6 +1524,6 @@
     "totalDecorators": 0,
     "totalErrorPatterns": 43,
     "totalTestPatterns": 147,
-    "totalApiEndpoints": 56
+    "totalApiEndpoints": 57
   }
 }

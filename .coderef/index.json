@@ -1,13 +1,13 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-03-02T01:31:48.195Z",
+  "generatedAt": "2026-03-02T08:43:00.600Z",
   "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
-  "totalElements": 1157,
+  "totalElements": 1166,
   "elementsByType": {
     "class": 29,
-    "function": 574,
+    "function": 576,
     "component": 1,
-    "method": 540,
+    "method": 547,
     "constant": 13
   },
   "elements": [
@@ -5924,76 +5924,83 @@
       "type": "class",
       "name": "EntitiesTab",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 782,
+      "line": 888,
       "exported": false
     },
     {
       "type": "class",
       "name": "ExportTab",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1029,
+      "line": 1135,
       "exported": false
     },
     {
       "type": "class",
       "name": "InputTab",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1226,
+      "line": 1332,
       "exported": false
     },
     {
       "type": "class",
       "name": "SourceTab",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1729,
+      "line": 1835,
       "exported": false
     },
     {
       "type": "class",
       "name": "DocumentWorkbench",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1857,
+      "line": 1963,
       "exported": false
     },
     {
       "type": "function",
       "name": "getVal",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 467,
+      "line": 488,
+      "exported": false
+    },
+    {
+      "type": "function",
+      "name": "getVal",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 558,
       "exported": false
     },
     {
       "type": "function",
       "name": "findPage",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 840,
+      "line": 946,
       "exported": false
     },
     {
       "type": "function",
       "name": "params",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1905,
+      "line": 2006,
       "exported": false
     },
     {
       "type": "function",
       "name": "params",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1906,
+      "line": 2007,
       "exported": false
     },
     {
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 503,
+      "line": 529,
       "exported": false,
       "frontendCall": {
         "path": "/api/feedback",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 503,
+        "line": 529,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6002,13 +6009,28 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 825,
+      "line": 592,
+      "exported": false,
+      "frontendCall": {
+        "path": "/api/feedback",
+        "method": "POST",
+        "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+        "line": 592,
+        "callType": "fetch",
+        "confidence": 100
+      }
+    },
+    {
+      "type": "function",
+      "name": "fetch(",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 931,
       "exported": false,
       "frontendCall": {
         "path": "/api/entities",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 825,
+        "line": 931,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6017,13 +6039,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1139,
+      "line": 1245,
       "exported": false,
       "frontendCall": {
         "path": "/api/entities/export",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1139,
+        "line": 1245,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6032,13 +6054,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1204,
+      "line": 1310,
       "exported": false,
       "frontendCall": {
         "path": "/api/entities/export",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1204,
+        "line": 1310,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6047,13 +6069,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1243,
+      "line": 1349,
       "exported": false,
       "frontendCall": {
         "path": "/api/config",
         "method": "GET",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1243,
+        "line": 1349,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6062,13 +6084,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1401,
+      "line": 1507,
       "exported": false,
       "frontendCall": {
         "path": "/api/jobs",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1401,
+        "line": 1507,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6077,13 +6099,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1408,
+      "line": 1514,
       "exported": false,
       "frontendCall": {
         "path": "/api/jobs/{id}/start",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1408,
+        "line": 1514,
         "callType": "fetch",
         "confidence": 80
       }
@@ -6092,13 +6114,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1423,
+      "line": 1529,
       "exported": false,
       "frontendCall": {
         "path": "/api/jobs/{id}",
         "method": "GET",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1423,
+        "line": 1529,
         "callType": "fetch",
         "confidence": 80
       }
@@ -6107,13 +6129,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1497,
+      "line": 1603,
       "exported": false,
       "frontendCall": {
         "path": "/api/jobs/{id}/cancel",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1497,
+        "line": 1603,
         "callType": "fetch",
         "confidence": 80
       }
@@ -6122,13 +6144,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1704,
+      "line": 1810,
       "exported": false,
       "frontendCall": {
         "path": "/api/download/{id}.txt",
         "method": "GET",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1704,
+        "line": 1810,
         "callType": "fetch",
         "confidence": 80
       }
@@ -6137,13 +6159,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1709,
+      "line": 1815,
       "exported": false,
       "frontendCall": {
         "path": "/api/parse-metadata",
         "method": "POST",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1709,
+        "line": 1815,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6152,13 +6174,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1742,
+      "line": 1848,
       "exported": false,
       "frontendCall": {
         "path": "/api/history",
         "method": "GET",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 1742,
+        "line": 1848,
         "callType": "fetch",
         "confidence": 100
       }
@@ -6167,13 +6189,13 @@
       "type": "function",
       "name": "fetch(",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2195,
+      "line": 2297,
       "exported": false,
       "frontendCall": {
         "path": "/api/review/{id}",
         "method": "GET",
         "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-        "line": 2195,
+        "line": 2297,
         "callType": "fetch",
         "confidence": 80
       }
@@ -6189,525 +6211,490 @@
       "type": "method",
       "name": "renderPage",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 52,
+      "line": 53,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 54,
+      "line": 55,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 70,
+      "line": 71,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 76,
+      "line": 77,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 79,
+      "line": 80,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 81,
+      "line": 82,
       "exported": false
     },
     {
       "type": "method",
       "name": "retryRender",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 95,
+      "line": 96,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 97,
+      "line": 98,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderTextLayer",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 104,
+      "line": 105,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 109,
+      "line": 110,
       "exported": false
     },
     {
       "type": "method",
       "name": "for",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 120,
+      "line": 121,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 133,
+      "line": 134,
       "exported": false
     },
     {
       "type": "method",
       "name": "processQueue",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 138,
+      "line": 139,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 146,
+      "line": 147,
       "exported": false
     },
     {
       "type": "method",
       "name": "setupLazyLoading",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 155,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "catch",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 164,
+      "line": 156,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 157,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "line": 170,
       "exported": false
     },
     {
       "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 176,
+      "exported": false
+    },
+    {
+      "type": "method",
       "name": "renderHybridSelector",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 186,
+      "line": 192,
       "exported": false
     },
     {
       "type": "method",
       "name": "confidenceColor",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 212,
+      "line": 218,
       "exported": false
     },
     {
       "type": "method",
       "name": "buildTopButtons",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 218,
+      "line": 224,
       "exported": false
     },
     {
       "type": "method",
       "name": "buildOtherButtons",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 230,
+      "line": 236,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderCard",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 242,
+      "line": 248,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderCards",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 346,
+      "line": 357,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 364,
       "exported": false
     },
     {
       "type": "method",
       "name": "for",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 356,
+      "line": 375,
       "exported": false
     },
     {
       "type": "method",
       "name": "mapDocTypeToClass",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 365,
+      "line": 386,
       "exported": false
     },
     {
       "type": "method",
       "name": "applyNotePreset",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 381,
+      "line": 402,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 384,
+      "line": 405,
       "exported": false
     },
     {
       "type": "method",
       "name": "saveNote",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 390,
+      "line": 411,
       "exported": false
     },
     {
       "type": "method",
       "name": "selectTierValue",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 399,
+      "line": 420,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 410,
+      "line": 431,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 418,
+      "line": 439,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 419,
+      "line": 440,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 426,
+      "line": 447,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 436,
+      "line": 457,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 443,
+      "line": 464,
       "exported": false
     },
     {
       "type": "method",
       "name": "submit4Tier",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 461,
+      "line": 482,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "skip4Tier",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 545,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 552,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "autoAdvanceAfterReview",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 608,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 610,
       "exported": false
     },
     {
       "type": "method",
       "name": "applyFeedbackUI",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 519,
+      "line": 615,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 528,
+      "line": 624,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 529,
+      "line": 625,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 540,
+      "line": 629,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 544,
+      "line": 642,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 553,
+      "line": 646,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 655,
       "exported": false
     },
     {
       "type": "method",
       "name": "updateStats",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 579,
+      "line": 681,
       "exported": false
     },
     {
       "type": "method",
       "name": "updatePagination",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 592,
+      "line": 696,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 606,
+      "line": 710,
       "exported": false
     },
     {
       "type": "method",
       "name": "goToPage",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 613,
+      "line": 717,
       "exported": false
     },
     {
       "type": "method",
       "name": "populateTypeFilter",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 619,
+      "line": 723,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 633,
+      "line": 737,
       "exported": false
     },
     {
       "type": "method",
       "name": "applyFilters",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 644,
+      "line": 748,
       "exported": false
     },
     {
       "type": "method",
       "name": "switch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 667,
+      "line": 771,
       "exported": false
     },
     {
       "type": "method",
       "name": "exportFeedback",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 682,
+      "line": 786,
       "exported": false
     },
     {
       "type": "method",
       "name": "clearFeedback",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 746,
+      "line": 852,
       "exported": false
     },
     {
       "type": "method",
       "name": "showModalPage",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 761,
+      "line": 867,
       "exported": false
     },
     {
       "type": "method",
       "name": "hideModal",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 774,
+      "line": 880,
       "exported": false
     },
     {
       "type": "method",
       "name": "constructor",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 783,
+      "line": 889,
       "exported": false
     },
     {
       "type": "method",
       "name": "detectEntities",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 787,
+      "line": 893,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 802,
+      "line": 908,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 874,
+      "line": 980,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderEntitiesDashboard",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 884,
+      "line": 990,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 918,
+      "line": 1024,
       "exported": false
     },
     {
       "type": "method",
       "name": "updateFilterTags",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 961,
+      "line": 1067,
       "exported": false
     },
     {
       "type": "method",
       "name": "initFilters",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 977,
+      "line": 1083,
       "exported": false
     },
     {
       "type": "method",
       "name": "jumpToPage",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 985,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 992,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "approveEntity",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1000,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "rejectEntity",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1006,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "approveCandidate",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1012,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "rejectCandidate",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1018,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "constructor",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1030,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "frequency",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1035,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "showExportStatus",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1042,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "logExport",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1055,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "populateSourceRecordPreview",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1063,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1068,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1090,
+      "line": 1091,
       "exported": false
     },
     {
@@ -6719,121 +6706,114 @@
     },
     {
       "type": "method",
-      "name": "exportSourceRecord",
+      "name": "approveEntity",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1105,
+      "line": 1106,
       "exported": false
     },
     {
       "type": "method",
-      "name": "if",
+      "name": "rejectEntity",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1107,
+      "line": 1112,
       "exported": false
     },
     {
       "type": "method",
-      "name": "if",
+      "name": "approveCandidate",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1125,
+      "line": 1118,
       "exported": false
     },
     {
       "type": "method",
-      "name": "if",
+      "name": "rejectCandidate",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1127,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1145,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "catch",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1152,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "exportNewEntities",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1158,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1159,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "for",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1166,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1172,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1185,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1193,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1210,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "catch",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1215,
+      "line": 1124,
       "exported": false
     },
     {
       "type": "method",
       "name": "constructor",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1227,
+      "line": 1136,
       "exported": false
     },
     {
       "type": "method",
-      "name": "init",
+      "name": "frequency",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1239,
+      "line": 1141,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "showExportStatus",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1148,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "logExport",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1161,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "populateSourceRecordPreview",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1169,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1244,
+      "line": 1174,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1196,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1204,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "exportSourceRecord",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1211,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1213,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1231,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1233,
       "exported": false
     },
     {
@@ -6845,121 +6825,135 @@
     },
     {
       "type": "method",
-      "name": "setupDropZone",
+      "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "line": 1258,
       "exported": false
     },
     {
       "type": "method",
-      "name": "if",
+      "name": "exportNewEntities",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1282,
+      "line": 1264,
       "exported": false
     },
     {
       "type": "method",
-      "name": "addFiles",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1265,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "for",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1272,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1278,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "line": 1291,
       "exported": false
     },
     {
       "type": "method",
-      "name": "for",
+      "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1294,
+      "line": 1299,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1315,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "removeFile",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1321,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1322,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "clearCompleted",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1329,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "clearAll",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1336,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1337,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "updateFileCount",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1349,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "getSettings",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1361,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "startProcessing",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1376,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1378,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "for",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1385,
+      "line": 1316,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1414,
+      "line": 1321,
       "exported": false
     },
     {
       "type": "method",
-      "name": "pollJob",
+      "name": "constructor",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1420,
+      "line": 1333,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "init",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1345,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1350,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1357,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "setupDropZone",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1364,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1388,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "addFiles",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1397,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "for",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1400,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1421,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "removeFile",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1427,
       "exported": false
     },
     {
@@ -6971,660 +6965,632 @@
     },
     {
       "type": "method",
-      "name": "for",
+      "name": "clearCompleted",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1429,
+      "line": 1435,
       "exported": false
     },
     {
       "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1433,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1438,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
+      "name": "clearAll",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "line": 1442,
       "exported": false
     },
     {
       "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1443,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "updateFileCount",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1455,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "getSettings",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1467,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "startProcessing",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1482,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1484,
+      "exported": false
+    },
+    {
+      "type": "method",
       "name": "for",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1453,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1454,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1471,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1477,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1483,
+      "line": 1491,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1487,
+      "line": 1520,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "pollJob",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1526,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1534,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "for",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1535,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1539,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1544,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1548,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "for",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1559,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1560,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1577,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1583,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1589,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "catch",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1593,
       "exported": false
     },
     {
       "type": "method",
       "name": "cancelProcessing",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1494,
+      "line": 1600,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1499,
+      "line": 1605,
       "exported": false
     },
     {
       "type": "method",
       "name": "updateButtons",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1509,
+      "line": 1615,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderKanban",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1518,
+      "line": 1624,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1540,
+      "line": 1646,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderQueuedCard",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1553,
+      "line": 1659,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderProcessingCard",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1563,
+      "line": 1669,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderCompleteCard",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1573,
+      "line": 1679,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1576,
+      "line": 1682,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1591,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "renderLog",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1612,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "updateStats",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1623,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1639,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "logMessage",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1650,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "logSuccess",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1651,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "logError",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1652,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "formatFileSize",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1656,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "escapeHtml",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1663,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "copyMetadata",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1671,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1673,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1685,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "reparseHeader",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "line": 1697,
       "exported": false
     },
     {
       "type": "method",
+      "name": "renderLog",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1718,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "updateStats",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1729,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1745,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "logMessage",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1756,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "logSuccess",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1757,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "logError",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1758,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "formatFileSize",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1762,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "escapeHtml",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1769,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "copyMetadata",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1777,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1779,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1791,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "reparseHeader",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 1803,
+      "exported": false
+    },
+    {
+      "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1720,
+      "line": 1826,
       "exported": false
     },
     {
       "type": "method",
       "name": "constructor",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1730,
+      "line": 1836,
       "exported": false
     },
     {
       "type": "method",
       "name": "loadHistory",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1736,
+      "line": 1842,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1747,
+      "line": 1853,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1761,
+      "line": 1867,
       "exported": false
     },
     {
       "type": "method",
       "name": "catch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1776,
+      "line": 1882,
       "exported": false
     },
     {
       "type": "method",
       "name": "applySort",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1782,
+      "line": 1888,
       "exported": false
     },
     {
       "type": "method",
       "name": "switch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1787,
+      "line": 1893,
       "exported": false
     },
     {
       "type": "method",
       "name": "applySearch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1796,
+      "line": 1902,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1798,
+      "line": 1904,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1808,
+      "line": 1914,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderGrid",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1817,
+      "line": 1923,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1827,
+      "line": 1933,
       "exported": false
     },
     {
       "type": "method",
       "name": "selectFile",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1845,
+      "line": 1951,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1846,
+      "line": 1952,
       "exported": false
     },
     {
       "type": "method",
       "name": "renderWorkbenchHeader",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1858,
+      "line": 1964,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1870,
+      "line": 1976,
       "exported": false
     },
     {
       "type": "method",
       "name": "constructor",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1901,
+      "line": 2002,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1909,
+      "line": 2010,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1911,
+      "line": 2012,
       "exported": false
     },
     {
       "type": "method",
       "name": "setFile",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1929,
+      "line": 2030,
       "exported": false
     },
     {
       "type": "method",
       "name": "init",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1939,
+      "line": 2040,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1941,
+      "line": 2042,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1945,
+      "line": 2046,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1950,
+      "line": 2051,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1953,
+      "line": 2054,
       "exported": false
     },
     {
       "type": "method",
       "name": "migrateLocalStorageKeys",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1966,
+      "line": 2067,
       "exported": false
     },
     {
       "type": "method",
       "name": "for",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1969,
+      "line": 2070,
       "exported": false
     },
     {
       "type": "method",
       "name": "bindEvents",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 1987,
+      "line": 2088,
       "exported": false
     },
     {
       "type": "method",
       "name": "switch",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2001,
+      "line": 2102,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2032,
+      "line": 2134,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2048,
+      "line": 2150,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2052,
+      "line": 2154,
       "exported": false
     },
     {
       "type": "method",
       "name": "injectHeaderTabs",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2058,
+      "line": 2160,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2067,
+      "line": 2169,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2094,
+      "line": 2196,
       "exported": false
     },
     {
       "type": "method",
       "name": "getUnlockState",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2103,
+      "line": 2205,
       "exported": false
     },
     {
       "type": "method",
       "name": "updateTabStates",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2110,
+      "line": 2212,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2119,
+      "line": 2221,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2120,
+      "line": 2222,
       "exported": false
     },
     {
       "type": "method",
       "name": "switchTab",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2126,
+      "line": 2228,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2127,
+      "line": 2229,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2129,
+      "line": 2231,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2131,
+      "line": 2233,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2145,
+      "line": 2247,
       "exported": false
     },
     {
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2155,
+      "line": 2257,
       "exported": false
     },
     {
       "type": "method",
       "name": "loadFile",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2161,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2172,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2176,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "loadClassificationData",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2191,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "catch",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2208,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "reconcileFeedbackStatuses",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2214,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2234,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2238,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2242,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "if",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2246,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "loadPDF",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2255,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "catch",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2260,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "saveFeedback",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2266,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "saveEntityApprovals",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2267,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "showToast",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2268,
-      "exported": false
-    },
-    {
-      "type": "method",
-      "name": "destroy",
-      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2273,
+      "line": 2263,
       "exported": false
     },
     {
@@ -7638,7 +7604,112 @@
       "type": "method",
       "name": "if",
       "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "line": 2275,
+      "line": 2278,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "loadClassificationData",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2293,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "catch",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2310,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "reconcileFeedbackStatuses",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2316,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2336,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2340,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2344,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2348,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "loadPDF",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2357,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "catch",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2362,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "saveFeedback",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2368,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "saveEntityApprovals",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2369,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "showToast",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2370,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "destroy",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2375,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2376,
+      "exported": false
+    },
+    {
+      "type": "method",
+      "name": "if",
+      "file": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "line": 2377,
       "exported": false
     },
     {

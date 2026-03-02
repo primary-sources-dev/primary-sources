@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-03-02T01:31:48.229Z",
+  "generatedAt": "2026-03-02T08:43:00.610Z",
   "projectPath": "C:\\Users\\willh\\Desktop\\primary-sources",
   "nodes": [
     {
@@ -9199,7 +9199,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "class",
       "metadata": {
-        "line": 782,
+        "line": 888,
         "exported": false
       }
     },
@@ -9210,7 +9210,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "class",
       "metadata": {
-        "line": 1029,
+        "line": 1135,
         "exported": false
       }
     },
@@ -9221,7 +9221,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "class",
       "metadata": {
-        "line": 1226,
+        "line": 1332,
         "exported": false
       }
     },
@@ -9232,7 +9232,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "class",
       "metadata": {
-        "line": 1729,
+        "line": 1835,
         "exported": false
       }
     },
@@ -9243,7 +9243,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "class",
       "metadata": {
-        "line": 1857,
+        "line": 1963,
         "exported": false
       }
     },
@@ -9254,7 +9254,18 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 467,
+        "line": 488,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:getVal",
+      "type": "element",
+      "label": "getVal",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "function",
+      "metadata": {
+        "line": 558,
         "exported": false
       }
     },
@@ -9265,7 +9276,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 840,
+        "line": 946,
         "exported": false
       }
     },
@@ -9276,7 +9287,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1905,
+        "line": 2006,
         "exported": false
       }
     },
@@ -9287,7 +9298,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1906,
+        "line": 2007,
         "exported": false
       }
     },
@@ -9298,7 +9309,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 503,
+        "line": 529,
         "exported": false
       }
     },
@@ -9309,7 +9320,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 825,
+        "line": 592,
         "exported": false
       }
     },
@@ -9320,7 +9331,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1139,
+        "line": 931,
         "exported": false
       }
     },
@@ -9331,7 +9342,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1204,
+        "line": 1245,
         "exported": false
       }
     },
@@ -9342,7 +9353,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1243,
+        "line": 1310,
         "exported": false
       }
     },
@@ -9353,7 +9364,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1401,
+        "line": 1349,
         "exported": false
       }
     },
@@ -9364,7 +9375,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1408,
+        "line": 1507,
         "exported": false
       }
     },
@@ -9375,7 +9386,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1423,
+        "line": 1514,
         "exported": false
       }
     },
@@ -9386,7 +9397,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1497,
+        "line": 1529,
         "exported": false
       }
     },
@@ -9397,7 +9408,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1704,
+        "line": 1603,
         "exported": false
       }
     },
@@ -9408,7 +9419,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1709,
+        "line": 1810,
         "exported": false
       }
     },
@@ -9419,7 +9430,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 1742,
+        "line": 1815,
         "exported": false
       }
     },
@@ -9430,7 +9441,18 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "function",
       "metadata": {
-        "line": 2195,
+        "line": 1848,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:fetch(",
+      "type": "element",
+      "label": "fetch(",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "function",
+      "metadata": {
+        "line": 2297,
         "exported": false
       }
     },
@@ -9452,7 +9474,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 52,
+        "line": 53,
         "exported": false
       }
     },
@@ -9463,7 +9485,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 54,
+        "line": 55,
         "exported": false
       }
     },
@@ -9474,7 +9496,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 70,
+        "line": 71,
         "exported": false
       }
     },
@@ -9485,7 +9507,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 76,
+        "line": 77,
         "exported": false
       }
     },
@@ -9496,7 +9518,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 79,
+        "line": 80,
         "exported": false
       }
     },
@@ -9507,7 +9529,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 81,
+        "line": 82,
         "exported": false
       }
     },
@@ -9518,7 +9540,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 95,
+        "line": 96,
         "exported": false
       }
     },
@@ -9529,7 +9551,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 97,
+        "line": 98,
         "exported": false
       }
     },
@@ -9540,7 +9562,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 104,
+        "line": 105,
         "exported": false
       }
     },
@@ -9551,7 +9573,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 109,
+        "line": 110,
         "exported": false
       }
     },
@@ -9562,7 +9584,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 120,
+        "line": 121,
         "exported": false
       }
     },
@@ -9573,7 +9595,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 133,
+        "line": 134,
         "exported": false
       }
     },
@@ -9584,7 +9606,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 138,
+        "line": 139,
         "exported": false
       }
     },
@@ -9595,7 +9617,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 146,
+        "line": 147,
         "exported": false
       }
     },
@@ -9606,18 +9628,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 155,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
-      "type": "element",
-      "label": "catch",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 164,
+        "line": 156,
         "exported": false
       }
     },
@@ -9628,7 +9639,29 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
+        "line": 157,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
+      "type": "element",
+      "label": "catch",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
         "line": 170,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 176,
         "exported": false
       }
     },
@@ -9639,7 +9672,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 186,
+        "line": 192,
         "exported": false
       }
     },
@@ -9650,7 +9683,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 212,
+        "line": 218,
         "exported": false
       }
     },
@@ -9661,7 +9694,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 218,
+        "line": 224,
         "exported": false
       }
     },
@@ -9672,7 +9705,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 230,
+        "line": 236,
         "exported": false
       }
     },
@@ -9683,7 +9716,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 242,
+        "line": 248,
         "exported": false
       }
     },
@@ -9694,7 +9727,18 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 346,
+        "line": 357,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 364,
         "exported": false
       }
     },
@@ -9705,7 +9749,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 356,
+        "line": 375,
         "exported": false
       }
     },
@@ -9716,7 +9760,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 365,
+        "line": 386,
         "exported": false
       }
     },
@@ -9727,7 +9771,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 381,
+        "line": 402,
         "exported": false
       }
     },
@@ -9738,7 +9782,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 384,
+        "line": 405,
         "exported": false
       }
     },
@@ -9749,7 +9793,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 390,
+        "line": 411,
         "exported": false
       }
     },
@@ -9760,7 +9804,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 399,
+        "line": 420,
         "exported": false
       }
     },
@@ -9771,7 +9815,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 410,
+        "line": 431,
         "exported": false
       }
     },
@@ -9782,7 +9826,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 418,
+        "line": 439,
         "exported": false
       }
     },
@@ -9793,7 +9837,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 419,
+        "line": 440,
         "exported": false
       }
     },
@@ -9804,7 +9848,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 426,
+        "line": 447,
         "exported": false
       }
     },
@@ -9815,7 +9859,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 436,
+        "line": 457,
         "exported": false
       }
     },
@@ -9826,7 +9870,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 443,
+        "line": 464,
         "exported": false
       }
     },
@@ -9837,7 +9881,51 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 461,
+        "line": 482,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:skip4Tier",
+      "type": "element",
+      "label": "skip4Tier",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 545,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 552,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:autoAdvanceAfterReview",
+      "type": "element",
+      "label": "autoAdvanceAfterReview",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 608,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 610,
         "exported": false
       }
     },
@@ -9848,7 +9936,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 519,
+        "line": 615,
         "exported": false
       }
     },
@@ -9859,7 +9947,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 528,
+        "line": 624,
         "exported": false
       }
     },
@@ -9870,7 +9958,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 529,
+        "line": 625,
         "exported": false
       }
     },
@@ -9881,7 +9969,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 540,
+        "line": 629,
         "exported": false
       }
     },
@@ -9892,7 +9980,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 544,
+        "line": 642,
         "exported": false
       }
     },
@@ -9903,7 +9991,18 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 553,
+        "line": 646,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 655,
         "exported": false
       }
     },
@@ -9914,7 +10013,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 579,
+        "line": 681,
         "exported": false
       }
     },
@@ -9925,7 +10024,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 592,
+        "line": 696,
         "exported": false
       }
     },
@@ -9936,7 +10035,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 606,
+        "line": 710,
         "exported": false
       }
     },
@@ -9947,7 +10046,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 613,
+        "line": 717,
         "exported": false
       }
     },
@@ -9958,7 +10057,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 619,
+        "line": 723,
         "exported": false
       }
     },
@@ -9969,7 +10068,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 633,
+        "line": 737,
         "exported": false
       }
     },
@@ -9980,7 +10079,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 644,
+        "line": 748,
         "exported": false
       }
     },
@@ -9991,7 +10090,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 667,
+        "line": 771,
         "exported": false
       }
     },
@@ -10002,7 +10101,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 682,
+        "line": 786,
         "exported": false
       }
     },
@@ -10013,7 +10112,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 746,
+        "line": 852,
         "exported": false
       }
     },
@@ -10024,7 +10123,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 761,
+        "line": 867,
         "exported": false
       }
     },
@@ -10035,7 +10134,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 774,
+        "line": 880,
         "exported": false
       }
     },
@@ -10046,7 +10145,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 783,
+        "line": 889,
         "exported": false
       }
     },
@@ -10057,7 +10156,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 787,
+        "line": 893,
         "exported": false
       }
     },
@@ -10068,7 +10167,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 802,
+        "line": 908,
         "exported": false
       }
     },
@@ -10079,7 +10178,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 874,
+        "line": 980,
         "exported": false
       }
     },
@@ -10090,7 +10189,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 884,
+        "line": 990,
         "exported": false
       }
     },
@@ -10101,7 +10200,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 918,
+        "line": 1024,
         "exported": false
       }
     },
@@ -10112,7 +10211,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 961,
+        "line": 1067,
         "exported": false
       }
     },
@@ -10123,7 +10222,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 977,
+        "line": 1083,
         "exported": false
       }
     },
@@ -10134,139 +10233,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 985,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 992,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:approveEntity",
-      "type": "element",
-      "label": "approveEntity",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1000,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:rejectEntity",
-      "type": "element",
-      "label": "rejectEntity",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1006,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:approveCandidate",
-      "type": "element",
-      "label": "approveCandidate",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1012,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:rejectCandidate",
-      "type": "element",
-      "label": "rejectCandidate",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1018,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:constructor",
-      "type": "element",
-      "label": "constructor",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1030,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:frequency",
-      "type": "element",
-      "label": "frequency",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1035,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:showExportStatus",
-      "type": "element",
-      "label": "showExportStatus",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1042,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:logExport",
-      "type": "element",
-      "label": "logExport",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1055,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:populateSourceRecordPreview",
-      "type": "element",
-      "label": "populateSourceRecordPreview",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1063,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1068,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1090,
+        "line": 1091,
         "exported": false
       }
     },
@@ -10282,156 +10249,46 @@
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:exportSourceRecord",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:approveEntity",
       "type": "element",
-      "label": "exportSourceRecord",
+      "label": "approveEntity",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1105,
+        "line": 1106,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:rejectEntity",
       "type": "element",
-      "label": "if",
+      "label": "rejectEntity",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1107,
+        "line": 1112,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:approveCandidate",
       "type": "element",
-      "label": "if",
+      "label": "approveCandidate",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1125,
+        "line": 1118,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:rejectCandidate",
       "type": "element",
-      "label": "if",
+      "label": "rejectCandidate",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1127,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1145,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
-      "type": "element",
-      "label": "catch",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1152,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:exportNewEntities",
-      "type": "element",
-      "label": "exportNewEntities",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1158,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1159,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
-      "type": "element",
-      "label": "for",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1166,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1172,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1185,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1193,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1210,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
-      "type": "element",
-      "label": "catch",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1215,
+        "line": 1124,
         "exported": false
       }
     },
@@ -10442,18 +10299,51 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1227,
+        "line": 1136,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:init",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:frequency",
       "type": "element",
-      "label": "init",
+      "label": "frequency",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1239,
+        "line": 1141,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:showExportStatus",
+      "type": "element",
+      "label": "showExportStatus",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1148,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:logExport",
+      "type": "element",
+      "label": "logExport",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1161,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:populateSourceRecordPreview",
+      "type": "element",
+      "label": "populateSourceRecordPreview",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1169,
         "exported": false
       }
     },
@@ -10464,7 +10354,73 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1244,
+        "line": 1174,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1196,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1204,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:exportSourceRecord",
+      "type": "element",
+      "label": "exportSourceRecord",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1211,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1213,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1231,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1233,
         "exported": false
       }
     },
@@ -10480,9 +10436,9 @@
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:setupDropZone",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
       "type": "element",
-      "label": "setupDropZone",
+      "label": "catch",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
@@ -10491,20 +10447,53 @@
       }
     },
     {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:exportNewEntities",
+      "type": "element",
+      "label": "exportNewEntities",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1264,
+        "exported": false
+      }
+    },
+    {
       "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
       "type": "element",
       "label": "if",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1282,
+        "line": 1265,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:addFiles",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
       "type": "element",
-      "label": "addFiles",
+      "label": "for",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1272,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1278,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
@@ -10513,13 +10502,13 @@
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
       "type": "element",
-      "label": "for",
+      "label": "if",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1294,
+        "line": 1299,
         "exported": false
       }
     },
@@ -10530,117 +10519,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1315,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:removeFile",
-      "type": "element",
-      "label": "removeFile",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1321,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1322,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:clearCompleted",
-      "type": "element",
-      "label": "clearCompleted",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1329,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:clearAll",
-      "type": "element",
-      "label": "clearAll",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1336,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1337,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:updateFileCount",
-      "type": "element",
-      "label": "updateFileCount",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1349,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:getSettings",
-      "type": "element",
-      "label": "getSettings",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1361,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:startProcessing",
-      "type": "element",
-      "label": "startProcessing",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1376,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1378,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
-      "type": "element",
-      "label": "for",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1385,
+        "line": 1316,
         "exported": false
       }
     },
@@ -10651,18 +10530,117 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1414,
+        "line": 1321,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:pollJob",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:constructor",
       "type": "element",
-      "label": "pollJob",
+      "label": "constructor",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1420,
+        "line": 1333,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:init",
+      "type": "element",
+      "label": "init",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1345,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1350,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1357,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:setupDropZone",
+      "type": "element",
+      "label": "setupDropZone",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1364,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1388,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:addFiles",
+      "type": "element",
+      "label": "addFiles",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1397,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
+      "type": "element",
+      "label": "for",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1400,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1421,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:removeFile",
+      "type": "element",
+      "label": "removeFile",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1427,
         "exported": false
       }
     },
@@ -10678,42 +10656,20 @@
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:clearCompleted",
       "type": "element",
-      "label": "for",
+      "label": "clearCompleted",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1429,
+        "line": 1435,
         "exported": false
       }
     },
     {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:clearAll",
       "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1433,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1438,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
+      "label": "clearAll",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
@@ -10722,57 +10678,68 @@
       }
     },
     {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1443,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:updateFileCount",
+      "type": "element",
+      "label": "updateFileCount",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1455,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:getSettings",
+      "type": "element",
+      "label": "getSettings",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1467,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:startProcessing",
+      "type": "element",
+      "label": "startProcessing",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1482,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1484,
+        "exported": false
+      }
+    },
+    {
       "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
       "type": "element",
       "label": "for",
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1453,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1454,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1471,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1477,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 1483,
+        "line": 1491,
         "exported": false
       }
     },
@@ -10783,7 +10750,139 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1487,
+        "line": 1520,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:pollJob",
+      "type": "element",
+      "label": "pollJob",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1526,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1534,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
+      "type": "element",
+      "label": "for",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1535,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1539,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1544,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1548,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:for",
+      "type": "element",
+      "label": "for",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1559,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1560,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1577,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1583,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1589,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
+      "type": "element",
+      "label": "catch",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 1593,
         "exported": false
       }
     },
@@ -10794,7 +10893,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1494,
+        "line": 1600,
         "exported": false
       }
     },
@@ -10805,7 +10904,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1499,
+        "line": 1605,
         "exported": false
       }
     },
@@ -10816,7 +10915,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1509,
+        "line": 1615,
         "exported": false
       }
     },
@@ -10827,7 +10926,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1518,
+        "line": 1624,
         "exported": false
       }
     },
@@ -10838,7 +10937,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1540,
+        "line": 1646,
         "exported": false
       }
     },
@@ -10849,7 +10948,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1553,
+        "line": 1659,
         "exported": false
       }
     },
@@ -10860,7 +10959,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1563,
+        "line": 1669,
         "exported": false
       }
     },
@@ -10871,7 +10970,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1573,
+        "line": 1679,
         "exported": false
       }
     },
@@ -10882,7 +10981,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1576,
+        "line": 1682,
         "exported": false
       }
     },
@@ -10893,7 +10992,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1591,
+        "line": 1697,
         "exported": false
       }
     },
@@ -10904,7 +11003,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1612,
+        "line": 1718,
         "exported": false
       }
     },
@@ -10915,7 +11014,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1623,
+        "line": 1729,
         "exported": false
       }
     },
@@ -10926,7 +11025,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1639,
+        "line": 1745,
         "exported": false
       }
     },
@@ -10937,7 +11036,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1650,
+        "line": 1756,
         "exported": false
       }
     },
@@ -10948,7 +11047,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1651,
+        "line": 1757,
         "exported": false
       }
     },
@@ -10959,7 +11058,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1652,
+        "line": 1758,
         "exported": false
       }
     },
@@ -10970,7 +11069,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1656,
+        "line": 1762,
         "exported": false
       }
     },
@@ -10981,7 +11080,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1663,
+        "line": 1769,
         "exported": false
       }
     },
@@ -10992,7 +11091,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1671,
+        "line": 1777,
         "exported": false
       }
     },
@@ -11003,7 +11102,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1673,
+        "line": 1779,
         "exported": false
       }
     },
@@ -11014,7 +11113,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1685,
+        "line": 1791,
         "exported": false
       }
     },
@@ -11025,7 +11124,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1697,
+        "line": 1803,
         "exported": false
       }
     },
@@ -11036,7 +11135,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1720,
+        "line": 1826,
         "exported": false
       }
     },
@@ -11047,7 +11146,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1730,
+        "line": 1836,
         "exported": false
       }
     },
@@ -11058,7 +11157,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1736,
+        "line": 1842,
         "exported": false
       }
     },
@@ -11069,7 +11168,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1747,
+        "line": 1853,
         "exported": false
       }
     },
@@ -11080,7 +11179,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1761,
+        "line": 1867,
         "exported": false
       }
     },
@@ -11091,7 +11190,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1776,
+        "line": 1882,
         "exported": false
       }
     },
@@ -11102,7 +11201,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1782,
+        "line": 1888,
         "exported": false
       }
     },
@@ -11113,7 +11212,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1787,
+        "line": 1893,
         "exported": false
       }
     },
@@ -11124,7 +11223,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1796,
+        "line": 1902,
         "exported": false
       }
     },
@@ -11135,7 +11234,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1798,
+        "line": 1904,
         "exported": false
       }
     },
@@ -11146,7 +11245,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1808,
+        "line": 1914,
         "exported": false
       }
     },
@@ -11157,7 +11256,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1817,
+        "line": 1923,
         "exported": false
       }
     },
@@ -11168,7 +11267,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1827,
+        "line": 1933,
         "exported": false
       }
     },
@@ -11179,7 +11278,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1845,
+        "line": 1951,
         "exported": false
       }
     },
@@ -11190,7 +11289,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1846,
+        "line": 1952,
         "exported": false
       }
     },
@@ -11201,7 +11300,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1858,
+        "line": 1964,
         "exported": false
       }
     },
@@ -11212,7 +11311,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1870,
+        "line": 1976,
         "exported": false
       }
     },
@@ -11223,7 +11322,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1901,
+        "line": 2002,
         "exported": false
       }
     },
@@ -11234,7 +11333,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1909,
+        "line": 2010,
         "exported": false
       }
     },
@@ -11245,7 +11344,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1911,
+        "line": 2012,
         "exported": false
       }
     },
@@ -11256,7 +11355,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1929,
+        "line": 2030,
         "exported": false
       }
     },
@@ -11267,7 +11366,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1939,
+        "line": 2040,
         "exported": false
       }
     },
@@ -11278,7 +11377,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1941,
+        "line": 2042,
         "exported": false
       }
     },
@@ -11289,7 +11388,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1945,
+        "line": 2046,
         "exported": false
       }
     },
@@ -11300,7 +11399,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1950,
+        "line": 2051,
         "exported": false
       }
     },
@@ -11311,7 +11410,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1953,
+        "line": 2054,
         "exported": false
       }
     },
@@ -11322,7 +11421,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1966,
+        "line": 2067,
         "exported": false
       }
     },
@@ -11333,7 +11432,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1969,
+        "line": 2070,
         "exported": false
       }
     },
@@ -11344,7 +11443,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 1987,
+        "line": 2088,
         "exported": false
       }
     },
@@ -11355,7 +11454,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2001,
+        "line": 2102,
         "exported": false
       }
     },
@@ -11366,7 +11465,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2032,
+        "line": 2134,
         "exported": false
       }
     },
@@ -11377,7 +11476,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2048,
+        "line": 2150,
         "exported": false
       }
     },
@@ -11388,7 +11487,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2052,
+        "line": 2154,
         "exported": false
       }
     },
@@ -11399,7 +11498,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2058,
+        "line": 2160,
         "exported": false
       }
     },
@@ -11410,7 +11509,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2067,
+        "line": 2169,
         "exported": false
       }
     },
@@ -11421,7 +11520,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2094,
+        "line": 2196,
         "exported": false
       }
     },
@@ -11432,7 +11531,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2103,
+        "line": 2205,
         "exported": false
       }
     },
@@ -11443,7 +11542,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2110,
+        "line": 2212,
         "exported": false
       }
     },
@@ -11454,7 +11553,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2119,
+        "line": 2221,
         "exported": false
       }
     },
@@ -11465,7 +11564,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2120,
+        "line": 2222,
         "exported": false
       }
     },
@@ -11476,7 +11575,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2126,
+        "line": 2228,
         "exported": false
       }
     },
@@ -11487,7 +11586,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2127,
+        "line": 2229,
         "exported": false
       }
     },
@@ -11498,7 +11597,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2129,
+        "line": 2231,
         "exported": false
       }
     },
@@ -11509,7 +11608,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2131,
+        "line": 2233,
         "exported": false
       }
     },
@@ -11520,7 +11619,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2145,
+        "line": 2247,
         "exported": false
       }
     },
@@ -11531,7 +11630,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2155,
+        "line": 2257,
         "exported": false
       }
     },
@@ -11542,172 +11641,7 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2161,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2172,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2176,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:loadClassificationData",
-      "type": "element",
-      "label": "loadClassificationData",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2191,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
-      "type": "element",
-      "label": "catch",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2208,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:reconcileFeedbackStatuses",
-      "type": "element",
-      "label": "reconcileFeedbackStatuses",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2214,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2234,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2238,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2242,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
-      "type": "element",
-      "label": "if",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2246,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:loadPDF",
-      "type": "element",
-      "label": "loadPDF",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2255,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
-      "type": "element",
-      "label": "catch",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2260,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:saveFeedback",
-      "type": "element",
-      "label": "saveFeedback",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2266,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:saveEntityApprovals",
-      "type": "element",
-      "label": "saveEntityApprovals",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2267,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:showToast",
-      "type": "element",
-      "label": "showToast",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2268,
-        "exported": false
-      }
-    },
-    {
-      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:destroy",
-      "type": "element",
-      "label": "destroy",
-      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
-      "elementType": "method",
-      "metadata": {
-        "line": 2273,
+        "line": 2263,
         "exported": false
       }
     },
@@ -11729,7 +11663,172 @@
       "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "elementType": "method",
       "metadata": {
-        "line": 2275,
+        "line": 2278,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:loadClassificationData",
+      "type": "element",
+      "label": "loadClassificationData",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2293,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
+      "type": "element",
+      "label": "catch",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2310,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:reconcileFeedbackStatuses",
+      "type": "element",
+      "label": "reconcileFeedbackStatuses",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2316,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2336,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2340,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2344,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2348,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:loadPDF",
+      "type": "element",
+      "label": "loadPDF",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2357,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
+      "type": "element",
+      "label": "catch",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2362,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:saveFeedback",
+      "type": "element",
+      "label": "saveFeedback",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2368,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:saveEntityApprovals",
+      "type": "element",
+      "label": "saveEntityApprovals",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2369,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:showToast",
+      "type": "element",
+      "label": "showToast",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2370,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:destroy",
+      "type": "element",
+      "label": "destroy",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2375,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2376,
+        "exported": false
+      }
+    },
+    {
+      "id": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "element",
+      "label": "if",
+      "path": "C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "elementType": "method",
+      "metadata": {
+        "line": 2377,
         "exported": false
       }
     },
@@ -17147,6 +17246,11 @@
     },
     {
       "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:getVal",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:findPage",
       "type": "imports"
     },
@@ -17158,6 +17262,11 @@
     {
       "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:params",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:fetch(",
       "type": "imports"
     },
     {
@@ -17307,6 +17416,11 @@
     },
     {
       "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:catch",
       "type": "imports"
     },
@@ -17343,6 +17457,11 @@
     {
       "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:renderCards",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
       "type": "imports"
     },
     {
@@ -17412,7 +17531,32 @@
     },
     {
       "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:skip4Tier",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:autoAdvanceAfterReview",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
       "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:applyFeedbackUI",
+      "type": "imports"
+    },
+    {
+      "source": "file:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js",
+      "target": "element:C:/Users/willh/Desktop/primary-sources/web/html/assets/js/workbench.js:if",
       "type": "imports"
     },
     {
@@ -18897,8 +19041,8 @@
     }
   ],
   "statistics": {
-    "totalNodes": 1220,
-    "totalEdges": 1157,
+    "totalNodes": 1229,
+    "totalEdges": 1166,
     "filesWithDependencies": 63
   }
 }
