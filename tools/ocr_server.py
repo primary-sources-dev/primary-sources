@@ -2030,7 +2030,7 @@ def ingest_url():
 
     try:
         detected = _detect_url_type(url)
-        print(f"[ingest-url] {url} → detected as: {detected}")
+        print(f"[ingest-url] {url} -> detected as: {detected}")
 
         if detected == "ytdlp":
             if not YTDLP_AVAILABLE:
