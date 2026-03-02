@@ -2237,8 +2237,11 @@ class InputTab {
                 });
                 this.updateFileCount();
                 this.renderKanban();
-                if (statusEl) statusEl.textContent = `Scraped: ${data.title} (${data.pages} pages, ${data.chars} chars)`;
-                this.logSuccess(`Scraped: ${data.title}`);
+                const label = data.source === 'yt-transcript'
+                    ? `Transcript: ${data.title} (${data.caption_source || 'auto'})`
+                    : `Scraped: ${data.title} (${data.pages} pages, ${data.chars} chars)`;
+                if (statusEl) statusEl.textContent = label;
+                this.logSuccess(label);
                 if (this.wb.sourceTab) this.wb.sourceTab.loadHistory();
             } else {
                 // File was downloaded (downloaded or ytdlp) — fetch blob and queue for processing
