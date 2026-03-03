@@ -1466,8 +1466,61 @@ def review_endpoint(filename):
         except Exception as e:
             return jsonify({"error": f"Transcript review error: {str(e)}"}), 500
 
+    # Check if this is a text file with an .ocr.json sidecar
+    text_exts = {f".{e}" for e in TEXT_EXTS}
+    if ext in text_exts:
+        base_name = os.path.splitext(safe_name)[0]
+        sidecar_path = os.path.join(UPLOAD_FOLDER, f"{base_name}.ocr.json")
+        if not os.path.exists(sidecar_path):
+            return jsonify({"error": f"Sidecar not found for {safe_name}. Process the file first."}), 404
+
+        try:
+            with open(sidecar_path, "r", encoding="utf-8") as f:
+                sidecar = json.load(f)
+
+            pages = sidecar.get("pages", [])
+            results = []
+            prev_type = "UNKNOWN"
+
+            for p in pages:
+                text = (p.get("text") or "").strip()
+                if not text:
+                    continue
+
+                page_num = p.get("page", len(results) + 1)
+
+                if CLASSIFIER_AVAILABLE:
+                    classification = classify_document(text, prev_type=prev_type)
+                    all_scores = get_all_scores(text)
+                    prev_type = classification.doc_type.value
+                    page_result = classification.to_dict()
+                    page_result["all_scores"] = {k: round(v, 4) for k, v in all_scores.items()}
+                else:
+                    page_result = {
+                        "doc_type": "TEXT",
+                        "confidence": 1.0,
+                        "matched_patterns": ["TEXT_INGEST"],
+                        "agency": "UNKNOWN",
+                        "all_scores": {"TEXT": 1.0},
+                    }
+
+                page_result.update({
+                    "page": page_num,
+                    "page_index": page_num - 1,
+                    "text": text[:2000],
+                })
+                results.append(page_result)
+
+            return jsonify({
+                "filename": safe_name,
+                "total_pages": len(results),
+                "pages": results,
+            })
+        except Exception as e:
+            return jsonify({"error": f"Text review error: {str(e)}"}), 500
+
     if not safe_name.lower().endswith(".pdf"):
-        return jsonify({"error": "Only PDF and media files are supported for review"}), 400
+        return jsonify({"error": "Only PDF, media, and text files are supported for review"}), 400
 
     try:
         import fitz  # PyMuPDF — already used by the OCR stack
@@ -1806,11 +1859,13 @@ def get_history():
                         "origin": "uploads",
                     })
                 elif ext in media_ext_set:
+                    base_name = os.path.splitext(filename)[0]
+                    has_transcript = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.transcript.json"))
                     files.append({
                         "name": filename,
-                        "status": "completed",
+                        "status": "completed" if has_transcript else "pending",
                         "size": entry.stat().st_size,
-                        "type": "MEDIA_UPLOAD",
+                        "type": "TRANSCRIPT" if has_transcript else "MEDIA_UPLOAD",
                         "kind": infer_kind(filename, ext),
                         "origin": "uploads",
                     })

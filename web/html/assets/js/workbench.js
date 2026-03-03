@@ -3547,7 +3547,9 @@ class DocumentWorkbench {
             }
         } catch (err) {
             console.error('Failed to load classification data:', err);
-            if (statusEl) statusEl.innerHTML = `<span class="text-red-400">⚠ ${err.message}</span>`;
+            if (statusEl) statusEl.innerHTML = `<span class="text-red-400">\u26A0 ${err.message}</span>`;
+            const cardsContainer = document.getElementById('cards-container');
+            if (cardsContainer) cardsContainer.innerHTML = `<div class="text-center py-12 opacity-60"><span class="material-symbols-outlined text-3xl text-red-400/60 mb-2">error_outline</span><p class="text-sm text-red-400/80">${err.message}</p><p class="text-[10px] opacity-40 mt-1">Select a different file or re-process this source.</p></div>`;
         }
     }
 
