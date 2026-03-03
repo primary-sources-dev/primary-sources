@@ -1081,11 +1081,14 @@ class ClassifyTab {
         ).length;
         const correct = Object.values(this.wb.feedback).filter(f => f.status === "correct").length;
         const incorrect = Object.values(this.wb.feedback).filter(f => f.status === "incorrect").length;
+        const skipped = Object.values(this.wb.feedback).filter(f => f.status === "skipped").length;
 
         document.getElementById("stat-total").textContent = filtered < allPages ? `${filtered}/${allPages}` : allPages;
         document.getElementById("stat-reviewed").textContent = reviewed;
         document.getElementById("stat-correct").textContent = correct;
         document.getElementById("stat-incorrect").textContent = incorrect;
+        const skippedEl = document.getElementById("stat-skipped");
+        if (skippedEl) skippedEl.textContent = skipped;
     }
 
     updatePagination() {
@@ -1098,15 +1101,11 @@ class ClassifyTab {
         const nextBtn = document.getElementById('page-next');
         const pageInput = document.getElementById('page-input');
         const pageTotal = document.getElementById('page-total');
-        const pageRange = document.getElementById('page-range');
 
         if (prevBtn) prevBtn.disabled = this.currentPage <= 1;
         if (nextBtn) nextBtn.disabled = this.currentPage >= totalPages;
         if (pageInput) { pageInput.value = this.currentPage; pageInput.max = totalPages; }
         if (pageTotal) pageTotal.textContent = `of ${totalPages}`;
-        if (pageRange) pageRange.textContent = total > 0
-            ? `Showing ${start + 1}\u2013${end} of ${total}`
-            : 'No results';
     }
 
     goToPage(page) {
@@ -3174,7 +3173,7 @@ class DocumentWorkbench {
 
         // Build dropdown options — source files on classify, generic on other tabs
         let filterOptions = '<option value="all">All</option>';
-        if (tabName === 'classify' && this.sourceTab && this.sourceTab.files.length > 0) {
+        if ((tabName === 'classify' || tabName === 'source') && this.sourceTab && this.sourceTab.files.length > 0) {
             filterOptions = '<option value="" disabled' + (!this.FILE_NAME ? ' selected' : '') + '>-- Select Source --</option>';
             filterOptions += this.sourceTab.files.map(f =>
                 `<option value="${f.name}"${f.name === this.FILE_NAME ? ' selected' : ''}>${f.name}</option>`
@@ -3255,6 +3254,7 @@ class DocumentWorkbench {
             if (this.sourceTab) {
                 this.sourceTab.loadHistory().then(() => {
                     if (this.FILE_NAME) this.loadFile(this.FILE_NAME, true);
+                    this.refreshHeader();
                 });
             }
         } else {
@@ -3480,6 +3480,12 @@ class DocumentWorkbench {
             const filter = document.getElementById('workbench-filter');
             if (filter) filter.onchange = (e) => { if (e.target.value) this.loadFile(e.target.value); };
         }
+    }
+
+    refreshHeader() {
+        const headerEl = document.getElementById('workbench-active-header');
+        const activeTab = document.querySelector('.header-tab-btn.active');
+        if (headerEl && activeTab) headerEl.innerHTML = this.renderWorkbenchHeader(activeTab.dataset.tab);
     }
 
     async loadFile(filename, isDeepLink = false) {
