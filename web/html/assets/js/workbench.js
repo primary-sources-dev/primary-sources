@@ -2127,25 +2127,28 @@ class InputTab {
         }
     }
 
-    switchInputMode(mode) {
-        document.querySelectorAll('[data-input-panel]').forEach(panel => {
-            panel.style.display = panel.dataset.inputPanel === mode ? '' : 'none';
-        });
-        document.querySelectorAll('[data-input-mode]').forEach(btn => {
-            if (btn.dataset.inputMode === mode) {
-                btn.classList.add('active', 'export-btn-primary');
-            } else {
-                btn.classList.remove('active', 'export-btn-primary');
-            }
-        });
-    }
-
     setupDropZone() {
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');
+        const browseBtn = document.getElementById('browse-btn');
+        const statusEl = document.getElementById('intake-status');
         if (!dropZone || !fileInput) return;
 
-        dropZone.addEventListener('click', () => fileInput.click());
+        // Click zone body → open file picker (skip if browse btn clicked)
+        dropZone.addEventListener('click', (e) => {
+            if (e.target.closest('#browse-btn')) return;
+            fileInput.click();
+        });
+
+        // Browse button → open file picker
+        if (browseBtn) {
+            browseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                fileInput.click();
+            });
+        }
+
+        // Drag-and-drop
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.classList.add('dragover');
@@ -2158,10 +2161,13 @@ class InputTab {
             dropZone.classList.remove('dragover');
             this.addFiles(e.dataTransfer.files);
         });
+
+        // File input change
         fileInput.addEventListener('change', (e) => {
             this.addFiles(e.target.files);
             fileInput.value = '';
         });
+
         // Keyboard shortcut: Ctrl+O
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'o') {
@@ -2169,6 +2175,118 @@ class InputTab {
                 fileInput.click();
             }
         });
+
+        // Unified paste interception
+        document.addEventListener('paste', (e) => {
+            this._handlePaste(e, statusEl);
+        });
+    }
+
+    _handlePaste(e, statusEl) {
+        // Only act when the Input tab is active
+        const inputPanel = document.getElementById('tab-input');
+        if (!inputPanel || !inputPanel.classList.contains('active')) return;
+
+        // Don't intercept paste inside form fields
+        const tag = (e.target.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        if (!text) return;
+
+        const trimmed = text.trim();
+        e.preventDefault();
+
+        // Single-line URL → fetch via /api/ingest-url
+        if (/^https?:\/\/\S+$/.test(trimmed) && !trimmed.includes('\n')) {
+            this._ingestUrl(trimmed, statusEl);
+        } else {
+            // Multi-line or non-URL text → paste via /api/paste
+            this._ingestPaste(trimmed, statusEl);
+        }
+    }
+
+    async _ingestUrl(url, statusEl) {
+        if (statusEl) { statusEl.textContent = 'Detecting content type...'; statusEl.style.opacity = '0.7'; statusEl.style.color = ''; }
+
+        try {
+            const res = await fetch('/api/ingest-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+            const data = await res.json();
+            if (!res.ok || !data.success) throw new Error(data.error || 'Fetch failed');
+
+            if (data.type === 'scraped') {
+                const blob = new Blob([''], { type: 'text/plain' });
+                const file = new File([blob], `${data.basename}.txt`, { type: 'text/plain' });
+                this.queuedFiles.push({
+                    file, name: `${data.basename}.txt`, size: data.chars || 0,
+                    status: 'completed', progress: 100, current_msg: '', parsed_metadata: null
+                });
+                this.updateFileCount();
+                this.renderKanban();
+                const label = data.source === 'yt-transcript'
+                    ? `Transcript: ${data.title} (${data.caption_source || 'auto'})`
+                    : `Scraped: ${data.title} (${data.pages} pages, ${data.chars} chars)`;
+                if (statusEl) statusEl.textContent = label;
+                this.logSuccess(label);
+                if (this.wb.sourceTab) this.wb.sourceTab.loadHistory();
+            } else {
+                if (statusEl) statusEl.textContent = `Downloaded ${data.file.name}, loading into queue...`;
+                const fileRes = await fetch(`/api/download/file/${encodeURIComponent(data.file.name)}`);
+                if (!fileRes.ok) throw new Error('Could not retrieve downloaded file');
+                const blob = await fileRes.blob();
+                const mimeType = data.file.content_type || this._guessMimeType(data.file.name);
+                const file = new File([blob], data.file.name, { type: mimeType });
+                this.queuedFiles.push({
+                    file, name: data.file.name, size: data.file.size,
+                    status: 'queued', progress: 0, current_msg: '', parsed_metadata: null
+                });
+                this.updateFileCount();
+                this.renderKanban();
+                if (statusEl) statusEl.textContent = `Downloaded: ${data.title || data.file.name}`;
+                this.logSuccess(`Downloaded: ${data.title || data.file.name}`);
+            }
+        } catch (err) {
+            if (statusEl) { statusEl.textContent = `Error: ${err.message}`; statusEl.style.color = '#ef4444'; }
+            this.logError(`URL fetch failed: ${err.message}`);
+        }
+    }
+
+    async _ingestPaste(text, statusEl) {
+        if (!text) {
+            if (statusEl) statusEl.textContent = 'Nothing to paste';
+            return;
+        }
+
+        if (statusEl) { statusEl.textContent = 'Submitting...'; statusEl.style.opacity = '0.7'; statusEl.style.color = ''; }
+
+        try {
+            const res = await fetch('/api/paste', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, title: 'pasted-text' })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Paste failed');
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const file = new File([blob], `${data.basename}.txt`, { type: 'text/plain' });
+            this.queuedFiles.push({
+                file, name: `${data.basename}.txt`, size: blob.size,
+                status: 'completed', progress: 100, current_msg: '', parsed_metadata: null
+            });
+            this.updateFileCount();
+            this.renderKanban();
+            if (statusEl) statusEl.textContent = `Created: ${data.basename}.txt (${data.pages} pages, ${data.chars} chars)`;
+            this.logSuccess(`Pasted text saved: ${data.basename}.txt`);
+            if (this.wb.sourceTab) this.wb.sourceTab.loadHistory();
+        } catch (err) {
+            if (statusEl) { statusEl.textContent = `Error: ${err.message}`; statusEl.style.color = '#ef4444'; }
+            this.logError(`Paste failed: ${err.message}`);
+        }
     }
 
     // --- Queue Management ---
@@ -2203,6 +2321,7 @@ class InputTab {
         }
     }
 
+    // DEPRECATED: superseded by _ingestUrl() — kept for backward compat
     async downloadUrl() {
         const urlInput = document.getElementById('url-input');
         const statusEl = document.getElementById('url-status');
@@ -2280,6 +2399,7 @@ class InputTab {
         return map[ext] || 'application/octet-stream';
     }
 
+    // DEPRECATED: superseded by _ingestPaste() — kept for backward compat
     async submitPaste() {
         const titleInput = document.getElementById('paste-title');
         const textArea = document.getElementById('paste-text');
@@ -3011,12 +3131,6 @@ class DocumentWorkbench {
             });
         });
         document.addEventListener('click', (e) => {
-            // Input mode switching (Upload / Paste / URL)
-            const modeBtn = e.target.closest('[data-input-mode]');
-            if (modeBtn && self.inputTab) {
-                self.inputTab.switchInputMode(modeBtn.dataset.inputMode);
-                return;
-            }
             const target = e.target.closest('[data-action]');
             if (!target) return;
             const action = target.dataset.action;
@@ -3026,8 +3140,6 @@ class DocumentWorkbench {
                 case 'input-start': if (self.inputTab) self.inputTab.startProcessing(); break;
                 case 'input-cancel': if (self.inputTab) self.inputTab.cancelProcessing(); break;
                 case 'input-remove': if (self.inputTab && idx !== null) self.inputTab.removeFile(idx); break;
-                case 'url-ingest': if (self.inputTab) self.inputTab.downloadUrl(); break;
-                case 'paste-submit': if (self.inputTab) self.inputTab.submitPaste(); break;
                 case 'input-clear-completed': if (self.inputTab) self.inputTab.clearCompleted(); break;
                 case 'input-clear-all': if (self.inputTab) self.inputTab.clearAll(); break;
                 case 'input-copy-metadata': if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx); break;

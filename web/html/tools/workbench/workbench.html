@@ -367,68 +367,25 @@
 
                 <!-- A. Intake Container: drop zone + settings + action buttons -->
                 <div class="intake-container">
-                    <!-- Input Mode Selector -->
-                    <div class="flex gap-1 mb-3">
-                        <button class="export-btn export-btn-primary text-xs px-3 py-1 active" data-input-mode="upload">
-                            <span class="material-symbols-outlined text-sm align-middle mr-1">cloud_upload</span> Upload
-                        </button>
-                        <button class="export-btn text-xs px-3 py-1" data-input-mode="paste">
-                            <span class="material-symbols-outlined text-sm align-middle mr-1">content_paste</span> Paste
-                        </button>
-                        <button class="export-btn text-xs px-3 py-1" data-input-mode="url">
-                            <span class="material-symbols-outlined text-sm align-middle mr-1">link</span> URL
-                        </button>
-                    </div>
-
                     <div class="intake-grid">
-                        <!-- Left: Drop Zone -->
-                        <div id="drop-zone" class="intake-dropzone" data-input-panel="upload">
+                        <!-- Left: Unified Drop Zone (files, paste, URLs) -->
+                        <div id="drop-zone" class="intake-dropzone" tabindex="0">
                             <span class="material-symbols-outlined"
-                                style="font-size:48px; opacity:0.3;">cloud_upload</span>
-                            <p class="text-sm mt-2" style="color: var(--archive-secondary);">Drop files here or click to
-                                browse</p>
-                            <p class="text-[10px] opacity-40 mt-1">PDF · JPG · PNG · TIFF · WEBP · TXT · MD · DOCX · EML · VTT · SRT · MP3 · WAV · MP4</p>
-                            <input id="file-input" type="file"
-                                accept=".pdf,.jpg,.jpeg,.png,.tiff,.webp,.heic,.heif,.zip,.tar,.gz,.tgz,.bz2,.mp3,.wav,.m4a,.flac,.ogg,.wma,.mp4,.webm,.mov,.mkv,.avi,.txt,.md,.rtf,.csv,.vtt,.srt,.docx,.doc,.eml,.mbox" multiple
-                                hidden>
-                        </div>
-
-                        <!-- Paste Input -->
-                        <div id="paste-input-panel" class="intake-dropzone" data-input-panel="paste" style="display:none;">
-                            <label class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">
-                                <span class="material-symbols-outlined text-xs align-middle">content_paste</span>
-                                Paste Text
-                            </label>
-                            <input id="paste-title" type="text"
-                                class="w-full bg-black/40 border border-white/10 text-xs p-2 rounded text-archive-secondary placeholder-white/20 mb-2"
-                                placeholder="Title (e.g. witness-statement-jones)">
-                            <textarea id="paste-text"
-                                class="w-full bg-black/40 border border-white/10 text-xs p-2 rounded text-archive-secondary placeholder-white/20"
-                                rows="8" placeholder="Paste or type document text here..."></textarea>
-                            <button class="export-btn export-btn-primary text-xs px-4 mt-2" data-action="paste-submit">
-                                <span class="material-symbols-outlined text-sm align-middle mr-1">send</span>
-                                Submit Text
+                                style="font-size:48px; opacity:0.3;">file_present</span>
+                            <p class="text-sm mt-2" style="color: var(--archive-secondary);">
+                                Drop files, paste text, or paste a URL
+                            </p>
+                            <p class="text-[10px] opacity-40 mt-1">
+                                PDF · JPG · PNG · TXT · MD · DOCX · MP3 · WAV · MP4 · any URL
+                            </p>
+                            <button id="browse-btn" class="export-btn export-btn-secondary text-xs px-3 mt-3">
+                                <span class="material-symbols-outlined text-sm align-middle mr-1">folder_open</span>
+                                Browse Files
                             </button>
-                            <p id="paste-status" class="text-[9px] opacity-30 mt-1"></p>
-                        </div>
-
-                        <!-- URL Input -->
-                        <div id="url-input-panel" class="intake-dropzone" data-input-panel="url" style="display:none;">
-                            <label class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-1">
-                                <span class="material-symbols-outlined text-xs align-middle">link</span>
-                                Import from URL
-                            </label>
-                            <div class="flex gap-2">
-                                <input id="url-input" type="url"
-                                    class="flex-1 bg-black/40 border border-white/10 text-xs p-2 rounded text-archive-secondary placeholder-white/20"
-                                    placeholder="Paste any URL — YouTube, web page, PDF, image, audio...">
-                                <button id="url-download-btn" class="export-btn export-btn-primary text-xs px-4"
-                                    data-action="url-ingest">
-                                    <span class="material-symbols-outlined text-sm align-middle mr-1">download</span>
-                                    Fetch
-                                </button>
-                            </div>
-                            <p id="url-status" class="text-[9px] opacity-30 mt-1">Auto-detects: web pages, YouTube, audio/video, PDFs, images</p>
+                            <input id="file-input" type="file"
+                                accept=".pdf,.jpg,.jpeg,.png,.tiff,.webp,.heic,.heif,.zip,.tar,.gz,.tgz,.bz2,.mp3,.wav,.m4a,.flac,.ogg,.wma,.mp4,.webm,.mov,.mkv,.avi,.txt,.md,.rtf,.csv,.vtt,.srt,.docx,.doc,.eml,.mbox"
+                                multiple hidden>
+                            <p id="intake-status" class="text-[9px] opacity-30 mt-2"></p>
                         </div>
 
                         <!-- Right: Settings Panel -->

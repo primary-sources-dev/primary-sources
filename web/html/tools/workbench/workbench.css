@@ -429,6 +429,12 @@
     border-style: solid;
 }
 
+/* Browse button inside unified drop zone */
+.intake-dropzone .export-btn {
+    pointer-events: auto;
+    flex-shrink: 0;
+}
+
 /* Settings panel */
 .intake-settings {
     padding: 8px 0;
