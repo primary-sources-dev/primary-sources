@@ -91,9 +91,9 @@ function initMegaMenu() {
         }
     });
 
-    // Close menu when returning via back/forward (bfcache restore)
-    window.addEventListener('pageshow', (e) => {
-        if (e.persisted && dropdown.classList.contains('mega-menu-active')) {
+    // Always ensure menu is closed on page show (covers bfcache and fresh loads)
+    window.addEventListener('pageshow', () => {
+        if (dropdown.classList.contains('mega-menu-active')) {
             closeMenuAction();
         }
     });
