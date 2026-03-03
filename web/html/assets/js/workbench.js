@@ -1,5 +1,5 @@
 // =====================================================================
-// workbench.js — Document Workbench (extracted from classifier-ui.html)
+// workbench.js — Document Workbench
 // Class-based architecture for the unified document review pipeline.
 // =====================================================================
 
@@ -527,6 +527,10 @@ class ClassifyTab {
 
         return `
         <div id="page-${page}" class="card border p-4 pending" data-page="${page}" data-page-index="${page_index}"
+            data-media-type="${pageData.media_type || 'audio'}"
+            data-segment-id="${page_index}"
+            data-segment-start="${pageData.segment_start || 0}"
+            data-segment-end="${pageData.segment_end || 0}"
             data-predicted="${doc_type}" data-agency="${agency || 'UNKNOWN'}" data-confidence="${confidence}"
             data-highlights='${highlightsJson}' data-text-sample="${textSample}">
             <div class="card-layout">
@@ -537,6 +541,18 @@ class ClassifyTab {
                             <span class="material-symbols-outlined text-primary">${mediaIcon}</span>
                             <span class="segment-time">${startTime} → ${endTime}</span>
                             <span class="media-badge">${(pageData.media_type || 'audio').toUpperCase()}</span>
+                        </div>
+                        <div class="flex gap-2 py-2 border-b border-white/10 mb-2">
+                            <button class="text-[10px] px-2 py-1 rounded bg-white/10 hover:bg-white/15"
+                                data-action="segment-copy-time"
+                                data-page="${page}" data-time="${startTime}">
+                                Copy Start ${startTime}
+                            </button>
+                            <button class="text-[10px] px-2 py-1 rounded bg-white/10 hover:bg-white/15"
+                                data-action="segment-copy-time"
+                                data-page="${page}" data-time="${endTime}">
+                                Copy End ${endTime}
+                            </button>
                         </div>
                         <div class="segment-text">${textContent}</div>
                     </div>
@@ -709,6 +725,33 @@ class ClassifyTab {
         this.wb.saveFeedback();
     }
 
+    getSegmentMetaFromCard(page) {
+        const el = document.getElementById(`page-${page}`);
+        if (!el) return { source_mode: 'document', media_type: null, segment_id: null, time_start: null, time_end: null };
+        const mediaType = el.dataset.mediaType || null;
+        return {
+            source_mode: mediaType ? 'audio' : 'document',
+            media_type: mediaType,
+            segment_id: el.dataset.segmentId ? parseInt(el.dataset.segmentId, 10) : null,
+            time_start: el.dataset.segmentStart ? parseFloat(el.dataset.segmentStart) : null,
+            time_end: el.dataset.segmentEnd ? parseFloat(el.dataset.segmentEnd) : null,
+        };
+    }
+
+    async copySegmentTime(timeLabel) {
+        if (!timeLabel) return;
+        try {
+            if (navigator?.clipboard?.writeText) {
+                await navigator.clipboard.writeText(String(timeLabel));
+                this.wb.showToast(`Copied ${timeLabel}`);
+                return;
+            }
+        } catch (err) {
+            console.warn('Clipboard failed:', err);
+        }
+        this.wb.showToast(`Timestamp: ${timeLabel}`);
+    }
+
     selectTierValue(page, tierType, value, options = {}) {
         if (!value) return;
         const forceSet = !!options.forceSet;
@@ -775,6 +818,7 @@ class ClassifyTab {
         const el = document.getElementById(`page-${page}`);
         const predicted = el.dataset.predicted;
         const predictedClass = this.mapDocTypeToClass(predicted);
+        const segmentMeta = this.getSegmentMetaFromCard(page);
 
         // Get values from our hybrid components
         const getVal = (tier) => {
@@ -828,7 +872,12 @@ class ClassifyTab {
             notes: notes,
             textSample: textSample,
             entityAssistType: currentEntityType,
-            selectedEntities: currentEntitySelections
+            selectedEntities: currentEntitySelections,
+            source_mode: segmentMeta.source_mode,
+            media_type: segmentMeta.media_type,
+            segment_id: segmentMeta.segment_id,
+            time_start: segmentMeta.time_start,
+            time_end: segmentMeta.time_end
         };
 
         this.wb.feedback[page] = feedbackData;
@@ -857,6 +906,7 @@ class ClassifyTab {
     skip4Tier(page) {
         const el = document.getElementById(`page-${page}`);
         const predicted = el.dataset.predicted;
+        const segmentMeta = this.getSegmentMetaFromCard(page);
 
         const noteType = document.getElementById(`note-preset-${page}`)?.value || null;
         const notesRaw = document.getElementById(`note-text-${page}`)?.value || '';
@@ -913,7 +963,12 @@ class ClassifyTab {
             notes: notes,
             textSample: textSample,
             entityAssistType: currentEntityType,
-            selectedEntities: currentEntitySelections
+            selectedEntities: currentEntitySelections,
+            source_mode: segmentMeta.source_mode,
+            media_type: segmentMeta.media_type,
+            segment_id: segmentMeta.segment_id,
+            time_start: segmentMeta.time_start,
+            time_end: segmentMeta.time_end
         };
 
         this.wb.feedback[page] = feedbackData;
@@ -1126,6 +1181,7 @@ class ClassifyTab {
     async exportFeedback() {
         const pages = this.wb.classificationData?.pages || [];
         const feedbackByPage = this.wb.feedback || {};
+        const isMediaSource = !!this.wb.classificationData?.media_type;
         const exportPages = pages
             .map(p => {
                 const pageNum = p.page;
@@ -1143,6 +1199,13 @@ class ClassifyTab {
                 return {
                     page: pageNum,
                     page_index: p.page_index,
+                    source_mode: p.media_type ? 'audio' : 'document',
+                    media_type: p.media_type || null,
+                    segment: p.media_type ? {
+                        segment_id: fb.segment_id ?? p.page_index,
+                        start: fb.time_start ?? p.segment_start ?? null,
+                        end: fb.time_end ?? p.segment_end ?? null
+                    } : null,
                     review_status: reviewStatus,
                     disposition: disposition,
                     prediction: {
@@ -1182,6 +1245,12 @@ class ClassifyTab {
             schema_version: 'workbench-feedback-v2',
             exportedAt: new Date().toISOString(),
             source: this.wb.FILE_NAME,
+            source_attribution: {
+                source_mode: isMediaSource ? 'audio' : 'document',
+                media_type: this.wb.classificationData?.media_type || null,
+                duration: this.wb.classificationData?.duration ?? null,
+                transcript_method: isMediaSource ? 'whisper' : null
+            },
             summary: {
                 total_pages: exportPages.length,
                 reviewed_pages: reviewedPages.length,
@@ -2110,11 +2179,6 @@ class InputTab {
                 this.outputDir = cfg.output_dir || './processed';
                 this.whisperAvailable = cfg.whisper_available || false;
                 this.ytdlpAvailable = cfg.ytdlp_available || false;
-                // Show/hide whisper settings panel
-                const whisperPanel = document.getElementById('whisper-settings');
-                if (whisperPanel) {
-                    whisperPanel.style.display = this.whisperAvailable ? '' : 'none';
-                }
                 // URL panel visibility is controlled by input mode switching
             }
         } catch { /* use default */ }
@@ -3251,6 +3315,7 @@ class DocumentWorkbench {
                 case 'submit-4tier': self.classifyTab.submit4Tier(parseInt(page)); break;
                 case 'skip-4tier': self.classifyTab.skip4Tier(parseInt(page)); break;
                 case 'show-modal': self.classifyTab.showModalPage(parseInt(target.dataset.pageIndex)); break;
+                case 'segment-copy-time': self.classifyTab.copySegmentTime(target.dataset.time); break;
                 case 'select-hybrid-chip': self.classifyTab.selectTierValue(parseInt(page), target.dataset.tier, target.dataset.value); break;
                 case 'export-feedback': self.classifyTab.exportFeedback(); break;
                 case 'clear-feedback': self.classifyTab.clearFeedback(); break;
