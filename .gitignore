@@ -13,3 +13,13 @@ tmpclaude*
 __pycache__/
 node_modules/
 coderef/
+
+# Workbench runtime/generated artifacts
+web/html/processed/*.txt
+web/html/processed/*.ocr.json
+web/html/processed/*.vtt
+web/html/processed/*.transcript.json
+web/html/processed/uploads/
+
+# Local temp backups
+tmp/
