@@ -1755,6 +1755,16 @@ def get_history():
                 "size": entry.stat().st_size,
                 "type": "TRANSCRIPT" if has_transcript else "MEDIA_UPLOAD"
             })
+        elif ext == ".txt":
+            base_name = os.path.splitext(filename)[0]
+            has_sidecar = os.path.exists(os.path.join(UPLOAD_FOLDER, f"{base_name}.ocr.json"))
+            if has_sidecar:
+                files.append({
+                    "name": filename,
+                    "status": "completed",
+                    "size": entry.stat().st_size,
+                    "type": "TEXT_INGEST"
+                })
 
     # Also check processed/uploads/ for original/skipped files
     uploads_dir = os.path.join(UPLOAD_FOLDER, "uploads")
