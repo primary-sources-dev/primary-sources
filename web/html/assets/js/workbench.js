@@ -2951,38 +2951,99 @@ class SourceTab {
 
     renderGrid() {
         const gridEl = document.getElementById('source-grid');
+        const groupOrder = ['document', 'text', 'audio', 'video', 'image', 'other'];
+        const grouped = new Map(groupOrder.map(k => [k, []]));
 
-        gridEl.innerHTML = this.filteredFiles.map(f => {
-            const isActive = this.wb.FILE_NAME === f.name;
-            const activeClass = isActive ? ' active' : '';
-            const sizeMB = f.size ? (f.size / (1024 * 1024)).toFixed(1) + ' MB' : '';
-            const reviewCount = f._reviewCount || 0;
+        this.filteredFiles.forEach(f => {
+            const kind = (f.kind || this.inferKindFromName(f.name)).toLowerCase();
+            if (!grouped.has(kind)) grouped.set(kind, []);
+            grouped.get(kind).push(f);
+        });
 
-            let statusClass, statusLabel;
-            if (reviewCount === 0) {
-                statusClass = 'unreviewed'; statusLabel = 'Unreviewed';
-            } else {
-                statusClass = 'in-progress'; statusLabel = `${reviewCount} reviewed`;
-            }
+        const sections = [];
+        for (const kind of groupOrder) {
+            const items = grouped.get(kind) || [];
+            if (items.length === 0) continue;
+            sections.push(`
+                <section class="source-group">
+                    <div class="source-group-header">${this.getKindLabel(kind)} <span class="source-group-count">(${items.length})</span></div>
+                    <div class="source-group-grid">
+                        ${items.map(f => this.renderFileCard(f)).join('')}
+                    </div>
+                </section>
+            `);
+        }
 
-            const fileExt = '.' + (f.name.split('.').pop() || '').toLowerCase();
-            const mediaExts = ['.mp3','.wav','.m4a','.flac','.ogg','.wma','.mp4','.webm','.mov','.mkv','.avi'];
-            const isMediaFile = mediaExts.includes(fileExt);
-            const typeBadge = f.type === 'TRANSCRIPT' ? '<span class="media-badge">TRANSCRIPT</span>'
-                : isMediaFile ? '<span class="media-badge">MEDIA</span>'
-                : '';
+        // Include unknown kinds after known groups if present.
+        grouped.forEach((items, kind) => {
+            if (groupOrder.includes(kind) || items.length === 0) return;
+            sections.push(`
+                <section class="source-group">
+                    <div class="source-group-header">${this.getKindLabel(kind)} <span class="source-group-count">(${items.length})</span></div>
+                    <div class="source-group-grid">
+                        ${items.map(f => this.renderFileCard(f)).join('')}
+                    </div>
+                </section>
+            `);
+        });
 
-            return `
-            <div class="source-card${activeClass}" data-action="select-file" data-filename="${f.name}">
-                <div class="filename">${f.name}</div>
-                <div class="meta">
-                    <span class="status-badge ${statusClass}">${statusLabel}</span>
-                    ${typeBadge}
-                    ${sizeMB ? `<span>${sizeMB}</span>` : ''}
-                    <span>${f.type || ''}</span>
-                </div>
-            </div>`;
-        }).join('');
+        gridEl.innerHTML = sections.join('');
+    }
+
+    inferKindFromName(filename) {
+        const ext = '.' + (filename.split('.').pop() || '').toLowerCase();
+        const audioExts = ['.mp3', '.wav', '.m4a', '.flac', '.ogg', '.wma'];
+        const videoExts = ['.mp4', '.webm', '.mov', '.mkv', '.avi'];
+        if (ext === '.pdf') return 'document';
+        if (ext === '.txt' || ext === '.md' || ext === '.rtf' || ext === '.csv') return 'text';
+        if (audioExts.includes(ext)) return 'audio';
+        if (videoExts.includes(ext)) return 'video';
+        if (['.jpg', '.jpeg', '.png', '.tiff', '.webp', '.heic', '.heif'].includes(ext)) return 'image';
+        return 'other';
+    }
+
+    getKindLabel(kind) {
+        const labels = {
+            document: 'Documents',
+            text: 'Text',
+            audio: 'Audio',
+            video: 'Video',
+            image: 'Images',
+            other: 'Other',
+        };
+        return labels[kind] || kind.charAt(0).toUpperCase() + kind.slice(1);
+    }
+
+    renderFileCard(f) {
+        const isActive = this.wb.FILE_NAME === f.name;
+        const activeClass = isActive ? ' active' : '';
+        const sizeMB = f.size ? (f.size / (1024 * 1024)).toFixed(1) + ' MB' : '';
+        const reviewCount = f._reviewCount || 0;
+
+        let statusClass, statusLabel;
+        if (reviewCount === 0) {
+            statusClass = 'unreviewed'; statusLabel = 'Unreviewed';
+        } else {
+            statusClass = 'in-progress'; statusLabel = `${reviewCount} reviewed`;
+        }
+
+        const kind = (f.kind || this.inferKindFromName(f.name)).toLowerCase();
+        const kindLabel = this.getKindLabel(kind).replace(/s$/, '').toUpperCase();
+        const typeBadge = `<span class="media-badge">${kindLabel}</span>`;
+
+        return `
+        <div class="source-card${activeClass}" data-action="select-file" data-filename="${f.name}">
+            <div class="filename">${f.name}</div>
+            <div class="meta">
+                <span class="status-badge ${statusClass}">${statusLabel}</span>
+                ${typeBadge}
+                ${sizeMB ? `<span>${sizeMB}</span>` : ''}
+                <span>${f.type || ''}</span>
+            </div>
+            <div class="source-card-actions">
+                <button class="source-delete-btn" data-action="source-delete" data-filename="${f.name}" title="Delete this source">Delete</button>
+            </div>
+        </div>`;
     }
 
     selectFile(filename) {
@@ -2990,6 +3051,45 @@ class SourceTab {
             if (!confirm(`Set "${filename}" as working document?\n\nThis will replace the current file.`)) return;
         }
         this.wb.loadFile(filename);
+    }
+
+    async deleteFile(filename) {
+        if (!filename) return;
+        const confirmed = confirm(`Delete "${filename}" and related sidecar files?\n\nThis cannot be undone.`);
+        if (!confirmed) return;
+
+        try {
+            const res = await fetch(`/api/history/${encodeURIComponent(filename)}`, { method: 'DELETE' });
+            const data = await res.json();
+            if (!res.ok || !data.success) throw new Error(data.error || `HTTP ${res.status}`);
+
+            // Remove local review cache for this file.
+            localStorage.removeItem(`workbench_feedback_${filename}`);
+            localStorage.removeItem(`workbench_export_${filename}`);
+            localStorage.removeItem(`classifier_feedback_${filename}`);
+            localStorage.removeItem(`classifier_export_${filename}`);
+
+            // If active file was deleted, reset to SOURCE context.
+            if (this.wb.FILE_NAME === filename) {
+                this.wb.destroy();
+                this.wb.FILE_NAME = '';
+                this.wb.PDF_URL = '';
+                this.wb.classificationData = null;
+                this.wb.feedback = {};
+                this.wb.entityApprovals = {};
+                this.wb.updateTabStates();
+                this.wb.switchTab('source');
+            }
+
+            await this.loadHistory();
+            this.wb.showToast(`Deleted ${filename}`);
+            if (data.warnings && data.warnings.length) {
+                console.warn('Delete warnings:', data.warnings);
+            }
+        } catch (err) {
+            console.error('Delete failed:', err);
+            this.wb.showToast(`Delete failed: ${err.message}`, true);
+        }
     }
 }
 
@@ -3145,6 +3245,7 @@ class DocumentWorkbench {
                 case 'input-copy-metadata': if (self.inputTab && idx !== null) self.inputTab.copyMetadata(idx); break;
                 case 'input-reparse': if (self.inputTab && idx !== null) self.inputTab.reparseHeader(idx); break;
                 case 'select-file': if (self.sourceTab) self.sourceTab.selectFile(target.dataset.filename); break;
+                case 'source-delete': if (self.sourceTab) self.sourceTab.deleteFile(target.dataset.filename); break;
                 case 'page-prev': self.classifyTab.goToPage(self.classifyTab.currentPage - 1); break;
                 case 'page-next': self.classifyTab.goToPage(self.classifyTab.currentPage + 1); break;
                 case 'submit-4tier': self.classifyTab.submit4Tier(parseInt(page)); break;

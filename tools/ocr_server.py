@@ -1731,6 +1731,21 @@ def get_history():
 
     files = []
     media_ext_set = {f".{e}" for e in MEDIA_EXTS}
+    audio_ext_set = {f".{e}" for e in AUDIO_EXTS}
+    video_ext_set = {f".{e}" for e in VIDEO_EXTS}
+
+    def infer_kind(filename, ext):
+        if ext == ".pdf":
+            return "document"
+        if ext in audio_ext_set:
+            return "audio"
+        if ext in video_ext_set:
+            return "video"
+        if ext in (".jpg", ".jpeg", ".png", ".tiff", ".webp", ".heic", ".heif"):
+            return "image"
+        if ext == ".txt":
+            return "text"
+        return "other"
 
     # Scan processed/ folder
     for entry in os.scandir(UPLOAD_FOLDER):
@@ -1744,7 +1759,9 @@ def get_history():
                 "name": filename,
                 "status": "completed",
                 "size": entry.stat().st_size,
-                "type": "OCR_RESULT" if "_searchable" in filename else "UPLOAD"
+                "type": "OCR_RESULT" if "_searchable" in filename else "UPLOAD",
+                "kind": infer_kind(filename, ext),
+                "origin": "processed",
             })
         elif ext in media_ext_set:
             base_name = os.path.splitext(filename)[0]
@@ -1753,7 +1770,9 @@ def get_history():
                 "name": filename,
                 "status": "completed" if has_transcript else "pending",
                 "size": entry.stat().st_size,
-                "type": "TRANSCRIPT" if has_transcript else "MEDIA_UPLOAD"
+                "type": "TRANSCRIPT" if has_transcript else "MEDIA_UPLOAD",
+                "kind": infer_kind(filename, ext),
+                "origin": "processed",
             })
         elif ext == ".txt":
             base_name = os.path.splitext(filename)[0]
@@ -1763,7 +1782,9 @@ def get_history():
                     "name": filename,
                     "status": "completed",
                     "size": entry.stat().st_size,
-                    "type": "TEXT_INGEST"
+                    "type": "TEXT_INGEST",
+                    "kind": infer_kind(filename, ext),
+                    "origin": "processed",
                 })
 
     # Also check processed/uploads/ for original/skipped files
@@ -1780,17 +1801,66 @@ def get_history():
                         "name": filename,
                         "status": "completed",
                         "size": entry.stat().st_size,
-                        "type": "ORIGINAL_PDF"
+                        "type": "ORIGINAL_PDF",
+                        "kind": infer_kind(filename, ext),
+                        "origin": "uploads",
                     })
                 elif ext in media_ext_set:
                     files.append({
                         "name": filename,
                         "status": "completed",
                         "size": entry.stat().st_size,
-                        "type": "MEDIA_UPLOAD"
+                        "type": "MEDIA_UPLOAD",
+                        "kind": infer_kind(filename, ext),
+                        "origin": "uploads",
                     })
 
     return jsonify({"files": files})
+
+
+@app.route("/api/history/<filename>", methods=["DELETE"])
+def delete_history_file(filename):
+    """Delete a source artifact and common sidecars by basename."""
+    safe_name = os.path.basename(filename)
+    if not safe_name or safe_name in (".", ".."):
+        return jsonify({"error": "Invalid filename"}), 400
+
+    processed_path = os.path.join(UPLOAD_FOLDER, safe_name)
+    uploads_path = os.path.join(UPLOAD_FOLDER, "uploads", safe_name)
+    primary_path = processed_path if os.path.exists(processed_path) else uploads_path if os.path.exists(uploads_path) else None
+
+    if not primary_path:
+        return jsonify({"error": "File not found"}), 404
+
+    deleted = []
+    warnings = []
+
+    def _remove_if_exists(path):
+        if os.path.exists(path) and os.path.isfile(path):
+            try:
+                os.remove(path)
+                deleted.append(os.path.relpath(path, PROJECT_ROOT).replace("\\", "/"))
+                return True
+            except OSError as e:
+                warnings.append(f"Failed to delete {os.path.basename(path)}: {e}")
+        return False
+
+    # Delete primary file first.
+    _remove_if_exists(primary_path)
+
+    # Delete sidecars in processed root that share basename.
+    base_name, _ = os.path.splitext(safe_name)
+    sidecar_exts = (".ocr.json", ".transcript.json", ".txt", ".vtt", ".srt", ".md")
+    for ext in sidecar_exts:
+        sidecar_path = os.path.join(UPLOAD_FOLDER, f"{base_name}{ext}")
+        if os.path.normpath(sidecar_path) != os.path.normpath(primary_path):
+            _remove_if_exists(sidecar_path)
+
+    return jsonify({
+        "success": True,
+        "deleted": deleted,
+        "warnings": warnings,
+    })
 
 
 @app.route("/api/feedback/corrections", methods=["GET"])

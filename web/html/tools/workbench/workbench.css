@@ -312,6 +312,32 @@
 
 /* SOURCE tab — file grid */
 .source-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.source-group {
+    border: 1px solid rgba(176, 139, 73, 0.2);
+    border-radius: 4px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.source-group-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.source-group-count {
+    opacity: 0.5;
+    font-weight: normal;
+}
+
+.source-group-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 12px;
@@ -349,6 +375,30 @@
     opacity: 0.5;
     display: flex;
     gap: 12px;
+    flex-wrap: wrap;
+}
+
+.source-card-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.source-delete-btn {
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fecaca;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.source-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.7);
 }
 
 /* Status badges */
